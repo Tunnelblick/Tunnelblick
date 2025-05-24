@@ -466,10 +466,10 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
         // If this is an instance of the app in /Library/Application Support/Tunnelblick,
         // Then start an instance of the app in /Applications instead, and then and quit
-        if (  [NSBundle.mainBundle.bundlePath isEqualToString: @"/Library/Application Support/Tunnelblick/Tunnelblick.app"]  ) {
+        if (  [NSBundle.mainBundle.bundlePath isEqualToString: L_AS_T_TB_APP]  ) {
 
             NSWorkspace * ws = NSWorkspace.sharedWorkspace;
-            NSURL * url = [NSURL fileURLWithPath: @"/Applications/Tunnelblick.app"];
+            NSURL * url = [NSURL fileURLWithPath: APPLICATIONS_TB_APP];
             NSWorkspaceOpenConfiguration * config = NSWorkspaceOpenConfiguration.configuration;
             [config setAllowsRunningApplicationSubstitution: NO]; // Don't use this instance of the app!
             [config setEnvironment: NSProcessInfo.processInfo.environment];
@@ -4756,7 +4756,7 @@ static void signal_handler(int signalNumber)
     NSArray * arguments = @[@"/Applications/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.applescript"];
     runTool(TOOL_PATH_FOR_OSASCRIPT, arguments, nil, nil);
 
-    if (  ! [gFileMgr fileExistsAtPath: @"/Applications/Tunnelblick.app"]  ) {
+    if (  ! [gFileMgr fileExistsAtPath: APPLICATIONS_TB_APP]  ) {
         // Remove from Dock
         // Slightly modifed version of code from http://www.danandcheryl.com/2011/02/how-to-modify-the-dock-or-login-items-on-os-x
         NSUserDefaults * defaults = [[[NSUserDefaults alloc] init] autorelease];
@@ -5930,7 +5930,7 @@ static BOOL runningHookupThread = FALSE;
         [self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
         return;
 #else
-        if (  [currentPath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
+        if (  [currentPath isEqualToString: APPLICATIONS_TB_APP]  ) {
 			[self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
             return;
         } else {
@@ -5974,7 +5974,6 @@ static BOOL runningHookupThread = FALSE;
     
     // Set up messages to get authorization and notify of success
 	NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);	
-    NSString * tbInApplicationsPath = @"/Applications/Tunnelblick.app";
 
     NSString * launchWindowText;
     NSString * authorizationText;
@@ -5986,8 +5985,8 @@ static BOOL runningHookupThread = FALSE;
 		signatureWarningText = @"";
 	}
 	
-    if (  [gFileMgr fileExistsAtPath: tbInApplicationsPath]  ) {
-        NSBundle * previousBundle = [NSBundle bundleWithPath: tbInApplicationsPath];
+    if (  [gFileMgr fileExistsAtPath: APPLICATIONS_TB_APP]  ) {
+        NSBundle * previousBundle = [NSBundle bundleWithPath: APPLICATIONS_TB_APP];
         NSString * previousVersion = tunnelblickVersion(previousBundle);
         authorizationText = [NSString stringWithFormat:
                              NSLocalizedString(@" Do you wish to replace\n    %@\n with \n%@%@?\n\n",
@@ -6122,7 +6121,7 @@ static BOOL runningHookupThread = FALSE;
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 011")
 	// Launch the program in /Applications
-	if (  ! [[NSWorkspace sharedWorkspace] launchApplication: tbInApplicationsPath]  ) {
+	if (  ! [[NSWorkspace sharedWorkspace] launchApplication: APPLICATIONS_TB_APP]  ) {
 		TBRunAlertPanel(NSLocalizedString(@"Unable to launch Tunnelblick", @"Window title"),
                         NSLocalizedString(@"An error occurred while trying to launch Tunnelblick.", @"Window text"),
 						nil, nil, nil);
@@ -6831,16 +6830,13 @@ BOOL needToCopyToL_AS_T(void) {
     // Always return NO if debugging, because when secured the app we copied it to L_AS_T
 
 #ifndef TBDebug
-    NSString * sourcePath = @"/Applications/Tunnelblick.app";
-    NSString * targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
-
-    if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
-        NSLog(@"Does not exist: %@", targetPath);
+    if (  ! [gFileMgr fileExistsAtPath: L_AS_T_TB_APP]  ) {
+        NSLog(@"Does not exist: %@", L_AS_T_TB_APP);
         return YES;
     }
 
-    if (  ! [gFileMgr contentsEqualAtPath: sourcePath andPath: targetPath]  ) {
-        NSLog(@"Contents not identical:\n     %@\nand\n     %@", sourcePath, targetPath);
+    if (  ! [gFileMgr contentsEqualAtPath: APPLICATIONS_TB_APP andPath: L_AS_T_TB_APP]  ) {
+        NSLog(@"Contents not identical:\n     %@\nand\n     %@", APPLICATIONS_TB_APP, L_AS_T_TB_APP);
         return YES;
     }
 #endif
@@ -7921,8 +7917,8 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
                                                 @"<p>For more information, see the log at</p>"
                                                 @"<p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>", @"HTML window text"), TUNNELBLICK_UPDATER_LOG_PATH];
     NSString * preferenceKey = (  inAppUpdate.boolValue
-                                ? @"-skipWarningAboutAppUpdate"
-                                : @"-skipWarningAboutVpnUpdate");
+                                ? @"-skipWarningAboutAppUpdateError"
+                                : @"-skipWarningAboutVpnUpdateError");
 
     NSAttributedString * messageAS = attributedLightDarkStringFromHTML(htmlMessage);
 
@@ -7932,8 +7928,8 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) tbUpdateClearErrorInAppUpdate: (nonnull NSNumber *) inAppUpdate {
 
     NSString * preferenceKey = (  inAppUpdate
-                                ? @"-skipWarningAboutAppUpdate"
-                                : @"-skipWarningAboutVpnUpdate");
+                                ? @"-skipWarningAboutAppUpdateError"
+                                : @"-skipWarningAboutVpnUpdateError");
     [self removeWarningNoteWithPreferenceKey: preferenceKey];
 }
 

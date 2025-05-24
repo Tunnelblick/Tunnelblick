@@ -535,7 +535,7 @@ BOOL tunnelblickNotInApplications(aslclient __unused asl,
     // Make sure it doesn't exist for a while, in case it is being replaced
     uint i;
     for (  i=0; i<20; i++  ) {
-        if (  [NSFileManager.defaultManager fileExistsAtPath: @"/Applications/Tunnelblick.app"]  ) {\
+        if (  [NSFileManager.defaultManager fileExistsAtPath: APPLICATIONS_TB_APP]  ) {\
             return TRUE;
         }
         usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);

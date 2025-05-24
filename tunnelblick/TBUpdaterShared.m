@@ -42,7 +42,7 @@
 //    (i.e. everything owned by root:wheel, nothing with "other" write;
 //  * Verifies that the .app is signed properly;
 //  * Verifies that the .app is the specified version;
-//  * Renames it (i.e. moves it) to /Applications/Tunnelblick.new.app;
+//  * Renames it to L_AS_T/Tunnelblick-new.app;
 //  * Copies THIS app's TunnelblickUpdateHelper program into /Library/Application Support/Tunnelblick;
 //  * Starts it as root;
 //  * Returns indicating success (TRUE) or failure (FALSE), having output
@@ -50,11 +50,15 @@
 //
 // Phase 3 is done by the TunnelblickUpdateHelper program copied into /Library/Application Support/Tunnelblick by phase 2. It:
 //
-//  * Waits until there is no process named "Tunnelblick" running;
-//  * Renames /Applications/Tunnelblick.app as Tunnelblick-old.app;
-//  * Renames /Applications/Tunnelblick.new.app as Tunnelblick.app;
-//  * Runs THAT .app's installer as root to update tunnelblickd.plist, etc.;
-//  * Launches /Applications/Tunnelblick.app;
+//  * Waits until there is no process named "Tunnelblick" running
+//    (terminating any Tunnelblick launched by any other user);
+//  * Moves /Applications/Tunnelblick.app to L_AS_T/Tunnelblick-old.app
+//    (replacing any existing Tunnelblick-old.app);
+//  * Renames /Library/Application Support/Tunnelblick/Tunnelblick-new.app to Tunnelblick.app
+//  * Copies /Library/Application Support/Tunnelblick/Tunnelblick.app to /Applications;
+//  * If necessary, runs THAT .app's installer as root to update tunnelblickd.plist
+//    so Tunnelblick is ready to be launched;
+//  * Launches the updated /Applications/Tunnelblick.app;
 //  * Exits.
 
 #import "TBUpdaterShared.h"
@@ -617,7 +621,7 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
             return FALSE;
         }
 
-    if (  teamIDsMatch(secureUpdatedAppPath, @"/Applications/Tunnelblick.app")  ) {
+    if (  teamIDsMatch(secureUpdatedAppPath, APPLICATIONS_TB_APP)  ) {
         if (  ! secureZipSignatureVerified  ) {
             appendLog(@"updateTunnelblick: The 'updateRelaxForgeryRule' preference has been forced, so the update is accepted");
         }
@@ -643,7 +647,7 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
         return FALSE;
     }
 
-    if (  ! moveApp(secureUpdatedAppPath, @"/Applications/Tunnelblick.new.app")  ) {
+    if (  ! moveApp(secureUpdatedAppPath, L_AS_T_TB_NEW)  ) {
         return FALSE;
     }
 

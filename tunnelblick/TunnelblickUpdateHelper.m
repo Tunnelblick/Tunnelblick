@@ -42,9 +42,10 @@
 //
 //  * Waits until there is no process named "Tunnelblick" running
 //    (terminating any Tunnelblick launched by any other user);
-//  * Renames /Applications/Tunnelblick.app as Tunnelblick-old.app
+//  * Moves /Applications/Tunnelblick.app to L_AS_/Tunnelblick-old.app
 //    (replacing any existing Tunnelblick-old.app);
-//  * Renames /Applications/Tunnelblick.new.app as Tunnelblick.app;
+//  * Renames /Library/Application Support/Tunnelblick/Tunnelblick-new.app to Tunnelblick.app
+//  * Copies /Library/Application Support/Tunnelblick/Tunnelblick.app to /Applications;
 //  * If necessary, runs THAT .app's installer as root to update tunnelblickd.plist
 //    so Tunnelblick is ready to be launched;
 //  * Launches the updated /Applications/Tunnelblick.app;
@@ -71,7 +72,7 @@
 //    (i.e. everything owned by root:wheel, nothing with "other" write;
 //  * Verifies that the .app is signed properly;
 //  * Verifies that the .app is the specified version;
-//  * Renames it (i.e. moved it) to /Applications/Tunnelblick.new.app;
+//  * Renames it to L_AS_T/Tunnelblick-new.app;
 //  * Copies THIS app's TunnelblickUpdateHelper program into /Library/Application Support/Tunnelblick;
 //  * Starts it as root;
 //  * Returns indicating success (TRUE) or failure (FALSE), having output
@@ -244,92 +245,41 @@ static const char * fileSystemRepresentationFromPath(NSString * path) {
     return pathC;
 }
 
-static void doRenames(void) {
+static void moveAppToOldAndNewToL_AS_T_App(void) {
 
-    NSString * appPath = @"/Applications/Tunnelblick.app";
-    NSString * oldPath = @"/Applications/Tunnelblick-old.app";
-    NSString * newPath = @"/Applications/Tunnelblick.new.app";
-
-    // Handle .old.app: Rename it to -old.app if -old.app doesn't exist
-    // Some Tunnelblick 8.* versions used .old.app instead of -old.app,
-    // but that causes problems because Finder won't report the version
-    // of a .old.app, either with QuickLook or with File >> Get Info,
-    // and that can be confusing to users who want to know what version
-    // a .old.app is.
-    NSString * dotOldPath = @"/Applications/Tunnelblick.old.app";
-    if (  [gFileMgr fileExistsAtPath: dotOldPath]  ) {
-        if (  ! [gFileMgr fileExistsAtPath: oldPath]  ) {
-            if (  0 == rename(fileSystemRepresentationFromPath(dotOldPath), fileSystemRepresentationFromPath(oldPath))  ){
-                appendLog([NSString stringWithFormat: @"Renamed %@ to %@", dotOldPath, oldPath]);
-            } else {
-                appendLog([NSString stringWithFormat: @"rename() failed with error %d ('%s') trying to rename %@ to %@",
-                           errno, strerror(errno), dotOldPath, oldPath]);
-                errorExit();
-            }
-        }
-    }
-
-    // Delete any existing -old.app
-    if (  [gFileMgr fileExistsAtPath: oldPath]  ) {
-        if (  ! [gFileMgr tbRemoveFileAtPath: oldPath handler: nil]  ) {
-            errorExit();
-        }
-        appendLog([NSString stringWithFormat: @"Deleted %@", oldPath]);
-    }
-
-    // Rename .app to be -old.app
-    if (  0 == rename(fileSystemRepresentationFromPath(appPath), fileSystemRepresentationFromPath(oldPath))  ){
-        appendLog([NSString stringWithFormat: @"Renamed %@ to %@", appPath, oldPath]);
+    // Move /Applications/Tunnelblick.app to L_AS_T/Tunnelblick-old.app
+    if (  [gFileMgr tbForceMovePath: APPLICATIONS_TB_APP toPath: L_AS_T_TB_OLD]  ){
+        appendLog([NSString stringWithFormat: @"Moved %@ to %@", APPLICATIONS_TB_APP, L_AS_T_TB_OLD]);
     } else {
-        appendLog([NSString stringWithFormat: @"Warning: rename() failed with error %d ('%s') trying to rename %@ to %@",
-                   errno, strerror(errno), appPath, oldPath]);
         appendLog(@"Failed to update Tunnelblick");
         errorExit();
     }
 
-    // Rename .new to .app
-    if (  0 == rename(fileSystemRepresentationFromPath(newPath), fileSystemRepresentationFromPath(appPath))  ){
-        appendLog([NSString stringWithFormat: @"Renamed %@ to %@", newPath, appPath]);
-        return; // Succeeded
-    }
-
-    appendLog([NSString stringWithFormat: @"rename() failed with error %d ('%s') trying to rename %@ to %@",
-               errno, strerror(errno), newPath, appPath]);
-
-    // Try to get Tunnelblick.app back
-    if (  ! [gFileMgr tbRemovePathIfItExists: appPath]  ) {
-        appendLog([NSString stringWithFormat: @"Failed to remove %@", appPath]);
-        appendLog([NSString stringWithFormat: @"installer failed and could not restore %@ to %@",
-                   oldPath, appPath]);
-    } else if (  0 == rename(fileSystemRepresentationFromPath(oldPath), fileSystemRepresentationFromPath(appPath))  ){
-        appendLog([NSString stringWithFormat: @"Renamed %@ to %@", oldPath, appPath]);
-        appendLog(@"Failed to update Tunnelblick");
+    // Move .new to .app
+    if (  [gFileMgr tbMovePath: L_AS_T_TB_NEW toPath: L_AS_T_TB_APP handler: nil]  ){
+        appendLog([NSString stringWithFormat: @"Moved %@ to %@", L_AS_T_TB_NEW, L_AS_T_TB_APP]);
     } else {
-        appendLog([NSString stringWithFormat: @"rename() failed with error %d ('%s') trying to rename %@ to %@",
-                   errno, strerror(errno), oldPath, appPath]);
-        appendLog([NSString stringWithFormat: @"installer failed and could not restore %@ to %@",
-                   oldPath, appPath]);
-    }
+        // Try to get Tunnelblick.app back
+        if (  [gFileMgr tbForceMovePath: L_AS_T_TB_OLD toPath: APPLICATIONS_TB_APP]  ){
+            appendLog([NSString stringWithFormat: @"Restored %@", APPLICATIONS_TB_APP]);
+        } else {
+            appendLog([NSString stringWithFormat: @"Could not restore %@ to %@", L_AS_T_TB_OLD, APPLICATIONS_TB_APP]);
+        }
 
-    errorExit();
+        appendLog(@"Failed to update Tunnelblick");
+        errorExit();
+    }
 }
 
-static void copyAppToL_AS_T(void) {
+static void copyL_AS_T_AppToApplications(void) {
 
-    NSString * appPath       = @"/Applications/Tunnelblick.app";
-    NSString * L_AS_TAppPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
-
-    // Delete any existing L_AS_T .app
-    if (  [gFileMgr fileExistsAtPath: L_AS_TAppPath]  ) {
-        if (  ! [gFileMgr tbRemoveFileAtPath: L_AS_TAppPath handler: nil]  ) {
-            errorExit();
-        }
-        appendLog([NSString stringWithFormat: @"Deleted %@", L_AS_TAppPath]);
+    if (  ! [gFileMgr tbRemovePathIfItExists: APPLICATIONS_TB_APP]  ) {
+        errorExit();
     }
 
-    // Copy app to L_AS_T
-    if (  [gFileMgr tbCopyItemAtPath:appPath toBeOwnedByRootWheelAtPath: L_AS_TAppPath]  ) {
-        appendLog(@"Copied Tunnelblick.app into /Library/Application Support/Tunnelblick");
+    // Copy app to /Applicatoins
+    if (  [gFileMgr tbCopyItemAtPath: L_AS_T_TB_APP toBeOwnedByRootWheelAtPath: APPLICATIONS_TB_APP]  ) {
+        appendLog([NSString stringWithFormat: @"Copied %@ to %@", L_AS_T_TB_APP, APPLICATIONS_TB_APP]);
     } else {
         errorExit();
     }
@@ -368,11 +318,11 @@ static void updateTunnelblickdPlist(void) {
 
     if (  status != 0  ) {
         // Try to get Tunnelblick.app back
-        if (  ! [gFileMgr tbRemoveFileAtPath: @"/Applications/Tunnelblick.app" handler: nil]  ) {
+        if (  ! [gFileMgr tbRemoveFileAtPath: APPLICATIONS_TB_APP handler: nil]  ) {
             appendLog(@"Failed to update tunnelblickd.plist and could not delete /Applications/Tunnelblick.app before restoring the old version");
             errorExit();
         }
-        if (  ! [gFileMgr tbForceRenamePath: @"/Applications/Tunnelblick-old.app" toPath: @"/Applications/Tunnelblick.app"]  ) {
+        if (  ! [gFileMgr tbForceRenamePath: @"/Applications/Tunnelblick-old.app" toPath: APPLICATIONS_TB_APP]  ) {
             appendLog(@"Failed to update tunnelblickd.plist and could not restore /Applications/Tunnelblick.app");
             errorExit();
         }
@@ -380,7 +330,6 @@ static void updateTunnelblickdPlist(void) {
         // OK to return because we've restored the original app, so the original app will be relaunched.
     }
 }
-
 
 static void launchUpdatedProgram(uid_t uid, gid_t gid) {
 
@@ -420,7 +369,7 @@ static void launchUpdatedProgram(uid_t uid, gid_t gid) {
     NSTask * task = [[[NSTask alloc] init] autorelease];
     [task setLaunchPath: TOOL_PATH_FOR_OPEN];
     [task setArguments:  @[@"-a",
-                           @"/Applications/Tunnelblick.app"]];
+                           APPLICATIONS_TB_APP]];
     [task setCurrentDirectoryPath: @"/private/tmp"];
     [task setEnvironment: getSafeEnvironment(nil, 0, nil)];
     [task launchAndReturnError: nil];
@@ -466,9 +415,13 @@ int main(int argc, const char * argv[]) {
         //  so we SIGTERM it to cut that delay.)
         waitUntilNoProcessWithName(@"tunnelblickd");
 
-        doRenames();
+        if (  ! dealWithDotOldAndHyphenOldApp()  ) {
+            errorExit();
+        }
 
-        copyAppToL_AS_T();
+        moveAppToOldAndNewToL_AS_T_App();
+
+        copyL_AS_T_AppToApplications();
 
         updateTunnelblickdPlist();
 

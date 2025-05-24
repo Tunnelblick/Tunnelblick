@@ -121,7 +121,13 @@
 //*************************************************************************************************
 // Paths:
 
+#define APPLICATIONS_TB_APP   @"/Applications/Tunnelblick.app"
+
 #define L_AS_T        @"/Library/Application Support/Tunnelblick"
+
+#define L_AS_T_TB_APP   @"/Library/Application Support/Tunnelblick/Tunnelblick.app"
+#define L_AS_T_TB_OLD   @"/Library/Application Support/Tunnelblick/Tunnelblick-old.app"
+#define L_AS_T_TB_NEW   @"/Library/Application Support/Tunnelblick/Tunnelblick-new.app"
 
 // NOTE: Several up scripts refer to the log directory without using this header file
 #define L_AS_T_LOGS   @"/Library/Application Support/Tunnelblick/Logs"

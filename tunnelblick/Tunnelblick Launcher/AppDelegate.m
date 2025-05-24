@@ -271,7 +271,7 @@ void LauncherLogOneString(NSString * message) {
 void launchTunnelblick(NSString * message) {
 
     LauncherLog(@"%@", message);
-    startTool(TOOL_PATH_FOR_OPEN, @[@"/Applications/Tunnelblick.app"]);
+    startTool(TOOL_PATH_FOR_OPEN, @[APPLICATIONS_TB_APP]);
 }
 
 NSString * GetProcesses(void) {

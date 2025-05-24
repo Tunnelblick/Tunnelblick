@@ -1449,7 +1449,7 @@ static void copyAppToL_AS_T(NSString * sourcePath) {
         return;
     }
 
-    NSString * targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
+    NSString * targetPath = L_AS_T_TB_APP;
 
     // If this was an update from Tunnelblick 7.0, the new .app is in L_AS_T and /Applications has a symlink to L_AS_T/Tunnelblick.app
     // In that situation, delete the symlink and swap the source and target, i.e., copy from L_AS_T to /Applications
@@ -1457,7 +1457,7 @@ static void copyAppToL_AS_T(NSString * sourcePath) {
     //        (2) targetPath exists, and
     //        (3) sourcePath is a symlink
     BOOL updateFrom7 = FALSE;
-    if (  [sourcePath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
+    if (  [sourcePath isEqualToString: APPLICATIONS_TB_APP]  ) {
         if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
             NSError * err = nil;
             NSDictionary * dict = [gFileMgr attributesOfItemAtPath: sourcePath error: &err];
@@ -1503,7 +1503,7 @@ static void copyAppToL_AS_T(NSString * sourcePath) {
 
 static void setupLaunchDaemon(void) {
 
-    copyAppToL_AS_T(@"/Applications/Tunnelblick.app");
+    copyAppToL_AS_T(APPLICATIONS_TB_APP);
 
     // If we are reloading the LaunchDaemon, we make sure it is up-to-date by copying its .plist into /Library/LaunchDaemons
 
@@ -1878,14 +1878,13 @@ static void setupUser_Library_Application_Support_Tunnelblick(void) {
 static void copyTheApp(void) {
 
     NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-    NSString * targetPath  = @"/Applications/Tunnelblick.app";
 
     errorExitIfAnySymlinkInPath(@"/Applications");
 
-    if (  [sourcePath isEqualToString: targetPath]  ) {
+    if (  [sourcePath isEqualToString: APPLICATIONS_TB_APP]  ) {
         appendLog(@"Not copying app because this copy is already where it should be copied");
     } else {
-        if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+        if (  [gFileMgr fileExistsAtPath: APPLICATIONS_TB_APP]  ) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
             if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
@@ -1894,26 +1893,26 @@ static void copyTheApp(void) {
                                                                 files: [NSArray arrayWithObject: @"Tunnelblick.app"]
                                                                   tag: nil]  ) {
 #pragma clang diagnostic pop
-                appendLog([NSString stringWithFormat: @"Moved %@ to the Trash", targetPath]);
+                appendLog([NSString stringWithFormat: @"Moved %@ to the Trash", APPLICATIONS_TB_APP]);
             } else {
-                appendLog([NSString stringWithFormat: @"Unable to move %@ to the Trash", targetPath]);
+                appendLog([NSString stringWithFormat: @"Unable to move %@ to the Trash", APPLICATIONS_TB_APP]);
                 errorExit();
             }
         } else {
-            appendLog([NSString stringWithFormat: @"Does not exist, so not moving to the Trash: %@", targetPath]);
+            appendLog([NSString stringWithFormat: @"Does not exist, so not moving to the Trash: %@", APPLICATIONS_TB_APP]);
         }
 
-        if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
-            appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
+        if (  ! [gFileMgr tbCopyPath: sourcePath toPath: APPLICATIONS_TB_APP handler: nil]  ) {
+            appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, APPLICATIONS_TB_APP]);
             errorExit();
         } else {
-            appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+            appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, APPLICATIONS_TB_APP]);
         }
     }
 
-    removeExtendedAttributes(targetPath);
+    removeExtendedAttributes(APPLICATIONS_TB_APP);
 
-    secureTheApp([[targetPath
+    secureTheApp([[APPLICATIONS_TB_APP
                    stringByAppendingPathComponent: @"Contents"]
                   stringByAppendingPathComponent: @"Resources"],
                  TRUE);
@@ -3132,7 +3131,7 @@ int main(int argc, char *argv[]) {
     // (4) If requested, copy app to L_AS_T
 
     if (  doCopyAppToL_AS_T) {
-        copyAppToL_AS_T(@"/Applications/Tunnelblick.app");
+        copyAppToL_AS_T(APPLICATIONS_TB_APP);
     }
 
     //**************************************************************************************************************************
