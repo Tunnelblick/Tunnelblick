@@ -2109,3 +2109,53 @@ NSString * sanitizedConfigurationContents(NSString * cfgContents) {
     return [NSString stringWithString: outputString];
 }
 
+BOOL dealWithDotOldAndHyphenOldApp(void) {
+
+    // Old versions of Tunnelblick create /Applications/Tunnelblick.old.app
+    // or /Applications/Tunnelblick-old.app.
+    //
+    // But what we really want is to have /Library/Application Support/Tunnelblick-old.app.
+    // So move .old or -old from /Applications to L_AS_T.
+    // If both of them exist, move -old and delete .old.
+
+    NSFileManager * fm = NSFileManager.defaultManager;
+
+    NSString * oldDashOldPath = @"/Applications/Tunnelblick-old.app";
+    NSString * oldDotOldPath  = @"/Applications/Tunnelblick.old.app";
+
+    // Deal with -old.app:
+    if (  [fm fileExistsAtPath: oldDashOldPath]  ) {
+        if (  [fm fileExistsAtPath: L_AS_T_TB_OLD]  ) {
+            if (  [fm removeItemAtPath: oldDashOldPath error: nil]  ) {
+                appendLog([NSString stringWithFormat: @"Deleted %@", oldDashOldPath]);
+            } else {
+                return FALSE;
+            }
+        } else {
+            if (  [fm tbMovePath: oldDashOldPath toPath: L_AS_T_TB_OLD handler: nil]  ) {
+                appendLog([NSString stringWithFormat: @"Moved %@ to %@", oldDashOldPath, L_AS_T_TB_OLD]);
+            } else {
+                return FALSE;
+            }
+        }
+    }
+
+    // Deal with /Applications/Tunnelblick.old.app:
+    if (  [fm fileExistsAtPath: oldDotOldPath]  ) {
+        if (  [fm fileExistsAtPath: L_AS_T_TB_OLD]  ) {
+            if (  [fm removeItemAtPath: oldDotOldPath error: nil]  ) {
+                appendLog([NSString stringWithFormat: @"Deleted %@", oldDotOldPath]);
+            } else {
+                return FALSE;
+            }
+        } else {
+            if (  [fm tbMovePath: oldDotOldPath toPath: L_AS_T_TB_OLD handler: nil]  ) {
+                appendLog([NSString stringWithFormat: @"Moved %@ to %@", oldDotOldPath, L_AS_T_TB_OLD]);
+            } else {
+                return FALSE;
+            }
+        }
+    }
+
+    return TRUE;
+}

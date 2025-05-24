@@ -131,3 +131,5 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
 unsigned getLoadedKextsMask(void);
 
 NSString * sanitizedConfigurationContents(NSString * cfgContents);
+
+BOOL dealWithDotOldAndHyphenOldApp(void);
