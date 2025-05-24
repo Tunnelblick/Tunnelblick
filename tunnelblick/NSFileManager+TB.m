@@ -498,11 +498,21 @@ void appendLog(NSString * errMsg);
         NSString * errMsg = [NSString stringWithFormat:
                              @"rename('%@','%@') failed; status = %ld; errno = %ld; error was '%s'; stack trace: %@",
                              sourcePath, targetPath, (long)status, (long)errno, strerror(errno), [NSThread callStackSymbols]];
-		appendLog(errMsg);
+        appendLog(errMsg);
         return NO;
     }
-    
+
     return YES;
+}
+
+-(BOOL) tbForceMovePath: (NSString *) sourcePath
+                 toPath: (NSString *) targetPath {
+
+    if (  ! [self tbRemovePathIfItExists: targetPath]  ) {
+        return NO;
+    }
+
+    return [self tbMovePath: sourcePath toPath: targetPath handler: nil];
 }
 
 -(NSString *) tbPathContentOfSymbolicLinkAtPath: (NSString *) path {

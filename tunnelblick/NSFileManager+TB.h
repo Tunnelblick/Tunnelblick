@@ -64,6 +64,9 @@
 -(BOOL)           tbForceRenamePath: (NSString *) sourcePath
                              toPath: (NSString *) targetPath;
 
+-(BOOL) tbForceMovePath: (NSString *) sourcePath
+                 toPath: (NSString *) targetPath;
+
 -(NSString *)     tbPathContentOfSymbolicLinkAtPath:(NSString *)path;
 
 @end
