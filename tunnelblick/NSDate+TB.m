@@ -71,7 +71,7 @@
 	// (see https://stackoverflow.com/questions/23684727/nsdateformatter-milliseconds-bug).
 	//
 	// This is probably because the double that holds dates is only good for 15 to 17
-	// significant decimal digits precision (2^−53 ≈ 1.11 × 10^−16). With a 10-digit number
+	// significant decimal digits precision (2^-53 approximately equals 1.11 x 10^-16). With a 10-digit number
 	// of seconds, only five digits are left for the fraction of a second. But for our
 	// purposes (displaying log entries) the exact microsecond value isn't important and
 	// it seems to make more sense to show microseconds than 1/100,000 seconds.
