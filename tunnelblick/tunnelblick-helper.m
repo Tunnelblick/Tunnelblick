@@ -472,9 +472,9 @@ const char * fileSystemRepresentation(NSString * path) {
         fprintf(stderr, "Called fileSystemRepresentation with a nil argument\n");
         exitOpenvpnstart(180);
     }
-    // The NSString "fileSystemRepresentation" method throws an exception if the path is empty or has characters that can’t be
-    // represented in the file system’s encoding, so we catch that exception here and fail.
 
+    // The NSString "fileSystemRepresentation" method throws an exception if the path is empty or has characters that can't be
+    // represented in the file system's encoding, so we catch that exception here and fail.
 
     const char * fsr = NULL;
 

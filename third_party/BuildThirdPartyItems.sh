@@ -49,7 +49,7 @@ fi
 # Check if this version of Xcode can build for the arm64 architecture
 if [ "${ARCHS_STANDARD/arm64/}" = "${ARCHS_STANDARD}" ] ; then
     TB_CAN_BUILD_ARM=0
-    echo "Not building for Apple Silicon. ARCHS_STANDARD = ‘${ARCHS_STANDARD}’"
+    echo "Not building for Apple Silicon. ARCHS_STANDARD = '${ARCHS_STANDARD}'"
 else
     TB_CAN_BUILD_ARM=1
 fi

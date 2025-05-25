@@ -4589,7 +4589,7 @@ static void signal_handler(int signalNumber)
      kLSApplicationNotFoundErr          -10814 	No application in the Launch Services database matches the input criteria.
      kLSUnknownTypeErr                  -10815 	Not currently used.
      kLSDataTooOldErr                   -10816 	Not currently used.
-     kLSDataErr                         -10817 	Data is structured improperly (for example, an item’s information property list is malformed).
+     kLSDataErr                         -10817 	Data is structured improperly (for example, an item's information property list is malformed).
      kLSLaunchInProgressErr             -10818 	A launch of the application is already in progress.
      kLSNotRegisteredErr                -10819 	Not currently used.
      kLSAppDoesNotClaimTypeErr          -10820 	Not currently used.
