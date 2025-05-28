@@ -273,9 +273,9 @@ void append_tb_trace_routine (const char * source_path, int line_number, NSStrin
 // The following base64 routines were inspired by an answer by denis2342 to the thread at https://stackoverflow.com/questions/11386876/how-to-encode-and-decode-files-as-base64-in-cocoa-objective-c
 
 static NSData * base64helper(NSData * input, SecTransformRef transform) {
-	
+
 	NSData * output = nil;
-	
+
 	if (  input  ) {
 		if (  transform  ) {
 			if (  SecTransformSetAttribute(transform, kSecTransformInputAttributeName, input, NULL)  ) {
@@ -292,16 +292,16 @@ static NSData * base64helper(NSData * input, SecTransformRef transform) {
 	} else {
 		appendLog(@"base64helper: input is nil");
 	}
-	
+
 	return output;
 }
 
 NSString * base64Encode(NSData * input) {
-	
+
 	// Returns an empty string on error after logging the reason for the error.
-	
+
 	NSString * output = @"";
-	
+
 	if (  input  ) {
 		SecTransformRef transform = SecEncodeTransformCreate(kSecBase64Encoding, NULL);
 		if (  transform != NULL  ) {
@@ -318,16 +318,16 @@ NSString * base64Encode(NSData * input) {
 	} else {
 		appendLog(@"base64Decode: input is nil");
 	}
-	
+
 	return output;
 }
 
 NSData * base64Decode(NSString * input) {
-	
+
 	// Returns nil on error after logging the reason for the error.
-	
+
 	NSData * output = nil;
-	
+
 	if (  input  ) {
 		NSData * data = [input dataUsingEncoding: NSASCIIStringEncoding];
 		if (  data  ) {
@@ -344,19 +344,19 @@ NSData * base64Decode(NSString * input) {
 	} else {
 		appendLog(@"base64Decode: input is nil");
 	}
-	
+
 	return output;
 }
 
 BOOL bothKextsAreInstalled(void) {
-    
+
     BOOL result = (   [gFileMgr fileExistsAtPath: @"/Library/Extensions/tunnelblick-tun.kext"]
                    && [gFileMgr fileExistsAtPath: @"/Library/Extensions/tunnelblick-tap.kext"]  );
     return result;
 }
 
 BOOL anyKextsAreLoaded(void) {
-    
+
     NSString * stdoutString = nil;
     NSString * stderrString = nil;
     OSStatus status = runTool(TOOL_PATH_FOR_KEXTSTAT, @[], &stdoutString, &stderrString);
@@ -366,7 +366,7 @@ BOOL anyKextsAreLoaded(void) {
                           NSLocalizedString( @"An error occurred getting the list of loaded system extensions.", @"Window text"));
         return NO;
     }
-    
+
     BOOL result = [stdoutString containsString: @"net.tunnelblick."];
     return result;
 }
@@ -382,7 +382,7 @@ BOOL okToUpdateAppWithoutAdminApproval(void) {
 }
 
 BOOL displaysHaveDifferentSpaces(void) {
-    
+
     NSString * spacesPrefsPath = [NSHomeDirectory() stringByAppendingPathComponent: @"/Library/Preferences/com.apple.spaces.plist"];
     NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: spacesPrefsPath];
     if (  dict  ) {
@@ -397,12 +397,12 @@ BOOL displaysHaveDifferentSpaces(void) {
     } else {
         NSLog(@"Unable to load dictionary from %@", spacesPrefsPath);
     }
-    
+
     return YES; // Error, so assume displays do have different spaces
 }
 
 NSString * rgbValues(BOOL foreground) {
-	
+
     BOOL darkMode = gTbInfo.runningInDarkMode;
 
 	NSString * result = (  foreground
@@ -414,12 +414,12 @@ NSString * rgbValues(BOOL foreground) {
 							: @"rgb(236,236,236)"
 							)
 						 );
-	
+
 	return result;
 }
 
 NSString * architecturesForExecutable(NSString * path) {
-    
+
     // Run "file <path>" to get a list of architectures that can run the executable at <path>
     NSString * stdoutString = nil;
     OSStatus status = runTool(TOOL_PATH_FOR_FILE, @[path], &stdoutString, nil);
@@ -427,9 +427,9 @@ NSString * architecturesForExecutable(NSString * path) {
         NSLog(@"Assuming '%@' can run on '%@' because 'file' returned error status %ld", path, ARCH_ALL, (long)status);
         return ARCH_ALL ;
     }
-    
+
     NSString * archs = @"";
-    
+
     BOOL haveX86 = [stdoutString containsString: @"Mach-O 64-bit executable x86_64"];
     BOOL haveArm = [stdoutString containsString: @"Mach-O 64-bit executable arm64"];
     if (  haveX86  ) {
@@ -441,7 +441,7 @@ NSString * architecturesForExecutable(NSString * path) {
     } else if (  haveArm  ) {
         archs = ARCH_ARM;
     }
-    
+
     return archs;
 }
 
@@ -509,10 +509,10 @@ NSAttributedString * attributedStringFromHTML(NSString * html) {
 }
 
 NSAttributedString * attributedLightDarkStringFromHTML(NSString * html) {
-	
+
 	NSString * withSpan = [NSString stringWithFormat: @"<span style=\"color:%@;background-color:%@\">%@</span>",
 							rgbValues(YES), rgbValues(NO), html];
-	
+
 	NSAttributedString * result = attributedStringFromHTML(withSpan);
 	return result;
 }
@@ -538,12 +538,12 @@ NSString * firstPartOfPath(NSString * thePath)
             return [[[gConfigDirs objectAtIndex: i] copy] autorelease];
         }
     }
-    
+
     NSString *altPath = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
     if (  [thePath hasPrefix: [altPath stringByAppendingString:@ "/"]]  ) {
         return altPath;
     }
-    
+
     return nil;
 }
 
@@ -637,27 +637,27 @@ NSString * secureTblkPathForTblkPath(NSString * path) {
 }
 
 NSString * displayNameFromPath (NSString * thePath) {
-	
+
 	// Returns the display name for a configuration, given a configuration file's path (either a .tblk or a .ovpn)
-	
+
 	NSString * last = lastPartOfPath(thePath);
-	
+
 	if (  [last hasSuffix: @".tblk"]  ) {							// IS a .tblk
 		return [last substringToIndex: [last length] - 5];
 	}
-	
+
 	if (  [last hasSuffix: @"/Contents/Resources/config.ovpn"]  ) {	// Is IN a .tblk
 		return [[[[last stringByDeletingLastPathComponent]	// Remove config.ovpn
 				  stringByDeletingLastPathComponent]		// Remove Resources
 				 stringByDeletingLastPathComponent]			// Remove Contents
 				stringByDeletingPathExtension];				// Remove .tblk
 	}
-	
+
 	if (   [last hasSuffix: @".ovpn"]								// Is a non-tblk configuration file
 		|| [last hasSuffix: @".conf"]  ) {
 		return [last substringToIndex: [last length] - 5];
 	}
-	
+
 	NSLog(@"displayNameFromPath: invalid path '%@'", thePath);
 	return nil;
 }
@@ -667,12 +667,12 @@ NSString * configPathFromTblkPath(NSString * path)
 {
     NSString * cfgPath = [path stringByAppendingPathComponent:@"Contents/Resources/config.ovpn"];
     BOOL isDir;
-    
+
     if (   [gFileMgr fileExistsAtPath: cfgPath isDirectory: &isDir]
         && (! isDir)  ) {
         return cfgPath;
     }
-    
+
     return nil;
 }
 
@@ -685,11 +685,11 @@ NSString * tblkPathFromConfigPath(NSString * path)
            && ! [answer isEqualToString: @"/"]  ) {
         answer = [answer stringByDeletingLastPathComponent];
     }
-    
+
     if (  [[answer pathExtension] isEqualToString: @"tblk"]  ) {
         return answer;
     }
-    
+
     return nil;
 }
 
@@ -758,13 +758,13 @@ NSString * tunnelblickVersion(NSBundle * bundle)
         // No "3.0b" in CFBundleVersion, so it is a build number, which means that the CFBundleShortVersionString has what we want
         return [NSString stringWithFormat: @"Tunnelblick %@", infoShort];
     }
-    
+
     // We must construct the string from what we have in infoShort and infoBuild.
     //Strip "Tunnelblick " from the front of the string if it exists (it may not)
     NSString * appVersion = (  [infoShort hasPrefix: @"Tunnelblick "]
                              ? [infoShort substringFromIndex: [@"Tunnelblick " length]]
                              : infoShort);
-    
+
     NSString * appVersionWithoutBuild;
     NSUInteger parenStart;
     if (  ( parenStart = ([appVersion rangeOfString: @" ("].location) ) == NSNotFound  ) {
@@ -774,7 +774,7 @@ NSString * tunnelblickVersion(NSBundle * bundle)
         // Remove the parenthesized build
         appVersionWithoutBuild   = [appVersion substringToIndex: parenStart];
     }
-    
+
     NSMutableString * version = [NSMutableString stringWithCapacity: 30];
     [version appendString: NSLocalizedString(@"Tunnelblick", @"Window title")];
     if (  appVersionWithoutBuild  ) {
@@ -801,7 +801,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 												  NSString			 * checkboxTitle,
 												  NSAttributedString * checkboxInfoTitle,
 												  BOOL				   checkboxIsOn) {
-	
+
 	// Displays an alert window and returns the window controller immediately, so it doesn't block the thread. (Or nil may returned, see below.)
 	//
 	// The window controller is returned so that it can be closed programmatically if there is a change to the
@@ -866,7 +866,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
         if (  [gTbDefaults boolForKey: preferenceToSetTrue]  ) {
             return nil;
         }
-        
+
         if ( ! showAlertWindowAlreadyShownWindowPreferencesCache  ) {
             showAlertWindowAlreadyShownWindowPreferencesCache = [[NSMutableArray alloc] initWithCapacity: 10];
         }
@@ -885,7 +885,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	[awc setCheckboxTitle:       checkboxTitle];
 	[awc setCheckboxInfoTitle:   checkboxInfoTitle];
 	[awc setCheckboxIsChecked:   checkboxIsOn];
-	
+
 	if (  [[msg class] isSubclassOfClass: [NSString class]]  ) {
         // Surround the msg with a span that sets text foreground/background colors for light or dark mode
         NSMutableString * ms = [[[NSMutableString alloc]
@@ -905,7 +905,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 		NSLog(@"TBShowAlertWindow invoked with invalid message type %@; stack trace: %@", [msg className], callStack());
 		[awc setMessageAS: [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Program error, please see the Console log.", @"Window text")] autorelease]];
 	}
-	
+
 	NSWindow * win = [awc window];
     [win center];
 	[awc showWindow:  nil];
@@ -946,7 +946,7 @@ NSString * TBShowWindowCacheKeyConverter(NSString * key, id msg) {
 
 AlertWindowController * TBShowAlertWindow (NSString * title,
 										   id         msg) {
-	
+
 	return TBShowAlertWindowExtended(title, msg, nil, nil, nil, nil, nil, NO);
 
 }
@@ -955,7 +955,7 @@ AlertWindowController * TBShowAlertWindowOnce (NSString * title,
                                                id         msg) {
 
     return TBShowAlertWindowExtended(title, msg, @"-NotAnActualPreference", nil, nil, nil, nil, NO);
-    
+
 }
 
 // Alow several alert panels to be open at any one time, keeping track of them in AlertRefs.
@@ -968,9 +968,9 @@ static NSMutableArray * AlertRefs = nil;
 static pthread_mutex_t alertRefsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 void LockAlertRefs(void) {
-    
+
     // NOTE: Returns even if an error occurred getting the lock
-    
+
     OSStatus status = pthread_mutex_lock( &alertRefsMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_lock( &alertRefsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
@@ -978,9 +978,9 @@ void LockAlertRefs(void) {
 }
 
 void UnlockAlertRefs(void) {
-    
+
     // NOTE: Returns even if an error occurred getting the lock
-    
+
    int status = pthread_mutex_unlock( &alertRefsMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &alertRefsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
@@ -1002,11 +1002,11 @@ void TBCloseAllAlertPanels (void) {
             NSLog(@"pthread_mutex_trylock( &alertRefsMutex ) failed on try #%d; status = %ld", nTries, (long)status);
             return;
         }
-        
+
         usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
         continue;
     }
-    
+
     NSUInteger ix;
     for (  ix=0; ix<[AlertRefs count]; ix++  ) {
         CFUserNotificationRef ref = (CFUserNotificationRef)[AlertRefs objectAtIndex: ix];
@@ -1015,22 +1015,22 @@ void TBCloseAllAlertPanels (void) {
             TBLog(@"DB-SD", @"TBCloseAllAlertPanels: Cancelled alert panel %@ with result %ld", (ref ? @"non-0" : @"0"), (unsigned long) result);
         }
     }
-    
+
     UnlockAlertRefs();
 }
 
 void IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn(void) {
-    
+
     if (  [NSThread isMainThread]  ) {
         TBLog(@"DB-SD", @"IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn invoked but on main thread, so returning.");
         return;
     }
-    
+
     if (  ! gShuttingDownTunnelblick  ) {
         TBLog(@"DB-SD", @"IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn invoked but not shutting down, so returning.");
         return;
     }
-    
+
     TBLog(@"DB-SD", @"Shutting down Tunnelblick, so this thread will never return from TBRunAlertPanel()");
     while (  TRUE  ) {
         sleep(1);
@@ -1073,7 +1073,7 @@ int TBRunAlertPanelExtended(NSString * title,
 	if (  checkboxResult  ) {
 		*checkboxResult = [[checkboxResults firstObject] boolValue];
 	}
-	
+
 	return result;
 }
 
@@ -1096,18 +1096,18 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
                                  id         shouldCancelTarget,
                                  SEL        shouldCancelSelector)
 {
-    
+
     if (  (shouldCancelTarget && shouldCancelSelector)  ) {
         if (  ! [shouldCancelTarget respondsToSelector: shouldCancelSelector]  ) {
             NSLog(@"TBRunAlertPanelExtendedPlus: '%@' does not respond to '%@'; call stack = %@",
                   [shouldCancelTarget class], NSStringFromSelector(shouldCancelSelector), callStack());
         }
     }
-    
+
     if (  doNotShowAgainPreferenceKey && [gTbDefaults boolForKey: doNotShowAgainPreferenceKey]  ) {
         return notShownReturnValue;
     }
-    
+
     NSMutableDictionary * dict = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                    msg,  kCFUserNotificationAlertMessageKey,
                                    [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"tunnelblick" ofType: @"icns"]],
@@ -1120,7 +1120,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         [dict setObject: NSLocalizedString(@"Alert", @"Window title")
                  forKey: (NSString *)kCFUserNotificationAlertHeaderKey];
     }
-    
+
     if ( defaultButtonLabel ) {
         [dict setObject: defaultButtonLabel
                  forKey: (NSString *)kCFUserNotificationDefaultButtonTitleKey];
@@ -1128,17 +1128,17 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         [dict setObject: NSLocalizedString(@"OK", @"Button")
                  forKey: (NSString *)kCFUserNotificationDefaultButtonTitleKey];
     }
-    
+
     if ( alternateButtonLabel ) {
         [dict setObject: alternateButtonLabel
                  forKey: (NSString *)kCFUserNotificationAlternateButtonTitleKey];
     }
-    
+
     if ( otherButtonLabel ) {
         [dict setObject: otherButtonLabel
                  forKey: (NSString *)kCFUserNotificationOtherButtonTitleKey];
     }
-    
+
     if (  checkboxLabels  ) {
         if (   checkboxResults
             || ( doNotShowAgainPreferenceKey && [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey] )
@@ -1146,7 +1146,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
             [dict setObject: checkboxLabels forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
         }
     }
-    
+
     SInt32 error = 0;
     CFOptionFlags response = 0;
 
@@ -1159,29 +1159,29 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
 			}
 		}
     }
-    
+
     [gMC activateIgnoringOtherApps];
-    
+
     CFUserNotificationRef panelRef = CFUserNotificationCreate(NULL, 0.0, checkboxesChecked, &error, (CFDictionaryRef) dict);
 
     if (   error
         || (panelRef == NULL)
         ) {
-        
+
 		NSLog(@"CFUserNotificationCreate() returned with error = %ld; notification = %@, so TBRunAlertExtended is terminating Tunnelblick after attempting to display an error window using CFUserNotificationDisplayNotice",
               (long) error, (panelRef ? @"non-0" : @"0"));
         if (  panelRef != NULL  ) {
             CFRelease(panelRef);
             panelRef = NULL;
         }
-        
+
         // Try showing a regular window (but it will disappear when Tunnelblick terminates)
         TBShowAlertWindow(NSLocalizedString(@"Alert", @"Window title"),
                           [NSString stringWithFormat:
                            NSLocalizedString(@"Tunnelblick could not display a window.\n\n"
                                              @"CFUserNotificationCreate() returned with error = %ld; notification = %@", @"Window text"),
                            (long) error, (panelRef ? @"non-0" : @"0")]);
-        
+
         // Try showing a modal alert window
         SInt32 status = CFUserNotificationDisplayNotice(60.0,
                                                         kCFUserNotificationStopAlertLevel,
@@ -1202,7 +1202,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         [gMC terminateBecause: terminatingBecauseOfError];
         return NSAlertErrorReturn; // Make the Xcode code analyzer happy
     }
-    
+
     // Save the notification ref in our array
     LockAlertRefs();
     if (  ! AlertRefs  ) {
@@ -1211,7 +1211,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
     [AlertRefs addObject: (id)panelRef];
     TBLog(@"DB-SD", @"TBRunAlertPanelExtended saved %@ in AlertRefs; AlertRefs = %@", (panelRef ? @"non-0" : @"0"), AlertRefs);
     UnlockAlertRefs();
-    
+
     // Loop waiting for either a response or a shutdown of Tunnelblick
     SInt32 responseReturnCode = -1;
     while (  TRUE  ) {
@@ -1219,10 +1219,10 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         if ( responseReturnCode == 0  ) {  // The user clicked a button
             break;
         }
-        
+
         // A timeout occurred.
         // If we should cancel this panel or we are shutting down Tunnelblick, cancel the panel. Otherwise, continue waiting.
-        
+
         BOOL cancel = (  (shouldCancelTarget && shouldCancelSelector)
                        ? [((NSNumber *)[shouldCancelTarget performSelector: shouldCancelSelector]) boolValue]
                       : FALSE);
@@ -1238,9 +1238,9 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
             }
         }
     }
-    
+
     TBLog(@"DB-SD", @"CFUserNotificationReceiveResponse returned %ld; response = %ld for panel %@; AlertRefs; AlertRefs = %@", (long)responseReturnCode, (long)response, (panelRef ? @"non-0" : @"0"), AlertRefs);
-    
+
     if (  panelRef != NULL  ) {
         // Remove from AlertRefs
         LockAlertRefs();
@@ -1250,9 +1250,9 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         CFRelease(panelRef);
         panelRef = NULL;
     }
-    
+
     IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn();
-    
+
     if (  checkboxResults  ) {
         NSMutableArray * cbResults = [[NSMutableArray alloc] initWithCapacity:8];
         NSUInteger i;
@@ -1268,7 +1268,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         TBLog(@"DB-SD", @"Shutting down Tunnelblick, so forcing the alert window response to be cancelled");
         response = kCFUserNotificationCancelResponse;
     }
-    
+
     switch (response & 0x3) {
         case kCFUserNotificationDefaultResponse:
 			if (  notShownReturnValue == NSAlertDefaultReturn  ) {
@@ -1280,9 +1280,9 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
 					}
 				}
 			}
-				
+
             return NSAlertDefaultReturn;
-            
+
         case kCFUserNotificationAlternateResponse:
 			if (  notShownReturnValue == NSAlertAlternateReturn  ) {
 				if (  checkboxLabels  ) {
@@ -1293,9 +1293,9 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
 					}
 				}
 			}
-			
+
             return NSAlertAlternateReturn;
-            
+
         case kCFUserNotificationOtherResponse:
 			if (  notShownReturnValue == NSAlertOtherReturn  ) {
 				if (  checkboxLabels  ) {
@@ -1306,9 +1306,9 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
 					}
 				}
 			}
-			
+
             return NSAlertOtherReturn;
-            
+
         default:
             TBLog(@"DB-SD", @"CFUserNotificationReceiveResponse() returned a cancel response");
             IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn();
@@ -1330,7 +1330,7 @@ BOOL processIsTranslated(void) {
         NSLog(@"Error from sysctlbyname: %d", ret);
         return NO;
     }
-    
+
     return (BOOL) ret;
 }
 
@@ -1338,16 +1338,16 @@ BOOL processIsTranslated(void) {
 OSStatus MyGotoHelpPage (NSString * pagePath, NSString * anchorName)
 {
     OSStatus err = noErr;
-    
+
     CFBundleRef myApplicationBundle = NULL;
     CFStringRef myBookName = NULL;
-    
+
     myApplicationBundle = CFBundleGetMainBundle();
     if (myApplicationBundle == NULL) {
         err = fnfErr;
         goto bail;
     }
-    
+
     myBookName = CFBundleGetValueForInfoDictionaryKey(
                                                       myApplicationBundle,
                                                       CFSTR("CFBundleHelpBookName"));
@@ -1355,19 +1355,19 @@ OSStatus MyGotoHelpPage (NSString * pagePath, NSString * anchorName)
         err = fnfErr;
         goto bail;
     }
-    
+
     if (CFGetTypeID(myBookName) != CFStringGetTypeID()) {
         err = paramErr;
         goto bail;
     }
-    
+
     err = AHGotoPage (myBookName, (CFStringRef) pagePath, (CFStringRef) anchorName);// 5
-    
+
 bail:
 	if ( err != noErr  ) {
 		NSLog(@"Error %ld in MyGotoHelpPage()", (long) err);
 	}
-	
+
     return err;
 }
 
@@ -1377,18 +1377,18 @@ NSString * credentialsGroupFromDisplayName (NSString * displayName)
 	if (  [allGroup length] != 0  ) {
 		return allGroup;
 	}
-	
+
 	NSString * prefKey = [displayName stringByAppendingString: @"-credentialsGroup"];
 	NSString * group = [gTbDefaults stringForKey: prefKey];
 	if (  [group length] == 0  ) {
 		return nil;
 	}
-	
+
 	return group;
-}	
+}
 
 BOOL keychainHasPrivateKeyForDisplayName(NSString * name) {
-    
+
     NSString * key = [name stringByAppendingString: @"-keychainHasPrivateKey"];
     return (   [gTbDefaults boolForKey: key]
             && [gTbDefaults canChangeValueForKey: key]
@@ -1396,7 +1396,7 @@ BOOL keychainHasPrivateKeyForDisplayName(NSString * name) {
 }
 
 BOOL keychainHasUsernameWithoutPasswordForDisplayName(NSString * name) {
-    
+
     NSString * key = [name stringByAppendingString: @"-keychainHasUsername"];
     return (   [gTbDefaults boolForKey: key]
             && [gTbDefaults canChangeValueForKey: key]
@@ -1404,7 +1404,7 @@ BOOL keychainHasUsernameWithoutPasswordForDisplayName(NSString * name) {
 }
 
 BOOL keychainHasUsernameAndPasswordForDisplayName(NSString * name) {
-    
+
     NSString * key = [name stringByAppendingString: @"-keychainHasUsernameAndPassword"];
     return (   [gTbDefaults boolForKey: key]
             && [gTbDefaults canChangeValueForKey: key]
@@ -1424,12 +1424,12 @@ BOOL moveCredentials(NSString * fromDisplayName, NSString * toDisplayName)
 BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName, BOOL moveNotCopy)
 {
     // DOES NOT COPY OR MOVE THE PREFERENCES ASSOCIATED WITH THE CREDENTIALS
-    
+
 	NSString * group = credentialsGroupFromDisplayName(fromDisplayName);
 	if (  group  ) {
 		return YES;
-	}		
-		
+	}
+
     BOOL haveFromPassphrase              = keychainHasPrivateKeyForDisplayName(fromDisplayName);
     BOOL haveFromUsernameAndPassword     = keychainHasUsernameAndPasswordForDisplayName(fromDisplayName);
     BOOL haveFromUsernameWithoutPassword = keychainHasUsernameWithoutPasswordForDisplayName(fromDisplayName);
@@ -1437,13 +1437,13 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
     if (   haveFromPassphrase
         || haveFromUsernameAndPassword
         || haveFromUsernameWithoutPassword  ) {
-        
+
         NSString * myPassphrase = nil;
         NSString * myUsername = nil;
         NSString * myPassword = nil;
-        
+
         AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: fromDisplayName credentialsGroup: nil] autorelease];
-        
+
         if (  haveFromPassphrase  ) {
             [myAuthAgent setAuthMode: @"privateKey"];
             [myAuthAgent performAuthenticationAllowingInteraction: NO];
@@ -1452,7 +1452,7 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
                 [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
             }
         }
-        
+
         if (   haveFromUsernameAndPassword
             || haveFromUsernameWithoutPassword  ) {
             [myAuthAgent setAuthMode: @"password"];
@@ -1465,7 +1465,7 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
                 [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
             }
         }
-        
+
         if (   myPassphrase
             && [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasPrivateKey"]]  ) {
             KeyChain * passphraseKeychain = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"privateKey" ];
@@ -1475,7 +1475,7 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
             }
             [passphraseKeychain release];
         }
-        
+
         if (   myUsername
             && (   [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasUsername"]]
                 || [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasUsernameAndPassword"]]
@@ -1487,7 +1487,7 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
             }
             [usernameKeychain   release];
         }
-        
+
         if (   myPassword
            && [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasUsernameAndPassword"]]  ) {
             KeyChain * passwordKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"password"   ];
@@ -1498,7 +1498,7 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
             [passwordKeychain   release];
         }
     }
-    
+
     return TRUE;
 }
 
@@ -1550,27 +1550,27 @@ NSString * stringForLog(NSString * outputString, NSString * header)
 }
 
 NSString * configLocCodeStringForPath(NSString * configPath) {
-    
+
     unsigned code;
-    
+
     if (  [configPath hasPrefix: [gPrivatePath  stringByAppendingString: @"/"]]  ) {
         code = CFG_LOC_PRIVATE;
-        
+
     } else if (  [configPath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]  ) {
         code = CFG_LOC_DEPLOY;
-    
+
     } else if (  [configPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
         code = CFG_LOC_SHARED;
-    
+
     } else if (  [configPath hasPrefix: [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()] stringByAppendingString: @"/"]]  ) {
         code = CFG_LOC_ALTERNATE;
-    
+
     } else {
         NSLog(@"configLocCodeStringForPath: unknown path %@", configPath);
         [gMC terminateBecause: terminatingBecauseOfError];
         return [NSString stringWithFormat: @"%u", CFG_LOC_MAX + 1];
     }
-    
+
     return [NSString stringWithFormat: @"%u", code];
 }
 
@@ -1586,20 +1586,20 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
 			return -1;
 		}
 	}
-    
+
     OSStatus status = -1;
 	NSString * myStdoutString = nil;
 	NSString * myStderrString = nil;
-    
+
     NSString * command = [[arguments componentsJoinedByString: @"\t"] stringByAppendingString: @"\n"];
     status = runTunnelblickd(command, &myStdoutString, &myStderrString);
-    
+
     NSString * subcommand = ([arguments count] > 0
                              ? [arguments objectAtIndex: 0]
                              : @"(no subcommand!)");
-    
+
     NSMutableString * logMsg = [NSMutableString stringWithCapacity: 100 + [myStdoutString length] + [myStderrString length]];
-    
+
     if (  stdoutString  ) {
         *stdoutString = myStdoutString;
     } else {
@@ -1607,7 +1607,7 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
             [logMsg appendFormat: @"tunnelblickd stdout:\n'%@'\n", myStdoutString];
         }
     }
-    
+
     if (  stderrString  ) {
         *stderrString = myStderrString;
     } else {
@@ -1648,7 +1648,7 @@ BOOL tunnelblickTestPrivateOnlyHasTblks(void)
             }
         }
     }
-    
+
     return YES;
 }
 
@@ -1661,7 +1661,7 @@ BOOL tunnelblickTestAppInApplications(void)
 BOOL tunnelblickTestDeployed(void)
 {
     // Returns TRUE if Deploy folder exists and contains anything
-    
+
  	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gDeployPath];
     NSString * file;
     BOOL haveSomethingInDeployFolder = FALSE;
@@ -1673,21 +1673,21 @@ BOOL tunnelblickTestDeployed(void)
             break;
         }
     }
-    
+
     return haveSomethingInDeployFolder;
 }
 
 BOOL tunnelblickTestHasDeployBackups(void)
 {
     // Returns TRUE if Deploy backup folder exists
-    
+
     NSString * deployBackupsPath = @"/Library/Application Support/Tunnelblick/Backup";
 	BOOL isDir;
 	if (   [gFileMgr fileExistsAtPath: deployBackupsPath isDirectory: &isDir]
 		&& isDir  ) {
 		return YES;
 	}
-	
+
 	return NO;
 }
 
@@ -1697,7 +1697,7 @@ BOOL tunnelblickTestHasDeployBackups(void)
 NSString * localizeNonLiteral(NSString * msg, NSString * type)
 {
 	(void) type;
-	
+
     return NSLocalizedString(msg, type);
 }
 
@@ -1708,11 +1708,11 @@ void localizableStrings(void)
 	// These strings come from "thank you" emails
     NSLocalizedString(@"Thanks for your Tunnelblick donation", @"Window text");
     NSLocalizedString(@"Thank you very much for your donation to the TunnelblickProject.", @"Window text");
-	
-	
+
+
     // This string comes from the "Other Sources/dmgFiles/background.rtf" file, used to generate an image for the DMG
     NSLocalizedString(@"Double-click to begin", @"Text on disk image");
-    
+
     // These strings come from OpenVPN and indicate the status of a connection
     NSLocalizedString(@"ADD_ROUTES",    @"Connection status");
     NSLocalizedString(@"ASSIGN_IP",     @"Connection status");
@@ -1727,7 +1727,7 @@ void localizableStrings(void)
     NSLocalizedString(@"TCP_CONNECT",   @"Connection status");
     NSLocalizedString(@"UDP_CONNECT",   @"Connection status");
     NSLocalizedString(@"WAIT",          @"Connection status");
-	
+
 	// These strings also indicate the status of a connection, but they are set by Tunnelblick itself, not OpenVPN
 	NSLocalizedString(@"PASSWORD_WAIT",    @"Connection status");
 	NSLocalizedString(@"PRIVATE_KEY_WAIT", @"Connection status");
@@ -1740,21 +1740,21 @@ void localizableStrings(void)
 }
 
 BOOL appHasValidSignature(void) {
-    
+
     NSString * appPath = [[NSBundle mainBundle] bundlePath];
-    
+
     if (   itemHasValidSignature(appPath, YES)
         && itemHasValidSignature([appPath stringByAppendingPathComponent:
                                   @"/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/TunnelblickUpdater.app/Contents/MacOS/fileop"], NO)
         ) {
         return YES;
     }
-    
+
     return NO;
 }
 
 NSString * displayNameForOpenvpnName(NSString * openvpnName, NSString * nameToReturnIfError) {
-	
+
 	// OpenVPN binaries are held in folders in the 'openvpn' folder in Resources.
 	// The name of the folder includes the version of OpenVPN and the name and version of the SSL/TLS library it is linked to.
 	// The folder name must have a prefix of 'openvpn-' followed by the version number, followed by a '-' and a library name, followed by a '-' and a library version number.
@@ -1763,11 +1763,11 @@ NSString * displayNameForOpenvpnName(NSString * openvpnName, NSString * nameToRe
 	// Example: a folder named 'openvpn-1.2.3_git_master_123abcd-libressl-4.5.6' will be shown to the user as "123 git master 123abcd - LibreSSL v4.5.6"
 	//
 	// NOTE: This method's input openvpnName is the part of the folder name _after_ 'openvpn-' except that if it is located in L_AS_T/openvpn it must be suffixed with SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN.
-	
+
 	NSArray * parts = [openvpnName componentsSeparatedByString: @"-"];
-	
+
 	NSString * name;
-	
+
 	if (   [parts count] == 3  ) {
 		NSMutableString * mName = [[[NSString stringWithFormat: NSLocalizedString(@"%@ - %@ v%@", @"An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. "
 																				  "The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a"),
@@ -1787,12 +1787,12 @@ NSString * displayNameForOpenvpnName(NSString * openvpnName, NSString * nameToRe
 		name = [NSString stringWithFormat: NSLocalizedString(@"%@ (non-Tunnelblick)",@"Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1'"),
 				[name substringToIndex: [name length] - [SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN length]]];
 	}
-	
+
 	return name;
 }
 
 NSString * messageIfProblemInLogLine(NSString * line) {
-	
+
 	NSArray * messagesToWarnAbout = [NSArray arrayWithObjects:
 									 @"WARNING: Your certificate is not yet valid!",
 									 @"WARNING: Your certificate has expired!",
@@ -1800,7 +1800,7 @@ NSString * messageIfProblemInLogLine(NSString * line) {
 									 @"Unrecognized option or missing or extra parameter(s)",
 									 @"error=certificate has expired:",
 									 nil];
-	
+
 	NSArray * correspondingInfo = [NSArray arrayWithObjects:
 								   @"",
 								   @"",
@@ -1816,7 +1816,7 @@ NSString * messageIfProblemInLogLine(NSString * line) {
 													 @" \"VPN Details\" window.\n\n"
 													 @"See the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's"
 													 @" \"VPN Details\" window for details.",
-													 
+
 													 @"Window text"),
 								   NSLocalizedString(@"\n\n"
 													 @"This error means that an option that is contained in the OpenVPN configuration file or was"
@@ -1830,39 +1830,39 @@ NSString * messageIfProblemInLogLine(NSString * line) {
 													 @" \"VPN Details\" window.\n\n"
 													 @"See the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's"
 													 @" \"VPN Details\" window for details.",
-													 
+
 													 @"Window text"),
 								   /* The line containging 'One or more' in the following message should not be changed without changing the copy of it in LogDisplay.m */
 								   NSLocalizedString(@"\n\n"
 													 @"One or more of the certificates used to secure this configuration have expired.\n\n"
 													 @"See the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's"
 													 @" \"VPN Details\" window for details.",
-													 
+
 													 @"Window text"),
 								   nil];
-	
+
 	if (  [messagesToWarnAbout count] != [correspondingInfo count]  ) {
 		NSLog(@"messageForProblemsSeenInLogLine: messagesToWarnAbout and correspondingInfo do not have the same number of entries");
 		[gMC terminateBecause: terminatingBecauseOfError];
 		return nil;
 	}
-	
+
 	NSUInteger ix;
 	for (  ix=0; ix<[messagesToWarnAbout count]; ix++  ) {
-		
+
 		NSString * message = [messagesToWarnAbout objectAtIndex: ix];
 		if (  [line containsString: message]  ) {
-			
+
 			NSString * moreInfo = (  ([correspondingInfo count] >= ix)
 								   ? [correspondingInfo objectAtIndex: ix]
 								   : @"");
-			
+
 			return [NSString stringWithFormat:
 					NSLocalizedString(@"The OpenVPN log contains the following message: \n\n\"%@\".%@",
 									  @"Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail."),
 					message, moreInfo];
 		}
 	}
-	
+
 	return nil;
 }
