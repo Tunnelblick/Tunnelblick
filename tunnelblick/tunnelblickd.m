@@ -82,7 +82,7 @@ BOOL tunnelblickNotInApplications(aslclient __unused asl,
     // Make sure it doesn't exist for a while, in case it is being replaced
     uint i;
     for (  i=0; i<20; i++  ) {
-        if (  [NSFileManager.defaultManager fileExistsAtPath: APPLICATIONS_TB_APP]  ) {\
+        if (  [NSFileManager.defaultManager fileExistsAtPath: APPLICATIONS_TB_APP]  ) {
             return FALSE;
         }
         usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
@@ -584,6 +584,8 @@ int main(void) {
 		goto done;
 	}
 		
+    asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Started tunnelblickd");
+
     if (  ! sanityChecks(asl, log_msg)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Terminating tunnelblickd because sanityChecks() failed");
         goto done;
@@ -649,8 +651,6 @@ int main(void) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "No label found");
         goto done;
     }
-    
-    asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Started %s", launch_data_get_string(the_label));
     
     // Retrieve the dictionary of Socket entries in the config file
     sockets_dict = launch_data_dict_lookup(checkin_response, LAUNCH_JOBKEY_SOCKETS);
