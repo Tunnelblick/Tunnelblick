@@ -1840,6 +1840,10 @@ static void setupLibrary_Application_Support_Tunnelblick(void) {
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_OPENVPN]  ) {
 		secureOpenvpnBinariesFolder(L_AS_T_OPENVPN);
 	}
+
+    if (  ! dealWithDotOldAndHyphenOldApp()  ) {
+        errorExit();
+    }
 }
 
 static void setupUser_Library_Application_Support_Tunnelblick(void) {
