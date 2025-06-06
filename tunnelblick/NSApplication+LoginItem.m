@@ -126,7 +126,8 @@ extern TBUserDefaults * gTbDefaults;
     // Returns nil on error, empty array if no OpenVPN processes running
     //
     // if onlyMain is TRUE, returns only processes named 'openvpn'
-    // else returns process whose names _start_ with 'openvpn' (e.g. 'openvpn-down-root')
+    // else returns processes whose names _start_ with 'openvpn' (e.g. 'openvpn-down-root')
+    //      but not processes named "openvpnstart".
     //
     //  (modified version of countOtherInstances, above)
 
@@ -156,7 +157,9 @@ extern TBUserDefaults * gTbDefaults;
         if (strncmp(processName, command, MAXCOMLEN)==0) {
             if (   (! onlyMain)
                 || (strlen(command) == strlen(processName))  ) {
-                [retArray addObject: [NSNumber numberWithInt: (int) pid]];
+                if (  strncmp(processName, "openvpnstart", MAXCOMLEN) != 0  ) {
+                    [retArray addObject: [NSNumber numberWithInt: (int) pid]];
+                }
             }
         }
     }
