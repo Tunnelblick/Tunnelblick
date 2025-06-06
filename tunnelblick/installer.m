@@ -1889,22 +1889,20 @@ static void copyTheApp(void) {
         appendLog(@"Not copying app because this copy is already where it should be copied");
     } else {
         if (  [gFileMgr fileExistsAtPath: APPLICATIONS_TB_APP]  ) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
-                                                               source: @"/Applications"
-                                                          destination: @""
-                                                                files: [NSArray arrayWithObject: @"Tunnelblick.app"]
-                                                                  tag: nil]  ) {
-#pragma clang diagnostic pop
-                appendLog([NSString stringWithFormat: @"Moved %@ to the Trash", APPLICATIONS_TB_APP]);
-            } else {
-                appendLog([NSString stringWithFormat: @"Unable to move %@ to the Trash", APPLICATIONS_TB_APP]);
-                errorExit();
+            if (  [gFileMgr fileExistsAtPath: L_AS_T_TB_OLD]  ) {
+                if (  [gFileMgr tbRemoveFileAtPath: L_AS_T_TB_OLD handler: nil]  ) {
+                    appendLog([NSString stringWithFormat: @"Deleted %@", L_AS_T_TB_OLD]);
+                } else {
+                    errorExit();
+                }
+                if (  [gFileMgr tbMovePath: APPLICATIONS_TB_APP toPath: L_AS_T_TB_OLD handler: nil]  ) {
+                    appendLog([NSString stringWithFormat: @"Moved %@ to %@", APPLICATIONS_TB_APP, L_AS_T_TB_OLD]);
+                } else {
+                    errorExit();
+                }
             }
-        } else {
-            appendLog([NSString stringWithFormat: @"Does not exist, so not moving to the Trash: %@", APPLICATIONS_TB_APP]);
         }
+    }
 
     if (  [gFileMgr tbCopyPath: sourcePath toPath: APPLICATIONS_TB_APP handler: nil]  ) {
         appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, APPLICATIONS_TB_APP]);
