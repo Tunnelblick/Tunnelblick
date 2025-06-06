@@ -234,17 +234,6 @@ static void waitUntilNoProcessWithName(NSString * name) {
     }
 }
 
-static const char * fileSystemRepresentationFromPath(NSString * path) {
-
-    const char * pathC = path.fileSystemRepresentation;
-    if (  ! pathC  ) {
-        appendLog([NSString stringWithFormat: @"Could not get filesystem representation for %@", path]);
-        errorExit();
-    }
-
-    return pathC;
-}
-
 static void moveAppToOldAndNewToL_AS_T_App(void) {
 
     // Move /Applications/Tunnelblick.app to L_AS_T/Tunnelblick-old.app
