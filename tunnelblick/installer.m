@@ -2939,8 +2939,6 @@ int main(int argc, char *argv[]) {
 	
     gFileMgr = [NSFileManager defaultManager];
 
-    setupLibrary_Application_Support_Tunnelblick();
-
     if (  argc < 2  ) {
 		openLog(FALSE);
         appendLog(@"1 or more arguments are required");
@@ -3015,6 +3013,8 @@ int main(int argc, char *argv[]) {
         errorExit();
     }
     
+    setupLibrary_Application_Support_Tunnelblick();
+
     // We use Deploy located in the Tunnelblick in /Applications, even if we are running from some other location and are copying the application there
 #ifndef TBDebug
 	gDeployPath = @"/Applications/Tunnelblick.app/Contents/Resources/Deploy";
