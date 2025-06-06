@@ -68,6 +68,31 @@
 
 static BOOL sigtermReceived = FALSE;
 
+BOOL tunnelblickNotInApplications(aslclient __unused asl,
+                                  aslmsg    __unused log_msg) {
+
+    // Returns TRUE if /Applications/Tunnelblick.app does not (or did not) exist for two seconds.
+
+    static BOOL tunnelblickWasNotInApplications = FALSE;
+
+    if (  tunnelblickWasNotInApplications  ) {
+        return TRUE;
+    }
+
+    // Make sure it doesn't exist for a while, in case it is being replaced
+    uint i;
+    for (  i=0; i<20; i++  ) {
+        if (  [NSFileManager.defaultManager fileExistsAtPath: APPLICATIONS_TB_APP]  ) {\
+            return FALSE;
+        }
+        usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
+    }
+
+    tunnelblickWasNotInApplications = TRUE;
+
+    return TRUE;
+}
+
 static BOOL sanityChecks(aslclient  asl,
                          aslmsg     log_msg) {
 
@@ -103,8 +128,7 @@ static BOOL sanityChecks(aslclient  asl,
         return FALSE;
     }
 
-    if (  tunnelblickNotInApplications(aslclient  asl,
-                                       aslmsg     log_msg)  ) {
+    if (  tunnelblickNotInApplications(asl, log_msg)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Tunnelblick is not in /Applications. Removing tunnelblickd .plist");
         [NSFileManager.defaultManager removeItemAtPath: @"/Library/LaunchDaemons/net.tunnelblick.tunnelblick.tunnelblickd.plist" error: nil];
         return FALSE;
@@ -519,31 +543,6 @@ static void removeShutdownFlagFile(aslclient  asl,
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error removing %s: %s", [path UTF8String], [[error description] UTF8String]);
 		}
 	}
-}
-
-BOOL tunnelblickNotInApplications(aslclient __unused asl,
-                                  aslmsg    __unused log_msg) {
-
-    // Returns TRUE if /Applications/Tunnelblick.app does not (or did not) exist for two seconds.
-
-    static BOOL tunnelblickWasNotInApplications = FALSE;
-
-    if (  tunnelblickWasNotInApplications  ) {
-        return TRUE;
-    }
-
-    // Make sure it doesn't exist for a while, in case it is being replaced
-    uint i;
-    for (  i=0; i<20; i++  ) {
-        if (  [NSFileManager.defaultManager fileExistsAtPath: APPLICATIONS_TB_APP]  ) {
-            return FALSE;
-        }
-        usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
-    }
-
-    tunnelblickWasNotInApplications = TRUE;
-
-    return TRUE;
 }
 
 int main(void) {
