@@ -1906,12 +1906,10 @@ static void copyTheApp(void) {
             appendLog([NSString stringWithFormat: @"Does not exist, so not moving to the Trash: %@", APPLICATIONS_TB_APP]);
         }
 
-        if (  ! [gFileMgr tbCopyPath: sourcePath toPath: APPLICATIONS_TB_APP handler: nil]  ) {
-            appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, APPLICATIONS_TB_APP]);
-            errorExit();
-        } else {
-            appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, APPLICATIONS_TB_APP]);
-        }
+    if (  [gFileMgr tbCopyPath: sourcePath toPath: APPLICATIONS_TB_APP handler: nil]  ) {
+        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, APPLICATIONS_TB_APP]);
+    } else {
+        errorExit();
     }
 
     removeExtendedAttributes(APPLICATIONS_TB_APP);
