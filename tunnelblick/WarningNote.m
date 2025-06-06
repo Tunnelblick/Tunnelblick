@@ -62,6 +62,14 @@ extern MenuController * gMC;
     
     TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"), message, preferenceKey, preferenceKey, @1, nil, nil, NO);
 
+    BOOL appUpdate = [preferenceKey isEqualToString: @"-skipWarningAboutAppUpdateError"];
+    BOOL vpnUpdate = [preferenceKey isEqualToString: @"-skipWarningAboutVpnUpdateError"];
+
+    if (   appUpdate
+        || vpnUpdate  ) {
+        [gMC tbUpdateClearErrorInAppUpdate: [NSNumber numberWithBool: appUpdate]];
+    }
+
     TBShowAlertWindowRemoveFromCache(preferenceKey, [message string]);
 }
 
