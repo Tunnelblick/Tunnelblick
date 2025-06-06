@@ -855,8 +855,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
     // Adds a warning note to warningNotes. Does not add if a note with the same preferenceKey already exists.
 
-    static unsigned long notificationIndex = 0;
-
     if (  ! [NSThread isMainThread]  ) {
         NSDictionary * dict = @{@"headline"      : NSNullIfNil(headline),
                                 @"message"       : NSNullIfNil(message),
@@ -865,6 +863,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         return;
     }
 
+    // Return if already have a note with the same preferenceKey
     NSUInteger ix;
     for (  ix=0; ix<warningNotes.count; ix++  ) {
         WarningNote * note = [warningNotes objectAtIndex: ix];
@@ -877,12 +876,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         warningNotes = [[NSMutableArray arrayWithCapacity: 10] retain];
     }
 
-    NSString * index = [NSString stringWithFormat: @"%lu", notificationIndex++];
-
     WarningNote * note = [[[WarningNote alloc] initWithHeadline: headline
                                                         message: message
-                                                  preferenceKey: preferenceKey
-                                                          index: index]
+                                                  preferenceKey: preferenceKey]
                           autorelease];
 
     [warningNotes addObject: note];

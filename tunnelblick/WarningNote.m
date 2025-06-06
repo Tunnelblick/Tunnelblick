@@ -31,15 +31,13 @@ extern MenuController * gMC;
 
 -(WarningNote *) initWithHeadline: (NSString *)           theHeadline
                           message: (NSAttributedString *) theMessage
-                    preferenceKey: (NSString *)           thePreferenceKey
-                            index: (NSString *)           theIndex {
+                    preferenceKey: (NSString *)           thePreferenceKey {
 
     self = [super init];
     if (  self  ) {
         headline      = [theHeadline retain];
         message       = [theMessage retain];
         preferenceKey = [thePreferenceKey retain];
-        index         = [theIndex retain];
     }
 
     return self;

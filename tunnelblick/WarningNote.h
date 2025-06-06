@@ -31,8 +31,7 @@
 
 -(WarningNote *) initWithHeadline: (NSString *)           theHeadline
                           message: (NSAttributedString *) theMessage
-                    preferenceKey: (NSString *)           thePreferenceKey
-                            index: (NSString *)           theIndex;
+                    preferenceKey: (NSString *)           thePreferenceKey;
 
 -(NSString *) headline;
 
