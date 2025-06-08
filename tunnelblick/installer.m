@@ -95,7 +95,7 @@
 //      (1) Clears the installer log if INSTALLER_CLEAR_LOG is set
 //			Creates directories or repairs their ownership/permissions as needed
 //			Repairs ownership/permissions of L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
-//			Creates the .mip file if it does not already exist
+//			Creates the .mip folder if it does not already exist
 //          Updates Tunnelblick kexts in /Library/Extensions (unless kexts are being uninstalled)
 //
 //      (2) If INSTALLER_COPY_APP is set, this app is copied to /Applications and all extended attributes are removed from the copy and all items within it
