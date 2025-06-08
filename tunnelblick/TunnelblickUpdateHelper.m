@@ -408,6 +408,10 @@ int main(int argc, const char * argv[]) {
             errorExit();
         }
 
+        if (  ! removeOldDotMipFile()  ) {
+            errorExit();
+        }
+
         moveAppToOldAndNewToL_AS_T_App();
 
         copyL_AS_T_AppToApplications();

@@ -1818,7 +1818,7 @@ static void setupLibrary_Application_Support_Tunnelblick(void) {
                                                 PERMS_SECURED_FOLDER, 0, 0)  ) {
         errorExit();
     }
-    
+
 	if (  ! createDirWithPermissionAndOwnership(L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH,
 												PERMS_SECURED_FOLDER, 0, 0)  ) {
 		errorExit();
@@ -1842,6 +1842,10 @@ static void setupLibrary_Application_Support_Tunnelblick(void) {
 	}
 
     if (  ! dealWithDotOldAndHyphenOldApp()  ) {
+        errorExit();
+    }
+
+    if (  ! removeOldDotMipFile()  ) {
         errorExit();
     }
 }
