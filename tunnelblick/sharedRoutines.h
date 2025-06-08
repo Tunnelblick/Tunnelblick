@@ -24,8 +24,6 @@
 
 NSString * sha256HexStringForData (NSData * data);
 
-NSString * mipName(void);
-
 BOOL networkIsReachable(void);
 
 BOOL isValidIPAdddress(NSString * ipAddress);

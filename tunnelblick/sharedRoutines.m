@@ -51,20 +51,6 @@ extern NSString * gDeployPath;
 void appendLog(NSString * msg);    // Appends a string to the log
 
 
-NSString * mipName(void) {
-
-    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T];
-    NSString * fileName;
-    while (  (fileName = [dirEnum nextObject])  ) {
-        [dirEnum skipDescendants];
-        if (  [fileName hasSuffix: @".mip"]  ) {
-            break;
-        }
-    }
-
-    return [fileName stringByDeletingPathExtension];
-}
-
 BOOL networkIsReachable(void) {
 
     // This routine a heavily modified version of a method at https://github.com/arashpayan/appirater/blob/master/Appirater.m,
