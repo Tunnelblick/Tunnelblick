@@ -2145,3 +2145,23 @@ BOOL dealWithDotOldAndHyphenOldApp(void) {
 
     return TRUE;
 }
+
+BOOL removeOldDotMipFile(void) {
+
+    NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: L_AS_T];
+    NSString * fileName;
+    while (  (fileName = dirEnum.nextObject)  ) {
+        [dirEnum skipDescendants];
+        if (  [fileName hasSuffix: @".mip"]  ) {
+            NSString * path = [L_AS_T stringByAppendingPathComponent: fileName];
+            if (  [NSFileManager.defaultManager tbRemovePathIfItExists: path]  ) {
+                appendLog([NSString stringWithFormat: @"Deleted %@", path]);
+                break;
+            } else {
+                return FALSE;
+            }
+        }
+    }
+
+    return TRUE;
+}

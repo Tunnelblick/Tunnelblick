@@ -131,3 +131,5 @@ unsigned getLoadedKextsMask(void);
 NSString * sanitizedConfigurationContents(NSString * cfgContents);
 
 BOOL dealWithDotOldAndHyphenOldApp(void);
+
+BOOL removeOldDotMipFile(void);
