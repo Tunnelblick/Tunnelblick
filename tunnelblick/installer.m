@@ -1496,8 +1496,6 @@ static void copyAppToL_AS_T(NSString * sourcePath) {
         errorExit();
     }
 
-    appendLog(@"Copied the app to L_AS_T");
-
     appHasBeenCopiedToL_AS_T = true;
 }
 
