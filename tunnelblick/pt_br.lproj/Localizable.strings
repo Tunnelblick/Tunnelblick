@@ -125,7 +125,7 @@
 "Ignore" = "Ignorar";
 
 /* Button to install an update */
-"Install and Relaunch" = "Baixar e Reiniciar";
+"Install and Relaunch" = "Instalar e Reiniciar";
 
 /* Button */
 "Install tun and tap system extensions..." = "Instalar extensões de sistema tun e tap…";
@@ -319,10 +319,10 @@
 "Connect %@%@" = "Conectar a %@%@";
 
 /* Menu item */
-"Copy Configuration into a New Folder..." = "Copiar Configuração para Nova Pasta…";
+"Copy Configuration into a New Folder..." = "Copiar Configuração para uma Nova Pasta…";
 
 /* Menu item */
-"Copy Configurations into a New Folder..." = "Copiar Configurações para Nova Pasta…";
+"Copy Configurations into a New Folder..." = "Copiar Configurações para uma Nova Pasta…";
 
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Apagar as Configurações das Credenciais do Acesso às Chaves…";
@@ -352,10 +352,10 @@
 "Make Configuration Shared..." = "Tornar Configuração Compartilhada…";
 
 /* Menu item */
-"Move Configuration into a New Folder..." = "Mover Configuração para Nova Pasta…";
+"Move Configuration into a New Folder..." = "Mover Configuração para uma Nova Pasta…";
 
 /* Menu item */
-"Move Configurations into a New Folder..." = "Mover Configurações para Nova Pasta…";
+"Move Configurations into a New Folder..." = "Mover Configurações para uma Nova Pasta…";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "Sem registros do OpenVPN ou do Tunnelblick";

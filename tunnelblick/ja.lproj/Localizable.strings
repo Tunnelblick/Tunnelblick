@@ -892,10 +892,13 @@
 "    • Uninstall one configuration\n" = "    •１個の 構成を削除する\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Be installed\n" = "  インストールされた\n";
+"  • Be installed\n" = "  • インストールされた\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • アプリケーションの所有者とアクセス権限を安全にする\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Complete the installation\n" = "  • インストールを完了する\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • 更新を完了する\n";
