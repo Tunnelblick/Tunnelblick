@@ -174,8 +174,10 @@ change the default, click Product >> Scheme >> Edit Scheme, then "Build" on the 
 then set "Build Order" to "Manual Order". You should also un-check "Find Implicit
 Dependencies".
 
-Xcode also needs to be set to build in "legacy" locations; in Xcode >> Settings
->> Locations >> Advanced >> set "Build Location" to "Legacy".
+Xcode also needs to be set to build in "legacy" locations. In Xcode 26:
+Xcode >> Settings >> Locations >> Build Location..., set "Build Location" to "Legacy".
+In older versions: Xcode, >> Settings >> Locations >> Advanced, set
+"Build Location" to "Legacy".
 
 **8. Selecting the Type of Build You Want to Create**
 
