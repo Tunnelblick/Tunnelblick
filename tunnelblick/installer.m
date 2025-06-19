@@ -607,9 +607,7 @@ BOOL clearExtendedAttributes(NSString * path, NSArray * attributeNames) {
     NSEnumerator * e = attributeNames.objectEnumerator;
     while (  (name = e.nextObject)  ) {
         int status = removexattr(filePath, name.UTF8String, XATTR_NOFOLLOW);
-        if (  status == 0  ) {
-            appendLog([NSString stringWithFormat: @"     Removed '%@' extended attribute from %@", name, path]);
-        } else {
+        if (  status != 0  ) {
             appendLog([NSString stringWithFormat: @"Failed to remove '%@' xattr from %@; error was %ld ('%s')",
                        name, path, (long)errno, strerror(errno)]);
             return NO;
@@ -652,7 +650,7 @@ void removeExtendedAttributes(NSString * tunnelblickAppPath) {
         }
     }
 
-    appendLog([NSString stringWithFormat: @"Removed all extended attributes from '%@'", tunnelblickAppPath]);
+    appendLog([NSString stringWithFormat: @"Removed any extended attributes from '%@'", tunnelblickAppPath]);
     return;
 
 fail:
