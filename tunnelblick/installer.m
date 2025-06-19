@@ -159,6 +159,8 @@ static BOOL            gErrorOccurred = FALSE;       // Set if an error occurred
 //**************************************************************************************************************************
 // FORWARD REFERENCES
 
+void appendLog(NSString * s);
+
 static void copyAppToL_AS_T(NSString * sourcePath);
 
 static void errorExit(void);
@@ -201,7 +203,7 @@ static void debugLog(NSString * string) {
 }
 #endif
 
-static void openLog(BOOL clearLog) {
+static BOOL openLog(BOOL clearLog) {
 
     if (  ! [gFileMgr tbRemovePathIfItExists: INSTALLER_OLD_LOG_PATH]  ) {
         NSLog(@"Could not delete %@", INSTALLER_OLD_LOG_PATH);
@@ -211,6 +213,14 @@ static void openLog(BOOL clearLog) {
         if (  ! [gFileMgr tbForceRenamePath:INSTALLER_LOG_PATH toPath: INSTALLER_OLD_LOG_PATH]  ) {
             NSLog(@"Could not rename %@ to %@", INSTALLER_LOG_PATH, INSTALLER_OLD_LOG_PATH);
         }
+    }
+
+    BOOL created_L_AS_T = FALSE;
+    if (  ! [gFileMgr fileExistsAtPath: L_AS_T]  ) {
+        if (  ! createDirWithPermissionAndOwnership(L_AS_T, PERMS_SECURED_FOLDER, 0, 0)  ) {
+            errorExit();
+        }
+        created_L_AS_T = TRUE;
     }
 
     const char * path = fileSystemRepresentationFromPath(INSTALLER_LOG_PATH);
@@ -224,6 +234,8 @@ static void openLog(BOOL clearLog) {
 	if (  gLogFile == NULL  ) {
 		errorExit();
 	}
+
+    return created_L_AS_T;
 }
 
 void appendLog(NSString * s) {
@@ -2961,8 +2973,6 @@ int main(int argc, char *argv[]) {
     BOOL doInstallKexts          = (   ( ! doUninstallKexts )
                                     && ( (opsAndFlags & INSTALLER_INSTALL_KEXTS) != 0 )  );
 
-    openLog(doClearLog);
-
     // Log the arguments installer was started with
 
     NSString * infoPlistPath = [NSBundle.mainBundle.resourcePath.stringByDeletingLastPathComponent
@@ -3004,7 +3014,21 @@ int main(int argc, char *argv[]) {
     for (  i=2; i<argc; i++  ) {
         [logString appendFormat: @"\n     %@", [NSString stringWithUTF8String: argv[i]]];
     }
+
+    BOOL created_L_AS_T = openLog(doClearLog);
+
     appendLog(logString);
+
+    if (  created_L_AS_T  ) {
+        NSDictionary * atts = [gFileMgr tbFileAttributesAtPath: L_AS_T traverseLink: NO];
+        unsigned long permissions = [atts filePosixPermissions];
+        unsigned long theOwner = [[atts fileOwnerAccountID] unsignedLongValue];
+        unsigned long theGroup = [[atts fileGroupOwnerAccountID] unsignedLongValue];
+        appendLog([NSString stringWithFormat: @"Created directory %@ with owner %lu:%lu and permissions %lo",
+                   L_AS_T, (unsigned long)theOwner, (unsigned long)theGroup, (unsigned long)permissions]);
+    }
+
+    setupLibrary_Application_Support_Tunnelblick();
 
 	NSString * resourcesPath = thisAppResourcesPath(); // (installer itself is in Resources)
     NSArray  * execComponents = [resourcesPath pathComponents];
@@ -3013,8 +3037,6 @@ int main(int argc, char *argv[]) {
         errorExit();
     }
     
-    setupLibrary_Application_Support_Tunnelblick();
-
     // We use Deploy located in the Tunnelblick in /Applications, even if we are running from some other location and are copying the application there
 #ifndef TBDebug
 	gDeployPath = @"/Applications/Tunnelblick.app/Contents/Resources/Deploy";
