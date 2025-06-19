@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2023. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2023, 2025. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -158,6 +158,8 @@ static BOOL            gErrorOccurred = FALSE;       // Set if an error occurred
 
 //**************************************************************************************************************************
 // FORWARD REFERENCES
+
+static void copyAppToL_AS_T(NSString * sourcePath);
 
 static void errorExit(void);
 
@@ -1439,66 +1441,6 @@ static void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
     }
 }
 
-static void copyAppToL_AS_T(NSString * sourcePath) {
-
-    // Don't copy app to L_AS_T more than once per install!
-    static BOOL appHasBeenCopiedToL_AS_T = false;
-
-    if (  appHasBeenCopiedToL_AS_T  ) {
-        appendLog(@"Have already copied the app to L_AS_T, not doing it again");
-        return;
-    }
-
-    NSString * targetPath = L_AS_T_TB_APP;
-
-    // If this was an update from Tunnelblick 7.0, the new .app is in L_AS_T and /Applications has a symlink to L_AS_T/Tunnelblick.app
-    // In that situation, delete the symlink and swap the source and target, i.e., copy from L_AS_T to /Applications
-    // Check  (1) sourcePath is /Applications/Tunnelblick.app
-    //        (2) targetPath exists, and
-    //        (3) sourcePath is a symlink
-    BOOL updateFrom7 = FALSE;
-    if (  [sourcePath isEqualToString: APPLICATIONS_TB_APP]  ) {
-        if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-            NSError * err = nil;
-            NSDictionary * dict = [gFileMgr attributesOfItemAtPath: sourcePath error: &err];
-            if (  [dict.fileType isEqualToString: NSFileTypeSymbolicLink]  ) {
-                appendLog(@"Updating from 7.0:");
-                // Delete the symlink
-                int result = unlink(sourcePath.fileSystemRepresentation);
-                if (  result != 0 ) {
-                    appendLog([NSString stringWithFormat: @"Error %u ('%s') trying to delete symlink at %@", errno, strerror(errno), sourcePath]);
-                    errorExit();
-                }
-                appendLog([NSString stringWithFormat: @"    Deleted the symlink at %@", sourcePath]);
-                NSString * temp = targetPath;
-                targetPath = sourcePath;
-                sourcePath = temp;
-                appendLog(@"    Swapped source and target paths");
-                secureTheApp([[sourcePath stringByAppendingPathComponent: @"Contents"]
-                              stringByAppendingPathComponent: @"Resources"], NO);
-                updateFrom7 = TRUE;
-            }
-        }
-    }
-
-    if (  ! [gFileMgr tbRemovePathIfItExists: targetPath]  ) {
-        errorExit();
-    }
-    if (  [gFileMgr tbCopyItemAtPath: sourcePath toBeOwnedByRootWheelAtPath: targetPath]) {
-        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
-        if (  updateFrom7  ) {
-            secureTheApp([[targetPath stringByAppendingPathComponent: @"Contents"]
-                          stringByAppendingPathComponent: @"Resources"], NO);
-            appendLog([NSString stringWithFormat: @"Secured %@", targetPath]);
-        }
-    } else {
-        appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
-        errorExit();
-    }
-
-    appHasBeenCopiedToL_AS_T = true;
-}
-
 static void setupLaunchDaemon(void) {
 
     copyAppToL_AS_T(APPLICATIONS_TB_APP);
@@ -1897,11 +1839,11 @@ static void copyTheApp(void) {
                 } else {
                     errorExit();
                 }
-                if (  [gFileMgr tbMovePath: APPLICATIONS_TB_APP toPath: L_AS_T_TB_OLD handler: nil]  ) {
-                    appendLog([NSString stringWithFormat: @"Moved %@ to %@", APPLICATIONS_TB_APP, L_AS_T_TB_OLD]);
-                } else {
-                    errorExit();
-                }
+            }
+            if (  [gFileMgr tbMovePath: APPLICATIONS_TB_APP toPath: L_AS_T_TB_OLD handler: nil]  ) {
+                appendLog([NSString stringWithFormat: @"Moved %@ to %@", APPLICATIONS_TB_APP, L_AS_T_TB_OLD]);
+            } else {
+                errorExit();
             }
         }
     }
@@ -1918,6 +1860,66 @@ static void copyTheApp(void) {
                    stringByAppendingPathComponent: @"Contents"]
                   stringByAppendingPathComponent: @"Resources"],
                  TRUE);
+}
+
+static void copyAppToL_AS_T(NSString * sourcePath) {
+
+    // Don't copy app to L_AS_T more than once per install!
+    static BOOL appHasBeenCopiedToL_AS_T = false;
+
+    if (  appHasBeenCopiedToL_AS_T  ) {
+        appendLog(@"Have already copied the app to L_AS_T, not doing it again");
+        return;
+    }
+
+    NSString * targetPath = L_AS_T_TB_APP;
+
+    // If this was an update from Tunnelblick 7.0, the new .app is in L_AS_T and /Applications has a symlink to L_AS_T/Tunnelblick.app
+    // In that situation, delete the symlink and swap the source and target, i.e., copy from L_AS_T to /Applications
+    // Check  (1) sourcePath is /Applications/Tunnelblick.app
+    //        (2) targetPath exists, and
+    //        (3) sourcePath is a symlink
+    BOOL updateFrom7 = FALSE;
+    if (  [sourcePath isEqualToString: APPLICATIONS_TB_APP]  ) {
+        if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+            NSError * err = nil;
+            NSDictionary * dict = [gFileMgr attributesOfItemAtPath: sourcePath error: &err];
+            if (  [dict.fileType isEqualToString: NSFileTypeSymbolicLink]  ) {
+                appendLog(@"Updating from 7.0:");
+                // Delete the symlink
+                int result = unlink(sourcePath.fileSystemRepresentation);
+                if (  result != 0 ) {
+                    appendLog([NSString stringWithFormat: @"Error %u ('%s') trying to delete symlink at %@", errno, strerror(errno), sourcePath]);
+                    errorExit();
+                }
+                appendLog([NSString stringWithFormat: @"    Deleted the symlink at %@", sourcePath]);
+                NSString * temp = targetPath;
+                targetPath = sourcePath;
+                sourcePath = temp;
+                appendLog(@"    Swapped source and target paths");
+                secureTheApp([[sourcePath stringByAppendingPathComponent: @"Contents"]
+                              stringByAppendingPathComponent: @"Resources"], NO);
+                updateFrom7 = TRUE;
+            }
+        }
+    }
+
+    if (  ! [gFileMgr tbRemovePathIfItExists: targetPath]  ) {
+        errorExit();
+    }
+    if (  [gFileMgr tbCopyItemAtPath: sourcePath toBeOwnedByRootWheelAtPath: targetPath]) {
+        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+        if (  updateFrom7  ) {
+            secureTheApp([[targetPath stringByAppendingPathComponent: @"Contents"]
+                          stringByAppendingPathComponent: @"Resources"], NO);
+            appendLog([NSString stringWithFormat: @"Secured %@", targetPath]);
+        }
+    } else {
+        appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
+        errorExit();
+    }
+
+    appHasBeenCopiedToL_AS_T = true;
 }
 
 static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T) {
