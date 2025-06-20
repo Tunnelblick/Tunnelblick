@@ -1878,7 +1878,6 @@ static void copyAppToL_AS_T(NSString * sourcePath) {
     static BOOL appHasBeenCopiedToL_AS_T = false;
 
     if (  appHasBeenCopiedToL_AS_T  ) {
-        appendLog(@"Have already copied the app to L_AS_T, not doing it again");
         return;
     }
 
