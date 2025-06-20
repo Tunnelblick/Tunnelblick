@@ -1864,12 +1864,12 @@ static void copyTheApp(void) {
         errorExit();
     }
 
-    removeExtendedAttributes(APPLICATIONS_TB_APP);
-
     secureTheApp([[APPLICATIONS_TB_APP
                    stringByAppendingPathComponent: @"Contents"]
                   stringByAppendingPathComponent: @"Resources"],
                  TRUE);
+
+    removeExtendedAttributes(APPLICATIONS_TB_APP);
 }
 
 static void copyAppToL_AS_T(NSString * sourcePath) {
@@ -1924,6 +1924,7 @@ static void copyAppToL_AS_T(NSString * sourcePath) {
                           stringByAppendingPathComponent: @"Resources"], NO);
             appendLog([NSString stringWithFormat: @"Secured %@", targetPath]);
         }
+        removeExtendedAttributes(targetPath);
     } else {
         appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
         errorExit();
