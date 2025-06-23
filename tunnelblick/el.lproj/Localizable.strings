@@ -288,7 +288,7 @@
 "Uninstall Tunnelblick..." = "Απεγκατάσταση Tunnelblick…";
 
 /* Button */
-"Uninstall tun and tap system extensions..." = "Απεγκαταστήσετε τις επεκτάσεις συστήματος 'tun' και 'tap'…";
+"Uninstall tun and tap system extensions..." = "Απεγκαταστήσετε τις επεκτάσεις συστήματος tun και tap…";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Ενημέρωση";
@@ -652,7 +652,7 @@
 "All configuration files removed" = "Όλα τα αρχεία παραμέτρων που αφαιρέθηκαν";
 
 /* Window title */
-"Appearance" = "Εμφάνηση";
+"Appearance" = "Εμφάνιση";
 
 /* Window title */
 "Authentication failed" = "Εξουσιοδότηση απέτυχε";
