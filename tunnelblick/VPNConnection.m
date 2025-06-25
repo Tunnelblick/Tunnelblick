@@ -4619,14 +4619,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                          responseRequired:required
                                                  isStatic:isStatic];
 
-        if (response) {
-            [self addToLog:[NSString stringWithFormat:@"User responded to CR_TEXT challenge: '%@'", crPrompt]];
-        } else {
+        if (!response) {
             [self addToLog:[NSString stringWithFormat:@"Disconnecting: User cancelled when presented with static challenge: '%@'", crPrompt]];
             [self startDisconnectingUserKnows:@YES]; // User requested cancellation
             return;
         }
 
+        [self addToLog:[NSString stringWithFormat:@"User responded to CR_TEXT challenge: '%@'", crPrompt]];
         // Encode response and send
         NSData *responseData = [response dataUsingEncoding:NSUTF8StringEncoding];
         NSString *encodedResponse = base64Encode(responseData);
