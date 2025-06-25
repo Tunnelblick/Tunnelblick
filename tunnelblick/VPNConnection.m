@@ -4590,6 +4590,48 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 
+    if (  [line hasPrefix: @">INFOMSG:CR_TEXT:"]  ) {
+        // This is currently not supporting any flags; it just opens the given URL
+        // in the default web browser.
+        NSString *pattern = @"^>INFOMSG:CR_TEXT:([^:]*):(.+)";
+        NSError *error = nil;
+
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+        if (error) {
+            NSLog(@"Error creating regular expression: %@", error);
+            return;
+        }
+
+        NSRange range = NSMakeRange(0, line.length);
+        NSTextCheckingResult *match = [regex firstMatchInString:line options:0 range:range];
+
+        if (match) {
+            NSString *crPrompt = [line substringWithRange:[match rangeAtIndex:2]];
+            // TODO: parse flags
+            [self addToLog: [NSString stringWithFormat: @"CR_TEXT prompt: %@", crPrompt]];
+
+            NSString *response = nil;
+
+            response = [self getResponseToChallenge: crPrompt
+                                       echoResponse: NO
+                                   responseRequired: YES
+                                           isStatic: YES];
+            if (  response  ) {
+                [self addToLog: [NSString stringWithFormat: @"User responded to CR_TEXT challenge: '%@'", crPrompt]];
+            } else {
+                [self addToLog: [NSString stringWithFormat: @"Disconnecting: User cancelled when presented with static challenge: '%@'", crPrompt]];
+                [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
+                return;
+            }
+
+        [self sendStringToManagementSocket:[NSString stringWithFormat:@"cr-response \"%@\"\r\n", base64Encode([response dataUsingEncoding: NSUTF8StringEncoding])] encoding:NSUTF8StringEncoding];    
+
+        } else {
+            NSLog(@"No CR Prompt present in management command");
+        }
+        return;
+    }
+
     if (   [line isEqualToString: @">FATAL:Error: private key password verification failed"]
         || [line rangeOfString: @"RECONNECTING,private-key-password-failure"].length) {
         // Private key verification failed. Rewrite the message to be similar to the regular password failed message so we can use the same code
