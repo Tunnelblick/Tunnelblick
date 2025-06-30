@@ -4590,6 +4590,51 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 
+    if ([line hasPrefix: @">INFOMSG:CR_TEXT:"]) {
+        // Remove the prefix from the line
+        NSString *prefix = @">INFOMSG:CR_TEXT:";
+        NSRange r = NSMakeRange(prefix.length, line.length - prefix.length);
+        NSString *payload = [line substringWithRange:r];
+
+        // Split the payload into two components: flags and prompt text
+        NSArray *items = [payload componentsSeparatedByString:@":"];
+        if (items.count != 2) {
+            NSLog(@"Syntax error in management command '%@'", line);
+            return;
+        }
+
+        NSString *flagsString = items[0];
+        NSString *crPrompt = items[1];
+
+        [self addToLog:[NSString stringWithFormat:@"CR_TEXT prompt: %@", crPrompt]];
+
+        // Parse flags
+        NSArray *flags = [flagsString componentsSeparatedByString:@","];
+        BOOL echo = [flags containsObject:@"E"];
+        BOOL required = [flags containsObject:@"R"];
+        BOOL isStatic = YES; // Currently always true for CR_TEXT
+
+        NSString *response = [self getResponseToChallenge:crPrompt
+                                             echoResponse:echo
+                                         responseRequired:required
+                                                 isStatic:isStatic];
+
+        if (!response) {
+            [self addToLog:[NSString stringWithFormat:@"Disconnecting: User cancelled when presented with static challenge: '%@'", crPrompt]];
+            [self startDisconnectingUserKnows:@YES]; // User requested cancellation
+            return;
+        }
+
+        [self addToLog:[NSString stringWithFormat:@"User responded to CR_TEXT challenge: '%@'", crPrompt]];
+        // Encode response and send
+        NSData *responseData = [response dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *encodedResponse = base64Encode(responseData);
+        NSString *command = [NSString stringWithFormat:@"cr-response \"%@\"\r\n", encodedResponse];
+        [self sendStringToManagementSocket:command encoding:NSUTF8StringEncoding];
+
+        return;
+    }
+
     if (   [line isEqualToString: @">FATAL:Error: private key password verification failed"]
         || [line rangeOfString: @"RECONNECTING,private-key-password-failure"].length) {
         // Private key verification failed. Rewrite the message to be similar to the regular password failed message so we can use the same code
