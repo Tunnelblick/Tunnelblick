@@ -101,17 +101,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, installToPrivateOK,     setInstallToPrivateOK)
 TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(id)   manager {
-    
+
     return [[[ConfigurationManager alloc] init] autorelease];
 }
 
 -(void) dealloc {
-    
+
     [applyToAllSharedPrivate release];
     [applyToAllUninstall     release];
     [applyToAllReplaceSkip   release];
     [tempDirPath             release];
-	[errorLog			     release];
+    [errorLog			     release];
     [installSources          release];
     [installTargets          release];
     [replaceSources          release];
@@ -121,16 +121,16 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [updateSources           release];
     [updateTargets           release];
     [deletions               release];
-    
+
     // listingWindow IS NOT RELEASED because it needs to exist after this instance of ConfigurationManager is gone. It releases itself when the window closes.
-    
+
     [super dealloc];
 }
 
 +(NSString *) checkForSampleConfigurationAtPath: (NSString *) cfgPath {
-    
+
     // Returns nil or a localized error message
-    
+
     NSString * samplePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
     if (  [gFileMgr fileExistsAtPath: cfgPath]  ) {
         if (  ! [gFileMgr contentsEqualAtPath: cfgPath andPath: samplePath]  ) {
@@ -139,7 +139,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     } else {
         return [NSString stringWithFormat: NSLocalizedString(@"Cannot find configuration file at %@", @"Window text"), cfgPath];
     }
-    
+
     return [NSString stringWithFormat: NSLocalizedString(@"You have tried to install a configuration file that is a sample"
                                                          @" configuration file. The configuration file must"
                                                          @" be modified to connect to a VPN. You may also need other files, such as"
@@ -152,97 +152,97 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 }
 
 +(BOOL) bundleIdentifierIsValid: (id) bundleIdentifier {
-    
+
     // Returns TRUE if the CFBundleVersion is a valid version number, FALSE otherwise
-    
+
     return (   valueIfStringOtherwiseNil(bundleIdentifier)
             && ([bundleIdentifier length] != 0)
-			&& [bundleIdentifier containsOnlyCharactersInString: ALLOWED_DOMAIN_NAME_CHARACTERS]
+            && [bundleIdentifier containsOnlyCharactersInString: ALLOWED_DOMAIN_NAME_CHARACTERS]
             && ( 0 == [bundleIdentifier rangeOfString: @".."].length )
             && ( ! [bundleIdentifier hasSuffix: @"."])
             && ( ! [bundleIdentifier hasPrefix: @"."])  );
 }
 
 +(BOOL) bundleVersionIsValid: (id) bundleVersion {
-    
+
     // Returns TRUE if the CFBundleVersion is a valid version number, FALSE otherwise
-	
+
     if (   valueIfStringOtherwiseNil(bundleVersion)
         && [bundleVersion containsOnlyCharactersInString: @"01234567890."]
-		&& ([bundleVersion length] != 0)
-		&& ( ! [bundleVersion hasPrefix: @"."])
-		&& ( ! [bundleVersion hasSuffix: @"."]) ) {
-		
-		return TRUE;
-	}
-	
-	return FALSE;
+        && ([bundleVersion length] != 0)
+        && ( ! [bundleVersion hasPrefix: @"."])
+        && ( ! [bundleVersion hasSuffix: @"."]) ) {
+
+        return TRUE;
+    }
+
+    return FALSE;
 }
 
 +(NSString *) rawTunnelblickVersion {
-	
-	// Returns '3.5beta02' from 'Tunnelblick 3.5beta02 (build...'
-	
-	NSString * thisTunnelblickVersion = tunnelblickVersion([NSBundle mainBundle]);
-	if (  [thisTunnelblickVersion hasPrefix: @"Tunnelblick "]  ) {
-		thisTunnelblickVersion = [thisTunnelblickVersion substringFromIndex: [@"Tunnelblick " length]];
-	} else {
-		NSLog(@"Invalid Tunnelblick version (not prefixed by 'Tunnelblick '): '%@'", thisTunnelblickVersion);
-	}
-	
-	NSRange r = [thisTunnelblickVersion rangeOfString: @" "];
-	if (  r.length == 0  ) {
-		NSLog(@"Invalid Tunnelblick version (no space after 'Tunnelblick '): '%@'", thisTunnelblickVersion);
-		r.location = [thisTunnelblickVersion length];
-	}
-	
-	return [thisTunnelblickVersion substringToIndex: r.location];
+
+    // Returns '3.5beta02' from 'Tunnelblick 3.5beta02 (build...'
+
+    NSString * thisTunnelblickVersion = tunnelblickVersion([NSBundle mainBundle]);
+    if (  [thisTunnelblickVersion hasPrefix: @"Tunnelblick "]  ) {
+        thisTunnelblickVersion = [thisTunnelblickVersion substringFromIndex: [@"Tunnelblick " length]];
+    } else {
+        NSLog(@"Invalid Tunnelblick version (not prefixed by 'Tunnelblick '): '%@'", thisTunnelblickVersion);
+    }
+
+    NSRange r = [thisTunnelblickVersion rangeOfString: @" "];
+    if (  r.length == 0  ) {
+        NSLog(@"Invalid Tunnelblick version (no space after 'Tunnelblick '): '%@'", thisTunnelblickVersion);
+        r.location = [thisTunnelblickVersion length];
+    }
+
+    return [thisTunnelblickVersion substringToIndex: r.location];
 }
 
 +(NSString *) checkTunnelblickVersionAgainstInfoPlist: (NSDictionary *) plist displayName: (NSString *) displayName {
-	
-	// Returns nil if:
-	//         The .plist is nil; or
-	//		   The version of Tunnelblick is within all TBMinimumTunnelblickVersion and TBMaximumTunnelblickVersion limits in the .plist.
-	// Otherwise returns a localized error string.
-	
-	if (  ! plist  ) {
-		return nil;
-	}
-	
-	NSEnumerator * e = [plist keyEnumerator];
-	NSString * key;
-	while (  (key = [e nextObject])  ) {
-		
-		if (  [key isEqualToString: @"TBMinimumTunnelblickVersion"]  ) {
-			NSString * minimumTunnelblickVersion = [plist objectForKey: key];
-			NSString * thisTunnelblickVersion = [self rawTunnelblickVersion];
-			if (  [minimumTunnelblickVersion tunnelblickVersionCompare: thisTunnelblickVersion] == NSOrderedDescending) {
-				return [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\n"
-																	 @"You must update Tunnelblick to install this configuration.",
-																	 @"Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02'"),
-						displayName, minimumTunnelblickVersion, thisTunnelblickVersion];
-			};
-			
-		} else if (  [key isEqualToString: @"TBMaximumTunnelblickVersion"]  ) {
-			NSString * maximumTunnelblickVersion = [plist objectForKey: key];
-			NSString * thisTunnelblickVersion = [self rawTunnelblickVersion];
-			if (  [maximumTunnelblickVersion tunnelblickVersionCompare: thisTunnelblickVersion] == NSOrderedAscending) {
-				return [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@.",
-																	 @"Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02'"),
-						displayName, maximumTunnelblickVersion, thisTunnelblickVersion];
-			};
-		}
-	}
-	
-	return nil; // Info.plist does not require a different Tunnelblick version
+
+    // Returns nil if:
+    //         The .plist is nil; or
+    //		   The version of Tunnelblick is within all TBMinimumTunnelblickVersion and TBMaximumTunnelblickVersion limits in the .plist.
+    // Otherwise returns a localized error string.
+
+    if (  ! plist  ) {
+        return nil;
+    }
+
+    NSEnumerator * e = [plist keyEnumerator];
+    NSString * key;
+    while (  (key = [e nextObject])  ) {
+
+        if (  [key isEqualToString: @"TBMinimumTunnelblickVersion"]  ) {
+            NSString * minimumTunnelblickVersion = [plist objectForKey: key];
+            NSString * thisTunnelblickVersion = [self rawTunnelblickVersion];
+            if (  [minimumTunnelblickVersion tunnelblickVersionCompare: thisTunnelblickVersion] == NSOrderedDescending) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\n"
+                                                                     @"You must update Tunnelblick to install this configuration.",
+                                                                     @"Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02'"),
+                        displayName, minimumTunnelblickVersion, thisTunnelblickVersion];
+            };
+
+        } else if (  [key isEqualToString: @"TBMaximumTunnelblickVersion"]  ) {
+            NSString * maximumTunnelblickVersion = [plist objectForKey: key];
+            NSString * thisTunnelblickVersion = [self rawTunnelblickVersion];
+            if (  [maximumTunnelblickVersion tunnelblickVersionCompare: thisTunnelblickVersion] == NSOrderedAscending) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@.",
+                                                                     @"Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02'"),
+                        displayName, maximumTunnelblickVersion, thisTunnelblickVersion];
+            };
+        }
+    }
+
+    return nil; // Info.plist does not require a different Tunnelblick version
 }
 
 +(NSString *) checkPlistEntries: (NSDictionary *) dict
                        fromPath: (NSString *)     path {
-    
+
     // Returns nil or a localized error message
-    
+
     if (  dict  ) {
         NSArray * stringKeys    = [NSArray arrayWithObjects:       // List of keys for string values
                                    @"CFBundleIdentifier",
@@ -254,38 +254,38 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                    @"SUFeedURL",
                                    @"SUPublicDSAKey",
                                    nil];
-		
-		NSArray * booleanKeys   = [NSArray arrayWithObjects:
+
+        NSArray * booleanKeys   = [NSArray arrayWithObjects:
                                    @"SUAllowsAutomaticUpdates",
                                    @"SUEnableAutomaticChecks",
                                    @"SUEnableSystemProfiling",
                                    @"SUShowReleaseNotes",
-								   @"TBAppcastRequiresDSASignature",
+                                   @"TBAppcastRequiresDSASignature",
                                    nil];
-		
-		NSArray * numberKeys    = [NSArray arrayWithObjects:
+
+        NSArray * numberKeys    = [NSArray arrayWithObjects:
                                    @"SUScheduledCheckInterval",
                                    nil];
-		
+
         NSArray * arrayKeys     = [NSArray arrayWithObjects:
                                    @"TBKeepExistingFilesList",
                                    nil];
-        
+
         NSArray * replaceValues = [NSArray arrayWithObjects:    // List of valid values for TBReplaceIdentical
                                    @"ask",
                                    @"yes",
                                    @"no",
                                    @"force",
                                    nil];
-        
+
         NSArray * shareValues   = [NSArray arrayWithObjects:      // List of valid values for TBSharePackage
                                    @"ask",
                                    @"private",
                                    @"shared",
                                    @"deploy",
                                    nil];
-        
-		BOOL hasTBPackageVersion = NO;
+
+        BOOL hasTBPackageVersion = NO;
         NSString * key;
         NSEnumerator * e = [dict keyEnumerator];
         while (  (key = [e nextObject])  ) {
@@ -294,35 +294,35 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 if (  ! [[obj class] isSubclassOfClass: [NSString class]]  ) {
                     return [NSString stringWithFormat: NSLocalizedString(@"Non-string value for '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
                 }
-				NSString * value = (NSString *)obj;
+                NSString * value = (NSString *)obj;
                 if (  [key isEqualToString: @"TBPackageVersion"]  ) {
                     if (  ! [value isEqualToString: @"1"]  ) {
                         return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
                     }
-					hasTBPackageVersion = TRUE;
-                    
+                    hasTBPackageVersion = TRUE;
+
                 } else if (  [key isEqualToString: @"CFBundleIdentifier"]  ) {
                     if (  ! [ConfigurationManager bundleIdentifierIsValid: value]  ) {
                         return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
                     }
-                    
+
                 } else if (  [key isEqualToString: @"CFBundleVersion"]  ) {
                     if (  ! [ConfigurationManager bundleVersionIsValid: value]  ) {
                         return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
                     }
-                    
-                    
+
+
                 } else if (  [key isEqualToString: @"TBReplaceIdentical"]  ) {
                     if (  ! [replaceValues containsObject: value]  ) {
                         return [NSString stringWithFormat: NSLocalizedString(@"Unknown value '%@' for '%@' in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
                     }
-                    
+
                 } else if (  [key isEqualToString: @"TBSharePackage"]  ) {
                     if (  ! [shareValues containsObject: value]  ) {
                         return [NSString stringWithFormat: NSLocalizedString(@"Unknown value '%@' for '%@' in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
                     }
                 } else if (  [key isEqualToString: @"SUFeedURL"]  ) {
-					if (  ! [NSURL URLWithString: value]  ) {
+                    if (  ! [NSURL URLWithString: value]  ) {
                         return [NSString stringWithFormat: NSLocalizedString(@"Value '%@' for '%@' is not a valid URL in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
                     }
                 } // Don't test values for the other string keys; as long as they are strings we will install the .plist
@@ -331,62 +331,62 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 if (  ! [obj respondsToSelector: @selector(boolValue)]  ) {
                     return [NSString stringWithFormat: NSLocalizedString(@"Non-boolean value for '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
                 }
-			} else if (  [numberKeys containsObject: key]  ) {
-				id obj = [dict objectForKey: key];
-				if (  ! [obj respondsToSelector: @selector(intValue)]  ) {
-					return [NSString stringWithFormat: NSLocalizedString(@"Non-integer value for '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
-				}
-			} else if (  [arrayKeys containsObject: key]  ) {
-				id obj = [dict objectForKey: key];
-				if (  obj  ) {
+            } else if (  [numberKeys containsObject: key]  ) {
+                id obj = [dict objectForKey: key];
+                if (  ! [obj respondsToSelector: @selector(intValue)]  ) {
+                    return [NSString stringWithFormat: NSLocalizedString(@"Non-integer value for '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
+                }
+            } else if (  [arrayKeys containsObject: key]  ) {
+                id obj = [dict objectForKey: key];
+                if (  obj  ) {
                     if (  ! [obj respondsToSelector: @selector(objectEnumerator)]  ) {
-						return [NSString stringWithFormat: NSLocalizedString(@"Non-array value for '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
-					}
-					id item;
-					NSEnumerator * itemEnum = [obj objectEnumerator];
-					while (  (item = [itemEnum nextObject])  ) {
-						if (  ! [[item class] isSubclassOfClass: [NSString class]] ) {
-							return [NSString stringWithFormat: NSLocalizedString(@"Non-string value for an item in '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
-						}
-					}
-				}
-			} else if (  [key hasPrefix: @"TBPreference"]  ) {
-				NSString * pref = [key substringFromIndex: [@"TBPreference" length]];
-				if (  ! [gConfigurationPreferences containsObject: pref]  ) {
-					return [NSString stringWithFormat: NSLocalizedString(@"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@", @"Window text"), pref, path];
-				}
-			} else if (  [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
-				NSString * pref = [key substringFromIndex: [@"TBAlwaysSetPreference" length]];
-				if (  ! [gConfigurationPreferences containsObject: pref]  ) {
-					return [NSString stringWithFormat: NSLocalizedString(@"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@", @"Window text"), pref, path];
-				}
-			} else if (   ( ! [key isEqualToString: @"TBUninstall"] )
-					   && ( ! [key isEqualToString: @"TBMinimumTunnelblickVersion"] )
-					   && ( ! [key isEqualToString: @"TBMaximumTunnelblickVersion"] )
-					   && ( ! [key isEqualToString: @"TBConfigurationUpdateURL"] )  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Non-array value for '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
+                    }
+                    id item;
+                    NSEnumerator * itemEnum = [obj objectEnumerator];
+                    while (  (item = [itemEnum nextObject])  ) {
+                        if (  ! [[item class] isSubclassOfClass: [NSString class]] ) {
+                            return [NSString stringWithFormat: NSLocalizedString(@"Non-string value for an item in '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
+                        }
+                    }
+                }
+            } else if (  [key hasPrefix: @"TBPreference"]  ) {
+                NSString * pref = [key substringFromIndex: [@"TBPreference" length]];
+                if (  ! [gConfigurationPreferences containsObject: pref]  ) {
+                    return [NSString stringWithFormat: NSLocalizedString(@"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@", @"Window text"), pref, path];
+                }
+            } else if (  [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
+                NSString * pref = [key substringFromIndex: [@"TBAlwaysSetPreference" length]];
+                if (  ! [gConfigurationPreferences containsObject: pref]  ) {
+                    return [NSString stringWithFormat: NSLocalizedString(@"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@", @"Window text"), pref, path];
+                }
+            } else if (   ( ! [key isEqualToString: @"TBUninstall"] )
+                       && ( ! [key isEqualToString: @"TBMinimumTunnelblickVersion"] )
+                       && ( ! [key isEqualToString: @"TBMaximumTunnelblickVersion"] )
+                       && ( ! [key isEqualToString: @"TBConfigurationUpdateURL"] )  ) {
                 return [NSString stringWithFormat: NSLocalizedString(@"Unknown key '%@' in %@", @"Window text"), key, path];
             }
         }
-		
-		if (  ! hasTBPackageVersion  ) {
-			return [NSString stringWithFormat: NSLocalizedString(@"No 'TBPackageVersion' in %@", @"Window text"), path];
-		}
+
+        if (  ! hasTBPackageVersion  ) {
+            return [NSString stringWithFormat: NSLocalizedString(@"No 'TBPackageVersion' in %@", @"Window text"), path];
+        }
     }
-	
+
     return nil;
 }
 
 +(id) plistOrErrorMessageInTblkAtPath: (NSString *) path {
-    
+
     // Returns an NSDictionary with the contents of the .plist
     // or     an NSString with an error message, or
     // or      nil if there is no .plist, or
-    
+
     NSString * directPath     = [path stringByAppendingPathComponent: @"Info.plist"];
     NSString * inContentsPath = [path stringByAppendingPathComponent: @"Contents/Info.plist"];
     BOOL       haveDirect     = [gFileMgr fileExistsAtPath: directPath];
     BOOL       haveInContents = [gFileMgr fileExistsAtPath: inContentsPath];
-    
+
     NSString * plistPath;
     if (  haveDirect  ) {
         if (  haveInContents  ) {
@@ -400,31 +400,31 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             return nil;
         }
     }
-    
+
     NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
     if (  ! dict  ) {
         return [NSString stringWithFormat: @"%@ is corrupted and cannot be processed", plistPath];
     }
-    
+
     NSString * result = [ConfigurationManager checkPlistEntries: dict fromPath: plistPath];
     if (  result  ) {
         return result;
     }
-    
+
     return dict;
 }
 
 +(NSDictionary *) plistInTblkAtPath: (NSString *) path {
-    
+
     // Returns an NSDictionary with the contents of the plist
     // or nil if there is a problem (an error message was logged)
-    
+
     id obj = [ConfigurationManager plistOrErrorMessageInTblkAtPath: path];
     if (   ( ! obj)
         || [[obj class] isSubclassOfClass: [NSDictionary class]]  ) {
         return (NSDictionary *) obj;
     }
-    
+
     NSLog(@"Ignoring Info.plist:\n%@", obj);
     return nil;
 }
@@ -433,21 +433,21 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             thatArePackages: (BOOL)                     onlyPkgs
                      toDict: (NSMutableDictionary *)    dict
                searchDeeply: (BOOL)                     deep {
-    
+
     // Adds configurations to a dictionary based on input parameters
     // Returns TRUE if succeeded, FALSE if one or more configurations were ignored.
     //
     // If searching L_AS_T_SHARED, looks for .ovpn and .conf and ignores them even if searching for packages (so we can complain to the user)
-    
+
     if (  ! [gConfigDirs containsObject: folderPath]  ) {
         return TRUE;
     }
-    
+
     BOOL ignored = FALSE;
     NSString * file;
-    
+
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folderPath];
-	
+
     if (  deep  ) {
         // Search directory and subdirectories
         while (  (file = [dirEnum nextObject])  ) {
@@ -461,7 +461,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                         NSString * tbPath = tblkPathFromConfigPath(fullPath);
                         if (  ! tbPath  ) {
                             NSLog(@"Tunnelblick VPN Configuration ignored: No .conf or .ovpn file in %@", fullPath);
-							ignored = TRUE;
+                            ignored = TRUE;
                         } else {
                             addIt = TRUE;
                         }
@@ -474,14 +474,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                     }
                 }
             }
-            
+
             if (  addIt  ) {
                 if (  invalidConfigurationName(dispName, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
                     TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                                       [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' will be ignored because its"
                                                                                     @" name contains characters that are not allowed.\n\n"
-																			        @"Characters that are not allowed: '%s'\n\n", @"Window text"),
-									   dispName, PROHIBITED_DISPLAY_NAME_CHARACTERS_WITH_SPACES_CSTRING]);
+                                                                                    @"Characters that are not allowed: '%s'\n\n", @"Window text"),
+                                       dispName, PROHIBITED_DISPLAY_NAME_CHARACTERS_WITH_SPACES_CSTRING]);
                 } else {
                     if (  [dict objectForKey: dispName]  ) {
                         NSLog(@"Tunnelblick Configuration ignored: The name is already being used: %@", fullPath);
@@ -489,7 +489,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                     } else {
                         [dict setObject: fullPath forKey: dispName];
                     }
-                    
+
                 }
             }
         }
@@ -507,7 +507,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                         NSString * tbPath = configPathFromTblkPath(fullPath);
                         if (  ! tbPath  ) {
                             NSLog(@"Tunnelblick VPN Configuration ignored: No .conf or .ovpn file. Try reinstalling %@", fullPath);
-							ignored = TRUE;
+                            ignored = TRUE;
                         } else {
                             addIt = TRUE;
                         }
@@ -520,26 +520,26 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 if (   [folderPath isEqualToString: L_AS_T_SHARED]
                     && ([ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"conf"])  ) {
                     NSLog(@"Tunnelblick VPN Configuration ignored: Only Tunnelblick VPN Configurations (.tblk packages) may be shared %@", fullPath);
-					ignored = TRUE;
+                    ignored = TRUE;
                 }
             }
-            
+
             if (  addIt  ) {
                 if (  [dict objectForKey: dispName]  ) {
                     NSLog(@"Tunnelblick Configuration ignored: The name is already being used: %@", fullPath);
-					ignored = TRUE;
+                    ignored = TRUE;
                 } else {
                     [dict setObject: fullPath forKey: dispName];
                 }
             }
         }
     }
-    
+
     return  ! ignored;
-}            
+}
 
 +(NSMutableDictionary *) getConfigurations {
-    
+
     // Returns a dictionary with information about the configuration files in gConfigDirs.
     // The key for each entry is the display name for the configuration; the object is the path to the configuration file
     // (which may be a .tblk package or a .ovpn or .conf file) for the configuration
@@ -551,15 +551,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     //           then through L_AS_T_SHARED looking for packages (does not look for configs that are not in packages in L_AS_T_SHARED)
     //           then through gPrivatePath looking for packages,
     //           then through gPrivatePath looking for configs NOT in packages
-    
+
     NSMutableDictionary * dict = [[[NSMutableDictionary alloc] init] autorelease];
     BOOL noneIgnored = TRUE;
-    
+
     noneIgnored = [ConfigurationManager addConfigsFromPath: gDeployPath  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
     noneIgnored = [ConfigurationManager addConfigsFromPath: gDeployPath  thatArePackages:  NO toDict: dict searchDeeply: YES ] && noneIgnored;
     noneIgnored = [ConfigurationManager addConfigsFromPath: L_AS_T_SHARED  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
     noneIgnored = [ConfigurationManager addConfigsFromPath: gPrivatePath thatArePackages:   YES toDict: dict searchDeeply: YES ] && noneIgnored;
-    
+
     if (  ! noneIgnored  ) {
         TBRunAlertPanelExtended(NSLocalizedString(@"Configuration(s) Ignored", @"Window title"),
                                 NSLocalizedString(@"One or more configurations are being ignored. See the Console Log for details.", @"Window text"),
@@ -567,13 +567,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                 @"skipWarningAboutIgnoredConfigurations",          // Preference about seeing this message again
                                 NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
                                 nil,
-								NSAlertDefaultReturn);
+                                NSAlertDefaultReturn);
     }
     return dict;
 }
 
 +(BOOL) userCanEditConfiguration: (NSString *) filePath {
-    
+
     NSString * extension = [filePath pathExtension];
     if (  ! (   [extension isEqualToString: @"tblk"]
              || [extension isEqualToString: @"ovpn"]
@@ -582,52 +582,52 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSLog(@"Internal error: %@ is not a .tblk, .conf, or .ovpn", filePath);
         return NO;
     }
-    
+
     NSString * realPath = (  [extension isEqualToString: @"tblk"]
-						   ? [filePath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"]
-						   : [[filePath retain] autorelease]);
-    
+                           ? [filePath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"]
+                           : [[filePath retain] autorelease]);
+
     // File must exist and we must be able to write to the file and its parent directory
     if (   [gFileMgr fileExistsAtPath:     realPath]
-		&& [gFileMgr isWritableFileAtPath: realPath]
+        && [gFileMgr isWritableFileAtPath: realPath]
         && [gFileMgr isWritableFileAtPath: [realPath stringByDeletingLastPathComponent]]  ) {
         return YES;
     }
-    
+
     return NO;
 }
 
 +(NSString *) condensedConfigFileContentsFromString: (NSString *) fullString {
-	
-	// Returns a string from an OpenVPN configuration file with empty lines and comments removed
-	
-	NSArray * lines = [fullString componentsSeparatedByString: @"\n"];
-	
-	NSMutableString * outString = [[[NSMutableString alloc] initWithCapacity: [fullString length]] autorelease];
-	NSString * line;
-	NSEnumerator * e = [lines objectEnumerator];
-	while (  (line = [e nextObject])  ) {
-		line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		if (  [line length] != 0  ) {
-			NSString * firstChar = [line substringToIndex: 1];
-			if (   ( ! [firstChar isEqualToString: @";"] )
-				&& ( ! [firstChar isEqualToString: @"#"] )  ) {
-				[outString appendFormat: @"%@\n", line];
-			}
-		}
-	}
-	
-	return [NSString stringWithString: outString];
+
+    // Returns a string from an OpenVPN configuration file with empty lines and comments removed
+
+    NSArray * lines = [fullString componentsSeparatedByString: @"\n"];
+
+    NSMutableString * outString = [[[NSMutableString alloc] initWithCapacity: [fullString length]] autorelease];
+    NSString * line;
+    NSEnumerator * e = [lines objectEnumerator];
+    while (  (line = [e nextObject])  ) {
+        line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (  [line length] != 0  ) {
+            NSString * firstChar = [line substringToIndex: 1];
+            if (   ( ! [firstChar isEqualToString: @";"] )
+                && ( ! [firstChar isEqualToString: @"#"] )  ) {
+                [outString appendFormat: @"%@\n", line];
+            }
+        }
+    }
+
+    return [NSString stringWithString: outString];
 }
 
 -(void) examineConfigFileForConnection: (VPNConnection *) connection {
-    
+
     // Display the sanitized contents of the configuration file in a window
-    
+
     NSString * configFileContents = [connection sanitizedConfigurationFileContents];
     if (  configFileContents  ) {
         NSString * heading = [NSString stringWithFormat: NSLocalizedString(@"%@ OpenVPN Configuration - Tunnelblick", @"Window title"),[connection localizedName]];
-        
+
         // NOTE: The window controller is allocated here, but releases itself when the window is closed.
         //       So _we_ don't release it, and we can overwrite listingWindow with impunity.
         //       (The instance variable 'listingWindow' is used to avoid an analyzer warning about a leak.)
@@ -638,17 +638,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 }
 
 +(void) editOrExamineConfigurationForConnection: (VPNConnection *) connection {
-    
+
     NSString * targetPath = [connection configPath];
     if ( ! targetPath  ) {
         NSLog(@"editOrExamineConfigurationForConnection: No path for configuration %@", [connection displayName]);
         return;
     }
-    
+
     if (  [ConfigurationManager userCanEditConfiguration: targetPath]  ) {
-		if (  [[targetPath pathExtension] isEqualToString: @"tblk"]  ) {
-			targetPath = [targetPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
-		}
+        if (  [[targetPath pathExtension] isEqualToString: @"tblk"]  ) {
+            targetPath = [targetPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
+        }
         [connection invalidateConfigurationParse];
         [[NSWorkspace sharedWorkspace] openFile: targetPath withApplication: @"TextEdit"];
     } else {
@@ -658,22 +658,22 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(NSString *) parseString: (NSString *) cfgContents
                 forOption: (NSString *) option {
-    
+
     // Returns nil if the option is not found in the string that contains the contents of the configuration file
     // Returns an empty string if the option is found but has no parameters
     // Otherwise, returns the first parameter
-    
+
     NSCharacterSet * notWhitespace = [[NSCharacterSet whitespaceCharacterSet] invertedSet];
     NSCharacterSet * notWhitespaceNotNewline = [[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet];
     NSCharacterSet * newline = [NSCharacterSet characterSetWithCharactersInString: @"(\n\r"];
     NSRange mainRng = NSMakeRange(0, [cfgContents length]);
     unsigned int mainEnd = mainRng.length;
-    
+
     unsigned int curPos = 0;
     while (  curPos < mainEnd  ) {
         mainRng.location = curPos;
         mainRng.length = mainEnd - curPos;
-        
+
         // Skip whitespace, including newlines
         NSRange restRng = [cfgContents rangeOfCharacterFromSet: notWhitespaceNotNewline
                                                        options: 0
@@ -685,75 +685,75 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             mainRng.location = restRng.location;
             mainRng.length   = mainEnd - mainRng.location;
         }
-		
-		NSUInteger startOfLine = mainRng.location;
-        
+
+        NSUInteger startOfLine = mainRng.location;
+
         // If option is next
         NSRange optRng = NSMakeRange(curPos, [option length]);
         if (   (  (optRng.location + optRng.length) <= mainEnd  )
             && [[cfgContents substringWithRange: optRng] caseInsensitiveCompare: option] == NSOrderedSame  ) {
-            
+
             // Skip mandatory whitespace between option and rest of line
             mainRng.location = optRng.location + optRng.length;
             mainRng.length = mainEnd - mainRng.location;
             restRng = [cfgContents rangeOfCharacterFromSet: notWhitespace
                                                    options: 0
                                                      range: mainRng];
-			
-			// If first thing after whitespace is a LF, then return an empty string
-			if (  [[cfgContents substringWithRange: restRng] isEqualToString: @"\n"]  ) {
-				return @"";
-			}
-			
+
+            // If first thing after whitespace is a LF, then return an empty string
+            if (  [[cfgContents substringWithRange: restRng] isEqualToString: @"\n"]  ) {
+                return @"";
+            }
+
             if (  restRng.location != mainRng.location  ) {
-				
-				// Whitespace found, so "value" for option is the next token
+
+                // Whitespace found, so "value" for option is the next token
                 mainRng.location = restRng.location;
                 mainRng.length = mainEnd - mainRng.location;
                 NSRange nlRng = [cfgContents rangeOfCharacterFromSet: newline
                                                              options: 0
                                                                range: mainRng];
-				NSRange rolRng; // range of rest of line
+                NSRange rolRng; // range of rest of line
                 if (  nlRng.length == 0  ) {
                     rolRng = NSMakeRange(mainRng.location, mainEnd - mainRng.location);
                 } else {
                     rolRng = NSMakeRange( mainRng.location, nlRng.location - mainRng.location);
                 }
-				
-				NSString * firstCh = [cfgContents substringWithRange: NSMakeRange(rolRng.location, 1)];
-				if (   [firstCh isEqualToString: @"\""]
-					|| [firstCh isEqualToString: @"'"]  ) {
-					
-					// quoted token is everything after first quote up to but not including last quote in line
-					NSRange endQuoteRng = [cfgContents rangeOfString: firstCh
-															 options: NSBackwardsSearch
-															   range: rolRng];
-					if (  endQuoteRng.location != rolRng.location  ) {
-						return [cfgContents substringWithRange: NSMakeRange(rolRng.location + 1, endQuoteRng.location - rolRng.location - 1)];
-					}
-					
-					NSLog(@"Error; unterminated %@ in '%@'",
-						  firstCh,
-						  [cfgContents substringWithRange:
-						   NSMakeRange(startOfLine, rolRng.location + rolRng.length - startOfLine)]);
-				}
-				
-				// normal; token is everything to first whitespace
-				NSRange wsRng = [cfgContents rangeOfCharacterFromSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]
-															 options: 0
-															   range: rolRng];
-				if (  wsRng.length == 0  ) {
-					return [cfgContents substringWithRange: rolRng];
-				} else {
-					return [cfgContents substringWithRange:
-							NSMakeRange(rolRng.location, wsRng.location - rolRng.location)];
-				}
-				
-				return [cfgContents substringWithRange: rolRng];
+
+                NSString * firstCh = [cfgContents substringWithRange: NSMakeRange(rolRng.location, 1)];
+                if (   [firstCh isEqualToString: @"\""]
+                    || [firstCh isEqualToString: @"'"]  ) {
+
+                    // quoted token is everything after first quote up to but not including last quote in line
+                    NSRange endQuoteRng = [cfgContents rangeOfString: firstCh
+                                                             options: NSBackwardsSearch
+                                                               range: rolRng];
+                    if (  endQuoteRng.location != rolRng.location  ) {
+                        return [cfgContents substringWithRange: NSMakeRange(rolRng.location + 1, endQuoteRng.location - rolRng.location - 1)];
+                    }
+
+                    NSLog(@"Error; unterminated %@ in '%@'",
+                          firstCh,
+                          [cfgContents substringWithRange:
+                           NSMakeRange(startOfLine, rolRng.location + rolRng.length - startOfLine)]);
+                }
+
+                // normal; token is everything to first whitespace
+                NSRange wsRng = [cfgContents rangeOfCharacterFromSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]
+                                                             options: 0
+                                                               range: rolRng];
+                if (  wsRng.length == 0  ) {
+                    return [cfgContents substringWithRange: rolRng];
+                } else {
+                    return [cfgContents substringWithRange:
+                            NSMakeRange(rolRng.location, wsRng.location - rolRng.location)];
+                }
+
+                return [cfgContents substringWithRange: rolRng];
             }
             // No whitespace after option, so it is no good (optionXXX)
         }
-        
+
         // Skip to next \n
         restRng = [cfgContents rangeOfCharacterFromSet: newline
                                                options: 0
@@ -764,7 +764,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             curPos = restRng.location + restRng.length;
         }
     }
-	
+
     return nil;
 }
 
