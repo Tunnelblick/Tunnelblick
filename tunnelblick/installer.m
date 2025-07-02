@@ -1967,6 +1967,8 @@ static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T) {
 	NSString *clientNewAlt3DownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.3.down.tunnelblick.sh"                   ];
 	NSString *clientNewAlt4UpPath       = [appResourcesPath stringByAppendingPathComponent:@"client.4.up.tunnelblick.sh"                     ];
 	NSString *clientNewAlt4DownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.4.down.tunnelblick.sh"                   ];
+    NSString *clientNewAlt5UpPath       = [appResourcesPath stringByAppendingPathComponent:@"client.5.up.tunnelblick.sh"                     ];
+    NSString *clientNewAlt5DownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.5.down.tunnelblick.sh"                   ];
 	NSString *reactivateTunnelblickPath = [appResourcesPath stringByAppendingPathComponent:@"reactivate-tunnelblick.sh"                      ];
 	NSString *reenableNetworkServicesPath = [appResourcesPath stringByAppendingPathComponent:@"re-enable-network-services.sh"				 ];
 	NSString *freePublicDnsServersPath  = [appResourcesPath stringByAppendingPathComponent:@"FreePublicDnsServersList.txt"                   ];
@@ -2053,6 +2055,8 @@ static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T) {
 	okSoFar = checkSetPermissions(clientNewAlt3DownPath,     PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
 	okSoFar = checkSetPermissions(clientNewAlt4UpPath,       PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
 	okSoFar = checkSetPermissions(clientNewAlt4DownPath,     PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+    okSoFar = checkSetPermissions(clientNewAlt5UpPath,       PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+    okSoFar = checkSetPermissions(clientNewAlt5DownPath,     PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
 	okSoFar = checkSetPermissions(reactivateTunnelblickPath, PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 	okSoFar = checkSetPermissions(reenableNetworkServicesPath, PERMS_SECURED_ROOT_EXEC, YES) && okSoFar;
 	

@@ -555,6 +555,8 @@ SetPermissionsOnExecutables() {
     chmod 744 "${APP_PATH}/Contents/Resources/client.3.down.tunnelblick.sh"
     chmod 744 "${APP_PATH}/Contents/Resources/client.4.up.tunnelblick.sh"
     chmod 744 "${APP_PATH}/Contents/Resources/client.4.down.tunnelblick.sh"
+    chmod 744 "${APP_PATH}/Contents/Resources/client.5.up.tunnelblick.sh"
+    chmod 744 "${APP_PATH}/Contents/Resources/client.5.down.tunnelblick.sh"
     chmod 744 "${APP_PATH}/Contents/Resources/re-enable-network-services.sh"
     chmod 744 "${APP_PATH}/Contents/Library/LoginItems/Tunnelblick Launcher.app/Contents/Info.plist"
     chmod 744 "${APP_PATH}/Contents/Library/LoginItems/Tunnelblick Launcher.app/Contents/PkgInfo"

@@ -805,6 +805,7 @@ BOOL okToRunAsRootInAppResources(NSString * path, NSString * resourcesPath) {
                                  @"client.2.down.tunnelblick.sh",
                                  @"client.3.down.tunnelblick.sh",
                                  @"client.4.down.tunnelblick.sh",
+                                 @"client.5.down.tunnelblick.sh",
                                  @"client.route-pre-down.tunnelblick.sh",
                                  @"re-enable-network-services.sh"];
     if (  [allowedScripts containsObject: restOfPath]  ) {

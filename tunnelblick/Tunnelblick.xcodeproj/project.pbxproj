@@ -72,6 +72,8 @@
 		632AA70124211D2A00C7860D /* sw-tz.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 632AA70024211D2900C7860D /* sw-tz.lproj */; };
 		632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 632BB9E7194F2CFA006CD7DA /* AlertWindowController.m */; };
 		632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632BB9E9194F2D13006CD7DA /* AlertWindow.xib */; };
+		633702982E156CE5009115D9 /* client.5.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 633702962E156CE4009115D9 /* client.5.down.tunnelblick.sh */; };
+		633702992E156CE5009115D9 /* client.5.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 633702972E156CE4009115D9 /* client.5.up.tunnelblick.sh */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
 		63379F8813F695D700F2554D /* TBBuildNumber.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63379F8713F695D700F2554D /* TBBuildNumber.txt */; };
 		633888F61C00F2FC0076032D /* AlertWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633888F01C00F2FC0076032D /* AlertWindow-RTL.xib */; };
@@ -476,6 +478,8 @@
 		632BB9E6194F2CFA006CD7DA /* AlertWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWindowController.h; sourceTree = "<group>"; };
 		632BB9E7194F2CFA006CD7DA /* AlertWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWindowController.m; sourceTree = "<group>"; };
 		632BB9E9194F2D13006CD7DA /* AlertWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertWindow.xib; sourceTree = "<group>"; };
+		633702962E156CE4009115D9 /* client.5.down.tunnelblick.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = client.5.down.tunnelblick.sh; sourceTree = "<group>"; };
+		633702972E156CE4009115D9 /* client.5.up.tunnelblick.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = client.5.up.tunnelblick.sh; sourceTree = "<group>"; };
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
 		63379F8713F695D700F2554D /* TBBuildNumber.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TBBuildNumber.txt; sourceTree = "<group>"; };
@@ -1182,6 +1186,8 @@
 				63D9257E135DAEE1001FF627 /* client.3.down.tunnelblick.sh */,
 				63DEC01920EFC2C90008AC26 /* client.4.up.tunnelblick.sh */,
 				63DEC01B20EFC2D30008AC26 /* client.4.down.tunnelblick.sh */,
+				633702962E156CE4009115D9 /* client.5.down.tunnelblick.sh */,
+				633702972E156CE4009115D9 /* client.5.up.tunnelblick.sh */,
 				638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */,
 			);
 			name = Scripts;
@@ -1857,6 +1863,8 @@
 				63F0A8B31507D24800526AF9 /* MainIcon.xib in Resources */,
 				B85B5DBF15F2436200EDCF95 /* Welcome.xib in Resources */,
 				63FFD6551D0E9C8B00D4FFD9 /* Lock-open.png in Resources */,
+				633702982E156CE5009115D9 /* client.5.down.tunnelblick.sh in Resources */,
+				633702992E156CE5009115D9 /* client.5.up.tunnelblick.sh in Resources */,
 				B86D1314181186E900FDFB3B /* ListingWindow.xib in Resources */,
 				63EA2CAB1C9EFCF0005F0872 /* id.lproj in Resources */,
 				632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */,
