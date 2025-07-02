@@ -1,7 +1,7 @@
 # Makefile to build (Open|Libre)SSL for Tunnelblick
 #
 # Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
-# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020, 2021. All rights reserved.
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020, 2021, 2025. All rights reserved.
 #
 #  This file is part of Tunnelblick.
 #
@@ -56,8 +56,10 @@ built-allssl: built-allssl-prepare
 				buildarch="$(OPENSSL_1_1_TARGET_ARCHS)" ; \
 			elif [ "$${sslversion:0:11}" = "openssl-3.0" ] ; then \
 				buildarch="$(OPENSSL_3_0_TARGET_ARCHS)" ; \
+			elif [ "$${sslversion:0:11}" = "openssl-3.5" ] ; then \
+				buildarch="$(OPENSSL_3_5_TARGET_ARCHS)" ; \
 			else \
-				echo "error: Unknown OpenSSL version '$${sslversion}'. Must begin with 'openssl-1.0' or 'openssl-1.1'" ; \
+				echo "error: Unknown OpenSSL version '$${sslversion}'. Must begin with 'openssl-1.1', 'openssl-3.0', or 'openssl-3.5' " ; \
 				exit 255 ; \
 			fi ; \
 		else \
@@ -87,7 +89,7 @@ built-allssl: built-allssl-prepare
 			echo "Make $${sslversion} for $$a ($$ssl_arch)" ; \
 			echo "CC: $(CC)"; \
 			echo "CFLAGS: $(CFLAGS)"; \
-			if [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] || [ "$${sslversion}" = "$(OPENSSL_3_0_NAME)" ] ; then \
+			if [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] || [ "$${sslversion}" = "$(OPENSSL_3_0_NAME)" ] || [ "$${sslversion}" = "$(OPENSSL_3_5_NAME)" ] ; then \
 				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./Configure no-shared zlib no-asm --openssldir="$$staging" $$ssl_arch; \
 				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
 				echo "Install $${sslversion} for $$a to $$staging" ; \

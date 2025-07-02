@@ -1,7 +1,7 @@
 # Makefile to build all of the third-party software included in Tunnelblick
 #
 # Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
-# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020, 2021, 2022. All rights reserved.
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020, 2021, 2022, 2025. All rights reserved.
 #
 #  This file is part of Tunnelblick.
 #
@@ -32,6 +32,7 @@ SPARKLE_NAME     = Sparkle-077c64419f9460263bad99ab24dff962a103b1e2
 
 OPENSSL_1_1_NAME = openssl-1.1.1w
 OPENSSL_3_0_NAME = openssl-3.0.17
+OPENSSL_3_5_NAME = openssl-3.5.1
 
 PKCS11_NAME      = pkcs11-helper-1.27.0
 
@@ -85,10 +86,12 @@ ifeq ($(TB_CAN_BUILD_ARM),0)
     # Used to build OpenSSL:
     OPENSSL_1_1_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
     OPENSSL_3_0_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
+    OPENSSL_3_5_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
 
     # Used to build OpenVPN
     OPENVPN_OPENSSL_1_1_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
     OPENVPN_OPENSSL_3_0_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
+    OPENVPN_OPENSSL_3_5_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
 
 else
 
@@ -101,10 +104,12 @@ else
     TUNTAP_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH) $(TB_TUNTAP_ARM_ARCH)
     OPENSSL_1_1_TARGET_ARCHS = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
     OPENSSL_3_0_TARGET_ARCHS = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+    OPENSSL_3_5_TARGET_ARCHS = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
 
     # Used to build OpenVPN
     OPENVPN_OPENSSL_1_1_TARGET_ARCHS = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
     OPENVPN_OPENSSL_3_0_TARGET_ARCHS = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+    OPENVPN_OPENSSL_3_5_TARGET_ARCHS = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
 
 endif
 
@@ -115,7 +120,7 @@ endif
 
 OPENVPN_2_4_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_1_NAME)
 OPENVPN_2_5_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_1_NAME)
-OPENVPN_2_6_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_1_NAME) -o $$ssl_name = $(OPENSSL_3_0_NAME)
+OPENVPN_2_6_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_1_NAME) -o $$ssl_name = $(OPENSSL_3_0_NAME) -o $$ssl_name = $(OPENSSL_3_5_NAME)
 
 #######################################################################################
 # Define treatment of deprecated functions, methods, etc. for OpenVPN
@@ -141,8 +146,8 @@ PRODUCTS_DIR = $(TOPDIR)/products
 STAGING_DIR = $(BUILD_DIR)/staging
 
 OPENSSL_1_1_STAGING_DIR = $(STAGING_DIR)/$(OPENSSL_1_1_NAME)
-
 OPENSSL_3_0_STAGING_DIR = $(STAGING_DIR)/$(OPENSSL_3_0_NAME)
+OPENSSL_3_5_STAGING_DIR = $(STAGING_DIR)/$(OPENSSL_3_5_NAME)
 
 LZO_BUILD_DIR = $(BUILD_DIR)/$(LZO_NAME)
 LZO_STAGING_DIR = $(STAGING_DIR)/$(LZO_NAME)
