@@ -29,6 +29,7 @@
 #import "AppearanceView.h"
 #import "AuthAgent.h"
 #import "ConfigurationManager.h"
+#import "ConfigurationParser.h"
 #import "ConfigurationsView.h"
 #import "GeneralView.h"
 #import "InfoView.h"
@@ -722,7 +723,18 @@ static BOOL firstTimeShowingWindow = TRUE;
                                 default: 1
                                     min: 0
                                     max: MAX_SET_DNS_WINS_INDEX];
-    
+
+    // If the OpenVPN configuration includes dns-script or dns-updown force, set Set DNS/WINS to "Set nameserver (OpenVPN)" unless it is set to "Do not set nameserver"
+    ConfigurationParser * parser = [ConfigurationParser parsedConfigurationForConnection: connection];
+    if (   parser.containsDnsUpdownForce
+        || parser.containsDnsScript  ) {
+        if (   (ix != USEDNS_DO_NOT_SET_NAMESERVER)
+            && (ix != USEDNS_SET_NAMESERVER_OPENVPN)  ) {
+            ix = USEDNS_SET_NAMESERVER_OPENVPN;
+            NSLog(@"Set DNS/WINS to 'Set nameserver (OpenVPN)' because dns-updown force appears in the OpenVPN configuration file");
+        }
+    }
+
     [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
     [self setSelectedSetNameserverIndexDirect: [NSNumber numberWithInteger: ix]];
     [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
