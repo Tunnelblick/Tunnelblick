@@ -118,6 +118,9 @@
 // Drag ID for drag and drop of items in the list of configurations in the "Preferences" panel of the "VPN Details" window
 #define TB_LEFT_NAV_ITEMS_DRAG_ID @"net.tunnelblick.tunnelblick.leftnav.drag"
 
+// String containing all whitespace characters in an OpenVPN configuration file
+#define WHITESPACE_CHARACTERS_IN_OPENVPN_CONFIGURATION_FILE @"\t\n\r "
+
 //*************************************************************************************************
 // Paths:
 
@@ -265,7 +268,7 @@
 // OpenVPN options that cannot appear in a "safe" configuration
 #define OPENVPN_OPTIONS_THAT_ARE_UNSAFE @[ \
 @"auth-user-pass-verify", @"client-connect", @"client-crresponse", @"client-disconnect", \
-@"config",@"dns-script", @"down", @"ipchange", @"iproute", @"learn-address", \
+@"config", @"dns-script", @"down", @"ipchange", @"iproute", @"learn-address", \
 @"plugin", @"route-pre-down", @"route-up", @"tls-verify", @"up" \
 ]
 

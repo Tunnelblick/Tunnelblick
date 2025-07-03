@@ -110,6 +110,8 @@
 		635CA9A812F9DD3000287298 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635CA99F12F9DCE300287298 /* AppKit.framework */; };
 		635CBBDF10F3B3D600BF529B /* zh_cn.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635CBBDC10F3B3D600BF529B /* zh_cn.lproj */; };
 		635CBBE310F3B3E700BF529B /* zh_tw.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635CBBE010F3B3E700BF529B /* zh_tw.lproj */; };
+		635D0EB62E173893007A1F47 /* ConfigurationParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 635D0EB52E173893007A1F47 /* ConfigurationParser.m */; };
+		635D0EB72E173893007A1F47 /* ConfigurationParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 635D0EB52E173893007A1F47 /* ConfigurationParser.m */; };
 		635ECCF51378885600F67F8D /* DBPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECCF41378885600F67F8D /* DBPrefsWindowController.m */; };
 		635ECCFA137888A800F67F8D /* MyPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECCF9137888A800F67F8D /* MyPrefsWindowController.m */; };
 		635ECD071378B4A900F67F8D /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635ECD061378B4A900F67F8D /* Preferences.xib */; };
@@ -519,6 +521,8 @@
 		635CA99F12F9DCE300287298 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		635CBBDC10F3B3D600BF529B /* zh_cn.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = zh_cn.lproj; sourceTree = "<group>"; };
 		635CBBE010F3B3E700BF529B /* zh_tw.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = zh_tw.lproj; sourceTree = "<group>"; };
+		635D0EB42E173893007A1F47 /* ConfigurationParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationParser.h; sourceTree = "<group>"; };
+		635D0EB52E173893007A1F47 /* ConfigurationParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationParser.m; sourceTree = "<group>"; };
 		635ECCF31378885600F67F8D /* DBPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPrefsWindowController.h; sourceTree = "<group>"; };
 		635ECCF41378885600F67F8D /* DBPrefsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPrefsWindowController.m; sourceTree = "<group>"; };
 		635ECCF8137888A800F67F8D /* MyPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPrefsWindowController.h; sourceTree = "<group>"; };
@@ -1309,6 +1313,8 @@
 				633DF4581312B13100B8606C /* ConfigurationManager.m */,
 				63C055111970253E007AE8BE /* ConfigurationMultiUpdater.h */,
 				63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */,
+				635D0EB42E173893007A1F47 /* ConfigurationParser.h */,
+				635D0EB52E173893007A1F47 /* ConfigurationParser.m */,
 				B81C3475161E6A8300C2AF6E /* ConfigurationToken.h */,
 				B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */,
 				63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */,
@@ -1707,7 +1713,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					630680F92BA104A500563B9A = {
 						CreatedOnToolsVersion = 15.3;
@@ -2019,6 +2025,7 @@
 				63C3757A1A45111700D51E81 /* NSFileManager+TB.m in Sources */,
 				63C3757B1A45112500D51E81 /* NSString+TB.m in Sources */,
 				63C3757C1A45113000D51E81 /* sharedRoutines.m in Sources */,
+				635D0EB62E173893007A1F47 /* ConfigurationParser.m in Sources */,
 				631D15B12BEBFCC400728E32 /* TBUpdaterShared.m in Sources */,
 				63FA9CB72BFCE57800DB0AD1 /* TBValidator.m in Sources */,
 			);
@@ -2071,6 +2078,7 @@
 				61BC4B7A0E2F9EBC00F24255 /* NSArray+cArray.m in Sources */,
 				63097CDF22323E2B005F94CF /* NSDate+TB.m in Sources */,
 				63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
+				635D0EB72E173893007A1F47 /* ConfigurationParser.m in Sources */,
 				63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */,
 				B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */,
 				6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */,

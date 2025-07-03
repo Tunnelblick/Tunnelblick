@@ -35,6 +35,7 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 #import "defines.h"
+#import "ConfigurationParser.h"
 #import "sharedRoutines.h"
 #import "TBUpdaterShared.h"
 
@@ -2136,69 +2137,11 @@ BOOL forceCopyFileAsRoot(NSString * sourceFullPath, NSString * targetFullPath) {
     return ok;
 }
 
-BOOL isSafeConfigFileForInstallOrUpdate(NSString * sourcePath, NSString * targetPath) {
+BOOL isSafeConfigFileForInstallOrUpdate(NSString * sourcePath) {
 
-    // Get a string containing the OpenVPN configuration file
-    NSData * data = [[NSFileManager defaultManager] contentsAtPath: sourcePath];
-    if (  ! data  ) {
-        fprintf(stderr, "isSafeConfigFileForInstallOrUpdate: No file at %s\n", [targetPath UTF8String]);
-        return NO;
-    }
-
-    NSString * config = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-    if (  ! config  ) {
-        fprintf(stderr, "isSafeConfigFileForInstallOrUpdate: Error decoding data for %s", [targetPath UTF8String]);
-        return NO;
-    }
-
-    // Examine each line of the OpenVPN configuration file for options that are not allowed in a "safe" configuration
-    NSArray * lines = [config componentsSeparatedByString: @"\n"];
-    NSUInteger ix;
-    for (  ix=0; ix<[lines count]; ix++  ) {
-        NSString * line = [lines objectAtIndex: ix];
-
-        // Skip leading spaces and tabs
-        while(  [line length] > 0  ) {
-            NSString * firstChar = [line substringWithRange: NSMakeRange(0,1)];
-            if (   [firstChar isEqualToString: @" "]
-                || [firstChar isEqualToString: @"\t"]  ) {
-                line = [line substringFromIndex: 1];
-            } else {
-                break;
-            }
-        }
-
-        if ( [line length] < 2  ) {
-            continue;
-        }
-
-        // Skip comments
-        if (   [[line substringWithRange: NSMakeRange(0,1)] isEqualToString: @"#"]
-            || [[line substringWithRange: NSMakeRange(0,1)] isEqualToString: @";"]  ) {
-            continue;
-        }
-
-        // If the line starts with an unsafe option, it is unsafe
-        NSArray * options = OPENVPN_OPTIONS_THAT_ARE_UNSAFE;
-        NSUInteger ox;
-        for (  ox=0; ox<[options count]; ox++  ) {
-            NSString * option = [options objectAtIndex: ox];
-            if (  [line hasPrefix: option]  ) {
-                if (  [line length] == [option length]  ) {
-                    fprintf(stderr, "isSafeConfigFileForInstallOrUpdate: Unsafe option found: %s\n", [option UTF8String]);
-                    return NO;
-                }
-                NSString * nextChar = [line substringWithRange: NSMakeRange([option length], 1)];
-                if (   [nextChar isEqualToString: @" "]
-                    || [nextChar isEqualToString: @"\t"]  ) {
-                    fprintf(stderr, "isSafeConfigFileForInstallOrUpdate: Unsafe option found: %s\n", [option UTF8String]);
-                    return NO;
-                }
-            }
-        }
-    }
-
-    return YES;
+    ConfigurationParser * parser = [ConfigurationParser parsedConfigurationAtPath: sourcePath];
+    BOOL result = [parser doesNotContainAnyUnsafeOptions];
+    return result;
 }
 
 //**************************************************************************************************************************
@@ -2291,7 +2234,7 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
 
 		// A changed configuration file is OK if the new one is "safe"; update if requested
         if (  [sourceFullPath hasSuffix: @".tblk/Contents/Resources/config.ovpn"]  ) {
-            if ( ! isSafeConfigFileForInstallOrUpdate(sourceFullPath, targetFullPath)  ) {
+            if ( ! isSafeConfigFileForInstallOrUpdate(sourceFullPath)  ) {
                 fprintf(stderr, "config.ovpn in the new configuration at %s is not safe\n", [sourcePath UTF8String]);
                 return FALSE;
             }
