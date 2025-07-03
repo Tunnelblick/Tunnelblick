@@ -2911,6 +2911,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setBit: OPENVPNSTART_DISABLE_IPV6_ON_TUN					inMask: &bitMask ifConnectionPreference: @"-doNotDisableIpv6onTun"							inverted: YES defaultTo: NO];
     [self setBit: OPENVPNSTART_DISABLE_SECONDARY_NET_SERVICES       inMask: &bitMask ifConnectionPreference: @"-disableSecondaryNetworkServices"                inverted: NO  defaultTo: NO];
 
+    if (  useDNSStat == USEDNS_SET_NAMESERVER_OPENVPN  ) { // Set DNS (OpenVPN)
+        bitMask = bitMask | OPENVPNSTART_FORCE_DNS_UP_DOWN;
+    }
+
     if (  loggingLevelPreference == TUNNELBLICK_NO_LOGGING_LEVEL  ) {
         bitMask = bitMask | OPENVPNSTART_DISABLE_LOGGING;
     }

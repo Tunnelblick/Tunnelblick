@@ -2878,6 +2878,10 @@ int startVPN(NSString * configFile,
              ];
         }
 
+        if (  (bitMask & OPENVPNSTART_FORCE_DNS_UP_DOWN) != 0  ) {
+            [arguments addObjectsFromArray: @[@"--dns-updown", @"force"]];
+        }
+
         if (  fileExistsForRootAtPath(newRoutePreDownscriptPath)  ) {
             BOOL customRoutePreDownScript = ! [newRoutePreDownscriptPath isEqualToString: standardRoutePreDownscriptPath];
 
