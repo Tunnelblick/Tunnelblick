@@ -278,6 +278,14 @@
 
 //*************************************************************************************************
 // OpenVPN options that cannot appear in a "safe" configuration
+//
+// NOTE: dns-updown MAY OR MAY NOT BE SAFE AND IS NOT IN THIS LIST !!!
+//
+//       dns-updown force
+//   and dns-updown disable ARE SAFE
+//
+//       dns-updown <command> IS NOT SAFE!
+
 #define OPENVPN_OPTIONS_THAT_ARE_UNSAFE @[ \
 @"auth-user-pass-verify", @"client-connect", @"client-crresponse", @"client-disconnect", \
 @"config", @"dns-script", @"down", @"ipchange", @"iproute", @"learn-address", \
@@ -305,6 +313,7 @@
 @"dev-node", @"dev-type", @"dev", @"dh", @"dhcp-internal", @"dhcp-option", @"dhcp-pre-release", \
 @"dhcp-release", @"dhcp-renew", @"disable-occ", @"disable", \
 /* UNSAFE: @"dns-script", */ \
+/* MAY BE UNSAFE: @"dns-updown", */ \
 @"down-pre", \
 /* UNSAFE: @"down", */ \
 @"duplicate-cn", \
