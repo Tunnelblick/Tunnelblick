@@ -675,8 +675,8 @@ extern NSArray        * gProgramPreferences;
     return ! problemsFound;
 }
 
--(void) scanForUnknownPreferencesInDictionary: (NSDictionary *) dict
-                                  displayName: (NSString *)     dictName {
+-(void) scanForUnknownPreferencesInDictionary: (NSDictionary *__nullable) dict
+                                  displayName: (NSString * __nonnull)     dictName {
     NSEnumerator * dictEnum = [dict keyEnumerator];
     NSString * preferenceKey;
     while (  (preferenceKey = [dictEnum nextObject])  ) {
