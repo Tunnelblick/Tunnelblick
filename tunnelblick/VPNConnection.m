@@ -2907,7 +2907,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setBit: OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET				inMask: &bitMask ifConnectionPreference: @"-doNotWaitForInternetAtBoot"						inverted: NO  defaultTo: NO];
     [self setBit: OPENVPNSTART_ENABLE_IPV6_ON_TAP					inMask: &bitMask ifConnectionPreference: @"-enableIpv6OnTap"								inverted: NO  defaultTo: NO];
     [self setBit: OPENVPNSTART_DISABLE_IPV6_ON_TUN					inMask: &bitMask ifConnectionPreference: @"-doNotDisableIpv6onTun"							inverted: YES defaultTo: NO];
-    [self setBit: OPENVPNSTART_DISABLE_SECONDARY_NET_SERVICES     inMask: &bitMask ifConnectionPreference: @"-disableSecondaryNetworkServices"          inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_DISABLE_SECONDARY_NET_SERVICES       inMask: &bitMask ifConnectionPreference: @"-disableSecondaryNetworkServices"                inverted: NO  defaultTo: NO];
 
     if (  loggingLevelPreference == TUNNELBLICK_NO_LOGGING_LEVEL  ) {
         bitMask = bitMask | OPENVPNSTART_DISABLE_LOGGING;
