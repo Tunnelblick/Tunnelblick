@@ -5755,6 +5755,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                  [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (3.0b10)",      @"PopUpButton"), @"name", @"2", @"value", nil],
                  [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (alternate 1)", @"PopUpButton"), @"name", @"3", @"value", nil],
 				 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (alternate 2)",	@"PopUpButton"), @"name", @"4", @"value", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton"), @"name", @"5", @"value", nil],
                  nil] autorelease];
     }
 }

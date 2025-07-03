@@ -275,9 +275,15 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 														   @"<li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick"
 														   @" 3.0b10 to handle DNS and WINS settings.<br></li>"
 														   
-														   @"<li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to"
-														   @" handle DNS and WINS settings.<br></li>"
-														   
+                                                           @"<li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to"
+                                                           @" handle DNS and WINS settings.<br></li>"
+
+                                                           @"<li><strong>Set nameserver (alternate 2)</strong>: Tunnelblick uses an alternate script to"
+                                                           @" handle DNS and WINS settings.<br></li>"
+
+                                                           @"<li><strong>Set nameserver (OpenVPN)</strong>: Tunnelblick uses OpenVPN's default script to"
+                                                           @" handle DNS settings.<br></li>"
+
 														   @"</ul>",
 														   
 														   @"HTML info for the 'Set DNS/WINS' button."))];
