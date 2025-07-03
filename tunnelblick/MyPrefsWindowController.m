@@ -2951,16 +2951,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     OSStatus status = [dict[@"status"] intValue];
 
-    if (  status == 0  ) {
-        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
-        [gTbDefaults setPrimaryDefaults: dict];
-    } else {
-        if (  status != 1  ) { // status != cancelled by user (i.e., there was an error)
-            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                              NSLocalizedString(@"Tunnelblick was unable to make the change. See the Console Log for details.", @"Window text"));
-        }
+    if (   (status != 0)      // status 0 means succeeded
+        && (status != 1)  ) { // status 1 means cancelled by user
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"Tunnelblick was unable to make the change. See the Console Log for details.", @"Window text"));
     }
-    
+
     TBButton * checkbox = dict[@"button"];
     if (  checkbox == [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox]  ) {
         [self setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox];

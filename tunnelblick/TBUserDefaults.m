@@ -1,5 +1,5 @@
 /*
- * Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2021 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2021, 2025 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -32,14 +32,11 @@ extern NSArray        * gProgramPreferences;
 
 @implementation TBUserDefaults
 
--(TBUserDefaults *) initWithPrimaryDictionary: (NSDictionary *) inPrimary
-                        andDeployedDictionary: (NSDictionary *) inForced {
+-(TBUserDefaults *) initWithDeployedDictionary: (NSDictionary *) inForced {
     self = [super init];
     if ( ! self  ) {
         return nil;
     }
-    
-    primaryDefaults = [inPrimary copy];
     
     forcedDefaults = [inForced copy];
     
@@ -55,14 +52,11 @@ extern NSArray        * gProgramPreferences;
 
 -(void) dealloc {
     
-    [primaryDefaults release]; primaryDefaults = nil;
     [forcedDefaults  release]; forcedDefaults    = nil;
     [userDefaults    release]; userDefaults      = nil;
     
     [super dealloc];
 }
-
-TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 
 -(id) forcedObjectForKey: (NSString *) key {
     
@@ -87,21 +81,28 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
     return value;
 }
 
--(id) primaryObjectForKey: (NSString *) key {
-    
+-(id) primaryObjectForKey: (NSString *) key
+                wildcards: (BOOL)       wildcards {
+
     // Checks for a primary forced object for a key, implementing wildcard matches
-    
-    id value = [primaryDefaults objectForKey: key];
-    if (  value == nil  ) {
+
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    if (  ! dict  ) {
+        return nil;
+    }
+
+    id value = [dict objectForKey: key];
+    if (   ( ! value )
+        && wildcards  ) {
         // No key for XYZABCDE, so try for a wildcard match
         // If have a *ABCDE key, returns it's value
-        NSEnumerator * e = [primaryDefaults keyEnumerator];
+        NSEnumerator * e = [dict keyEnumerator];
         NSString * forcedKey;
         while (  (forcedKey = [e nextObject])  ) {
             if (   [forcedKey hasPrefix: @"*"]
                 && ( [forcedKey length] != 1)  ) {
                 if (  [key hasSuffix: [forcedKey substringFromIndex: 1]]  ) {
-                    return [primaryDefaults objectForKey: forcedKey];
+                    return [dict objectForKey: forcedKey];
                 }
             }
         }
@@ -134,7 +135,7 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 }
 
 -(id) objectForKey: (NSString *) key {
-    id value = [self primaryObjectForKey: key];
+    id value = [self primaryObjectForKey: key wildcards: YES];
     if (  value == nil  ) {
         value = [self forcedObjectForKey: key];
         if (  value == nil  ) {
@@ -348,7 +349,7 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 -(BOOL) canChangeValueForKey: (NSString *) key {
     
     // Returns YES if key's value can be modified, NO if it can't
-    if (   ([self primaryObjectForKey: key] != nil)
+    if (   ([self primaryObjectForKey: key wildcards: YES] != nil)
         || ([self forcedObjectForKey:  key] != nil)  ) {
         return NO;
     }
@@ -356,21 +357,11 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
     return YES;
 }
 
--(id) readOnlyObjectForKey: (NSString *) key {
-
-    id value = [primaryDefaults objectForKey: key];
-    if (  value  ) {
-        return value;
-    }
-
-    return [forcedDefaults objectForKey: key];
-}
-
 -(NSString *) readOnlyStringForKey: (NSString *) key {
 
-    // Returns the string value of a forced or deployed preference, or nil if there is no forced or deployed preference for the key or if the value is not a string.
+    // Returns the string value of a forced preference for the key, or nil if there is no forced preference for the key or if the value is not a string.
 
-    id value = [self readOnlyObjectForKey: key];
+    id value = [self primaryObjectForKey: key wildcards: NO];
     if (  value  ) {
         return valueIfStringOtherwiseNil(value);
     }
@@ -380,10 +371,10 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 
 -(BOOL) isTrueReadOnlyForKey: (NSString *) key {
 
-    // Returns TRUE if it is there is a forced or deployed preference for the key and it is TRUE, FALSE otherwise
+    // Returns TRUE if it is there is a forced preference for the key and it is TRUE, FALSE otherwise
     // (i.e., not found, doesn't have a boolValue, or the boolValue is FALSE.
 
-    id value = [self readOnlyObjectForKey: key];
+    id value = [self primaryObjectForKey: key wildcards: NO];
     if (  value  ) {
         if (  [value respondsToSelector: @selector(boolValue)]  ) {
             return [value boolValue];
@@ -397,7 +388,7 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 
 -(void) setBool: (BOOL) value forKey: (NSString *) key {
     
-	id primaryValue = [self primaryObjectForKey: key];
+	id primaryValue = [self primaryObjectForKey: key wildcards: YES];
     if (  primaryValue  ) {
 		if (   ( ! [primaryValue respondsToSelector: @selector(boolValue)])
 			|| ( [primaryValue boolValue] != value )  ) {
@@ -426,7 +417,7 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 		return;
 	}
 
-    id primaryValue = [self primaryObjectForKey: key];
+    id primaryValue = [self primaryObjectForKey: key wildcards: YES];
     if (  primaryValue  ) {
         if (  [primaryValue isNotEqualTo: value]  ) {
             NSLog(@"setObject: %@ forKey: '%@': ignored because the preference is being forced to %@", value, key, primaryValue);
@@ -446,7 +437,7 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 }
 
 -(void) removeObjectForKey: (NSString *) key {
-    if (  [self primaryObjectForKey: key] != nil  ) {
+    if (  [self primaryObjectForKey: key wildcards: YES] != nil  ) {
         NSLog(@"removeObjectForKey: '%@': ignored because the preference is being forced", key);
     } else if (  [self forcedObjectForKey: key] != nil  ) {
         NSLog(@"removeObjectForKey: '%@': ignored because the preference is being forced (Deployed)", key);
@@ -460,7 +451,7 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 
 	// Remove "*KEY"
 	NSString * fullKey = [@"*" stringByAppendingString: key];
-	if (  [self primaryObjectForKey: fullKey] != nil  ) {
+	if (  [self primaryObjectForKey: fullKey wildcards: YES] != nil  ) {
 		NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced", fullKey);
 	} else if (  [self forcedObjectForKey: fullKey] != nil  ) {
 		NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced (Deployed)", fullKey);
@@ -474,7 +465,7 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
     NSString * displayName;
     while (  (displayName = [dictEnum nextObject])  ) {
         fullKey = [displayName stringByAppendingString: key];
-        if (  [self primaryObjectForKey: fullKey] != nil  ) {
+        if (  [self primaryObjectForKey: fullKey wildcards: YES] != nil  ) {
             NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced", fullKey);
         } else if (  [self forcedObjectForKey: fullKey] != nil  ) {
             NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced (Deployed)", fullKey);
@@ -503,7 +494,8 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
     
     // Get all key/value pairs (let primary override forced and forced override the user's preferences)
 	NSMutableDictionary * namesAndValues = [[NSMutableDictionary alloc] initWithCapacity: 100];
-	[self addToDictionary: namesAndValues withSuffix: key from: primaryDefaults];
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+	[self addToDictionary: namesAndValues withSuffix: key from: dict];
 	[self addToDictionary: namesAndValues withSuffix: key from: forcedDefaults];
 	[self addToDictionary: namesAndValues withSuffix: key from: [userDefaults dictionaryRepresentation]];
 	
@@ -724,7 +716,8 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 
 -(unsigned) numberOfConfigsInCredentialsGroup: (NSString *) groupName {
     
-    unsigned nPrimary = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: primaryDefaults];
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    unsigned nPrimary = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: dict];
     unsigned nForced  = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: forcedDefaults];
     unsigned nNormal  = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: [userDefaults dictionaryRepresentation]];
     return nPrimary + nForced + nNormal;
@@ -738,7 +731,8 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
     }
     
     // Make sure there are no forced preferences with this group
-    unsigned n = (  [self numberOfConfigsInCredentialsGroup: groupName inDictionary: primaryDefaults]
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    unsigned n = (  [self numberOfConfigsInCredentialsGroup: groupName inDictionary: dict]
                   + [self numberOfConfigsInCredentialsGroup: groupName inDictionary: forcedDefaults]);
     if (  n != 0  ) {
         return [NSString stringWithFormat: NSLocalizedString(@"The '%@' credentials may not be deleted because one or more configurations are being forced to use them.", @"Window text"), groupName];
@@ -746,7 +740,7 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
     
     // Remove all non-forced preferences with this group
     NSString * prefKey = @"-credentialsGroup";
-	NSDictionary * dict = [userDefaults dictionaryRepresentation];
+	dict = [userDefaults dictionaryRepresentation];
 	NSEnumerator * e = [dict keyEnumerator];
 	NSString * key;
 	while (  (key = [e nextObject])  ) {

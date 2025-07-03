@@ -1,5 +1,5 @@
 /*
- * Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2025 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -43,15 +43,12 @@
 
 @interface TBUserDefaults : NSObject {
     
-    NSDictionary   * primaryDefaults; // nil, or an NSDictionary of preferences from L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
-    
     NSDictionary   * forcedDefaults;  // nil, or an NSDictionary of preferences from /Deploy/forced-preferences.plist
     
     NSUserDefaults * userDefaults;    // [NSUserDefaults standardUserDefaults]
 }
 
--(TBUserDefaults *) initWithPrimaryDictionary: (NSDictionary *) inPrimary
-                        andDeployedDictionary: (NSDictionary *) inForced;
+-(TBUserDefaults *) initWithDeployedDictionary: (NSDictionary *) inForced;
 
 // The following methods are implemented. They are like the corresponding NSUserPreferences methods
 
@@ -129,7 +126,5 @@
 -(NSString *) addNamedCredentialsGroup: (NSString *) groupName;
 
 -(NSArray *) sortedCredentialsGroups;
-
-TBPROPERTY_WRITEONLY(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 
 @end

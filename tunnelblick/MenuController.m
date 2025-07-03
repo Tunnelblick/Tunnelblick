@@ -940,14 +940,15 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
          renameIfBad: YES];
 
 	// Set up to override user preferences with preferences from L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH and Deploy/forced-permissions.plist
-	NSDictionary * primaryForcedPreferencesDict = nil;
-	NSDictionary * deployedForcedPreferencesDict = nil;
+    NSDictionary * primaryForcedPreferencesDict = nil;
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
-		primaryForcedPreferencesDict  = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+        primaryForcedPreferencesDict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
 		if (  ! primaryForcedPreferencesDict  ) {
 			NSLog(@".plist is being ignored because it is corrupt or unreadable: %@", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 		}
 	}
+
+    NSDictionary * deployedForcedPreferencesDict = nil;
 	NSString * deployedForcedPreferencesPath = [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"];
 	if (  [gFileMgr fileExistsAtPath: deployedForcedPreferencesPath]  ) {
 		deployedForcedPreferencesDict  = [NSDictionary dictionaryWithContentsOfFile: deployedForcedPreferencesPath];
@@ -956,8 +957,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 		}
 	}
 
-    gTbDefaults = [[TBUserDefaults alloc] initWithPrimaryDictionary: primaryForcedPreferencesDict
-                                              andDeployedDictionary: deployedForcedPreferencesDict];
+    gTbDefaults = [[TBUserDefaults alloc] initWithDeployedDictionary: deployedForcedPreferencesDict];
 	if (  ! gTbDefaults  ) {
 		return NO;
 	}
