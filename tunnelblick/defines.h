@@ -111,6 +111,18 @@
 
 // Maximum index for the "Set DNS/WINS" dropdown box. Must be equal to the number of entries minus one.
 #define MAX_SET_DNS_WINS_INDEX 5
+// Values for useDNS preference, also used as indices for the "Set DNS/WINS" dropdown box
+
+#define USEDNS_DO_NOT_SET_NAMESERVER    0
+#define USEDNS_SET_NAMSERVER            1
+#define USEDNS_SET_NAMESERVER_3_1       2
+#define USEDNS_SET_NAMESERVER_3_0_B10   3
+#define USEDNS_SET_NAMESERVER_ALT_1     4
+#define USEDNS_SET_NAMESERVER_ALT_2     5
+
+
+// Mapping from useDNS preference to 'up' and 'down' script names (-1 means don't use a script)
+#define MAP_USEDNS_TO_UP_DOWN_SCRIPT_NUMBER   {-1, 0, 1, 2, 3, 4, 5}
 
 // Header for commands to tunnelblickd that are to be handled by openvpnstart (note that this is a C-string, not an NSString)
 #define TUNNELBLICKD_OPENVPNSTART_HEADER_C "openvpnstart: "

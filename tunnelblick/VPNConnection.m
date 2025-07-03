@@ -2784,7 +2784,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	} else {
         NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
         BOOL useDownRoot = [gTbDefaults boolForKey: useDownRootPluginKey];
-        useDNSNum = (  (useDNSStat-1) << 2) + (useDownRoot ? 2 : 0) + 1;   // (script #) + downroot-flag + set-nameserver-flag
+        unsigned map[] = MAP_USEDNS_TO_UP_DOWN_SCRIPT_NUMBER;
+        unsigned upDownFileIx = map[useDNSStat];
+        useDNSNum = (  (upDownFileIx) << 2) + (useDownRoot ? 2 : 0) + 1;   // (script #) + downroot-flag + set-nameserver-flag
         if (  forNow  ) {
             usedModifyNameserver = TRUE;
         }
