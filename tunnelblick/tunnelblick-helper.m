@@ -2266,13 +2266,10 @@ void restoreUserFolderSecurity(NSString * privateFolderPath) {
     }
 }
 
-void safeUpdate(NSString * displayName, BOOL doUpdate) {
-
-    // If doUpdate is TRUE:  Secures the private configuration, tests that a non-admin-authorized update may be done from it, and does the update
-    // If doUpdate is FALSE: Tests that a non-admin-authorized update of a configuration may be done
+void verifySafeChangesAuthorized(void) {
 
     if (  gUidOfUser == 0  ) {
-        fprintf(stderr, "safeUpdate/safeUpdateTest not allowed when running as root\n");
+        fprintf(stderr, "safe operations not allowed when running as root\n");
         exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
     }
 
@@ -2280,9 +2277,18 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
     id obj = [[NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH] objectForKey:@"allowNonAdminSafeConfigurationReplacement"];
     if (  ! (   [obj respondsToSelector: @selector(boolValue)]
              && [obj boolValue])  ) {
-        fprintf(stderr, "safeUpdate/safeUpdateTest has not been approved by an administrator\n");
+        fprintf(stderr, "safe operations have not been approved by an administrator\n");
         exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
     }
+
+}
+
+void safeUpdate(NSString * displayName, BOOL doUpdate) {
+
+    // If doUpdate is TRUE:  Secures the private configuration, tests that a non-admin-authorized update may be done from it, and does the update
+    // If doUpdate is FALSE: Tests that a non-admin-authorized update of a configuration may be done
+
+    verifySafeChangesAuthorized();
 
     NSString * sourcePrefix = [gUserHome     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
     NSString * sourcePath   = [[sourcePrefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
