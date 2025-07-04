@@ -2109,11 +2109,10 @@ BOOL forceCopyFileAsRoot(NSString * sourceFullPath, NSString * targetFullPath) {
 
     // Create the .tblk folder structure if it does not exist already
     if ( ! [fm fileExistsAtPath: resourcesFolder]  ) {
-        NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     NSFileOwnerAccountID,      [NSNumber numberWithUnsignedLong: 0],
-                                     NSFileGroupOwnerAccountID, [NSNumber numberWithUnsignedLong: 0],
-                                     NSFilePosixPermissions,    [NSNumber numberWithShort: PERMS_SECURED_FOLDER],
-                                     nil];
+        NSDictionary * attributes = @{NSFileOwnerAccountID :      @"0",
+                                      NSFileGroupOwnerAccountID : @"0",
+                                      NSFilePosixPermissions :    [NSString stringWithFormat: @"0%o", PERMS_SECURED_FOLDER]
+                                     };
         if (  ! [fm tbCreateDirectoryAtPath: resourcesFolder withIntermediateDirectories: YES attributes: attributes]  ) {
             stopBeingRoot();
             return FALSE;
@@ -2353,7 +2352,7 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
 OSStatus updateTunnelblickApp(int argc, char * argv[]) {
 
     if (  argc != 6  ) {
-        appendLog(@"Wrong number of arguements");
+        appendLog(@"Wrong number of arguments");
         exitOpenvpnstart(161);
     }
 
