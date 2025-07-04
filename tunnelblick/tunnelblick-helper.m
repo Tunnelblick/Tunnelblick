@@ -187,6 +187,12 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart safeUpdateTest      displayName     path\n"
             "               tests if a 'safeUpdate' of a secure (shadow) copy of a .tblk from the private copy can be done using the configuration\n\n"
 
+            "./openvpnstart safeDelete      displayName\n"
+            "               to delete the secure (shadow) copy of a .tblk from a safe private configuration\n\n"
+
+            "./openvpnstart safeRename      displayName     newDisplayName\n"
+            "               to rename the secure (shadow) copy of a .tblk from a safe private configuration\n\n"
+
             "./openvpnstart preDisconnect  configName  cfgLocCode\n\n"
             "               to run the pre-disconnect.sh script inside a .tblk.\n\n"
 
@@ -2353,6 +2359,127 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
     exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_OK);
 }
 
+void verifyConfigurationIsSafe(NSString * path) {
+
+    NSFileManager * fm = [NSFileManager defaultManager];
+
+    NSArray * extensionsForKeysAndCerts = KEY_AND_CRT_EXTENSIONS;
+
+    NSDirectoryEnumerator * dirE = [fm enumeratorAtPath: path];
+    NSString * name;
+    while (  (name = [dirE nextObject])  ) {
+
+        NSString * fullPath = [path stringByAppendingPathComponent: name];
+
+        BOOL isDir = NO;
+        if (  ! [fm fileExistsAtPath: fullPath isDirectory: &isDir]  ) {
+            fprintf(stderr, "Disappeared! %s\n", [fullPath UTF8String]);
+            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        }
+
+        // Ignore Contents folder and Contents/Resources folder and Contents/Resources/*.lproj but process the _contents_ of the folders
+        // Don't allow any other folders
+        if (  isDir  ) {
+            if (   [name isEqualToString: @"Contents"]
+                || [name isEqualToString: @"Contents/Resources"]
+                || (   [name hasPrefix: @"Contents/Resources/"]
+                    && [name hasSuffix: @".lproj"]
+                    && ([[name componentsSeparatedByString: @"/"] count] == 3)
+                    )
+                ) {
+                continue;
+            }
+
+            fprintf(stderr, "Unknown folder %s\n", [fullPath UTF8String]);
+            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        }
+
+        // Not a folder, must be a file
+
+        // Ignore .DS_Store files in any folder; don't copy them
+        if (  [[name lastPathComponent] isEqualToString: @".DS_Store"]  ) {
+            continue;
+        }
+
+        // Info.plist, user-mode scripts, and certificate and key files, and *.lproj/Localizable.strings files are OK
+        if (   [fullPath hasSuffix: @".tblk/Contents/Info.plist"]
+            || [fullPath hasSuffix: @".tblk/Contents/Resources/static-challenge-response.user.sh"]
+            || [fullPath hasSuffix: @".tblk/Contents/Resources/dynamic-challenge-response.user.sh"]
+            || [fullPath hasSuffix: @".tblk/Contents/Resources/password-replace.user.sh"]
+            || [fullPath hasSuffix: @".tblk/Contents/Resources/password-prepend.user.sh"]
+            || [fullPath hasSuffix: @".tblk/Contents/Resources/password-append.user.sh"]
+            || (   [extensionsForKeysAndCerts containsObject: [name pathExtension]]
+                && [[fullPath stringByDeletingLastPathComponent] hasSuffix: @".tblk/Contents/Resources"]
+                )
+            || (   [name hasPrefix: @"Contents/Resources/"]
+                && [name hasSuffix: @".lproj/Localizable.strings"]
+                && ([[name componentsSeparatedByString: @"/"] count] == 4)
+                && [[fullPath stringByDeletingLastPathComponent] hasSuffix: @".tblk/Contents/Resources"]
+                )
+
+            ) {
+
+            continue;
+        }
+
+        // A changed configuration file is OK if the new one is "safe"; update if requested
+        if (  [fullPath hasSuffix: @".tblk/Contents/Resources/config.ovpn"]  ) {
+            if ( ! isSafeConfigFileForInstallOrUpdate(fullPath)  ) {
+                fprintf(stderr, "config.ovpn in the new configuration at %s is not safe\n", [path UTF8String]);
+                exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+            }
+
+            continue;
+        }
+
+        // No other files are allowed
+        fprintf(stderr, "'%s' is not allowed in a safe configuration\n", [name UTF8String]);
+        exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+    }
+}
+
+void safeDelete(NSString * displayName) {
+
+    verifySafeChangesAuthorized();
+
+    NSString * prefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
+    NSString * path    = [[prefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
+
+    verifyConfigurationIsSafe(path);
+
+    becomeRoot(@"Delete a safe configuration");
+    BOOL ok = [[NSFileManager defaultManager] tbRemoveFileAtPath: path handler: nil];
+    stopBeingRoot();
+
+    exitOpenvpnstart(  ok
+                     ? OPENVPNSTART_UPDATE_SAFE_OK
+                     : OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+}
+
+void safeRename(NSString * oldDisplayName, NSString * newDisplayName) {
+
+    verifySafeChangesAuthorized();
+
+    NSString * prefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
+    NSString * oldPath = [[prefix stringByAppendingPathComponent: oldDisplayName] stringByAppendingPathExtension: @"tblk"];
+    NSString * newPath = [[prefix stringByAppendingPathComponent: newDisplayName] stringByAppendingPathExtension: @"tblk"];
+
+    verifyConfigurationIsSafe(oldPath);
+
+    if (  [[NSFileManager defaultManager] fileExistsAtPath: newPath]  ) {
+        fprintf(stderr, "safeRename failed; newPath exists: newPath = %s; oldPath = %s\n", [oldPath UTF8String], [newPath UTF8String]);
+        exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+    }
+
+    becomeRoot(@"Rename a safe configuration");
+    BOOL ok = [[NSFileManager defaultManager] tbForceRenamePath: oldPath toPath: newPath];
+    stopBeingRoot();
+
+    exitOpenvpnstart(  ok
+                     ? OPENVPNSTART_UPDATE_SAFE_OK
+                     : OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+}
+
 //**************************************************************************************************************************
 
 OSStatus updateTunnelblickApp(int argc, char * argv[]) {
@@ -3576,6 +3703,26 @@ int main(int argc, char * argv[]) {
                 validateConfigName(fileName);
                 safeUpdate(fileName, NO);
                 // safeUpdateTest() should never return (it does exitOpenvpnstart() with its own exit codes)
+                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+            }
+
+        } else if ( strcmp(command, "safeDelete") == 0 ) {
+            if (argc == 3  ) {
+                NSString* name = [NSString stringWithUTF8String:argv[2]];
+                validateConfigName(name);
+                safeDelete(name);
+                // safeDelete() should never return (it does exitOpenvpnstart() with its own exit codes)
+                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+            }
+
+        } else if ( strcmp(command, "safeRename") == 0 ) {
+            if (argc == 4  ) {
+                NSString* oldName = [NSString stringWithUTF8String:argv[2]];
+                NSString* newName = [NSString stringWithUTF8String:argv[3]];
+                validateConfigName(oldName);
+                validateConfigName(newName);
+                safeRename(oldName, newName);
+                // safeRename() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
 
