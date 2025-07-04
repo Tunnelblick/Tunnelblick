@@ -2356,8 +2356,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSLog(@"Could not do 'safeUpdate' of configuration file %@ to %@", sourcePath, targetPath);
         if (  warn  ) {
 			NSString * localName = [gMC localizedNameForDisplayName: displayName];
-            NSString * title = NSLocalizedString(@"Could Not Replace Configuration", @"Window title");
-            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not replace the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
+            NSString * title = NSLocalizedString(@"Installation Failed", @"Window title");
+            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Unable to install or replace the '%@' configuration\n", @"Window text"), localName];
             TBShowAlertWindow(title, msg);
         }
         
@@ -2660,7 +2660,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (  ! [ConfigurationManager copyConfigPath: source
 											  toPath: target
                                      usingSystemAuth: auth
-										  warnDialog: NO
+										  warnDialog: ! skipResultMsg
 										 moveNotCopy: NO
                                              noAdmin: NO]  ) {
             nInstallErrors++;
@@ -2680,7 +2680,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (  [ConfigurationManager copyConfigPath: source
 											toPath: target
                                    usingSystemAuth: auth
-										warnDialog: NO
+										warnDialog: ! skipResultMsg
                                        moveNotCopy: NO
                                            noAdmin: NO]  ) {
 			
@@ -2708,7 +2708,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (  [ConfigurationManager copyConfigPath: source
                                             toPath: target
                                    usingSystemAuth: auth
-                                        warnDialog: NO
+                                        warnDialog: ! skipResultMsg
                                        moveNotCopy: NO
                                            noAdmin: YES]  ) {
             
