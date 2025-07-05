@@ -85,8 +85,9 @@ typedef enum
 TBPROPERTY(BOOL,                       fromAppleScript,  setFromAppleScript)
 TBPROPERTY(NSApplicationDelegateReply, applescriptReply, setApplescriptReply)
 
-// The following three methods are invoked on the main thread by corresponding instance methods in MenuController
+// The following methods are invoked on the main thread by corresponding instance methods in MenuController
 // that are invoked by the various ...Operations class methods.
++(void) renameSafeConfiguration:    (NSDictionary *) dict;
 +(void) renameConfiguration:        (NSDictionary *) dict;
 +(void) renameConfigurationFolder:  (NSDictionary *) dict;
 +(void) moveOrCopyOneConfiguration: (NSDictionary *) dict;

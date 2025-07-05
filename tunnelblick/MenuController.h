@@ -327,6 +327,7 @@ enum ActiveInactiveState {
 -(void) haveFinishedIPCheckThread: (nonnull NSString *) threadID;
 
 -(void) renameConfigurationUsingConfigurationManager: (nonnull NSDictionary *) dict;
+-(void) renameSafeConfigurationUsingConfigurationManager: (nonnull NSDictionary *) dict;
 -(void) renameConfigurationFolderUsingConfigurationManager: (nonnull NSDictionary *) dict;
 -(void) moveOrCopyOneConfigurationUsingConfigurationManager: (nonnull NSDictionary *) dict;
 
