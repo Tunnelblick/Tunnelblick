@@ -99,7 +99,7 @@ void exitOpenvpnstart(OSStatus returnValue) {
 	// returnValue: have used 158-245, plus the values in define.h (247-254)
 
 	if (  gTemporaryDirectory  ) {
-		[[NSFileManager defaultManager] tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
+		[NSFileManager.defaultManager tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
 	}
 
     [pool drain];
@@ -450,7 +450,7 @@ void stopBeingRootToAccessPath(NSString * path) {
 BOOL fileExistsForRootAtPath(NSString * path) {
     BOOL isDir;
     becomeRootToAccessPath(path, [NSString stringWithFormat: @"check file exists: %@", [path lastPathComponent]]);
-    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir];
+    BOOL exists = [NSFileManager.defaultManager fileExistsAtPath: path isDirectory: &isDir];
     stopBeingRootToAccessPath(path);
     if (   exists
         && isDir  ) {
@@ -463,7 +463,7 @@ BOOL fileExistsForRootAtPath(NSString * path) {
 BOOL folderExistsForRootAtPath(NSString * path) {
     BOOL isDir;
     becomeRootToAccessPath(path, [NSString stringWithFormat: @"check folder exists: %@", [path lastPathComponent]]);
-    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir];
+    BOOL exists = [NSFileManager.defaultManager fileExistsAtPath: path isDirectory: &isDir];
     stopBeingRootToAccessPath(path);
     if (   exists
         && ( ! isDir)  ) {
@@ -533,7 +533,7 @@ BOOL pathComponentIsNotSecure(NSString * path, mode_t permissionsIfNot002) {
 
     becomeRootToAccessPath(path, [NSString stringWithFormat: @"check path component secure: %@", path]);
     BOOL nosuid = isOnNosuidVolume(path);
-    NSDictionary * attributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
+    NSDictionary * attributes = [NSFileManager.defaultManager tbFileAttributesAtPath: path traverseLink: NO];
     stopBeingRootToAccessPath(path);
 
     if (  nosuid  ) {
@@ -708,7 +708,7 @@ void exitIfNotRootWithPermissions(NSString * fPath, mode_t permsShouldHave) {
     }
 
     becomeRootToAccessPath(fPath, [NSString stringWithFormat: @"check ownership/permissions of %@", [fPath lastPathComponent]]);
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath:fPath traverseLink:YES];
+    NSDictionary *fileAttributes = [NSFileManager.defaultManager tbFileAttributesAtPath:fPath traverseLink:YES];
     stopBeingRootToAccessPath(fPath);
 
     unsigned long perms     =  [fileAttributes filePosixPermissions];
@@ -756,14 +756,14 @@ void exitIfTblkNeedsRepair(void) {
     becomeRootToAccessPath(gConfigPath, [NSString stringWithFormat: @"check if needs repair: %@", [gConfigPath lastPathComponent]]);
 
     NSString * file;
-    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: gConfigPath];
+    NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: gConfigPath];
     BOOL isDir;
 
     while (  (file = [dirEnum nextObject])  ) {
         NSString * filePath = [gConfigPath stringByAppendingPathComponent: file];
         NSString * ext = [file pathExtension];
 
-        if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir]
+        if (   [NSFileManager.defaultManager fileExistsAtPath: filePath isDirectory: &isDir]
             && isDir  ) {
 
             exitIfPathIsNotSecure(filePath, folderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
@@ -910,7 +910,7 @@ okay:
 //**************************************************************************************************************************
 NSString * newTemporaryDirectoryPathInTunnelblickHelper(void) {
     // Code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
-    // Modified to check for malloc returning NULL, use strlcpy, use [NSFileManager defaultManager], and use more readable length for stringWithFileSystemRepresentation
+    // Modified to check for malloc returning NULL, use strlcpy, use NSFileManager.defaultManager, and use more readable length for stringWithFileSystemRepresentation
 
     NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickTemporaryDotTblk-XXXXXX"];
     const char * tempDirectoryTemplateCString = fileSystemRepresentation(tempDirectoryTemplate);
@@ -932,7 +932,7 @@ NSString * newTemporaryDirectoryPathInTunnelblickHelper(void) {
         return nil;
     }
 
-    NSString *tempFolder = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempDirectoryNameCString
+    NSString *tempFolder = [NSFileManager.defaultManager stringWithFileSystemRepresentation: tempDirectoryNameCString
                                                                                        length: strlen(tempDirectoryNameCString)];
     free(tempDirectoryNameCString);
 
@@ -982,12 +982,12 @@ int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NSString 
         return -1;
     }
     NSString * stdPath = [dirPath stringByAppendingPathComponent: @"runAsRootStdOut"];
-    if (  [[NSFileManager defaultManager] fileExistsAtPath: stdPath]  ) {
+    if (  [NSFileManager.defaultManager fileExistsAtPath: stdPath]  ) {
         fprintf(stderr, "runAsRoot: File exists at %s\n", [stdPath UTF8String]);
         [dirPath release];
         return -1;
     }
-    if (  ! [[NSFileManager defaultManager] createFileAtPath: stdPath contents: nil attributes: nil]  ) {
+    if (  ! [NSFileManager.defaultManager createFileAtPath: stdPath contents: nil attributes: nil]  ) {
         fprintf(stderr, "runAsRoot: Unable to create %s\n", [stdPath UTF8String]);
         [dirPath release];
         return -1;
@@ -1001,13 +1001,13 @@ int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NSString 
     [task setStandardOutput: stdFileHandle];
 
     NSString * errPath = [dirPath stringByAppendingPathComponent: @"runAsRootErrOut"];
-    if (  [[NSFileManager defaultManager] fileExistsAtPath: errPath]  ) {
+    if (  [NSFileManager.defaultManager fileExistsAtPath: errPath]  ) {
         fprintf(stderr, "runAsRoot: File exists at %s\n", [errPath UTF8String]);
         [dirPath release];
 		[stdFileHandle release];
         return -1;
     }
-    if (  ! [[NSFileManager defaultManager] createFileAtPath: errPath contents: nil attributes: nil]  ) {
+    if (  ! [NSFileManager.defaultManager createFileAtPath: errPath contents: nil attributes: nil]  ) {
         fprintf(stderr, "runAsRoot: Unable to create %s\n", [errPath UTF8String]);
         [dirPath release];
 		[stdFileHandle release];
@@ -1096,7 +1096,7 @@ int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NSString 
     NSData *errData = [file readDataToEndOfFile];
     [file closeFile];
 
-    if (  ! [[NSFileManager defaultManager] tbRemoveFileAtPath: dirPath handler: nil]  ) {
+    if (  ! [NSFileManager.defaultManager tbRemoveFileAtPath: dirPath handler: nil]  ) {
         fprintf(stderr, "Unable to remove temporary folder at %s\n", [dirPath UTF8String]);
     }
     [dirPath release];
@@ -1211,7 +1211,7 @@ int runScript(NSString * scriptName, int argc, char * argv[]) {
                              stringByAppendingPathComponent: scriptName];
 
 	becomeRootToAccessPath(scriptPath, @"Check if script exists");
-	BOOL scriptExists = [[NSFileManager defaultManager] fileExistsAtPath: scriptPath];
+	BOOL scriptExists = [NSFileManager.defaultManager fileExistsAtPath: scriptPath];
 	stopBeingRootToAccessPath(scriptPath);
 
 	if (  ! scriptExists  ) {
@@ -1241,7 +1241,7 @@ int runDownScript(unsigned scriptNumber, NSString * configName, unsigned cfgLocC
                               : [NSString stringWithFormat: @"client.%d.down.tunnelblick.sh", scriptNumber])];
 
 	becomeRootToAccessPath(scriptPath, @"Check if script exists");
-	BOOL scriptExists = [[NSFileManager defaultManager] fileExistsAtPath: scriptPath];
+	BOOL scriptExists = [NSFileManager.defaultManager fileExistsAtPath: scriptPath];
 	stopBeingRootToAccessPath(scriptPath);
 
 	if (  scriptExists  ) {
@@ -1270,7 +1270,7 @@ int runReenableNetworkServices(void) {
 	NSString * scriptPath = [gResourcesPath stringByAppendingPathComponent: @"re-enable-network-services.sh"];
 
 	becomeRootToAccessPath(scriptPath, @"Check if script exists");
-	BOOL scriptExists = [[NSFileManager defaultManager] fileExistsAtPath: scriptPath];
+	BOOL scriptExists = [NSFileManager.defaultManager fileExistsAtPath: scriptPath];
 	stopBeingRootToAccessPath(scriptPath);
 
 	if (  scriptExists  ) {
@@ -1302,7 +1302,7 @@ int runRoutePreDownScript(BOOL kOption, BOOL kuOption, NSString * configName, un
     NSString * scriptPath = [gResourcesPath stringByAppendingPathComponent: @"client.route-pre-down.tunnelblick.sh"];
 
 	becomeRootToAccessPath(scriptPath, @"Check if script exists");
-	BOOL scriptExists = [[NSFileManager defaultManager] fileExistsAtPath: scriptPath];
+	BOOL scriptExists = [NSFileManager.defaultManager fileExistsAtPath: scriptPath];
 	stopBeingRootToAccessPath(scriptPath);
 
 	if (  scriptExists  ) {
@@ -1333,7 +1333,7 @@ int runRoutePreDownScript(BOOL kOption, BOOL kuOption, NSString * configName, un
 //**************************************************************************************************************************
 int checkSignature(void) {
 
-    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: TOOL_PATH_FOR_CODESIGN]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
+    if (  ! [NSFileManager.defaultManager fileExistsAtPath: TOOL_PATH_FOR_CODESIGN]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
         fprintf(stdout, "Assuming digital signature invalid because '%s' does not exist\n", [TOOL_PATH_FOR_CODESIGN UTF8String]);
         exitOpenvpnstart(183);
     }
@@ -1379,7 +1379,7 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
         openvpnPath = [[openvpnFolderPath stringByAppendingPathComponent: openvpnFolderName] // Folder with version to be used
                        stringByAppendingPathComponent: @"openvpn"];                        // openvpn binary
         BOOL isDir;
-        if (   [[NSFileManager defaultManager] fileExistsAtPath: openvpnPath isDirectory: &isDir]
+        if (   [NSFileManager.defaultManager fileExistsAtPath: openvpnPath isDirectory: &isDir]
             && (! isDir)  ) {
             return openvpnPath;
         }
@@ -1391,7 +1391,7 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
     NSString * lowestDirSoFar = nil;
     NSString * highestDirSoFar = nil;
     NSString * dir;
-    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: openvpnFolderPath];
+    NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: openvpnFolderPath];
     while (  (dir = [dirEnum nextObject])  ) {
         [dirEnum skipDescendents];
         if (  [dir hasPrefix: @"openvpn-"]  ) {
@@ -1459,7 +1459,7 @@ void secureUpdate(NSString * name) {
 
     NSString * path = [L_AS_T_TBLKS stringByAppendingPathComponent: name];
     BOOL isDir;
-    if (  ! (   [[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir]
+    if (  ! (   [NSFileManager.defaultManager fileExistsAtPath: path isDirectory: &isDir]
              && isDir )  ) {
         fprintf(stderr, "Folder does not exist for secureUpdate\n");
         exitOpenvpnstart(176);
@@ -1629,7 +1629,7 @@ NSString * createOpenVPNLog(NSString* configurationFile, unsigned cfgLocCode, un
     NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0666] forKey: NSFilePosixPermissions];
 
 	becomeRoot(@"create OpenVPN log file");
-    BOOL created = [[NSFileManager defaultManager] createFileAtPath: logPath contents: [NSData data] attributes: logAttributes];
+    BOOL created = [NSFileManager.defaultManager createFileAtPath: logPath contents: [NSData data] attributes: logAttributes];
     stopBeingRoot();
 
     if (  ! created  ) {
@@ -1654,7 +1654,7 @@ NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode) {
     NSData * dateCmdLineAsData = [NSData dataWithBytes: bytes length: strlen(bytes)];
 
 	becomeRoot(@"create script log file");
-    BOOL created = [[NSFileManager defaultManager] createFileAtPath: logPath contents: dateCmdLineAsData attributes: logAttributes];
+    BOOL created = [NSFileManager.defaultManager createFileAtPath: logPath contents: dateCmdLineAsData attributes: logAttributes];
     stopBeingRoot();
 
     if (  ! created  ) {
@@ -1673,7 +1673,7 @@ void deleteAllLogFiles(void) {
 	// Make a list of filename prefixes for files that can be deleted
 	NSMutableArray * prefixes = [NSMutableArray arrayWithCapacity: 10];
     NSString * filename;
-    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_LOGS];
+    NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: L_AS_T_LOGS];
     while (  (filename = [dirEnum nextObject])  ) {
         [dirEnum skipDescendents];
 
@@ -1698,7 +1698,7 @@ void deleteAllLogFiles(void) {
 
         // Add any file that has not been modified in the last week
         NSString * fullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
-        NSDictionary * dict = [[NSFileManager defaultManager] tbFileAttributesAtPath: fullPath traverseLink: NO];
+        NSDictionary * dict = [NSFileManager.defaultManager tbFileAttributesAtPath: fullPath traverseLink: NO];
         NSDate * modificationDate = [dict fileModificationDate];
         NSDate * oneWeekAgo = [NSDate dateWithTimeIntervalSinceNow: -7.0 * 24.0 * 60.0 * 60.0 ];
         NSComparisonResult result = [modificationDate compare: oneWeekAgo];
@@ -1708,7 +1708,7 @@ void deleteAllLogFiles(void) {
 	}
 
 	// Delete all files that have one of those prefixes
-	dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_LOGS];
+	dirEnum = [NSFileManager.defaultManager enumeratorAtPath: L_AS_T_LOGS];
     while (  (filename = [dirEnum nextObject])  ) {
 		[dirEnum skipDescendents];
 
@@ -1719,7 +1719,7 @@ void deleteAllLogFiles(void) {
 			if (  [filename hasPrefix: prefix]  ) {
 				NSString * fullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
 				becomeRoot(@"delete a log file");
-				BOOL ok = [[NSFileManager defaultManager] tbRemoveFileAtPath: fullPath handler: nil];
+				BOOL ok = [NSFileManager.defaultManager tbRemoveFileAtPath: fullPath handler: nil];
 				stopBeingRoot();
 				if (  ! ok  ) {
 					fprintf(stderr, "Error occurred trying to delete log file %s\n", [fullPath UTF8String]);
@@ -1740,13 +1740,13 @@ void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode) {
     NSString * logPathPrefix = [[logPath stringByDeletingPathExtension] stringByDeletingPathExtension];     // Remove .script.log
 
     NSString * filename;
-    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_LOGS];
+    NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: L_AS_T_LOGS];
     while (  (filename = [dirEnum nextObject])  ) {
         [dirEnum skipDescendents];
         if (  [[filename pathExtension] isEqualToString: @"log"]  ) {
             NSString * oldFullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
             if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
-                if (  ! [[NSFileManager defaultManager] tbRemoveFileAtPath:oldFullPath handler: nil]  ) {
+                if (  ! [NSFileManager.defaultManager tbRemoveFileAtPath:oldFullPath handler: nil]  ) {
                     fprintf(stderr, "Error occurred trying to delete log file %s\n", [oldFullPath UTF8String]);
                 }
             }
@@ -1761,12 +1761,12 @@ void expectDisconnect(unsigned int flag, NSString * filename) {
 	NSString * path = [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: filename];
 	if (  flag == 0  ) {
 		becomeRoot([NSString stringWithFormat: @"Delete %@", path]);
-		[[NSFileManager defaultManager] tbRemovePathIfItExists: path];
+		[NSFileManager.defaultManager tbRemovePathIfItExists: path];
 		stopBeingRoot();
 	} else if (  flag == 1  ) {
 		becomeRoot([NSString stringWithFormat: @"Create %@", path]);
-		if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
-			[[NSFileManager defaultManager] createFileAtPath: path contents: nil attributes: nil];
+		if (  ! [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
+			[NSFileManager.defaultManager createFileAtPath: path contents: nil attributes: nil];
 		}
 
 		stopBeingRoot();
@@ -1777,13 +1777,13 @@ void shuttingDownComputer (void) {
 
 	NSString * path = @"/Library/Application Support/Tunnelblick/shutting-down-computer.txt";
 
-	if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+	if (  [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
 		appendLog(@"createShuttingDownFlagFile: Flag file already exists");
 		return;
 	}
 
 	becomeRoot(@"To create shutdown flag file");
-	BOOL ok = [[NSFileManager defaultManager] createFileAtPath: path contents: nil attributes: nil] ;
+	BOOL ok = [NSFileManager.defaultManager createFileAtPath: path contents: nil attributes: nil] ;
 	stopBeingRoot();
 
 	if (  ok ) {
@@ -1797,7 +1797,7 @@ void shuttingDownComputer (void) {
 
 void printTunnelblickKextPolicy(void) {
 
-    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: TOOL_PATH_FOR_SQLITE3]) {
+    if (  ! [NSFileManager.defaultManager fileExistsAtPath: TOOL_PATH_FOR_SQLITE3]) {
         appendLog([NSString stringWithFormat: @"'sqlite3 not found at %@\n", TOOL_PATH_FOR_SQLITE3]);
         exitOpenvpnstart(245);
     }
@@ -1841,7 +1841,7 @@ void compareShadowCopy (NSString * fileName) {
     if (  folderExistsForRootAtPath(privatePath)  ) {
         if (  folderExistsForRootAtPath(shadowPath)  ) {
             becomeRoot(@"check if config contents are equal");
-            BOOL areEqual = [[NSFileManager defaultManager] contentsEqualAtPath: privatePath andPath: shadowPath];
+            BOOL areEqual = [NSFileManager.defaultManager contentsEqualAtPath: privatePath andPath: shadowPath];
             stopBeingRoot();
             if (  areEqual  ) {
                 exitOpenvpnstart(OPENVPNSTART_COMPARE_CONFIG_SAME);
@@ -1878,7 +1878,7 @@ void revertToShadow (NSString * fileName) {
 		if (  folderExistsForRootAtPath(privatePath)  ) {
 			createdReplaced = @"Replaced";
             becomeRoot(@"remove config that is being replaced");
-			BOOL removed = [[NSFileManager defaultManager] tbRemoveFileAtPath: privatePath handler: nil];
+			BOOL removed = [NSFileManager.defaultManager tbRemoveFileAtPath: privatePath handler: nil];
             stopBeingRoot();
             if (  ! removed  ) {
 				fprintf(stderr, "Unable to delete %s\n", [privatePath UTF8String]);
@@ -1886,7 +1886,7 @@ void revertToShadow (NSString * fileName) {
 			}
 		}
         becomeRoot(@"copy config");
-		BOOL copied = [[NSFileManager defaultManager] tbCopyPath: shadowPath toPath: privatePath handler: nil];
+		BOOL copied = [NSFileManager.defaultManager tbCopyPath: shadowPath toPath: privatePath handler: nil];
         stopBeingRoot();
         if (  copied  ) {
 			fprintf(stderr, "%s %s\n", [createdReplaced UTF8String], [privatePath UTF8String]);
@@ -1944,7 +1944,7 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
                                    stringByAppendingPathComponent: configSuffix];
 
     becomeRootToAccessPath(actualConfigPath, @"get config contents");
-    NSData * data = [[NSFileManager defaultManager] contentsAtPath: actualConfigPath];
+    NSData * data = [NSFileManager.defaultManager contentsAtPath: actualConfigPath];
     stopBeingRootToAccessPath(actualConfigPath);
 
     if (  ! data  ) {
@@ -2098,7 +2098,7 @@ void unloadKexts(unsigned int bitMask) {
 
 BOOL forceCopyFileAsRoot(NSString * sourceFullPath, NSString * targetFullPath) {
 
-    NSFileManager * fm = [NSFileManager defaultManager];
+    NSFileManager * fm = NSFileManager.defaultManager;
 
     // Assume copying something in .tblk/Contents/Resources, but handle something in .tblk/Contents
     NSString * resourcesFolder = [targetFullPath  stringByDeletingLastPathComponent];
@@ -2159,7 +2159,7 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
     //
     // "Safe" installs/replacements can only be done to a private configuration (source = user's copy, target = secured shadow copy).
 
-    NSFileManager * fm = [NSFileManager defaultManager];
+    NSFileManager * fm = NSFileManager.defaultManager;
 
     NSArray * extensionsForKeysAndCerts = KEY_AND_CRT_EXTENSIONS;
 
@@ -2361,7 +2361,7 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
 
 void verifyConfigurationIsSafe(NSString * path) {
 
-    NSFileManager * fm = [NSFileManager defaultManager];
+    NSFileManager * fm = NSFileManager.defaultManager;
 
     NSArray * extensionsForKeysAndCerts = KEY_AND_CRT_EXTENSIONS;
 
@@ -2448,7 +2448,7 @@ void safeDelete(NSString * displayName) {
     verifyConfigurationIsSafe(path);
 
     becomeRoot(@"Delete a safe configuration");
-    BOOL ok = [[NSFileManager defaultManager] tbRemoveFileAtPath: path handler: nil];
+    BOOL ok = [NSFileManager.defaultManager tbRemoveFileAtPath: path handler: nil];
     stopBeingRoot();
 
     exitOpenvpnstart(  ok
@@ -2466,13 +2466,13 @@ void safeRename(NSString * oldDisplayName, NSString * newDisplayName) {
 
     verifyConfigurationIsSafe(oldPath);
 
-    if (  [[NSFileManager defaultManager] fileExistsAtPath: newPath]  ) {
+    if (  [NSFileManager.defaultManager fileExistsAtPath: newPath]  ) {
         fprintf(stderr, "safeRename failed; newPath exists: newPath = %s; oldPath = %s\n", [oldPath UTF8String], [newPath UTF8String]);
         exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
     }
 
     becomeRoot(@"Rename a safe configuration");
-    BOOL ok = [[NSFileManager defaultManager] tbForceRenamePath: oldPath toPath: newPath];
+    BOOL ok = [NSFileManager.defaultManager tbForceRenamePath: oldPath toPath: newPath];
     stopBeingRoot();
 
     exitOpenvpnstart(  ok
@@ -2508,7 +2508,7 @@ OSStatus updateTunnelblickApp(int argc, char * argv[]) {
                                    stringByAppendingPathComponent: username]
                                   stringByAppendingPathComponent: L_AS_T]
                                  stringByAppendingPathComponent: @"tunnelblick-update.zip"];
-    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: updateZipPath]  ) {
+    if (  ! [NSFileManager.defaultManager fileExistsAtPath: updateZipPath]  ) {
         appendLog([NSString stringWithFormat: @"updateTunnelblickApp: No file at %@", updateZipPath]);
         exitOpenvpnstart(160);
     }
@@ -2770,73 +2770,73 @@ int startVPN(NSString * configFile,
             NSString * deployNewRoutePreDownscriptPath  = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@route-pre-down.tunnelblick.sh", scriptNumString]];
 
             if (  noMonitor  ) {
-                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployUpscriptNoMonitorPath]  ) {
+                if (  [NSFileManager.defaultManager fileExistsAtPath: deployUpscriptNoMonitorPath]  ) {
                     upscriptPath = deployUpscriptNoMonitorPath;
-                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployUpscriptPath]  ) {
+                } else if (  [NSFileManager.defaultManager fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
-                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: upscriptNoMonitorPath]  ) {
+                } else if (  [NSFileManager.defaultManager fileExistsAtPath: upscriptNoMonitorPath]  ) {
                     upscriptPath = upscriptNoMonitorPath;
-                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewUpscriptPath]  ) {
+                } else if (  [NSFileManager.defaultManager fileExistsAtPath: deployNewUpscriptPath]  ) {
                     upscriptPath = deployNewUpscriptPath;
                 } else {
                     upscriptPath = newUpscriptPath;
                 }
-                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployDownscriptNoMonitorPath]  ) {
+                if (  [NSFileManager.defaultManager fileExistsAtPath: deployDownscriptNoMonitorPath]  ) {
                     downscriptPath = deployDownscriptNoMonitorPath;
-                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployDownscriptPath]  ) {
+                } else if (  [NSFileManager.defaultManager fileExistsAtPath: deployDownscriptPath]  ) {
                     downscriptPath = deployDownscriptPath;
-                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: downscriptNoMonitorPath]  ) {
+                } else if (  [NSFileManager.defaultManager fileExistsAtPath: downscriptNoMonitorPath]  ) {
                     downscriptPath = downscriptNoMonitorPath;
-                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewDownscriptPath]  ) {
+                } else if (  [NSFileManager.defaultManager fileExistsAtPath: deployNewDownscriptPath]  ) {
                     downscriptPath = deployNewDownscriptPath;
                 } else {
                     downscriptPath = newDownscriptPath;
                 }
-                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewRoutePreDownscriptPath]  ) {
+                if (  [NSFileManager.defaultManager fileExistsAtPath: deployNewRoutePreDownscriptPath]  ) {
                     newRoutePreDownscriptPath = deployNewRoutePreDownscriptPath;
                 }
             } else {
-                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployUpscriptPath]  ) {
+                if (  [NSFileManager.defaultManager fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
-                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: upscriptPath]  ) {
+                } else if (  [NSFileManager.defaultManager fileExistsAtPath: upscriptPath]  ) {
                     ;
-                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewUpscriptPath]  ) {
+                } else if (  [NSFileManager.defaultManager fileExistsAtPath: deployNewUpscriptPath]  ) {
                     upscriptPath = deployNewUpscriptPath;
                 } else {
                     upscriptPath = newUpscriptPath;
                 }
-                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployDownscriptPath]  ) {
+                if (  [NSFileManager.defaultManager fileExistsAtPath: deployDownscriptPath]  ) {
                     downscriptPath = deployDownscriptPath;
-                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: downscriptPath]  ) {
+                } else if (  [NSFileManager.defaultManager fileExistsAtPath: downscriptPath]  ) {
                     ;
-                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewDownscriptPath]  ) {
+                } else if (  [NSFileManager.defaultManager fileExistsAtPath: deployNewDownscriptPath]  ) {
                     downscriptPath = deployNewDownscriptPath;
                 } else {
                     downscriptPath = newDownscriptPath;
                 }
-                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewRoutePreDownscriptPath]  ) {
+                if (  [NSFileManager.defaultManager fileExistsAtPath: deployNewRoutePreDownscriptPath]  ) {
                     newRoutePreDownscriptPath = deployNewRoutePreDownscriptPath;
                 }
             }
         } else {
             if (  noMonitor  ) {
-                if (  [[NSFileManager defaultManager] fileExistsAtPath: upscriptNoMonitorPath]  ) {
+                if (  [NSFileManager.defaultManager fileExistsAtPath: upscriptNoMonitorPath]  ) {
                     upscriptPath = upscriptNoMonitorPath;
                 } else {
                     upscriptPath = newUpscriptPath;
                 }
-                if (  [[NSFileManager defaultManager] fileExistsAtPath: downscriptNoMonitorPath]  ) {
+                if (  [NSFileManager.defaultManager fileExistsAtPath: downscriptNoMonitorPath]  ) {
                     downscriptPath = downscriptNoMonitorPath;
                 } else {
                     downscriptPath = newDownscriptPath;
                 }
             } else {
-                if (  [[NSFileManager defaultManager] fileExistsAtPath: upscriptPath]  ) {
+                if (  [NSFileManager.defaultManager fileExistsAtPath: upscriptPath]  ) {
                     ;
                 } else {
                     upscriptPath = newUpscriptPath;
                 }
-                if (  [[NSFileManager defaultManager] fileExistsAtPath: downscriptPath]  ) {
+                if (  [NSFileManager.defaultManager fileExistsAtPath: downscriptPath]  ) {
                     ;
                 } else {
                     downscriptPath = newDownscriptPath;
@@ -3190,7 +3190,7 @@ int startVPN(NSString * configFile,
         NSString * logContents = @"";
         if (  (bitMask & OPENVPNSTART_DISABLE_LOGGING) == 0  ) {
             // Get the OpenVPN log contents and then delete both log files
-            NSData * logData = [[NSFileManager defaultManager] contentsAtPath: logPath];
+            NSData * logData = [NSFileManager.defaultManager contentsAtPath: logPath];
 
             if (  logData  ) {
                 logContents = [[[NSString alloc] initWithData: logData encoding: NSUTF8StringEncoding] autorelease];
@@ -3298,7 +3298,7 @@ void validateCfgLocCode(unsigned cfgLocCode) {
             break;
 
         case CFG_LOC_DEPLOY:
-            if (  ! [[NSFileManager defaultManager] fileExistsAtPath: gDeployPath]  ) {
+            if (  ! [NSFileManager.defaultManager fileExistsAtPath: gDeployPath]  ) {
                 fprintf(stderr, "cfgLocCode = deployed but this is not a Deployed version of Tunnelblick\n");
                 exitOpenvpnstart(185);
             }
