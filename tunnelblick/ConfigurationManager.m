@@ -35,6 +35,7 @@
 #import "AuthAgent.h"
 #import "ConfigurationConverter.h"
 #import "ConfigurationMultiUpdater.h"
+#import "ConfigurationParser.h"
 #import "ListingWindowController.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
@@ -3565,6 +3566,106 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	}
 }
 
++(BOOL) isSafeConfigurationForDisplayName: (NSString *) displayName {
+
+    NSString * path = [[gMC myConfigDictionary] objectForKey: displayName];
+    if (  ! path  ) {
+        NSLog(@"No configuration for '%@'", displayName);
+        return NO;
+    }
+
+    NSString * privatePath = [[[[NSHomeDirectory()
+                                 stringByAppendingPathComponent: L_AS_T]
+                                stringByAppendingPathComponent: @"Configurations"]
+                               stringByAppendingPathComponent: displayName]
+                              stringByAppendingPathExtension: @"tblk"];
+    if (  [path isNotEqualTo: privatePath]  ) {
+        return NO;
+    }
+
+    ConfigurationParser * config = [ConfigurationParser parsedConfigurationAtPath: path];
+    return (config.doesNotContainAnyUnsafeOptions);
+}
+
++(BOOL) allAreSafeConfigurationsForDisplayNames: (NSArray *) displayNames {
+
+    NSEnumerator * e = displayNames.objectEnumerator;
+    NSString * displayName;
+    while (  (displayName = e.nextObject)  ) {
+        if (  ! [self isSafeConfigurationForDisplayName: displayName]  ) {
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
++(BOOL) removeSafeConfigurationForDisplayName: (NSString *) displayName {
+
+    // Delete the credentials
+    [self removeCredentialsWithDisplayNames: @[displayName] interact: NO];
+
+    // Delete the settings
+    [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: displayName with: nil];
+
+    // Delete the private copy
+    NSString * path = [[[[NSHomeDirectory()
+                          stringByAppendingPathComponent: L_AS_T]
+                         stringByAppendingPathComponent: @"Configurations"]
+                        stringByAppendingPathComponent: displayName]
+                       stringByAppendingPathExtension: @"tblk"];
+    if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
+        return NO;
+    }
+
+    // Delete the secure (shadow) copy
+    NSArray * arguments = @[@"safeDelete", displayName];
+    int status = runOpenvpnstart(arguments, nil, nil);
+    return (status == 0);
+}
+
++(void) removeSafeConfigurationsForDisplayNames: (NSArray *) displayNames {
+
+
+    NSString * message = NSLocalizedString(@"Do you wish to remove one or more configurations?\n\n"
+                                           @"Removal is permanent and cannot be undone.\n\n"
+                                           @"Settings for removed configurations will also be removed permanently.", @"Window text");
+
+    int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                 message,
+                                 NSLocalizedString(@"Delete", @"Button"),
+                                 NSLocalizedString(@"Cancel", @"Button"),
+                                 nil);
+    switch (  button  ) {
+
+        case NSAlertDefaultReturn:
+            break;
+
+        case NSAlertAlternateReturn:
+            return;
+
+        case NSAlertOtherReturn:
+            NSLog(@"TBRunAlertPanel returned NSAlertOtherReturn unexpectedly");
+            return;
+
+        case NSAlertErrorReturn:
+            NSLog(@"TBRunAlertPanel returned NSAlertErrorReturn unexpectedly");
+            return;
+
+        default:
+            NSLog(@"TBRunAlertPanel returned %d unexpectedly", button);
+            break;
+    }
+
+    NSEnumerator * e = displayNames.objectEnumerator;
+    NSString * displayName;
+    while (  (displayName = e.nextObject)  ) {
+        if (  ! [self removeSafeConfigurationForDisplayName: displayName]  ) {
+            return;
+        }
+    }
+}
+
 +(void) removeConfigurationsOrFoldersWithDisplayNames: (NSArray *) displayNames {
     
     // Make sure we can remove all of the configurations or folders
@@ -3576,21 +3677,26 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
     }
     
-    NSString * prompt = NSLocalizedString(@"Tunnelblick needs authorization to remove one or more configurations"
-                                          @" or folders.\n\n Removal is permanent and cannot be undone."
-                                          @" Settings for removed configurations will also be removed permanently.", @"Window text");
-    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
-    if (   ! auth  ) {
-        return;
-    }
-    [ConfigurationManager removeConfigurationsOrFoldersWithDisplayNamesWorker: displayNames
-                                                              usingSystemAuth: auth];
+    if (  [self allAreSafeConfigurationsForDisplayNames: displayNames]  ) {
 
-    [auth release];
+        [ConfigurationManager removeSafeConfigurationsForDisplayNames: displayNames];
+
+    } else {
+        NSString * prompt = NSLocalizedString(@"Tunnelblick needs authorization to remove one or more configurations"
+                                              @" or folders.\n\n Removal is permanent and cannot be undone."
+                                              @" Settings for removed configurations will also be removed permanently.", @"Window text");
+        SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+        if (   ! auth  ) {
+            return;
+        }
+
+        [ConfigurationManager removeConfigurationsOrFoldersWithDisplayNamesWorker: displayNames                                                                  usingSystemAuth: auth];
+        [auth release];
+    }
 }
 
-+(void) removeCredentialsWithDisplayNames: (NSArray *) displayNames {
-	
++(void) removeCredentialsWithDisplayNames: (NSArray *) displayNames interact: (BOOL) interact {
+
 	NSMutableArray * displayNamesToProcess = [[[NSMutableArray alloc] init] autorelease];
 	NSMutableArray * groupNamesToProcess = [[[NSMutableArray alloc] init] autorelease];
 	
@@ -3619,35 +3725,39 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		}
 	}
 	
-	if (  [displayNamesToProcess count] == 0  ) {
-		NSString * message = (  ( [displayNames count] == 1 )
-							  ? [NSString stringWithFormat:
-								 NSLocalizedString(@"'%@' does not have any credentials (private key or username and password) stored in the Keychain.", @"Window text"),
-								 [gMC localizedNameForDisplayName: [displayNames objectAtIndex: 0]]]
-							  : [NSString stringWithFormat:
-								 NSLocalizedString(@"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain.", @"Window text"),
-								 (unsigned long)[displayNames count]]);
-		TBShowAlertWindow(NSLocalizedString(@"No Credentials", @"Window title"), message);
-		return;
-	}
-	
-	NSString * message = (  ([displayNamesToProcess count] == 1)
-						  ? (  ([groupNamesToProcess objectAtIndex: 0] != [NSNull null])
-							 ? [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?", @"Window text"), [groupNamesToProcess objectAtIndex: 0]]
-							 : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?", @"Window text"),    [gMC localizedNameForDisplayName: [displayNamesToProcess objectAtIndex: 0]]])
-						  
-						  : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?", @"Window text"), [displayNamesToProcess count]]);
-	
-	int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								 message,
-								 NSLocalizedString(@"Cancel", @"Button"),             // Default button
-								 NSLocalizedString(@"Delete Credentials", @"Button"), // Alternate button
-								 nil);
-	
-	if (  button != NSAlertAlternateReturn  ) {
-		return;
-	}
-	
+    if (  [displayNamesToProcess count] == 0  ) {
+        if (  interact  ) {
+            NSString * message = (  ( [displayNames count] == 1 )
+                                  ? [NSString stringWithFormat:
+                                     NSLocalizedString(@"'%@' does not have any credentials (private key or username and password) stored in the Keychain.", @"Window text"),
+                                     [gMC localizedNameForDisplayName: [displayNames objectAtIndex: 0]]]
+                                  : [NSString stringWithFormat:
+                                     NSLocalizedString(@"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain.", @"Window text"),
+                                     (unsigned long)[displayNames count]]);
+            TBShowAlertWindow(NSLocalizedString(@"No Credentials", @"Window title"), message);
+        }
+        return;
+    }
+
+    if (  interact  ) {
+        NSString * message = (  ([displayNamesToProcess count] == 1)
+                              ? (  ([groupNamesToProcess objectAtIndex: 0] != [NSNull null])
+                                 ? [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?", @"Window text"), [groupNamesToProcess objectAtIndex: 0]]
+                                 : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?", @"Window text"),    [gMC localizedNameForDisplayName: [displayNamesToProcess objectAtIndex: 0]]])
+
+                              : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?", @"Window text"), [displayNamesToProcess count]]);
+
+        int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                     message,
+                                     NSLocalizedString(@"Cancel", @"Button"),             // Default button
+                                     NSLocalizedString(@"Delete Credentials", @"Button"), // Alternate button
+                                     nil);
+
+        if (  button != NSAlertAlternateReturn  ) {
+            return;
+        }
+    }
+
 	unsigned ix;
 	for (  ix=0; ix<[displayNamesToProcess count]; ix++  ) {
 		displayName = [displayNamesToProcess objectAtIndex: ix];
@@ -5191,8 +5301,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
-	[ConfigurationManager removeCredentialsWithDisplayNames: displayNames];
-    
+	[ConfigurationManager removeCredentialsWithDisplayNames: displayNames interact: YES];
+
     [TBOperationQueue removeDisableList];
     
     [TBOperationQueue operationIsComplete];
