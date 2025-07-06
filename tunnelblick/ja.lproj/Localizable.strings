@@ -544,6 +544,9 @@
 "Set nameserver (3.1)" = "ネームサーバーを設定 (3.1)";
 
 /* PopUpButton */
+"Set nameserver (OpenVPN)" = "ネームサーバーを設定 (OpenVPN)";
+
+/* PopUpButton */
 "Set nameserver (alternate 1)" = "ネームサーバーを設定 (alternate 1)";
 
 /* PopUpButton */
@@ -668,9 +671,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "接続先を移動できません";
-
-/* Window title */
-"Could Not Replace Configuration" = "設定を上書きできませんでした";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "接続先をアンインストールできません";
@@ -1843,9 +1843,6 @@
 "Tunnelblick could not remove %@. See the Console Log for details." = "接続先「%@」の削除ができませんでした。詳細はコンソールログを参照してください。";
 
 /* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "%@が置き換えられません。詳細はコンソールログを参照してください。";
-
-/* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick に致命的なエラーが発生しました。\n\n発生したエラーの内容を書いたメールを developers@tunnelblick.net へ送ってください。\n\n";
 
 /* Window text */
@@ -2257,9 +2254,6 @@
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>OpenVPNとSSLソフトのバージョンでVPNに接続するべきことを特定します。</strong><ul><li><strong>このTunnelblickバージョンで、「 デフォルト」設定</strong>がOpenVPNのデフォルトのバージョンとのOpenSSLを使用されます。デフォルトは、Tunnelblickの異なるバージョンによって使用されます。<br></li><li><strong>「最新」設定が</strong>Tunnelblickのバージョンに組み込んだOpenVPNとのOpenSSLを使用されます。最新設定は、Tunnelblickの異なるバージョンによって異なります。<br></li><li><strong>その他の設定が</strong>このTunnelblickバージョンで利用可能なら特定のOpenVPNとSSLソフトのバージョンを使用されます。不可能なら一番近いマッチを使用されます。<br></li></ul>";
-
-/* HTML info for the 'Set DNS/WINS' button. */
-"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>VPN接続中に、TunnelblickがDNS設定を変更するために何を行うかを指定します（もしあれば）。</strong>選択肢としては、<ul><li><strong>ネームサーバーを変更しない</strong>: 何もしません。<br></li><li><strong>ネームサーバーを設定</strong>: 標準スクリプトを使用してDNSおよびWINS設定を処理します。 通常はこれがベストの選択となります。 OpenVPNの指示に従い、DNSおよびWINS設定を変更します。 手動で設定されたDNSおよびWINS設定は、[詳細設定]ウィンドウの[手動でセットされたネットワーク設定への変更を許可する]が選択されていない限り変更されません。<br></li><li><strong>ネームサーバーを設定 (3.1)</strong>: Tunnelblick 3.1のスクリプトを使用して、DNSおよびWINS設定を処理します。<br></li><li><strong>ネームサーバーを設定 (3.0b10)</strong>: Tunnelblick 3.0b10のスクリプトを使用して、DNSおよびWINS設定を処理します。<br></li><li><strong>ネームサーバーを設定 (alternate 1)</strong>: 代替スクリプトを使用して、DNSおよびWINS設定を処理します。<br></li></ul>";
 
 /* HTML info for the 'On unexpected disconnect' button. */
 "<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p> <strong> VPNが<em>予期せず</em>切断されたときにTunnelblickが行うことを指定します</strong>（たとえば、OpenVPNがクラッシュするかVPNへの接続を失い、そのときに停止するように設定されている場合） 。選択肢は次のとおりです。</p> <ul> <li> <strong>何もしない</strong> <br> </li> <li> <strong>プライマリインターフェースをリセットする</strong>：Tunnelblickはインターフェースに［ipconfigdown;ipconfigup］コマンドを発行して、プライマリネットワークインターフェースをリセットします。これは、切断後に構成がネットワーク設定を適切に復元できない場合に役立ちます。<br> </li> <li> <strong>ネットワークアクセスを無効にする（「キルスイッチ」）</strong>：TunnelblickはWi-Fiをオフにし、他のすべてのネットワークサービスを無効にすることで、すべてのネットワークアクセス（ローカルおよびインターネット）を遮断します。これにより、VPNを介する場合を除いて、コンピューターから何も漏れないようにすることができます。 Tunnelblickがネットワークアクセスを無効にしている場合、無効にされたすべてのアクセスを再度有効にするメニューコマンドは、メニューバーのTunnelblickアイコンから利用できます。 Wi-Fiをオンにして再度有効にするか、[システム環境設定：ネットワーク]で他のネットワークサービスを再度有効にすることもできます。 <strong>複数のVPNが同時に接続されている場合、この設定は正しく機能しない可能性があります。</strong> </li> </ul>";

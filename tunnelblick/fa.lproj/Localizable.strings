@@ -1,6 +1,8 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) IP: %@" = "قطع ارتباط کامل (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "قطع کردن همه (%@)";
@@ -294,6 +296,10 @@
 /* Button */
 "When computer starts" = "زمان روشن شدن رایانه";
 
+/* Menu item
+   Menu item. '%1.2f' will be replaced with a decimal number such as '45.5', and the '%%' will be replaced by a single percentage sign ('%'). */
+"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "یک برروز رسانی برای Tunnelblick موجود است (%1.2f%% بارگذاری شده)…";
+
 /* Menu item */
 "A Tunnelblick Update is Available and Downloaded..." = "یک به‌روز رسانی بارگذاری شده و موجود است…";
 
@@ -399,6 +405,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "نمایش در فهرست Tunnelblick";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "در حال استفاده از ورژن متفاوت برای OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "جزییات VPN…";
 
@@ -422,6 +431,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "اگر نشانی آی پی بعد از برقراری ارتباط تغییر کرد، بررسی کن";
+
+/* Checkbox name */
+"Check only when connected to a VPN" = "فقط زمانی که به VPN متصل شده بود بررسی کن";
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "به جز در مواردی که دسترسی به سرور VPN با IPv6 فراهم شده باشد، گزینه IPv6 را غیرفعال کنید.";
@@ -496,6 +508,9 @@
 "Require administrator authorization to install all configurations" = "برای نصب همه پیکربندی‌ها نیاز به دسترسی ادمین می‌باشد ";
 
 /* Checkbox name */
+"Require administrator authorization to update" = "نیاز به دسترسی ادمین برای بروز رسانی";
+
+/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "تمامی ترافیک IPv4 را از طریق وی پی ان انتقال بده";
 
 /* Checkbox name */
@@ -524,6 +539,9 @@
 
 /* PopUpButton */
 "Set nameserver (3.1)" = "مشخص کردن نام سرویس‌دهنده (3.1)";
+
+/* PopUpButton */
+"Set nameserver (OpenVPN)" = "مشخص کردن نام سرویس‌دهنده (OpenVPN)";
 
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "مشخص کردن نام سرویس‌دهنده (جایگزین 1)";
@@ -650,9 +668,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "تانوانی در جابجایی پیکربندی";
-
-/* Window title */
-"Could Not Replace Configuration" = "ناتوانی در جایگزینی پیکربندی";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "ناتوانی در حذف پیکربندی";
@@ -1673,9 +1688,6 @@
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick نتوانست پیکربندی '%@' را جابجا نماید. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
-
-/* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick نتوانست پیکربندی '%@' را جایگزین نماید. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick نتوانست ایرادات با تنظیمات '%@' را ترمیم نماید. جزییات بیشت در میزفرمان گزارشات";

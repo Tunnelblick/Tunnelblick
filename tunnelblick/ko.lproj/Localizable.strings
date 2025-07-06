@@ -607,9 +607,6 @@
 "Could Not Move Configuration" = "설정을 옮길 수 없습니다";
 
 /* Window title */
-"Could Not Replace Configuration" = "구성을 교체할 수 없습니다";
-
-/* Window title */
 "Could Not Uninstall Configuration" = "설정을 삭제할 수 없습니다";
 
 /* Window title */
@@ -1667,9 +1664,6 @@
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick이 '%@' 설정을 옮길 수 없습니다. 자세한 것은 콘솔 로그를 보십시오.";
-
-/* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick이 '%@' 구성을 교체할 수 없습니다. 자세한 내용은 콘솔 로그를 확인하십시오.";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick이 '%@'의 환경설정과 관련된 문제를 복구하는 것에 실패했습니다. 자세한 것은 콘솔 로그에 있습니다.";

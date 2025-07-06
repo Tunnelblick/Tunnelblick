@@ -652,9 +652,6 @@
 "Could Not Move Configuration" = "ไม่สามารถย้ายคอนฟิกเกอเรชันได้";
 
 /* Window title */
-"Could Not Replace Configuration" = "ไม่สามารถแทนที่คอนฟิกเกอเรชันได้";
-
-/* Window title */
 "Could Not Uninstall Configuration" = "ไม่สามารถถอนการติดตั้งคอนฟิกเกอเรชันได้";
 
 /* Window title */
@@ -1775,9 +1772,6 @@
 
 /* Window text. The '%@' refers to a configuration or a folder of configurations. */
 "Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick ไม่สามารถลบ %@ ได้ ดูรายละเอียดได้ที่ Console Log";
-
-/* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick ไม่สามารถแทนที่คอนฟิกเกอเรชัน '%@' ได้ ดูรายละเอียดได้ที่ Console Log";
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick พบความผิดพลาดร้ายแรง\n\nโปรดส่งอีเมล์ไปที่ developers@tunnelblick.net เพื่อขอความช่วยเหลือ และอธิบายว่า Tunnelblick กำลังทำอะไรอยู่ขณะเกิดความผิดพลาด\n\n";

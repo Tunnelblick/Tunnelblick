@@ -610,9 +610,6 @@
 "Could Not Move Configuration" = "Tókst ekki að færa samskipan";
 
 /* Window title */
-"Could Not Replace Configuration" = "Tókst ekki að skipta samskipan út";
-
-/* Window title */
 "Could Not Uninstall Configuration" = "Tókst ekki að eyða samskipan út";
 
 /* Window title */

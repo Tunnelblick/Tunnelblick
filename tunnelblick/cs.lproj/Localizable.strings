@@ -544,6 +544,9 @@
 "Set nameserver (3.1)" = "Nastavit nameserver (3.1)";
 
 /* PopUpButton */
+"Set nameserver (OpenVPN)" = "Nastavit nameserver (OpenVPN)";
+
+/* PopUpButton */
 "Set nameserver (alternate 1)" = "Nastavit nameserver (alternativa 1)";
 
 /* PopUpButton */
@@ -668,9 +671,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Nelze přesunout konfiguraci";
-
-/* Window title */
-"Could Not Replace Configuration" = "Nepodařilo se nahradit konfiguraci";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "Nelze odinstalovat konfiguraci";
@@ -1276,6 +1276,9 @@
 "Do you wish to reinstall '%@' version %@?" = "Přejete si znovu nainstalovat '%1$@' verze %2$@?";
 
 /* Window text */
+"Do you wish to remove one or more configurations?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "Přejete si odstranit jednu nebo více konfigurací?\n\nOdstranění je trvalé a nelze je vrátit zpět.\n\nNastavení spojené s odstraňovanými konfiguracemi bude taktéž odstraněno.";
+
+/* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Přejete si přepsat '%1$@' verze %2$@ verzí %3$@?";
 
 /* Window text */
@@ -1843,9 +1846,6 @@
 "Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick nemohl odstranit '%@'. Více informací najdete v logu konzole.";
 
 /* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick nemohl přepsat konfiguraci '%@'. Více v logu konzole.";
-
-/* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "V Tunnelblicku nastala závažná chyba.\n\nProsím napište zprávu o pomoc na developers@tunnelblick.net, s popisem co se s Tunnelblickem dělo v okamžiku, kdy chyba nastala.\n\n";
 
 /* Window text */
@@ -2257,9 +2257,6 @@
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Specifikuje verzi OpenVPN a SSL software které se mají použít pro VPN spojení.</strong><ul><li><strong>\"Výchozí\" nastavení</strong> použije výchozí verzi OpenVPN s OpenSSL které jsou součástí této verze Tunnelblick. Jejich verze se můžou lišit mezi jednotlivými verzemi Tunnelblick.<br></li><li><strong>Možnost \"Poslední\"</strong> použije poslední aktuální verzi OpenVPN s OpenSSL které jsou součástí této verze Tunnelblick. Jejich verze se můžou lišit mezi jednotlivými verzemi Tunnelblick.<br></li><li><strong>Jiné nastavení</strong> použije specifikovanou verzi OpenVPN and SSL pokud jsou v této verzi Tunnelblick dostupné. Pokud nejsou bude použita nejbližší možná varianta.<br></li></ul>";
-
-/* HTML info for the 'Set DNS/WINS' button. */
-"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Určuje, co má Tunnelblick povoleno (pokud něco vůbec povoleno má) upravovat v nastavení DNS, když je VPN připojená.</strong> možnosti jsou:<ul><li><strong>Nenastavuj nameserver</strong>: žádné změny.<br></li><li><strong>Nastav nameserver</strong>: Tunnelblick použije svůj standardní skript na nastavení DNS a WINS. Toto je obyčejně nejlepší volba. Změní DNS a WINS nastavení podle pokynů od OpenVPN. Nastavení DNS a WINS, které bylo nastavené ručně, se změní jen v případě, pokud byla v pokročilých nasteveních zvolená možnost \"Povolit automatické změny nastavení manuálně nastavené konfigurace sítě\"<br></li><li><strong>Nastavit nameserver (3.1)</strong>: Tunnelblick použije skript Tunnelblick 3.1 na nastavení DNS a WINS.<br></li><li><strong>Nastavit nameserver (3.0b10)</strong>: Tunnelblick použije skript Tunnelblick 3.0b10 na nastavení DNS a WINS.<br></li><li><strong>Nastavit nameserver (alternativní 1)</strong>: Tunnelblick použije alternativní skript na nastavení DNS a WINS.<br></li></ul>";
 
 /* HTML info for the 'On unexpected disconnect' button. */
 "<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Určuje, jak sa má Tunnelblick chovat v případě, že se VPN odpojí <em>neočekávaným způsobem</em></strong> (například když OpenVPN spadne nebo ztratí připojení k VPN a přitom je nastavené ho v takovém případě ukončit). Dostupné volby jsou: Nedělat nic</p><ul><li><strong></strong><br></li><li><strong>Resetování primárního síťového rozhraní</strong>: Tunnelblick resetuje primární síťové rozhraní spuštěním příkaz \"ipconfig down; ipconfig up\". Toto může být užitečné v případě, že po odpojení selže správná konfigurace síťových nastavení.<br></li><li><strong>Vypnout přístup k síti (\"Kill Switch\")</strong>: Tunnelblick vypne všechny přístupy do sítě (lokální i internetové) vypnutím Wi-Fi a zakázaním všech ostatních síťových služeb. To pomůže zajistit, aby nedošlo k žádnému úniku informací v případě, že VPN není aktivní. Pokud Tunnelblick zakázal přístup na síť, příkaz na povolení síťového připojení bude k dispozici v ikoně Tunnelblick na nabídkovém panelu. Tak můžete také opětovně zapnout Wi-Fi jeho aktivováním, nebo opětovně zapnout jiné síťové služby v Nastavení Systému: Síť. <strong>Toto nastavení nemusí fungovat správně při vícero VPN připojení současně.</strong></li></ul>";
