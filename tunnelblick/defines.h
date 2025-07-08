@@ -112,7 +112,7 @@
 // Values for useDNS preference, also used as indices for the "Set DNS/WINS" dropdown box
 
 #define USEDNS_DO_NOT_SET_NAMESERVER    0
-#define USEDNS_SET_NAMSERVER            1
+#define USEDNS_SET_NAMESERVER           1
 #define USEDNS_SET_NAMESERVER_3_1       2
 #define USEDNS_SET_NAMESERVER_3_0_B10   3
 #define USEDNS_SET_NAMESERVER_ALT_1     4
