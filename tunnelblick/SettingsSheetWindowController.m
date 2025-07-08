@@ -171,8 +171,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 }
 
 
--(BOOL) usingSmartSetNameserverScript {
-    
+-(BOOL) useDnsScriptCanPerformFunction: (NSArray *) isSmart {
+
+    // isSmart is the USEDNS_SCRIPTS_THAT_CAN_* array for the particular operation to be performed
+
     if (  ! configurationName  ) {
         return FALSE;
     }
@@ -182,7 +184,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
                                          default: 1
                                              min: 0
                                              max: MAX_SET_DNS_WINS_INDEX];
-    return (ix == 1) || (ix == 5);
+    NSNumber * ixNumber = [NSNumber numberWithUnsignedInt: ix];
+    return [isSmart containsObject: ixNumber ];
 }
 
 - (void) setupCredentialsGroupButton {
@@ -231,7 +234,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         return;
     }
     
-    if (  [self usingSmartSetNameserverScript]  ) {
+    if (  [self useDnsScriptCanPerformFunction: USEDNS_SCRIPTS_THAT_CAN_PREPEND_DOMAIN_NAME]  ) {
         [self setupCheckbox: prependDomainNameCheckbox
                         key: @"-prependDomainNameToSearchDomains"
                    inverted: NO];
@@ -247,7 +250,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         return;
     }
     
-    if (  [self usingSmartSetNameserverScript]  ) {
+    if (  [self useDnsScriptCanPerformFunction: USEDNS_SCRIPTS_THAT_CAN_FLUSH_DNS]  ) {
         [self setupCheckbox: flushDnsCacheCheckbox
                         key: @"-doNotFlushCache"
                    inverted: YES];
@@ -263,7 +266,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 		return;
 	}
 	
-	if (  [self usingSmartSetNameserverScript]  ) {
+    if (  [self useDnsScriptCanPerformFunction: USEDNS_SCRIPTS_THAT_CAN_OVERRIDE_MANUAL_NETWORK_SETTINGS]  ) {
 		[self setupCheckbox: allowManualNetworkSettingsOverrideCheckbox
 						key: @"-allowChangesToManuallySetNetworkSettings"
 				   inverted: NO];
@@ -293,7 +296,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     NSString * type = [connection tapOrTun];
     if (   (   ( ! type )
 			|| [type containsString: @"tun"]  )
-		|| ( ! [self usingSmartSetNameserverScript] )  ) {
+        || ( ! [self useDnsScriptCanPerformFunction: USEDNS_SCRIPTS_THAT_CAN_ENABLE_IPV6_ON_TAP] )  ) {
         [enableIpv6OnTapCheckbox setState: NSOffState];
         [enableIpv6OnTapCheckbox setEnabled: NO];
     } else {

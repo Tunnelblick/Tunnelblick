@@ -677,7 +677,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
--(BOOL) usingSmartSetNameserverScript {
+-(BOOL) useDnsScriptCanPerformFunction: (NSArray *) isSmart {
     NSString * name = [[self selectedConnection] displayName];
 	if (  ! name  ) {
 		return NO;
@@ -688,7 +688,8 @@ static BOOL firstTimeShowingWindow = TRUE;
                                          default: 1
                                              min: 0
                                              max: MAX_SET_DNS_WINS_INDEX];
-    return (ix == 1) || (ix == 5);
+    NSNumber * ixNumber = [NSNumber numberWithUnsignedInt: ix];
+    return [isSmart containsObject: ixNumber];
 }
 
 -(void) setupSetNameserver: (VPNConnection *) connection
@@ -867,7 +868,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
 	NSString * type = [connection tapOrTun];
     if (   ( ! [type isEqualToString: @"tap"] )
-		&& [self usingSmartSetNameserverScript]  ) {
+        && [self useDnsScriptCanPerformFunction: USEDNS_SCRIPTS_THAT_CAN_DISABLE_IPV6_ON_TUN]  ) {
         [self setupPerConfigurationCheckbox: [configurationsPrefsView disableIpv6OnTunCheckbox]
                                         key: @"-doNotDisableIpv6onTun"
                                    inverted: YES
@@ -885,7 +886,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     NSString * type = [connection tapOrTun];
     if (   ( ! [type isEqualToString: @"tap"] )
-        && [self usingSmartSetNameserverScript]  ) {
+        && [self useDnsScriptCanPerformFunction: USEDNS_SCRIPTS_THAT_CAN_DISABLE_SECONDARY_NETWORK_SERVICES]  ) {
         [self setupPerConfigurationCheckbox: [configurationsPrefsView disableSecondaryNetworkServicesCheckbox]
                                         key: @"-disableSecondaryNetworkServices"
                                    inverted: NO
