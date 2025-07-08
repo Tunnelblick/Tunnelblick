@@ -132,32 +132,32 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 -(void) initializeAuthAgent {
 
-	NSString * group = credentialsGroupFromDisplayName([self displayName]);
-	[myAuthAgent release];
-	myAuthAgent = [[AuthAgent alloc] initWithConfigName: [self displayName]
-									   credentialsGroup: group];
+    NSString * group = credentialsGroupFromDisplayName([self displayName]);
+    [myAuthAgent release];
+    myAuthAgent = [[AuthAgent alloc] initWithConfigName: [self displayName]
+                                       credentialsGroup: group];
 }
 
 -(void) reloadPreferencesFromTblk {
 
-	// If a package, set preferences that haven't been defined yet or that should always be set
-	if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
-		NSString * infoPath = [configPath stringByAppendingPathComponent: @"Contents/Info.plist"];
-		NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPath];
-		NSString * key;
-		NSEnumerator * e = [infoDict keyEnumerator];
-		while (  (key = [e nextObject])  ) {
-			if (  [key hasPrefix: @"TBPreference"]  ) {
-				NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBPreference" length]]];
-				if (  ! [gTbDefaults preferenceExistsForKey: preferenceKey]  ) {
-					[gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
-				}
-			} else if (  [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
-				NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBAlwaysSetPreference" length]]];
-				[gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
-			}
-		}
-	}
+    // If a package, set preferences that haven't been defined yet or that should always be set
+    if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
+        NSString * infoPath = [configPath stringByAppendingPathComponent: @"Contents/Info.plist"];
+        NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPath];
+        NSString * key;
+        NSEnumerator * e = [infoDict keyEnumerator];
+        while (  (key = [e nextObject])  ) {
+            if (  [key hasPrefix: @"TBPreference"]  ) {
+                NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBPreference" length]]];
+                if (  ! [gTbDefaults preferenceExistsForKey: preferenceKey]  ) {
+                    [gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
+                }
+            } else if (  [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
+                NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBAlwaysSetPreference" length]]];
+                [gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
+            }
+        }
+    }
 }
 
 -(id) initWithConfigPath: (NSString *) inPath
@@ -167,35 +167,35 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         configPath = [inPath copy];
         displayName = [inDisplayName copy];
         managementSocket = nil;
-		connectedSinceDate = [[NSDate alloc] init];
+        connectedSinceDate = [[NSDate alloc] init];
         logDisplay = [[LogDisplay alloc] initWithConfigurationPath: inPath];
         if (  ! logDisplay  ) {
             return nil;
         }
 
-		[self setLocalizedName: [gMC localizedNameforDisplayName: inDisplayName tblkPath: inPath]];
+        [self setLocalizedName: [gMC localizedNameforDisplayName: inDisplayName tblkPath: inPath]];
 
         [logDisplay setConnection: self];
-		[logDisplay clear];
+        [logDisplay clear];
 
-		[self setLastState:      @"EXITING"];
-		[self setRequestedState: @"EXITING"];
-		[self initializeAuthAgent];
+        [self setLastState:      @"EXITING"];
+        [self setRequestedState: @"EXITING"];
+        [self initializeAuthAgent];
 
         // Set preferences that haven't been defined yet or that should always be set
-		[self reloadPreferencesFromTblk];
+        [self reloadPreferencesFromTblk];
 
-		messagesIfConnectionFails = [[NSMutableArray alloc] initWithCapacity: 8];
+        messagesIfConnectionFails = [[NSMutableArray alloc] initWithCapacity: 8];
 
-		speakWhenConnected    = FALSE;
-		speakWhenDisconnected = FALSE;
+        speakWhenConnected    = FALSE;
+        speakWhenDisconnected = FALSE;
         NSString * upSoundKey  = [displayName stringByAppendingString: @"-tunnelUpSoundName"];
         NSString * upSoundName = [gTbDefaults stringForKey: upSoundKey];
         if (  upSoundName  ) {
             if (  ! [upSoundName isEqualToString: @"None"]  ) {
                 if (  [upSoundName isEqualToString: @"Speak"]  ) {
-					speakWhenConnected = TRUE;
-				} else {
+                    speakWhenConnected = TRUE;
+                } else {
                     [self setTunnelUpSound: [NSSound soundNamed: upSoundName]];
                     if (  ! tunnelUpSound  ) {
                         NSLog(@"%@ '%@' not found; no sound will be played when connecting", upSoundKey, upSoundName);
@@ -208,8 +208,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         if (  downSoundName  ) {
             if (  ! [downSoundName isEqualToString: @"None"] ) {
                 if (  [downSoundName isEqualToString: @"Speak"]  ) {
-					speakWhenDisconnected = TRUE;
-				} else {
+                    speakWhenDisconnected = TRUE;
+                } else {
                     [self setTunnelDownSound: [NSSound soundNamed: downSoundName]];
                     if (  ! tunnelDownSound  ) {
                         NSLog(@"%@ '%@' not found; no sound will be played when an unexpected disconnection occurs", downSoundKey, downSoundName);
@@ -218,12 +218,12 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
             }
         }
         portNumber = 0;
-		pid = 0;
+        pid = 0;
         avoidHasDisconnectedDeadlock = 0;
 
-		waitingForNetworkAvailability = FALSE;
-		wereWaitingForNetworkAvailability = FALSE;
-		stopWaitForNetworkAvailabilityThread = FALSE;
+        waitingForNetworkAvailability = FALSE;
+        wereWaitingForNetworkAvailability = FALSE;
+        stopWaitForNetworkAvailabilityThread = FALSE;
         tryingToHookup = FALSE;
         initialHookupTry = TRUE;
         completelyDisconnected = TRUE;
@@ -233,7 +233,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         areDisconnecting = FALSE;
         haveConnectedSince = FALSE;
         areConnecting = FALSE;
-		disconnectWhenStateChanges = FALSE;
+        disconnectWhenStateChanges = FALSE;
         loadedOurTap = FALSE;
         loadedOurTun = FALSE;
         authFailed       = FALSE;
@@ -241,8 +241,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         showingStatusWindow = FALSE;
         serverNotClient = FALSE;
         ipCheckLastHostWasIPAddress = FALSE;
-		connectAfterDisconnect = FALSE;
-		useManualChallengeResponseOnce = FALSE;
+        connectAfterDisconnect = FALSE;
+        useManualChallengeResponseOnce = FALSE;
         logFilesMayExist = ([[gTbDefaults stringForKey: @"lastConnectedDisplayName"] isEqualToString: displayName]);
 
         userWantsState   = userWantsUndecided;
@@ -302,10 +302,10 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [self clearStatisticsIncludeTotals: NO];
     [self initializeAuthAgent];
     // Don't change logDisplay -- we want to keep it
-	[self setLastState:      @"EXITING"];
+    [self setLastState:      @"EXITING"];
     [self setRequestedState: @"EXITING"];
-	[self invalidateConfigurationParse];
-	[messagesIfConnectionFails removeAllObjects];
+    [self invalidateConfigurationParse];
+    [messagesIfConnectionFails removeAllObjects];
     portNumber       = 0;
     pid              = 0;
     tryingToHookup   = FALSE;
@@ -313,40 +313,40 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     areDisconnecting = FALSE;
     haveConnectedSince = FALSE;
     areConnecting    = FALSE;
-	disconnectWhenStateChanges = FALSE;
+    disconnectWhenStateChanges = FALSE;
     loadedOurTap     = FALSE;
     loadedOurTun     = FALSE;
-	useManualChallengeResponseOnce = FALSE;
+    useManualChallengeResponseOnce = FALSE;
     logFilesMayExist = FALSE;
     serverNotClient  = FALSE;
 }
 
 -(BOOL) makeShadowCopyMatchConfiguration {
 
-	return [ConfigurationManager makeShadowCopyMatchConfigurationWithDisplayName: [self displayName] updateInfo: nil thenConnect: NO userKnows: NO];
+    return [ConfigurationManager makeShadowCopyMatchConfigurationWithDisplayName: [self displayName] updateInfo: nil thenConnect: NO userKnows: NO];
 }
 
 -(BOOL) configurationIsSecureOrMatchesShadowCopy {
 
-	NSString * path = [self configPath];
-	return (   [path hasPrefix: L_AS_T_SHARED]
-			|| [path hasPrefix: gDeployPath]
-			|| [self shadowCopyIsIdentical]);
+    NSString * path = [self configPath];
+    return (   [path hasPrefix: L_AS_T_SHARED]
+            || [path hasPrefix: gDeployPath]
+            || [self shadowCopyIsIdentical]);
 }
 
 -(BOOL) userOrGroupOptionExistsInConfiguration {
 
-	NSString * cfgContents = [self condensedSanitizedConfigurationFileContents];
-	if (  cfgContents  ) {
-		if (   [ConfigurationManager parseString: cfgContents forOption: @"user"]
-			|| [ConfigurationManager parseString: cfgContents forOption: @"group"]  ) {
-			return YES;
-		}
-	} else {
-		NSLog(@"Unable to obtain configuration file for %@", [self displayName]);
-	}
+    NSString * cfgContents = [self condensedSanitizedConfigurationFileContents];
+    if (  cfgContents  ) {
+        if (   [ConfigurationManager parseString: cfgContents forOption: @"user"]
+            || [ConfigurationManager parseString: cfgContents forOption: @"group"]  ) {
+            return YES;
+        }
+    } else {
+        NSLog(@"Unable to obtain configuration file for %@", [self displayName]);
+    }
 
-	return NO;
+    return NO;
 }
 
 -(void) tryToHookup: (NSDictionary *) dict {
@@ -375,12 +375,12 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     if (  nArgs != OPENVPNSTART_LOGNAME_ARG_COUNT  ) {
         NSLog(@"Program error: Expected %lu arguments but have %lu in '%@' (the 'startArgs' portion of log filename for %@)",
               (long unsigned)OPENVPNSTART_LOGNAME_ARG_COUNT, (long unsigned)nArgs, inStartArgs, [self displayName]);
-		[gMC terminateBecause: terminatingBecauseOfError];
-		return;
+        [gMC terminateBecause: terminatingBecauseOfError];
+        return;
     }
 
-	connectedUseScripts    = (unsigned)[[startArgs objectAtIndex: OPENVPNSTART_LOGNAME_ARG_USE_SCRIPTS_IX] intValue];
-	[self setConnectedCfgLocCodeString: [startArgs objectAtIndex: OPENVPNSTART_LOGNAME_ARG_CFG_LOC_CODE_IX]];
+    connectedUseScripts    = (unsigned)[[startArgs objectAtIndex: OPENVPNSTART_LOGNAME_ARG_USE_SCRIPTS_IX] intValue];
+    [self setConnectedCfgLocCodeString: [startArgs objectAtIndex: OPENVPNSTART_LOGNAME_ARG_CFG_LOC_CODE_IX]];
 
     // We set preferences of any configuration that we try to hookup, because this might be a new user who hasn't run Tunnelblick,
     // and they may be hooking up to a configuration that started when the computer starts.
@@ -388,7 +388,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [self setPreferencesFromOpenvnpstartArgString: inStartArgs];
 
     tryingToHookup = TRUE;
-	[self setRequestedState: @"CONNECTED"];
+    [self setRequestedState: @"CONNECTED"];
     [self connectToManagementSocket];
 }
 
@@ -551,7 +551,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
         if ( ! isHookedup  ) {
             [self setPort: 0];
-			[self setRequestedState: @"EXITING"];
+            [self setRequestedState: @"EXITING"];
 
             NSLog(@"Stopped trying to establish communications with an existing OpenVPN process for '%@'", [self localizedName]);
             NSString * msg = [NSString stringWithFormat:
@@ -565,7 +565,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                                     prefKey,
                                     NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
                                     nil,
-									NSAlertDefaultReturn);
+                                    NSAlertDefaultReturn);
         }
     }
 }
@@ -575,7 +575,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     MyPrefsWindowController * vpnDetails = [gMC logScreen];
     if (  vpnDetails  ) {
         TBLog(@"DB-HU", @"['%@'] didHookup invoked; informing VPN Details window", displayName)
-		[vpnDetails hookedUpOrStartedConnection: self];
+        [vpnDetails hookedUpOrStartedConnection: self];
         [self validateWhenToConnect];
     } else {
         TBLog(@"DB-HU", @"['%@'] didHookup invoked; VPN Details window does not exist", displayName)
@@ -742,8 +742,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         }
     }
 
-	NSBundle *thisBundle = [NSBundle mainBundle];
-	NSString *launchPath = [thisBundle pathForResource:@"atsystemstart" ofType:nil];
+    NSBundle *thisBundle = [NSBundle mainBundle];
+    NSString *launchPath = [thisBundle pathForResource:@"atsystemstart" ofType:nil];
 
     // Convert openvpnstart arguments to atsystemstart arguments by replacing the launch path with the atsystemstart parameter
     NSMutableArray * arguments = [[openvpnstartArgs mutableCopy] autorelease];
@@ -836,7 +836,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     // Returns YES on success, NO if user cancelled out of a dialog or there was an error
 
     NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-	*openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO userKnows: NO] mutableCopy] autorelease];
+    *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO userKnows: NO] mutableCopy] autorelease];
     if (  ! (*openvpnstartArgs)  ) {
         return NO;
     }
@@ -851,10 +851,10 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         workingDirectory = [configPath stringByAppendingPathComponent: @"Contents/Resources"];
     } else {
         workingDirectory = firstPartOfPath(configPath);
-		if (  ! workingDirectory  ) {
-			NSLog(@"No firstPartOfPath for '%@'", configPath);
+        if (  ! workingDirectory  ) {
+            NSLog(@"No firstPartOfPath for '%@'", configPath);
             [gMC terminateBecause: terminatingBecauseOfError];
-		}
+        }
     }
 
     *dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -870,25 +870,25 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 -(NSString *) description {
 
-	return [NSString stringWithFormat:@"VPN Connection %@", displayName];
+    return [NSString stringWithFormat:@"VPN Connection %@", displayName];
 }
 
 -(NSString *) condensedSanitizedConfigurationFileContents {
 
-	if (  condensedSanitizedConfigurationFileContents  ) {
-		return [[condensedSanitizedConfigurationFileContents retain] autorelease];
-	}
+    if (  condensedSanitizedConfigurationFileContents  ) {
+        return [[condensedSanitizedConfigurationFileContents retain] autorelease];
+    }
 
-	NSString * condensedContents = [ConfigurationManager condensedConfigFileContentsFromString: [self sanitizedConfigurationFileContents]];
-	[self setCondensedSanitizedConfigurationFileContents: condensedContents];
-	return condensedContents;
+    NSString * condensedContents = [ConfigurationManager condensedConfigFileContentsFromString: [self sanitizedConfigurationFileContents]];
+    [self setCondensedSanitizedConfigurationFileContents: condensedContents];
+    return condensedContents;
 }
 
 -(NSString *) sanitizedConfigurationFileContents {
 
-	if (  sanitizedConfigurationFileContents  ) {
-		return [[sanitizedConfigurationFileContents retain] autorelease];
-	}
+    if (  sanitizedConfigurationFileContents  ) {
+        return [[sanitizedConfigurationFileContents retain] autorelease];
+    }
 
     NSString * configLocString = configLocCodeStringForPath([self configPath]);
 
@@ -910,23 +910,23 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     NSString * configFileContents = nil;
     if (   stdOutString
         && ([stdOutString length] != 0)
-		&& (status == EXIT_SUCCESS)  ) {
+        && (status == EXIT_SUCCESS)  ) {
         configFileContents = [NSString stringWithString: stdOutString];
     }
 
-	if ( ! configFileContents  ) {
-		TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-						  NSLocalizedString(@"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details.", @"Window text"));
-	}
+    if ( ! configFileContents  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                          NSLocalizedString(@"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details.", @"Window text"));
+    }
 
-	[self setSanitizedConfigurationFileContents: configFileContents];
+    [self setSanitizedConfigurationFileContents: configFileContents];
 
     return configFileContents;
 }
 
 -(void)setPort: (unsigned int) inPort {
 
-	portNumber = inPort;
+    portNumber = inPort;
 }
 
 -(unsigned int) port {
@@ -940,17 +940,17 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 -(NSString *) secureDotTblkPath {
 
-	// Returns the path of the secure .tblk for this configuration:
-	//      * The path of a "Shared" configuration or a "Deployed" configuration; or
-	//	    * The path of the shadow copy of a "Private" configuration.
+    // Returns the path of the secure .tblk for this configuration:
+    //      * The path of a "Shared" configuration or a "Deployed" configuration; or
+    //	    * The path of the shadow copy of a "Private" configuration.
 
-	NSString * path = [self configPath];
-	if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-		path = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
-				stringByAppendingPathComponent: lastPartOfPath(path)];
-	}
+    NSString * path = [self configPath];
+    if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+        path = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
+                stringByAppendingPathComponent: lastPartOfPath(path)];
+    }
 
-	return path;
+    return path;
 }
 
 -(NSString *) displayName {
@@ -987,17 +987,17 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [statusScreen                     release]; statusScreen                     = nil;
     [tunnelDownSound                  release]; tunnelDownSound                  = nil;
     [tunnelUpSound                    release]; tunnelUpSound                    = nil;
-	[ipAddressBeforeConnect           release]; ipAddressBeforeConnect           = nil;
-	[serverIPAddress                  release]; serverIPAddress                  = nil;
+    [ipAddressBeforeConnect           release]; ipAddressBeforeConnect           = nil;
+    [serverIPAddress                  release]; serverIPAddress                  = nil;
     [statistics.lastSet               release]; statistics.lastSet               = nil;
     [bytecountsUpdated                release]; bytecountsUpdated                = nil;
     [argumentsUsedToStartOpenvpnstart release]; argumentsUsedToStartOpenvpnstart = nil;
     [menuItem                         release]; menuItem                         = nil;
-	[dynamicChallengeUsername         release]; dynamicChallengeUsername         = nil;
-	[dynamicChallengeState            release]; dynamicChallengeState            = nil;
-	[dynamicChallengePrompt           release]; dynamicChallengePrompt           = nil;
-	[dynamicChallengeFlags            release]; dynamicChallengeFlags            = nil;
-	[authRetryParameter				  release]; authRetryParameter               = nil;
+    [dynamicChallengeUsername         release]; dynamicChallengeUsername         = nil;
+    [dynamicChallengeState            release]; dynamicChallengeState            = nil;
+    [dynamicChallengePrompt           release]; dynamicChallengePrompt           = nil;
+    [dynamicChallengeFlags            release]; dynamicChallengeFlags            = nil;
+    [authRetryParameter				  release]; authRetryParameter               = nil;
     [managementPassword               release]; managementPassword               = nil;
 
     [super dealloc];
@@ -1005,9 +1005,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 -(void) invalidateConfigurationParse {
 
-	[self setTunOrTap: nil];
-	[self setSanitizedConfigurationFileContents: nil];
-	[self setCondensedSanitizedConfigurationFileContents: nil];
+    [self setTunOrTap: nil];
+    [self setSanitizedConfigurationFileContents: nil];
+    [self setCondensedSanitizedConfigurationFileContents: nil];
 }
 
 -(void) showStatusWindowForce: (BOOL) force {
@@ -1063,13 +1063,13 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         return nil;
     }
 
-	NSString * hostName = [url host];
+    NSString * hostName = [url host];
 
     if (  useIPAddress  ) {
         if (  serverIPAddress  ) {
             NSString * urlString = [url absoluteString];
-			NSMutableString * tempMutableString = [[urlString mutableCopy] autorelease];
-			NSRange rng = [tempMutableString rangeOfString: hostName];	// Just replace the first occurance of host
+            NSMutableString * tempMutableString = [[urlString mutableCopy] autorelease];
+            NSRange rng = [tempMutableString rangeOfString: hostName];	// Just replace the first occurance of host
             [tempMutableString replaceOccurrencesOfString: hostName withString: serverIPAddress options: 0 range: rng];
             urlString = [NSString stringWithString: tempMutableString];
             url = [NSURL URLWithString: urlString];
@@ -1097,95 +1097,95 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         return nil;
     }
     [req setValue: userAgent forHTTPHeaderField: @"User-Agent"];
-	[req setValue: hostName  forHTTPHeaderField: @"Host"];
+    [req setValue: hostName  forHTTPHeaderField: @"Host"];
 
-	// Make the request synchronously. Make it asynchronous (in effect) by invoking this method from a separate thread.
+    // Make the request synchronously. Make it asynchronous (in effect) by invoking this method from a separate thread.
     //
-	// Implements the timeout and times the requests
+    // Implements the timeout and times the requests
     NSHTTPURLResponse * urlResponse = nil;
-	NSError * requestError = nil;
-	NSData * data = nil;
+    NSError * requestError = nil;
+    NSData * data = nil;
     uint64_t startTimeNanoseconds = nowAbsoluteNanoseconds();
     uint64_t timeoutNanoseconds = (uint64_t)((timeoutInterval + 2.0) * 1.0e9);	// (Add a couple of seconds for overhead)
     uint64_t endTimeNanoseconds = startTimeNanoseconds + timeoutNanoseconds;
 
-	// On macOS 10.10 ("Yosemite"), the first request seems to always time out, so we retry several times, using a 1 second timeout for the first try
-	NSTimeInterval internalTimeOut = 1.0;
-	while (   (! data)
+    // On macOS 10.10 ("Yosemite"), the first request seems to always time out, so we retry several times, using a 1 second timeout for the first try
+    NSTimeInterval internalTimeOut = 1.0;
+    while (   (! data)
            && (nowAbsoluteNanoseconds() < endTimeNanoseconds)  ) {
 
-		[req setTimeoutInterval: internalTimeOut];
-		data = nil;
-		requestError = nil;
-		urlResponse  = nil;
-		TBLog(@"DB-IC", @"%@: Set timeout to %f and made request to %@", logHeader, internalTimeOut, [url absoluteString]);
-		data = [NSURLConnection sendSynchronousRequest: req
-									 returningResponse: &urlResponse
-												 error: &requestError];
-		TBLog(@"DB-IC", @"%@: IP address check: error was '%@'; response was '%@'; data was %@", logHeader, requestError, urlResponse, data);
+        [req setTimeoutInterval: internalTimeOut];
+        data = nil;
+        requestError = nil;
+        urlResponse  = nil;
+        TBLog(@"DB-IC", @"%@: Set timeout to %f and made request to %@", logHeader, internalTimeOut, [url absoluteString]);
+        data = [NSURLConnection sendSynchronousRequest: req
+                                     returningResponse: &urlResponse
+                                                 error: &requestError];
+        TBLog(@"DB-IC", @"%@: IP address check: error was '%@'; response was '%@'; data was %@", logHeader, requestError, urlResponse, data);
 
-		/*
+        /*
 
-		 Special handling for timeout errors, and for SSL errors when using the IP address instead of the domain name.
+         Special handling for timeout errors, and for SSL errors when using the IP address instead of the domain name.
 
-		 If there was a timeout error, allow more time for the next retry.
+         If there was a timeout error, allow more time for the next retry.
 
-		 If we're using the IP address instead of the domain name, the SSL negotiation will fail. But that means that the website was reached,
-		 so routing works and the problem accessing the website was probably a DNS problem. Several different SSL-related errors have been seen
-		 in experiments, so we check for any error that seems related to SSL.
+         If we're using the IP address instead of the domain name, the SSL negotiation will fail. But that means that the website was reached,
+         so routing works and the problem accessing the website was probably a DNS problem. Several different SSL-related errors have been seen
+         in experiments, so we check for any error that seems related to SSL.
 
-		 from /System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLError.h on macOS 10.11.6:
+         from /System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLError.h on macOS 10.11.6:
 
-				// SSL errors
-				NSURLErrorSecureConnectionFailed = 		-1200,
-				NSURLErrorServerCertificateHasBadDate = 	-1201,
-				NSURLErrorServerCertificateUntrusted = 	-1202,
-				NSURLErrorServerCertificateHasUnknownRoot = -1203,
-				NSURLErrorServerCertificateNotYetValid = 	-1204,
-				NSURLErrorClientCertificateRejected = 	-1205,
-				NSURLErrorClientCertificateRequired =	-1206,
-				NSURLErrorCannotLoadFromNetwork = 		-2000,
+         // SSL errors
+         NSURLErrorSecureConnectionFailed = 		-1200,
+         NSURLErrorServerCertificateHasBadDate = 	-1201,
+         NSURLErrorServerCertificateUntrusted = 	-1202,
+         NSURLErrorServerCertificateHasUnknownRoot = -1203,
+         NSURLErrorServerCertificateNotYetValid = 	-1204,
+         NSURLErrorClientCertificateRejected = 	-1205,
+         NSURLErrorClientCertificateRequired =	-1206,
+         NSURLErrorCannotLoadFromNetwork = 		-2000,
 
-		 */
+         */
 
-		if (  requestError  ) {
-			NSInteger errCode = [requestError code];
+        if (  requestError  ) {
+            NSInteger errCode = [requestError code];
 
-			if (  errCode == NSURLErrorTimedOut  ) {
+            if (  errCode == NSURLErrorTimedOut  ) {
 
-				// Timeout -- try again allowing more time - the overall timeoutInterval still applies.
-				internalTimeOut += 5.0;
+                // Timeout -- try again allowing more time - the overall timeoutInterval still applies.
+                internalTimeOut += 5.0;
 
-			} else if (   useIPAddress
-					   && (   (errCode == NSURLErrorSecureConnectionFailed)
-						   || (errCode == NSURLErrorServerCertificateHasBadDate)
-						   || (errCode == NSURLErrorServerCertificateUntrusted)
-						   || (errCode == NSURLErrorServerCertificateHasUnknownRoot)
-						   || (errCode == NSURLErrorServerCertificateNotYetValid)
-						   || (errCode == NSURLErrorClientCertificateRejected)
-						   || (errCode == NSURLErrorClientCertificateRequired)
-						   || (errCode == NSURLErrorCannotLoadFromNetwork)
-						   )
-					   ) {
-				NSLog(@"%@: Code = %ld, indicating an SSL error but that the server was reached by IP address; probably have a DNS problem", logHeader, errCode);
-				return [NSArray array];
-			}
-		}
+            } else if (   useIPAddress
+                       && (   (errCode == NSURLErrorSecureConnectionFailed)
+                           || (errCode == NSURLErrorServerCertificateHasBadDate)
+                           || (errCode == NSURLErrorServerCertificateUntrusted)
+                           || (errCode == NSURLErrorServerCertificateHasUnknownRoot)
+                           || (errCode == NSURLErrorServerCertificateNotYetValid)
+                           || (errCode == NSURLErrorClientCertificateRejected)
+                           || (errCode == NSURLErrorClientCertificateRequired)
+                           || (errCode == NSURLErrorCannotLoadFromNetwork)
+                           )
+                       ) {
+                NSLog(@"%@: Code = %ld, indicating an SSL error but that the server was reached by IP address; probably have a DNS problem", logHeader, errCode);
+                return [NSArray array];
+            }
+        }
 
-		sleep(1); // Do this at most once per second.
-	}
+        sleep(1); // Do this at most once per second.
+    }
 
     uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
     long elapsedTimeMilliseconds = (long) ((elapsedTimeNanoseconds + 500000) / 1000000);
 
-	TBLog(@"DB-IC", "%@: error = %@", logHeader, requestError);
+    TBLog(@"DB-IC", "%@: error = %@", logHeader, requestError);
 
-	if ( ! data  ) {
+    if ( ! data  ) {
         NSLog(@"%@: IP address info could not be fetched within %.1f seconds; the error was '%@'; the response was '%@'", logHeader, ((double)elapsedTimeMilliseconds)/1000.0, requestError, urlResponse);
         return nil;
     } else {
         TBLog(@"DB-IC", @"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds);
-	}
+    }
 
     if (  [data length] > TUNNELBLICK_DOT_NET_IPINFO_RESPONSE_MAX_LENGTH  ) {
         NSLog(@"%@:  Response data was too long (%ld bytes)", logHeader, (long) [data length]);
@@ -1200,13 +1200,13 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
     if (  ! [response containsOnlyCharactersInString: @"0123456789ABCDEFabcdef:.,"]  ) {
         NSLog(@"%@: Response had invalid characters. response = %@", logHeader, response);
-		return nil;
+        return nil;
     }
 
     NSArray * items = [response componentsSeparatedByString: @","];
     if (  [items count] != 3  ) {
         NSLog(@"%@: Response does not have three items separated by commas. response = %@", logHeader, response);
-		return nil;
+        return nil;
     }
 
     TBLog(@"DB-IC", @"%@: [%@, %@, %@]", logHeader, [items objectAtIndex: 0], [items objectAtIndex: 1], [items objectAtIndex: 2] )
@@ -1256,7 +1256,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                             @"skipWarningThatInternetIsNotReachable",
                             NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
                             nil,
-							NSAlertDefaultReturn);
+                            NSAlertDefaultReturn);
 }
 
 -(void) ipInfoNoDNSDialog {
@@ -1271,7 +1271,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                             @"skipWarningThatDNSIsNotWorking",
                             NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
                             nil,
-							NSAlertDefaultReturn);
+                            NSAlertDefaultReturn);
 }
 
 -(void) ipInfoNoChangeDialogBefore: (NSString *) beforeConnect {
@@ -1279,24 +1279,24 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     NSString * msg = [NSString stringWithFormat:
                       NSLocalizedString(@"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\n"
                                         @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self localizedName], beforeConnect];
-	TBShowAlertWindowExtended(NSLocalizedString(@"Warning", @"Window text"),
-							  msg,
-							  @"skipWarningThatIPAddressDidNotChangeAfterConnection",
-							  nil,
-							  nil,
-							  NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
-							  nil,
-							  NO);
+    TBShowAlertWindowExtended(NSLocalizedString(@"Warning", @"Window text"),
+                              msg,
+                              @"skipWarningThatIPAddressDidNotChangeAfterConnection",
+                              nil,
+                              nil,
+                              NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
+                              nil,
+                              NO);
 }
 
 -(BOOL) okToCheckForIPAddressChange {
 
-	if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
-		return NO;
-	}
+    if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
+        return NO;
+    }
 
-	NSString * key = [displayName stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-	return ! [gTbDefaults boolForKey: key];
+    NSString * key = [displayName stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+    return ! [gTbDefaults boolForKey: key];
 }
 
 -(void) startCheckingIPAddressBeforeConnected {
@@ -1306,8 +1306,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     }
 
     // Try to get ipAddressBeforeConnect and serverIPAddress
-	[self setIpAddressBeforeConnect: nil];
-	[self setServerIPAddress: nil];
+    [self setIpAddressBeforeConnect: nil];
+    [self setServerIPAddress: nil];
 
     NSString * threadID = [NSString stringWithFormat: @"%lu-%llu", (long) self, (long long) nowAbsoluteNanoseconds()];
     [gMC addActiveIPCheckThread: threadID];
@@ -1368,16 +1368,16 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 -(BOOL) checkForChangedIPAddress: (NSString *) beforeConnect andIPAddress: (NSString *) afterConnect {
 
-	if (  [beforeConnect isEqualToString: afterConnect]  ) {
-		[self addToLog: [NSString stringWithFormat: @"This computer's apparent public IP address (%@) was unchanged after the connection was made", beforeConnect]];
-		[self ipInfoNoChangeDialogBefore: beforeConnect];
+    if (  [beforeConnect isEqualToString: afterConnect]  ) {
+        [self addToLog: [NSString stringWithFormat: @"This computer's apparent public IP address (%@) was unchanged after the connection was made", beforeConnect]];
+        [self ipInfoNoChangeDialogBefore: beforeConnect];
         [self performSelectorOnMainThread: @selector(IPAddressChangeSucceeded:) withObject: @NO waitUntilDone: NO];
-		return FALSE;
-	} else {
-		[self addToLog: [NSString stringWithFormat: @"This computer's apparent public IP address changed from %@ before connection to %@ after connection", beforeConnect, afterConnect]];
+        return FALSE;
+    } else {
+        [self addToLog: [NSString stringWithFormat: @"This computer's apparent public IP address changed from %@ before connection to %@ after connection", beforeConnect, afterConnect]];
         [self performSelectorOnMainThread: @selector(IPAddressChangeSucceeded:) withObject: @YES waitUntilDone: NO];
-		return TRUE;
-	}
+        return TRUE;
+    }
 }
 
 -(void) checkIPAddressErrorResultLogMessage: (NSString *) msg {
@@ -1389,8 +1389,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 -(void) checkIPAddressGoodResult: (NSDictionary *) dict {
 
     NSString * before = [dict objectForKey: @"before"];
-	NSString * after  = [dict objectForKey: @"after"];
-	[gMC setPublicIPAddress: after];
+    NSString * after  = [dict objectForKey: @"after"];
+    [gMC setPublicIPAddress: after];
     [self checkForChangedIPAddress: before
                       andIPAddress: after];
 }
@@ -1428,20 +1428,20 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         return;
     }
 
-	if (  ipInfo  ) {
-		if (  [ipInfo count] > 2  ) {
-			[self setIpAddressBeforeConnect: [ipInfo objectAtIndex: 0]];
-			[self setServerIPAddress:        [ipInfo objectAtIndex: 2]];
-		} else {
+    if (  ipInfo  ) {
+        if (  [ipInfo count] > 2  ) {
+            [self setIpAddressBeforeConnect: [ipInfo objectAtIndex: 0]];
+            [self setServerIPAddress:        [ipInfo objectAtIndex: 2]];
+        } else {
             NSLog(@"After %.1f seconds, gave up trying to fetch IP address information before connecting", timeoutToUse);
-			[self ipInfoTimeoutBeforeConnectingDialog: timeoutToUse];
-		}
-	} else {
+            [self ipInfoTimeoutBeforeConnectingDialog: timeoutToUse];
+        }
+    } else {
         NSLog(@"An error occurred fetching IP address information before connecting");
         [self ipInfoErrorDialog];
     }
 
-	[gMC haveFinishedIPCheckThread: threadID];
+    [gMC haveFinishedIPCheckThread: threadID];
     [threadPool drain];
 }
 
@@ -1510,20 +1510,20 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
     if (  [ipInfo count] == 0  ) {
         TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: SSL error getting IP address using the ipInfo host's IP address")
-		[self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
-							   withObject: [NSString stringWithFormat: @"fetched IP address information using the ipInfo host's IP address after connecting."]
-							waitUntilDone: NO];
+        [self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
+                               withObject: [NSString stringWithFormat: @"fetched IP address information using the ipInfo host's IP address after connecting."]
+                            waitUntilDone: NO];
         [gMC haveFinishedIPCheckThread: threadID];
         [threadPool drain];
         return;
     }
 
     // Got IP address, even though DNS isn't working (!)
-	NSString * address = [ipInfo objectAtIndex:0];
+    NSString * address = [ipInfo objectAtIndex:0];
     TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", address)
-	[gMC performSelectorOnMainThread: @selector(setPublicIPAddress:)
-                                                           withObject: address
-                                                        waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(setPublicIPAddress:)
+                          withObject: address
+                       waitUntilDone: NO];
     [self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
                            withObject: [NSString stringWithFormat: @"fetched IP address information using the ipInfo host's IP address after connecting."]
                         waitUntilDone: NO];
@@ -1535,64 +1535,64 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 -(void) skipFinishMakingConnection: (NSDictionary *) dict {
 
-	TBLog(@"DB-CD", @"skipFinishMakingConnection: %@", dict)
+    TBLog(@"DB-CD", @"skipFinishMakingConnection: %@", dict)
 
-	pthread_mutex_lock( &areConnectingMutex );
-	areConnecting = FALSE;
-	pthread_mutex_unlock( &areConnectingMutex );
+    pthread_mutex_lock( &areConnectingMutex );
+    areConnecting = FALSE;
+    pthread_mutex_unlock( &areConnectingMutex );
 
-	[self setRequestedState: [dict objectForKey: @"requestedState"]];
-	completelyDisconnected = TRUE;
+    [self setRequestedState: [dict objectForKey: @"requestedState"]];
+    completelyDisconnected = TRUE;
 
-	[self hasDisconnected];
+    [self hasDisconnected];
 }
 
 -(void) getKextPolicy: (BOOL *) policyFound
-		   tapEnabled: (BOOL *) tapEnabled
-		  tapDisabled: (BOOL *) tapDisabled
-		   tunEnabled: (BOOL *) tunEnabled
-		  tunDisabled: (BOOL *) tunDisabled {
+           tapEnabled: (BOOL *) tapEnabled
+          tapDisabled: (BOOL *) tapDisabled
+           tunEnabled: (BOOL *) tunEnabled
+          tunDisabled: (BOOL *) tunDisabled {
 
-	*policyFound = FALSE;
+    *policyFound = FALSE;
 
-	NSString * stdOut = @"";
-	NSString * stdErr = @"";
-	int status = runOpenvpnstart(@[@"printTunnelblickKextPolicy"], &stdOut, &stdErr);
-	if (   (status == 0)
-		&& [stdErr length] == 0  ) {
+    NSString * stdOut = @"";
+    NSString * stdErr = @"";
+    int status = runOpenvpnstart(@[@"printTunnelblickKextPolicy"], &stdOut, &stdErr);
+    if (   (status == 0)
+        && [stdErr length] == 0  ) {
 
-		// Typical output from printTunnelblickKextPolicy:
-		//
-		// net.tunnelblick.tun|Z2SG5H3HC8|Jonathan Bullard|1|8
-		// net.tunnelblick.tap|Z2SG5H3HC8|Jonathan Bullard|0|4
+        // Typical output from printTunnelblickKextPolicy:
+        //
+        // net.tunnelblick.tun|Z2SG5H3HC8|Jonathan Bullard|1|8
+        // net.tunnelblick.tap|Z2SG5H3HC8|Jonathan Bullard|0|4
 
-		*policyFound = TRUE;
-		*tapEnabled  = [stdOut hasPrefix: @"net.tunnelblick.tap|Z2SG5H3HC8|Jonathan Bullard|1|"];
-		*tapDisabled = [stdOut hasPrefix: @"net.tunnelblick.tap|Z2SG5H3HC8|Jonathan Bullard|0|"];
-		*tunEnabled  = [stdOut hasPrefix: @"net.tunnelblick.tun|Z2SG5H3HC8|Jonathan Bullard|1|"];
-		*tunDisabled = [stdOut hasPrefix: @"net.tunnelblick.tun|Z2SG5H3HC8|Jonathan Bullard|0|"];
+        *policyFound = TRUE;
+        *tapEnabled  = [stdOut hasPrefix: @"net.tunnelblick.tap|Z2SG5H3HC8|Jonathan Bullard|1|"];
+        *tapDisabled = [stdOut hasPrefix: @"net.tunnelblick.tap|Z2SG5H3HC8|Jonathan Bullard|0|"];
+        *tunEnabled  = [stdOut hasPrefix: @"net.tunnelblick.tun|Z2SG5H3HC8|Jonathan Bullard|1|"];
+        *tunDisabled = [stdOut hasPrefix: @"net.tunnelblick.tun|Z2SG5H3HC8|Jonathan Bullard|0|"];
 
-	} else {
-		NSLog(@"Error status %d attempting to access the Kext Policy database\nstdout =\n%@\nstderr =\n%@",
-			  status, stdOut, stdErr);
-	}
+    } else {
+        NSLog(@"Error status %d attempting to access the Kext Policy database\nstdout =\n%@\nstderr =\n%@",
+              status, stdOut, stdErr);
+    }
 }
 
 -(NSString *) messageAfterKextLoadFailure {
 
-	NSMutableString * message = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
+    NSMutableString * message = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
 
-   if (  ! bothKextsAreInstalled()  ) {
+    if (  ! bothKextsAreInstalled()  ) {
 
-       [message appendString: NSLocalizedString(@"<p>You need to install Tunnelblick's system extensions to use this configuration.</p>"
-                                                @"<p>You can do that from Tunnelblick's 'Utilities' panel.</p>"
-                                                @"<p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>", @"HTML text.")];
+        [message appendString: NSLocalizedString(@"<p>You need to install Tunnelblick's system extensions to use this configuration.</p>"
+                                                 @"<p>You can do that from Tunnelblick's 'Utilities' panel.</p>"
+                                                 @"<p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>", @"HTML text.")];
 
-       if (  [[gTbInfo architectureBeingUsed] isEqualToString: ARCH_ARM]  ) {
-		   [message appendString: NSLocalizedString(@"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>", @"HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS.")];
-       }
+        if (  [[gTbInfo architectureBeingUsed] isEqualToString: ARCH_ARM]  ) {
+            [message appendString: NSLocalizedString(@"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>", @"HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS.")];
+        }
 
-       [message appendString: NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>", @"HTML text. The '[tunnelblick.net]' is to show the user that the link is to tunnelblick.net.")];
+        [message appendString: NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>", @"HTML text. The '[tunnelblick.net]' is to show the user that the link is to tunnelblick.net.")];
 
     } else {
 
@@ -1626,10 +1626,10 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         }
 
         [message appendString: NSLocalizedString(@"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'."
-                            @" You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>",
-                            @"HTML text.")];
+                                                 @" You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>",
+                                                 @"HTML text.")];
         [message appendString: NSLocalizedString(@"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>",
-                            @"HTML text.")];
+                                                 @"HTML text.")];
     }
 
     return message;
@@ -1638,66 +1638,66 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 -(void) finishMakingConnection: (NSDictionary *) dict {
 
 
-	TBLog(@"DB-CD", @"finishMakingConnection: %@", dict)
+    TBLog(@"DB-CD", @"finishMakingConnection: %@", dict)
 
-	BOOL userKnows   = [[dict objectForKey: @"userKnows"]   boolValue];
-	NSString * oldRequestedState = [dict objectForKey: @"requestedState"];
+    BOOL userKnows   = [[dict objectForKey: @"userKnows"]   boolValue];
+    NSString * oldRequestedState = [dict objectForKey: @"requestedState"];
 
-	[self startCheckingIPAddressBeforeConnected];
+    [self startCheckingIPAddressBeforeConnected];
 
-	// Process runOnConnect item
-	NSString * path = [gMC customRunOnConnectPath];
-	if (  path  ) {
+    // Process runOnConnect item
+    NSString * path = [gMC customRunOnConnectPath];
+    if (  path  ) {
 
-		NSMutableArray * arguments = [NSMutableArray arrayWithCapacity: [argumentsUsedToStartOpenvpnstart count] + 1];
+        NSMutableArray * arguments = [NSMutableArray arrayWithCapacity: [argumentsUsedToStartOpenvpnstart count] + 1];
 
-		// First argument to the runOnConnect program is the language code IFF there is a Localization.bundle in Deploy
-		if (  [gFileMgr fileExistsAtPath: [gDeployPath stringByAppendingPathComponent: @"Localization.bundle"]]  ) {
-			[arguments addObject: [gMC languageAtLaunch]];
-		}
+        // First argument to the runOnConnect program is the language code IFF there is a Localization.bundle in Deploy
+        if (  [gFileMgr fileExistsAtPath: [gDeployPath stringByAppendingPathComponent: @"Localization.bundle"]]  ) {
+            [arguments addObject: [gMC languageAtLaunch]];
+        }
 
-		[arguments addObjectsFromArray: argumentsUsedToStartOpenvpnstart];
+        [arguments addObjectsFromArray: argumentsUsedToStartOpenvpnstart];
 
-		if (  [[[path stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
-			OSStatus status = runTool(path, arguments, nil, nil);
-			if (  status != 0  ) {
-				NSLog(@"Tunnelblick runOnConnect item %@ returned %ld; The attempt to connect %@ has been cancelled", path, (long)status, [self displayName]);
-				if (  userKnows  ) {
-					TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
-									  [NSString
-									   stringWithFormat: NSLocalizedString(@"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld.", @"Window text"),
-									   [self localizedName], (long)status]);
-					[self setRequestedState: oldRequestedState];
-				}
-				areConnecting = FALSE;
-				completelyDisconnected = TRUE;
-				return;
-			}
-		} else {
-			startTool(path, arguments);
-		}
-	}
+        if (  [[[path stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
+            OSStatus status = runTool(path, arguments, nil, nil);
+            if (  status != 0  ) {
+                NSLog(@"Tunnelblick runOnConnect item %@ returned %ld; The attempt to connect %@ has been cancelled", path, (long)status, [self displayName]);
+                if (  userKnows  ) {
+                    TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+                                      [NSString
+                                       stringWithFormat: NSLocalizedString(@"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld.", @"Window text"),
+                                       [self localizedName], (long)status]);
+                    [self setRequestedState: oldRequestedState];
+                }
+                areConnecting = FALSE;
+                completelyDisconnected = TRUE;
+                return;
+            }
+        } else {
+            startTool(path, arguments);
+        }
+    }
 
-	[gTbDefaults setBool: NO forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
+    [gTbDefaults setBool: NO forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
 
-	NSString * logText = [NSString stringWithFormat:@"Attempting connection with %@%@; Set nameserver = 0x%08x%@",
-						  [self displayName],
-						  (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"1"]
-						   ? @" using shadow copy"
-						   : (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"2"]
-							  ? @" from Deploy"
-							  : @""  )  ),
-						  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 3] unsignedIntValue],
-						  (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 6] isEqualToString:@"1"]
-						   ? @"; not monitoring connection"
-						   : @"; monitoring connection" )
-						  ];
-	[self addToLog: logText];
+    NSString * logText = [NSString stringWithFormat:@"Attempting connection with %@%@; Set nameserver = 0x%08x%@",
+                          [self displayName],
+                          (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"1"]
+                           ? @" using shadow copy"
+                           : (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"2"]
+                              ? @" from Deploy"
+                              : @""  )  ),
+                          [[argumentsUsedToStartOpenvpnstart objectAtIndex: 3] unsignedIntValue],
+                          (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 6] isEqualToString:@"1"]
+                           ? @"; not monitoring connection"
+                           : @"; monitoring connection" )
+    ];
+    [self addToLog: logText];
 
     // Log the command used to launch openvpnstart, but don't show the management interface password
     NSMutableString * escapedArguments = [NSMutableString stringWithCapacity: 1000];
-	unsigned i;
-	for (i=0; i<([argumentsUsedToStartOpenvpnstart count]-1); i++) {
+    unsigned i;
+    for (i=0; i<([argumentsUsedToStartOpenvpnstart count]-1); i++) {
         NSString * escapedArgument = [[[argumentsUsedToStartOpenvpnstart objectAtIndex: i]
                                        componentsSeparatedByString: @" "]
                                       componentsJoinedByString: @"\\ "];
@@ -1707,155 +1707,155 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         }
 
         [escapedArguments appendString: [escapedArgument stringByAppendingString: @" "]];
-	}
+    }
     [escapedArguments appendString: @"<password>"];
-	[self addToLog: [NSString stringWithFormat: @"openvpnstart %@", escapedArguments]];
+    [self addToLog: [NSString stringWithFormat: @"openvpnstart %@", escapedArguments]];
 
-	unsigned bitMask = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 7] unsignedIntValue];
-	if (  (loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT)  ) {
-		[gMC incrementTapCount];
-	}
+    unsigned bitMask = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 7] unsignedIntValue];
+    if (  (loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT)  ) {
+        [gMC incrementTapCount];
+    }
 
-	if (  (loadedOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) == OPENVPNSTART_OUR_TUN_KEXT) ) {
-		[gMC incrementTunCount];
-	}
+    if (  (loadedOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) == OPENVPNSTART_OUR_TUN_KEXT) ) {
+        [gMC incrementTunCount];
+    }
 
-	[self setConnectedSinceDate: [NSDate date]];
-	[self clearStatisticsIncludeTotals: NO];
+    [self setConnectedSinceDate: [NSDate date]];
+    [self clearStatisticsIncludeTotals: NO];
 
-	NSString * errOut;
+    NSString * errOut;
 
-	BOOL isDeployedConfiguration = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"2"];
+    BOOL isDeployedConfiguration = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"2"];
 
-	OSStatus status = runOpenvpnstart(argumentsUsedToStartOpenvpnstart, nil, &errOut);
+    OSStatus status = runOpenvpnstart(argumentsUsedToStartOpenvpnstart, nil, &errOut);
 
-	NSString * openvpnstartOutput;
-	if (  status != EXIT_SUCCESS  ) {
+    NSString * openvpnstartOutput;
+    if (  status != EXIT_SUCCESS  ) {
 
-		pthread_mutex_lock( &areConnectingMutex );
-		areConnecting = FALSE;
-		pthread_mutex_unlock( &areConnectingMutex );
+        pthread_mutex_lock( &areConnectingMutex );
+        areConnecting = FALSE;
+        pthread_mutex_unlock( &areConnectingMutex );
 
-		[self setRequestedState: oldRequestedState];
-		completelyDisconnected = TRUE;
+        [self setRequestedState: oldRequestedState];
+        completelyDisconnected = TRUE;
 
-		if (  status == OPENVPNSTART_RETURN_SYNTAX_ERROR  ) {
-			openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
-		} else {
-			openvpnstartOutput = stringForLog(errOut, @"openvpnstart log:\n");
-		}
+        if (  status == OPENVPNSTART_RETURN_SYNTAX_ERROR  ) {
+            openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
+        } else {
+            openvpnstartOutput = stringForLog(errOut, @"openvpnstart log:\n");
+        }
 
-		[self addToLog: [NSString stringWithFormat: @"\n\n"
-						 "Could not start OpenVPN (openvpnstart returned with status #%ld)\n\n"
-						 "Contents of the openvpnstart log:\n"
-						 "%@",
-						 (long)status, openvpnstartOutput]];
+        [self addToLog: [NSString stringWithFormat: @"\n\n"
+                         "Could not start OpenVPN (openvpnstart returned with status #%ld)\n\n"
+                         "Contents of the openvpnstart log:\n"
+                         "%@",
+                         (long)status, openvpnstartOutput]];
 
-		if (  status == OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR) {
-			NSString * message = (  isDeployedConfiguration
-								  ? [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not secure. Please reinstall Tunnelblick.", @"Window text"), [self localizedName]]
-								  : [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not secure. It should be reinstalled.", @"Window text"), [self localizedName]]);
-			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-							  message);
-			areConnecting = FALSE;
-			completelyDisconnected = TRUE;
-			return;
-		} else if (  status == OPENVPNSTART_COULD_NOT_LOAD_KEXT  ) {
+        if (  status == OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR) {
+            NSString * message = (  isDeployedConfiguration
+                                  ? [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not secure. Please reinstall Tunnelblick.", @"Window text"), [self localizedName]]
+                                  : [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not secure. It should be reinstalled.", @"Window text"), [self localizedName]]);
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              message);
+            areConnecting = FALSE;
+            completelyDisconnected = TRUE;
+            return;
+        } else if (  status == OPENVPNSTART_COULD_NOT_LOAD_KEXT  ) {
 
-			NSString * link = @"https://tunnelblick.net/cCatalina.html";
-			NSString * linkMsg = [NSString stringWithFormat:
-								  NSLocalizedString(@"<p><a href=\"%@\">More information</a> [tunn" @"elblick.n" @"et]</p>",
-													@"HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL"
-													@" such as https://tunnelblick.net/cKextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net."),
-								  link];
+            NSString * link = @"https://tunnelblick.net/cCatalina.html";
+            NSString * linkMsg = [NSString stringWithFormat:
+                                  NSLocalizedString(@"<p><a href=\"%@\">More information</a> [tunn" @"elblick.n" @"et]</p>",
+                                                    @"HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL"
+                                                    @" such as https://tunnelblick.net/cKextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net."),
+                                  link];
 
-			NSString * htmlString = [NSString stringWithFormat: @"%@%@%@",
-									 [NSString stringWithFormat:
-									  NSLocalizedString(@"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>",
-														@"HTML error message. The '%@' is a configuration name."),
-									  [self displayName]],
-									 [self messageAfterKextLoadFailure],
-									 linkMsg];
-			NSAttributedString * msg = attributedLightDarkStringFromHTML(htmlString);
-			if (  ! msg  ) {
-				NSLog(@"connect:userKnows: msg = nil");
-				msg = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Tunnelblick could not load a kext", @"Window text") attributes: nil] autorelease];
-			}
+            NSString * htmlString = [NSString stringWithFormat: @"%@%@%@",
+                                     [NSString stringWithFormat:
+                                      NSLocalizedString(@"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>",
+                                                        @"HTML error message. The '%@' is a configuration name."),
+                                      [self displayName]],
+                                     [self messageAfterKextLoadFailure],
+                                     linkMsg];
+            NSAttributedString * msg = attributedLightDarkStringFromHTML(htmlString);
+            if (  ! msg  ) {
+                NSLog(@"connect:userKnows: msg = nil");
+                msg = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Tunnelblick could not load a kext", @"Window text") attributes: nil] autorelease];
+            }
 
-			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), msg);
-			areConnecting = FALSE;
-			completelyDisconnected = TRUE;
-			return;
-		}
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), msg);
+            areConnecting = FALSE;
+            completelyDisconnected = TRUE;
+            return;
+        }
 
-		if (  userKnows  ) {
-			if (  [messagesIfConnectionFails count] != 0  ) {
-				NSEnumerator * e = [messagesIfConnectionFails objectEnumerator];
-				NSString * message;
-				while (  (message = [e nextObject])  ) {
-					TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), message);
-				}
-				[messagesIfConnectionFails removeAllObjects];
-			} else {
-				TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
-								  [NSString stringWithFormat:
-								   NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
-								   [self localizedName]]);
-			}
-		}
+        if (  userKnows  ) {
+            if (  [messagesIfConnectionFails count] != 0  ) {
+                NSEnumerator * e = [messagesIfConnectionFails objectEnumerator];
+                NSString * message;
+                while (  (message = [e nextObject])  ) {
+                    TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), message);
+                }
+                [messagesIfConnectionFails removeAllObjects];
+            } else {
+                TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+                                  [NSString stringWithFormat:
+                                   NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
+                                   [self localizedName]]);
+            }
+        }
 
-	} else {
-		openvpnstartOutput = stringForLog(errOut, @"openvpnstart log:\n");
-		if (  [openvpnstartOutput length] != 0  ) {
-			[self addToLog: openvpnstartOutput];
-		}
-		[self setState: @"SLEEP"];
-		[gMC addNonconnection: self];
-		[self connectToManagementSocket];
-	}
+    } else {
+        openvpnstartOutput = stringForLog(errOut, @"openvpnstart log:\n");
+        if (  [openvpnstartOutput length] != 0  ) {
+            [self addToLog: openvpnstartOutput];
+        }
+        [self setState: @"SLEEP"];
+        [gMC addNonconnection: self];
+        [self connectToManagementSocket];
+    }
 }
 
 -(void) waitForNetworkAvailabilityThread: (NSDictionary *) dict {
 
-	// Secondary thread. Waits for the network to become available, then finishes connect sequence in the main thread
+    // Secondary thread. Waits for the network to become available, then finishes connect sequence in the main thread
 
-	NSAutoreleasePool * pool = [NSAutoreleasePool new];
+    NSAutoreleasePool * pool = [NSAutoreleasePool new];
 
-	TBLog(@"DB-CD", @"waitForNetworkAvailabilityThread: %@", dict)
+    TBLog(@"DB-CD", @"waitForNetworkAvailabilityThread: %@", dict)
 
-	while (  ! networkIsReachable()  ) {
-		if (  stopWaitForNetworkAvailabilityThread  ) {
-			break;
-		}
-		usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
-	}
+    while (  ! networkIsReachable()  ) {
+        if (  stopWaitForNetworkAvailabilityThread  ) {
+            break;
+        }
+        usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
+    }
 
-	TBLog(@"DB-CD", @"waitForNetworkAvailabilityThread: broke out of loop; stopWaitForNetworkAvailabilityThread = %s", CSTRING_FROM_BOOL(stopWaitForNetworkAvailabilityThread))
+    TBLog(@"DB-CD", @"waitForNetworkAvailabilityThread: broke out of loop; stopWaitForNetworkAvailabilityThread = %s", CSTRING_FROM_BOOL(stopWaitForNetworkAvailabilityThread))
 
-	wereWaitingForNetworkAvailability = TRUE;
-	waitingForNetworkAvailability = FALSE;
+    wereWaitingForNetworkAvailability = TRUE;
+    waitingForNetworkAvailability = FALSE;
 
-	if (  stopWaitForNetworkAvailabilityThread) {
-		[self performSelectorOnMainThread: @selector(skipFinishMakingConnection:) withObject: dict waitUntilDone: NO];
-	} else {
-		// Although there is a network available, it isn't fully "up" for a while. This results in immedate error
-		// returns from network access requests. So we wait for a few seconds.
-		uint waitSeconds = [gTbDefaults unsignedIntForKey: @"delayBeforeConnectingAfterReenablingNetworkServices" default: 3 min: 0 max: 3600];
-		sleep(waitSeconds);
-		[self performSelectorOnMainThread: @selector(finishMakingConnection:) withObject: dict waitUntilDone: NO];
-	}
+    if (  stopWaitForNetworkAvailabilityThread) {
+        [self performSelectorOnMainThread: @selector(skipFinishMakingConnection:) withObject: dict waitUntilDone: NO];
+    } else {
+        // Although there is a network available, it isn't fully "up" for a while. This results in immedate error
+        // returns from network access requests. So we wait for a few seconds.
+        uint waitSeconds = [gTbDefaults unsignedIntForKey: @"delayBeforeConnectingAfterReenablingNetworkServices" default: 3 min: 0 max: 3600];
+        sleep(waitSeconds);
+        [self performSelectorOnMainThread: @selector(finishMakingConnection:) withObject: dict waitUntilDone: NO];
+    }
 
-	[pool drain];
+    [pool drain];
 }
 
 -(void) connectOnMainThreadUserKnows: (NSNumber *) userKnowsNumber {
 
-	[self performSelectorOnMainThread: @selector(connectUserKnows:) withObject: userKnowsNumber waitUntilDone: YES];
+    [self performSelectorOnMainThread: @selector(connectUserKnows:) withObject: userKnowsNumber waitUntilDone: YES];
 }
 
 -(void) connectUserKnows: (NSNumber *) userKnowsNumber {
 
-	[self connect: self userKnows: [userKnowsNumber boolValue]];
+    [self connect: self userKnows: [userKnowsNumber boolValue]];
 }
 
 static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
@@ -5749,7 +5749,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(NSArray *) modifyNameserverOptionList {
 
     // Returns an array of NSDictionary objects with entries for the 'Set nameserver' popup button for this connection
-    // The "value" entry is the value of the xxxUseDNS preference for that entry
+    //
+    // The "name" entry in each dictionary is the localized name for the button entry
+    // The "value" entry is the value of the xxxUseDNS preference for that entry (the index into USEDNS_LOCALIZED_NAMES_ARRAY)
 
     // Figure out whether to use the standard scripts or 'custom' scripts
     // If Deployed, .tblk, or "old" scripts exist, they are considered "custom" scripts
@@ -5791,22 +5793,20 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
 
-    if (   custom  ) {
-        return [[[NSArray alloc] initWithObjects:
-                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Do not set nameserver",          @"PopUpButton"), @"name", @"0", @"value", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver",                 @"PopUpButton"), @"name", @"1", @"value", nil],
-                 nil] autorelease];
-    } else {
-        return [[[NSArray alloc] initWithObjects:
-                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Do not set nameserver",        @"PopUpButton"), @"name", @"0", @"value", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver",               @"PopUpButton"), @"name", @"1", @"value", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (3.1)",         @"PopUpButton"), @"name", @"4", @"value", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (3.0b10)",      @"PopUpButton"), @"name", @"2", @"value", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (alternate 1)", @"PopUpButton"), @"name", @"3", @"value", nil],
-				 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (alternate 2)",	@"PopUpButton"), @"name", @"4", @"value", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton"), @"name", @"5", @"value", nil],
-                 nil] autorelease];
+    NSArray * list = USEDNS_LOCALIZED_NAMES_ARRAY;
+
+    NSUInteger count = (  custom
+                        ? 2
+                        : list.count);
+
+    NSMutableArray * arr = [[[NSMutableArray alloc] initWithCapacity: count] autorelease];
+
+    unsigned i;
+    for (  i=0; i<count; i++  ) {
+        [arr addObject: @{ @"name" : list[i], @"value" : [NSString stringWithFormat: @"%d", i] }];
     }
+
+    return arr;
 }
 
 -(void) startMonitoringLogFiles {

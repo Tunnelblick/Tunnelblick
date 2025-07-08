@@ -1705,6 +1705,15 @@ NSString * localizeNonLiteral(NSString * msg, NSString * type)
 // They are here so that automated tools that deal with strings (such as the "getstrings" command) will include them.
 void localizableStrings(void)
 {
+    // These strings are used in a macro
+    NSLocalizedString(@"Do not set nameserver",        @"PopUpButton");
+    NSLocalizedString(@"Set nameserver",               @"PopUpButton");
+    NSLocalizedString(@"Set nameserver (3.1)",         @"PopUpButton");
+    NSLocalizedString(@"Set nameserver (3.0b10)",      @"PopUpButton");
+    NSLocalizedString(@"Set nameserver (alternate 1)", @"PopUpButton");
+    NSLocalizedString(@"Set nameserver (alternate 2)", @"PopUpButton");
+    NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton");
+
 	// These strings come from "thank you" emails
     NSLocalizedString(@"Thanks for your Tunnelblick donation", @"Window text");
     NSLocalizedString(@"Thank you very much for your donation to the TunnelblickProject.", @"Window text");
