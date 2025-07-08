@@ -135,6 +135,15 @@ NSLocalizedString(@"Set nameserver (alternate 2)", @"PopUpButton"), \
 NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 ]
 
+// Arrays containing useDNS values for scripts that can perform the specified action:
+
+# define USEDNS_SCRIPTS_THAT_CAN_DISABLE_IPV6_ON_TUN                @[ @1, @5, @6 ]
+# define USEDNS_SCRIPTS_THAT_CAN_ENABLE_IPV6_ON_TAP                 @[ @1, @5, @6 ]
+# define USEDNS_SCRIPTS_THAT_CAN_DISABLE_SECONDARY_NETWORK_SERVICES @[ @1, @5, @6 ]
+# define USEDNS_SCRIPTS_THAT_CAN_FLUSH_DNS                          @[ @1, @5, @6 ]
+# define USEDNS_SCRIPTS_THAT_CAN_PREPEND_DOMAIN_NAME                @[ @1, @5 ]
+# define USEDNS_SCRIPTS_THAT_CAN_OVERRIDE_MANUAL_NETWORK_SETTINGS   @[ @1, @5 ]
+
 // Mapping from useDNS preference to 'up' and 'down' script names (-1 means don't use a script)
 #define MAP_USEDNS_TO_UP_DOWN_SCRIPT_NUMBER   {-1, 0, 1, 2, 3, 4, 5}
 
