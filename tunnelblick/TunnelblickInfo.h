@@ -78,6 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSArray *) allOpenvpnOpenssslVersions;
 -(NSString *) defaultOpenvpnOpensslVersion;
 -(NSString *) latestOpenvpnOpensslVersion;
+-(BOOL) haveOpenvpnOpensslVersionAtLeast: (NSString * __nullable) start butLessThan: (NSString * __nullable) end;
 
 // INFO ABOUT TUNNELBLICK.APP which might be overridden by a forced preference
 

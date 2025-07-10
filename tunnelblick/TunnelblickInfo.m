@@ -395,6 +395,22 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[latestOpenvpnOpensslVersion copy] autorelease];
 }
 
+-(BOOL) haveOpenvpnOpensslVersionAtLeast: (NSString * __nullable) start butLessThan: (NSString * __nullable) end {
+
+    NSArray * openvpnVersions = self.allOpenvpnOpenssslVersions;
+    unsigned i;
+    for (  i=0; i<openvpnVersions.count; i++  ) {
+        if (   (   (! start)
+                || ([start compare: openvpnVersions[i]] != NSOrderedDescending)  )
+            && (   (! end)
+                || ([openvpnVersions[i] compare: end]   == NSOrderedDescending)  )  ) {
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
 -(NSString *) architectureBeingUsed {
 
     if (  ! architectureBeingUsed  ) {
