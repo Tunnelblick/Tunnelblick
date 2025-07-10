@@ -544,6 +544,9 @@
 "Set nameserver (3.1)" = "設定域名解析伺服器 (3.1)";
 
 /* PopUpButton */
+"Set nameserver (OpenVPN)" = "設定域名解析伺服器 (OpenVPN)";
+
+/* PopUpButton */
 "Set nameserver (alternate 1)" = "設定域名解析伺服器 (替代選擇 1)";
 
 /* PopUpButton */
@@ -1271,6 +1274,9 @@
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "您要重新安裝 ' %1$@' 版本 %2$@ 嗎？";
+
+/* Window text */
+"Do you wish to remove one or more configurations?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "你确定删除一個或多個設定檔吗？\n\n已删除的設定将不能被恢复。";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "您希望用 %3$@ 版本來替換 '%1$@' 版本 %2$@ 嗎？";
@@ -2251,6 +2257,9 @@
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>指定連接 VPN 應該使用 OpenVPN 和 SSL 軟體的版本。</strong><ul><li><strong>「預設」選項</strong>將使用這個 Tunnelblick 版本所包含的預設 OpenVPN 與 OpenSSL 版本。不同的 Tunnelblick 版本的預設版本可能不一樣。<br></li><li><strong>「最新」選項</strong>將使用這個 Tunnelblick 版本所包含的最新 OpenVPN 與 OpenSSL 版本。不同的 Tunnelblick 版本的最新版本可能不一樣。<br></li><li><strong>任何其他選項</strong>如果這個 Tunnelblick 版本有指定的OpenVPN 與 SSL 軟體版本可用，將使用指定的版本。如果沒有，將使用最接近的版本。<br></li></ul>";
+
+/* HTML info for the 'Set DNS/WINS' button. */
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 2)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (OpenVPN)</strong>: Tunnelblick uses OpenVPN's default script to handle DNS settings.<br></li></ul>" = "<p><strong>指定 Tunnelblick 在 VPN 連接時對 DNS 設定進行何種修改（如果有的話）。</strong> 選項包括：<ul><li><strong>不設定名稱伺服器</strong>：不進行任何操作。<br></li><li><strong>設定名稱伺服器</strong>：Tunnelblick 使用其標準腳本來處理 DNS 和 WINS 設定。這通常是最佳選擇。它會根據 OpenVPN 提供的指令來更改 DNS 和 WINS 設定。除非在「進階」設定視窗中選擇了「允許更改手動設定的網路設定」，否則手動設定的 DNS 和 WINS 設定不會被更改<br></li><li><strong>設定名稱伺服器 (3.1)</strong>：Tunnelblick 使用來自 Tunnelblick 3.1 的腳本來處理 DNS 和 WINS 設定。<br></li><li><strong>設定名稱伺服器 (3.0b10)</strong>：Tunnelblick 使用來自 Tunnelblick 3.0b10 的腳本來處理 DNS 和 WINS 設定。<br></li><li><strong>設定名稱伺服器 (替代方案 1)</strong>：Tunnelblick 使用替代腳本來處理 DNS 和 WINS 設定。<br></li><li><strong>設定名稱伺服器 (替代方案 2)</strong>：Tunnelblick 使用替代腳本來處理 DNS 和 WINS 設定。<br></li><li><strong>設定名稱伺服器 (OpenVPN)</strong>：Tunnelblick 使用 OpenVPN 的預設腳本來處理 DNS 設定。<br></li></ul>";
 
 /* HTML info for the 'On unexpected disconnect' button. */
 "<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>指定 VPN <em>意外</em>斷開連接的時候 Tunnelblick 要做什麼。</strong> (比如，OpenVPN 崩潰或失去連接以及設定為失去連接時要停止)。選項是：</p><ul><li><strong>什麼都不做</strong><br></li><li><strong>重置主要藉口</strong>: Tunnelblick 發送 'ipconfig down; ipconfig up' 命令給主要網絡接口以重置該藉口。這個選項有助於配置斷開後不完美地恢復網絡設置的情況。<br></li><li><strong>停止網絡訪問 (\"急停按鈕\")</strong>: Tunnelblick 關閉無線網絡，停用所有其他的網絡服務，來斷開所有網絡訪問（包括局部和互聯網）。這個選項有助保證，除了通過 VPN 以外沒有信息能夠從電腦透露出去。如果 Tunnelblick 已經停止了網絡訪問，選單行裡的 Tunnelblick 圖標選單中會出現一個命令，該命令能夠重新打開所有被停用的網絡服務。你也可以在系統選項的網絡選項中重新打開無線網絡或其他的網絡服務。<strong>在多於一個 VPN 同時連接的時候，這個選項可能不能正常工作。</strong></li></ul>";
