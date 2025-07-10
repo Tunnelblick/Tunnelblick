@@ -5803,7 +5803,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     unsigned i;
     for (  i=0; i<count; i++  ) {
-        [arr addObject: @{ @"name" : list[i], @"value" : [NSString stringWithFormat: @"%d", i] }];
+
+        // Include "Set nameserver (OpenVPN)" only if a binary of OpenVPN 2.7 or higher is available
+        if (   (i != USEDNS_SET_NAMESERVER_OPENVPN)
+            || [gTbInfo haveOpenvpnOpensslVersionAtLeast: @"2.7" butLessThan: nil]  ) {
+            [arr addObject: @{ @"name" : list[i], @"value" : [NSString stringWithFormat: @"%d", i] }];
+        }
     }
 
     return arr;
