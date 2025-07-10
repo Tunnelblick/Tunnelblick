@@ -517,145 +517,18 @@ static void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * pa
 }
 
 //**************************************************************************************************************************
-// EXTENDED ATTRIBUTE ROUTINES
-
-static NSArray * extendedAttributeNames(NSString * path) {
-
-    // Return an array with the names of all extended attributes for the item at path
-
-    const char * filePath = path.fileSystemRepresentation;
-
-    // get size of buffer needed
-    ssize_t bufferLength = listxattr(filePath, NULL, 0, XATTR_NOFOLLOW);
-
-    if (  bufferLength == -1  ) {
-        appendLog([NSString stringWithFormat: @"listxattr() getting length of attribute strings failed for '%@'; error was %ld ('%s')",
-                   path, (long)errno, strerror(errno)]);
-        errorExit();
-    }
-
-    // return immediately if there are no extended attributes
-    if (  bufferLength == 0  ) {
-        return nil;
-    }
-
-    // make sure the size is reasonable
-    if (  bufferLength > 1000000  ) {
-        appendLog([NSString stringWithFormat: @"Extended attributes list too large: %lu bytes", bufferLength]);
-        errorExit();
-    }
-
-    // make a buffer of sufficient length
-    char * buffer = malloc(bufferLength);
-    if (  buffer == NULL ) {
-        appendLog([NSString stringWithFormat: @"Could not malloc %lu bytes for extended attributes list", bufferLength]);
-        errorExit();
-    }
-
-    // now actually get the attribute strings
-    ssize_t newBufferLength = listxattr(filePath, buffer, bufferLength, XATTR_NOFOLLOW);
-
-    // make sure the size is the same or smaller
-    if (  newBufferLength == -1  ) {
-        appendLog([NSString stringWithFormat: @"listxattr() getting attribute strings failed for '%@'; error was %ld ('%s')",
-                   path, (long)errno, strerror(errno)]);
-        free(buffer);
-        errorExit();
-    }
-
-    if (  newBufferLength > bufferLength  ) {
-        appendLog([NSString stringWithFormat: @"Extended attributes list became larger. Was %lu bytes, is now %lu bytes",
-                   bufferLength, newBufferLength]);
-        free(buffer);
-        errorExit();
-    }
-
-    if (  newBufferLength == 0 ) {
-        appendLog([NSString stringWithFormat: @"All extended attributes disappeared. List was %lu bytes long",
-                   bufferLength]);
-        free(buffer);
-        return nil;
-    }
-
-    // Construct the array. Estimate size using 6 bytes per entry
-    NSMutableArray * array = [[[NSMutableArray alloc] initWithCapacity: newBufferLength/6] autorelease];
-    char * next = buffer;
-    char * end  = buffer + newBufferLength;
-    while (  next < end  ) {
-        NSString * name = [[[NSString alloc] initWithCString: next encoding: NSUTF8StringEncoding] autorelease];
-        if (  name.length == 0  ) {
-            break;
-        } else {
-            [array addObject: name];
-            next += strlen(next) + 1; // Skip C string and NUL byte which terminates it
-        }
-    }
-
-    // release buffer
-    free(buffer);
-
-    return [NSArray arrayWithArray: array];
-}
-
-BOOL clearExtendedAttributes(NSString * path, NSArray * attributeNames) {
-
-    // Clears the extended attributes listed in the array for the item at path
-
-    const char * filePath = path.fileSystemRepresentation;
-
-    NSString * name = nil;
-    NSEnumerator * e = attributeNames.objectEnumerator;
-    while (  (name = e.nextObject)  ) {
-        int status = removexattr(filePath, name.UTF8String, XATTR_NOFOLLOW);
-        if (  status != 0  ) {
-            appendLog([NSString stringWithFormat: @"Failed to remove '%@' xattr from %@; error was %ld ('%s')",
-                       name, path, (long)errno, strerror(errno)]);
-            return NO;
-        }
-    }
-
-    return YES;
-}
-
-
-BOOL removeExtendedAttributesWorker(NSString * path) {
-
-    // Removes all extended attributes for the item at path
-
-    NSArray * list = extendedAttributeNames(path);
-    if (  list  ) {
-        BOOL status = clearExtendedAttributes(path, list);
-        return status;
-    }
-
-    return YES;
-}
+// EXTENDED ATTRIBUTES
 
 void removeExtendedAttributes(NSString * tunnelblickAppPath) {
 
     // Removes all extended attributes from the directory structure rooted at tunnelblickAppPath
 
-    // Remove from the folder itself
-    if (  ! removeExtendedAttributesWorker(tunnelblickAppPath)  ) {
-        goto fail;
+    NSArray * arguments = @[@"-crs", tunnelblickAppPath];
+    OSStatus status = runTool(TOOL_PATH_FOR_XATTR, arguments, nil, nil);
+    if (  status != EXIT_SUCCESS  ) {
+        appendLog([NSString stringWithFormat: @"'xattr -crs %@' failed", tunnelblickAppPath]);
+        errorExit();
     }
-
-    // Remove from contents
-    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tunnelblickAppPath];
-    NSString * file;
-    while (  (file = dirE.nextObject)  ) {
-        NSString * fullPath = [tunnelblickAppPath stringByAppendingPathComponent: file];
-        if (  ! removeExtendedAttributesWorker(fullPath)  ) {
-            goto fail;
-        }
-    }
-
-    appendLog([NSString stringWithFormat: @"Removed any extended attributes from '%@'", tunnelblickAppPath]);
-    return;
-
-fail:
-    appendLog([NSString stringWithFormat: @"Unable to remove all extended attributes from '%@'", tunnelblickAppPath]);
-    errorExit();
 }
 
 

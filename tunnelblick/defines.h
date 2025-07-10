@@ -245,6 +245,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 #define TOOL_PATH_FOR_SQLITE3		@"/usr/bin/sqlite3"
 #define TOOL_PATH_FOR_SW_VERS		@"/usr/bin/sw_vers"
 #define TOOL_PATH_FOR_TAR			@"/usr/bin/tar"
+#define TOOL_PATH_FOR_XATTR         @"/usr/bin/xattr"
 
 // Strings returned by architecturesForExecutable() for supported architectures
 #define ARCH_X86 @"x86_64"
