@@ -667,6 +667,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
         [self checkSystemFoldersAreSecure];
 
+        // Check that all OpenVPN versions match their enclosing folder names
+        [gTbInfo allOpenvpnOpenssslVersions];
+
         if (  ! [gTbDefaults boolForKey: @"doNotShowSplashScreen"]  ) {
             splashScreen = [[SplashWindowController alloc] init];
             [splashScreen showWindow: self];
