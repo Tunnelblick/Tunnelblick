@@ -344,9 +344,9 @@ static void resolveSymlinksInPath(NSString * targetPath) {
             securelyDeleteItem(fullPath);
 
             NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                         @"0",    NSFileOwnerAccountID,
-                                         @"0",    NSFileGroupOwnerAccountID,
-                                         @"0700", NSFilePosixPermissions,
+                                         @0,    NSFileOwnerAccountID,
+                                         @0,    NSFileGroupOwnerAccountID,
+                                         [NSNumber numberWithInt: 0700], NSFilePosixPermissions,
                                          nil];
 
             if (  [gFileMgr createFileAtPath: fullPath contents: data attributes: attributes]  ) {
@@ -1288,9 +1288,9 @@ static void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
 
     // Store the hash of the .plist and the daemon in files owned by root:wheel
     NSDictionary * hashFileAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                         @"0", NSFileOwnerAccountID,
-                                         @"0", NSFileGroupOwnerAccountID,
-                                         [NSString stringWithFormat: @"0%o", PERMS_SECURED_READABLE], NSFilePosixPermissions,
+                                         @0, NSFileOwnerAccountID,
+                                         @0, NSFileGroupOwnerAccountID,
+                                         [NSNumber numberWithInt: PERMS_SECURED_READABLE], NSFilePosixPermissions,
                                          nil];
     
     NSData * plistData = [gFileMgr contentsAtPath: TUNNELBLICKD_PLIST_PATH];

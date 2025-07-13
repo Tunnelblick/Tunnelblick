@@ -2115,9 +2115,9 @@ BOOL forceCopyFileAsRoot(NSString * sourceFullPath, NSString * targetFullPath) {
 
     // Create the .tblk folder structure if it does not exist already
     if ( ! [fm fileExistsAtPath: resourcesFolder]  ) {
-        NSDictionary * attributes = @{NSFileOwnerAccountID :      @"0",
-                                      NSFileGroupOwnerAccountID : @"0",
-                                      NSFilePosixPermissions :    [NSString stringWithFormat: @"0%o", PERMS_SECURED_FOLDER]
+        NSDictionary * attributes = @{NSFileOwnerAccountID :      @0,
+                                      NSFileGroupOwnerAccountID : @0,
+                                      NSFilePosixPermissions :    [NSNumber numberWithInt: PERMS_SECURED_FOLDER]
                                      };
         if (  ! [fm tbCreateDirectoryAtPath: resourcesFolder withIntermediateDirectories: YES attributes: attributes]  ) {
             stopBeingRoot();
