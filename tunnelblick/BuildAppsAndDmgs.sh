@@ -463,11 +463,6 @@ RemoveBuildNumberAndVersionStringTxtFiles() {
     rm -f "${APP_PATH}/Contents/Resources/TBVersionString.txt"
 }
 
-RemoveExternalBuildCleanScriptShFile() {
-
-    rm -f "${APP_PATH}/Contents/Resources/ExternalBuildCleanScript.sh"
-}
-
 RemoveSuperfluousIconSetsFiles() {
 
     # Remove non-.png files in IconSets (but leave the "templates.png" file)
@@ -737,8 +732,6 @@ shopt nullglob
     CopyTunnelblickAppIconOverSparkleAutoUpdateAppIcon
 
     RemoveBuildNumberAndVersionStringTxtFiles
-
-    RemoveExternalBuildCleanScriptShFile
 
     RemoveSuperfluousIconSetsFiles
 
