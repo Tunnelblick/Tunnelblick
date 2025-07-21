@@ -213,7 +213,7 @@ static BOOL expandSecureZip(NSString * inPath, NSString * outPath) {
         return FALSE;
     }
 
-    NSArray * arguments = @[@"-x",
+    NSArray * arguments = @[@"--extract",
                             @"--no-same-owner",
                             @"--keep-old-files",
                             @"--cd",   [outPath stringByDeletingLastPathComponent],
