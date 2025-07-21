@@ -549,8 +549,6 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
 
     NSString * secureZipPath = [L_AS_T stringByAppendingPathComponent: @"Tunnelblick.zip"];
 
-    NSString * secureUpdatedAppPath = [L_AS_T stringByAppendingPathComponent: @"Tunnelblick.app"];
-
     if (  ! [[NSFileManager defaultManager] tbRemovePathIfItExists: secureZipPath]  ) {
         return FALSE;
     }
@@ -597,31 +595,33 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
 
     // Either the .zip signature was verified, or we are using the relaxed forgery rule, or both
 
-        if (  ! [[NSFileManager defaultManager] tbRemovePathIfItExists: secureUpdatedAppPath]  ) {
-            return FALSE;
-        }
+    NSString * secureUpdatedAppTempPath = [L_AS_T_TEMP stringByAppendingPathComponent: @"Tunnelblick.app"];
 
-        if (  ! checkSecureZipHasValidPaths(secureZipPath)  ) {
-            return FALSE;
-        }
+    if (  ! [[NSFileManager defaultManager] tbRemovePathIfItExists: secureUpdatedAppTempPath]  ) {
+        return FALSE;
+    }
 
-        if (  ! expandSecureZip(secureZipPath, secureUpdatedAppPath)  ) {
-            return FALSE;
-        }
+    if (  ! checkSecureZipHasValidPaths(secureZipPath)  ) {
+        return FALSE;
+    }
 
-        if (  ! deleteSecureZip(secureZipPath)  ) {
-            return FALSE;
-        }
+    if (  ! expandSecureZip(secureZipPath, secureUpdatedAppTempPath)  ) {
+        return FALSE;
+    }
 
-        if (  ! verifyReasonableOwnershipAndPermissions(secureUpdatedAppPath)  ) {
-            return FALSE;
-        }
+    if (  ! deleteSecureZip(secureZipPath)  ) {
+        return FALSE;
+    }
 
-        if (  ! verifyCodesignSignature(secureUpdatedAppPath)  ) {
-            return FALSE;
-        }
+    if (  ! verifyReasonableOwnershipAndPermissions(secureUpdatedAppTempPath)  ) {
+        return FALSE;
+    }
 
-    if (  teamIDsMatch(secureUpdatedAppPath, APPLICATIONS_TB_APP)  ) {
+    if (  ! verifyCodesignSignature(secureUpdatedAppTempPath)  ) {
+        return FALSE;
+    }
+
+    if (  teamIDsMatch(secureUpdatedAppTempPath, APPLICATIONS_TB_APP)  ) {
         if (  ! secureZipSignatureVerified  ) {
             appendLog(@"updateTunnelblick: The 'updateRelaxForgeryRule' preference has been forced, so the update is accepted");
         }
@@ -639,15 +639,15 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
         }
     }
 
-    if (  ! verifyVersionAndBuild(secureUpdatedAppPath, versionBuildString)  ) {
+    if (  ! verifyVersionAndBuild(secureUpdatedAppTempPath, versionBuildString)  ) {
         return FALSE;
     }
 
-    if (  ! verifyNotDowngrading(secureUpdatedAppPath)  ) {
+    if (  ! verifyNotDowngrading(secureUpdatedAppTempPath)  ) {
         return FALSE;
     }
 
-    if (  ! moveApp(secureUpdatedAppPath, L_AS_T_TB_NEW)  ) {
+    if (  ! moveApp(secureUpdatedAppTempPath, L_AS_T_TB_NEW)  ) {
         return FALSE;
     }
 
