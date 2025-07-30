@@ -447,7 +447,7 @@ NSString * architecturesForExecutable(NSString * path) {
 
 BOOL thisArchitectureSupportsBinaryAtPath(NSString * path) {
 
-    // We don't support running Arm binaries under Rosetta (even if macOS does)
+    // We don't support running Intel binaries on Apple Silicon under Rosetta (even if macOS does)
     // because (A) running Tunnelblick under Rosetta is unnecessary and (B) we warn
     // about it.
 
