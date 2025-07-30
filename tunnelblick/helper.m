@@ -1793,7 +1793,7 @@ NSString * displayNameForOpenvpnName(NSString * openvpnName, NSString * nameToRe
 	}
 
 	if (  [name hasSuffix: SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN]  ) {
-		name = [NSString stringWithFormat: NSLocalizedString(@"%@ (non-Tunnelblick)",@"Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1'"),
+		name = [NSString stringWithFormat: NSLocalizedString(@"%@ (imported)",@"Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1'"),
 				[name substringToIndex: [name length] - [SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN length]]];
 	}
 
