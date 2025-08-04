@@ -14,9 +14,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program (see the file COPYING included with this
- *  distribution); if not, write to the Free Software Foundation, Inc.,
- *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *  or see http://www.gnu.org/licenses/.
+ *  distribution); if not, see http://www.gnu.org/licenses/.
  */
 
 // Provides a class method to do processing in the background after
