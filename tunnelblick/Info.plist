@@ -156,5 +156,7 @@ oc6bOLFBXyEyrd3DpOjF
 	<string>TBGITSTATUS</string>
 	<key>TBPrivacyURL</key>
 	<string>https://tunnelblick.net/cPrivacy.html#tunnelblick-privacy</string>
+	<key>NSAutoFillRequiresTextContentTypeForOneTimeCodeOnMac</key>
+	<true/>
 </dict>
 </plist>

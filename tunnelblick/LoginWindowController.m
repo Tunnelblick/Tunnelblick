@@ -148,6 +148,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSView *, securityTokenView)
 		}
 	}
 
+    [securityToken setContentType: NSTextContentTypeOneTimeCode];
+    [visibleSecurityToken  setContentType: NSTextContentTypeOneTimeCode];
+
     [self redisplay];
 }
 
