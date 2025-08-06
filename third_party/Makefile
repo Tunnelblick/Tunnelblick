@@ -32,7 +32,7 @@ SPARKLE_NAME     = Sparkle-077c64419f9460263bad99ab24dff962a103b1e2
 
 OPENSSL_1_1_NAME = openssl-1.1.1w
 OPENSSL_3_0_NAME = openssl-3.0.17
-OPENSSL_3_5_NAME = openssl-3.5.1
+OPENSSL_3_5_NAME = openssl-3.5.2
 
 PKCS11_NAME      = pkcs11-helper-1.27.0
 
