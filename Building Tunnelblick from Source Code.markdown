@@ -1,6 +1,6 @@
 **Building Tunnelblick from Source Code**
 
-_Last Updated 2024-06-16_
+_Last Updated 2025-08-05_
 
 You can build Tunnelblick from the source code. Usually, people install
 and use a ready-to-use binary version of Tunnelblick. The most recent
@@ -43,9 +43,10 @@ To build Tunnelblick from the source code:
  4. If you want to build a release version, you need to give Xcode "Full Disk Access";
  5. If building on an Apple Silicon Mac, you need to install Rosetta;
  6. You need to install Xcode command line tools;
- 7. You need to have set up Xcode to build Tunnelblick;
- 8. You need to select the type of build you want to create; and then
- 9. You can (finally!) build Tunnelblick.
+ 7. On Apple Silicon Macs, you need to install Rosetta 2.
+ 8. You need to have set up Xcode to build Tunnelblick;
+ 9. You need to select the type of build you want to create; and then
+ 10. You can (finally!) build Tunnelblick.
 
 This document has a section about each of these steps.
 
@@ -158,7 +159,14 @@ Xcode needs to have the command line tools installed. You can
 do that in Terminal with the following command:
 ```xcode-select --install```
 
-**7. Setting up Xcode to Build Tunnelblick**
+**7. Installing Rosetta 2**
+
+On Apple Silcon Macs, Tunnelblick's build process requires Rosetta 2 to be installed.
+You can do that in Terminal with the following command:
+```softwareupdate --install-rosetta```
+Note that you'll need to agree to the software license agreement.
+
+**8. Setting up Xcode to Build Tunnelblick**
 
 Double-click **TBS**/tunnelblick/Tunnelblick.xcodeproj to
 open the Tunnelblick source code in Xcode.
@@ -179,7 +187,7 @@ Xcode >> Settings >> Locations >> Build Location..., set "Build Location" to "Le
 In older versions: Xcode, >> Settings >> Locations >> Advanced, set
 "Build Location" to "Legacy".
 
-**8. Selecting the Type of Build You Want to Create**
+**9. Selecting the Type of Build You Want to Create**
 
 There are two different types of builds:
 
@@ -200,7 +208,7 @@ To select the type of build in Xcode:
  4. Select build type "Release" in the drop-down list to the right of "Build
  Configuration" on the right.
 
-**9. Finally, Building Tunnelblick!**
+**10. Finally, Building Tunnelblick!**
 
 Do a "Product >> Clean build folder" before building.
 
