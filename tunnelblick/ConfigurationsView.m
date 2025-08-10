@@ -423,7 +423,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 
 										@"HTML info for the 'OpenVPN version' button.");
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_OPENVPN]  ) {
-		html = [html stringByAppendingString: NSLocalizedString(@"<p>'<strong>imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application."
+		html = [html stringByAppendingString: NSLocalizedString(@"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application."
 																@" They were imported and installed by a computer administrator.</p>",
 																@"HTML info for the 'OpenVPN version' button.")];
 	}
