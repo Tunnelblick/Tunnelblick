@@ -527,4 +527,50 @@ void appendLog(NSString * errMsg);
     return answer;
 }
 
+-(NSString *) freshTemporaryDirectoryPath {
+
+    //**********************************************************************************************
+    // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    // Modified to check for malloc returning NULL, use strlcpy, and use more readable length for stringWithFileSystemRepresentation
+
+    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick-XXXXXX"];
+    const char * tempDirectoryTemplateCString = tempDirectoryTemplate.fileSystemRepresentation;
+
+    size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
+    char * tempDirectoryNameCString = (char *) malloc( bufferLength );
+    if (  ! tempDirectoryNameCString  ) {
+        appendLog(@"Unable to allocate memory for a temporary directory name");
+        exit(-1);
+    }
+
+    strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
+
+    char * dirPath = mkdtemp(tempDirectoryNameCString);
+    if (  ! dirPath  ) {
+        appendLog(@"Unable to create a temporary directory");
+        exit(-1);
+    }
+
+    NSString *tempFolder = [self stringWithFileSystemRepresentation: tempDirectoryNameCString
+                                                             length: strlen(tempDirectoryNameCString)];
+    // Change from /var to /private/var to avoid using a symlink
+    if (  [tempFolder hasPrefix: @"/var/"]  ) {
+        NSDictionary * fileAttributes = [self tbFileAttributesAtPath: @"/var" traverseLink: NO];
+        if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+            if ( [[self tbPathContentOfSymbolicLinkAtPath: @"/var"] isEqualToString: @"private/var"]  ) {
+                NSString * afterVar = [tempFolder substringFromIndex: 5];
+                tempFolder = [@"/private/var" stringByAppendingPathComponent:afterVar];
+            } else {
+                appendLog(@"Warning: /var is a symlink but not to /private/var so it is being left intact");
+            }
+        }
+    }
+
+    free(tempDirectoryNameCString);
+
+    // End of code from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    //**********************************************************************************************
+
+    return tempFolder;
+}
 @end

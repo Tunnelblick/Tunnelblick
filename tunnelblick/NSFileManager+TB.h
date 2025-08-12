@@ -47,6 +47,8 @@
 
 -(NSArray *)      tbDirectoryContentsAtPath:(NSString *)path;
 
+-(NSString *) freshTemporaryDirectoryPath;
+
 -(NSDictionary *) tbFileAttributesAtPath:(NSString *)path
                             traverseLink:(BOOL)flag;
 
