@@ -31,6 +31,11 @@
                       toPath:(NSString *)destination
                      handler:(id)handler;
 
+-(BOOL) setOwnershipOfItemAtPath: (NSString *) path
+                           owner: (uid_t)      owner
+                           group: (gid_t)      group
+                     recursively: (BOOL)       recursively;
+
 -(BOOL)         tbCopyFileAtPath: (NSString *) source
                           toPath: (NSString *) destination
  ownedByRootWheelWithPermissions: (mode_t)     permissions;

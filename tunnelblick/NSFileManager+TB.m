@@ -573,4 +573,43 @@ void appendLog(NSString * errMsg);
 
     return tempFolder;
 }
+
+-(BOOL) setOwnershipOfItemAtPath: (NSString *) path
+                           owner: (uid_t)      owner
+                           group: (gid_t)      group
+                     recursively: (BOOL)       recursively {
+
+    if (  lchown(path.fileSystemRepresentation, owner, group) != 0  ) {
+        appendLog([NSString stringWithFormat: @"lchown('%@', %u, %u) failed with error %d (%s)",
+                   path, owner, group, errno, strerror(errno)]);
+        return NO;
+    }
+
+    if (  recursively  ) {
+
+        // If directory, set ownership of all descendants
+        struct stat statbuf;
+        if (  stat(path.fileSystemRepresentation, &statbuf) != 0  ) {
+            appendLog([NSString stringWithFormat: @"stat('%@') failed with error %d (%s)",
+                       path, errno, strerror(errno)]);
+            return NO;
+        }
+
+        if (  S_ISDIR(statbuf.st_mode) != 0  ) {
+            NSDirectoryEnumerator * dirE = [self enumeratorAtPath: path];
+            NSString * filename;
+            while (  (filename = dirE.nextObject)  ) {
+                NSString * fullPath = [path stringByAppendingPathComponent: filename];
+                if (  lchown(fullPath.fileSystemRepresentation, owner, group) != 0  ) {
+                    appendLog([NSString stringWithFormat: @"lchown('%@', %u, %u) failed with error %d (%s)",
+                               fullPath, owner, group, errno, strerror(errno)]);
+                    return NO;
+                }
+            }
+        }
+    }
+
+    return YES;
+}
+
 @end
