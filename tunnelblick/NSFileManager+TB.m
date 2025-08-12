@@ -378,78 +378,41 @@ void appendLog(NSString * errMsg);
     return YES;
 }
 
--(BOOL)    tbCopyItemAtPath: (NSString *) source
- toBeOwnedByRootWheelAtPath: (NSString *) destination {
+-(BOOL)    tbCopyItemAtPath: (NSString *) sourcePath
+ toBeOwnedByRootWheelAtPath: (NSString *) targetPath {
 
-    NSDictionary * fileAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: source traverseLink: NO];
-    if (  ! fileAttributes  ) {
-        appendLog([NSString stringWithFormat: @"Cannot get attributes of item at '%@'", source]);
+    // Copy source path to a temporary path, set ownership, verify copy is identical, and rename temporary path to target path
+
+    NSString * tempDir = self.freshTemporaryDirectoryPath;
+
+    NSString * tempTarget = [tempDir stringByAppendingPathComponent: targetPath.lastPathComponent];
+
+    NSError * err;
+    if (  ! [self copyItemAtPath: sourcePath toPath: tempTarget error: &err]) {
+        appendLog([NSString stringWithFormat:
+                   @"Error copying '%@' to '%@': %@", sourcePath, tempTarget, err]);
+        return FALSE;
+    }
+
+    if (  !  [self setOwnershipOfItemAtPath: tempTarget owner: 0 group: 0 recursively: YES]  ) {
         return NO;
     }
 
-    unsigned long permissions = [fileAttributes filePosixPermissions];
-    BOOL isDir = [[fileAttributes fileType] isEqualToString: NSFileTypeDirectory];
+    if (  ! [self contentsEqualAtPath: sourcePath andPath: tempTarget]  ) {
+        appendLog([NSString stringWithFormat:
+                   @"Contents not equal after copy and set ownership: '%@' and '%@'",
+                   sourcePath, tempTarget]);
+        return NO;
+    }
 
-    if (  isDir  ) {
+    if (  ! [self tbForceRenamePath: tempTarget toPath: targetPath]) {
+        return NO;
+    }
 
-        if (  0 != mkdir([destination fileSystemRepresentation], (permissions | 0700))  ) {
-            NSString * errMsg = [NSString stringWithFormat:
-                                 @"Error returned from mkdir('%@', 0%3lo); Error was %d (%s); stack trace: %@",
-                                 destination, (permissions | 0700), errno, strerror(errno), [NSThread callStackSymbols]];
-            appendLog(errMsg);
-            return NO;
-        }
-
-        NSDirectoryEnumerator * dirE = [self enumeratorAtPath: source];
-        NSString * file;
-        while (  (file = [dirE nextObject])  ) {
-            NSString * fullSourcePath = [source stringByAppendingPathComponent: file];
-            NSString * fullDestinationPath = [destination stringByAppendingPathComponent: file];
-
-            fileAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: fullSourcePath traverseLink: NO];
-            if (  ! fileAttributes  ) {
-                appendLog([NSString stringWithFormat: @"Cannot get attributes of item at '%@'", fullSourcePath]);
-                return NO;
-            }
-
-            permissions = [fileAttributes filePosixPermissions];
-            isDir = [[fileAttributes fileType] isEqualToString: NSFileTypeDirectory];
-            BOOL isSymlink = [[fileAttributes fileType] isEqualToString: NSFileTypeSymbolicLink];
-
-            if (  isDir  ) {
-                if (  0 != mkdir([fullDestinationPath fileSystemRepresentation], (permissions | 0700))  ) {
-                    NSString * errMsg = [NSString stringWithFormat:
-                                         @"Error returned from mkdir('%@', 0%3lo); Error was %d (%s); stack trace: %@",
-                                         fullDestinationPath, (permissions | 0700), errno, strerror(errno), [NSThread callStackSymbols]];
-                    appendLog(errMsg);
-                    return NO;
-                }
-            } else if (  isSymlink  ) {
-                NSError * err;
-                NSString * symlinkTarget = [self destinationOfSymbolicLinkAtPath: fullSourcePath error: &err];
-                if (  ! symlinkTarget ) {
-                    NSString * errMsg = [NSString stringWithFormat:
-                                         @"Error returned from destinationOfSymbolicLinkAtPath '%@'; Error %@; stack trace: %@",
-                                         fullSourcePath, err, [NSThread callStackSymbols]];
-                    appendLog(errMsg);
-                    return NO;
-                }
-
-                if (  ! [self createSymbolicLinkAtPath: fullDestinationPath withDestinationPath: symlinkTarget error: &err]  ) {
-                    NSString * errMsg = [NSString stringWithFormat:
-                                         @"Error returned from createSymbolicLinkAtPath '%@' with destination '%@'; Error %@; stack trace: %@",
-                                         fullDestinationPath, symlinkTarget, err, [NSThread callStackSymbols]];
-                    appendLog(errMsg);
-                    return NO;
-                }
-            } else {
-                if (  ! [self tbCopyFileAtPath: fullSourcePath toPath: fullDestinationPath ownedByRootWheelWithPermissions: permissions]  ) {
-                    return NO;
-                }
-            }
-        }
-    } else {
-        return [self tbCopyFileAtPath: source toPath: destination ownedByRootWheelWithPermissions: permissions];
+    if (  ! [self removeItemAtPath: tempDir error: &err]  ) {
+        appendLog([NSString stringWithFormat:
+                   @"Error deleting '%@': %@", tempDir, err]);
+        return FALSE;
     }
 
     return YES;
@@ -491,6 +454,10 @@ void appendLog(NSString * errMsg);
 -(BOOL) tbForceRenamePath: (NSString *) sourcePath
                    toPath: (NSString *) targetPath {
 
+    if (  ! [self tbRemovePathIfItExists: targetPath]  ) {
+        return NO;
+    }
+    
     int status = rename([sourcePath fileSystemRepresentation], [targetPath fileSystemRepresentation]);
     if (  status != 0  ) {
         NSString * errMsg = [NSString stringWithFormat:
