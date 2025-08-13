@@ -3027,6 +3027,7 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
     NSMutableArray * disconnectList = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
 
     BOOL disconnectingAll = TRUE; // Assume we disconnect everything
+    BOOL nothingToDisconnect = TRUE;
 
     // Add connections to disconnectList if they are not disconnected and not set to connect when the computer starts
     VPNConnection * connection;
@@ -3034,6 +3035,8 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
     while (  (connection = [e nextObject])  ) {
 
         if (  ! [connection isDisconnected]  ) {
+
+            nothingToDisconnect = FALSE;
 
             NSString * name = [connection displayName];
             BOOL connectOnSystemStart = (   [gTbDefaults boolForKey: [name stringByAppendingString: @"-onSystemStart"]]
@@ -3048,6 +3051,10 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
                 disconnectingAll = FALSE;
             }
         }
+    }
+
+    if (  nothingToDisconnect  ) {
+        goto unlockAndReturn;
     }
 
     // Set up expectDisconnect flag files as needed
@@ -3077,6 +3084,8 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
         runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"0", @"ALL", nil], nil, nil);
         NSLog(@"Set 'expect disconnect 0 ALL'");
     }
+
+unlockAndReturn:
 
     status = pthread_mutex_unlock( &doDisconnectionsMutex );
     if (  status != EXIT_SUCCESS  ) {
