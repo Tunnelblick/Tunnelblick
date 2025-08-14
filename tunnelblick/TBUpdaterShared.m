@@ -78,14 +78,14 @@ void appendLog(NSString * s);
 
 @implementation UpdaterSharedLoggerBridge
 
-// This method is used to log messages from the TBValidator
-
 -(void) appendLog: (NSString *) message {
+
+    // This method is used to log messages from the TBValidator
 
     appendLog(message);
 }
-@end
 
+@end
 
 static BOOL copyInsecureZipToSecureZip(NSString * inPath, NSString * outPath) {
 
