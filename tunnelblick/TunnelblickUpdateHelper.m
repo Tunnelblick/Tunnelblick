@@ -243,19 +243,30 @@ static void moveAppToOldAndNewToL_AS_T_App(void) {
     }
 
     // Move .new to .app
-    if (  [gFileMgr tbMovePath: L_AS_T_TB_NEW toPath: L_AS_T_TB_APP handler: nil]  ){
-        appendLog([NSString stringWithFormat: @"Moved %@ to %@", L_AS_T_TB_NEW, L_AS_T_TB_APP]);
-    } else {
-        // Try to get Tunnelblick.app back
-        if (  [gFileMgr tbForceMovePath: L_AS_T_TB_OLD toPath: APPLICATIONS_TB_APP]  ){
-            appendLog([NSString stringWithFormat: @"Restored %@", APPLICATIONS_TB_APP]);
-        } else {
-            appendLog([NSString stringWithFormat: @"Could not restore %@ to %@", L_AS_T_TB_OLD, APPLICATIONS_TB_APP]);
-        }
-
-        appendLog(@"Failed to update Tunnelblick");
-        errorExit();
+    if (  ! [gFileMgr tbRemovePathIfItExists: L_AS_T_TB_APP]  ) {
+        goto fail;
     }
+
+    appendLog([NSString stringWithFormat: @"Deleted %@", L_AS_T_TB_APP]);
+
+    if (  ! [gFileMgr tbMovePath: L_AS_T_TB_NEW toPath: L_AS_T_TB_APP handler: nil]  ){
+        goto fail;
+    }
+
+    appendLog([NSString stringWithFormat: @"Moved %@ to %@", L_AS_T_TB_NEW, L_AS_T_TB_APP]);
+    return;
+
+fail:
+
+    // Try to get Tunnelblick.app back
+    if (  [gFileMgr tbForceMovePath: L_AS_T_TB_OLD toPath: APPLICATIONS_TB_APP]  ){
+        appendLog([NSString stringWithFormat: @"Restored %@", APPLICATIONS_TB_APP]);
+    } else {
+        appendLog([NSString stringWithFormat: @"Could not restore %@ to %@", L_AS_T_TB_OLD, APPLICATIONS_TB_APP]);
+    }
+
+    appendLog(@"Failed to update Tunnelblick");
+    errorExit();
 }
 
 static void copyL_AS_T_AppToApplications(void) {
