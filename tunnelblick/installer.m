@@ -1650,6 +1650,11 @@ static void setupLibrary_Application_Support_Tunnelblick(void) {
 		errorExit();
 	}
 	
+    if (  ! createDirWithPermissionAndOwnership(L_AS_T_TEMP,
+                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
+        errorExit();
+    }
+
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
 		errorExitIfAnySymlinkInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 		if (   ( ! checkSetOwnership(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, NO, 0, 0))

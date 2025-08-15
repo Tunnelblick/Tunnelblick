@@ -161,7 +161,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 
 #define L_AS_T        @"/Library/Application Support/Tunnelblick"
 
-#define L_AS_T_TEMP     @"/Library/Application Support/Tunnelblick/temp"
+#define L_AS_T_TEMP     @"/Library/Application Support/Tunnelblick/Updater-Temp"
 
 #define L_AS_T_TB_APP   @"/Library/Application Support/Tunnelblick/Tunnelblick.app"
 #define L_AS_T_TB_OLD   @"/Library/Application Support/Tunnelblick/Tunnelblick-old.app"
