@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2024, 2025 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -34,7 +34,7 @@
 //
 //  * Copies the .zip to /Library/Application Support/Tunnelblick/Tunnelblick.zip so it is owned by root:wheel and is secure;
 //  * Verifies the signature of the .zip;
-//  * Expands the .zip into /Library/Application Support/Tunnelblick/Tunnelblick.app;
+//  * Expands the .zip into /Library/Application Support/Tunnelblick/temp/Tunnelblick.app;
 //    so that the .app and everything within it is owned by root:wheel;
 //  * Verifies that the .app has reasonable ownership and permissions
 //    (i.e. everything owned by root:wheel, nothing with "other" write;
