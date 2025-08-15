@@ -232,7 +232,7 @@ static void waitUntilNoProcessWithName(NSString * name) {
     }
 }
 
-static void moveAppToOldAndNewToL_AS_T_App(void) {
+static void moveAppToOldAndNewToApplications_TB_App(void) {
 
     // Move /Applications/Tunnelblick.app to L_AS_T/Tunnelblick-old.app
     if (  [gFileMgr tbForceMovePath: APPLICATIONS_TB_APP toPath: L_AS_T_TB_OLD]  ){
@@ -242,18 +242,16 @@ static void moveAppToOldAndNewToL_AS_T_App(void) {
         errorExit();
     }
 
-    // Move .new to .app
-    if (  ! [gFileMgr tbRemovePathIfItExists: L_AS_T_TB_APP]  ) {
+    // Move L_AS_T/Tunnelblick-new.app to /Applications.Tunnelblick.app
+    if (  ! [gFileMgr tbRemovePathIfItExists: APPLICATIONS_TB_APP]  ) {
+        goto fail;
+    }
+    appendLog([NSString stringWithFormat: @"Deleted %@", APPLICATIONS_TB_APP]);
+    if (  ! [gFileMgr tbMovePath: L_AS_T_TB_NEW toPath: APPLICATIONS_TB_APP handler: nil]  ){
         goto fail;
     }
 
-    appendLog([NSString stringWithFormat: @"Deleted %@", L_AS_T_TB_APP]);
-
-    if (  ! [gFileMgr tbMovePath: L_AS_T_TB_NEW toPath: L_AS_T_TB_APP handler: nil]  ){
-        goto fail;
-    }
-
-    appendLog([NSString stringWithFormat: @"Moved %@ to %@", L_AS_T_TB_NEW, L_AS_T_TB_APP]);
+    appendLog([NSString stringWithFormat: @"Moved %@ to %@", L_AS_T_TB_NEW, APPLICATIONS_TB_APP]);
     return;
 
 fail:
@@ -269,23 +267,10 @@ fail:
     errorExit();
 }
 
-static void copyL_AS_T_AppToApplications(void) {
-
-    if (  ! [gFileMgr tbRemovePathIfItExists: APPLICATIONS_TB_APP]  ) {
-        errorExit();
-    }
-
-    // Copy app to /Applicatoins
-    if (  [gFileMgr tbCopyItemAtPath: L_AS_T_TB_APP toBeOwnedByRootWheelAtPath: APPLICATIONS_TB_APP]  ) {
-        appendLog([NSString stringWithFormat: @"Copied %@ to %@", L_AS_T_TB_APP, APPLICATIONS_TB_APP]);
-    } else {
-        errorExit();
-    }
-}
-
 static void updateTunnelblickdPlist(void) {
 
     // Update and reload the tunnelblickd .plist.
+    // This will also cause /Applications/Tunnelblick.app to be copied to L_AS_T
 
     NSString * bitMask = [NSString stringWithFormat: @"%d", INSTALLER_REPLACE_DAEMON];
 
@@ -421,9 +406,7 @@ int main(int argc, const char * argv[]) {
             errorExit();
         }
 
-        moveAppToOldAndNewToL_AS_T_App();
-
-        copyL_AS_T_AppToApplications();
+        moveAppToOldAndNewToApplications_TB_App();
 
         updateTunnelblickdPlist();
 
