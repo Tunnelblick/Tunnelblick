@@ -918,9 +918,6 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " אזהרה: העותק המקומי של Tunnelblick עבר שינוי לא מורשה, שעשוי להיות זדוני.\n\n";
 
-/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (לא Tunnelblick)";
-
 /* Window text */
 "%@ exists but is not a folder" = "%@ קיים, אך לא כתקייה";
 

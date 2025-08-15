@@ -899,9 +899,6 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UZMANĪBU: Šī Tunnelblick versija ir neautorizēti izmainīta.\n\n";
 
-/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (ne-Tunnelblick)";
-
 /* Window text */
 "%@ exists but is not a folder" = "%@ ekistē, bet tā nav mape";
 
@@ -2143,9 +2140,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Lai importēt Tunnelblick iestatījumus uz datora kur ir vairāk ka %u lietotāju konti, Jums jāizveido teksta failu ar aprakstu kādus datus ir jāimportē.</p>\n<p>Sīkāka informācija atrodama tīmekļa lapa <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
-/* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Tunnelblick projekts neizstrādāja '<strong>ne-Tunnelblick</strong>' OpenVPN versijas un tas nav šī projekta sastāvdaļas. Tos instālēja datora administrators.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>Lai 'Atļaut' sistēmas paplašinājumu iespējams būs nepieciešams mainīt sistēmas iestatijumus. To iespējams izdarīt tikai \"Recovery\" režīma. Būs nepieciešams pārstartēt datoru \"Recovery\" režīmā, izdarīt nepieciešamas izmaiņas, un pārstartēt atpakaļ normāla režīma. macOS vajadzētu palīdzēt Jums iziet cauri tam procesam.</p>";

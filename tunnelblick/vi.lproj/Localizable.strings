@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = "CẢNH BÁO: Phiên bản Tunnelblick này đã bị can thiệp.";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (không thuộc-Tunnelblick)\n";
+"%@ (imported)" = "%@ (đã nhập)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ đã tồn tại nhưng không phải là một thư mục";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Bạn có muốn cập nhật lên phiên bản mới nhất ngay bây giờ?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>non-Tunnelblick</strong>' các phiên bản của OpenVPN không được tạo bởi dự án Tunnelblick và không phải là một phần của Tunnelblick. Chúng đã được cài đặt bởi quản trị viên máy tính.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>Các phiên bản '<strong>Đã nhập</strong>' của OpenVPN có thể được sử dụng nhưng không được bao gồm trong bản sao của ứng dụng Tunnelblick này. Chúng đã được nhập và cài đặt bởi một quản trị viên máy tính.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Hành động cho phép' các tiện ích mở rộng hệ thống có thể yêu cầu thay đổi cài đặt bảo mật hệ thống. Chỉ có thể thay đổi cài đặt trong chế độ Khôi phục. Bạn có thể cần phải khởi động lại ở chế độ Khôi phục, thực hiện thay đổi, sau đó khởi động lại bình thường. macOS sẽ hướng dẫn bạn thực hiện quá trình này.</p>";

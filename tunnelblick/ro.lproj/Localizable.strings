@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ATENȚIE: Această copie a Tunnelblick a fost modificată.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (non-Tunnelblick)";
+"%@ (imported)" = "%@ (importat)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ există dar nu este un folder";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Doriți să actualizați aplicația acum?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "Versiunile <p>'<strong>non-Tunnelblick</strong>' de OpenVPN nu au fost create de proiectul Tunnelblick și nu fac parte din Tunnelblick. Elle au fost instalate de administratorul computerului.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>Versiuni '<strong>importate</strong>' ale OpenVPN pot fi folosite dar nu sunt incluse in aplicația Tunnelblick. Ele au fost importate și instalate de un administrator.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p> Permiterea extensiilor de sistem ar putea necesita o schimbare a configurației de securitate a sistemului. Această configurație poate fi schimbată doar în modul 'Recovery'. Pentru aceasta, repornește sistemul în modul 'Recovery', fă schimbarea după care repornește din nou sistemul în modul normal. macOS te va ghida cu informații suplimentare în cadrul acestui proces.</p>";

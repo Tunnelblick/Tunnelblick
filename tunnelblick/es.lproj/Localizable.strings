@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ALERTA: Esta copia de Tunnelblick ha sido manipulada.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (no de Tunnelblick)";
+"%@ (imported)" = "%@ (importada)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ existe pero no es un directorio";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>¿Desea actualizar a la nueva versión ahora?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Las versiones '<strong> no Tunnelblick</strong>' de OpenVPN no fueron creadas por el proyectoTunnelblick y no forman parte de Tunnelblick. Las mismas han sido instaladas por un administrador de la computadora.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>'<strong>Versiones Importadas</strong>' de OpenVPN pueden ser utilizadas pero no fueron incluidas en esta copia de la aplicación Tunnelblick. Han sido importadas e instaladas por un administrador de la computadora.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Permitir' las extensiones del sistema puede requerir un cambio en alguna de las configuraciones de seguridad del sistema. La configuración solo puede ser modificada en modo de Recuperación. Puede ser necesario reiniciar en modo Recuperación, realizar el cambio y luego reiniciar normalmente. El macOS debería guiarle a través de este proceso.</p>";

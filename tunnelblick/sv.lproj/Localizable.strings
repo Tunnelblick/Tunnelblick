@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " VARNING: Denna kopia av Tunnelblick har manipulerats.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (ej del av Tunnelblick)";
+"%@ (imported)" = "%@ (importerade)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ finns, men är inte en mapp";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Vill du uppdatera till den nya versionen nu?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>icke-Tunnelblick</strong>' versioner av OpenVPN har inte skapats av TunnelBlick projektet och ingår inte i Tunnelblick. De har installerats av en datoradministratör.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>'<strong>Importerade</strong>' versioner av OpenVPN kan användas men ingår inte i Tunnelblick-applikationen. De importerades och har installerats av en datoradministratör.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>\"Tillåta\" systemtilläggen kan kräva att en av systemets säkerhetsinställningar ändras. Inställningen kan endast ändras i återställningsläge. Du kan behöva starta om i återställningsläge, göra ändringen och därefter starta om igen på normalt sätt. macOS ska guida dig genom processen.</p>";

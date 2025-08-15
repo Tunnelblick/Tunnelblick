@@ -896,9 +896,6 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " تحذير: لقد تم  التلاعب فى هذه النسخة من  تُنلـبليك";
 
-/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (ليس Tunnelblick)";
-
 /* Window text */
 "%@ exists but is not a folder" = "%@  موجود ولكنه ليس مجلد";
 
@@ -2143,9 +2140,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>لتقوم بإستيراد إعدادات تُنلـبليك الى كمبيوتر يحتوي اكثر من %u حساب مستخدم, يجب عليم إنشاء ملف نصّي يحدد البيانات اللتي تريد استيرادها.</p>\n<p>لمزيد من المعلومات, أنظر <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
-/* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>هناك إصدارات \"OpenVPN\" '<strong>وهي ليست بل-Tunnelblick</strong>' ولم يتم انشاؤها بواسطة مشروع Tunnelblick وليست جزءًا من Tunnelblick. تم تثبيتها من قبل مشرف الحاسوب.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>قد يتطلب \"السماح\" بامتدادات النظام تغيير إعداد في أمن النظام. يمكن تغيير الإعداد فقط في وضع الاسترداد. قد تحتاج إلى إعادة التشغيل في وضع الاسترداد، إجراء التغيير، ثم إعادة التشغيل مرة أخرى بشكل طبيعي. يجب أن يوجهك macOS خلال هذه العملية.</p>";

@@ -870,9 +870,6 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UPOZORENJE: Ova kopija Tunnelblick-a je izmenjena.\n\n";
 
-/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (non-Tunnelblick)";
-
 /* Window text */
 "%@ exists but is not a folder" = "%@ postoji ali nije direktorijum";
 
@@ -2114,9 +2111,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Ukoliko želite da uvezete Tunnelblick konfiguraciju na računaru koji poseduje više od %u korisnička naloga, prvo je potrebno da kreirate datoteku sa specifikacijom podataka koji treba da budu uveženi. </p>\n<p>Za više informacija posetite <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
-/* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>ne-Tunnelblick</strong>' verzije OpenVPN nisu kreirane od strane Tunnelblick projekta i nisu dio Tunnelblick-a. One su instalirane od strane administratora.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>Dozvoljavanje sistemskih ekstenzija može zahtevati dodatne sigurnosne promene u sistemu. Ovo podešavanje može da se promeni isključivo u Recovery modu. Potrebno je da restartujete sistem u Recovery mod, izvršite promenu, a zatim restartujete računar. macOS bi trebao da vas vodi kroz ovaj proces.</p>";

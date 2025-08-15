@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " FIGYELEM: A Tunnelblick ezen példányát meghamisították.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (nem Tunnelblick)";
+"%@ (imported)" = "%@ (importált)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ létezik de nem egy könyvtár";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Szeretne az új verzióra most frissíteni?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "Az OpenVPN <p><strong>nem Tunnelblick</strong> verzióit nem a Tunneblick projekt tagjai hozták létre és nem képezik a Tunnelblick részeit. Ezeket a számítógép egy adminisztrátora telepítette.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>Az OpenVPN '<strong>importált</strong>' verziói használhatók, de nem szerepelnek a Tunnelblick alkalmazás ezen példányában. Ezeket egy számítógép-adminisztrátor importálta és telepítette.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>A rendszerkiegészítők 'Engedélyezése' szükségessé teheti a rendszer biztonsági beállításainak módosítását. A beállítás csak helyreállítási módban lehetséges. Szükséges lehet a számítógép helyreállítási módban történő újraindítása, ezután a rendes újraindítása. A macOS végig fogja vezetni a folyamaton.</p>";
@@ -2477,6 +2477,9 @@
 
 /* Credit description */
 "Afrikaans translation" = "Afrikaans fordítás";
+
+/* Credit description */
+"Albanian translation" = "albán fordítás";
 
 /* Credit description */
 "Animation and icon sets code" = "Animáció, ikon készlet kód";

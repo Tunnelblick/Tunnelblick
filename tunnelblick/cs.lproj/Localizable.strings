@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " Varování: Tato kopie Tunnelblicku byla změněna.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (nepatří k Tunnelblick)";
+"%@ (imported)" = "%@ (importováno)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ existuje ale není to složka";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Chcete nainstalovat aktualizaci nyní?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>\"<strong>Ne-Tunnelblickové</strong>\" verze OpenVPN nebyly vytvořeny projektem Tunnelblicku a nejsou součástí Tunnelblicku. Byly doinstalovány správcem počítače.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>Mohou být použity \"<strong>importované</strong>\" verze OpenVPN, ale nebyly zahrnuty v této kopii aplikace Tunnelblick. Importovány a instalovány byly administrátorem počítače.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Povolení' systémových rozšíření může vyžadovat změnu bezpečnostního nastavení systému. Toto nastavení lze změnit pouze v režimu Zotavení macOS. Je třeba restartovat do režimu zotavení změnit nastavení a znova restartovat v do běžného režimu. macOs by vás tímto procesem měl provést</p>";

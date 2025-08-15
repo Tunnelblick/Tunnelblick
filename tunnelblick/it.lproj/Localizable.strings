@@ -128,7 +128,7 @@
 "Install and Relaunch" = "Installa e riavvia";
 
 /* Button */
-"Install tun and tap system extensions..." = "Installa le estensioni di sistema TUN e TAP";
+"Install tun and tap system extensions..." = "Installa le estensioni di sistema tun e tap…";
 
 /* Button */
 "Install" = "Installa";
@@ -285,10 +285,10 @@
 "Tunnelblick 3.3 icon" = "Icona di Tunnelblick 3.3";
 
 /* Button */
-"Uninstall Tunnelblick..." = "Disinstalla Tunnelblick...";
+"Uninstall Tunnelblick..." = "Disinstalla Tunnelblick…";
 
 /* Button */
-"Uninstall tun and tap system extensions..." = "Disinstalla le estensioni di sistema TUN e TAP";
+"Uninstall tun and tap system extensions..." = "Disinstalla le estensioni di sistema TUN e TAP…";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Aggiorna";
@@ -304,7 +304,7 @@
 "A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "È disponibile un aggiornamento di Tunnelblick (%1.2f%% scaricato)…";
 
 /* Menu item */
-"A Tunnelblick Update is Available and Downloaded..." = "È disponibile un aggiornamento di Tunnelblick. L'aggiornamento è stato scaricato.";
+"A Tunnelblick Update is Available and Downloaded..." = "È disponibile un aggiornamento di Tunnelblick. L'aggiornamento è stato scaricato…";
 
 /* Menu item */
 "A Tunnelblick Update is Available..." = "È disponibile un aggiornamento di Tunnelblick…";
@@ -379,7 +379,7 @@
 "OpenVPN level 4 - values for all options" = "OpenvVPN livello 4 - valori per tutte le opzioni";
 
 /* Menu Item */
-"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenvVPN livello 5 - lettura/scrittura di ogni pacchetto";
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN livello 5 - lettura/scrittura di ogni pacchetto";
 
 /* Menu Item */
 "OpenVPN level 6 - very verbose output" = "OpenVPN livello 6 - output molto verboso";
@@ -388,10 +388,10 @@
 "OpenVPN logging level set by the configuration" = "Livello di log di OpenVPN impostato nella configurazione";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick..." = "Problema con le future versioni di Tunnelblick...";
+"Problem using future versions of Tunnelblick..." = "Problema con le future versioni di Tunnelblick…";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS..." = "Problema con le future versioni di macOS...";
+"Problem using future versions of macOS..." = "Problema con le future versioni di macOS…";
 
 /* Menu item */
 "Quit Tunnelblick" = "Esci da Tunnelblick";
@@ -826,7 +826,7 @@
 "     From the VPN server for %@:\n\n%@" = "     Dal server VPN per la connessione %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • l'indirizzo del server DNS (%@) è un indirizzo pubblico di un server DNS riconosciuto da Tunnelblick ma non viene indirizzato attraverso la VPN.\n\n";
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • l'indirizzo del server DNS %@ è un indirizzo pubblico di un server DNS riconosciuto da Tunnelblick ma non viene indirizzato attraverso la VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • L'indirizzo del server DNS %1$@ è in uso alla VPN '%2$@' ma non dovrebbe. Questo potrebbe indicare che più di una interfaccia di rete è attiva. Tunnelblick non supporta più di una interfaccia di rete attiva.\n\n";
@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ATTENZIONE: Questa copia di Tunnelblick è stata alterata.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (non-Tunnelblick)";
+"%@ (imported)" = "%@ (importate)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ esiste ma non è una cartella";
@@ -1015,7 +1015,7 @@
 "<p><strong>VPN Configuration %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>Configurazione VPN versione %1$@ è disponibile – versione installata %2$@.</strong></p>\n\n";
 
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
-"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick ha verificato di recente la presenza di uno o più errori importanti.</p>\n\n<p>Ti chiediamo il favore di scrivere una mail a %1$@ ed allegare il documento <br>'%2$@' che è stato creato sulla Scrivania.</p>\n\n<p>Questo documento contiene informazioni che possono aiutare gli sviluppatori di Tunnelblick a capire che cosa abbia causato questi errori e a risolverli. Il documento non include né informazioni di carattere personale né informazioni sulle VPN configurate.</p>\n\n<p>Se possibile, inoltre, inserire nella mail informazioni relative a quello che si stava facendo nel momento in cui si è verificato l'errore.</p>\n\n<p>Le informazioni inviate aiuteranno a risolvere problemi di cui potrenno beneficiare tutti gli utenti di Tunnelblick.</p>";
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick ha verificato di recente la presenza di uno o più errori importanti.</p>\n\n<p>Ti chiediamo il favore di scrivere una mail a %1$@ ed allegare il documento <br>'%2$@' che è stato creato sulla Scrivania.</p>\n\n<p>Questo documento contiene informazioni che possono aiutare gli sviluppatori di Tunnelblick a capire che cosa abbia causato questi errori e a risolverli. Il documento non include né informazioni di carattere personale né informazioni sulle VPN configurate.</p>\n\n<p>Se possibile, inoltre, inserire nella mail informazioni relative a quello che si stava facendo nel momento in cui si è verificato l'errore.</p>\n\n<p>Le informazioni inviate aiuteranno a risolvere problemi di cui potranno beneficiare tutti gli utenti di Tunnelblick.</p>";
 
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">contributing to the Tunnelblick project.</a> [tunnelblick.net]</p>\n" = "<p> Dai controlli eseguiti risulta che ciascuna delle ultime %u volte che ci è connessi a questa VPN l'indirizzo IP pubblico fosse ogni volta diverso.<p>\n<p>Questo probabilmente significa che la VPN è correttamente configurata e non sono necessari ulteriori verifiche. Per questo motivo questo tipo di controllo è stato disabilitato per questa VPN al fine di snellire il carico sui server di tunnelblick.net <p>\n<p>Potrai riabilitare questo controllo nel tab \"Impostazioni\" presente nei \"Dettagli VPN\" di Tunnelblick. Nel caso, considera la possibilità di un <a href=\"https://tunnelblick.net/donate.html\">contributo per il progetto Tunnelblick</a> [tunnelblick.net].</p>\n";
@@ -1168,7 +1168,7 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "Impossibile disinstallare la configurazione '%@' poiché non è installata.";
 
 /* Window text */
-"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Fai click su \"OK\" per disconnetterti da tutte le VPN, chiudere Tunnelblick e cominciare la disinstallazione.\n\nPotrebbero volerci alcuni secondi prima che appaia le finestra di disinstallazione.\n\nSe vuoi salvare una copia delle tue configurazioni VPN e di tutte le impostazioni di Tunnelblick, fai click su \"Annulla\" ed esporta la configurazione di Tunnelblick.";
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Fai click su \"OK\" per disconnetterti da tutte le VPN, chiudere Tunnelblick e cominciare la disinstallazione.\n\nPotrebbero volerci alcuni secondi prima che appaia le finestra di disinstallazione.\n\nSe vuoi salvare una copia delle tue configurazioni VPN e di tutte le impostazioni di Tunnelblick, fai click su \"Annulla\" ed esporta la configurazione di Tunnelblick.\n\n";
 
 /* Window text */
 "Computer sleep/wake" = "Stop/Avvia Computer";
@@ -1321,13 +1321,13 @@
 "Failed to create symlink\n  to %@\n  at %@" = "Impossibile creare il link simbolico\n  verso %1$@\n  in %2$@";
 
 /* Window text */
-"Failed to install Tunnelblick's tun and tap system extensions." = "Non è stato possibile installare le estensioni di sistema TUN e TAP di Tunnelblick";
+"Failed to install Tunnelblick's tun and tap system extensions." = "Non è stato possibile installare le estensioni di sistema TUN e TAP di Tunnelblick.";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Errore durante l'impostazione dei permessi su %@\n";
 
 /* Window text */
-"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Non è stato possibile disinstallare le estensioni di sistema TUN e TAP di Tunnelblick";
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Non è stato possibile disinstallare le estensioni di sistema TUN e TAP di Tunnelblick.";
 
 /* Window text */
 "Fast User Switching" = "Cambio utente rapido";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Desideri aggiornare subito alla nuova versione?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Le versioni '<strong>non-Tunnelblick</strong>' di OpenVPN non sono state create da Tunnelblick né ne fanno parte \nma sono state installate da un utente amministratore.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>'<strong>Importate</strong>': queste versioni di OpenVPN possono essere usate ma non sono incluse in questa copia dell'applicazione Tunnelblick. Tali versioni sono state installate da un amministratore del computer.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>Per consentire l'uso delle estensioni di sistema potrebbe essere necessario modificare alcune impostazioni di sicurezza. Queste impostazioni possono essere modificate solamente quando il computer si trova in modalità ripristino. Potrebbe quindi essere necessario riavviare il computer in modalità ripristino, effettuare le modifiche e riavviare nuovamente il computer. macOS ti guiderà in questa procedura.</p>";

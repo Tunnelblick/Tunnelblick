@@ -358,7 +358,7 @@
 "Move Configurations into a New Folder..." = "將設定檔移動到新的資料夾...";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "不記錄 OpenVPN 或 Tunnelblick VPN 的歷史";
+"No OpenVPN or Tunnelblick VPN logging" = "不記錄 OpenVPN 或 Tunnelblick VPN 的日誌";
 
 /* Menu item */
 "No VPN Configurations Available" = "沒有可用的 VPN 設定檔";
@@ -445,7 +445,7 @@
 "Disable secondary network interfaces" = "停用次要網路介面";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "當電腦休眠時中斷連線";
+"Disconnect when computer goes to sleep" = "當電腦睡眠時中斷連線";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "當轉換時使用者時中斷連線";
@@ -944,9 +944,6 @@
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " 警告：這個 Tunnelblick 版本曾被人修改過。\n\n";
-
-/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (非 Tunnelblick)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ 存在但不是一個資料夾";
@@ -2238,7 +2235,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>您希望現在更新至新版本嗎？</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>非 Tunnelblick</strong>' 版本的 OpenVPN 並非由 Tunnelblick 計畫所建立且不屬於 Tunnelblick 的一部分。它們已由系統管理員安裝完成。</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>'<strong>已匯入的</strong>' OpenVPN版本已被使用但並未包含在這個版本的Tunnelblick 程式內。這些OpenVPN版本是被系統管理者匯入並安裝。</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>「允許」系統擴充功能可能需要更動系統安全設定。此設定僅能在恢復模式下變更。您可能需要重新開機進入恢復模式，進行權限更動，再重新開機回到正常模式。 macOS 會引導您完成整個流程。</p>";

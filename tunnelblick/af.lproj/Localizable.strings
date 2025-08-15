@@ -188,6 +188,9 @@
 /* Button */
 "Reinstall" = "Herinstalleer";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "Herinner my later";
+
 /* Button */
 "Remove Credentials" = "Verwyder Intekenbesonderhede";
 
@@ -291,6 +294,9 @@
 "When computer starts" = "Wanneer rekenaar begin";
 
 /* Menu item */
+"A Tunnelblick Update is Available..." = "'n Nuwe Tunnelblick Weergawe is Beskikbaar…";
+
+/* Menu item */
 "Add a VPN..." = "Voeg 'n skynprivaatnetwerk by…";
 
 /* Menu item */
@@ -385,6 +391,9 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Wys op Tunnelblick Keuselys";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "'n ander weergawe van OpenVPN/OpenSSL word gebruik…";
 
 /* Menu item */
 "VPN Details..." = "VPN Besonderhede…";
@@ -877,9 +886,6 @@
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WAARSKUWING: Hierdie Tunnelblick kopie is gepeuter mee.\n\n.\n\n";
-
-/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (nie-Tunnelblick)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ bestaan, maar is nie 'n gids";
@@ -2122,9 +2128,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<p> <font face=\"Helvetica,Arial,sans-serif\">Om 'n Tunnelblick-opstelling in te voer op 'n rekenaar met meer as% u gebruikersrekeninge, moet u 'n tekslêer skep wat die gegewens wat ingevoer moet word, spesifiseer.</font> </p><p> <font face=\"Helvetica,Arial,sans-serif\">Raadpleeg <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a> vir meer inligting.</font> </p>";
-
-/* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p> ' <strong>Nie-Tunnelblick</strong> ' weergawes van OpenVPN is nie deur die Tunnelblick-projek geskep nie en maak nie deel uit van Tunnelblick nie. Dit is deur 'n rekenaaradministrateur geïnstalleer. </p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p> 'Toestaan' van die stelseluitbreidings kan 'n verandering aan die stelselbeveiligingsinstelling vereis. Die instelling kan slegs in die herstelmodus verander word. U moet dalk weer begin in die herstelmodus, die verandering aanbring en dan weer normaal begin. macOS moet u deur hierdie proses lei. </p>";

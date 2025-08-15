@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " AVISO: Esta cópia do Tunnelblick foi adulterada com.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (não-Tunnelblick)";
+"%@ (imported)" = "%@ (importada)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ existe, mas não é uma pasta";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Gostaria de atualizar para a nova versão agora?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Versões '<strong>não-Tunnelblick</strong>' do OpenVPN não foram criadas pelo projeto Tunnelblick e não são parte do Tunnelblick. Foram instaladas pelo administrador do computador.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>Versões '<strong>importadas</strong>' do OpenVPN podem ser usadas, mas não foram incluídas nesta cópia do aplicativo Tunnelblick. Elas foram importadas e instaladas por um administrador do computador.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Autorizar' as extensões de sistema pode exigir uma mudança nas configurações de segurança de sistema. A configuração pode ser modificada apenas no modo de Recuperação. Você pode precisar reiniciar no modo de Recuperação, realizar a mudança, e então reiniciar novamente normalmente. O macOS deverá guiá-lo através deste processo.</p>";

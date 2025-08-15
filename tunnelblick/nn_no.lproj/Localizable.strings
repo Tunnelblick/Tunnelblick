@@ -128,7 +128,7 @@
 "Install and Relaunch" = "Installer og start på nytt";
 
 /* Button */
-"Install tun and tap system extensions..." = "Installer tun og tap systemutvidingar";
+"Install tun and tap system extensions..." = "Installer tun og tap systemutvidingar…";
 
 /* Button */
 "Install" = "Installer";
@@ -176,7 +176,7 @@
 "Only Me" = "Berre meg";
 
 /* Button */
-"Open easy-rsa in Terminal" = "Åpne enkel-rsa i Terminal";
+"Open easy-rsa in Terminal" = "Åpne easy-rsa i Terminal";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Avslutt alle OpenVPN-prosessar";
@@ -914,9 +914,6 @@
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ÅTVARING: Dette eksemplaret av Tunnelblick har vorte tukla med.\n\n";
-
-/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (ikkje-Tunnelblick)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ eksisterer, men er ikkje ei mappe";
@@ -2004,9 +2001,6 @@
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>For å importera eit Tunnelblick-oppsett på ei datamaskin med fleire enn %u brukarkontoar, må du først laga ei tekstfil som spesifiserer kva data som skal importerast..</p>\n<p>For meir informasjon, sjå <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 
-/* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>ikke-Tunnelblick</strong>'-versjonar av OpenVPN vart ikkje laga av Tunnelblick-prosjektet og er ikkje ein del av Tunnelblick. Desse har vorte installerte av ein datamaskinadministrator.</p>";
-
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Meir informasjon</a> [tunnelblick.net]</p>";
 
@@ -2271,6 +2265,9 @@
 
 /* Credit description */
 "Indonesian translation" = "Indonesisk omsetjing";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "Usikker versjon av OpenSSL vert brukt…";
 
 /* Credit description */
 "Italian translation" = "Italiensk omsetjing";

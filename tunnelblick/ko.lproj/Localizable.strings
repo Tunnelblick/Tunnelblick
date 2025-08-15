@@ -837,9 +837,6 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " 경고: 이 Tunnelblick 복사본은 조작되었습니다.\n\n";
 
-/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (비-Tunnelblick)";
-
 /* Window text */
 "%@ exists but is not a folder" = "폴더가 아닌 %@ 가 있습니다";
 

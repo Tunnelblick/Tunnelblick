@@ -875,9 +875,6 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ONYO: Nakala hii ya Tunnelblick imechezewa.\n\n";
 
-/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (isiyo ya Tunnelblick)";
-
 /* Window text */
 "%@ exists but is not a folder" = "%@ ipo lakini sio folda";
 

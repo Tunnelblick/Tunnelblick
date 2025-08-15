@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ΠΡΟΣΟΧΗ: Αυτό το αντίγραφο του Tunnelblick είναι πλαστό.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (εκτός Tunnelblick)";
+"%@ (imported)" = "%@ (έγινε εισαγωγή)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ υπάρχει αλλά δεν είναι φάκελος";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Θα θέλατε να εγκαταστήσετε τη νεότερη έκδοση τώρα;</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p> Οι εκδόσεις του OpenVPN <strong> εκτός Tunnelblick </strong> δεν δημιουργήθηκαν από το έργο Tunnelblick και δεν αποτελούν μέρος του Tunnelblick. Έχουν εγκατασταθεί από τον διαχειριστή του υπολογιστή. </p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>«<strong>Eισηγμένες</strong>», εκδόσεις του OpenVPN μπορεί να χρησιμοποιηθούν αλλά δεν συμπεριλήφθηκαν σε αυτό το αντίτυπο της εφαρμογής Tunnelblick. Εισήχθησαν και εγκαταστάθηκαν από έναν διαχειριστή.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>Η 'αποδοχή' των επεκτάσεων συστήματος ίσως απαιτεί αλλαγή των ρυθμίσεων ασφάλειας του υπολογιστή σας. Η αλλαγή αυτή μπορεί να γίνει μόνο σε λειτουργία Aνάκτησης. Ίσως πρέπει να κάνετε επανεκκίνηση σε λειτουργία Ανάκτησης, να κάνετε την αλλαγή αυτή και να εκκινήσετε πάλι τον υπολογιστή σας φυσιολογικά. Το MacOS θα πρέπει να σας καθοδηγήσει στην διαδικασία αυτή.</p>";
@@ -2477,6 +2477,9 @@
 
 /* Credit description */
 "Afrikaans translation" = "Αφρικανική μετάφραση";
+
+/* Credit description */
+"Albanian translation" = "Αλβανική μετάφραση";
 
 /* Credit description */
 "Animation and icon sets code" = "Κωδικός ομάδων εικονιδίων και κινήσεων";

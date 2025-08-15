@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UYARI: Tunnelblick'in bu kopyasıyla oynanmış.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (Tunnelblick tarafindan yaratılmamıştır.)";
+"%@ (imported)" = "%@ (içe aktarıldı)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ mevcut fakat bir dizin değil";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Yeni versiyona şimdi güncellemek ister misiniz?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "OpenVPN'in <p>'<strong>non-Tunnelblick</strong>' versiyonu Tunnelblick projesi tarafindan yaratılmamış ve projenin orjinal komponenti değildir. Bu versiyon sistem yoneticiniz </p> tarafindan kurulmuştur";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>OpenVPN'in '<strong>İçe aktarılmış</strong>' versiyonları kullanılabilir ama Tunnelblick uygulamasının bu kopyasına dahil edilmemiştir. Bilgisayardaki bir yönetici hesabı tarafından içe aktarılıp kurulmuşlardır.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>Sistem genişletmerine 'İzin verme' işlemi, sistem güvenlik ayarında bir değişiklik gerektirebilir. Bu ayar sadece Kurtarma modunda değiştirilebilir. Bilgisayarınızı Kurtarma modunda yeniden başlatıp, değişikliği yapıp, sonra tekrar normal olarak yeniden başlatmanız gerekebilir. macOS bu işlem boyunca size yol gösterecektir.</p>";

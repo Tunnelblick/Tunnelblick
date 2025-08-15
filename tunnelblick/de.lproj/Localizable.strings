@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ACHTUNG: An dieser Version von Tunnelblick wurden Änderungen vorgenommen.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (nicht-Tunnelblick)";
+"%@ (imported)" = "%@ (importiert)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ existiert bereits, ist aber kein Ordner";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Möchten Sie jetzt auf die neue Version updaten?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>nicht-Tunnelblick</strong>' Versionen von OpenVPN wurde nicht vom Tunnelblick Projekt erstellt und sind nicht Teil von Tunnelblick. Sie wurden von einem Computeradministrator installiert.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>'<strong>Importierte</strong>' Versionen von OpenVPN können verwendet werden, waren aber nicht in dieser Kopie des Tunnelblick-Programms enthalten. Sie wurden von einem Computeradministrator importiert und installiert.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>Das \"Erlauben\" der Systemerweiterungen kann Änderungen an den Sicherheitseinstellungen des Systems verlangen. Diese Einstellung kann nur im Recovery Modus durchgeführt werden. Sie müssen möglicherweise in den Recovery Modus neustarten, diese Änderungen vornehmen und dann normal neustarten. macOS sollte Sie durch diesen Prozess führen.</p>";

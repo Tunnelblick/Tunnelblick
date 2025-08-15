@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " УВАГА: Копію Tunnelblick було підроблено.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (не-Tunnelblick)";
+"%@ (imported)" = "%@ (імпортований)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ існує, але це не папка";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Бажаєте встановити нову версію зараз?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>не-Tunnelblick</strong>' версії OpenVPN не були створені проектом Tunnelblick і не є його частиною. Вони були встановлені адміністратором комп'ютера.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>'<strong>Імпортовані</strong>' версії OpenVPN можуть використовуватись, проте вони не включені до складу цієї копії програми Tunnelblick. Вони були імпортовані та встановлені адміністратором комп'ютера.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Дозвіл' системних розширень потребує зміни налаштувань безпеки системи. Такі налаштування можна змінити тільки в режимі відновлення (Recovery mode). Може знадобитись перезавантаження в режим відновлення, зміна налаштувань, та перезавантаження в нормальному режимі. macOS має супроводити вас крізь цей процес.</p>";

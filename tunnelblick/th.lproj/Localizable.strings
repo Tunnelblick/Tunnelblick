@@ -897,9 +897,6 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " คำเตือน: สำเนาของ Tunnelblick นี้ถูกดัดแปลงจากเดิม\n\n";
 
-/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (ไม่ถูกสร้างโดย-Tunnelblick)";
-
 /* Window text */
 "%@ exists but is not a folder" = "%@ มีอยู่แต่ไม่ใช่โฟลเดอร์";
 

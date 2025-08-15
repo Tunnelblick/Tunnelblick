@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ADVARSEL: Dette eksemplaret av Tunnelblick har blitt tuklet med.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (ikke-Tunnelblick)";
+"%@ (imported)" = "%@ (imported)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ eksisterer, men er ikke en mappe";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Vil du oppdatere til den nye versjonen nå?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>ikke-Tunnelblick</strong>'-versjoner av OpenVPN ble ikke laget av Tunnelblick-prosjektet og er ikke en del av Tunnelblick. Disse har blitt installert av en datamaskinadministrator.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>'<strong>importerte</strong>' versjoner av OpenVPN kan brukes, men disse var ikke en del av denne Tunnelblick applikasjonen. De ble importert og installert av en datamaskinadministrator.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p> 'Tillate' systemutvidelsene kan kreve endring av en sikkerhetsinnstilling. Innstillingen kan bare endres i gjenopprettingsmodus. Du må kanskje starte på nytt i gjenopprettingsmodus, gjøre endringen og deretter starte på nytt normalt. macOS bør veilede deg gjennom denne prosessen. </p>";

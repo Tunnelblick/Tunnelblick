@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ADVARSEL: Denne kopi af Tunnelblick er blevet manipuleret med.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (Ej-Tunnelblick)";
+"%@ (imported)" = "%@ (importeret)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ eksisterer men er ikke en mappe";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Vil du opdatere til den nye version nu?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>Ej-Tunnelblick</strong>' versioner af OpenVPN er ikke lavet af TunnelBlick projektet og er derfor ikke ikke en del af Tunnelblick. De er blevet installeret af en computer administrator.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>'<strong>Importerede</strong>'-versioner af OpenVPN kan muligvis bruges, men var ikke inkluderet i denne kopi af Tunnelblick-applikationen. De blev importeret og installeret af en computeradministrator.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Tilladelse' af systemudvidelser kræver muligvis en ændring af en systemsikkerhedsindstilling. Indstillingen kan kun ændres i gendannelsestilstand. Du skal muligvis genstarte i gendannelsestilstand, foretage ændringen og derefter genstarte normalt. macOS skal guide dig gennem denne proces.</p>";

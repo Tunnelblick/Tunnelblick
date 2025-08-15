@@ -17,7 +17,7 @@
 "No Active Connections" = "Asnjë lidhje aktive";
 
 /* Textbox name */
-"Username:" = "Përdoruesi:";
+"Username:" = "Emri i përdoruesit:";
 
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
@@ -38,25 +38,25 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Të përparuara…";
+"Advanced..." = "Të avancuara…";
 
 /* Button */
 "All Users" = "Gjithë Përdoruesit";
 
 /* Button */
-"Always load Tap driver" = "Ngarko gjithmonë driverin Tap";
+"Always load Tap driver" = "Ngarko gjithmonë driver-in Tap";
 
 /* Button */
-"Always load Tun driver" = "Ngarko gjithmonë driverin Tun";
+"Always load Tun driver" = "Ngarko gjithmonë driver-in Tun";
 
 /* Button */
-"Always use the plugin" = "Përdor gjithmonë pluginin";
+"Always use the plugin" = "Përdor gjithmonë plugin-in";
 
 /* Button */
 "Back" = "Kthehu";
 
 /* Button */
-"Cancel" = "Anullo";
+"Cancel" = "Anulo";
 
 /* Button */
 "Check Now" = "Kontrollo Tani";
@@ -68,7 +68,7 @@
 "Continue" = "Vazhdo";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Kopjo shënimet e konsolës në Clipboard";
+"Copy Console Log to Clipboard" = "Kopjo Console Log në Clipboard";
 
 /* Button */
 "Copy Diagnostic Info to Clipboard" = "Kopjo Informacionin Diagnostikues në Clipboard";
@@ -77,7 +77,7 @@
 "Create sample configuration and edit it" = "Krijo konfigurim shembull dhe rregulloje atë";
 
 /* Button */
-"Default (%@)" = "Standart (%@)";
+"Default (%@)" = "Standard (%@)";
 
 /* Button */
 "Delete Credentials" = "Fshij të dhënat e identifikimit";
@@ -92,16 +92,16 @@
 "Delete" = "Fshi";
 
 /* Button */
-"Disable network access" = "Ç'aktivizo aksesin në rrjet";
+"Disable network access" = "Çaktivizo aksesin në rrjet";
 
 /* Button */
 "Disconnect" = "Shkëputu";
 
 /* Button */
-"Do Not Re-enable Network Access" = "Mos ri-aktivizo Aksesin në Rrjet";
+"Do Not Re-enable Network Access" = "Mos ri-aktivizo aksesin në Rrjet";
 
 /* Button */
-"Do not use the plugin" = "Mos e përdor pluginin";
+"Do not use the plugin" = "Mos e përdor plugin-in";
 
 /* Button */
 "Do nothing" = "Mos bëj asgjë";
@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Shfaq në menunë e Tunnelblick";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Duke përdorur një version tjetër të OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "Detajet e VPN…";
 
@@ -466,6 +469,9 @@
 "Do not show this type of warning again" = "Mos shfaq më këto lloj paralajmërimesh";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Mos paralajmëro sërish për problemet me DNS për asnjë konfigurim";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Mos paralajmëro më mbi këtë për asnjë konfigurim";
 
 /* Checkbox name */
@@ -475,10 +481,16 @@
 "Do not warn about this again" = "Mos paralajmëro më për këtë";
 
 /* Checkbox name */
-"Download updates when found" = "Shkarko updatet kur janë gjetur";
+"Download updates when found" = "Shkarko përditësimet kur disponohen";
 
 /* Checkbox name */
 "Enable IPv6 (tap only)" = "Aktivizo IPv6 (vetëm për tap)";
+
+/* Checkbox name */
+"Flush DNS cache after connecting or disconnecting" = "Pastro cache-n e DNS pas lidhjes ose shkëputjes";
+
+/* Checkbox name */
+"Inhibit automatic update checking and IP Address checking" = "Ç'aktivizo kontrollin automatik të përditësimeve dhe kontrollin e adresës IP";
 
 /* Checkbox name */
 "Keep connected" = "Mbaj të lidhur";
@@ -487,7 +499,34 @@
 "Monitor network settings" = "Monitoro rregullat e rrjetit";
 
 /* Checkbox name */
+"Prepend domain name to search domains" = "Shto emrin e domain-it përpara domain-eve të kërkimit";
+
+/* Checkbox name */
+"Reconnect when computer wakes up" = "Ri-lidhu kur kompjuteri zgjohet";
+
+/* Checkbox name */
+"Reconnect when user switches in" = "Ri-lidhu kur përdoruesi ndryshon";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "Kërko autorizimin e administratorit për te instaluar të gjitha konfigurimet";
+
+/* Checkbox name */
+"Require administrator authorization to update" = "Kërko autorizimin e administratorit për të përditësuar";
+
+/* Checkbox name */
+"Route all IPv4 traffic through the VPN" = "Drejto të gjithë trafikun IPv4 përmes VPN-së";
+
+/* Checkbox name */
+"Run MTU maximum size test after connecting" = "Ekzekuto testin e MTU-së maksimale pasi te jesh lidhur";
+
+/* Checkbox name */
 "Save in Keychain" = "Ruaj në Keychain";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Kodi i sigurisë:";
+
+/* Checkbox name */
+"Set DNS after routes are set" = "Vendos DNS pasi të jenë vendosur rrugët";
 
 /* Checkbox name */
 "Show when disconnected" = "Shfaq kur shkëputet";
@@ -495,8 +534,38 @@
 /* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "Shfaq kur treguesi është mbi ikonën e Tunnelblick";
 
+/* PopUpButton */
+"Do not set nameserver" = "Mos vendos nameserver";
+
+/* PopUpButton */
+"Set nameserver (3.0b10)" = "Vendos nameserverin (3.0b10)";
+
+/* PopUpButton */
+"Set nameserver (3.1)" = "Vendos nameserverin (3.1)";
+
+/* PopUpButton */
+"Set nameserver (OpenVPN)" = "Vendos nameserverin (OpenVPN)";
+
+/* PopUpButton */
+"Set nameserver (alternate 1)" = "Vendos nameserverin (alternativa 1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Vendos nameserverin (alternativa 2)";
+
+/* PopUpButton, System profile item */
+"Set nameserver" = "Vendos nameserver-in";
+
 /* Text on disk image */
 "Double-click to begin" = "Kliko 2 herë për të filluar";
+
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Duke shtuar rrugët";
+
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Duke vendosur adresën IP";
+
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Duke autorizuar";
 
 /* Connection status, please translate "Connected" */
 "CONNECTED" = "Lidhur";
@@ -513,8 +582,188 @@
 /* Connection status, please translate "Getting configuration" */
 "GET_CONFIG" = "Duke marrë konfigurimet";
 
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Duke pritur lidhjen ne rrjet";
+
 /* Connection status, please translate "Waiting for password" */
 "PASSWORD_WAIT" = "Duke pritur për passwordin";
+
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Duke pritur fjalëkalimin";
+
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Duke u lidhur përsëri";
+
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Duke llogaritur emrin e domain-it";
+
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Duke pritur proçesin Daemon";
+
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Duke krijuar lidhjen TCP";
+
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Duke krijuar lidhjen UDP";
+
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Duke pritur pëgjigjen e serverit";
+
+/* Folder name */
+"Sample Tunnelblick VPN Configuration" = "Shembull Konfigurimi Tunnelblick VPN";
+
+/* System profile item */
+"Configurations" = "Konfigurime";
+
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Vendosur)";
+
+/* Window title */
+" (Private)" = " (Private)";
+
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (E përbashkët)";
+
+/* Window title */
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ Konfigurimi OpenVPN - Tunnelblick";
+
+/* Window title */
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ U shkëput - Konfigurime të avancuara %3$@";
+
+/* Window title */
+"'%@' has been disconnected" = "Lidhja e '%@' un shkëput";
+
+/* Window title */
+"A new version of Tunnelblick is available" = "Një version i ri i Tunnelblick është i disponueshëm";
+
+/* Window title */
+"Active connection" = "Lidhja aktive";
+
+/* Window title */
+"Add a Configuration" = "Shto një konfigurim";
+
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "Konfigurime të avancuar%@";
+
+/* Window title */
+"Alert sounds" = "Tingujt e njoftimeve";
+
+/* Window title */
+"Alert" = "Njoftim";
+
+/* Window title */
+"All configuration files removed" = "Të gjitha skedarët e konfigurimit u eliminuan";
+
+/* Window title */
+"Appearance" = "Paraqitja";
+
+/* Window title */
+"Authentication failed" = "Autentikim i deshtuar";
+
+/* Window title */
+"Configuration(s) Ignored" = "Konfigurimi(-et) nuk u morën parasysh";
+
+/* Window title */
+"Connecting & Disconnecting" = "Lidhja & Shkëputja";
+
+/* Window title */
+"Could Not Copy Configuration" = "Nuk munda të kopjoj konfigurimin";
+
+/* Window title */
+"Could Not Move Configuration" = "Nuk munda te zhvendos konfigurimin";
+
+/* Window title */
+"Could Not Uninstall Configuration" = "Nuk munda te çinstaloj konfigurimin";
+
+/* Window title */
+"Create and Edit a Sample Configuration?" = "Krijo dhe modifiko nje konfigurim shembull?";
+
+/* Window title */
+"Details - Tunnelblick" = "Detaje - Tunnelblick";
+
+/* Window title */
+"Do you wish to connect?" = "Dëshiron të lidhesh?";
+
+/* Window title */
+"Error getting Tunnelblick update..." = "Gabim gjatë marrjes së përditësimit të Tunnelblick…";
+
+/* WIndow title */
+"Error getting VPN update..." = "Gabim gjatë marrjes së përditësimit të VPN…";
+
+/* Window title */
+"File not found" = "Skedari nuk u gjet";
+
+/* Window title */
+"Import a Tunnelblick Setup" = "Importo një setup Tunnelblick";
+
+/* Window title */
+"Info" = "Informacione";
+
+/* Window title */
+"Install Configuration For All Users?" = "Dëshiron ta instalosh konfigurimin për të gjithë përdoruesit?";
+
+/* Window title */
+"Installation Failed" = "Instalimi Dështoi";
+
+/* Window title */
+"Installation failed" = "Instalimi dështoi";
+
+/* Window title */
+"Installation or Repair Failed" = "Instalimi ose Riparimi dështoi";
+
+/* Window title */
+"Installation succeeded" = "Instalimi përfundoi me sukses";
+
+/* Window title */
+"Log" = "Log";
+
+/* Window title */
+"Name not allowed" = "Emri nuk lejohet";
+
+/* Window title */
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Nuk u gjet 'dev tun', 'dev utun', as 'dev tap'";
+
+/* Window title */
+"No Credentials" = "Mungojnë kredencialet";
+
+/* Window title */
+"OpenVPN is Not Responding" = "OpenVPN nuk po përgjigjet";
+
+/* Window title */
+"Please insert token" = "Ju lutem vendosni token-in";
+
+/* Window title */
+"Preferences" = "Preferencat";
+
+/* Window title */
+"Replace Existing File?" = "Dëshironi të zëvendësoni skedarin ekzistues?";
+
+/* Window title */
+"Replace VPN Configuration?" = "Zëvëndëso konfigurimin VPN?";
+
+/* Window title */
+"Sample Configuration Created" = "Konfigurimi shembull u krijua";
+
+/* Window title */
+"Settings" = "Konfigurimet";
+
+/* Window title */
+"Sounds" = "Tingujt";
+
+/* Window title */
+"System Requirements Not Met" = "Kërkesat e sistemit nuk plotësohen";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "TESTI I ÇINSTALIMIT TË TUNNELBLICK DËSHTOI";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TESTI I ÇINSTALIMIT TË TUNNELBLICK PËRFUNDOI ME SUKSES";
+
+/* Window title */
+"The Tunnelblick installation failed." = "Instalimi i Tunnelblick dështoi.";
+
+/* Window title */
+"Tunnelblick Configuration Problem" = "Problem konfigurimi i Tunnelblick";
 
 /* Window title */
 "Tunnelblick Error" = "Error Tunnelblick";
@@ -554,3 +803,2070 @@
 
 /* Window title */
 "VPN Credentials" = "Kredencialet VPN";
+
+/* Window title */
+"Warning!" = "Vëmendje!";
+
+/* Window title */
+"Warning" = "Vëmendje";
+
+/* Window title */
+"Warning: Unknown OpenVPN processes" = "Vëmendje: Proçese te panjohura OpenVPN";
+
+/* Window title */
+"Welcome to Tunnelblick" = "Mirsevini në Tunneblick";
+
+/* Window title */
+"Welcome" = "Mirsevini";
+
+/* Window title */
+"While Connected" = "Gjatë lidhjes";
+
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Nga serveri VPN për %1$@:\n\n%2$@";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Adresa DNS e serverit %@ është nje server DNS publik i njohur nga Tunnelblick por nuk po rrugëtohet nepërmjet VPNs\n\n";
+
+/* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • Adresa e serverit DNS %1$@ është në përdorim për VPN '%2$@' por nuk duhet përdorur. Kjo mund të tregoje që një ose me shumë ndërfaqe rrjeti është aktive. Tunnelblick nuk mbështet më shumë se një ndërfaqe rrjeti.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Adresa DNS e serverit %@ nuk është nje server DNS publik i njohur nga Tunnelblick dhe nuk po rrugëtohet nëpermjet VPNs\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • Adresa DNS e serverit %@ nuk është nje adresë IP publike dhe nuk po rrugëtohet nëpermjet VPNs\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • Adresa DNS e serverit %1$@ nuk po përdoret por pritej që të përdorej per VPN '%2$@'.\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed %lu configurations\n\n" = "     • Instaluar %lu konfigurime\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed one configuration\n\n" = "     • Instaluar një konfigurim\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "     • U instaluan ose u zëvendësuan %lu konfigurime \"të sigurta\"\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced one \"safe\" configuration\n\n" = "     • U instaluan ose u zëvendësua një konfigurim \"i sigurt\"\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Asnjë server DNS nuk është specifikuar.\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Replaced %lu configurations\n\n" = "     • U zëvendësuan %lu konfigurime\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Replaced one configuration\n\n" = "     • U zëvendësua një konfigurim\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Uninstalled %lu configurations\n\n" = "     • U çinstaluan %lu konfigurime\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Uninstalled one configuration\n\n" = "     • U çinstalua një konfigurim\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install %lu configurations\n\n" = "    • Instalo konfigurimet %lu\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install one configuration\n" = "    • Instalo një konfigurim\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    • Instalo ose zëvendëso %lu konfigurimet e \"sigurta\" (autorizimi i administratorit nuk është i nevojshëm)\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "    • Instalo ose zëvendëso një konfigurim të \"sigurtë\" (autorizimi i administratorit nuk është i nevojshëm)\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace %lu configurations\n\n" = "    • Zëvendëso konfigurimet %lu\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace one configuration\n" = "    • Zëvendëso një konfigurim\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall %lu configurations\n\n" = "    • Çinstalo %lu konfigurime\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall one configuration\n" = "    • Çinstalo një konfigurim\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • Të instalohet\n";
+
+/* Window text */
+"  • Change ownership and permissions of the program to secure it\n" = "  • Ndrysho pronësinë dhe të drejtat e programit për ta siguruar atë\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Complete the installation\n" = "  • Kompleto instalimin\n";
+
+/* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
+"  • Complete the update\n" = "  • Kompleto përditësimin\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • Kopjo një konfigurim\n";
+
+/* Window text */
+"  • Install forced preferences\n" = "  • Instalo preferencat e detyruara\n";
+
+/* Window text */
+"  • Install or update configuration(s)\n" = "  • Instalo ose përditëso konfigurimin(et)\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • Zhvendos një konfigurim\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • Elimino një konfigurim\n";
+
+/* Window text */
+"  • Secure configurations\n" = "  • Konfigurimet e sigurta\n";
+
+/* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ është një program falas: ju mund ta shpërndani dhe/ose modifikoni sipas kushteve të %2$@, siç janë publikuar nga %3$@.\n\n%4$@ është një markë tregtare e regjistruar e OpenVPN Inc.";
+
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " Dëshironi të instaloni %1$@%2$@?\n\n";
+
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Dëshironi të zëvëndësoni\n    %1$@\n me \n%2$@%3$@?\n\n";
+
+/* Window text */
+" Forced preferences will also be installed or replaced.\n\n" = " Preferencat e detyruara do te instalohen ose zëvendësohen gjithashtu.\n\n";
+
+/* Window text */
+" Tunnelblick must be installed.\n\n" = " Tunnelblick duhet te jetë i instaluar.\n\n";
+
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick kërkon autorizimin e administratorit të kompjuterit në mënyrë që të lidhet automatikisht me '%@' kur kompjuteri ndizet.";
+
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick kërkon autorizimin e administratorit të kompjuterit në mënyrë që të ndalojë lidhjen automatike me '%@' kur kompjuteri ndizet.";
+
+/* Window text */
+" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " PARALAJMËRIM: Kjo kopje e Tunnelblick është manipuluar.\n\n";
+
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (imported)" = "%@ (u importua)";
+
+/* Window text */
+"%@ exists but is not a folder" = "%@ ekziston por nuk është një kartelë";
+
+/* Window text */
+"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ është rikthyer në kopjen e tij të fundit të sigurt (kopje hije).\n\n";
+
+/* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@ \n\n Shënim: Tunnelblick është në modalitetin administrator, prandaj nuk kërkohet autorizimi i administratorit të kompjuterit.";
+
+/* Window text */
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfigurime janë rikthyer në kopjen e tyre të fundit të sigurt (kopjen hije).\n\n";
+
+/* Window text */
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' ekziston tashmë në Desktop.\n\nDëshironi ta zëvendësoni?";
+
+/* Window text. '%@' is the name of a configuration or a folder of configurations. */
+"'%@' already exists." = "'%@' ekziston tashmë.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' duket të jetë një skedar i koduar me UTF-16. Të gjitha skedarët lidhur me OpenVPN duhet të jenë tekst i thjeshtë ose skedarë me kodim UTF-8";
+
+/* Window text */
+"'%@' at line %u was not terminated properly" = "'%1$@' në rreshtin %2$u nuk u mbyll si duhet";
+
+/* Window text */
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' nuk ka asnjë kredencial (çelës privat ose emër përdoruesi dhe fjalëkalim) të ruajtur në Keychain.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "'%@' nuk është një skedar tekst i thjeshtë ose me kodim UTF-8.";
+
+/* Window text */
+"'%@' was not terminated." = "'%@' nuk u përfundua.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' do të lidhet duke përdorur OpenVPN %2$@ në vend të versionit të kërkuar (%3$@).";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "Preferenca 'easy-rsaPath' u injorua; nuk specifikon një dosje";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Preferenca 'easy-rsaPath' u injorua; duhet të jetë një rrugë absolute ose të fillojë me '~'";
+
+/* Window text -- appears in log display when logging is disabled\n */
+"(Logging is disabled.)" = "(Regjistrimi është i çaktivizuar.)";
+
+/* Window text */
+"(Never checked)" = "(Asnjëherë i kontrolluar)";
+
+/* Window text */
+"(The 'easy-rsaPath' preference is invalid.)" = "(Preferenca 'easy-rsaPath' nuk është e sakte.)";
+
+/* Window text */
+"(if connected when computer went to sleep)" = "(nëse ishte i lidhur gjatë gjumit të kompjuterit)";
+
+/* Window text */
+"(if connected when user switched out)" = "(nëse ishte i lidhur kur përdoruesi u largua)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Bazuar në Tunnelblick, softuer falas i disponueshëm në <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN është një markë tregtare e regjistruar e OpenVPN Inc.";
+
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Konfigurimi i rrjetit nuk u rivendos si duhet pas shkëputjes nga %@.</p><p>Kjo problematikë zakonisht shkaktohet nga përdorimi i opsioneve 'user nobody' dhe/ose 'group nobody' në opsionet e OpenVPN.</p><p>Për të rivendosur konfigurimin e rrjetit, duhet të rindizni kompjuterin tuaj.</p><p>Për të parandaluar këtë gabim në të ardhmen, hiqni rreshtat 'user nobody' dhe 'group nobody' nga skedari i konfigurimit të OpenVPN.</p><p>Shihni <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Opsionet e Përdoruesit dhe Grupit për OpenVPN</a> [tunnelblick.net] për më shumë informacion.</p></font>\n\n";
+
+/* Window text\nThe two %@ are descriptions of configuration versions (e.g. '1.2.3' */
+"<p><strong>VPN Configuration %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>Konfigurimi VPN %1$@ tani është në dispozicion – ju keni %2$@.</strong></p>\n\n";
+
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Së fundmi, Tunnelblick ka hasur një ose më shumë gabime serioze.</p>\n\n<p>Ju lutemi dërgoni email në %1$@ dhe bashkëngjitni<br>'%2$@' skedarin që është krijuar në Desktop-in tuaj.</p>\n\n<p>Skedari përmban informacion që do t'i ndihmojë zhvilluesit e Tunnelblick të rregullojnë problemet që shkaktojnë këto gabime. Ai nuk përfshin informacione personale për ju ose për VPN-të tuaja.</p>\n\n<p>Nëse mundeni, përshkruani gjithashtu çfarë po bënte Tunnelblick kur ndodhi gabimi.</p>\n\n<p>Ndihma juaj në këtë do të jetë në dobi të të gjithë përdoruesve të Tunnelblick.</p>";
+
+/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
+"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">contributing to the Tunnelblick project.</a> [tunnelblick.net]</p>\n" = "<p>Adresa publike IP e dukshme e këtij kompjuteri është ndryshuar pas lidhjes me këtë VPN gjatë secilës nga %u herët që është kontrolluar.</p>\n<p>Kjo ndoshta do të thotë që VPN-ja është konfiguruar saktë dhe nuk është e nevojshme të bëhen kontrolle të mëtejshme, \nprandaj kontrolli është çaktivizuar për këtë VPN për të zvogëluar ngarkesën në serverat e tunnelblick.net.</p>\n<p>Mund ta aktivizoni përsëri kontrollin në \"Tab-in Konfigurimet\" të dritares \"Detajet e VPN-së\" të Tunnelblick. Nëse e bëni këtë, ju lutemi konsideroni edhe <a href=\"https://tunnelblick.net/donate.html\">të kontribuoni në projektin Tunnelblick.</a> [tunnelblick.net]</p>\n";
+
+/* Window text */
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Një çelës TBPreference ose TBAlwaysSetPreference i referohet një preferencë të panjohur '%1$@' në %2$@";
+
+/* Window text */
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Një konfigurim VPN i Tunnelblick është vendosur shumë thellë brenda '%@'";
+
+/* Window text */
+"A configuration named '%@' already exists in this location.\nDo you want to replace it with the one you're moving or copying?" = "Një konfigurim me emrin '%@' ekziston tashmë në këtë vendndodhje. Dëshironi ta zëvendësoni me atë që po zhvendosni ose kopjoni?";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Një konfigurim që kërkon fjalëkalim (çelës privat) ose emër përdoruesi dhe fjalëkalim nuk mund të lidhet kur kompjuteri ndizet.";
+
+/* Window text */
+"A passphrase is required to connect to\n  %@%@" = "Kërkohet një fjalëkalim për t'u lidhur me %1$@%2$@";
+
+/* Window text */
+"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Një konfigurim privat me emrin '%@' ekziston tashmë.\n\n\nDëshironi ta zëvendësoni me konfigurimin e përbashkët?";
+
+/* Window text */
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Ndodhi një problem gjatë kontrollimit të adresës publike IP të dukshme të këtij kompjuteri.\n\n\nShikoni regjistrin e Konsolës për detaje.\n\n";
+
+/* Window text */
+"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Një konfigurim i përbashkët me emrin '%@' ekziston tashmë.\n\n\nDëshironi ta zëvendësoni me konfigurimin privat?";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "Një emër përdoruesi dhe një fjalëkalim nevojiten për t'u lidhur me\n  %@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Një emër përdoruesi dhe një fjalëkalim nevojiten për tu lidhur me\n  %1$@\n(duke përdorur kredencialet '%2$@')";
+
+/* Window text */
+"Add Credentials" = "Shto kredencialet";
+
+/* Window text */
+"Added '.sh' extension to %@ so it will be secured properly" = "U shtua prapashtesa '.sh' në %@ për ta siguruar si duhet";
+
+/* Window text */
+"Added a '.unknown' extension to %@ so it will be secured properly" = "U shtua prapashtesa '. unknown' në %@ për ta siguruar si duhet";
+
+/* Window text */
+"Additional contributions by" = "Kontribute shtesë nga";
+
+/* Window text */
+"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "Pas %1$.1f sekondash, u ndalua së përpjekuri për të marrë informacione nga adresa IP.\n\n\nTunnelblick nuk do të kontrollojë nëse adresa publike IP e këtij kompjuteri ndryshon kur është i lidhur me %2$@.\n\n";
+
+/* Window text */
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Pas lidhjes me %@, duket se DNS nuk po funksionon.\n\n\nKjo mund të nënkuptojë që VPN-ja juaj nuk është konfiguruar siç duhet\n\n";
+
+/* Window text */
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Pas lidhjes me %@, duket se Interneti nuk është i arritshëm.\n\nKjo mund të nënkuptojë që VPN-ja juaj nuk është konfiguruar siç duhet.\n\n";
+
+/* Window text */
+"All OpenVPN processes have quit" = "Të gjitha proceset e OpenVPN janë ndalur";
+
+/* Window text */
+"All configuration files have been removed. Tunnelblick must quit." = "Të gjithë skedarët e konfigurimit u hoqën. Tunnelblick duhet të ndalojë.";
+
+/* Window text */
+"All configurations use %@ credentials" = "Të gjithë konfigurimet përdorin kredencialet %@";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Gjithashtu, ju lutemi të bashkëngjitni në email skedarin \"Tunnelblick Error Data.txt\" që ndodhet në Desktop. Ai përmban informacion rreth gabimit. Për të parë informacionin mund ta hapni skedarin duke klikuar dy herë mbi të.\n\n";
+
+/* Window text */
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Ndodhi një gabim (statusi %1$ld) gjatë përpjekjes për të kontrolluar sigurinë e konfigurimit %2$@.\n\n\nJu lutemi mbyllni dhe ri-ekzekutoni Tunnelblick. Nëse problemi vazhdon, ju lutemi instaloni përsëri Tunnelblick.";
+
+/* Window text */
+"An error occurred getting the list of loaded system extensions." = "Ndodhi një gabim gjatë marrjes së listës së ekstensioneve të sistemit të ngarkuara.";
+
+/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Ndodhi një gabim gjatë përpjekjes për të shkarkuar përditësimin.\n\n\nPër më shumë informacion, shikoni logun tek:\n\n\n%@";
+
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Ndodhi një gabim gjatë përpjekjes për të marrë informacion rreth përditësimeve.\n\n\n%1$@\nPër më shumë informacion, shihni regjistrin në:\n\n%2$@";
+
+/* Window text */
+"An error occurred while trying to launch Tunnelblick." = "Ndodhi një gabim gjatë përpjekjes për të nisur Tunnelblick.";
+
+/* Window text */
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Ndodhi një gabim gjatë përpjekjes për t'u rikthyer te kopja (e sigurt). Shikoni regjistrin e Console për më shumë detaje\n\n";
+
+/* Window text */
+"An error occurred. Please try again." = "Ndodhi një gabim. Ju lutem provoni përsëri.";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "Ndodhi një gabim. Shikoni regjistrin e Console për më shumë detaje.";
+
+/* Window text */
+"An internal Tunnelblick error occurred%@%@" = "Ndodhi një gabim i brendshëm i Tunnelblick%1$@%2$@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "Ndodhi një gabim i brendshëm i Tunnelblick: fileIsReasonableSize: Nuk mund të merren atributet: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Ndodhi një gabim i brendshëm i Tunnelblick: fileIsReasonableSize: Nuk mund të merret madhësia: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Ndodhi një gabim i brendshëm i Tunnelblick: fileIsReasonableSize: Nuk mund të merret tipi: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Ndodhi një gabim i brendshëm i Tunnelblick: Lloj i pavlefshëm skedari: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Ndodhi një gabim i brendshëm i Tunnelblick: shtegu është nil";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Një përditësim për konfigurimin VPN %@ është i disponueshëm.\n\n\nDëshironi ta përditësoni këtë konfigurim?\n\n";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Jeni i sigurt që dëshironi të fshini kredencialet (çelësin privat dhe/ose emrin e përdoruesit dhe fjalëkalimin) për %ld konfigurime që janë ruajtur në Keychain?";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Jeni i sigurt që dëshironi të fshini kredencialet (çelësin privat dhe/ose emrin e përdoruesit dhe fjalëkalimin) për '%@' që janë ruajtur në Keychain?";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Jeni i sigurt që dëshironi të fshini kredencialet (çelësin privat dhe/ose emrin e përdoruesit dhe fjalëkalimin) të ruajtura në Keychain për kredencialet '%@'?";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Jeni i sigurt që dëshironi të instaloni konfigurime që MUND TË MARRIN KONTROLL TË PLOTË TË KOMPJUTERIT TUAJ\n\n";
+
+/* Window text */
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Jeni i sigurt që dëshironi të instaloni konfigurime që mund të jenë në gjendje të MARRIN KONTROLL TË PLOTË TË KOMPJUTERIT TUAJ?\n\n";
+
+/* Window text */
+"At line %lu of the OpenVPN configuration file: %@" = "Në rreshtin %1$lu të skedarit të konfigurimit OpenVPN: %2$@";
+
+/* Window text */
+"B" = "B";
+
+/* Window text */
+"B/s" = "B/s";
+
+/* Window text */
+"Backslash at end of line %u is not allowed" = "Backslash në fund të rreshtit %u nuk lejohet";
+
+/* Window text */
+"Cancelled trying to quit all OpenVPN processes" = "U anullua përpjekja për të mbyllur të gjitha proceset OpenVPN";
+
+/* Window text */
+"Cannot find configuration file at %@" = "Nuk mund të gjej konfigurimit në %@";
+
+/* Window text */
+"Cannot install configurations to either shared or private locations" = "Nuk mund të instalohen konfigurimet as në vendndodhjet e përbashkëta as në ato private";
+
+/* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Nuk mund të çinstaloni konfigurimin '%@' sepse nuk është i instaluar.";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Klikoni \"OK\" për të shkëputur të gjitha VPN-të, për të dalë nga Tunnelblick dhe për të filluar çinstalimin e tij.\n\nMund të ketë një vonesë prej disa sekondash para se të shfaqet dritarja e parë e çinstaluesit.\n\nNëse dëshironi të ruani një kopje të konfigurimeve tuaja VPN dhe të të gjitha cilësimeve të Tunnelblick, klikoni \"Anulo\" dhe eksportoni së pari konfigurimin e Tunnelblick\n\n";
+
+/* Window text */
+"Computer sleep/wake" = "Gjumi/zgjimi i kompjuterit";
+
+/* Window text */
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurimi '%1$@' ('%2$@') do të injorohet sepse emri i tij përmban karaktere që nuk lejohen.\n\nKarakteret që nuk lejohen: '%3$s'\n\n";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfigurimi '%@' përmban një ose më shumë skripte që mund të shkaktojnë probleme nëse e zëvendësoni ose çinstaloni konfigurimin ndërkohë që është i lidhur.\n\nDëshironi ta zëvendësoni konfigurimin?";
+
+/* Window text */
+"Configuration '%@' is not secure. It should be reinstalled." = "Konfigurimi '%@' nuk është i sigurt. Ai duhet të riinstalohet.";
+
+/* Window text */
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfigurimi '%@' nuk është i sigurt. Ju lutemi, riinstaloni Tunnelblick.";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurimi '%@' nuk mund të përditësohet sepse nuk u shënua si 'i përditësuar'.\n";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfigurimi '%1$@' kërkon Tunnelblick versionin %2$@ ose më të lartë; ju po përdorni Tunnelblick %3$@.\n\nDuhet të përditësoni Tunnelblick për të instaluar këtë konfigurim.";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Konfigurimi '%1$@' kërkon Tunnelblick versionin %2$@ ose më të ulët; ju po përdorni Tunnelblick %3$@.";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurimi '%1$@' do të injorohet sepse emri i tij përmban karaktere që nuk lejohen.\n\nKarakteret që nuk lejohen: '%2$s'\n\n";
+
+/* Window text */
+"Configuration changes:" = "Ndryshimet e konfigurimit:";
+
+/* Window text */
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfigurimet instalohen nga skedarë që ju jepen nga menaxheri i rrjetit ose ofruesi i shërbimit VPN. \n\nSkedarët e konfigurimit kanë prapashtesat .tblk, .ovpn ose .conf.\n\n(Mund të ketë skedarë të tjerë të lidhur me konfigurimin që kanë prapashtesa të tjera; injorojini ato.)\n\nPër të instaluar një skedar konfigurimi, tërhiqeni dhe lëshojeni atë te ikona e Tunnelblick në shiritin e menysë ose në listën e konfigurimeve te skeda 'Konfigurimet' e dritares 'Detajet e VPN'.\n\nPër të instaluar disa skedarë konfigurimi në të njëjtën kohë, zgjidhni të gjithë skedarët dhe më pas tërhiqini dhe lëshojini të gjithë.";
+
+/* Window text */
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfigurimet që nuk janë pjesë e Tunnelblick janë vendosur për t'u instaluar kur ju instaloni Tunnelblick.\n\n";
+
+/* Window text */
+"Connect:" = "Lidhu:";
+
+/* Window text */
+"Connection:" = "Lidhja:";
+
+/* Window text */
+"Converted OpenVPN configuration" = "Konfigurim i konvertuar i OpenVPN";
+
+/* Window text */
+"Converting %@ at line %lu: %@" = "Po konvertohet %1$@ në rreshtin %2$lu: %3$@";
+
+/* Window text */
+"Converting %@: %@" = "Po konvertohet %1$@: %2$@";
+
+/* Window text */
+"Copied %@" = "U kopjua %@";
+
+/* Window text */
+"Copied %@, removing CR characters" = "U kopjua %@, duke hequr karakteret CR";
+
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "E drejta e autorit © 2004-%@ Angelo Laub, Jonathan Bullard dhe të tjerë. Të gjitha të drejtat janë të rezervuara.";
+
+/* Window text */
+"Could not copy %@ to %@" = "Nuk u arrit të kopjohej %1$@ në %2$@";
+
+/* Window text */
+"Could not create %@" = "Nuk munda të krijoj %@";
+
+/* Window text */
+"Could not delete %@" = "Nuk munda të eliminoj %@";
+
+/* Window text */
+"Could not find easy-rsa in Tunnelblick.app" = "Nuk mund të gjej easy-rsa në Tunnelblick.app";
+
+/* Window text */
+"Could not find easy-rsa version information in Tunnelblick.app" = "Nuk u gjetën informacione për versionin e easy-rsa në Tunnelblick.app";
+
+/* Window text */
+"Could not get attributes of %@" = "Nuk mund të merren atributet e %@";
+
+/* Window text */
+"Could not get modification date of %@" = "Nuk mund të merret data e modifikimit %@";
+
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Nuk u arrit të merrej versioni i përditësuar i konfigurimit '%@'. Shihni \"Console Log\" për detaje.";
+
+/* Window text */
+"Could not resolve symbolic link at %@" = "Nuk u zgjidh dot lidhja simbolike te %@";
+
+/* Window text */
+"Could not set modification date of %@ to %@" = "Nuk u arrit të vendosej data e modifikimit e %1$@ në %2$@";
+
+/* Window text */
+"DNS servers:" = "Serverat DNS:";
+
+/* Window text */
+"Did not need to modify configuration file; no path information to remove" = "Nuk ishte nevoja të ndryshohej skedari i konfigurimit; nuk kishte informacione të shtegut për t'u hequr";
+
+/* Window text */
+"Do you wish to delete the %@ credentials?" = "Dëshironi të fshini kredencialet %@?";
+
+/* Window text */
+"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "A dëshironi ta instaloni konfigurimin '%@' në mënyrë që ta përdorin të gjithë përdoruesit, apo vetëm ju?\n\n";
+
+/* Window text */
+"Do you wish to reinstall '%@' version %@?" = "Dëshironi të riinstaloni '%1$@' versionin %2$@?";
+
+/* Window text */
+"Do you wish to remove one or more configurations?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "Dëshironi të hiqni një ose më shumë konfigurime?\n\nHeqja është e përhershme dhe nuk mund të anulohet. \n\nCilësimet për konfigurimet e hequra gjithashtu do të hiqen përgjithmonë.";
+
+/* Window text */
+"Do you wish to replace '%@' version %@ with version %@?" = "Dëshironi ta zëvendësoni versionin %2$@ të '%1$@' me versionin %3$@?";
+
+/* Window text */
+"Do you wish to replace the '%@' configuration?\n\n" = "Dëshironi të zëvendësoni konfigurimin '%@'?\n\n";
+
+/* Window text */
+"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Dëshironi t'i ktheni %ld konfigurime në kopjen e tyre të fundit të siguruar (hije)?\n\n";
+
+/* Window text */
+"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Dëshironi ta ktheni konfigurimin '%@' në kopjen e tij të fundit të siguruar (hije)?\n\n";
+
+/* Window text */
+"Domain:" = "Domaini:";
+
+/* Window text */
+"Double-quote missing in line %u" = "Mungon thonjëza në rreshtin %u";
+
+/* Window text */
+"EB" = "EB";
+
+/* Window text */
+"EB/s" = "EB/s";
+
+/* Window text */
+"Expected command not found for '%@'" = "Komanda e pritur nuk u gjet për '%@'";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Shtegu i pritur (ose 'asnjë') nuk u gjet për opsionin 'dh'";
+
+/* Window text */
+"Expected path not found for '%@'" = "Shtegu i pritur nuk u gjet për '%@'";
+
+/* Window text */
+"Failed to copy %@ to %@" = "Dështoi kopjimi i %1$@ në %2$@";
+
+/* Window text */
+"Failed to create folder at %@" = "Dështoi krijimi i dosjes në %@";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "Dështoi krijimi i symlink-ut te \n %1$@ \n në %2$@";
+
+/* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "Dështoi instalimi i zgjerimeve të sistemit tun dhe tap të Tunnelblick.";
+
+/* Window text */
+"Failed to set permissions on %@\n" = "Dështoi vendosja e lejeve te %@\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Dështoi çinstalimi i zgjerimeve të sistemit tun dhe tap të Tunnelblick.";
+
+/* Window text */
+"Fast User Switching" = "Kalim i Shpejtë i Përdoruesit";
+
+/* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Skedari '%@' duket se është në formatin rich text sepse fillon me karakterin '{'. Të gjithë skedarët që lidhen me OpenVPN duhet të jenë skedarë plain text ose UTF-8.";
+
+/* Window text */
+"File '%@' contains one or more NUL characters." = "Skedari '%@' përmban një ose më shumë karaktere NUL.";
+
+/* Window text */
+"File '%@' ends with a backslash, which is not allowed." = "Skedari '%@' përfundon me një backslash, gjë e cila nuk lejohet.";
+
+/* Window text */
+"File '%@' has an extension which is not known to Tunnelblick." = "Skedari '%@' ka një shtesë që nuk njihet nga Tunnelblick.";
+
+/* Window text */
+"File '%@' is missing" = "Skedari '%@' mungon";
+
+/* Window text */
+"File '%@' is too short (%lu bytes)" = "Skedari '%1$@' është shumë i shkurtër (%2$lu bajt)";
+
+/* Window text */
+"File is too large: %@" = "Skedari është shumë i madh: %@";
+
+/* Window text */
+"GB" = "GB";
+
+/* Window text */
+"GB/s" = "GB/s";
+
+/* Window text */
+"Icon:" = "Ikona:";
+
+/* Window text */
+"In %@:\n\nThere are no OpenVPN configurations to install." = "Në %@\n\nNuk ka konfigurime OpenVPN për t'u instaluar.";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "Në skedarin e konfigurimit të OpenVPN për '%1$@' në rreshtin %2$lu: %3$@";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@': %@" = "Në skedarin e konfigurimit të OpenVPN për '%1$@': %2$@";
+
+/* Window text */
+"In:" = "Në:";
+
+/* Window text */
+"Installation failed:\n\n%@" = "Instalimi dështoi: \n\n%@";
+
+/* Window text */
+"Installation finished successfully." = "Instalimi përfundoi me sukses.";
+
+/* Window text */
+"Installing and securing Tunnelblick..." = "Po instalohet dhe sigurohet Tunnelblick…";
+
+/* Window text */
+"Installing configurations is not allowed" = "Instalimi i konfigurimeve nuk lejohet";
+
+/* Window text */
+"Internal error: commentOutLines: line %lu does not exist" = "Gabim i brendshëm: commentOutLines: rreshti %lu nuk ekziston";
+
+/* Window text */
+"Invalid value '%@' for '%@' in %@" = "Vlerë e pavlefshme '%1$@' për '%2$@' në %3$@";
+
+/* Window text */
+"KB" = "KB";
+
+/* Window text */
+"KB/s" = "KB/s";
+
+/* Window text */
+"Keyboard shortcut:" = "Shkurtesa e tastierës:";
+
+/* Window text */
+"Last checked: %@" = "Kontrolluar së fundmi: %@";
+
+/* Window text */
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Rreshti %1$d i skedarit '%2$@' përmban një karakter që nuk mund të shtypet (0x%3$X) i cili nuk lejohet\n\n";
+
+/* Window text */
+"MB" = "MB";
+
+/* Window text */
+"MB/s" = "MB/s";
+
+/* Window text */
+"Maximum log display size:" = "Madhësia maksimale e shfaqjes së logut:";
+
+/* Window text */
+"Menu:" = "Meny:";
+
+/* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Mungon CFBundleIdentifier ose CFBundleVersion në Info.plist për \n\n%@\n\nKy konfigurim VPN është i përfshirë në një konfigurim të jashtëm VPN që mund të përditësohet, prandaj duhet të përfshijë vetë CFBundleIdentifier dhe CFBundleVersion.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Mungon skedari Info.plist për \n\n%@\n\nKy konfigurim VPN është i përfshirë në një konfigurim të jashtëm VPN që mund të përditësohet, prandaj duhet të përfshijë një skedar Info.plist.";
+
+/* Window text */
+"Modified configuration file to remove path information" = "Skedari i konfigurimit u modifikua për të hequr informacionin e shtegut";
+
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Do të krijoheshin shumë lidhje njëkohësisht (%1$d me 'Vendos nameserverin', %2$d pa 'Vendos nameserverin')";
+
+/* Window text */
+"Named Credentials" = "Kredencialet me emër";
+
+/* Window text */
+"Names may not include any of the following characters: %s" = "Emrat nuk mund të përfshijnë asnjë nga karakteret e mëposhtme: %s";
+
+/* Window text */
+"Names may not include any of the following characters: %s\n\n%@" = "Emrat nuk mund të përfshijnë asnjë nga karakteret e mëposhtme: %1$s\n\n%2$@";
+
+/* Window text */
+"NetBIOS name:" = "Emri NetBIOS:";
+
+/* Window text; the %@ will be replaced by a list of configuration names. */
+"Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "Aksesi në rrjet nuk mund të çaktivizohet pas shkëputjes për disa ose për të gjithë konfigurimet e zgjedhura, sepse ato përfshijnë opsionet 'user' dhe/ose 'group'. Këto opsione do të bëjnë që OpenVPN të mos funksionojë si \"root\" gjatë shkëputjes, prandaj nuk do të jetë në gjendje të çaktivizojë aksesin në rrjet.\n\nKonfigurimet që përmbajnë 'user' dhe/ose 'group' janë:\n\n%@\n\n";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected." = "Aksesi në rrjet u çaktivizua kur një VPN u shkëput.";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "Aksesi në rrjet u çaktivizua kur një VPN u shkëput.\n\nDëshironi të riaktivizoni aksesin në rrjet?\n\n";
+
+/* Window text */
+"Network setting" = "Cilësimet e rrjetit";
+
+/* Window text */
+"No 'TBPackageVersion' in %@" = "Nuk ka 'TBPackageVersion' në %@";
+
+/* Window text */
+"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Nuk u gjet shtegu për te easy-rsa. Arsyeja më e mundshme është një problem me preferencën 'easy-rsaPath'";
+
+/* Window text */
+"Non-array value for '%@' in %@" = "Vlerë jo-array për '%1$@' në %2$@";
+
+/* Window text */
+"Non-boolean value for '%@' in %@" = "Vlerë jo-e plotë (non-integer) për '%1$@' në %2$@";
+
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "Vlerë jo-numer i plote për '%1$@' në %2$@";
+
+/* Window text */
+"Non-string value for '%@' in %@" = "Vlerë jo-string për '%1$@' në %2$@";
+
+/* Window text */
+"Non-string value for an item in '%@' in %@" = "Vlerë jo-string për një element në '%1$@' në %2$@";
+
+/* Window text */
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Asnjë nga %ld konfigurimet e zgjedhura nuk ka kredenciale (çelës privat ose emër përdoruesi dhe fjalëkalim) të ruajtura në Keychain.";
+
+/* Window text */
+"Not a .ovpn or .conf: %@" = "Ky nuk është një skedar .ovpn ose .conf: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nuk po zëvendësohet një konfigurim ekzistues, prandaj konfigurimi '%@' nuk mund të përdorë 'TBKeepExistingFilesList'";
+
+/* Window text */
+"On expected disconnect:" = "Në shkëputje të pritur:";
+
+/* Window text */
+"On unexpected disconnect:" = "Në shkëputje të papritur:";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Një ose më shumë procese OpenVPN po funksionojnë, por nuk njihen nga Tunnelblick. Nëse nuk po ekzekutoni OpenVPN veçmas nga Tunnelblick, kjo zakonisht do të thotë se një nisje e mëparshme e Tunnelblick nuk arriti t'i mbyllte siç duhet dhe ju duhet t'i ndërprisni. Ato ka të ngjarë të ndërhyjnë në funksionimin e Tunnelblick. Dëshironi të ndërprisni të gjitha proceset e OpenVPN?";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Një ose më shumë procese OpenVPN po funksionojnë, por nuk njihen nga Tunnelblick. Nëse nuk po e ekzekutoni OpenVPN-në veçmas nga Tunnelblick, kjo zakonisht do të thotë se një nisje e mëparshme e Tunnelblick-ut nuk arriti t'i mbyllte siç duhet dhe ju duhet t'i ndërprisni. Ato ka të ngjarë të ndërhyjnë në funksionimin e Tunnelblick-ut. Dëshironi t'i ndërprisni?";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Një ose më shumë procese OpenVPN po funksionojnë, por nuk njihen nga Tunnelblick. Nëse nuk po e ekzekutoni OpenVPN-në veçmas nga Tunnelblick, kjo zakonisht do të thotë se një nisje e mëparshme e Tunnelblick-ut nuk arriti t'i mbyllte siç duhet dhe ju duhet t'i ndërprisni. Ato ka të ngjarë të ndërhyjnë në funksionimin e Tunnelblick-ut.\n\nAto mund të ndërpriten në aplikacionin 'Activity Monitor'.\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Një ose më shumë konfigurime VPN që po instalohen përfshijnë opsione të OpenVPN që nuk njihen nga Tunnelblick. Kjo mund të jetë një gabim në konfigurim ose një gabim në Tunnelblick, ose konfigurimet mund të përfshijnë programe që do të ekzekutohen si \"root\" kur lidheni me një VPN. Programe të tilla do të ishin në gjendje të MARRIN KONTROLLIN E PLOTË TË KOMPJUTERIT TUAJ.\n\nNUK DUHET T'I INSTALONI KËTO KONFIGURIME NËSE NUK I BESONI AUTORIT TË TYRE.\n\nA i besoni autorit të konfigurimeve dhe dëshironi t'i instaloni ato?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Një ose më shumë konfigurime VPN që po instalohen përfshijnë programe që do të ekzekutohen si \"root\" kur ju lidheni me një VPN. Këto programe janë pjesë e konfigurimit dhe nuk janë pjesë e aplikacionit Tunnelblick. Ato mund të MARRIN KONTROLLIN E PLOTË TË KOMPJUTERIT TUAJ.\n\nNUK DUHET T'I INSTALONI KËTO KONFIGURIME NËSE NUK I BESONI AUTORIT TË TYRE.\n\nA i besoni autorit të konfigurimeve dhe dëshironi t'i instaloni ato?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Një ose më shumë konfigurime VPN që po instalohen përfshijnë programe që do të ekzekutohen kur lidheni me një VPN. Këto programe janë pjesë e konfigurimit dhe nuk janë pjesë e aplikacionit Tunnelblick.\n\nDuhet t'i instaloni këto konfigurime vetëm nëse i besoni autorit të tyre.\n\nA i besoni autorit të konfigurimeve dhe dëshironi t'i instaloni ato?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Një ose më shumë konfigurime VPN që po përditësohen përfshijnë programe që do të ekzekutohen si \"root\" kur lidheni me një VPN. Këto programe janë pjesë e konfigurimit dhe nuk janë pjesë e aplikacionit Tunnelblick. Ato mund të MARRIN KONTROLLIN E PLOTË TË KOMPJUTERIT TUAJ.\n\nNUK DUHET T'I INSTALONI KËTO KONFIGURIME NËSE NUK I BESONI AUTORIT TË TYRE.\n\nA i besoni autorit të konfigurimeve dhe dëshironi t'i instaloni ato?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Një ose më shumë konfigurime VPN që po përditësohen përfshijnë programe që do të ekzekutohen kur lidheni me një VPN. Këto programe janë pjesë e konfigurimit dhe nuk janë pjesë e aplikacionit Tunnelblick.\n\nDuhet t'i instaloni këto konfigurime vetëm nëse i besoni autorit të tyre.\n\nA i besoni autorit të konfigurimeve dhe dëshironi t'i instaloni ato?\n\n";
+
+/* Window text */
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Një ose më shumë VPN janë aktualisht të lidhura. Ju lutemi shkëputni të gjitha VPN-të dhe dilni nga Tunnelblick para se të vazhdoni.";
+
+/* Window text */
+"One or more configurations are being ignored. See the Console Log for details." = "Një ose më shumë konfigurime po injorohen. Shihni \"Console Log\" për detaje.";
+
+/* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "U gjendën një ose më shumë probleme me DNS-në: \n\n%@";
+
+/* Window text */
+"One or more problems were detected:\n\n%@" = "U gjendën një ose më shumë probleme: \n\n%@";
+
+/* Window text */
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Vetëm një konfigurim VPN i Tunnelblick (.tblk) mund të nisë kur ndizet kompjuteri.";
+
+/* Window text. The first and second '%@' will each be replaced by a version number such as '3.2'. The third '%@' will be replaced by the name of a configuration. The fourth '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"OpenVPN %@ will be used to connect this configuration instead of OpenVPN %@.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "OpenVPN %1$@ do të përdoret për të lidhur këtë konfigurim në vend të OpenVPN %2$@.\n\nSkedari i konfigurimit të OpenVPN për '%3$@' përmban këto opsione të OpenVPN: \n\n%4$@\nDuhet të përditësoni konfigurimin në mënyrë që të mund të përdoret me versionet moderne të OpenVPN.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, që nuk është i disponueshëm në këtë version të Tunnelblick";
+
+/* Window text */
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN nuk po i përgjigjet kërkesave për shkëputjen e %@. \n\nTunnelblick do të shkëputet kur OpenVPN të fillojë t'u përgjigjet kërkesave të shkëputjes.\n\nKJO MUND TË ZGJASË DERI NË DY MINUTA në disa rrethana të pazakonta.\n\nLidhja do të jetë e padisponueshme derisa të shkëputet.";
+
+/* Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3') */
+"OpenVPN version %@ is not available. Using %@ as the default." = "Versioni i OpenVPN %1$@ nuk është i disponueshëm. Po përdoret %2$@ si default.";
+
+/* Window text */
+"OpenVPN version:" = "Versioni OpenVPN:";
+
+/* Window text */
+"Out:" = "Jashtë:";
+
+/* Window text */
+"PB" = "PB";
+
+/* Window text */
+"PB/s" = "PB/s";
+
+/* Window text */
+"Password:" = "Fjalëkalimi:";
+
+/* Window text */
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Shtegu '%1$@' përmban karaktere që nuk lejohen.\n\nKarakteret që nuk lejohen: '%2$s'\n\n";
+
+/* Window text */
+"Please insert token \"%@\", then click \"OK\"" = "Ju lutem, futni token-in \"%@\" dhe më pas klikoni \"OK\"";
+
+/* Window text */
+"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Konfigurimet private nuk mund të lidhen kur kompjuteri ndizet.\n\nSë pari, bëje konfigurimin të përbashkët, pastaj ndrysho këtë cilësim.";
+
+/* Window text */
+"Program error, please see the Console log." = "Gabim programi, ju lutemi shihni Console Log.";
+
+/* Window text */
+"Rename failed; see the Console Log for details." = "Riemërtimi dështoi; shihni Console Log për detaje.";
+
+/* Window text */
+"Resolved symbolic link at '%@' to '%@'" = "Lidhja simbolike te '%1$@' është zgjidhur në '%2$@'";
+
+/* Window text */
+"Search domain:" = "Kërko domainin:";
+
+/* Window text */
+"Securing Tunnelblick..." = "Duke siguruar Tunnelblick…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Zgjidh një përdorues për çdo përdorues, të dhënat e konfigurimit të të cilit dëshironi t'i importoni.";
+
+/* Window text */
+"Set DNS/WINS:" = "Vendos DNS/WINS:";
+
+/* Window text */
+"Single-quote missing in line %u" = "Mungon thonjëza e teke në rreshtin %u";
+
+/* Window text */
+"Skipped copying %@ because a file with that name and contents has already been copied." = "Kopjimi i %@ u anashkalua sepse një skedar me atë emër dhe përmbajtje është kopjuar tashmë.";
+
+/* Window text in the splash screen */
+"Starting Tunnelblick..." = "Po nis Tunnelblick…";
+
+/* Window text */
+"Startup window:" = "Dritarja e nisjes:";
+
+/* Window text */
+"Symbolic links nested too deeply. Gave up at %@" = "Lidhjet simbolike janë të ngulitura shumë thellë. U dorëzova te %@";
+
+/* Window text */
+"TB" = "TB";
+
+/* Window text */
+"TB/s" = "TB/s";
+
+/* Window text */
+"TBRunAlertPanel returned an error" = "TBRunAlertPanel ktheu një gabim";
+
+/* Window text */
+"TUNNELBLICK is brought to you by" = "TUNNELBLICK ju ofrohet nga";
+
+/* Window text */
+"Thank you very much for your donation to the TunnelblickProject." = "Faleminderit shumë për donacionin tuaj në TunnelblickProject.";
+
+/* Window text */
+"Thanks for your Tunnelblick donation" = "Faleminderit për donacionin tuaj në Tunnelblick";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Konfigurimi i VPN-së %@ është modifikuar që kur është siguruar herën e fundit.\n\nDëshironi të siguroni konfigurimin e modifikuar apo të riktheheni te konfigurimi i fundit i siguruar?\n\n";
+
+/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console Log has details." = "Dosja e sistemit %1$@ (%2$@) nuk është e sigurt. \n\nTunnelblick dhe programe të tjera mund të mos funksionojnë siç duhet derisa të rregullohet ky problem.\n\nDetajet mund t'i gjeni në Console Log.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "Opsioni i OpenVPN '%@' nuk lejohet në macOS. Është një opsion 'vetëm për Windows'.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Opsioni i OpenVPN '%@' nuk lejohet kur përdoret Tunnelblick.";
+
+/* Window text */
+"The '%@' credentials may not be added because the list of named credentials is being forced." = "Kredencialet '%@' mund të mos shtohen sepse lista e kredencialeve me emër po detyrohet.";
+
+/* Window text */
+"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "Kredencialet '%@' nuk mund të fshihen sepse një ose më shumë konfigurime po detyrohen t'i përdorin ato.";
+
+/* Window text */
+"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "Kredencialet '%@' nuk mund të fshihen sepse lista e kredencialeve me emër po detyrohet.";
+
+/* Window text */
+"The 'credentialsNames' preference must be an array of strings." = "Preferenca 'credentialsNames' duhet të jetë një matricë stringash.";
+
+/* Window text */
+"The 'namedCredentialsNames' preference must be an array of strings" = "Preferenca 'namedCredentialsNames' duhet të jetë një matricë stringash";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "Skedari i konfigurimit OpenVPN në %1$@ përmban një opsion '%2$@', i cili është një opsion vetëm për Windows. Ai nuk mund të përdoret në macOS.";
+
+/* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
+"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Logu i OpenVPN përmban mesazhin e mëposhtëm:\n\n\"%1$@\".%2$@";
+
+/* Window text */
+"The OpenVPN log does not yet exist or has been deleted." = "Logu i OpenVPN ende nuk ekziston ose është fshirë.";
+
+/* Window text */
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Preferencat e Tunnelblik ishin të korruptuara dhe u fshinë. (Preferencat e vjetra u riemertuan.)\n\nShiko Console log për detaje.";
+
+/* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "Tentativa për tu lidhur me %1$@ u ndal: skripti runOnConnect ktheu një status: %2$ld.";
+
+/* Window text */
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Skedari i konfigurimit për '%@' duket se përdor opsionet 'user' dhe/ose 'group' dhe po përdor një skript 'down' ('Mos vendos nameserver' nuk është zgjedhur, ose ka një opsion 'down' në skedarin e konfigurimit).\n\nKa shumë gjasa që rifillimi i lidhjes (që bëhet automatikisht kur lidhja humbet) do të dështojë, nëse nuk përdoret shtojca 'openvpn-down-root.so' për OpenVPN.\n\nDëshironi të përdorni shtojcën?";
+
+/* Window text */
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Skedari i konfigurimit për '%@' nuk duket se përmban një opsion 'dev tun', 'dev utun' ose 'dev tap'. Ky opsion mund të jetë i nevojshëm për funksionimin e duhur të Tunnelblick. Konsultohuni me administratorin e rrjetit ose me dokumentacionin e OpenVPN.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Skedari i konfigurimit i referohet një skedari \n\n%@\n\ni cili nuk ekziston (edhe në konfigurimin që po zëvendësohet).";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "Skedari i konfigurimit i referohet një skedari \n\n%@\n\ni cili nuk ekziston në konfigurimin e ri, kështu që skedari ekzistues jo i sigurt është duke u përdorur.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "Skedari i konfigurimit i referohet një skedari\n\n%@\n\nqë nuk ekziston.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "Skedari i konfigurimit i referohet një skedari\n\n%1$@\n\nqë duhet te ishte i vendosur në\n\n%2$@\n\npor skedari nuk ekziston (as në konfigurimin që po zëvëndsohet).";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Skedari i konfigurimit i referohet një skedari\n\n%1$@\n\nqë duhet te ishte i vendosur në\n\n%2$@\n\npor skedari nuk ekziston.";
+
+/* Window text */
+"The credentials named %@ could not be added:\n\n%@" = "Nuk u mundësua shtimi i kredencialeve të emëruara %1$@: \n\n%2$@";
+
+/* Window text */
+"The credentials named %@ could not be removed:\n\n%@" = "Nuk u mundësua heqja e kredencialeve të emëruara %1$@: \n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Gabimi ishte: '%@'\n\n";
+
+/* Window text */
+"The file %@ is empty" = "Skedari %@ është bosh";
+
+/* Window text */
+"The file %@ is missing" = "Skedari %@ nuk gjendet";
+
+/* Window text */
+"The installation or repair took too long or failed. Try again?" = "Instalimi ose riparimi po merr shumë kohë ose ka dështuar. Të provoj përsëri?";
+
+/* Window text */
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Instalimi, heqja, rikuperimi ose riparimi i një ose më shumë përbërësve të Tunnelblick dështoi. Shihni Console Log për detaje.";
+
+/* Window text */
+"The passphrase was not accepted." = "Fjalëkalimi nuk u pranua.";
+
+/* Window text */
+"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Konfigurimi privat nuk është siguruar kurrë, kështu që nuk mund të ktheheni në kopjen e siguruar (hije).";
+
+/* Window text */
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "Një dosje me konfigurimin e mostrës është krijuar në Desktopin tuaj dhe skedari i konfigurimit OpenVPN është hapur në TextEdit, në mënyrë që ta modifikoni për konfigurimin tuaj të VPN-së.\n\nKur të keni përfunduar redaktimin e skedarit të konfigurimit OpenVPN dhe t'i keni ruajtur ndryshimet, ju lutemi:\n\n1. Zhvendosni ose kopjoni çdo skedar çelësi apo certifikate të lidhur me konfigurimin në dosjen 'Sample Tunnelblick VPN Configuration' në Desktopin tuaj.\n\n(Kjo dosje është hapur në një dritare Finder, kështu që mund t'i tërhiqni skedarët aty.)\n\n2. Ndryshoni emrin e skedarit të konfigurimit me një emër sipas dëshirës tuaj (mos ndryshoni prapashtesën e skedarit). Ky do të jetë emri që Tunnelblick përdor për konfigurimin.\n\n3. Për të instaluar konfigurimin, tërhiqeni skedarin e konfigurimit dhe lëshojeni në ikonën e Tunnelblick në shiritin e menysë ose në listën e konfigurimeve në skedën 'Konfigurime' të dritares 'Detajet e VPN-së'.";
+
+/* Window text */
+"The username and password were not accepted by the remote VPN server." = "Emri i përdoruesit dhe fjalëkalimi nuk u pranuan nga serveri i largët i VPN-së.";
+
+/* Window text */
+"There are no OpenVPN configurations to install." = "Nuk ka konfigurime OpenVPN për t'u instaluar.";
+
+/* Window text */
+"There are no OpenVPN processes running" = "Nuk ka procese të OpenVPN-së në funksionim";
+
+/* Window text */
+"There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Nuk ka konfigurime VPN të instaluara. Tunnelblick ka nevojë për një ose më shumë konfigurime të instaluara për t'u lidhur me një VPN. Konfigurimet instalohen nga skedarë që zakonisht ju ofrohen nga menaxheri i rrjetit ose ofruesi i shërbimit VPN. Skedarët duhet të instalohen për t'u përdorur.\n\nSkedarët e konfigurimit kanë prapashtesat .tblk, .ovpn, ose .conf.\n\n(Mund të ketë edhe skedarë të tjerë të lidhur me konfigurimin që kanë prapashtesa të tjera; injorojini ata tani për tani.)\n\nA keni ndonjë skedar konfigurimi?\n";
+
+/* Window text */
+"There is not an OpenVPN configuration file in '%@'" = "Nuk ka një skedar konfigurimi të OpenVPN-së në '%@'";
+
+/* Window text */
+"There was a problem deleting one or more configurations or folders. See the Console Log for details." = "U has një problem gjatë fshirjes së një ose më shumë konfigurimeve ose dosjeve. Shihni \"Console Log\" për detaje.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "U has një problem gjatë marrjes së listës së serverave publikë të DNS-së.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "U has një problem gjatë marrjes së listës së serverave të DNS-së,";
+
+/* Window text */
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "Pati një problem me konfigurimin e OpenVPN-së. Shihni \"Console Log\" për detaje.";
+
+/* Window text */
+"There was a problem with\n\n%@:\n\n%@" = "Pati një problem me\n\n%1$@:\n\n%2$@";
+
+/* Window text */
+"There was a problem:\n\n%@" = "Pati një problem: \n\n%@";
+
+/* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Pati probleme gjatë importimit të cilësimeve të Tunnelblick. \n\nShihni Console log për detaje.";
+
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Ky version 'Deployed' i Tunnelblick nuk mund të nisë ose instalohet sepse nuk është riemërtuar (rebranded), ose mungon CFBundleIdentifier ose përmban 'net.tunnelblick'.\n\n";
+
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Ky version 'I karikuar' i Tunnelblick nuk mund të nisë ose instalohet sepse nuk ka një skedar Info.plist.\n\n";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Ky VPN nuk mund të lidhet.\n\nSkedari i konfigurimit të OpenVPN për '%1$@' përmban këto opsione të OpenVPN: \n\n%2$@. \nAsnjë nga versionet e OpenVPN që janë pjesë e këtij versioni të Tunnelblick nuk e përfshijnë këtë(o) opsion(e).\n\nDuhet të përditësoni konfigurimin në mënyrë që të mund të përdoret me versionet moderne të OpenVPN.";
+
+/* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "Ky VPN kërkon që t'i përgjigjeni një pyetjeje, por nuk ka dhënë pyetjen.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"This VPN works now, but may not work in a future version of Tunnelblick.\n\nThe OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n%@\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Ky VPN funksionon tani, por mund të mos funksionojë në një version të ardhshëm të Tunnelblick.\n\nSkedari i konfigurimit të OpenVPN për '%1$@' duhet të përditësohet në mënyrë që të mund të përdoret me versionet moderne të OpenVPN. Ai përmban këto opsione të OpenVPN: \n\n%2$@. \nTunnelblick do të përdorë OpenVPN %3$@ për të lidhur këtë konfigurim.\n\nMegjithatë, nuk do të mund të lidheni me këtë VPN me versionet e ardhshme të Tunnelblick që nuk përfshijnë një version të OpenVPN që i pranon këto opsione.";
+
+/* Window text */
+"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Adresa e dukshme publike e IP-së së këtij kompjuteri nuk ndryshoi pas lidhjes me %1$@. Ajo është ende %2$@.\n\nKjo mund të thotë se VPN-ja juaj nuk është konfiguruar siç duhet.\n\n";
+
+/* Window text */
+"This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Kopja e Tunnelblick-ut është ndryshuar (firma dixhitale është e pavlefshme).\n\nJu lutemi, kontrolloni me ofruesin e kësaj kopje të Tunnelblick-ut para se ta përdorni.\n\n";
+
+/* Window text */
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Kjo kopje e Tunnelblick nuk ka firmë digjitale.\n\nNuk ka asnjë mënyrë për të verifikuar nëse kjo kopje është ndryshuar. Kontrolloni me ofruesin e kësaj kopje të Tunnelblick para se ta përdorni.\n\n";
+
+/* Window text */
+"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Ky version i Tunnelblick nuk mund të nisë ose instalohet sepse nuk është një version 'I karikuar', ndërkohë që një ose më shumë versione 'te karikuara' të Tunnelblick-ut janë instaluar më parë.\n\n";
+
+/* Window text */
+"Too many configuration files in '%@'" = "Shumë skedarë konfigurimi në '%@'";
+
+/* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
+"Too many copies already exist." = "Ekzistojnë tashmë shumë kopje.";
+
+/* Window text */
+"Translation by" = "Përkthyer nga";
+
+/* Window text */
+"Trying to quit all OpenVPN processes..." = "Po tentoj të mbyll të gjitha proceset e OpenVPN…";
+
+/* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Modaliteti Admin i Tunnelblick-ut. \n\n Lejon përkohësisht ndryshimet që kërkojnë autorizim nga një administrator kompjuteri.\n\n Sesioni skadon pas pesë minutash ose kur dritarja 'Detajet e VPN' mbyllet.";
+
+/* Window text */
+"Tunnelblick Internet Use:" = "Përdorimi i internetit nga Tunnelblick:";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check for updates when it is launched and periodically while it is running.\n\n" = "Tunnelblick mund të ketë akses te %@ për të kontrolluar për përditësime kur niset dhe periodikisht gjatë kohës që është duke funksionuar.\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick mund të ketë akses te %@ për të kontrolluar që adresa e dukshme publike e IP-së së kompjuterit tuaj të ndryshojë sa herë që lidheni me një VPN.\n\n";
+
+/* Window text */
+"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick nuk mundi të nisë për shkak të një problemi me konfigurimin. Ju lutemi, shikoni Console Log për detaje.";
+
+/* Window text */
+"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick nuk arriti ta fshinte plotësisht konfigurimin '%@'. Shihni \"Console Log\" për detaje.";
+
+/* Window text */
+"Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick nuk arriti të kopjonte dosjen '%@'. Shihni \"Console Log\" për detaje.";
+
+/* Window text */
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick nuk mundi të kopjonte konfigurimin '%@'. Shihni \"Console Log\" për detaje.";
+
+/* Window text */
+"Tunnelblick could not create the empty configuration folder" = "Tunnelblick nuk arriti të krijonte dosjen boshe të konfigurimit";
+
+/* Window text */
+"Tunnelblick could not create the sample configuration" = "Tunnelblick nuk mundi të krijonte konfigurimin shembull";
+
+/* Window text */
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick nuk mundi të shfaqte një dritare.\n\nCFUserNotificationCreate() u kthye me gabimin = %1$ld; njoftimi = %2$@";
+
+/* Window text */
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick nuk arriti të merrte informacionin e adresës IP para se të bëhej lidhja me %@.\n\n";
+
+/* Window text */
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick nuk arriti të gjente një opsion 'tun' ose 'tap' në skedarin e konfigurimit të OpenVPN";
+
+/* Window text */
+"Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick nuk arriti të gjente një portë të lirë për t'u përdorur për komunikimin me OpenVPN";
+
+/* Window text */
+"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick nuk arriti të gjente skedarin e konfigurimit ose skedari i konfigurimit nuk mundi të pastrohej. Shihni \"Console Log\" për detaje.";
+
+/* Window text */
+"Tunnelblick could not load a kext" = "Tunnelblick nuk arriti të ngarkonte një kext";
+
+/* Window text */
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick nuk mundi të zhvendoste konfigurimin '%@'. Shihni \"Console Log\" për detaje.";
+
+/* Window text. The '%@' refers to a configuration or a folder of configurations. */
+"Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick nuk arriti të hiqte %1$@. Shihni \"Console Log\" për detaje.";
+
+/* Window text */
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick hasi një gabim fatal.\n\nJu lutemi, dërgoni një email te developers@tunnelblick.net për ndihmë dhe përshkruani se çfarë po bënte Tunnelblick në momentin kur ndodhi gabimi.\n\n";
+
+/* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@" = "Tunnelblick ndeshi gabime me %1$lu konfigurime:\n\n%2$@%3$@%4$@%5$@%6$@%7$@";
+
+/* Window text */
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick dështoi të riparonte problemet me preferencat për '%@'. Detajet janë në \"Console Log\"";
+
+/* Window text */
+"Tunnelblick has been secured." = "Tunnelblick u sigurua.";
+
+/* Window text */
+"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick e ka shkëputur '%@' sepse skedari i konfigurimit të tij është hequr.";
+
+/* Window text */
+"Tunnelblick is based on %@." = "Tunnelblick bazohet në %@.";
+
+/* Window text */
+"Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick është duke funksionuar aktualisht. Do të mbyllet para se të vazhdohet më tej.";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick është gati.";
+
+/* Window text */
+"Tunnelblick is up to date" = "Tunnelblick është i përditësuar";
+
+/* Window text */
+"Tunnelblick needs a computer administrator's authorization to update.\n\nTunnelblick will be relaunched after the update." = "Tunnelblick ka nevojë për autorizimin e administratorit të kompjuterit për t'u përditësuar. Tunnelblick do të riniset pas përditësimit.";
+
+/* Window text */
+"Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick ka nevojë për autorizim për të kopjuar dosjen '%@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick ka nevojë për autorizim për të kopjuar ose zhvendosur konfigurimet.";
+
+/* Window text */
+"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick ka nevojë për autorizim për të duplikuar konfigurimin '%@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick ka nevojë për autorizim për të instaluar zgjerimet e sistemit tun dhe tap.";
+
+/* Window text */
+"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick ka nevojë për autorizim për t'i bërë %ld konfigurime private.";
+
+/* Window text */
+"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick ka nevojë për autorizim për t'i bërë %ld konfigurime të përbashkëta.";
+
+/* Window text */
+"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick ka nevojë për autorizim për t'i bërë '%@' konfigurime private.";
+
+/* Window text */
+"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick ka nevojë për autorizim për t'i bërë '%@' konfigurime të përbashkëta.";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "Tunnelblick ka nevojë për autorizim për të zhvendosur dosjen '%1$@' në dosjen '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@'." = "Tunnelblick ka nevojë për autorizim për të zhvendosur dosjen '%@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick ka nevojë për autorizim për të lexuar të dhënat e Tunnelblick që u përkasin përdoruesve të tjerë të këtij kompjuteri në mënyrë që të mund të eksportojë të gjitha të dhënat e Tunnelblick.\n\nJu lutemi vini re:\n\n     1. Kredencialet e ruajtura në Keychain NUK do të eksportohen.\n\n     2. Eksportimi mund të zgjasë shumë kohë.\n\n";
+
+/* Window text */
+"Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently." = "Tunnelblick ka nevojë për autorizim për të hequr një ose më shumë konfigurime ose dosje. \n\n Heqja është e përhershme dhe nuk mund të anulohet. Cilësimet për konfigurimet e hequra do të hiqen gjithashtu përgjithmonë.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename configuration '%@' to '%@'." = "Tunnelblick ka nevojë për autorizim për të riemërtuar konfigurimin '%1$@' në '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick ka nevojë për autorizim për të riemërtuar dosjen '%1$@' në '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick ka nevojë për autorizim për të siguruar të dhënat e importuara.";
+
+/* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick ka nevojë për autorizim për të çinstaluar zgjerimet e sistemit tun dhe tap.";
+
+/* Window text */
+"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick duhet të ndryshojë një cilësim që mund të ndryshohet vetëm nga një administrator kompjuteri.";
+
+/* Window text */
+"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick duhet të krijojë ose të përditësojë një kopje të sigurt (hije) të skedarit të konfigurimit.";
+
+/* Window text */
+"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick duhet të kryejë një veprim që kërkon autorizimin e një administratori kompjuteri.\n";
+
+/* Window text */
+"Tunnelblick needs to:\n" = "Tunnelblick ka nevojë të:\n";
+
+/* Window text: '* Installed/Replaced/Uninstalled' */
+"Tunnelblick successfully:\n\n" = "Tunnelblick kreu me sukses:\n\n";
+
+/* Window text */
+"Tunnelblick updates:" = "Përditësime të Tunnelblick:";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick nuk mundi të shkarkonte zgjerimet e sistemit të tij. Ju lutemi, rindizeni kompjuterin dhe provoni t'i çinstaloni përsëri zgjerimet e sistemit të Tunnelblick.";
+
+/* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick u instalua me sukses dhe %ld konfigurime u instaluan ose u zëvendësuan.";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick u instalua me sukses dhe një konfigurim u instalua ose u zëvendësua.";
+
+/* Window text */
+"Tunnelblick was successfully installed." = "Tunnelblick u instalua me sukses.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick u zëvendësua me sukses dhe %ld konfigurime u instaluan ose u zëvendësuan.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick u zëvendësua me sukses dhe një konfigurim u instalua ose u zëvendësua.";
+
+/* Window text */
+"Tunnelblick was successfully replaced." = "Tunnelblick u zëvendësua me sukses.";
+
+/* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick nuk mundi të krijonte komunikime me një proces ekzistues të OpenVPN për konfigurimin '%@'. Përpjekja për të krijuar komunikime u braktis.";
+
+/* Window text */
+"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick nuk mundi të bëjë ndryshimin. Shihni Console Log për detaje.";
+
+/* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick nuk mundi të fillojë OpenVPN për t'u lidhur me %@. Për detaje, shikoni logun në dritaren e Detajet e VPN-së";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check for updates when it is launched and periodically while it is running. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick do të hyjë në %@ për të kontrolluar për përditësime kur të niset dhe periodikisht gjatë kohës që është duke funksionuar. Kontaktoni shpërndarësin e kësaj kopjeje të Tunnelblick për detaje.\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick do të hyjë në %@ për të kontrolluar nëse adresa juaj publike e dukshme e IP-së ndryshon çdo herë që lidheni me një VPN. Kontaktoni shpërndarësin e kësaj kopjeje të Tunnelblick për detaje.\n\n";
+
+/* Window text */
+"Tunnelblick will quit because a critical component has been disabled or is missing.\n\nTunnelblick cannot perform functions such as connecting a VPN unless the component is enabled.\n\nPlease re-enable the component in System Settings >> General >> Login Items.\n\nThe component is listed in the 'Runs in the background' section, is named 'Tunnelblick', and is labelled 'affects all users'.\n\nIt is recommended that you also enable the other listed Tunnelblick component if it is also disabled.\n\nNote: If the component is enabled and Tunnelblick still shows this message, please reinstall Tunnelblick.\n\nFor more information, go to https://tunnelblick.net/e2" = "Tunnelblick do të mbyllet sepse një komponent kritik është çaktivizuar ose mungon. \n\nTunnelblick nuk mund të kryejë funksione, si p.sh. lidhja e një VPN-je, nëse komponenti nuk është aktivizuar.\n\nJu lutemi, riaktivizoni komponentin në System Settings >> General >> Login Items.\n\nKomponenti renditet në seksionin 'Runs in the background', quhet 'Tunnelblick', dhe është etiketuar 'affects all users'.\n\nRekomandohet të aktivizoni edhe komponentin tjetër të Tunnelblick, nëse është edhe ai i çaktivizuar.\n\nShënim: Nëse komponenti është i aktivizuar dhe Tunnelblick ende shfaq këtë mesazh, ju lutemi, riinstaloni Tunnelblick.\n\nPër më shumë informacion, vizitoni https://tunnelblick.net/e2";
+
+/* Window text */
+"Unable to Establish Communication" = "Nuk po mundësohet krijimi i komunikimit";
+
+/* Window text */
+"Unable to convert OpenVPN configuration" = "Nuk po mundësohet konvertimi i konfigurimit të OpenVPN";
+
+/* Window text */
+"Unable to copy file at '%@' to '%@' because the same name is used for different contents" = "Nuk po mundësohet kopjimi i skedarit në '%1$@' në '%2$@', sepse i njëjti emër përdoret për përmbajtje të ndryshme";
+
+/* Window text */
+"Unable to create %@ owned by %ld:%ld with %lo permissions" = "Nuk po mundësohet krijimi i %1$@ në pronësi të %2$ld:%3$ld me leje %4$lo";
+
+/* Window text */
+"Unable to install or replace the '%@' configuration\n" = "Nuk po mundësohet instalimi ose zëvendësimi i konfigurimit '%@'\n";
+
+/* Window text */
+"Unable to install the '%@' configuration\n" = "Nuk po mundësohet instalimi i konfigurimit '%@'\n";
+
+/* Window text */
+"Unable to load contents of %@ as UTF-8" = "Nuk po mundësohet ngarkimi i përmbajtjes së %@ si UTF-8";
+
+/* Window text */
+"Unable to open configuration file for modification" = "Nuk po mundësohet hapja e skedarit të konfigurimit për modifikim";
+
+/* Window text */
+"Unable to parse configuration file as UTF-8" = "Nuk po mundësohet analizimi i skedarit të konfigurimit si UTF-8";
+
+/* Window text */
+"Unable to replace the '%@' configuration\n" = "Nuk u mundësua zëvendësimi i konfigurimit '%@'\n";
+
+/* Window text */
+"Unable to secure %@ because it is owned by %@" = "Nuk është e mundur të sigurohet %1$@ sepse është në pronësi të %2$@";
+
+/* Window text */
+"Unable to secure %@" = "Nuk është e mundur të sigurohet %@";
+
+/* Window text */
+"Unable to set permissions on '%@'" = "Nuk është e mundur të vendosen lejet për '%@'";
+
+/* Window text */
+"Unable to store updatable configuration stub at %@\n" = "Nuk është e mundur të ruhet stubi i konfigurimit të përditësueshëm në %@\n";
+
+/* Window text */
+"Unable to uninstall the '%@' configuration\n" = "Nuk është e mundur të çinstalohet konfigurimi '%@'\n";
+
+/* Window text */
+"Unable to write to configuration file for modification" = "Nuk është e mundur të shkruhet në skedarin e konfigurimit për modifikim";
+
+/* Window text */
+"Unexpected disconnection:" = "Shkëputje e papritur:";
+
+/* Window text */
+"Unknown extension '%@' for %@" = "Prapashtesë e panjohur '%1$@' për %2$@";
+
+/* Window text */
+"Unknown key '%@' in %@" = "Çelës i panjohur '%1$@' në %2$@";
+
+/* Window text */
+"Unknown value '%@' for '%@' in %@" = "Vlerë e panjohur '%1$@' për '%2$@' në %3$@";
+
+/* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Skedar i palexueshëm në %@. \n\nShihni \"Console log\" për detaje.";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Konfigurimi i përditësueshëm '%@' nuk u ruajt si i përditësueshëm, sepse 'Contents' në skedarin e shkurtuar .tblk nuk mund të krijohej\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Konfigurimi i përditësueshëm '%@' nuk u ruajt si i përditësueshëm, sepse skedari i tij Info.plist nuk mundi të ruhej si stub .tblk\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Konfigurimi i përditësueshëm '%@' nuk u ruajt si i përditësueshëm, sepse CFBundleIdentifier është përpunuar tashmë\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Konfigurimi i përditësueshëm '%@' nuk u ruajt si i përditësueshëm, sepse skedari Info.plist nuk kishte një element 'SUPublicDSAKey' ose elementi 'SUFeedURL' nuk specifikonte përdorimin e https:\n";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "Konfigurimi i VPN-së %@ NUK do të instalohet sepse ka një numër versioni më të ulët.";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "Konfigurimi i VPN-së %@ NUK do të instalohet sepse konfigurimi ekziston tashmë dhe nuk duhet zëvendësuar.";
+
+/* Window text */
+"VPN log level:" = "Niveli i logut të VPN-së:";
+
+/* Window text */
+"VPN status windows:" = "Dritaret e statusit të VPN-së:";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "Vlera '%1$@' për '%2$@' nuk është një URL e vlefshme në %3$@";
+
+/* Window text */
+"WINS servers:" = "Serverat WINS:";
+
+/* Window text */
+"Warning: '%@' is already a named credential." = "Paralajmërim: '%@' është tashmë një kredencial me emër.";
+
+/* Window text */
+"Warning: One or more settings could not be copied. See the Console Log for details." = "Paralajmërim: Një ose më shumë cilësime nuk mund të kopjoheshin. Shihni \"Console Log\" për detaje.";
+
+/* Window text */
+"Warning: One or more settings could not be duplicated. See the Console Log for details." = "Paralajmërim: Një ose më shumë cilësime nuk mund të dyfishoheshin. Shihni Console Log për detaje.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Paralajmërim: Konfigurimet e mëposhtme, të cilat duhet të lidhen kur kompjuteri niset, nuk janë të lidhura:\n\n%@\n";
+
+/* Window text */
+"Warnings:" = "Paralajmërime:";
+
+/* Window text */
+"When changes to anything else" = "Kur ndryshime bëhen në çdo gjë tjetër";
+
+/* Window text */
+"When changes to pre-VPN value" = "Kur ndryshime bëhen në vlerën para-VPN";
+
+/* Window text */
+"Workgroup:" = "Grupi i punës:";
+
+/* Window text */
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "A dëshironi të:\n\n  • Krijoni një konfigurim shembull në Desktop \n             dhe\n  • Hapni skedarin e tij të konfigurimit të OpenVPN në TextEdit, në mënyrë që ta modifikoni për t'u lidhur me VPN-në tuaj?\n\n";
+
+/* Window text */
+"You are not allowed to replace a private configuration" = "Nuk ju lejohet të zëvendësoni një konfigurim privat";
+
+/* Window text */
+"You are not allowed to replace a shared configuration" = "Nuk ju lejohet të zëvendësoni një konfigurim të përbashkët";
+
+/* Window text */
+"You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Nuk mund ta bëni konfigurimin '%@' privat sepse është vendosur të fillojë kur ndizet kompjuteri.";
+
+/* Window text */
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Nuk mund ta bëni konfigurimin '%@' privat ose të përbashkët sepse është një konfigurim i përditësueshëm.\n\nVini re se një konfigurim VPN i Tunnelblick që është i përditësueshëm nuk mund të bëhet privat ose i përbashkët; vetëm konfigurimet brenda tij mund të bëhen private ose të përbashkëta.";
+
+/* Window text */
+"You cannot rename or move a Deployed configuration." = "Nuk mund të riemërtoni ose zhvendosni një konfigurim të karikuar.";
+
+/* Window text */
+"You cannot rename or move a configuration unless it is disconnected." = "Nuk mund të riemërtoni ose zhvendosni një konfigurim nëse nuk është i shkëputur.";
+
+/* Window text */
+"You cannot rename or move a configuration which is set to start when the computer starts." = "Nuk mund të riemërtoni ose zhvendosni një konfigurim që është vendosur të fillojë kur ndizet kompjuteri.";
+
+/* Window text */
+"You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Ti ke provuar të instalosh një skedar konfigurimi që është një skedar konfigurimi shembull. Skedari i konfigurimit duhet të modifikohet për t'u lidhur me një VPN. Gjithashtu, mund të keni nevojë për skedarë të tjerë, si skedarët e certifikatës ose të çelësit, për t'u lidhur me VPN-në.\n\nKonsultohu me administratorin tënd të rrjetit ose me ofruesin e shërbimit tënd VPN për të marrë konfigurimin dhe skedarët e tjerë ose informacionin që të nevojitet për të modifikuar skedarin shembull.\n\nSkedari i konfigurimit gjendet në\n%@\n\n";
+
+/* Window text */
+"You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "Nuk mund ta lidhni këtë konfigurim.\n\nNëse e konvertoni në një 'Lidhje VPN të Tunnelblick' (.tblk), do të mund të lidheni.";
+
+/* Window text */
+"You may not duplicate a Deployed configuration." = "Nuk mund të duplikoni një konfigurim të karikuar.";
+
+/* Window text */
+"You may not duplicate a configuration which is set to start when the computer starts." = "Nuk mund të duplikoni një konfigurim që është vendosur të fillojë kur ndizet kompjuteri.";
+
+/* Window text */
+"You may not remove a Deployed configuration." = "Nuk mund të hiqni një konfigurim të karikuar.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Nuk mund të hiqni një konfigurim nëse nuk është i shkëputur.";
+
+/* Window text */
+"You may not remove a configuration which is set to start when the computer starts." = "Nuk mund të hiqni një konfigurim që është vendosur të fillojë kur ndizet kompjuteri.";
+
+/* Window text */
+"You may not remove a folder unless it is empty." = "Nuk mund të hiqni një dosje nëse nuk është bosh.";
+
+/* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Duhet të shkëputni të gjitha VPN-të para se të instaloni ose çinstaloni zgjerimet e sistemit të Tunnelblick.";
+
+/* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "Ndihma juaj në këtë do t'u sjellë dobi të gjithë përdoruesve të Tunnelblick.\n\nNëse është e mundur, ju lutemi mos klikoni \"Dalje\" derisa të keni dërguar email-in.";
+
+/* Window text */
+"Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Ora e sistemit tuaj mund të mos jetë vendosur saktë.\n\nDisa ose të gjitha konfigurimet tuaja mund të mos lidhen nëse ora e sistemit nuk ka datën dhe kohën e saktë.\n\n";
+
+/* Window text */
+"ZB" = "ZB";
+
+/* Window text */
+"ZB/s" = "ZB/s";
+
+/* Window text */
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed because the Info.plist for an \"inner\" .tblk may not contain \"updatable\" .tblk entries." = "\"%1$@\" në skedarin Info.plist për\n\n%2$@\n\nnuk lejohet sepse skedari Info.plist për një .tblk “të brendshëm” nuk mund të përmbajë elementë .tblk “të përditësueshëm”.";
+
+/* Window text */
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" në skedarin Info.plist për\n\n%2$@\n\nnuk lejohet në një .tblk “të brendshëm” ose bie në konflikt me të njëjtën hyrje në një .tblk “të jashtëm”.";
+
+/* Window text */
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\nKUJDES: Kjo kopje e Tunnelblick është ndryshuar (manipuluar).\n";
+
+/* Window text */
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\nKUJDES: Kjo kopje e Tunnelblick e bën kompjuterin tuaj të pasigurt. Është vetëm për qëllime diagnostikimi (debugging).\n";
+
+/* Window text */
+"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nSHËNIM: Një ose më shumë nga konfigurimet janë aktualisht të lidhura. Ato do të shkëputen, do të kryhen instalimet/zëvendësimet/çinstalimet dhe konfigurimet do të rilidhen, përveç nëse janë çinstaluar.\n\n";
+
+/* Window text */
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nNjë ose më shumë nga certifikatat e përdorura për të siguruar këtë konfigurim kanë skaduar.\n\nShihni regjistrin e VPN në skedën \"Log\" të panelit \"Konfigurime\" në dritaren \"Detajet e VPN-së\" të Tunnelblick për detaje.";
+
+/* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nKy gabim do të thotë që një opsion i përfshirë në skedarin e konfigurimit të OpenVPN ose i \"shtyrë\" nga serveri i OpenVPN:\n\n     • është shkruar gabim,\n\n     • ka argumente të paplota ose të tepërta, ose\n\n     • nuk është implementuar nga versioni i OpenVPN që po përdoret për këtë konfigurim.\nMund të jetë një opsion i ri që nuk është implementuar në një version të vjetër të OpenVPN, ose një opsion i vjetër që është hequr në një version të ri të OpenVPN. Ju mund të zgjidhni versionin e OpenVPN për të përdorur me këtë konfigurim në panelin \"Settings\" (Cilësimet) të dritares \"VPN Details\" (Detajet e VPN) të Tunnelblick.\n\nPër detaje, shikoni log-un e VPN-së në panelin \"Log\" (Log) të dritares \"VPN Details\" (Detajet e VPN) të Tunnelblick.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nOpsionet e Tunnelblick për 'Set nameserver' funksionojnë vetëm për një lidhje të vetme VPN. Përdorimi i tyre me më shumë se një lidhje VPN njëkohësisht mund të dëmtojë cilësimet e rrjetit ose të shkaktojë humbje të lidhjes së rrjetit.";
+
+/* Window text */
+"\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ndhe instalo %ld Konfigurime VPN të Tunnelblick";
+
+/* Window text */
+"\nusing %@ credentials." = "\npo përdor kredencialet %@.";
+
+/* Window text */
+"easy-rsa installation failed: %@" = "instalimi i easy-rsa dështoi: %@";
+
+/* Window text */
+"targetPathToReplaceForDisplayName: %@ was found to replace the configuration with CFBundleIdentifer %@, but earlier, %@ was found to replace it." = "targetPathToReplaceForDisplayName: %1$@ u gjet për të zëvendësuar konfigurimin me CFBundleIdentifier %2$@, por më parë, %3$@ u gjet për ta zëvendësuar atë.";
+
+/* Suffix for a duplicate of a file */
+" copy %d" = " kopjo %d";
+
+/* Suffix for a duplicate of a file */
+" copy" = " kopjo";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or may be removed in a later version\n\n" = " • '%1$@' u bë i vjetëruar në OpenVPN %2$@ dhe është ose mund të hiqet në një version më të vonshëm\n\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' u bë i vjetëruar në OpenVPN %2$@ dhe është hequr në OpenVPN %3$@\n\n";
+
+/* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
+"%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
+
+/* Tooltip */
+"%d days %d:%02d:%02d" = "%1$d ditë %2$d:%3$02d:%4$02d";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+"'%@' was added in OpenVPN %@\n" = "'%1$@' u shtua në OpenVPN %2$@\n";
+
+/* Popup button menu item */
+"(Do not import)" = "(Mos importo)";
+
+/* This appears in place of a string when the string cannot be created. It should only be shown when there is a serious problem with the computer. By string we mean any string of words that have been translated (basically, the pieces of language that we translate at one time). It could be a word or two, a sentence, or several paragraphs. */
+"(String is not available)\n" = "(Stringa nuk është e disponueshme)\n";
+
+/* Credit description */
+"64-bit enabling and testing" = "Aktivizimi dhe testimi 64-bit";
+
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p> <p>Për më shumë informacion, shihni <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Përdorimi i Versioneve të Vjetra të OpenVPN ose OpenSSL</a> [tunnelblick.net].</p>";
+
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\">\n <p>Për të importuar një konfigurim Tunnelblick në një kompjuter që ka më shumë se %u llogari përdoruesish, duhet të krijoni një skedar teksti që përcakton të dhënat që do të importohen.</p>\n <p>Për më shumë informacion, shihni <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p>\n</font>";
+/* HTML window text */
+"<hr><p><strong>One or more VPNs may be disconnected before the update.</strong></p>\n" = "<hr><p><strong>Një ose më shume VPN mund të shkëputen përpara përditësimit.</strong></p>\n";
+
+/* HTML window text */
+"<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Dëshironi të përditësoni në versionin e ri tani?</strong></p>\n";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>'<strong>Versionet e importuara</strong>' të OpenVPN mund të përdoren, por nuk u përfshinë në këtë kopje të aplikacionit Tunnelblick. Ato janë importuar dhe instaluar nga një administrator kompjuteri.</p>";
+
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Lejimi' i zgjerimeve të sistemit mund të kërkojë një ndryshim në një cilësim sigurie të sistemit. Ky cilësim mund të ndryshohet vetëm në mënyrën Recovery. Mund t'ju duhet të rindizni kompjuterin në mënyrën Recovery, të bëni ndryshimin, pastaj të rindizni përsëri normalisht. macOS duhet t'ju udhëzojë gjatë këtij procesi.</p>";
+
+/* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
+"<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Më shumë informacione</a> [tunnelblick.net]</p>";
+
+/* HTML window text */
+"<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Nevojitet autorizimi i një administratori për të instaluar këtë përditësim.</strong></p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Një ose më shumë nga konfigurimet tuaja nuk do të jenë në gjendje të lidhen.</strong></p>\n<p>Konfigurimi/konfigurimet kërkojnë një zgjerim të sistemit, por kjo version i macOS nuk lejon Tunnelblick të përdorë zgjerimet e tij të sistemit.</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Një ose më shumë nga konfigurimet tuaja nuk do të jenë në gjendje të lidhen</strong> në versionet e ardhshme të macOS.</p>\n<p>Konfigurimi/konfigurimet kërkojnë një zgjerim të sistemit, por versionet e ardhshme të macOS nuk do të lejojnë Tunnelblick të përdorë zgjerimet e tij të sistemit.</p>\n";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Përcakton versionin e OpenVPN dhe softuerin SSL që duhet të përdoret për të lidhur VPN-në.</strong><ul><li><strong>Cilësimi \"Default\"</strong> do të përdorë versionin parazgjedhur të OpenVPN me OpenSSL që përfshihet në këtë version të Tunnelblick. Default mund të ndryshojë në versione të ndryshme të Tunnelblick.<br></li> <li><strong>Cilësimi \"Më i fundit\"</strong> do të përdorë versionin më të fundit të OpenVPN me OpenSSL që përfshihet në këtë version të Tunnelblick. Versioni më i fundit mund të ndryshojë në versione të ndryshme të Tunnelblick.<br></li><li><strong>Cilësimet e tjera</strong> do të përdorin versionin specifik të OpenVPN dhe softuerit SSL nëse janë të disponueshëm në këtë version të Tunnelblick. Nëse nuk janë të disponueshëm, do të përdoret përputhja më e afërt.<br></li></ul>";
+
+/* HTML info for the 'Set DNS/WINS' button. */
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 2)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (OpenVPN)</strong>: Tunnelblick uses OpenVPN's default script to handle DNS settings.<br></li></ul>" = "<p><strong>Përcakton se çfarë bën Tunnelblick për të modifikuar cilësimet e DNS gjatë lidhjes me VPN-në (nëse bën diçka fare).</strong> Zgjedhjet janë:<ul>\n<li><strong>Mos vendos nameserver</strong>: Nuk bëhet asgjë.<br></li>\n<li><strong>Vendos nameserver </strong>: Tunnelblick përdor skriptin e tij standard për të menaxhuar cilësimet DNS dhe WINS. Kjo zakonisht është zgjedhja më e mirë. Ndryshon cilësimet DNS dhe WINS sipas udhëzimeve të dhëna nga OpenVPN. Cilësimet DNS dhe WINS të vendosura manualisht nuk do të ndryshohen nëse nuk është zgjedhur \"Lejo ndryshimet e cilësimeve të rrjetit të vendosura manualisht\" në dritaren e cilësimeve \"Të avancuara\".<br></li>\n<li><strong>Vendos nameserver (3.1)</strong>: Tunnelblick përdor skriptin nga Tunnelblick 3.1 për të menaxhuar cilësimet DNS dhe WINS.<br></li>\n<li><strong>Vendos nameserver (3.0b10)</strong>: Tunnelblick përdor skriptin nga Tunnelblick 3.0b10 për të menaxhuar cilësimet DNS dhe WINS.<br></li>\n<li><strong>Vendos nameserver (alternativa 1)</strong>: Tunnelblick përdor një skript alternativ për të menaxhuar cilësimet DNS dhe WINS.<br></li>\n<li><strong>Vendos nameserver (alternativa 2)</strong>: Tunnelblick përdor një skript alternativ për të menaxhuar cilësimet DNS dhe WINS.<br></li>\n<li><strong>Vendos nameserver (OpenVPN)</strong>: Tunnelblick përdor skriptin default të OpenVPN për të menaxhuar cilësimet DNS.<br></li>\n</ul>";
+
+/* HTML info for the 'On unexpected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Përcakton se çfarë bën Tunnelblick kur VPN-ja <em>papritur</em> shkëputet</strong> (për shembull, nëse OpenVPN rrëzohet ose humbet lidhjen me VPN-në dhe është konfiguruar të ndalet në atë rast). Zgjedhjet janë:</p><ul><li><strong>Mos bëj asgjë</strong><br></li><li><strong>Rivendos ndërfaqen kryesore</strong>: Tunnelblick rivendos ndërfaqen kryesore të rrjetit duke ekzekutuar komandat 'ipconfig down; ipconfig up' në atë ndërfaqe. Kjo mund të ndihmojë kur një konfigurim dështon të rivendosë si duhet cilësimet e rrjetit pas shkëputjes.<br></li><li><strong>Çaktivizo aksesin në rrjet (\"Kill Switch\")</strong>: Tunnelblick ndërpret të gjithë aksesin në rrjet (lokal dhe Internet) duke fikur Wi-Fi dhe duke çaktivizuar të gjitha shërbimet e tjera të rrjetit. Kjo ndihmon që asgjë të mos dalë nga kompjuteri përveç përmes VPN-së. Nëse Tunnelblick ka çaktivizuar aksesin në rrjet, në menunë e ikonës së Tunnelblick do të jetë e disponueshme një komandë për riaktivizimin e të gjithë aksesit të çaktivizuar. Gjithashtu, mund të riaktivizoni Wi-Fi-n duke e ndezur, ose të riaktivizoni shërbime të tjera të rrjetit në Preferencat e Sistemit : Rrjeti. <strong>Kjo cilësim mund të mos funksionojë si duhet kur janë të lidhura më shumë se një VPN njëkohësisht.</strong></li>\n</ul>";
+
+/* HTML info for the 'On expected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Përcakton se çfarë bën Tunnelblick kur VPN-ja shkëputet <em>siç pritet</em></strong> (për shembull, kur klikoni në opsionin ose butonin \"Disconnect\"). Zgjedhjet janë:</p>\n<ul><li><strong>Mos bëj asgjë</strong><br></li><li><strong>Rivendos ndërfaqen kryesore</strong>: Tunnelblick rivendos ndërfaqen kryesore të rrjetit duke ekzekutuar komandat 'ipconfig down; ipconfig up' në atë ndërfaqe. Kjo mund të ndihmojë kur një konfigurim dështon të rivendosë si duhet cilësimet e rrjetit pas shkëputjes.<br></li><li><strong>Çaktivizo aksesin në rrjet (\"Kill Switch\")</strong>: Tunnelblick ndërpret të gjithë aksesin në rrjet (lokal dhe Internet) duke fikur Wi-Fi dhe duke çaktivizuar të gjitha shërbimet e tjera të rrjetit. Kjo ndihmon që asgjë të mos dalë nga kompjuteri përveç përmes VPN-së. Nëse Tunnelblick ka çaktivizuar aksesin në rrjet, në menunë e ikonës së Tunnelblick do të jetë e disponueshme një komandë për riaktivizimin e të gjithë aksesit të çaktivizuar. Gjithashtu, mund të riaktivizoni Wi-Fi-n duke e ndezur, ose të riaktivizoni shërbime të tjera të rrjetit në Preferencat e Sistemit : Rrjeti. <strong>Kjo cilësim mund të mos funksionojë si duhet kur janë të lidhura më shumë se një VPN njëkohësisht.</strong></li>\n</ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Përcakton kur duhet që Tunnelblick të lidhet me VPN-në.</strong></p><p>\"Kur kompjuteri nis\" mund të përdoret vetëm me konfigurime \"Të përbashkëta\" që nuk kanë kredenciale (emër përdoruesi/fjalëkalim/fjalëkalim privat) të ruajtura në Keychain dhe nuk përdorin opsionin OpenVPN 'auth-user-pass' pa argument.</p>";
+
+/* HTML window text\nThe two %@ are descriptions of Tunnelblick versions (e.g. '4.0.1 (build 5971)' */
+"<p><strong>Tunnelblick %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>Tunnelblick %1$@ është i disponueshëm – ju keni %2$@.</strong></p>\n\n";
+
+
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Kur është shënuar</strong>, IPv6 do të çaktivizohet përveç nëse serveri OpenVPN aksesohet përmes një adrese IPv6.</p>\n<p>Çaktivizimi i IPv6 shpesh rekomandohet sepse shumë konfigurime VPN nuk mbrojnë kundër rrjedhjes së informacionit që shkaktohet nga përdorimi i IPv6. Shumica e aksesit në Internet funksionon mirë pa IPv6.</p>\n<p><strong>Kur nuk është shënuar</strong>, IPv6 nuk do të çaktivizohet.</p>\n<p><strong>Kjo kuti kontrolli është e çaktivizuar</strong> kur përdoret një lidhje 'tap' sepse nuk mund të zbatohet në një lidhje 'tap'.</p>";
+
+/* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Kur është shënuar</strong>, IPv6 do të aktivizohet.</p>\n<p><strong>Kur nuk është shënuar</strong>, IPv6 nuk do të aktivizohet.</p>\n<p>Çaktivizimi i IPv6 shpesh rekomandohet sepse shumë konfigurime VPN nuk mbrojnë kundër rrjedhjes së informacionit që shkaktohet nga përdorimi i IPv6. Shumica e aksesit në Internet funksionon mirë pa IPv6.</p>\n<p><strong>Kjo kuti kontrolli është e çaktivizuar</strong> për konfigurimet Tun.</p>";
+
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Kur është shënuar</strong>, OpenVPN do të modifikojë cilësimet e DNS dhe të tjera pasi të vendosë rrugëtimin për VPN-në, në vend që ta bëjë para vendosjes së rrugëtimit.</p>\n<p><strong>Kur nuk është shënuar</strong>, OpenVPN do të modifikojë cilësimet e DNS dhe të tjera para vendosjes së rrugëtimit për VPN-në, në vend që ta bëjë pas vendosjes së rrugëtimit. Kjo mund të shkaktojë dështime ose vonesa në DNS nëse rrugët marrin shumë kohë për t’u vendosur — për shembull, nëse ka shumë rrugë për t’u vendosur.</p>\n";
+
+/* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Kur është shënuar</strong>, OpenVPN do të ekzekutojë një test për të përcaktuar madhësinë maksimale MTU për lidhjen. Testi fillon sa herë bëhet një lidhje dhe mund të zgjasë disa minuta. Rezultatet e testit shfaqen në regjistrin e Tunnelblick.</p>\n";
+
+/* HTML info for the 'Check only when connected to a VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates automatically only when connected to a VPN.</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Kur është shënuar</strong>, Tunnelblick do të kontrollojë automatikisht për përditësime vetëm kur është i lidhur me një VPN.</p>\n<p><strong>Kjo kuti kontrolli është e çaktivizuar</strong> dhe nuk është e shënuar kur është aktivizuar opsioni 'Pengo kontrollin automatik të përditësimeve dhe kontrollin e adresës IP', dhe kur përdoruesi nuk është administrator i kompjuterit dhe vetëm administratorët lejohen të instalojnë përditësime.</p>";
+
+/* HTML info for the 'Check for updates to beta versions' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>Kur është shënuar</strong>, Tunnelblick do të kontrollojë për përditësime të versioneve beta.</p>\n<p><strong>Kur nuk është shënuar</strong>, Tunnelblick do të kontrollojë për përditësime të versioneve stabile.</p><p><strong>Kjo kuti kontrolli është e çaktivizuar</strong> dhe e shënuar kur përdoret një version beta.</p>";
+
+/* HTML info for the 'Check for updates automatically' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Kur është shënuar</strong>, Tunnelblick do të kontrollojë për përditësime kur niset dhe periodikisht më pas.</p>\n<p><strong>Kjo kuti kontrolli është e çaktivizuar</strong> dhe nuk është e shënuar kur është aktivizuar opsioni 'Pengo kontrollin automatik të përditësimeve dhe kontrollin e adresës IP', dhe kur përdoruesi nuk është administrator i kompjuterit dhe vetëm administratorët lejohen të instalojnë përditësime.</p>";
+
+/* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Kur është shënuar</strong>, Tunnelblick do të përcaktojë adresën publike të dukshme të kompjuterit para dhe pas lidhjes me VPN-në dhe do të paralajmërojë nëse adresa IP nuk ndryshon.</p>\n<p>Faqja tunnelblick.net do të aksesohet për të kryer këtë funksion. Aksesi zakonisht bëhet përmes https: duke përdorur emrin tunnelblick.net, përveçse nëse ky akses dështon, atëherë provohet aksesi përmes http: dhe adresës IP të faqes.</p>\n<p><strong>Kur nuk është shënuar</strong>, Tunnelblick nuk kontrollon për ndryshime në adresën IP dhe nuk paralajmëron nëse adresa IP nuk ndryshon pas lidhjes me VPN-në.</p>\n";
+
+/* HTML info for the 'Download updates when found' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will download updates when they are detected (the user's permission will be required to install updates).</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Kur është shënuar</strong>, Tunnelblick do të shkarkojë përditësimet kur ato zbulohen (do të kërkohet leja e përdoruesit për të instaluar përditësimet).</p>\n<p><strong>Kjo kuti kontrolli është e çaktivizuar</strong> dhe nuk është e shënuar kur është aktivizuar opsioni 'Pengo kontrollin automatik të përditësimeve dhe kontrollin e adresës IP', dhe kur përdoruesi nuk është administrator i kompjuterit dhe vetëm administratorët lejohen të instalojnë përditësime.</p>";
+
+/* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Kur është zgjedhur</strong>, Tunnelblick do të udhëzojë OpenVPN-në që të kalojë të gjithë trafikun IPv4 përmes serverit të VPN-së.</p>\n<p><strong>Kur nuk është zgjedhur</strong>, si default OpenVPN do ta përdorë VPN-në vetëm për trafikun që i drejtohet rrjetit të VPN-së. I gjithë trafiku tjetër do të përdorë lidhjen normale të Internetit, pa kaluar përmes VPN-së. Sjellja e default e OpenVPN-së mund të ndryshohet nga konfigurimi i OpenVPN-së ose nga serveri i VPN-së dhe të shkaktojë kalimin e të gjithë trafikut IPv4 përmes serverit të VPN-së, sikur kjo kutizë të ishte zgjedhur. </p>\n";
+
+/* HTML info for the 'Do not warn about this again' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Kur zgjidhet</strong>, Tunnelblick nuk do ta shfaqë më këtë paralajmërim.</p><p><strong>Kur nuk zgjidhet</strong>, Tunnelblick do ta shfaqë sërish këtë paralajmërim.</p>\n";
+
+/* HTML info for the 'Require administrator authorization to install all configurations' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to install or replace all configurations.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to install or replace \"restricted\" configurations.</p><p>A \"restricted\" configuration is one which does not contain or change commands or scripts or references to commands or scripts. Configurations with commands or scripts can enable <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">vertical privilege escalation</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Details</a> [tunnelblick.net].</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kur aktivizohet</strong>, Tunnelblick do të kërkojë autorizimin e një administratori kompjuteri për të instaluar ose zëvendësuar të gjitha konfigurimet.</p>\n<p><strong>Kur nuk aktivizohet</strong>, një përdorues standard do të lejohet të instalojë ose zëvendësojë konfigurime \"të kufizuara\".</p><p>Një konfigurim \"i kufizuar\" është një konfigurim që nuk përmban ose ndryshon komanda ose skripte apo referencon komanda ose skripte. Konfigurimet me komanda ose skripte mund të mundësojnë <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">ngritjen vertikale të privilegjeve</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Detaje</a> [tunnelblick.net].</p><p><strong>Shënim: Kërkohet autorizimi i një administratori kompjuteri për të ndryshuar këtë cilësim.</strong></p>";
+
+/* HTML info for the 'Require administrator authorization to update' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer adminstrator's authorization to update Tunnelblick.</p><p><strong>When not checked</strong>, a standard user will be allowed to update Tunnelblick.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kur aktivizohet</strong>, Tunnelblick do të kërkojë autorizimin e një administratori kompjuteri për të përditësuar Tunnelblick.</p><p><strong>Kur nuk aktivizohet</strong>, një përdorues standard do të lejohet të përditësojë Tunnelblick.</p><p><strong>Shënim: Kërkohet autorizimi i një administratori kompjuteri për të ndryshuar këtë cilësim.</strong></p>";
+
+/* HTML info for the 'Monitor network settings' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Kur aktivizohet</strong>, Tunnelblick do të monitorojë dhe do të reagojë ndaj ndryshimeve në cilësimet e rrjetit (për shembull, ndryshime të shkaktuara nga rinovimet e DHCP ose ndryshimi i lidhjeve të internetit) për të provuar të mbajë të lidhur VPN-në. Veprimet e default të Tunnelblick kur ndryshojnë cilësimet e rrjetit zakonisht funksionojnë mirë, por mund të specifikoni veprime të ndryshme në skedën 'Gjatë lidhjes' të dritares së cilësimeve 'Të avancuara'.</p><p><strong>Kur nuk aktivizohet</strong>, Tunnelblick do të injorojë ndryshimet e rrjetit.</p><p><strong>Kjo kutizë kontrolli është e çaktivizuar</strong> kur 'Vendos DNS/WINS' nuk është vendosur në 'Vendos nameserver' ose 'Vendos nameserver (3,1)'.</p>";
+
+/* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
+"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Kur aktivizohet</strong>, dritaret e statusit të VPN-së për të gjitha konfigurimet 'aktive' shfaqen kur kursori i miut kalon sipër ikonës së Tunnelblick.</p><p>Konfigurimet 'aktive' janë konfigurimet që keni provuar t'i lidhni që kur është hapur Tunnelblick.</p><p><strong>Kjo kutizë kontrolli çaktivizohet</strong> kur 'Asnjëherë mos e shfaq' është zgjedhur më lart.</p>";
+
+/* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
+"<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Kur aktivizohet</strong>, një dritare do të shfaqë ecurinë e Tunnelblick gjatë hapjes.</p>";
+
+/* HTML info for the 'All configurations use ___ credentials' checkbox. */
+"<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Kur aktivizohet</strong>, të gjitha konfigurimet do të ndajnë të njëjtin emër përdoruesi, fjalëkalim, dhe/ose çelës privat.</p>\n";
+
+/* HTML info for the 'Disable secondary network interfaces' checkbox.\n\n */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>Kur aktivizohet</strong>, të gjitha ndërfaqet e rrjetit, përveç ndërfaqes kryesore, do të çaktivizohen ndërkohë që VPN është aktive.</p><p>Kjo rekomandohet, sepse Tunnelblick e vendos DNS-në vetëm në ndërfaqen kryesore të rrjetit.</p><p><strong>Kur nuk aktivizohet</strong>, ndërfaqet dytësore të rrjetit nuk çaktivizohen.</p><p><strong>Kjo kutizë kontrolli çaktivizohet</strong> kur përdoret një lidhje 'tap' dhe kur nuk është në përdorim 'Vendos nameserverin'.</p>";
+
+/* HTML info for the 'Display connection submenus' checkbox. */
+"<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Kur aktivizohet</strong>, konfigurimet që ndodhen brenda dosjeve shfaqen në nën-menutë e menusë së Tunnelblick.</p><p><strong>Kur nuk aktivizohet</strong>, konfigurimet që ndodhen brenda dosjeve shfaqen në menunë e Tunnelblick.</p>";
+
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n" = "<p><strong>Kur aktivizohet</strong>, nëse OpenVPN ndërpritet papritur (krash), Tunnelblick do të provojë të lidhë sërish VPN-në.</p><p><strong>Kur nuk aktivizohet</strong>, Tunnelblick nuk do të provojë të lidhë VPN-në nëse OpenVPN ndërpritet papritur.</p>\n";
+
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Kur aktivizohet</strong>, cilësimet e rrjetit që ishin vendosur manualisht mund të ndryshohen kur lidhet VPN-ja. Kjo do të ndodhë vetëm nëse ndryshimet janë specifikuar nga opsionet në skedarin e konfigurimit të OpenVPN ose nga serveri i OpenVPN.</p><p><strong>Kur nuk aktivizohet</strong>, cilësimet e rrjetit që ishin vendosur manualisht nuk do të ndryshohen kur lidhet VPN-ja.</p>";
+
+/* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
+"<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Kur aktivizohet</strong>, nuk do të bëhet asnjë kontroll automatik për përditësime ose kontroll për ndryshime të adresave IP, pavarësisht nga cilësimet e tjera. Shënim: të dyja këto veprimtari hyjnë në faqen e internetit të Tunnelblick.</p><p><strong>Kur nuk aktivizohet</strong>, kontrolli automatik për përditësime do të bëhet nëse është aktivizuar më poshtë, dhe kontrolli për ndryshime të adresave IP do të bëhet kur lidhet një konfigurim, nëse cilësimi i konfigurimit për ta bërë këtë është aktivizuar.</p><p>Shihni <a href=\"https://tunnelblick.net/cPrivacy.html\">Privatësia dhe Siguria</a> [tunnelblick.net] për detaje.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
+"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Kur aktivizohet</strong>, dritarja e statusit të VPN-së shfaqet edhe kur konfigurimi është shkëputur.</p><p><strong>Kjo kutizë kontrolli çaktivizohet</strong> kur 'Asnjëherë mos e shfaq' është zgjedhur më lart.</p>";
+
+/* HTML info for the 'Disconnect when user switches out' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>Kur aktivizohet</strong>, VPN-ja do të shkëputet kur kaloni te një përdorues tjetër.</p><p><strong>Kur nuk aktivizohet</strong>, VPN-ja nuk do të shkëputet kur kaloni te një përdorues tjetër.</p>";
+
+/* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>Kur aktivizohet</strong>, VPN-ja do të shkëputet kur kompjuteri kalon në modalitetin e fjetjes.</p><p><strong>Kur nuk aktivizohet</strong>, VPN-ja do të qëndrojë e lidhur kur kompjuteri kalon në modalitetin e fjetjes.</p>";
+
+/* HTML info for the 'Reconnect when user switches in' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>Kur aktivizohet</strong>, VPN-ja do të rilidhet kur të ktheheni te përdoruesi aktual, nëse ishte shkëputur gjatë kalimit te një përdorues tjetër.</p><p><strong>Kur nuk aktivizohet</strong>, VPN-ja nuk do të rilidhet kur të ktheheni te përdoruesi aktual.</p>";
+
+/* HTML info for the 'Reconnect when computer wakes up' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>Kur aktivizohet</strong>, VPN-ja do të rilidhet kur kompjuteri të zgjohet, nëse ishte shkëputur kur kompjuteri ra në gjumë.</p><p><strong>Kur nuk aktivizohet</strong>, VPN-ja nuk do të rilidhet kur kompjuteri të zgjohet.</p>";
+
+/* HTML info for the 'Prepend domain name to search domains' checkbox. */
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Kur aktivizohet</strong>, emri i domainit i specifikuar nga VPN do të shtohet në fillim të listës së domaineve të kërkimit.</p><p><strong>Kur nuk aktivizohet</strong>, lista e domaineve të kërkimit do të zëvendësohet me emrin e domainit të specifikuar nga VPN.</p>";
+
+/* HTML info for the 'Display connection timers' checkbox. */
+"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Kur aktivizohet</strong>, koha që ka kaluar që nga krijimi i një lidhjeje shfaqet në menunë e Tunnelblick dhe në titullin e dritares së detajeve të VPN-së.</p>";
+
+/* HTML info for the 'Authenticate before connecting' checkbox. */
+"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kur aktivizohet</strong>, do t'ju kërkohet të autentikoheni para se të lidheni. Ju mund të autentifikoheni duke përdorur fjalëkalimin tuaj ose, nëse është i disponueshëm, TouchID ose FaceID.</p><p><strong>Kur nuk aktivizohet</strong>, nuk do të kërkohet asnjë autentifikim para lidhjes.</p><p><strong>Kjo kutizë kontrolli çaktivizohet</strong> nëse jeni duke përdorur një version të macOS që nuk e mbështet këtë funksion.</p><p><strong>Shënim: Kërkohet autorizimi i një administratori kompjuteri për të ndryshuar këtë cilësim.</strong></p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Ju mund të modifikoni konfigurimet në mënyrë që ato të mund të lidhen.</strong></p>\n";
+
+/* HTML info for the 'Load Tap driver' popdown list. */
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations and on versions of macOS which do not allow Tunnelblick to load its Tap driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Për lidhjet Tap nevojitet një driver për paisjen 'tap'. Tunnelblick përfshin driverin e vet Tap, sepse sistemi nuk ka një të tillë. Nëse keni instaluar një driver tjetër Tap, Tunnelblick mund të mos jetë në gjendje të ngarkojë driverin e tij.</p><p>Ju mund të zgjidhni nëse dhe kur Tunnelblick do të ngarkojë driverin e tij:</p><p><strong>Vendos driverin Tap automatikisht</strong>: Tunnelblick vendos driverin e tij nëse është i nevojshëm dhe e heq kur nuk është më i nevojshëm.</p><p><strong>Gjithmonë vendos drajverin Tap</strong>: Tunnelblick e vendos driverin e tij kur lidh këtë konfigurim dhe e heq kur nuk është më i nevojshëm.</p><p><strong>Asnjëherë mos ngarko driverin Tap</strong>: Tunnelblick nuk e vendos kurrë driverin e tij.</p><p><strong>Kjo kutizë kontrolli është e çaktivizuar</strong> për konfigurimet Tun dhe në versionet e macOS që nuk e lejojnë Tunnelblick të vendosë driverin e tij Tap. Për më shumë informacion, shihni <a href=\"https://tunnelblick.net/cTunTapConnections.html\">VPN-të Tun dhe Tap në macOS [tunnelblick.net]</a>.</p>";
+
+/* HTML info for the 'Load Tun driver' popdown list. */
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Një driver për paisjen 'tun' është i nevojshëm për lidhjet Tun. Zakonisht përdoret driveri Tun i sistemit, por Tunnelblick gjithashtu përfshin driverin e vet Tun. Nëse keni instaluar një driver tjetër Tun, Tunnelblick mund të mos jetë në gjendje të vendosë driver e tij.</p><p>OpenVPN do të përdorë driverin e sistemit, përveç nëse konfigurimi i OpenVPN përfshin opsionin 'dev-type tun'.</p><p>Ju mund të zgjidhni nëse dhe kur Tunnelblick do të vendosë driverin e tij Tun:</p><p><strong>Vendos driverin Tun automatikisht</strong>: Tunnelblick e ngarkon driverin e tij nëse është i nevojshëm dhe e heq kur nuk është më i nevojshëm. (Tunnelblick do të vendosë driverin e tij vetëm nëse konfigurimi i OpenVPN përfshin opsionin 'dev-type tun'.)</p><p><strong>Gjithmonë vendos driverin Tun</strong>: Tunnelblick e vendos driverin e tij kur lidh këtë konfigurim dhe e heq kur nuk është më i nevojshëm.</p><p><strong>Asnjëherë mos vendos driverin Tun</strong>: Tunnelblick nuk e vendos kurrë driverin e tij.</p><p><strong>Kjo kutizë kontrolli është e çaktivizuar</strong> për konfigurimet Tap dhe në versionet e macOS që nuk e lejojnë Tunnelblick të vendosë drajverin e tij Tun. Për më shumë informacion, shihni <a href=\"https://tunnelblick.net/cTunTapConnections.html\">VPN-të Tun dhe Tap në macOS [tunnelblick.net]</a>.</p>";
+
+/* HTML window text */
+"<p>A Tunnelblick login item which runs in the background is disabled.</p>\n<p>If the login item is disabled, Tunnelblick will not launch when you log in, even if there are important reasons why it should be launched.</p><p>Please re-enable it in System Settings >> General >> Login Items.</p><p><a href=\"https://tunnelblick.net/cBackgroundPrograms.html\">More info.</a></p>" = "<p>Një artikull i hyrjes në Tunnelblick, i cili ekzekutohet në prapavijë, është çaktivizuar.</p><p>Nëse artikulli i hyrjes është çaktivizuar, Tunnelblick nuk do të hapet kur të hyni, edhe nëse ka arsye të rëndësishme pse duhet të hapet.</p><p>Ju lutemi riaktivizojeni atë në System Settings >> General >> Login Items.</p><p><a href=\"https://tunnelblick.net/cBackgroundPrograms.html\">Më shumë informacion.</a></p>";
+
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the keychain to secure the password.</p>\n" = "<p>Kur aktivizohet, lejon futjen e një kodi shtesë sigurie.</p><p>Ky kod shtohet pas fjalëkalimit gjatë procesit të autentifikimit. Kjo mundëson përdorimin e njëkohshëm të pajisjeve të autentifikimit si dongles bashkë me çelësin për të siguruar fjalëkalimin.</p>\n";
+
+/* HTML info for the 'Check Now' button. */
+"<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Kontrollon për përditësime të aplikacionit Tunnelblick.</p><p>Akseson faqen e internetit të Tunnelblick; për më shumë detaje shihni <a href=\"https://tunnelblick.net/cPrivacy.html\">Privatësia dhe Siguria</a> [tunnelblick.net].</p><p>Gjithashtu kontrollon për përditësime të konfigurimeve nëse ofruesi i shërbimit tuaj VPN e ka implementuar këtë veçori.</p>";
+
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Kliko për të instaluar ose çinstaluar zgjerimet e sistemit tun dhe tap të Tunnelblick.</p>\n\n<p>Shihni <a href=\"https://tunnelblick.net/cInstallKexts.html\">Instalimi i Zgjerimeve të Sistemit Tun dhe Tap të Tunnelblick</a> [tunnelblick.net] për detaje.</p><p><strong>Çaktivizuar</strong>, përveç nëse Tunnelblick po funksionon në macOS Big Sur ose në versione më të reja.</p>";
+
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Kliko për të çinstaluar Tunnelblick.</p><p><strong>E çaktivizuar</strong> nëse Tunnelblick nuk është i instaluar.</p>";
+
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Kopjon informacionin në Clipboard për të ndihmuar në diagnostikimin e problemeve.</p><p>Informacioni përfshin versionet dhe cilësimet e softuerit, skedarin e konfigurimit të OpenVPN, cilësimet e rrjetit dhe më shumë.</p><p>Informacioni i ndjeshëm i certifikatës nuk përfshihet, por të dhëna si adresat IP dhe URL-të, të cilat <em>mund</em> të jenë konfidenciale, përfshihen. Duhet të ekzaminoni informacionin dhe të hiqni çdo gjë që dëshironi ta mbani sekret përpara se ta dërgoni në një email ose ta postoni publikisht.</p>";
+
+/* HTML info for the 'Copy Console Log to Clipboard' button. */
+"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Kopjon pjesën e fundit të Console Log në Clipboard, në mënyrë që të ngjitet në një email ose dokument tjetër.</p><p>Logu përmban detaje të operacioneve të Tunnelblick dhe OpenVPN. Ai përfshin mesazhe normale të statusit dhe mesazhe të detajuara gabimi që janë shumë të gjata për t'u shfaqur para përdoruesit në një dritare normale dialogu.</p>";
+
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Eksporton konfigurimin e Tunnelblick, duke përfshirë të gjitha konfigurimet dhe cilësimet për të gjithë përdoruesit e këtij kompjuteri, në një skedar të kompresuar në Desktop.</p><ul><li>Kredencialet e ruajtura në Keychain <strong>nuk</strong> eksportohen.</li><li>Eksportimi mund të zgjasë shumë.</li></ul>";
+
+/* HTML text. */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Nëse nuk shihni një buton për të lejuar ngarkimin e softuerit të sistemit nga zhvilluesi 'Jonathan Bullard', provoni të lidhni këtë konfigurim (i cili do të dështojë), pastaj shikoni sërish te skeda 'Të përgjithshme' e 'Siguria the Privatësia' në 'Preferencat e Sistemit'.</p>";
+
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>Një ose më shumë konfigurime VPN përdorin OpenVPN me OpenSSL 1.1.1, i cili përmban \n  dobësi të njohura sigurie, për të cilat rregullimet nuk janë në dispozicion publikisht.</p>\n<p>Ne rekomandojmë që të përditësoni konfigurimin/konfigurimet e mëposhtme për \n  të përdorur OpenVPN me një version më të ri të OpenSSL:</p>\n\n<p>\n";
+
+/* HTML window text */
+"<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>Një ose më shumë probleme u shfaqën gjatë përpjekjes për të marrë informacionin e përditësimit ose për të kryer një përditësim.</p><p>Për më shumë informacion, shihni ditarin tek:</p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>";
+
+/* HTML info for the 'Advanced...' button. */
+"<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Hap një dritare me cilësime shtesë.</p><p>Çdo ndryshim do të aplikohet për të gjitha konfigurimet që janë zgjedhur në dritaren 'Detajet e VPN-së'.</p>";
+
+/* HTML info for the 'Quit All OpenVPN Processes' button. */
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Mbyll të gjithë proceset e OpenVPN, duke përfshirë ato që nuk janë nisur nga Tunnelblick. Duhet të përdorni butonat dhe komandat e menysë 'Shkëput' ose 'Shkëput të Gjitha' të Tunnelblick për të shkëputur konfigurimet që janë lidhur duke përdorur Tunnelblick.</p><p>Klikimi i këtij butoni dërgon një sinjal 'SIGTERM' për të gjitha proceset e emërtuara 'openvpn'. Normalisht, kjo do të bëjë që OpenVPN të mbyllë të gjitha lidhjet dhe të mbyllet. Nëse ky buton nuk i mbyll të gjithë proceset e OpenVPN, mund t'ju duhet të përdorni aplikacionin 'Activity Monitor' të macOS-it për t'i bërë 'Force Quit' procesit.</p>";
+
+/* HTML info for the 'Reset Disabled Warnings' button. */
+"<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Rikthen paralajmërimet që janë ndaluar nga një kuti shënimi 'Mos e paralajmëro më për këtë'.</p>";
+
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>Shihni <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] për më shumë informacion.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Shihni <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] për më shumë informacion.</p>\n";
+
+/* HTML info for the 'VPN log level' button. */
+"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Specifikon sasinë e regjistrimit të të dhënave (logging) që kryhet nga Tunnelblick dhe OpenVPN.</p>";
+
+/* HTML info for the 'Icon' button. */
+"<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Specifikon ikonën që Tunnelblick duhet të shfaqë në shiritin e menysë.</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Specifikon tastet që duhen shtypur për të thirrur menynë kryesore të Tunnelblick.</p>";
+
+/* HTML info for the 'Maximum log display size' button. */
+"<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Specifikon sasinë maksimale të hapësirës ruajtëse që duhet përdorur për të shfaqur logun e VPN-së.</p>";
+
+/* HTML info for the button for selecting which screen to show status windows. */
+"<p>Specifies the screen on which Tunnelblick should display VPN status windows.</p>" = "<p>Specifikon ekranin në të cilin Tunnelblick duhet të shfaqë dritaret e statusit të VPN-së.</p>";
+
+/* HTML info for the 'VPN status windows' button. */
+"<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>Specifikon se kur Tunnelblick duhet të shfaqë dritaret e statusit të VPN-së.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>The Console Log shows which configurations will not be able to connect.</p>\n" = "<p>Console Log tregon cilat konfigurime nuk do të mund të lidhen.</p>\n";
+
+/* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Cache-i i DNS-së përmban kopje të informacionit të DNS-së (Sistemit të Emrit të Domanit).</p>\n<p><strong>Kur është zgjedhur</strong>, cache-i i DNS-së do të pastrohet (fshihet) pas lidhjes ose shkëputjes. Të gjitha kërkimet e DNS-së do të kryhen nga serveri i emrave i specifikuar nga konfigurimi i VPN-së.</p>\n<p><strong>Kur nuk është zgjedhur</strong>, cache-i i DNS-së nuk do të pastrohet. Kjo mund të shkaktojë probleme nëse ka konflikte emrash midis serverit të emrave të specifikuar nga konfigurimi i VPN-së dhe serverit të emrave para VPN-së, dhe nëse hyrjet para VPN-së janë ruajtur në cache.</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>" = "<p>Shtesa e sistemit nuk mund të ngarkohej sepse i keni thënë macOS-it të mos e lejojë Tunnelblick-un të ngarkojë shtesat e tij të sistemit 'tap' dhe 'tun', të cilat janë firmosur nga zhvilluesi 'Jonathan Bullard'.</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "<p>Shtesa e sistemit nuk mund të ngarkohej sepse i keni thënë macOS-it të mos e lejojë Tunnelblick-un të ngarkojë shtesën e sistemit 'tap', e cila është firmosur nga zhvilluesi 'Jonathan Bullard'.</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>" = "<p>Shtesa e sistemit nuk mund të ngarkohej sepse i keni thënë macOS-it të mos e lejojë Tunnelblick-un të ngarkojë shtesën e sistemit 'tun', e cila është firmosur nga zhvilluesi 'Jonathan Bullard'. Duhet të modifikoni cilësimet e Tunnelblick dhe/ose skedarin e konfigurimit të OpenVPN-së, në mënyrë që Tunnelblick të mos ketë nevojë të ngarkojë shtesën e sistemit 'tun', pas së cilës do të mund të lidheni.</p>";
+
+/* HTML text. */
+"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'. You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>" = "<p>Për t'i lejuar Tunnelblick-ut të instalojë shtesat e sistemit, duhet të lejoni ngarkimin e softuerit të sistemit nga zhvilluesi 'Jonathan Bullard'. Mund ta bëni këtë në skedën 'General' (Të përgjithshme) të 'Security & Privacy' (Siguria dhe Privatësia) në 'System Preferences' (Preferencat e Sistemit).</p>";
+
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick përfshin një version të personalizuar të 'easy-rsa', i cili është një grup skriptesh me linjë komandash, të shkruara nga zhvilluesit e OpenVPN, për krijimin dhe mirëmbajtjen e certifikatave dhe çelësave.</p><p>Klikimi i këtij butoni hap aplikacionin Terminal të macOS, me drejtorinë e punës të vendosur te dosja që përmban skriptet.</p><p>Skriptet zakonisht ndodhen në dosjen në ~/Library/Application Support/Tunnelblick/easy-rsa. Një preferencë 'easy-rsaPath' mund të përmbajë shtegun për një dosje që Tunnelblick do ta përdorë në vend të saj. 'easy-rsaPath' duhet të jetë një shteg absolut ose të fillojë me një '~', dhe dosja kryesore e shtegut duhet të ekzistojë. Nëse ekziston një dosje në shteg, ajo do të përdoret; nëse nuk ekziston, do të krijohet dhe skriptet e easy-rsa do të instalohen në të kur të niset Tunnelblick.</p><p>Për informacion rreth përdorimit të easy-rsa, shihni <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>Për detaje rreth personalizimeve të Tunnelblick-ut të easy-rsa, shihni skedarin README që ndodhet në dosje.</p>";
+
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>Tunnelblick nuk duhet të ekzekutohet duke përdorur Rosetta.</p><p>Për më shumë informacion, shihni <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>";
+
+/* HTML error message. The '%@' is a configuration name. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick nuk mundi të ngarkonte një zgjerim të sistemit që nevojitet për t'u lidhur me %@.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Mund të caktoni preferencën e Tunnelblick-ut 'tryToLoadKextsOnThisVersionOfMacOS' në mënyrë që të përpiqet të ngarkojë zgjerimet e tij të sistemit.</p>\n";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Duhet të instaloni zgjerimet e sistemit të Tunnelblick për të përdorur këtë konfigurim.</p><p>Mund ta bëni këtë nga paneli i 'Utilities' (Shërbime) i Tunnelblick-ut.</p><p>Pasi të instaloni zgjerimet e sistemit, macOS do t'ju drejtojë përmes procesit të tij të 'lejimit' të tyre, i cili do të përfshijë një restart të kompjuterit tuaj.</p>";
+
+/* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
+"Admin mode %@ remaining" = "Modalitete administratori %@ të mbetura";
+
+/* Credit description */
+"Afrikaans translation" = "Përkthimi në gjuhen afrikaans";
+
+/* Credit description */
+"Animation and icon sets code" = "Kodi për animacione dhe grupe ikonash";
+
+/* Credit description */
+"Arabic translation" = "Përkthimi në gjuhen Arabe";
+
+/* Toolbar text for 'Lock' item */
+"Authorizing..." = "Duke autorizuar…";
+
+/* Credit description */
+"Azerbaijani translation" = "Përkthimi në gjuhen e Azerbajxhanit";
+
+/* Credit description */
+"Bulgarian translation" = "Përkthimi në gjuhen Bullgare";
+
+/* Credit description */
+"Button images" = "Imazhe butonash";
+
+/* Credit description */
+"Catalan translation" = "Përkthimi në gjuhen Katalanase";
+
+/* Checkbox text */
+"Check for IP address changes" = "Kontrollo për ndryshime të adresës IP";
+
+/* Checkbox text */
+"Check for updates" = "Kontrollo për përditësime";
+
+/* Credit description */
+"Chinese (simplified) translation" = "Përkthimi në gjuhen Kineze (e thjeshtuar)";
+
+/* Credit description */
+"Chinese (traditional) translation" = "Përkthimi në gjuhen Kineze (tradicionale)";
+
+/* Credentials name */
+"Common" = "Të përbashkëta";
+
+/* Speak string */
+"Connected to %@" = "E lidhur me %@";
+
+/* Credit description */
+"Contributed much to the early code" = "Ka kontribuar shumë në kodin e hershëm";
+
+/* Credit description */
+"Contributed to early code" = "Ka kontribuar në kodin e hershëm";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Të drejtat e autorit © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard dhe të tjerë. Të gjitha të drejtat janë të rezervuara.";
+
+/* Credit description */
+"Croatian translation" = "Përkthimi në gjuhen Kroate";
+
+/* Credit description */
+"Czech translation" = "Përkthimi në gjuhen Çeke";
+
+/* Credit description */
+"Danish translation" = "Përkthimi në gjuhen Daneze";
+
+/* Speak string */
+"Disconnected from %@" = "Shkëputur nga %@";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Mos e ekzekuto duke përdorur Rosetta…";
+
+/* Checkbox */
+"Do not show this again" = "Mos e shfaq më këtë";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when connecting" = "Mos paralajmëro më për këtë; \ngjithmonë riaktivizo gjatë lidhjes";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Mos paralajmëro më për këtë; \ngjithmonë riaktivizo kur del nga Tunnelblick";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Mos paralajmëro më për këtë; \ngjithmonë riaktivizo kur fillon Tunnelblick";
+
+/* Credit description */
+"Dutch translation" = "Përkthimi në gjuhën Daneze";
+
+/* Toolbar text for 'Lock' icon */
+"Enter admin mode" = "Hyr ne modalitetin admin";
+
+/* Credit description */
+"Estonian translation" = "Përkthimi në gjuhën Estoneze";
+
+/* Credit description */
+"Finnish translation" = "Përkthimi në gjuhën Estoneze";
+
+/* Credit description */
+"Flemish translation" = "Përkthimi në gjuhën Flemish";
+
+/* Credit description */
+"Founder, original program and documentation" = "Themeluesi, programi origjinal dhe dokumentacioni";
+
+/* Credit description */
+"French translation" = "Përkthimi në gjuhën Franceze";
+
+/* Credit description */
+"German translation" = "Përkthimi në gjuhën Gjermane";
+
+/* Credit description */
+"Greek translation" = "Përkthimi në gjuhën Greke";
+
+/* Credit description */
+"Hebrew translation" = "Përkthimi në gjuhën Hebree";
+
+/* Credit description */
+"Hungarian translation" = "Përkthimi në gjuhën Hungareze";
+
+/* Credit description */
+"Icelandic translation" = "Përkthimi në gjuhën Islandeze";
+
+/* Credit description */
+"Icon set including Retina images" = "Set ikonash duke përfshirë imazhe Retina";
+
+/* Credit description */
+"Indonesian translation" = "Përkthimi në gjuhën Indoneziane";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "Version i pasigurt i OpenSSL po përdoret…";
+
+/* Credit description */
+"Italian translation" = "Përkthimi në gjuhën Italiane";
+
+/* Credit description */
+"Japanese translation" = "Përkthimi në gjuhën Japoneze";
+
+/* Credit description */
+"Korean translation" = "Përkthimi në gjuhën Koreane";
+
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "PËRKTHIM_GJUHE";
+
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "NGjata";
+
+/* Credit description */
+"Latvian translation" = "Përkthimi në gjuhën Latvian";
+
+/* Credit description */
+"Localization code tweaks" = "Rregullime kodi për përkthimet";
+
+/* Credit description */
+"Multiple configuration folders" = "Shumë dosje konfigurimi";
+
+/* Credit description */
+"Norwegian translation" = "Përkthimi në gjuhën Norvegjeze";
+
+/* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2,3 dhe integrimi 64-bit";
+
+/* Credit description */
+"PKCS#11 support" = "Suporti PKCS#11";
+
+/* Credit description */
+"Persian translation" = "Përkthimi në gjuhën Perse";
+
+/* Credit description */
+"Polish translation" = "Përkthimi në gjuhën Polake";
+
+/* Credit description */
+"Portuguese (Brazilian) translation" = "Përkthimi në gjuhën Portugeze (Braziliane)";
+
+/* Credit description */
+"Portuguese translation" = "Përkthimi në gjuhën Portugeze";
+
+/* Credit description */
+"Program and documentation enhancements and maintenance since 2010" = "Përmirësime dhe mirëmbajtje të programit dhe dokumentacionit që nga viti 2010";
+
+/* Credit description */
+"Romanian translation" = "Përkthimi në gjuhën Rumene";
+
+/* Credit description */
+"Russian translation" = "Përkthimi në gjuhën Ruse";
+
+/* Credit description */
+"Serbian (Latin) translation" = "Përkthimi në gjuhën Serbe (Latine)";
+
+/* Credit description */
+"Slovak translation" = "Përkthimi në gjuhën Sllovake";
+
+/* Credit description */
+"Spanish translation" = "Përkthimi në gjuhën Spanjolle";
+
+/* Credit description */
+"Swahili (Tanzania) translation" = "Përkthimi në gjuhën Swahili (Tanzania)";
+
+/* Credit description */
+"Swedish translation" = "Përkthimi në gjuhën Suedeze";
+
+/* Credit description */
+"Thai translation" = "Përkthimi në gjuhën Thai";
+
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Konfigurimi i Tunnelblick %@";
+
+/* Credit description */
+"Tunnelblick icon" = "Ikona e Tunnelblick";
+
+/* Credit description */
+"Turkish translation" = "Përkthimi në gjuhën Turke";
+
+/* Credit description */
+"UKKQueue and UKLoginItemRegistry" = "UKKQueue dhe UKLoginItemRegistry";
+
+/* Credit description */
+"Ukrainian translation" = "Përkthimi në gjuhën Ukraine";
+
+/* Credit description */
+"Up and Down scripts" = "Skriptet e Ngritjes dhe Uljes";
+
+/* Notification text */
+"Updated to %@." = "Përditësuar në %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Përdorues në të dhënat e konfigurimit";
+
+/* Column heading in a table */
+"User on this computer" = "Përdorues në këtë kompjuter";
+
+/* Credit description */
+"Vietnamese translation" = "Përkthimi në gjuhen Vietnamite";
+
+/* Credit description */
+"Xcode help and OpenSSL integration" = "Ndihmë për Xcode dhe integrim me OpenSSL";
+
+/* Authentication Prompt */
+"authenticate" = "autentifiko";
+
+/* File name of a newly-created folder */
+"untitled folder" = "dosje pa emër";
+
+/* Button VPNService */
+"Accept" = "Prano";
+
+/* Button VPNService */
+"Create a Free Account" = "Krijo një Llogari Falas";
+
+/* Button VPNService */
+"Get Different Image" = "Imazh tjetër";
+
+/* Button VPNService, Window title VPNService */
+"Login" = "Login";
+
+/* Button VPNService */
+"Next" = "Ndiq";
+
+/* Button VPNService */
+"Reject" = "Mos prano";
+
+/* Menu item VPNService */
+"Register for Tunnelblick..." = "Regjistrohu për Tunnelblick…";
+
+/* Window title  VPNService */
+"Cannot obtain image" = "Nuk mund të merret imazhi";
+
+/* Window title  VPNService */
+"Cannot register" = "Nuk mund të regjistroj";
+
+/* Window title  VPNService */
+"Email not verified" = "E-maili nuk është verifikuar";
+
+/* Window title  VPNService */
+"Entries required" = "Të dhëna të kërkuara";
+
+/* Window title  VPNService */
+"Failed to load Terms of Service" = "Dështoi ngarkimi i kushteve të shërbimit";
+
+/* Window title VPNService */
+"No configuration available" = "Nuk ka konfigurim në dispozicion";
+
+/* Window title  VPNService */
+"Password entries must match" = "Fjalëkalimet duhet të përputhen";
+
+/* Window title  VPNService */
+"Prove You are Human" = "Vërtetoni që jeni njeri";
+
+/* Window title  VPNService */
+"Register with Tunnelblick" = "Regjistrohu me Tunnelblick";
+
+/* Window title  VPNService */
+"Sorry" = "Më vjen keq";
+
+/* Window title  VPNService */
+"Terms of Service" = "Kushtet e shërbimit";
+
+/* Window title  VPNService */
+"Tunnelblick - Free VPN" = "Tunnelblick - VPN Falas";
+
+/* Window title  VPNService */
+"Welcome!" = "Mirë se vini!";
+
+/* Window title  VPNService */
+"You Must Type the Characters" = "Duhet të shkruani karakteret";
+
+/* Window text VPNService */
+"Confirm password:" = "Konfirmo fjalëkalimin:";
+
+/* Window text VPNService */
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Urime! Llogaria juaj është krijuar. Së shpejti do të merrni një email nga Tunnelblick. Ndiqni udhëzimet në email për të verifikuar adresën tuaj të emailit dhe më pas klikoni 'Ndiq'.";
+
+/* Window text VPNService */
+"Could not check registration" = "Nuk u arrit të kontrollohej regjistrimi";
+
+/* Window text VPNService */
+"Could not get a captcha image" = "Nuk u arrit të merrej një imazh captcha";
+
+/* Window text VPNService */
+"Could not get a session token" = "Nuk u arrit të merrej një token sesioni";
+
+/* Window text VPNService */
+"Email address %@ is already registered for an account" = "Adresa e emailit %@ është tashmë e regjistruar për një llogari";
+
+/* Window text VPNService */
+"Email address:" = "Adresa e emailit:";
+
+/* Window text VPNService */
+"Invalid URL: %@" = "URL jo e vlefshme: %@";
+
+/* Window text VPNService */
+"No valid session token." = "Nuk ka token sesioni të vlefshëm.";
+
+/* Window text VPNService */
+"Please read our Terms of Service and indicate your acceptance or rejection of them." = "Ju lutemi, lexoni Kushtet tona të Shërbimit dhe tregoni nëse i pranoni apo i refuzoni.";
+
+/* Window text VPNService */
+"Please type the characters in the image and click next." = "Ju lutemi, shkruani karakteret nga imazhi dhe klikoni ndiq.";
+
+/* Window text VPNService */
+"Session token requires encoding" = "Tokeni i sesionit kërkon kodim";
+
+/* Window text VPNService */
+"Session token too long" = "Tokeni i sesionit është shumë i gjatë";
+
+/* Window text VPNService */
+"Sorry, but your request for an account could not be processed:\n     %@" = "Na vjen keq, por kërkesa juaj për një llogari nuk mund të përpunohej:\n     %@";
+
+/* Window text VPNService */
+"Terms of service are unavailable." = "Kushtet e shërbimit nuk janë në dispozicion.";
+
+/* Window text VPNService */
+"The Terms of Service could not be loaded:" = "Kushtet e Shërbimit nuk mund të ngarkoheshin:";
+
+/* Window text VPNService */
+"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "Adresa e email-it nuk është verifikuar.\n\nNuk do të jeni në gjendje të hyni dhe të përdorni VPN-në derisa adresa e email-it të jetë verifikuar duke ndjekur udhëzimet në një email që ju është dërguar nga Tunnelblick kur jeni regjistruar për shërbimin.";
+
+/* Window text VPNService */
+"The email address you entered was not a valid email address." = "Adresa e emailit që futët nuk ishte një adresë e vlefshme emaili.";
+
+/* Window text VPNService */
+"The password entries must match to proceed." = "Fjalëkalimet duhet të përputhen për të vazhduar.";
+
+/* Window text VPNService */
+"The text you entered did not match the text in the Captcha image." = "Teksti që shkruat nuk përputhet me tekstin në imazhin Captcha.";
+
+/* Window text VPNService */
+"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Nuk ka asnjë konfigurim me emrin '%@' të instaluar.\n\nProvoni të instaloni përsëri Tunnelblick nga një imazh disku.";
+
+/* Window text VPNService */
+"To create your free Tunnelblick account we need your email address and a password of your choosing." = "Për të krijuar llogarinë tuaj falas në Tunnelblick, na duhet adresa juaj e email-it dhe një fjalëkalim i zgjedhur nga ju.";
+
+/* Window text VPNService */
+"Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick ju lejon të eksploroni Internetin lirisht pa kufizime, ndërkohë që njëkohësisht siguron lidhjen tuaj të Internetit.";
+
+/* Window text VPNService */
+"Type the characters above:" = "Shkruani karakteret e mësipërm:";
+
+/* Window text VPNService */
+"Unable to check account status:\n     %@" = "Nuk mund të kontrollohet statusi i llogarisë:\n     %@";
+
+/* Window text VPNService */
+"Unable to check registration for empty email address" = "Nuk mund të kontrollohet regjistrimi për adresë email-i bosh";
+
+/* Window text VPNService */
+"Unable to connect to server" = "Nuk mund të lidhem me serverin";
+
+/* Window text VPNService */
+"You have already registered but not yet confirmed your email address." = "Ju jeni regjistruar tashmë, por ende nuk keni konfirmuar adresën tuaj të email-it.";
+
+/* Window text VPNService */
+"You have already registered." = "Ju jeni regjistruar tashmë.";
+
+/* Window text VPNService */
+"You must enter an email address and password to login." = "Duhet të futni një adresë email-i dhe fjalëkalim për të hyrë në sistem.";
+
+/* Window text VPNService */
+"You must enter an email address, password, and password confirmation to proceed." = "Duhet të futni një adresë email-i, fjalëkalimin dhe konfirmimin e fjalëkalimit për të vazhduar.";
+
+/* Window text VPNService */
+"You must type the characters in the image to proceed." = "Duhet të shkruani karakteret në imazh për të vazhduar.";
+
+/* Window text VPNService */
+"Your account status could not be verified:\n     %@." = "Statusi i llogarisë suaj nuk mund të verifikohej:\n     %@.";

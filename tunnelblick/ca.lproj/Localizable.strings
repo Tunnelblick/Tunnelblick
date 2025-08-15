@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " AVÍS: Aquesta copia de Tunnelblick ha estat alterada.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (no-Tunnelblick)";
+"%@ (imported)" = "%@ (importat)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ existeix però no és una carpeta";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Desitges actualitzar a la nova versió ara?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Les versions de l'OpenVPN '<strong>no-Tunnelblick</strong>' no han estat creades pel projecte Tunnelblick i no formen part de Tunnelblick. Han estat instal·lades per l'administrador de l’ordinador.</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>Les versions '<strong>importades</strong>' d'OpenVPN poden ser utilitzades però no han estat incloses en esta còpia de l'aplicació Tunnelblick. Van ser importades i instal·lades per un administrador de l'ordinador.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Permetre' les extensions de sistema pot requerir d'un canvi en un paràmetre de seguretat del sistema. El paràmetre només es pot canviar en Mode de recuperació. Potser haureu de reiniciar el sistema en Mode de recuperació, fer el canvi, i reiniciar normalment. macOS t'hauria de guiar en aquest procés.</p>";

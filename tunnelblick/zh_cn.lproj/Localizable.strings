@@ -946,7 +946,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " 警告: 这个 Tunnelblick 的副本已经被篡改.\n\n";
 
 /* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
-"%@ (non-Tunnelblick)" = "%@ (非Tunnelblick控制)";
+"%@ (imported)" = "%@ (导入的)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ 已存在，但它不是一个文件夹";
@@ -2238,7 +2238,7 @@
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>您想现在就安装新版本吗?</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>非Tunnelblick</strong>' 的 OpenVPN版本不在Tunnelblick项目中，也不是Tunnelblick创建的。您的系统管理员安装了这些软件。</p>";
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>可以使用 '<strong>导入的</strong>' OpenVPN版本， 但该版本不包含在 Tunnelblick 应用中。它们是由计算机管理员安装并导入的。</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>‘允许’系统扩展有可能需要改动系统的一个安全设置。这个设置只能在恢复模式改动。您有可能需要重启到恢复模式，做好改动，然后正常重启。macOS应该会指导您完成这个过程。</p>";
