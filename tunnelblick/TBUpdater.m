@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2024, 2025 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -16,6 +16,49 @@
  *  along with this program (see the file COPYING included with this
  *  distribution); if not, see http://www.gnu.org/licenses/.
  */
+
+// Tunnelblick is updated in three phases:
+//
+// Phase 1 is done by Tunnelblick, primarily in THIS TBUpdater CLASS. It:
+//
+//  * Interprets all user interaction;
+//  * Obtains update info from tunnelblick.net;
+//  * Downloads a .zip of an update. Depending on preferences, the .zip may be downloaded
+//    immediately when available, or later, when a user or admin authorizes the update.;
+//  * Gets user or admin authorization to update;
+//  * Invokes PHASE 2 using installer or openvpnstart/tunnelblickd.
+//
+// PHASE 2 IS DONE BY THE updateTunnelblick() routine in TBUpdaterShared.
+//
+// The routine must run as root, either in installer or in tunnelblick-helper. It:
+//
+//  * Copies the .zip to /Library/Application Support/Tunnelblick/Tunnelblick.zip so it is owned by root:wheel and is secure;
+//  * Verifies the signature of the .zip;
+//  * Expands the .zip into /Library/Application Support/Tunnelblick/temp/Tunnelblick.app;
+//    so that the .app and everything within it is owned by root:wheel;
+//  * Verifies that the .app has reasonable ownership and permissions
+//    (i.e. everything owned by root:wheel, nothing with "other" write;
+//  * Verifies that the .app is signed properly;
+//  * Verifies that the .app is the specified version;
+//  * Renames it to L_AS_T/Tunnelblick-new.app;
+//  * Copies THIS app's TunnelblickUpdateHelper program into /Library/Application Support/Tunnelblick;
+//  * Starts it as root;
+//  * Returns indicating success (TRUE) or failure (FALSE), having output
+//    appropriate error messages through appendLog().
+//
+// Phase 3 is done by the TunnelblickUpdateHelper program copied into /Library/Application Support/Tunnelblick by phase 2. It:
+//
+//  * Waits until there is no process named "Tunnelblick" running
+//    (terminating any Tunnelblick launched by any other user);
+//  * Moves /Applications/Tunnelblick.app to L_AS_T/Tunnelblick-old.app
+//    (replacing any existing Tunnelblick-old.app);
+//  * Renames /Library/Application Support/Tunnelblick/Tunnelblick-new.app to Tunnelblick.app
+//  * Copies /Library/Application Support/Tunnelblick/Tunnelblick.app to /Applications;
+//  * If necessary, runs THAT .app's installer as root to update tunnelblickd.plist
+//    so Tunnelblick is ready to be launched;
+//  * Launches the updated /Applications/Tunnelblick.app;
+//  * Exits.
+
 
 #import "TBUpdater.h"
 
