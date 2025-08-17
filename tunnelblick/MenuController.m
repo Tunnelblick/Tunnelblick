@@ -72,7 +72,7 @@ NSArray               * gConfigurationPreferences = nil; // E.g., '-onSystemStar
 NSTimeInterval          gDelayToShowStatistics = 0.0; // Time delay from mouseEntered icon or statistics window until showing the statistics window
 NSTimeInterval          gDelayToHideStatistics = 0.0; // Time delay from mouseExited icon or statistics window until hiding the statistics window
 NSString              * gDeployPath = nil;            // Path to Tunnelblick.app/Contents/Resources/Deploy
-NSFileManager         * gFileMgr = nil;               // [NSFileManager defaultManager]
+NSFileManager         * gFileMgr = nil;               // NSFileManager.defaultManager
 unsigned                gMaximumLogSize = 0;          // Maximum size (bytes) of buffer used to display the log
 MenuController        * gMC = nil;                    // This singleton instance
 NSString              * gPrivatePath = nil;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
@@ -490,7 +490,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
         gConfigurationPreferences = [CONFIGURATIONS_PREFERENCES_NSARRAY retain];
         gDeployPath               = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
-        gFileMgr                  = [NSFileManager defaultManager];
+        gFileMgr                  = NSFileManager.defaultManager;
         gProgramPreferences       = [NON_CONFIGURATIONS_PREFERENCES_NSARRAY retain];
 
         // Create private configurations folder if not running as root

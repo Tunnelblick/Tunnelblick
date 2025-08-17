@@ -88,7 +88,7 @@
 #import "sharedRoutines.h"
 
 
-NSFileManager * gFileMgr;    // [NSFileManager defaultManager]
+NSFileManager * gFileMgr;    // NSFileManager.defaultManager
 NSString      * gDeployPath; // Path to Tunnelblick.app/Contents/Resources/Deploy
 
 static FILE   * gLogFile;    // FILE for log
@@ -362,7 +362,7 @@ int main(int argc, const char * argv[]) {
 
     @autoreleasepool {
 
-        gFileMgr = [NSFileManager defaultManager];
+        gFileMgr = NSFileManager.defaultManager;
 
         openLog();
 

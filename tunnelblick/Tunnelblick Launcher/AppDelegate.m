@@ -129,7 +129,7 @@ void ShrinkLauncherLogIfItIsTooLong(void) {
     NSError * err = nil;
 
     // Get the current size of the log file
-    NSFileManager * fm = [NSFileManager defaultManager];
+    NSFileManager * fm = NSFileManager.defaultManager;
     if (  ! fm  ) {
         LogErrorInShrink(@"defaultManager: returned nil", err);
         return;
@@ -367,7 +367,7 @@ NSString * GetProcesses(void) {
         goto finished;
     }
 
-    NSFileManager * fm = [NSFileManager defaultManager];
+    NSFileManager * fm = NSFileManager.defaultManager;
     if (  ! fm  ) {
         LauncherLog(@"Cannot get default NSFileManager");
         goto finished;

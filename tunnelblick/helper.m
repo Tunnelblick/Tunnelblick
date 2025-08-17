@@ -67,7 +67,7 @@ void openLog(void) {
     NSString * oldLogPath = TUNNELBLICK_OLD_LOG_PATH;
     NSString * logPath    = TUNNELBLICK_LOG_PATH;
 
-    if (  ! [[NSFileManager defaultManager] tbRemovePathIfItExists: oldLogPath]  ) {
+    if (  ! [NSFileManager.defaultManager tbRemovePathIfItExists: oldLogPath]  ) {
         NSLog(@"Could not delete %@", oldLogPath);
     }
 
@@ -145,14 +145,14 @@ void pruneTracesFolder(void) {
 	NSString * earliestAllowedFilenamePrefix = [[oneDayAgo tunnelblickUserLogRepresentationWithoutMicroseconds] substringWithRange: NSMakeRange(0, LENGTH_OF_YYYY_MM_DD)];
 
 	NSString * folderPath = tracesFolderPath();
-	NSArray * filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: folderPath error: nil];
+	NSArray * filenames = [NSFileManager.defaultManager contentsOfDirectoryAtPath: folderPath error: nil];
 	NSEnumerator * e = [filenames objectEnumerator];
 	NSString * filename;
 	while (  filename = [e nextObject]  ) {
 		if (  [[filename pathExtension] isEqualToString: @"log"]  ) {
 			if (  [[filename lastPathComponent] compare: earliestAllowedFilenamePrefix] == NSOrderedAscending  ) {
 				NSString * path = [folderPath stringByAppendingPathComponent: filename];
-				if (  [[NSFileManager defaultManager] tbRemoveFileAtPath: path handler: nil]  ) {
+				if (  [NSFileManager.defaultManager tbRemoveFileAtPath: path handler: nil]  ) {
 					NSLog(@"Removed %@", path);
 				}
 			}
@@ -166,7 +166,7 @@ NSString * dumpTraces(void) {
 
 	NSMutableString * result = [NSMutableString stringWithCapacity: 100000];
 
-	NSArray * filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: tracesFolderPath() error: nil];
+	NSArray * filenames = [NSFileManager.defaultManager contentsOfDirectoryAtPath: tracesFolderPath() error: nil];
 
 	NSArray * sortedFilenames = [filenames sortedArrayUsingComparator:
 								 ^NSComparisonResult(NSString * string1, NSString * string2) { return [string1 compare: string2]; }];
@@ -176,7 +176,7 @@ NSString * dumpTraces(void) {
 	while (  filename = [e nextObject]  ) {
 		NSString * path = [tracesFolderPath() stringByAppendingPathComponent: filename];
 		if (  [[path pathExtension] isEqualToString: @"log"]  ) {
-			NSData * data = [[NSFileManager defaultManager] contentsAtPath: path];
+			NSData * data = [NSFileManager.defaultManager contentsAtPath: path];
 			// Ignore any error getting the file contents: the file could have been pruned since we created "filenames"
 			if (  data  ) {
 				NSString * contents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
@@ -237,8 +237,8 @@ void append_tb_trace_routine (const char * source_path, int line_number, NSStrin
 	if (  trace_file == NULL  ) {
 		// Create folder for traces files if necessary
 		NSString * folderPath = tracesFolderPath();
-		if (  ! [[NSFileManager defaultManager] fileExistsAtPath: folderPath]  ) {
-			if ( ! [[NSFileManager defaultManager] tbCreateDirectoryAtPath: folderPath withIntermediateDirectories: YES attributes: nil]  ) {
+		if (  ! [NSFileManager.defaultManager fileExistsAtPath: folderPath]  ) {
+			if ( ! [NSFileManager.defaultManager tbCreateDirectoryAtPath: folderPath withIntermediateDirectories: YES attributes: nil]  ) {
 				unlockUsingMutex(&traceFileMutex, @"traceFileMutex");
 				return;
 			}

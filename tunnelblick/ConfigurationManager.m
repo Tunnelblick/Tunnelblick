@@ -3196,7 +3196,7 @@ in: (NSString *) sharedOrPrivate {
             NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
             if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
                 && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
-                && [[NSFileManager defaultManager] fileExistsAtPath: containerPath isDirectory: &isDir]
+                && [NSFileManager.defaultManager fileExistsAtPath: containerPath isDirectory: &isDir]
                 && isDir  ) {
                 NSString * name;
                 NSDirectoryEnumerator * innerEnum = [gFileMgr enumeratorAtPath: containerPath];

@@ -125,7 +125,7 @@ void appendLog(NSString * msg)
 
 void setNoStart(NSString * plistPath)
 {
-    NSFileManager * fm = [NSFileManager defaultManager];
+    NSFileManager * fm = NSFileManager.defaultManager;
     if (  [fm fileExistsAtPath: plistPath]  ) {
         if ( ! [fm tbRemoveFileAtPath: plistPath handler: nil]  ) {
             NSLog(@"Tunnelblick atsystemstart: Unable to delete existing plist file %@", plistPath);
@@ -159,7 +159,7 @@ void setStart(NSString * plistPath, NSString * daemonDescription, NSString * dae
                                 @YES,			   @"RunAtLoad",
                                 nil];
     
-    NSFileManager * fm = [NSFileManager defaultManager];
+    NSFileManager * fm = NSFileManager.defaultManager;
     if (  [fm fileExistsAtPath: plistPath]  ) {
         if (  [fm tbPathContentOfSymbolicLinkAtPath: plistPath] != nil  ) {
             NSLog(@"Tunnelblick atsystemstart: Symbolic link not allowed at %@", plistPath);
@@ -192,7 +192,7 @@ NSString * getWorkingDirectory(int argc, char* argv[])
     
     if (  cfgLocCode == CFG_LOC_DEPLOY  ) {
         cfgPath = [gDeployPath stringByAppendingPathComponent: cfgFile];
-        if (  ! [[NSFileManager defaultManager] fileExistsAtPath: cfgPath]  ) {
+        if (  ! [NSFileManager.defaultManager fileExistsAtPath: cfgPath]  ) {
             NSLog(@"Tunnelblick atsystemstart: Configuration does not exist: %@",cfgPath);
             errorExit();
         }

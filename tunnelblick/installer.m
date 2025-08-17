@@ -132,7 +132,7 @@
 
 // The following globals are not modified after they are initialized:
 static FILE          * gLogFile;					  // FILE for log
-NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
+NSFileManager * gFileMgr;                     // NSFileManager.defaultManager
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
 static BOOL     renamex_npWorks = NO;         // renamex_np() works as needed for /Applications and L_AS_T, and home folder if it is available
 
@@ -1872,7 +1872,7 @@ static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T) {
 			&& isDir  ) {
 			okSoFar = checkSetPermissions(fullPath, PERMS_SECURED_FOLDER, YES) && okSoFar;
 		} else {
-			NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: fullPath traverseLink: NO];
+			NSDictionary * atts = [NSFileManager.defaultManager tbFileAttributesAtPath: fullPath traverseLink: NO];
 			unsigned long  perms = [atts filePosixPermissions];
 			// Nothing should be writable by group, writable by user, be suid, or be sgid
 			unsigned long  permsShouldHave = (perms & ~(S_IWGRP | S_IWOTH | S_ISUID | S_ISGID));
@@ -2827,7 +2827,7 @@ static void importSetup(NSString * tblkSetupPath, NSString * usernameMap) {
 int main(int argc, char *argv[]) {
 	pool = [NSAutoreleasePool new];
 	
-    gFileMgr = [NSFileManager defaultManager];
+    gFileMgr = NSFileManager.defaultManager;
 
     if (  argc < 2  ) {
 		openLog(FALSE);

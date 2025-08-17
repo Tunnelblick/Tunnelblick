@@ -382,7 +382,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                       localized: NSLocalizedString(@"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil", @"Window text")];
     }
     
-    NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: YES];
+    NSDictionary * atts = [NSFileManager.defaultManager tbFileAttributesAtPath: path traverseLink: YES];
     if (  ! atts  ) {
         return [self logMessage: [NSString stringWithFormat: @"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@", path]
                       localized: [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@", @"Window text"), path]];
@@ -431,7 +431,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     NSString * ext = [path pathExtension];
     
     // Get the contents of the file as raw bytes
-    NSData * data = [[NSFileManager defaultManager] contentsAtPath: path];
+    NSData * data = [NSFileManager.defaultManager contentsAtPath: path];
 	if (  ! data  ) {
 		return [self logMessage: [NSString stringWithFormat: @"File '%@' is missing.", path]
                       localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' is missing", @"Window text"), [path lastPathComponent]]];
@@ -545,7 +545,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     NSString * extension = [target pathExtension];
 	
 	if (   [extensions containsObject: extension]  ) {
-		NSData * data = [[NSFileManager defaultManager] contentsAtPath: source];
+		NSData * data = [NSFileManager.defaultManager contentsAtPath: source];
 		if (  ! data  ) {
 			return [self logMessage: [NSString stringWithFormat: @"The file %@ is missing.", source]
 						  localized: [NSString stringWithFormat: NSLocalizedString(@"The file %@ is missing", @"Window text"), [source lastPathComponent]]];

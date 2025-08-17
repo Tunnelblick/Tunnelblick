@@ -217,13 +217,13 @@ static NSFileHandle *  getStdOutOrStdErrFileHandle(NSString * path,
 
     NSFileHandle * outFile = nil;
 
-    if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+    if (  [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
         if (  0 != unlink([path fileSystemRepresentation])  ) {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [path UTF8String], (long)errno, strerror(errno));
         }
     }
 
-    if (  ! [[NSFileManager defaultManager] createFileAtPath: path contents: [NSData data] attributes: nil]  ) {
+    if (  ! [NSFileManager.defaultManager createFileAtPath: path contents: [NSData data] attributes: nil]  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not create %s", [path UTF8String]);
     } else {
         outFile = [NSFileHandle fileHandleForWritingAtPath: path];
@@ -329,7 +329,7 @@ static void updateApproximateLastBootInfo(BOOL	            infoFileExists,
 
 	if (  infoFileExists  ) {
 		NSError * error;
-		if (  ! [[NSFileManager defaultManager] removeItemAtPath: approximateLastRebootInfoPath error: &error]  ) {
+		if (  ! [NSFileManager.defaultManager removeItemAtPath: approximateLastRebootInfoPath error: &error]  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not delete %s; error = %s",
 					[approximateLastRebootInfoPath UTF8String], [[error description] UTF8String]);
 		} else {
@@ -338,7 +338,7 @@ static void updateApproximateLastBootInfo(BOOL	            infoFileExists,
 	}
 
 	const char * approximateMostRecentRebootStringC = [[NSString stringWithFormat: @"%f", approximateMostRecentReboot] UTF8String];
-	if (  !  [[NSFileManager defaultManager] createFileAtPath: approximateLastRebootInfoPath
+	if (  !  [NSFileManager.defaultManager createFileAtPath: approximateLastRebootInfoPath
 													 contents: [NSData dataWithBytes: approximateMostRecentRebootStringC
 																			  length: strlen(approximateMostRecentRebootStringC)]
 												   attributes: nil]  ) {
@@ -368,7 +368,7 @@ static BOOL isFirstRunAfterBoot(aslclient  asl,
 	NSError * error;
 	NSString * approximateLastRebootInfoPath = [L_AS_T stringByAppendingPathComponent: @"last-reboot-info.txt"];
 
-	if (  (infoFileExists = [[NSFileManager defaultManager] fileExistsAtPath: approximateLastRebootInfoPath])  ) {
+	if (  (infoFileExists = [NSFileManager.defaultManager fileExistsAtPath: approximateLastRebootInfoPath])  ) {
 		NSTimeInterval approximateLastKnownReboot = (NSTimeInterval)[[NSString stringWithContentsOfFile: approximateLastRebootInfoPath
 																					encoding: NSUTF8StringEncoding
 																					   error: &error] doubleValue];
@@ -403,7 +403,7 @@ static void restoreSecondary(aslclient  asl,
 
     NSString * path = @"/Library/Application Support/Tunnelblick/restore-secondary.txt";
 
-    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+    if (  ! [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
         asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "restore-secondary.txt does not exist");
         return;
     }
@@ -413,7 +413,7 @@ static void restoreSecondary(aslclient  asl,
                                                           encoding: NSUTF8StringEncoding
                                                              error: &error];
 
-    if (  [[NSFileManager defaultManager] removeItemAtPath: path error: &error]) {
+    if (  [NSFileManager.defaultManager removeItemAtPath: path error: &error]) {
         asl_log(asl, log_msg, ASL_LEVEL_INFO, "Deleted %s", [path UTF8String]);
     } else {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not delete %s; error was %s", [path UTF8String], [[error description] UTF8String]);
@@ -456,7 +456,7 @@ static void restoreIpv6(aslclient  asl,
 
 	NSString * path = @"/Library/Application Support/Tunnelblick/restore-ipv6.txt";
 
-	if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+	if (  ! [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
 		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "restore-ipv6.txt does not exist");
 		return;
 	}
@@ -466,7 +466,7 @@ static void restoreIpv6(aslclient  asl,
 														  encoding: NSUTF8StringEncoding
 															 error: &error];
 
-	if (  [[NSFileManager defaultManager] removeItemAtPath: path error: &error]) {
+	if (  [NSFileManager.defaultManager removeItemAtPath: path error: &error]) {
 		asl_log(asl, log_msg, ASL_LEVEL_INFO, "Deleted %s", [path UTF8String]);
 	} else {
 		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not delete %s; error was %s", [path UTF8String], [[error description] UTF8String]);
@@ -508,13 +508,13 @@ static void clearExpectedDisconnectFolder(aslclient  asl,
 								   aslmsg     log_msg) {
 
 	NSString * file;
-	NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH];
+	NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH];
 	BOOL haveDeletedSomething = FALSE;
 	while (  (file = [dirEnum nextObject])  ) {
 		[dirEnum skipDescendants];
 		NSString * fullPath = [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: file];
 		NSError * error;
-		if (  [[NSFileManager defaultManager] removeItemAtPath: fullPath error: &error]  ) {
+		if (  [NSFileManager.defaultManager removeItemAtPath: fullPath error: &error]  ) {
 			haveDeletedSomething = TRUE;
 		} else {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error while trying to delete %s: %s", [fullPath UTF8String], [[error description] UTF8String]);
@@ -534,8 +534,8 @@ static void removeShutdownFlagFile(aslclient  asl,
 	NSError * error;
 	NSString * path = @"/Library/Application Support/Tunnelblick/shutting-down-computer.txt";
 
-	if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
-		if (  [[NSFileManager defaultManager] removeItemAtPath: path error: &error]  ) {
+	if (  [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
+		if (  [NSFileManager.defaultManager removeItemAtPath: path error: &error]  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_INFO, "Deleted %s", [path UTF8String]);
 		} else {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error removing %s: %s", [path UTF8String], [[error description] UTF8String]);

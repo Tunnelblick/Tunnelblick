@@ -89,11 +89,11 @@ void appendLog(NSString * s);
 
 static BOOL copyInsecureZipToSecureZip(NSString * inPath, NSString * outPath) {
 
-    if (  ! [[NSFileManager defaultManager] tbRemovePathIfItExists: outPath]  ) {
+    if (  ! [NSFileManager.defaultManager tbRemovePathIfItExists: outPath]  ) {
         return NO;
     }
 
-    if (  ! [[NSFileManager defaultManager] tbCopyItemAtPath: inPath toBeOwnedByRootWheelAtPath: outPath]  ) {
+    if (  ! [NSFileManager.defaultManager tbCopyItemAtPath: inPath toBeOwnedByRootWheelAtPath: outPath]  ) {
         return NO;
     }
 
@@ -204,7 +204,7 @@ static BOOL checkSecureZipHasValidPaths(NSString * inPath) {
 
 static BOOL expandSecureZip(NSString * inPath, NSString * outPath) {
 
-    if ( ! [[NSFileManager defaultManager] tbRemovePathIfItExists: outPath]) {
+    if ( ! [NSFileManager.defaultManager tbRemovePathIfItExists: outPath]) {
         appendLog([NSString stringWithFormat:
                    @"expandSecureZip: Could not delete existing expanded app at %@",
                   outPath]);
@@ -229,7 +229,7 @@ static BOOL expandSecureZip(NSString * inPath, NSString * outPath) {
  
 static BOOL deleteSecureZip(NSString * path) {
 
-    if (  [[NSFileManager defaultManager] tbRemoveFileAtPath: path handler: nil]  ) {
+    if (  [NSFileManager.defaultManager tbRemoveFileAtPath: path handler: nil]  ) {
         appendLog(@"updateTunnelblick: Deleted secured .zip");
         return TRUE;
     }
@@ -242,7 +242,7 @@ static BOOL verifyReasonableOwnershipAndPermissionsOfOneItem(NSString * path) {
     // Returns YES if item at path is owned by root:wheel or root:admin and "other"
     // does not have any write permission for it.
 
-    NSDictionary * fileAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
+    NSDictionary * fileAttributes = [NSFileManager.defaultManager tbFileAttributesAtPath: path traverseLink: NO];
     if (  ! fileAttributes  ) {
         appendLog([NSString stringWithFormat: @"Cannot get attributes of item at '%@'", path]);
         return NO;
@@ -297,7 +297,7 @@ static BOOL verifyReasonableOwnershipAndPermissions(NSString * path) {
         return NO;
     }
 
-    NSDirectoryEnumerator * dirE = [[NSFileManager defaultManager] enumeratorAtPath: path];
+    NSDirectoryEnumerator * dirE = [NSFileManager.defaultManager enumeratorAtPath: path];
     NSString * filename;
     while (  (filename = [dirE nextObject])  ) {
         NSString * fullPath = [path stringByAppendingPathComponent: filename];
@@ -463,11 +463,11 @@ static BOOL verifyNotDowngrading(NSString * updatePath) {
 
 static BOOL moveApp(NSString * path, NSString * newPath) {
 
-    if (  ! [[NSFileManager defaultManager] tbRemovePathIfItExists: newPath]  ) {
+    if (  ! [NSFileManager.defaultManager tbRemovePathIfItExists: newPath]  ) {
         return NO;
     }
 
-    if (  ! [[NSFileManager defaultManager] tbForceRenamePath: path toPath: newPath]  ) {
+    if (  ! [NSFileManager.defaultManager tbForceRenamePath: path toPath: newPath]  ) {
         return NO;
     }
 
@@ -483,11 +483,11 @@ static BOOL copyUpdaterProgram(void) {
     NSString * targetPath = [L_AS_T stringByAppendingPathComponent: @"TunnelblickUpdateHelper"];
     NSError * err;
 
-    if (  ! [[NSFileManager defaultManager] tbRemovePathIfItExists: targetPath]  ) {
+    if (  ! [NSFileManager.defaultManager tbRemovePathIfItExists: targetPath]  ) {
         return NO;
     }
 
-    if (  ! [[NSFileManager defaultManager] copyItemAtPath: sourcePath
+    if (  ! [NSFileManager.defaultManager copyItemAtPath: sourcePath
                                                     toPath: targetPath
                                                      error: &err]  ) {
         appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@; error was %@", sourcePath, targetPath, err]);
@@ -547,7 +547,7 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
 
     NSString * secureZipPath = [L_AS_T stringByAppendingPathComponent: @"Tunnelblick.zip"];
 
-    if (  ! [[NSFileManager defaultManager] tbRemovePathIfItExists: secureZipPath]  ) {
+    if (  ! [NSFileManager.defaultManager tbRemovePathIfItExists: secureZipPath]  ) {
         return FALSE;
     }
 
@@ -595,7 +595,7 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
 
     NSString * secureUpdatedAppTempPath = [L_AS_T_TEMP stringByAppendingPathComponent: @"Tunnelblick.app"];
 
-    if (  ! [[NSFileManager defaultManager] tbRemovePathIfItExists: secureUpdatedAppTempPath]  ) {
+    if (  ! [NSFileManager.defaultManager tbRemovePathIfItExists: secureUpdatedAppTempPath]  ) {
         return FALSE;
     }
 

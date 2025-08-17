@@ -138,11 +138,11 @@ BOOL shouldRunScriptAsUserAtPath(NSString * path) {
 // Returns YES if file doesn't exist, or has the specified ownership and permissions
 BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t permsShouldHave)
 {
-    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: fPath]  ) {
+    if (  ! [NSFileManager.defaultManager fileExistsAtPath: fPath]  ) {
         return YES;
     }
 
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath:fPath traverseLink:YES];
+    NSDictionary *fileAttributes = [NSFileManager.defaultManager tbFileAttributesAtPath:fPath traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
     NSNumber *fileGroup = [fileAttributes fileGroupOwnerAccountID];
@@ -250,7 +250,7 @@ NSString * sha256HexStringForData (NSData * data) {
 
 NSString * hashForTunnelblickdProgramInApp(void) {
 
-    NSData * data = [[NSFileManager defaultManager] contentsAtPath: tunnelblickdPathInApp()];
+    NSData * data = [NSFileManager.defaultManager contentsAtPath: tunnelblickdPathInApp()];
     if (  ! data  ) {
         return nil;
     }
@@ -278,7 +278,7 @@ BOOL needToReplaceLaunchDaemon(void) {
     // DOES NOT check if tunnelblickd is actually **loaded** -- that requires root access and is done separately by "installer". But if all the
     // other requirements are met, it is likely that tunnelblickd is loaded.
 
-    NSFileManager * fm =  [NSFileManager defaultManager];
+    NSFileManager * fm =  NSFileManager.defaultManager;
     NSData * previousDaemonHashData = nil;
     NSData * previousPlistHashData = nil;
     BOOL daemonOk = FALSE;
@@ -450,11 +450,11 @@ BOOL isSanitizedOpenvpnVersion(NSString * s) {
 
 BOOL isOnRemoteVolume(NSString * path) {
 
-    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+    if (  ! [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
         // If a parent directory exists, see if it is on a remote volume
         NSString * parent = [path stringByDeletingLastPathComponent];
         while (   ( [parent length] > 1 )
-               && ( ! [[NSFileManager defaultManager] fileExistsAtPath: parent] )  ) {
+               && ( ! [NSFileManager.defaultManager fileExistsAtPath: parent] )  ) {
             parent = [parent stringByDeletingLastPathComponent];
         }
         if ([  parent length] > 1  ) {
@@ -507,19 +507,19 @@ int createDir(NSString * dirPath, unsigned long permissions) {
     NSDictionary * permissionsAsAttribute = [NSDictionary dictionaryWithObject: permissionsAsNumber forKey: NSFilePosixPermissions];
     BOOL isDir;
 
-    if (   [[NSFileManager defaultManager] fileExistsAtPath: dirPath isDirectory: &isDir]  ) {
+    if (   [NSFileManager.defaultManager fileExistsAtPath: dirPath isDirectory: &isDir]  ) {
         if (  isDir  ) {
             // Don't try to change permissions of existing /Library/Application Support, ~/Library/Application Support, or /private/var/folders/*
             if (   [dirPath hasSuffix: @"/Library/Application Support"]
                 || [dirPath hasPrefix: @"/private/var/folders/"]  ) {
                 return 0;
             }
-            NSDictionary * attributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: dirPath traverseLink: YES];
+            NSDictionary * attributes = [NSFileManager.defaultManager tbFileAttributesAtPath: dirPath traverseLink: YES];
             NSNumber * oldPermissionsAsNumber = [attributes objectForKey: NSFilePosixPermissions];
             if (  [oldPermissionsAsNumber isEqualToNumber: permissionsAsNumber] ) {
                 return 0;
             }
-            if (  [[NSFileManager defaultManager] tbChangeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
+            if (  [NSFileManager.defaultManager tbChangeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
                 unsigned long oldPermissions = [oldPermissionsAsNumber unsignedLongValue];
                 appendLog([NSString stringWithFormat: @"Changed permissions from %lo to %lo on %@", oldPermissions, permissions, dirPath]);
                 return 1;
@@ -533,8 +533,8 @@ int createDir(NSString * dirPath, unsigned long permissions) {
     }
 
     // Create the directory we want. Create parent directories if necessary
-    if (  ! [[NSFileManager defaultManager] tbCreateDirectoryAtPath: dirPath withIntermediateDirectories: YES attributes: permissionsAsAttribute] ) {
-        if (   [[NSFileManager defaultManager] fileExistsAtPath: dirPath isDirectory: &isDir]
+    if (  ! [NSFileManager.defaultManager tbCreateDirectoryAtPath: dirPath withIntermediateDirectories: YES attributes: permissionsAsAttribute] ) {
+        if (   [NSFileManager.defaultManager fileExistsAtPath: dirPath isDirectory: &isDir]
             && isDir  ) {
             appendLog([NSString stringWithFormat: @"Warning: Created directory %@ but unable to set permissions to %lo", dirPath, permissions]);
             return 1;
@@ -605,18 +605,18 @@ BOOL checkAttributes(NSDictionary * atts)
 BOOL checkOwnedByRootWheel(NSString * path)
 {
     // Check that everything in path and it's subfolders is owned by root:wheel (checks symlinks, too)
-    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
+    NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: path];
     NSString * file;
     NSDictionary * atts;
     while (  (file = [dirEnum nextObject])  ) {
         NSString * filePath = [path stringByAppendingPathComponent: file];
         if (  itemIsVisible(filePath)  ) {
-            atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: NO];
+            atts = [NSFileManager.defaultManager tbFileAttributesAtPath: filePath traverseLink: NO];
             if (  ! checkAttributes(atts)  ) {
                 return NO;
             }
             if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: YES];
+                atts = [NSFileManager.defaultManager tbFileAttributesAtPath: filePath traverseLink: YES];
                 if (  ! checkAttributes(atts)  ) {
                     return NO;
                 }
@@ -682,12 +682,12 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
     BOOL changedBase = FALSE;
     BOOL changedDeep = FALSE;
 
-    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+    if (  ! [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
         appendLog([NSString stringWithFormat: @"checkSetOwnership: '%@' does not exist", path]);
         return NO;
     }
 
-    NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: YES];
+    NSDictionary * atts = [NSFileManager.defaultManager tbFileAttributesAtPath: path traverseLink: YES];
     uid_t oldUid = (uid_t) [[atts fileOwnerAccountID]      unsignedIntValue];
     gid_t oldGid = (gid_t) [[atts fileGroupOwnerAccountID] unsignedIntValue];
 
@@ -710,10 +710,10 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
 
     if (  deeply  ) {
         NSString * file;
-        NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
+        NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: path];
         while (  (file = [dirEnum nextObject])  ) {
             NSString * filePath = [path stringByAppendingPathComponent: file];
-            atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: NO];
+            atts = [NSFileManager.defaultManager tbFileAttributesAtPath: filePath traverseLink: NO];
             changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, NO) || changedDeep;
             if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
                 changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, YES) || changedDeep;
@@ -745,7 +745,7 @@ BOOL checkSetPermissions(NSString * path, mode_t permsShouldHave, BOOL fileMustE
     // Returns YES on success, NO on failure
     // Also returns YES if no such file or folder and 'fileMustExist' is FALSE
 
-    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+    if (  ! [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
         if (  fileMustExist  ) {
             appendLog([NSString stringWithFormat: @"File '%@' must exist but does not", path]);
             return NO;
@@ -753,7 +753,7 @@ BOOL checkSetPermissions(NSString * path, mode_t permsShouldHave, BOOL fileMustE
         return YES;
     }
 
-    NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
+    NSDictionary * atts = [NSFileManager.defaultManager tbFileAttributesAtPath: path traverseLink: NO];
     unsigned long  perms = [atts filePosixPermissions];
 
     if (  perms == permsShouldHave  ) {
@@ -789,7 +789,7 @@ BOOL createDirWithPermissionAndOwnershipWorker(NSString * dirPath, mode_t permis
 
     BOOL isDir;
 
-    if (  ! (   [[NSFileManager defaultManager] fileExistsAtPath: dirPath isDirectory: &isDir]
+    if (  ! (   [NSFileManager.defaultManager fileExistsAtPath: dirPath isDirectory: &isDir]
              && isDir )  ) {
         // No such directory. Create its parent directory if necessary
         NSString * parentPath = [dirPath stringByDeletingLastPathComponent];
@@ -803,7 +803,7 @@ BOOL createDirWithPermissionAndOwnershipWorker(NSString * dirPath, mode_t permis
             return NO;
         }
 
-        NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: dirPath traverseLink: NO];
+        NSDictionary * atts = [NSFileManager.defaultManager tbFileAttributesAtPath: dirPath traverseLink: NO];
         unsigned long theOwner = [[atts fileOwnerAccountID] unsignedLongValue];
         unsigned long theGroup = [[atts fileGroupOwnerAccountID] unsignedLongValue];
         appendLog([NSString stringWithFormat: @"Created directory %@ with owner %lu:%lu and permissions %lo",
@@ -840,7 +840,7 @@ NSString * fileIsReasonableSize(NSString * path) {
                 @": fileIsReasonableSize: path is nil", @""]; // (Empty string 2nd arg so we can use commmon error message that takes two args)
     }
 
-    NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
+    NSDictionary * atts = [NSFileManager.defaultManager tbFileAttributesAtPath: path traverseLink: NO];
     if (  ! atts  ) {
         return [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                 @": fileIsReasonableSize: Cannot get attributes: ", path];
@@ -875,7 +875,7 @@ BOOL isAGoogleDriveIconFile(NSString * path) {
     NSString * name = [path lastPathComponent];
     if (  [name hasPrefix: @"Icon"]
         && (  [name length] == 5)  ) {
-        NSDictionary * attributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
+        NSDictionary * attributes = [NSFileManager.defaultManager tbFileAttributesAtPath: path traverseLink: NO];
         if (  ! attributes  ) {
             appendLog([NSString stringWithFormat: @"No attributes for %@; treating it as a Google Drive Icon File", path]);
             return YES;
@@ -913,7 +913,7 @@ NSString * fileIsReasonableAt(NSString * path) {
         return errMsg;
     }
 
-    NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
+    NSDictionary * atts = [NSFileManager.defaultManager tbFileAttributesAtPath: path traverseLink: NO];
     if (  ! atts  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                              @": allFilesAreReasonableIn: Cannot get attributes: ", path];
@@ -976,7 +976,7 @@ NSString * allFilesAreReasonableIn(NSString * path) {
 
     // Process a folder
     BOOL isDir = FALSE;
-    if (   [[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir]
+    if (   [NSFileManager.defaultManager fileExistsAtPath: path isDirectory: &isDir]
         && ( ! isDir)  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                              @": allFilesAreReasonableIn: Not a folder, .conf, or .ovpn: ", path];
@@ -985,7 +985,7 @@ NSString * allFilesAreReasonableIn(NSString * path) {
     }
 
     NSString * file;
-    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
+    NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: path];
     if (  ! dirEnum  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                              @": allFilesAreReasonableIn: Cannot get enumeratorAtPath: ", path];
@@ -1010,7 +1010,7 @@ NSDictionary * highestEditionForEachBundleIdinL_AS_T(void) {
 
     NSMutableDictionary * bundleIdEditions = [[[NSMutableDictionary alloc] initWithCapacity: 10] autorelease]; // Key = bundleId; object = edition
 
-    NSDirectoryEnumerator * outerDirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_TBLKS];
+    NSDirectoryEnumerator * outerDirEnum = [NSFileManager.defaultManager enumeratorAtPath: L_AS_T_TBLKS];
     NSString * bundleIdAndEdition;
     while (  (bundleIdAndEdition = [outerDirEnum nextObject])  ) {
         [outerDirEnum skipDescendents];
@@ -1018,7 +1018,7 @@ NSDictionary * highestEditionForEachBundleIdinL_AS_T(void) {
         BOOL isDir;
         if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
             && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
-            && [[NSFileManager defaultManager] fileExistsAtPath: containerPath isDirectory: &isDir]
+            && [NSFileManager.defaultManager fileExistsAtPath: containerPath isDirectory: &isDir]
             && isDir  ) {
             NSString * bundleId = [bundleIdAndEdition stringByDeletingPathEdition];
             if (  ! bundleId  ) {
@@ -1137,11 +1137,11 @@ BOOL makeOneItemUnlockedAtPath(NSString * path)
     unsigned i;
     unsigned maxTries = 5;
     for (i=0; i <= maxTries; i++) {
-        curAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink:YES];
+        curAttributes = [NSFileManager.defaultManager tbFileAttributesAtPath: path traverseLink:YES];
         if (  ! [curAttributes fileIsImmutable]  ) {
             break;
         }
-        [[NSFileManager defaultManager] tbChangeFileAttributes: newAttributes atPath: path];
+        [NSFileManager.defaultManager tbChangeFileAttributes: newAttributes atPath: path];
         appendLog([NSString stringWithFormat: @"Unlocked %@", path]);
         if (  i != 0  ) {
             sleep(1);
@@ -1161,10 +1161,10 @@ BOOL makeUnlockedAtPath(NSString * path)
     // To make a file hierarchy unlocked, we have to first unlock everything inside the hierarchy
 
     BOOL isDir;
-    if (   [[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir]  ) {
+    if (   [NSFileManager.defaultManager fileExistsAtPath: path isDirectory: &isDir]  ) {
         if (  isDir  ) {
             NSString * file;
-            NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
+            NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: path];
             while (  (file = [dirEnum nextObject])  ) {
                 makeUnlockedAtPath([path stringByAppendingPathComponent: file]);
             }
@@ -1240,14 +1240,14 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
 
     BOOL isDir;
     NSString * file;
-    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
+    NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: path];
 
     while (  (file = [dirEnum nextObject])  ) {
 
         NSString * filePath = [path stringByAppendingPathComponent: file];
         NSString * ext  = [file pathExtension];
 
-        if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir]
+        if (   [NSFileManager.defaultManager fileExistsAtPath: filePath isDirectory: &isDir]
             && isDir  ) {
             result = result && checkSetPermissions(filePath, folderPerms, YES);
 
@@ -1402,13 +1402,13 @@ NSString * newTemporaryDirectoryPath(void)
         exit(-1);
     }
 
-    NSString *tempFolder = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempDirectoryNameCString
+    NSString *tempFolder = [NSFileManager.defaultManager stringWithFileSystemRepresentation: tempDirectoryNameCString
                                                                                        length: strlen(tempDirectoryNameCString)];
     // Change from /var to /private/var to avoid using a symlink
     if (  [tempFolder hasPrefix: @"/var/"]  ) {
-        NSDictionary * fileAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: @"/var" traverseLink: NO];
+        NSDictionary * fileAttributes = [NSFileManager.defaultManager tbFileAttributesAtPath: @"/var" traverseLink: NO];
         if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-            if ( [[[NSFileManager defaultManager] tbPathContentOfSymbolicLinkAtPath: @"/var"] isEqualToString: @"private/var"]  ) {
+            if ( [[NSFileManager.defaultManager tbPathContentOfSymbolicLinkAtPath: @"/var"] isEqualToString: @"private/var"]  ) {
                 NSString * afterVar = [tempFolder substringFromIndex: 5];
                 tempFolder = [@"/private/var" stringByAppendingPathComponent:afterVar];
             } else {
@@ -1445,11 +1445,11 @@ OSStatus runToolExtended(NSString     * launchPath,
     NSString * stdOutPath = [tempDir stringByAppendingPathComponent: @"stdout.txt"];
     NSString * stdErrPath = [tempDir stringByAppendingPathComponent: @"stderr.txt"];
 
-    if (  ! [[NSFileManager defaultManager] createFileAtPath: stdOutPath contents: [NSData data] attributes: nil]  ) {
+    if (  ! [NSFileManager.defaultManager createFileAtPath: stdOutPath contents: [NSData data] attributes: nil]  ) {
         appendLog([NSString stringWithFormat: @"Catastrophic error: Could not get create %@", stdOutPath]);
         exit(EXIT_FAILURE);
     }
-    if (  ! [[NSFileManager defaultManager] createFileAtPath: stdErrPath contents: [NSData data] attributes: nil]  ) {
+    if (  ! [NSFileManager.defaultManager createFileAtPath: stdErrPath contents: [NSData data] attributes: nil]  ) {
         appendLog([NSString stringWithFormat: @"Catastrophic error: Could not get create %@", stdErrPath]);
         exit(EXIT_FAILURE);
     }
@@ -1539,7 +1539,7 @@ OSStatus runToolExtended(NSString     * launchPath,
         stdErrString = @"Could not interpret stderr as UTF-8";
     }
 
-    [[NSFileManager defaultManager] tbRemoveFileAtPath: tempDir handler: nil]; // Ignore errors; there is nothing we can do about them
+    [NSFileManager.defaultManager tbRemoveFileAtPath: tempDir handler: nil]; // Ignore errors; there is nothing we can do about them
 
     NSString * message = nil;
 
