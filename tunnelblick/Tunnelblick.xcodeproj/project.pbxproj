@@ -1183,8 +1183,8 @@
 				63D9257E135DAEE1001FF627 /* client.3.down.tunnelblick.sh */,
 				63DEC01920EFC2C90008AC26 /* client.4.up.tunnelblick.sh */,
 				63DEC01B20EFC2D30008AC26 /* client.4.down.tunnelblick.sh */,
-				633702962E156CE4009115D9 /* client.5.down.tunnelblick.sh */,
 				633702972E156CE4009115D9 /* client.5.up.tunnelblick.sh */,
+				633702962E156CE4009115D9 /* client.5.down.tunnelblick.sh */,
 				638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */,
 			);
 			name = Scripts;
