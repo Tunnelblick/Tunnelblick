@@ -5444,7 +5444,7 @@ err:
         goto done;
     }
 
-    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename configuration '%@' to '%@'.", @"Window text"), sourceName, [targetPath lastPathComponent]];
+    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename configuration '%@' to '%@'.", @"Window text"), sourceName, targetPath.lastPathComponent.stringByDeletingPathExtension];
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
     if (  auth ) {
         NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:
