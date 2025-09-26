@@ -5434,7 +5434,8 @@ err:
         goto done;
     }
 
-    if (  [self isSafeConfigurationForDisplayName: sourceName]  ) {
+    if (   [self isSafeConfigurationForDisplayName: sourceName]
+        && [gTbDefaults isTrueReadOnlyForKey: @"allowNonAdminSafeConfigurationReplacement"]  ) {
 
         NSDictionary * dict2 = @{@"sourcePath" : sourcePath,
                                  @"targetPath" : targetPath};
