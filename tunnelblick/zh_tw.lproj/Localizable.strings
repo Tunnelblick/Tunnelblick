@@ -945,6 +945,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " 警告：這個 Tunnelblick 版本曾被人修改過。\n\n";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (imported)" = "%@ （已匯入）";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@ 存在但不是一個資料夾";
 
@@ -2474,6 +2477,9 @@
 
 /* Credit description */
 "Afrikaans translation" = "南非語翻譯";
+
+/* Credit description */
+"Albanian translation" = "阿爾巴尼亞語翻譯";
 
 /* Credit description */
 "Animation and icon sets code" = "動畫及圖標的編程";

@@ -107,7 +107,7 @@
 "Do nothing" = "Nichts tun";
 
 /* Button to install an update */
-"Download and Install" = "Downloaden und installieren";
+"Download and Install" = "Herunterladen und installieren";
 
 /* Button */
 "Export Tunnelblick Setup" = "Tunnelblick Konfiguration exportieren";
@@ -304,10 +304,10 @@
 "A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "Ein Tunnelblick Update ist verfügbar (zu %1.2f%% heruntergeladen)…";
 
 /* Menu item */
-"A Tunnelblick Update is Available and Downloaded..." = "Ein Tunnelblick-Update ist verfügbar und heruntergeladen…";
+"A Tunnelblick Update is Available and Downloaded..." = "Ein Tunnelblick Update ist verfügbar und heruntergeladen…";
 
 /* Menu item */
-"A Tunnelblick Update is Available..." = "Ein Tunnelblick-Update ist verfügbar…";
+"A Tunnelblick Update is Available..." = "Ein Tunnelblick Update ist verfügbar…";
 
 /* Menu item */
 "A VPN Configuration Update is Available..." = "Ein Update der VPN-Konfiguration ist verfügbar…";
@@ -685,10 +685,10 @@
 "Do you wish to connect?" = "Möchten Sie eine Verbindung herstellen?";
 
 /* Window title */
-"Error getting Tunnelblick update..." = "Fehler beim Abrufen des Tunnelblick-Updates…";
+"Error getting Tunnelblick update..." = "Fehler beim Abrufen des Tunnelblick Updates…";
 
 /* WIndow title */
-"Error getting VPN update..." = "Fehler beim Abrufen des VPN-Updates…";
+"Error getting VPN update..." = "Fehler beim Abrufen des VPN Updates…";
 
 /* Window title */
 "File not found" = "Datei nicht gefunden";
@@ -760,7 +760,7 @@
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "DEINSTALLATIONS-TEST ERFOLGREICH";
 
 /* Window title */
-"The Tunnelblick installation failed." = "Die Tunnelblick-Installation schlug fehl.";
+"The Tunnelblick installation failed." = "Die Tunnelblick Installation schlug fehl.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick-Konfigurationsproblem";
@@ -2477,6 +2477,9 @@
 
 /* Credit description */
 "Afrikaans translation" = "Afrikaans Übersetzung";
+
+/* Credit description */
+"Albanian translation" = "Albanische Übersetzung";
 
 /* Credit description */
 "Animation and icon sets code" = "Animationen, Icon Sets Code";

@@ -373,7 +373,7 @@
 "OpenVPN level 11 - extremely verbose output" = "OpenVPNレベル11 - 非常に詳細なログを作成";
 
 /* Menu Item */
-"OpenVPN level 3 - normal output" = "OpenVPNレベル3 - 通常のログを作成";
+"OpenVPN level 3 - normal output" = "OpenVPNレベル3 - 通常出力";
 
 /* Menu Item */
 "OpenVPN level 4 - values for all options" = "OpenVPNレベル4 - 全オプションの値も出力";
@@ -2477,6 +2477,9 @@
 
 /* Credit description */
 "Afrikaans translation" = "アフリカーンス語翻訳";
+
+/* Credit description */
+"Albanian translation" = "アルバニア語翻訳";
 
 /* Credit description */
 "Animation and icon sets code" = "アニメーションとアイコンセットコード";
