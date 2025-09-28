@@ -86,11 +86,7 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
             openvpn_major_minor="$${openvpn_name:8:3}" ; \
             for ssl_name in "$(OPENSSL_1_1_NAME)" "$(OPENSSL_3_0_NAME)" "$(OPENSSL_3_5_NAME)" ; do \
                 build_it=false; \
-                if [   "$$openvpn_major_minor" = "2.3" ] ; then \
-                    if [ $(OPENVPN_2_3_SSL_LIBRARIES_TEST) ] ; then \
-                        build_it=true ; \
-                    fi ; \
-                elif [ "$$openvpn_major_minor" = "2.4" ] ; then \
+                if [ "$$openvpn_major_minor" = "2.4" ] ; then \
                     if [ $(OPENVPN_2_4_SSL_LIBRARIES_TEST) ] ; then \
                         build_it=true ; \
                     fi ; \
@@ -100,6 +96,10 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                     fi ; \
                 elif [ "$$openvpn_major_minor" = "2.6"  ] ; then \
                     if [ $(OPENVPN_2_6_SSL_LIBRARIES_TEST) ] ; then \
+                        build_it=true ; \
+                    fi ; \
+                elif [ "$$openvpn_major_minor" = "2.7"  ] ; then \
+                    if [ $(OPENVPN_2_7_SSL_LIBRARIES_TEST) ] ; then \
                         build_it=true ; \
                     fi ; \
                 else \
