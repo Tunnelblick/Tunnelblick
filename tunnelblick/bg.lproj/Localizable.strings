@@ -945,6 +945,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ВНИМАНИЕ: Това копие на Tunnelblick е променяно.\n\n";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (imported)" = "%@ (импортиран)";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@ съществува, но не е папка";
 
@@ -2233,6 +2236,9 @@
 
 /* HTML window text */
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Бихте ли искали да актуализирате с новата версия сега?</strong></p>\n";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>'<strong>Импортирани</strong>' версии на OpenVPN могат да бъдат използвани, но не са включени в тази версия на Tunnelblick. Те са били импортирани и инсталирани от компютърния администратор.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Разрешаването' на системните разширения може да изисква промяна на системните настройки за сигурността. Тази настройка може да се промени само в Recovery mode. Може да се наложи да рестарирате в Recovery mode, да направите промяната, и да рестартирате към нормален режим. macOS би трябвало да ви води в този процес.</p>";
