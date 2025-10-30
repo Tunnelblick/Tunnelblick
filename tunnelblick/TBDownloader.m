@@ -115,6 +115,9 @@ extern TunnelblickInfo * gTbInfo;
                            @"Cancelled downloading %@",
                           self.urlString]];
     [self indicateFinishedWithMessage: @"Cancelled"];
+
+    [self.retryTimer invalidate];
+    [self setRetryTimer: nil];
 }
 
 -(void) abortDownload {
