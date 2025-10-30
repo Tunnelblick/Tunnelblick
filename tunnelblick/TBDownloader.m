@@ -287,6 +287,7 @@ didReceiveResponse: (NSHTTPURLResponse *) response {
          [NSString stringWithFormat:
           @"ERROR: connection:didReceiveResponse: Download is too large (%lld bytes); expected = %lld, maximum = %lld bytes",
           lengthIncludingThisData, self.expectedLength, self.maximumLength]];
+        return;
     }
 
     [self.contents appendData: data];
