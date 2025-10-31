@@ -1621,10 +1621,13 @@ NSString * constructScriptLogPath(NSString * configurationFile, unsigned cfgLocC
 
 NSString * createOpenVPNLog(NSString* configurationFile, unsigned cfgLocCode, unsigned port) {
 	// Sets up the OpenVPN log file. The filename itself encodes the configuration file path, openvpnstart arguments, and port info.
-	// The log file is created with permissions allowing everyone read/write access. (OpenVPN truncates the file, so the ownership and permissions are preserved.)
+	// The log file is owned by root and gives root read/write access and everyone read access. That works because when OpenVPN
+    // is started, it runs as root, opens the file and truncates it, and keeps it open for writing. By truncating the file, OpenVPN
+    // preserves its ownership and permissions. If OpenVPN later runs as user "nobody", it can still write to the file because
+    // it opened the file while running as root.
 
     NSString * logPath = constructOpenVPNLogPath(configurationFile, cfgLocCode, gStartArgs, port);
-    NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0666] forKey: NSFilePosixPermissions];
+    NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0644] forKey: NSFilePosixPermissions];
 
 	becomeRoot(@"create OpenVPN log file");
     BOOL created = [NSFileManager.defaultManager createFileAtPath: logPath contents: [NSData data] attributes: logAttributes];
