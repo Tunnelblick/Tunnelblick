@@ -94,7 +94,7 @@ const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 void exitOpenvpnstart(OSStatus returnValue) {
 
-	// returnValue: have used 158-245, plus the values in define.h (247-254)
+	// returnValue: have used 157-245, plus the values in define.h (247-254)
 
 	if (  gTemporaryDirectory  ) {
 		[NSFileManager.defaultManager tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
@@ -1641,10 +1641,11 @@ NSString * createOpenVPNLog(NSString* configurationFile, unsigned cfgLocCode, un
 
 NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode) {
 	// Sets up a new script log file. The filename itself encodes the configuration file path.
-	// The log file is created with permissions allowing everyone read/write access
+	// The log file is created with permissions allowing everyone read access and an ACL to allow
+    // everyone to append.
 
     NSString * logPath = constructScriptLogPath(configurationFile, cfgLocCode);
-    NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0666] forKey: NSFilePosixPermissions];
+    NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0644] forKey: NSFilePosixPermissions];
 
     NSString * dateCmdLine = [NSString stringWithFormat:@"%@ %@openvpnstart starting OpenVPN\n",
 							  [[NSDate date] openvpnMachineReadableLogRepresentation], TB_LOG_PREFIX];
@@ -1653,6 +1654,19 @@ NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode) {
 
 	becomeRoot(@"create script log file");
     BOOL created = [NSFileManager.defaultManager createFileAtPath: logPath contents: dateCmdLineAsData attributes: logAttributes];
+    if (  created  ) {
+        // "everyone" is a special identifier denoting any user, not a user named "everyone"
+        NSArray * arguments = @[@"+a#",
+                                @"1",
+                                @"everyone allow append",
+                                logPath];
+        OSStatus status = runTool(TOOL_PATH_FOR_CHMOD, arguments, nil, nil);
+        if (  status != 0  ) {
+            stopBeingRoot();
+            appendLog(@"Could not set ACL on file");
+            exitOpenvpnstart(157); // Error already logged
+        }
+    }
     stopBeingRoot();
 
     if (  ! created  ) {
