@@ -3558,77 +3558,85 @@ int main(int argc, char * argv[]) {
     if (  argc > 1  ) {
 		char * command = argv[1];
 
-		if ( ALLOW_OPENVPNSTART_KILLALL && (strcmp(command, "killall") == 0) ) {
-			if (  argc == 2  ) {
-				killAllOpenvpn();
-				syntaxError = FALSE;
-			}
-
-        } else if (  strcmp(command, "test") == 0  ) {
+        if (  strcmp(command, "checkSignature") == 0  ) {
             if (  argc == 2  ) {
-				syntaxError = FALSE;
-			}
-
-		} else if (  strcmp(command, "shuttingDownComputer") == 0  ) {
-			if (  argc == 2  ) {
-				shuttingDownComputer();
-				syntaxError = FALSE;
-			}
-
-        } else if (  strcmp(command, "printTunnelblickKextPolicy") == 0  ) {
-            if (  argc == 2  ) {
-                printTunnelblickKextPolicy();
+                checkSignature();
                 syntaxError = FALSE;
             }
 
-        } else if (  strcmp(command, "re-enable-network-services") == 0  ) {
-            if (  argc == 2  ) {
-				runReenableNetworkServices();
-				syntaxError = FALSE;
-			}
+        } else if ( strcmp(command, "compareShadowCopy") == 0 ) {
+            if (argc == 3  ) {
+                NSString* fileName = [NSString stringWithUTF8String:argv[2]];
+                validateConfigName(fileName);
+                compareShadowCopy(fileName);
+                // compareShadowCopy() should never return (it does exitOpenvpnstart() with its own exit codes)
+                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+            }
 
-        } else if (  strcmp(command, "route-pre-down") == 0  ) {
-			if (  argc == 5 ) {
-				unsigned flags = cvt_atou(argv[2], @"flags");
-				if (  flags < 4  ) {
-					BOOL kOption  = (flags & 1) != 0;
-					BOOL kuOption = (flags & 2) != 0;
-					NSString* configName = [NSString stringWithUTF8String:argv[3]];
-					unsigned cfgLocCode = cvt_atou(argv[4], @"cfgLocCode");
-					validateConfigName(configName);
-					if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
-						cfgLocCode = CFG_LOC_ALTERNATE;
-					}
-					validateCfgLocCode(cfgLocCode);
-					runRoutePreDownScript(kOption, kuOption, configName, cfgLocCode);
-					syntaxError = FALSE;
-				}
-			}
+        } else if ( strcmp(command, "connected") == 0) {
+            // runScript validates its own arguments
+            retCode = runScript(@"connected.sh", argc, argv);
+            syntaxError = FALSE;
 
-        } else if (  strcmp(command, "checkSignature") == 0  ) {
-            if (  argc == 2  ) {
-				checkSignature();
-				syntaxError = FALSE;
-			}
+        } else if ( strcmp(command, "deleteLog") == 0 ) {
+            if (argc == 4) {
+                NSString* configFile = [NSString stringWithUTF8String:argv[2]];
+                unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
+                validateConfigName(configFile);
+                if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
+                    cfgLocCode = CFG_LOC_ALTERNATE;
+                }
+                validateCfgLocCode(cfgLocCode);
+                deleteLogFiles(configFile, cfgLocCode);
+                syntaxError = FALSE;
+            }
 
         } else if ( strcmp(command, "deleteLogs") == 0 ) {
-			if (argc == 2) {
+            if (argc == 2) {
                 deleteAllLogFiles();
                 syntaxError = FALSE;
             }
 
-		} else if (  strcmp(command, "expectDisconnect") == 0  ) {
-			if (  argc == 4  ) {
-				unsigned int flag = cvt_atou(argv[2], @"flag");
-				if (   (flag == 0)
-					|| (flag == 1)  ) {
-					NSString * filename = [NSString stringWithUTF8String:argv[3]];
-					validateFilename(filename);
-					expectDisconnect(flag, filename);
-					syntaxError = FALSE;
-				}
-			}
-		} else if (  strcmp(command, "loadKexts") == 0  ) {
+        } else if (  strcmp(command, "down") == 0  ) {
+            if (  argc == 5  ) {
+                NSString* configName = [NSString stringWithUTF8String:argv[3]];
+                unsigned cfgLocCode = cvt_atou(argv[4], @"cfgLocCode");
+                validateConfigName(configName);
+                if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
+                    cfgLocCode = CFG_LOC_ALTERNATE;
+                }
+                validateCfgLocCode(cfgLocCode);
+                unsigned scriptNumber = atoi(argv[2]);
+                runDownScript(scriptNumber, configName, cfgLocCode);
+                syntaxError = FALSE;
+            }
+
+        } else if (  strcmp(command, "expectDisconnect") == 0  ) {
+            if (  argc == 4  ) {
+                unsigned int flag = cvt_atou(argv[2], @"flag");
+                if (   (flag == 0)
+                    || (flag == 1)  ) {
+                    NSString * filename = [NSString stringWithUTF8String:argv[3]];
+                    validateFilename(filename);
+                    expectDisconnect(flag, filename);
+                    syntaxError = FALSE;
+                }
+            }
+
+        } else if ( ALLOW_OPENVPNSTART_KILL && (strcmp(command, "kill") == 0) ) {
+            if (argc == 3) {
+                pid_t pid = (pid_t) atoi(argv[2]);
+                killOneOpenvpn(pid);
+                syntaxError = FALSE;
+            }
+
+        } else if ( ALLOW_OPENVPNSTART_KILLALL && (strcmp(command, "killall") == 0) ) {
+                if (  argc == 2  ) {
+                    killAllOpenvpn();
+                    syntaxError = FALSE;
+                }
+
+        } else if (  strcmp(command, "loadKexts") == 0  ) {
             if (  argc == 3  ) {
                 unsigned int bitMask = cvt_atou(argv[2], @"bitMask");
                 BOOL onBigSurOrNewer = ((bitMask & OPENVPNSTART_ON_BIG_SUR_OR_NEWER) != 0);
@@ -3640,85 +3648,74 @@ int main(int argc, char * argv[]) {
                     loadKexts(kextMask, onBigSurOrNewer);
                     syntaxError = FALSE;
                 }
-			}
-
-		} else if ( strcmp(command, "unloadKexts") == 0 ) {
-			if (  argc == 2  ) {
-                unloadKexts(OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT);
-				syntaxError = FALSE;
-            } else if (  argc == 3  ) {
-                unsigned int kextMask = cvt_atou(argv[2], @"kext mask");
-                if (  kextMask < OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX  ) {
-                    if (  kextMask == 0  ) {
-                        kextMask = OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT;
-                    }
-                    unloadKexts(kextMask);
-                    syntaxError = FALSE;
-                }
-			}
-
-        } else if ( strcmp(command, "secureUpdate") == 0) {
-			if (argc == 3) {
-                NSString * name = [NSString stringWithUTF8String: argv[2]];
-                secureUpdate(name); // Will validate its own argument
-				syntaxError = FALSE;
-			}
-
-        } else if ( ALLOW_OPENVPNSTART_KILL && (strcmp(command, "kill") == 0) ) {
-			if (argc == 3) {
-				pid_t pid = (pid_t) atoi(argv[2]);
-				killOneOpenvpn(pid);
-				syntaxError = FALSE;
-			}
-
-        } else if (  strcmp(command, "down") == 0  ) {
-			if (  argc == 5  ) {
-				NSString* configName = [NSString stringWithUTF8String:argv[3]];
-				unsigned cfgLocCode = cvt_atou(argv[4], @"cfgLocCode");
-				validateConfigName(configName);
-				if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
-					cfgLocCode = CFG_LOC_ALTERNATE;
-				}
-				validateCfgLocCode(cfgLocCode);
-                unsigned scriptNumber = atoi(argv[2]);
-				runDownScript(scriptNumber, configName, cfgLocCode);
-				syntaxError = FALSE;
-			}
-
-        } else if ( strcmp(command, "compareShadowCopy") == 0 ) {
-			if (argc == 3  ) {
-				NSString* fileName = [NSString stringWithUTF8String:argv[2]];
-                validateConfigName(fileName);
-                compareShadowCopy(fileName);
-                // compareShadowCopy() should never return (it does exitOpenvpnstart() with its own exit codes)
-                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
 
+        } else if ( strcmp(command, "postDisconnect") == 0) {
+            // runScript validates its own arguments
+            retCode = runScript(@"post-disconnect.sh", argc, argv);
+            syntaxError = FALSE;
+
+        } else if ( strcmp(command, "preDisconnect") == 0) {
+            // runScript validates its own arguments
+            retCode = runScript(@"pre-disconnect.sh", argc, argv);
+            syntaxError = FALSE;
+
+        } else if ( strcmp(command, "printSanitizedConfigurationFile") == 0 ) {
+            if (argc == 4) {
+                NSString* configFile = [NSString stringWithUTF8String:argv[2]];
+                unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
+                validateConfigName(configFile);
+                if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
+                    cfgLocCode = CFG_LOC_ALTERNATE;
+                }
+                validateCfgLocCode(cfgLocCode);
+                printSanitizedConfigurationFile(configFile, cfgLocCode);
+                // printSanitizedConfigurationFile() should never return (it does exitOpenvpnstart() with its own exit codes)
+                // but just in case, we force an error by NOT setting syntaxError FALSE
+            }
+
+        } else if (  strcmp(command, "printTunnelblickKextPolicy") == 0  ) {
+            if (  argc == 2  ) {
+                printTunnelblickKextPolicy();
+                syntaxError = FALSE;
+            }
+
+        } else if (  strcmp(command, "re-enable-network-services") == 0  ) {
+            if (  argc == 2  ) {
+                runReenableNetworkServices();
+                syntaxError = FALSE;
+            }
+
+        } else if ( strcmp(command, "reconnecting") == 0) {
+            // runScript validates its own arguments
+            retCode = runScript(@"reconnecting.sh", argc, argv);
+            syntaxError = FALSE;
+
         } else if ( strcmp(command, "revertToShadow") == 0 ) {
-			if (argc == 3  ) {
-				NSString* fileName = [NSString stringWithUTF8String:argv[2]];
+            if (argc == 3  ) {
+                NSString* fileName = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(fileName);
                 revertToShadow(fileName);
                 // revertToShadow() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
 
-        } else if ( strcmp(command, "safeUpdate") == 0 ) {
-            if (argc == 3  ) {
-                NSString* fileName = [NSString stringWithUTF8String:argv[2]];
-                validateConfigName(fileName);
-                safeUpdate(fileName, YES);
-                // safeUpdate() should never return (it does exitOpenvpnstart() with its own exit codes)
-                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
-            }
-
-        } else if ( strcmp(command, "safeUpdateTest") == 0 ) {
-            if (argc == 3  ) {
-                NSString* fileName = [NSString stringWithUTF8String:argv[2]];
-                validateConfigName(fileName);
-                safeUpdate(fileName, NO);
-                // safeUpdateTest() should never return (it does exitOpenvpnstart() with its own exit codes)
-                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+        } else if (  strcmp(command, "route-pre-down") == 0  ) {
+            if (  argc == 5 ) {
+                unsigned flags = cvt_atou(argv[2], @"flags");
+                if (  flags < 4  ) {
+                    BOOL kOption  = (flags & 1) != 0;
+                    BOOL kuOption = (flags & 2) != 0;
+                    NSString* configName = [NSString stringWithUTF8String:argv[3]];
+                    unsigned cfgLocCode = cvt_atou(argv[4], @"cfgLocCode");
+                    validateConfigName(configName);
+                    if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
+                        cfgLocCode = CFG_LOC_ALTERNATE;
+                    }
+                    validateCfgLocCode(cfgLocCode);
+                    runRoutePreDownScript(kOption, kuOption, configName, cfgLocCode);
+                    syntaxError = FALSE;
+                }
             }
 
         } else if ( strcmp(command, "safeDelete") == 0 ) {
@@ -3741,52 +3738,56 @@ int main(int argc, char * argv[]) {
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
 
-        } else if ( strcmp(command, "deleteLog") == 0 ) {
-            if (argc == 4) {
-                NSString* configFile = [NSString stringWithUTF8String:argv[2]];
-                unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
-                validateConfigName(configFile);
-                if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
-                    cfgLocCode = CFG_LOC_ALTERNATE;
-                }
-                validateCfgLocCode(cfgLocCode);
-                deleteLogFiles(configFile, cfgLocCode);
+        } else if ( strcmp(command, "safeUpdate") == 0 ) {
+            if (argc == 3  ) {
+                NSString* fileName = [NSString stringWithUTF8String:argv[2]];
+                validateConfigName(fileName);
+                safeUpdate(fileName, YES);
+                // safeUpdate() should never return (it does exitOpenvpnstart() with its own exit codes)
+                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+            }
+
+        } else if ( strcmp(command, "safeUpdateTest") == 0 ) {
+            if (argc == 3  ) {
+                NSString* fileName = [NSString stringWithUTF8String:argv[2]];
+                validateConfigName(fileName);
+                safeUpdate(fileName, NO);
+                // safeUpdateTest() should never return (it does exitOpenvpnstart() with its own exit codes)
+                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+            }
+
+        } else if ( strcmp(command, "secureUpdate") == 0) {
+            if (argc == 3) {
+                NSString * name = [NSString stringWithUTF8String: argv[2]];
+                secureUpdate(name); // Will validate its own argument
                 syntaxError = FALSE;
             }
 
-        } else if ( strcmp(command, "printSanitizedConfigurationFile") == 0 ) {
-			if (argc == 4) {
-                NSString* configFile = [NSString stringWithUTF8String:argv[2]];
-                unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
-                validateConfigName(configFile);
-				if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
-					cfgLocCode = CFG_LOC_ALTERNATE;
-				}
-				validateCfgLocCode(cfgLocCode);
-                printSanitizedConfigurationFile(configFile, cfgLocCode);
-                // printSanitizedConfigurationFile() should never return (it does exitOpenvpnstart() with its own exit codes)
-                // but just in case, we force an error by NOT setting syntaxError FALSE
+        } else if (  strcmp(command, "shuttingDownComputer") == 0  ) {
+            if (  argc == 2  ) {
+                shuttingDownComputer();
+                syntaxError = FALSE;
             }
 
-        } else if ( strcmp(command, "postDisconnect") == 0) {
-            // runScript validates its own arguments
-            retCode = runScript(@"post-disconnect.sh", argc, argv);
-            syntaxError = FALSE;
+        } else if (  strcmp(command, "test") == 0  ) {
+            if (  argc == 2  ) {
+				syntaxError = FALSE;
+			}
 
-        } else if ( strcmp(command, "preDisconnect") == 0) {
-            // runScript validates its own arguments
-            retCode = runScript(@"pre-disconnect.sh", argc, argv);
-            syntaxError = FALSE;
-
-        } else if ( strcmp(command, "connected") == 0) {
-            // runScript validates its own arguments
-            retCode = runScript(@"connected.sh", argc, argv);
-            syntaxError = FALSE;
-
-        } else if ( strcmp(command, "reconnecting") == 0) {
-            // runScript validates its own arguments
-            retCode = runScript(@"reconnecting.sh", argc, argv);
-            syntaxError = FALSE;
+		} else if ( strcmp(command, "unloadKexts") == 0 ) {
+			if (  argc == 2  ) {
+                unloadKexts(OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT);
+				syntaxError = FALSE;
+            } else if (  argc == 3  ) {
+                unsigned int kextMask = cvt_atou(argv[2], @"kext mask");
+                if (  kextMask < OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX  ) {
+                    if (  kextMask == 0  ) {
+                        kextMask = OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT;
+                    }
+                    unloadKexts(kextMask);
+                    syntaxError = FALSE;
+                }
+			}
 
         } else if ( strcmp(command, "updateTunnelblickApp") == 0) {
             // updateTunnelblickApp validates its own arguments
