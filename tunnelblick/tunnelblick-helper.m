@@ -170,9 +170,6 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart unloadKexts   [bitMask]\n"
             "               to unload the .tun and .tap kexts\n\n"
 
-            "./openvpnstart secureUpdate name\n"
-            "               to secure the specified update folder in /Library/Application Support/Tunnelblick/Tblks.\n\n"
-
             "./openvpnstart down  configName  cfgLocCode  scriptNumber\n"
             "               to run Tunnelblick's scriptNumber down script\n\n"
 
@@ -1444,33 +1441,6 @@ int getProcesses(struct kinfo_proc** procs, unsigned * number) {
 	*procs = info;
 	*number = length / sizeof(struct kinfo_proc);
     return 0;
-}
-
-void secureUpdate(NSString * name) {
-
-    // Secures an update in L_AS_T_TBLKS
-
-    if (  ! [name containsOnlyCharactersInString: ALLOWED_DOMAIN_NAME_CHARACTERS @"_"]  ) {
-        fprintf(stderr, "Invalid name for secureUpdate\n");
-        exitOpenvpnstart(175);
-    }
-
-    NSString * path = [L_AS_T_TBLKS stringByAppendingPathComponent: name];
-    BOOL isDir;
-    if (  ! (   [NSFileManager.defaultManager fileExistsAtPath: path isDirectory: &isDir]
-             && isDir )  ) {
-        fprintf(stderr, "Folder does not exist for secureUpdate\n");
-        exitOpenvpnstart(176);
-    }
-
-	becomeRoot([NSString stringWithFormat: @"Secure %@", path]);
-	BOOL ok = secureOneFolder(path, NO, 0);
-	stopBeingRoot();
-
-    if (  ! ok  ) {
-        fprintf(stderr, "Folder could not be secured by secureUpdate\n");
-        exitOpenvpnstart(177);
-    }
 }
 
 void killOneOpenvpn(pid_t pid) {
@@ -3754,13 +3724,6 @@ int main(int argc, char * argv[]) {
                 safeUpdate(fileName, NO);
                 // safeUpdateTest() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
-            }
-
-        } else if ( strcmp(command, "secureUpdate") == 0) {
-            if (argc == 3) {
-                NSString * name = [NSString stringWithUTF8String: argv[2]];
-                secureUpdate(name); // Will validate its own argument
-                syntaxError = FALSE;
             }
 
         } else if (  strcmp(command, "shuttingDownComputer") == 0  ) {
