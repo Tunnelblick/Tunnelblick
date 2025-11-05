@@ -3623,14 +3623,14 @@ int main(int argc, char * argv[]) {
                 }
             }
 
-        } else if ( ALLOW_OPENVPNSTART_KILL && (strcmp(command, "kill") == 0) ) {
+        } else if (  (strcmp(command, "kill") == 0) && ALLOW_OPENVPNSTART_KILL  ) {
             if (argc == 3) {
                 pid_t pid = (pid_t) atoi(argv[2]);
                 killOneOpenvpn(pid);
                 syntaxError = FALSE;
             }
 
-        } else if ( ALLOW_OPENVPNSTART_KILLALL && (strcmp(command, "killall") == 0) ) {
+        } else if (  (strcmp(command, "killall") == 0) && ALLOW_OPENVPNSTART_KILLALL  ) {
                 if (  argc == 2  ) {
                     killAllOpenvpn();
                     syntaxError = FALSE;
