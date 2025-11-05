@@ -78,15 +78,15 @@
 //
 //     username is the short username of the user on whose behalf a configuration is being installed
 //
-//     usernamMappingString is a string that contains a set of username mapping rules to use when importing a .tblkSetup. It consists
-//							of zero or more separated-by-slashes pairs of username:username. The first username is the username in the
-//							.tblkSetup (from the computer the .tblkSetup was created on). The second is the username on this computer
-//							(the computer the import is being done on).
+//     usernameMappingString is a string that contains a set of username mapping rules to use when importing a .tblkSetup. It consists
+//							 of zero or more separated-by-slashes pairs of username:username. The first username is the username in the
+//							 .tblkSetup (from the computer the .tblkSetup was created on). The second is the username on this computer
+//							 (the computer the import is being done on).
 //
-//							Each username should be the "short" username (e.g. "abcuthbert"), not the "long" username ("A. B. Cuthbert")
+//							 Each username should be the "short" username (e.g. "abcuthbert"), not the "long" username ("A. B. Cuthbert")
 //
-//							Example: "abc:def/ghi:jkl" maps user "abc" in the .tblkSetup to computer user "def" and
-//									 user "ghi" in the .tblkSetup to computer user "jkl"
+//							 Example: "abc:def/ghi:jkl" maps user "abc" in the .tblkSetup to computer user "def" and
+//									  user "ghi" in the .tblkSetup to computer user "jkl"
 //
 // This program does the following, in this order:
 //
