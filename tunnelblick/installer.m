@@ -592,13 +592,13 @@ static void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * path) {
         int result = mkdir(fileSystemRepresentationFromPath(path), 0700);
         umask(S_IWGRP | S_IWOTH);
         if (  result != 0  ) {
-            appendLog([NSString stringWithFormat: @"mkdir() returned error: '%s' for path %@", strerror(errno), path]);
+            appendLog([NSString stringWithFormat: @"mkdir() returned error %d ('%s') for path %@", errno, strerror(errno), path]);
             errorExit();
         }
     } else {
         int result = open(fileSystemRepresentationFromPath(path), (O_CREAT | O_EXCL | O_APPEND | O_NOFOLLOW_ANY), 0700);
         if (  result < 0  ) {
-            appendLog([NSString stringWithFormat: @"open() returned error: '%s' for path %@", strerror(errno), path]);
+            appendLog([NSString stringWithFormat: @"open() returned error %d ('%s') for path %@", errno, strerror(errno), path]);
             errorExit();
         }
         close(result); // Ignore errors
@@ -669,7 +669,7 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     // Change owner group (owner is already 0)
     result = fchown(fd, 0, 0);
     if (  result != 0  ) {
-        appendLog([NSString stringWithFormat: @"lchown() returned error: '%s' for path %s", strerror(errno), targetPathC]);
+        appendLog([NSString stringWithFormat: @"lchown() returned error %d ('%s') for path %s", errno, strerror(errno), targetPathC]);
         errorExit();
     }
 
@@ -678,7 +678,7 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     mode_t mode = [[sourceAttributes objectForKey: NSFilePosixPermissions] unsignedIntValue];
     result = fchmod(fd, mode);
     if (  result != 0  ) {
-        appendLog([NSString stringWithFormat: @"chmod() returned error: '%s' for path %s", strerror(errno), targetPathC]);
+        appendLog([NSString stringWithFormat: @"chmod() returned error %d ('%s') for path %s", errno, strerror(errno), targetPathC]);
         errorExit();
     }
 
