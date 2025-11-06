@@ -693,7 +693,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     // Needs and asks for computer administrator's authorization to make a change if a change is necessary and authRef is nil.
     // (authRef is non-nil only when Tunnelblick is in the process of launching, and only when it was used for something else.)
     //
-    // A change is necesary if changing connect/not connect status, or if preference changes would change
+    // A change is necessary if changing connect/not connect status, or if preference changes would change
     // the .plist file used to connect when the system starts
 
     // Encode slashes and periods in the displayName so the result can act as a single component in a file name
