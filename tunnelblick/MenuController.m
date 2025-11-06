@@ -6152,13 +6152,13 @@ static BOOL runningHookupThread = FALSE;
     unsigned installFlags;
     if (  (installFlags = needToRunInstaller(FALSE)) != 0  ) {
 
-        if (  ! [self shouldContinueAfterAskingOrInformingAboutInternetAccess]  ) {
-            NSLog(@"The user cancelled the update");
-            [self terminateBecause: terminatingBecauseOfQuit];
-            return;
-        }
+		if (  ! [self shouldContinueAfterAskingOrInformingAboutInternetAccess]  ) {
+			NSLog(@"The user cancelled the update");
+			[self terminateBecause: terminatingBecauseOfQuit];
+			return;
+		}
 
-        [splashScreen setMessage: NSLocalizedString(@"Securing Tunnelblick...", @"Window text")];
+		[splashScreen setMessage: NSLocalizedString(@"Securing Tunnelblick...", @"Window text")];
         if (  startupInstallAuth  ) {
             NSLog(@"secureIfNecessary: startupInstallAuth is already set");
             [self terminateBecause: terminatingBecauseOfError];
@@ -6177,16 +6177,16 @@ static BOOL runningHookupThread = FALSE;
         }
 
         NSInteger installerResult = [self runInstaller: installFlags
-                                        extraArguments: nil
+										extraArguments: nil
                                        usingSystemAuth: [self startupInstallAuth]
                                           installTblks: nil];
-        if (  installerResult != 0  ) {
+		if (  installerResult != 0  ) {
 
-            // An error occurred or the user cancelled. An error dialog and a message in the console log have already been displayed if an error occurred
+			// An error occurred or the user cancelled. An error dialog and a message in the console log have already been displayed if an error occurred
             [self terminateBecause: terminatingBecauseOfError];
         }
 
-        [splashScreen setMessage: NSLocalizedString(@"Tunnelblick has been secured.", @"Window text")];
+		[splashScreen setMessage: NSLocalizedString(@"Tunnelblick has been secured.", @"Window text")];
     }
 }
 
