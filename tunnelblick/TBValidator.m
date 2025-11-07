@@ -202,8 +202,8 @@ NSString * callStack(void);
     if (   (NSOrderedDescending == [beforeDateTime compare: currentDateTime])
         || (NSOrderedAscending  == [afterDateTime compare: currentDateTime])  ) {
         [logger appendLog: [NSString stringWithFormat:
-                   @"Failed to verify appcast signature; signature not yet now (%@); it is valid from %@ to %@",
-                   currentDateTime, beforeDateTime, afterDateTime]];
+                   @"Failed to verify update information; the appcast signature is valid only from %@ to %@ but it is now %@",
+                   beforeDateTime, afterDateTime, currentDateTime]];
         return YES;
     }
 
