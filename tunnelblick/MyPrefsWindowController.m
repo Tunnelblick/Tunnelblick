@@ -40,7 +40,6 @@
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 #import "SettingsSheetWindowController.h"
-#import "Sparkle/SUUpdater.h"
 #import "SystemAuth.h"
 #import "TBButton.h"
 #import "TBOperationQueue.h"
@@ -3354,6 +3353,11 @@ static BOOL firstTimeShowingWindow = TRUE;
                      inverted: NO
                    defaultsTo: FALSE];
     
+    [self setValueForCheckbox: [appearancePrefsView appearanceDisplayConnectAndDisconnectPrefixesCheckbox]
+                preferenceKey: @"doNotShowConnectAndDisconnectPrefixOnMenuItems"
+                     inverted: YES
+                   defaultsTo: FALSE];
+
     [self setValueForCheckbox: [appearancePrefsView appearanceDisplaySplashScreenCheckbox]
                 preferenceKey: @"doNotShowSplashScreen"
                      inverted: YES
@@ -3378,6 +3382,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     [gTbDefaults setBool: [sender state]  forKey:@"showConnectedDurations"];
     [gMC changedDisplayConnectionTimersSettings];
+}
+
+-(IBAction) appearanceDisplayConnectAndDisconnectPrefixesCheckboxWasClicked: (NSButton *) sender
+{
+    [gTbDefaults setBool: ! [sender state] forKey:@"doNotShowConnectAndDisconnectPrefixOnMenuItems"];
+    [gMC recreateMainMenuClearCache: YES];
 }
 
 -(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked: (NSButton *) sender

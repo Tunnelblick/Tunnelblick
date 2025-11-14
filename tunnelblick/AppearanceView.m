@@ -60,6 +60,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,     appearanceIconSetButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectionSubmenusCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectionTimersCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectAndDisconnectPrefixesCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplaySplashScreenCheckbox)
 
@@ -133,7 +134,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWi
 	  setTitle: NSLocalizedString(@"Display connection timers", @"Checkbox name")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>",
 														   @"HTML info for the 'Display connection timers' checkbox."))];
-	
+    [appearanceDisplayConnectAndDisconnectPrefixesCheckbox
+     setTitle: NSLocalizedString(@"Display 'Connect' and 'Disconnect' with configuration names", @"Checkbox name")
+     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with"
+                                                           @" configuration names.</p>\n"
+                                                           @"<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect'"
+                                                           @" and 'Disconnect' with configuration names, making it easier to use the keyboard to select"
+                                                           @" configurations for connection and disconnection.</p>\n",
+                                                           @"HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox."))];
+
 	// Splash screen checkboxes
 	[appearanceSplashTFC setTitle: NSLocalizedString(@"Startup window:", @"Window text")];
  

@@ -1000,6 +1000,7 @@ name = newValue;                                    \
 @"doNotShowNotificationWindowOnMouseover",	\
 @"doNotShowDisconnectedNotificationWindows",	\
 @"doNotShowConnectionSubmenus",	\
+@"doNotShowConnectAndDisconnectPrefixOnMenuItems",  \
 @"doNotShowVpnDetailsMenuItem",	\
 @"doNotShowSuggestionOrBugReportMenuItem",	\
 @"doNotShowAddConfigurationMenuItem",	\

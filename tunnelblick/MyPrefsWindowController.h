@@ -166,6 +166,7 @@
 
 -(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked:   (NSButton *) sender;
+-(IBAction) appearanceDisplayConnectAndDisconnectPrefixesCheckboxWasClicked: (NSButton *) sender;
 
 -(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked:       (NSButton *) sender;
 

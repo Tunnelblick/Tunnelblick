@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24128" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24128"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -55,7 +55,7 @@
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Manually$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="546" id="544">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="menu"/>
+                                                                                <font key="font" metaFont="message"/>
                                                                                 <menu key="menu" title="OtherViews" id="545">
                                                                                     <items>
                                                                                         <menuItem title="Manually$" state="on" id="546">
@@ -85,7 +85,7 @@
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Never$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="555" id="551">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="menu"/>
+                                                                                <font key="font" metaFont="message"/>
                                                                                 <menu key="menu" title="OtherViews" id="552">
                                                                                     <items>
                                                                                         <menuItem title="Never$" state="on" id="555"/>
@@ -151,7 +151,7 @@
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="1.2.3$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="1121" id="1118">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="menu"/>
+                                                                                <font key="font" metaFont="message"/>
                                                                                 <menu key="menu" title="OtherViews" id="1119">
                                                                                     <items>
                                                                                         <menuItem title="1.2.3$" state="on" id="1121"/>
@@ -204,7 +204,7 @@
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="No logging$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="1839" id="1837">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="menu"/>
+                                                                                <font key="font" metaFont="message"/>
                                                                                 <menu key="menu" title="OtherViews" id="1838">
                                                                                     <items>
                                                                                         <menuItem title="No logging$" state="on" id="1839"/>
@@ -238,7 +238,7 @@
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Do nothing$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="qbj-7g-ZV3" id="fxN-Hb-lNz">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="menu"/>
+                                                                                <font key="font" metaFont="message"/>
                                                                                 <menu key="menu" title="OtherViews" id="RUO-IB-XlY">
                                                                                     <items>
                                                                                         <menuItem title="Do nothing$" state="on" id="qbj-7g-ZV3">
@@ -277,7 +277,7 @@
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" id="t8Z-Et-eBb">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="menu"/>
+                                                                                <font key="font" metaFont="message"/>
                                                                                 <menu key="menu" title="OtherViews" id="zjh-UP-xRG">
                                                                                     <items>
                                                                                         <menuItem title="Do nothing$" id="z0s-yn-DaU">
@@ -445,7 +445,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="DMN-lE-Qdt">
                                         <rect key="frame" x="1" y="1" width="135" height="366"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1064" id="1062">
                                                 <rect key="frame" x="-8" y="-5" width="135" height="366"/>
@@ -718,7 +718,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="C..." bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="20" id="18">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="19">
                             <items>
                                 <menuItem title="C..." state="on" id="20"/>
@@ -739,7 +739,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="1..." bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="25" id="22">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="23">
                             <items>
                                 <menuItem title="1..." state="on" id="25"/>
@@ -1006,7 +1006,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Default..." bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="65" id="63">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="64">
                             <items>
                                 <menuItem title="Default..." state="on" id="65"/>
@@ -1040,7 +1040,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="390">
-                    <rect key="frame" x="682" y="225" width="214" height="17"/>
+                    <rect key="frame" x="682" y="205" width="214" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="left" title="C..." id="391">
                         <font key="font" metaFont="system"/>
@@ -1060,8 +1060,20 @@
                         <outlet property="nextKeyView" destination="52" id="753"/>
                     </connections>
                 </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q12-uw-TxR" customClass="TBButton">
+                    <rect key="frame" x="18" y="293" width="648" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="3ib-Zy-JPg">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="appearanceDisplayConnectAndDisconnectPrefixesCheckboxWasClicked:" target="-2" id="LAH-vc-ByJ"/>
+                        <outlet property="nextKeyView" destination="52" id="aYH-Np-otV"/>
+                    </connections>
+                </button>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="811">
-                    <rect key="frame" x="682" y="270" width="214" height="17"/>
+                    <rect key="frame" x="682" y="250" width="214" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="left" title="S..." id="814">
                         <font key="font" metaFont="system"/>
@@ -1070,7 +1082,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="812" customClass="TBButton">
-                    <rect key="frame" x="18" y="269" width="648" height="18"/>
+                    <rect key="frame" x="18" y="249" width="648" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="813">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1082,7 +1094,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1026" customClass="TBButton">
-                    <rect key="frame" x="18" y="166" width="648" height="18"/>
+                    <rect key="frame" x="18" y="146" width="648" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1027">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1094,7 +1106,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1032" customClass="TBButton">
-                    <rect key="frame" x="18" y="146" width="648" height="18"/>
+                    <rect key="frame" x="18" y="126" width="648" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1033">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1118,11 +1130,11 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="396" customClass="TBPopUpButton">
-                    <rect key="frame" x="280" y="219" width="387" height="26"/>
+                    <rect key="frame" x="280" y="199" width="387" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Never..." bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="399" id="397">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="398">
                             <items>
                                 <menuItem title="Never..." state="on" id="399"/>
@@ -1140,11 +1152,11 @@
                     </connections>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1177" customClass="TBPopUpButton">
-                    <rect key="frame" x="280" y="189" width="387" height="26"/>
+                    <rect key="frame" x="280" y="169" width="387" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Default screen" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="1180" id="1178">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="1179">
                             <items>
                                 <menuItem title="Default screen" state="on" id="1180"/>
@@ -1166,6 +1178,7 @@
                 <outlet property="appearanceConnectionWindowDisplayCriteriaTFC" destination="391" id="412"/>
                 <outlet property="appearanceConnectionWindowScreenArrayController" destination="1190" id="1201"/>
                 <outlet property="appearanceConnectionWindowScreenButton" destination="1177" id="1188"/>
+                <outlet property="appearanceDisplayConnectAndDisconnectPrefixesCheckbox" destination="Q12-uw-TxR" id="kiB-3A-Tre"/>
                 <outlet property="appearanceDisplayConnectionSubmenusCheckbox" destination="54" id="213"/>
                 <outlet property="appearanceDisplayConnectionTimersCheckbox" destination="52" id="214"/>
                 <outlet property="appearanceDisplaySplashScreenCheckbox" destination="812" id="818"/>
@@ -1178,7 +1191,7 @@
                 <outlet property="appearanceMenuTFC" destination="389" id="405"/>
                 <outlet property="appearanceSplashTFC" destination="814" id="819"/>
             </connections>
-            <point key="canvasLocation" x="140" y="-146"/>
+            <point key="canvasLocation" x="384" y="-55"/>
         </customView>
         <arrayController id="409" userLabel="ConnectionWindowDisplayCriteria Array Controller">
             <declaredKeys>

@@ -32,7 +32,8 @@
     IBOutlet NSTextFieldCell    * appearanceMenuTFC;
     IBOutlet TBButton           * appearanceDisplayConnectionSubmenusCheckbox;
     IBOutlet TBButton           * appearanceDisplayConnectionTimersCheckbox;
-    
+    IBOutlet TBButton           * appearanceDisplayConnectAndDisconnectPrefixesCheckbox;
+
     IBOutlet NSTextFieldCell    * appearanceSplashTFC;
     IBOutlet TBButton           * appearanceDisplaySplashScreenCheckbox;
 
@@ -54,6 +55,7 @@ TBPROPERTY_READONLY(TBPopUpButton *,     appearanceIconSetButton)
 
 TBPROPERTY_READONLY(TBButton *,          appearanceDisplayConnectionSubmenusCheckbox)
 TBPROPERTY_READONLY(TBButton *,          appearanceDisplayConnectionTimersCheckbox)
+TBPROPERTY_READONLY(TBButton *,          appearanceDisplayConnectAndDisconnectPrefixesCheckbox)
 
 TBPROPERTY_READONLY(TBButton *,          appearanceDisplaySplashScreenCheckbox)
 
