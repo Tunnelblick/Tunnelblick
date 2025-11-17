@@ -7285,6 +7285,16 @@ void terminateBecauseOfBadConfiguration(void)
     [self performSelectorOnMainThread: @selector(didBecomeActiveUser) withObject:nil waitUntilDone:NO];
 }
 
+-(void) doReconnectionsNow {
+
+    [self performSelectorOnMainThread: @selector(reconnectAfterBecomeActiveUser) withObject: nil waitUntilDone: YES];
+}
+
+-(void) doReconnectionsInOneSecond {
+
+    [self performSelector: @selector(doReconnectionsNow) withObject: nil afterDelay: 1.0];
+}
+
 -(void)didBecomeActiveUser
 {
 	TBLog(@"DB-SW", @"didBecomeActiveUser: entered")
@@ -7313,10 +7323,7 @@ void terminateBecauseOfBadConfiguration(void)
         return; // reconnectAfterBecomeActiveUser will be done when the hookup timer times out or there are no more hookups pending
     }
 
-    // Wait a second to give hookups a chance to happen, then restore connections after processing the hookups
-    sleep(1);
-
-    [self performSelectorOnMainThread: @selector(reconnectAfterBecomeActiveUser) withObject: nil waitUntilDone: YES];
+    [self doReconnectionsInOneSecond];
 }
 
 -(void)reconnectAfterBecomeActiveUser
