@@ -418,14 +418,14 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
                             @[@"2.1", @"2.5",  @"ifconfig-pool-linear"], \
                             @[@"2.3", @"2.4",  @"tls-remote"], \
                             @[@"2.3", @"2.5",  @"compat-names", @"no-name-remapping"], \
-                            @[@"2.4", @"2.4",  @"tun-ipv6"], \
-                            @[@"2.4", @"2.5",  @"client-cert-not-required", @"no-iv", @"secret"], \
-                            @[@"2.4", @"2.5?", @"comp-lzo", @"comp-noadapt", @"dhcp-release", @"key-method", @"max-routes", @"no-replay"], \
+                            @[@"2.4", @"2.5",  @"client-cert-not-required", @"key-method", @"no-iv"], \
                             @[@"2.4", @"2.6",  @"keysize"], \
-                            @[@"2.4", @"2.6?", @"ns-cert-type"], \
+                            @[@"2.4", @"2.7",  @"no-replay"], \
+                            @[@"2.4", @"2.8?", @"comp-lzo", @"comp-noadapt", @"dhcp-release", @"max-routes", @"ns-cert-type", @"tun-ipv6"], \
                             @[@"2.5", @"2.6",  @"inetd", @"management-client-pf", @"ncp-disable", @"prng"], \
-                            @[@"2.5", @"2.6?", @"compress"], \
-                            @[@"2.6", @"2.7?", @"foreign-option", @"verify-hash"] \
+                            @[@"2.5", @"2.8?", @"compress"], \
+                            @[@"2.6", @"2.7",  @"opt-verify"], \
+                            @[@"2.6", @"2.8?", @"disable-occ", @"secret", @"verify-hash"], \
                             ]
 
 //*************************************************************************************************
