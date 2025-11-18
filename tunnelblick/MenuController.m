@@ -35,9 +35,7 @@
 
 #import "AuthAgent.h"
 #import "ConfigurationManager.h"
-#import "ConfigurationMultiUpdater.h"
 #import "ConfigurationsView.h"
-#import "ConfigurationUpdater.h"
 #import "LeftNavItem.h"
 #import "LeftNavViewController.h"
 #import "MainIconView.h"
@@ -193,7 +191,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *,              statusItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,                    myVPNMenu)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            activeIPCheckThreads)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            cancellingIPCheckThreads)
-TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationMultiUpdater *, myConfigMultiUpdater)
 
 
 TBSYNTHESIZE_OBJECT(retain, SystemAuth   *, startupInstallAuth,        setStartupInstallAuth)
@@ -1289,7 +1286,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [hookupWatchdogTimer release];
     [theAnim release];
     [tbupdater release];
-    [myConfigMultiUpdater release];
     [customMenuScripts release];
     [customRunOnLaunchPath release];
     [customRunOnConnectPath release];
@@ -2857,7 +2853,6 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         NSLog(@"Check for updates was not performed because user is not an administator for this computer and 'onlyAdminCanUpdate' preference is set");
     } else {
         [[self tbupdater] nonAutomaticCheckIfAnUpdateIsAvailable];
-        [myConfigMultiUpdater startAllUpdateCheckingWithUI: YES]; // Display the UI
     }
 }
 
@@ -3795,23 +3790,6 @@ static void signal_handler(int signalNumber)
     }
 }
 
-// Invoked by Tunnelblick modifications to Sparkle with the path to a .bundle with updated configurations to install
--(void) installConfigurationsUpdateInBundleAtPathHandler: (NSString *) path
-{
-    // This handler SHOULD proceed even if the computer is shutting down
-    TBLog(@"DB-UC", @"Scheduling installation of updated configurations at '%@'", path);
-    [self performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPathMainThread:)
-                           withObject: path
-                        waitUntilDone: YES];
-}
-
--(void) installConfigurationsUpdateInBundleAtPathMainThread: (NSString *) path
-{
-    // Proceed even if the computer is shutting down
-    TBLog(@"DB-UC", @"Starting a new thread to update configurations at '%@'", path);
-    [ConfigurationManager installConfigurationsUpdateInBundleInMainThreadAtPath: path];
-}
-
 -(BOOL) shouldInstallConfigurations: (NSArray *) filePaths withTunnelblick: (BOOL) withTunnelblick {
 
     // If any of the configurations contain commands, asks the user if they should be installed.
@@ -4015,21 +3993,10 @@ static void signal_handler(int signalNumber)
 
 -(void) setupUpdaterAutomaticChecks {
 
-    if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
-        [myConfigMultiUpdater stopAllUpdateChecking];
-    } else {
+    if (  ! [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
         BOOL userIsAdminOrNonAdminsCanUpdate = (   [gTbInfo userIsAnAdmin]
                                                 || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"])  );
-        if (  userIsAdminOrNonAdminsCanUpdate  ) {
-            if (  [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {
-                BOOL startChecking = [gTbDefaults boolForKey: @"updateCheckAutomatically"];
-                if (  startChecking) {
-                    [myConfigMultiUpdater startAllUpdateCheckingWithUI: NO];
-                } else {
-                    [myConfigMultiUpdater stopAllUpdateChecking];
-                }
-            }
-        } else {
+        if (  ! userIsAdminOrNonAdminsCanUpdate  ) {
             if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
                 NSLog(@"Automatic check for updates will not be performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
             }
@@ -4196,55 +4163,6 @@ static void signal_handler(int signalNumber)
                nil]  );
 }
 
--(NSArray *) uninstalledConfigurationUpdates {
-
-    NSDictionary * highestEditions = highestEditionForEachBundleIdinL_AS_T();
-
-    NSMutableArray * configsToInstall = [NSMutableArray arrayWithCapacity: 10];
-    NSString * bundleIdAndEdition;
-    NSDirectoryEnumerator * containerEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
-    while (  (bundleIdAndEdition = [containerEnum nextObject])  ) {
-        [containerEnum skipDescendents];
-
-        if (   [bundleIdAndEdition hasPrefix: @"."]
-            || [bundleIdAndEdition hasSuffix: @".tblk"]  ) {
-            continue;
-        }
-
-        NSString * bundleId = [bundleIdAndEdition stringByDeletingPathEdition];
-        NSString * edition  = [bundleIdAndEdition pathEdition];
-        NSString * highest  = [highestEditions objectForKey: bundleId];
-        if (   highest
-            && [edition isEqualToString: highest]  ) {
-
-            NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
-            NSString * tblkFileName;
-            NSDirectoryEnumerator * innerEnum = [gFileMgr enumeratorAtPath: containerPath];
-            while (  (tblkFileName = [innerEnum nextObject])  ) {
-                [innerEnum skipDescendents];
-                if (  [tblkFileName hasSuffix: @".tblk"]  ) {
-                    NSString * tblkPath = [containerPath stringByAppendingPathComponent: tblkFileName];
-                    NSString * installedFilePath = [[tblkPath
-                                                     stringByAppendingPathComponent: @"Contents"]
-                                                    stringByAppendingPathComponent: @"installed"];
-                    if (  ! [gFileMgr fileExistsAtPath: installedFilePath]  ) {
-                        TBLog(@"DB-UC", @"Found uninstalled configuration update in %@", bundleIdAndEdition);
-                        [configsToInstall addObject: tblkPath];
-                        break; // out of inner loop only
-                    }
-                }
-            }
-        }
-    }
-
-    return [NSArray arrayWithArray: configsToInstall];
-}
-
--(void) startCheckingForConfigurationUpdates {
-
-    [myConfigMultiUpdater startAllUpdateCheckingWithUI: NO];    // Start checking for configuration updates in the background
-}
-
 -(NSString *) openvpnVersionToUseInsteadOfVersion: (NSString *) desiredVersion {
 
     // Returns a string with an OpenVPN version that is the "closest match" to desiredVersion and is included in Tunnelblick:
@@ -4374,7 +4292,6 @@ static void signal_handler(int signalNumber)
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 003")
 
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 004")
-    myConfigMultiUpdater = [[ConfigurationMultiUpdater alloc] init]; // Set up separate Sparkle Updaters for configurations but don't start checking yet
 
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 05")
     [self updateIconImage];
@@ -4668,15 +4585,6 @@ static void signal_handler(int signalNumber)
     launchFinished = TRUE;
 
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 018")
-    // Start installing any updatable configurations that have been downloaded but not installed
-    // Or start checking for configuration updates
-    // (After installing any downloaded updates, the new thread will invoke startCheckingForConfigurationUpdates)
-    NSArray * updatableConfigs = [self uninstalledConfigurationUpdates];
-    if (  [updatableConfigs count] != 0  ) {
-        [ConfigurationManager installConfigurationsInNewThreadShowMessagesDoNotNotifyDelegateWithPaths: updatableConfigs];
-    } else {
-        [self startCheckingForConfigurationUpdates];
-    }
 
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 019")
     // Start installing any configurations that were double-clicked before we were finished launching
@@ -4752,7 +4660,6 @@ static void signal_handler(int signalNumber)
     }
 
     [tbupdater stopAllUpdateActivity];
-    [myConfigMultiUpdater stopAllUpdateChecking];
 
     if (  ! [self cleanup]  ) {
         [self quitLog: @"Could not uninstall because a cleanup was already started." toNSLog: YES];
@@ -6245,13 +6152,13 @@ static BOOL runningHookupThread = FALSE;
     unsigned installFlags;
     if (  (installFlags = needToRunInstaller(FALSE)) != 0  ) {
 
-		if (  ! [self shouldContinueAfterAskingOrInformingAboutInternetAccess]  ) {
-			NSLog(@"The user cancelled the update");
-			[self terminateBecause: terminatingBecauseOfQuit];
-			return;
-		}
+        if (  ! [self shouldContinueAfterAskingOrInformingAboutInternetAccess]  ) {
+            NSLog(@"The user cancelled the update");
+            [self terminateBecause: terminatingBecauseOfQuit];
+            return;
+        }
 
-		[splashScreen setMessage: NSLocalizedString(@"Securing Tunnelblick...", @"Window text")];
+        [splashScreen setMessage: NSLocalizedString(@"Securing Tunnelblick...", @"Window text")];
         if (  startupInstallAuth  ) {
             NSLog(@"secureIfNecessary: startupInstallAuth is already set");
             [self terminateBecause: terminatingBecauseOfError];
@@ -6270,16 +6177,16 @@ static BOOL runningHookupThread = FALSE;
         }
 
         NSInteger installerResult = [self runInstaller: installFlags
-										extraArguments: nil
+                                        extraArguments: nil
                                        usingSystemAuth: [self startupInstallAuth]
                                           installTblks: nil];
-		if (  installerResult != 0  ) {
+        if (  installerResult != 0  ) {
 
-			// An error occurred or the user cancelled. An error dialog and a message in the console log have already been displayed if an error occurred
+            // An error occurred or the user cancelled. An error dialog and a message in the console log have already been displayed if an error occurred
             [self terminateBecause: terminatingBecauseOfError];
         }
 
-		[splashScreen setMessage: NSLocalizedString(@"Tunnelblick has been secured.", @"Window text")];
+        [splashScreen setMessage: NSLocalizedString(@"Tunnelblick has been secured.", @"Window text")];
     }
 }
 

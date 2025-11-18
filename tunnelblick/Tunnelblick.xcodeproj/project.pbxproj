@@ -130,8 +130,6 @@
 		63793423272D6B8200179B8F /* bn.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63793422272D6B8100179B8F /* bn.lproj */; };
 		637A871913B74B81003C1871 /* SplashWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A871813B74B81003C1871 /* SplashWindowController.m */; };
 		637A871C13B74DFB003C1871 /* SplashWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 637A871B13B74DFB003C1871 /* SplashWindow.xib */; };
-		637B0A1E1A81DC2100210900 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 637B0A1D1A81DC2100210900 /* Sparkle.framework */; };
-		637B0A281A81DC3500210900 /* Sparkle.framework in Copy Sparkle */ = {isa = PBXBuildFile; fileRef = 637B0A1D1A81DC2100210900 /* Sparkle.framework */; };
 		638164DE1C145CC100B59958 /* reactivate-tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */; };
 		638307E22BC0716E00384B38 /* NSFileHandle+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 638307E02BC0716E00384B38 /* NSFileHandle+TB.m */; };
 		638613271492C88B00C3DCCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
@@ -179,7 +177,6 @@
 		63BF3E1310A2ED7F00AC8A59 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* ca.lproj */; };
 		63BFA9392BBB6BD40006484A /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
-		63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */; };
 		63C2E19C18846D2A00ED0003 /* LeaseWatch.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */; };
 		63C2E19E18846D3800ED0003 /* LeaseWatch3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */; };
 		63C2E1A018846D4600ED0003 /* ProcessNetworkChanges.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */; };
@@ -247,7 +244,6 @@
 		63FA09411D25E68500859556 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FA09401D25E68500859556 /* MAAttachedWindow.m */; };
 		63FA9CB62BFCE4E700DB0AD1 /* TBValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D15AB2BE8477300728E32 /* TBValidator.m */; };
 		63FA9CB72BFCE57800DB0AD1 /* TBValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D15AB2BE8477300728E32 /* TBValidator.m */; };
-		63FB74EE1311D4BC002F4E7F /* ConfigurationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */; };
 		63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FFC3D81D3FDF5A00CBB289 /* DropConfigsView.m */; };
 		63FFD6541D0E9C8B00D4FFD9 /* Lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 63FFD6521D0E9C8B00D4FFD9 /* Lock.png */; };
 		63FFD6551D0E9C8B00D4FFD9 /* Lock-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 63FFD6531D0E9C8B00D4FFD9 /* Lock-open.png */; };
@@ -368,17 +364,6 @@
 			files = (
 			);
 			name = "Copy Helpers";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		61C8B0AB0E38E3C100696EE9 /* Copy Sparkle */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				637B0A281A81DC3500210900 /* Sparkle.framework in Copy Sparkle */,
-			);
-			name = "Copy Sparkle";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		636F48B22BBA4406001C9EFE /* CopyFiles */ = {
@@ -542,7 +527,6 @@
 		637A871713B74B81003C1871 /* SplashWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashWindowController.h; sourceTree = "<group>"; };
 		637A871813B74B81003C1871 /* SplashWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashWindowController.m; sourceTree = "<group>"; };
 		637A871B13B74DFB003C1871 /* SplashWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashWindow.xib; sourceTree = "<group>"; };
-		637B0A1D1A81DC2100210900 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../third_party/products/sparkle/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "reactivate-tunnelblick.sh"; sourceTree = "<group>"; };
 		638222201E287C0500A2BD87 /* updates_create_signature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = updates_create_signature; sourceTree = "<group>"; };
 		638307E02BC0716E00384B38 /* NSFileHandle+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileHandle+TB.m"; sourceTree = "<group>"; };
@@ -598,8 +582,6 @@
 		63BD86E41205BA39005B8E38 /* it.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = it.lproj; sourceTree = "<group>"; };
 		63BF3E1010A2ED7F00AC8A59 /* ca.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ca.lproj; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
-		63C055111970253E007AE8BE /* ConfigurationMultiUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationMultiUpdater.h; sourceTree = "<group>"; };
-		63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationMultiUpdater.m; sourceTree = "<group>"; };
 		63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LeaseWatch.plist; sourceTree = "<group>"; };
 		63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LeaseWatch3.plist; sourceTree = "<group>"; };
 		63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProcessNetworkChanges.plist; sourceTree = "<group>"; };
@@ -684,8 +666,6 @@
 		63FA093F1D25E68500859556 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
 		63FA09401D25E68500859556 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
 		63FAF9A5257A5E7B00932F5B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationUpdater.h; sourceTree = "<group>"; };
-		63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationUpdater.m; sourceTree = "<group>"; };
 		63FFC3D71D3FDF5100CBB289 /* DropConfigsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropConfigsView.h; sourceTree = "<group>"; };
 		63FFC3D81D3FDF5A00CBB289 /* DropConfigsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropConfigsView.m; sourceTree = "<group>"; };
 		63FFD6521D0E9C8B00D4FFD9 /* Lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock.png; sourceTree = "<group>"; };
@@ -830,7 +810,6 @@
 				635CA9A012F9DCE300287298 /* AppKit.framework in Frameworks */,
 				63B9CFA5132C73DD009EC6D0 /* WebKit.framework in Frameworks */,
 				63432573140D7F5A00015CE0 /* CoreServices.framework in Frameworks */,
-				637B0A1E1A81DC2100210900 /* Sparkle.framework in Frameworks */,
 				63AE127F25C239500008379F /* Security.framework in Frameworks */,
 				634616871A9B85C60049C16C /* SystemConfiguration.framework in Frameworks */,
 				630AF69E2A3E5BBC001D50B7 /* IOKit.framework in Frameworks */,
@@ -880,7 +859,6 @@
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
-				637B0A1D1A81DC2100210900 /* Sparkle.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -1304,14 +1282,10 @@
 				B87F82911612964D008E0EB1 /* ConfigurationConverter.m */,
 				63E8427A117A147500529DE2 /* ConfigurationManager.h */,
 				633DF4581312B13100B8606C /* ConfigurationManager.m */,
-				63C055111970253E007AE8BE /* ConfigurationMultiUpdater.h */,
-				63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */,
 				635D0EB42E173893007A1F47 /* ConfigurationParser.h */,
 				635D0EB52E173893007A1F47 /* ConfigurationParser.m */,
 				B81C3475161E6A8300C2AF6E /* ConfigurationToken.h */,
 				B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */,
-				63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */,
-				63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */,
 				63D893F12124E5F1000E20E5 /* SetupImporter.h */,
 				63D893F22124E5FE000E20E5 /* SetupImporter.m */,
 			);
@@ -1676,7 +1650,6 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				61BC4D930E2FA26E00F24255 /* Copy Helpers */,
-				61C8B0AB0E38E3C100696EE9 /* Copy Sparkle */,
 				610AEAE70E2FE63900EA3C79 /* Create the Applications and .dmgs */,
 			);
 			buildRules = (
@@ -2036,10 +2009,8 @@
 				61BC4B810E2F9EBC00F24255 /* AuthAgent.m in Sources */,
 				B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */,
 				633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */,
-				63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */,
 				634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */,
 				B81C3479161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
-				63FB74EE1311D4BC002F4E7F /* ConfigurationUpdater.m in Sources */,
 				635ECCF51378885600F67F8D /* DBPrefsWindowController.m in Sources */,
 				63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */,
 				B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */,
@@ -2584,10 +2555,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z2SG5H3HC8;
 				DISABLE_MANUAL_TARGET_ORDER_BUILD_WARNING = Yes;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../third_party/products/sparkle\"",
-				);
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2876,10 +2843,6 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DISABLE_MANUAL_TARGET_ORDER_BUILD_WARNING = Yes;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../third_party/products/sparkle\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;

@@ -2,7 +2,7 @@
 #
 # sign-tunnelblick-app-or-dmg.sh
 #
-# Copyright © 2021 by Jonathan K. Bullard. All rights reserved.
+# Copyright © 2021, 2025 by Jonathan K. Bullard. All rights reserved.
 #
 # This file is part of Tunnelblick.
 #
@@ -110,7 +110,6 @@ sign_app () {
 
     # If not signed yet, sign the binary tools, including each version of OpenvVPN and openvpn-down-root,
     #                         the Tunnelblick Launcher app
-    #                         the Sparkle.framework, and
     #                         the .app_path itself.
     #
     # Sets EXIT_VALUE to 1 if an error occurs.
@@ -146,34 +145,6 @@ sign_app () {
             	fi
             fi
         done
-
-   		local sparkle_framework; sparkle_framework="$app_path/Contents/Frameworks/Sparkle.framework"
-
-		if [ -d "${sparkle_framework}" ] ; then
-
-			local tunnelblickUpdater_app_path; tunnelblickUpdater_app_path="${sparkle_framework}/Versions/A/Resources/TunnelblickUpdater.app"
-			if [ -d "${tunnelblickUpdater_app_path}" ] ; then
-				codesign_v_t_or "${tunnelblickUpdater_app_path}" "--deep --force"
-			else
-				echo "Error: Does not exist: '${tunnelblickUpdater_app_path}'"
-				EXIT_VALUE=1
-			fi
-
-			# Must sign fileop separately because signing TunnelblickUpdater.app does not sign it:
-			local fileop_path; fileop_path="${tunnelblickUpdater_app_path}/Contents/MacOS/fileop"
-			if [ -f  "${fileop_path}" ] ; then
-				codesign_v_t_or "${fileop_path}" "--force"
-			else
-				echo "Error: Does not exist: '${fileop_path}'"
-				EXIT_VALUE=1
-			fi
-
-			codesign_v_t_or "${sparkle_framework}" "--deep --force"
-
-		else
-			echo "Error: Does not exist: '${sparkle_framework}'"
-			EXIT_VALUE=1
-		fi
 
         # Sign Tunnelblick Launcher if it isn't signed yet
         sign_tunnelblick_launcher_app "$app_path"
@@ -218,7 +189,7 @@ check_app_signature () {
 
     # Checks codesign signatures of Tunnelblick application at $1 and does spctl to check it, too if the signing identity is not "-".
     #
-    # Checks signatures of the application, all of its binaries, and the Sparkle framework.
+    # Checks signatures of the application and all of its binaries.
     #
     # Outputs a line for each problem encountered, having filtered "success" lines.
 
@@ -250,24 +221,6 @@ check_app_signature () {
             fi
         fi
     done
-
-    # Check Sparkle framework:
-    local sparkle_framework;           sparkle_framework="$app_path/Contents/Frameworks/Sparkle.framework"
-	local tunnelblickUpdater_app_path; tunnelblickUpdater_app_path="${sparkle_framework}/Versions/A/Resources/TunnelblickUpdater.app"
-	local fileop_path;                 fileop_path="${tunnelblickUpdater_app_path}/Contents/MacOS/fileop"
-	if [ -d "${tunnelblickUpdater_app_path}" ] ; then
-		if [ -f "${fileop_path}" ] ; then
-			codesign_verify_verbose  "${fileop_path}"
-		else
-			echo "Error: Does not exist: '${fileop_path}'"
-			EXIT_VALUE=1
-		fi
-		codesign_verify_verbose  "${tunnelblickUpdater_app_path}"
-	else
-		echo "Error: Does not exist: '${tunnelblickUpdater_app_path}'"
-		EXIT_VALUE=1
-	fi
-	codesign_verify_verbose "${sparkle_framework}"
 
     if [  "$SIGNING_IDENTITY" != "-" ] ; then
         set +e

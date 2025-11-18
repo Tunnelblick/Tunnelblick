@@ -64,8 +64,6 @@ typedef enum
 	NSMutableArray * replaceTargets;
     NSMutableArray * noAdminSources;	// Paths of .tblks in which keys and certs (only) are to be updated without admin credentials
     NSMutableArray * noAdminTargets;
-	NSMutableArray * updateSources;		// Paths of .tblk stubs to copy to L_AS_T_TBLKS for updatable configurations
-	NSMutableArray * updateTargets;
     NSMutableArray * deletions;			// Paths of .tblks to delete to uninstall
 
     // If fromAppleScript is true, the results of
@@ -155,8 +153,6 @@ TBPROPERTY(NSApplicationDelegateReply, applescriptReply, setApplescriptReply)
 +(void) moveOrCopyConfigurationsInNewThreadAtPaths: (NSArray *) sourcePaths
                                            toPaths: (NSArray *) targetPaths
                                        moveNotCopy: (BOOL)      moveNotCopy;
-
-+(void) installConfigurationsUpdateInBundleInMainThreadAtPath: (NSString *) path;
 
 +(void) installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: (NSArray *) filePaths;
 

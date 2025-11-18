@@ -1003,47 +1003,6 @@ NSString * allFilesAreReasonableIn(NSString * path) {
     return nil;
 }
 
-NSDictionary * highestEditionForEachBundleIdinL_AS_T(void) {
-
-    // Returns a dictionary with keys = bundle IDs that appear in L_AS_T.
-    // The object for each key is a string with the highest edition of that bundle that appears in L_AS_T.
-
-    NSMutableDictionary * bundleIdEditions = [[[NSMutableDictionary alloc] initWithCapacity: 10] autorelease]; // Key = bundleId; object = edition
-
-    NSDirectoryEnumerator * outerDirEnum = [NSFileManager.defaultManager enumeratorAtPath: L_AS_T_TBLKS];
-    NSString * bundleIdAndEdition;
-    while (  (bundleIdAndEdition = [outerDirEnum nextObject])  ) {
-        [outerDirEnum skipDescendents];
-        NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
-        BOOL isDir;
-        if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
-            && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
-            && [NSFileManager.defaultManager fileExistsAtPath: containerPath isDirectory: &isDir]
-            && isDir  ) {
-            NSString * bundleId = [bundleIdAndEdition stringByDeletingPathEdition];
-            if (  ! bundleId  ) {
-                appendLog([NSString stringWithFormat: @"Container path does not have a bundleId: %@", containerPath]);
-                continue;
-            }
-            NSString * edition  = [bundleIdAndEdition pathEdition];
-            if (  ! edition  ) {
-                appendLog([NSString stringWithFormat: @"Container path does not have an edition: %@", containerPath]);
-                continue;
-            }
-            NSString * highestEdition = [bundleIdEditions objectForKey: bundleId];
-            if (   ( ! highestEdition)
-                || ( [highestEdition compare: edition options: NSNumericSearch] == NSOrderedAscending )  ) {
-                [bundleIdEditions setObject: edition forKey: bundleId];
-            }
-        } else {
-            if (  ! [containerPath hasSuffix: @".tblk"]  ) {
-                appendLog([NSString stringWithFormat: @"Container path is invisible or not a folder: %@", containerPath]);
-            }
-        }
-    }
-
-    return bundleIdEditions;
-}
 
 unsigned int getFreePort(void)
 {

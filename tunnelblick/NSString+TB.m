@@ -123,45 +123,6 @@ void appendLog(NSString * entry);
     return YES;
 }
 
--(NSString *) pathEdition {
-    
-    NSRange rng = [self rangeOfString: @"_" options: NSBackwardsSearch];
-    if (  rng.length == 0  ) {
-        return nil;
-    }
-    
-    NSString * edition = [self substringFromIndex: rng.location + 1];
-    
-    if (  ! [edition containsOnlyCharactersInString: @"0123456789"]  ) {
-        appendLog([NSString stringWithFormat: @"Invalid edition (illegal characters) in '%@'", self]);
-        return nil;
-    }
-    
-    if (  [edition length] == 0  ) {
-        appendLog(@"Invalid edition (empty string)");
-        return nil;
-    }
-    
-    return edition;
-}
-
--(NSString *) stringByAppendingPathEdition: (NSString *) edition {
-    
-    NSString * s = [[self stringByAppendingString: @"_"] stringByAppendingString: edition];
-    return s;
-}
-
--(NSString *) stringByDeletingPathEdition {
-    
-    NSRange rng = [self rangeOfString: @"_" options: NSBackwardsSearch];
-    if (  rng.length == 0  ) {
-        return [NSString stringWithString: self];
-    }
-    
-    NSString * edition = [self substringToIndex: rng.location];
-    return edition;
-}
-
 -(unsigned) unsignedIntValue {
     
     long long i = [self longLongValue];

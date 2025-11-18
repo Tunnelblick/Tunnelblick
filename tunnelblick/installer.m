@@ -102,7 +102,7 @@
 //
 //      (4) If requested, copy app to L_AS_T
 //
-//      (5) If INSTALLER_COPY_APP is set, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
+//      (5) Remove L_AS_T_TBLKS
 //
 //      (6) If INSTALLER_SECURE_TBLKS is set, then secures all .tblk packages in the following folders:
 //				/Library/Application Support/Tunnelblick/Shared
@@ -324,7 +324,6 @@ static void resolveSymlinksInPath(NSString * targetPath) {
 
             NSString * resolvedPath = [gFileMgr tbPathContentOfSymbolicLinkAtPath: fullPath];
             if (  ! (   [resolvedPath hasPrefix: L_AS_T_SHARED]
-                     || [resolvedPath hasPrefix: L_AS_T_TBLKS]
                      || [resolvedPath hasPrefix: L_AS_T_USERS]
                      || [resolvedPath hasPrefix: gDeployPath]
                      )  ) {
@@ -393,47 +392,6 @@ NSString * lastPartOfPath(NSString * path) {
     return nil;
 }
 
-static void pruneL_AS_T_TBLKS(void) {
-
-    // Prune L_AS_T_TblKS by removing all but the highest edition of each container
-
-    NSDictionary * bundleIdEditions = highestEditionForEachBundleIdinL_AS_T(); // Key = bundleId; object = edition
-
-    if (  [bundleIdEditions count] != 0  ) {
-        NSString * bundleIdAndEdition;
-        NSDirectoryEnumerator * outerDirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
-        while (  (bundleIdAndEdition = [outerDirEnum nextObject])  ) {
-            [outerDirEnum skipDescendents];
-            NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
-            BOOL isDir;
-            if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
-                && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
-                && [gFileMgr fileExistsAtPath: containerPath isDirectory: &isDir]
-                && isDir  ) {
-                NSString * bundleId = [bundleIdAndEdition stringByDeletingPathEdition];
-                if (  ! bundleId  ) {
-                    appendLog([NSString stringWithFormat: @"Container path does not have a bundleId: %@", containerPath]);
-                    break;
-                }
-                NSString * edition  = [bundleIdAndEdition pathEdition];
-                if (  ! edition  ) {
-                    appendLog([NSString stringWithFormat: @"Container path does not have an edition: %@", containerPath]);
-                    break;
-                }
-                NSString * highestEdition = [bundleIdEditions objectForKey: bundleId];
-                if (  ! highestEdition  ) {
-                    appendLog(@"New entry in L_AS_T_TBLKS appeared during pruning");
-                    break;
-                }
-                if (  ! [edition isEqualToString: highestEdition]  ) {
-                    securelyDeleteItem(containerPath);
-                    appendLog([NSString stringWithFormat: @"Pruned L_AS_T_TBLKS by removing %@", containerPath]);
-                }
-            }
-        }
-    }
-}
-
 static void structureTblkProperly(NSString * path) {
 
     // If a .tblk doesn't have a Contents folder, makes sure Info.plist is in Contents, and all files in a .tblk except Info.plist are in Contents/Resources.
@@ -489,9 +447,7 @@ static void errorExitIfAnySymlinkInPath(NSString * path) {
         if (  [gFileMgr fileExistsAtPath: curPath]  ) {
             NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
             if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                if (   ( ! [curPath hasSuffix: @"/Tunnelblick.app/Contents/Resources/openvpn/default"] )
-                    && ( [curPath rangeOfString: @"/Tunnelblick.app/Contents/Frameworks/Sparkle.framework/"].length == 0 )
-                    ) {
+                if (  ! [curPath hasSuffix: @"/Tunnelblick.app/Contents/Resources/openvpn/default"]  ) {
                     appendLog([NSString stringWithFormat: @"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path]);
                     errorExit();
                 }
@@ -1626,11 +1582,6 @@ static void setupLibrary_Application_Support_Tunnelblick(void) {
 	}
 	
 	if (  ! createDirWithPermissionAndOwnership(L_AS_T_SHARED,
-												PERMS_SECURED_FOLDER, 0, 0)  ) {
-		errorExit();
-	}
-	
-	if (  ! createDirWithPermissionAndOwnership(L_AS_T_TBLKS,
 												PERMS_SECURED_FOLDER, 0, 0)  ) {
 		errorExit();
 	}
@@ -3039,11 +2990,10 @@ int main(int argc, char *argv[]) {
     }
 
     //**************************************************************************************************************************
-    // (5) If INSTALLER_COPY_APP, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
+    // (5) Remove L_AS_T_TBLKS if it exists. It was used by the "old" configuration update mechanism, which has been removed.
 
-    if (  doCopyApp  ) {
-        pruneL_AS_T_TBLKS();
-    }
+    [gFileMgr tbRemovePathIfItExists: L_AS_T_TBLKS];
+
     
     //**************************************************************************************************************************
     // (6) If requested, secure all .tblk packages

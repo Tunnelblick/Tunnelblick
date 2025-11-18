@@ -27,7 +27,6 @@
 #import "defines.h"
 
 
-@class ConfigurationMultiUpdater;
 @class MainIconView;
 @class MyPrefsWindowController;
 @class NetSocket;
@@ -155,8 +154,6 @@ enum ActiveInactiveState {
     TBUpdater               * tbupdater;                    // TBUpdater item used to check for updates to the program
     NSDate                  * lastCheckNow;                 // Date/time Check Now button was last clicked
 
-    ConfigurationMultiUpdater * myConfigMultiUpdater;       // Checks for configuration updates
-	
 	NSString                * languageAtLaunch;				// Lower-case version of the language we are using. Passed on to runOnConnect, runOnLaunch, and Menu command scripts
     
 	BOOL					  languageAtLaunchWasRTL;		// Used to load RTL xibs and adjust spacing of controls as needed
@@ -261,7 +258,6 @@ enum ActiveInactiveState {
 -(nullable VPNConnection *) connectionForDisplayName:               (nonnull NSString *)         displayName;
 -(unsigned)         decrementTapCount;
 -(nonnull NSNumber *)       haveConfigurations;
--(void)             installConfigurationsUpdateInBundleAtPathMainThread: (nonnull NSString *)path;
 -(unsigned)         decrementTunCount;
 -(unsigned)         incrementTapCount;
 -(unsigned)         incrementTunCount;
@@ -306,7 +302,6 @@ enum ActiveInactiveState {
 -(void)				uninstall;
 -(void)             unloadKextsForce: (BOOL) force;
 -(void)				updateMenuAndDetailsWindowForceLeftNavigation: (BOOL) forceLeftNavigationUpdate;
--(void)             startCheckingForConfigurationUpdates;
 -(void)             statusWindowController:                 (nonnull id)                ctl
                         finishedWithChoice:                 (StatusWindowControllerChoice) choice
                             forDisplayName:                 (nonnull NSString *)        theName;
@@ -366,7 +361,6 @@ TBPROPERTY_READONLY(BOOL         , languageAtLaunchWasRTL)
 TBPROPERTY_READONLY(nullable NSMenu *,		myVPNMenu)
 TBPROPERTY_READONLY(nullable NSMutableArray *, activeIPCheckThreads)
 TBPROPERTY_READONLY(nullable NSMutableArray *, cancellingIPCheckThreads)
-TBPROPERTY_READONLY(nullable ConfigurationMultiUpdater *, myConfigMultiUpdater)
 TBPROPERTY_READONLY(nullable NSArray *, knownPublicDnsServerAddresses)
 TBPROPERTY_READONLY(nullable TBUpdater *, tbupdater)
 

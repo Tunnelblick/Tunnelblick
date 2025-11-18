@@ -442,21 +442,6 @@ RenameTunnelblickdPlistFileIfRebrandedVersion() {
     fi
 }
 
-CopyTunnelblickAppIconOverSparkleAutoUpdateAppIcon() {
-
-    # Copy the Tunnelblick icon over Sparkle's AutoUpdate.app icon
-    # (Our Sparkle patches create AutoUpdate.app as 'TunnelblickUpdater.app')
-
-    local updaterIcons
-
-    updaterIcons="${APP_PATH}/Contents/Frameworks/Sparkle.framework/Resources/TunnelblickUpdater.app/Contents/Resources/AppIcon.icns"
-    if [ -e "${updaterIcons}" ] ; then
-        cp -f -p -R "${APP_PATH}/Contents/Resources/tunnelblick.icns" "${updaterIcons}"
-    else
-        echo "warning: No Sparkle AutoUpdater app icons to replace (missing ${updaterIcons})"
-    fi
-}
-
 RemoveBuildNumberAndVersionStringTxtFiles() {
 
     rm -f "${APP_PATH}/Contents/Resources/TBBuildNumber.txt"
@@ -728,8 +713,6 @@ shopt nullglob
     UpdateAllInfoPlistStringsFilesWithCurrentYear
 
     RenameTunnelblickdPlistFileIfRebrandedVersion
-
-    CopyTunnelblickAppIconOverSparkleAutoUpdateAppIcon
 
     RemoveBuildNumberAndVersionStringTxtFiles
 

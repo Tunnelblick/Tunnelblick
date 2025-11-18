@@ -32,7 +32,6 @@
 
 #import "AuthAgent.h"
 #import "ConfigurationConverter.h"
-#import "ConfigurationMultiUpdater.h"
 #import "ConfigurationParser.h"
 #import "ListingWindowController.h"
 #import "MenuController.h"
@@ -87,8 +86,6 @@ TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, replaceSources,    setReplaceSourc
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, replaceTargets,    setReplaceTargets)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, noAdminSources,    setNoAdminSources)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, noAdminTargets,    setNoAdminTargets)
-TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, updateSources,     setUpdateSources)
-TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, updateTargets,     setUpdateTargets)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, deletions,         setDeletions)
 
 TBSYNTHESIZE_NONOBJECT(NSApplicationDelegateReply, applescriptReply, setApplescriptReply)
@@ -117,8 +114,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [replaceTargets          release];
     [noAdminSources          release];
     [noAdminTargets          release];
-    [updateSources           release];
-    [updateTargets           release];
     [deletions               release];
 
     // listingWindow IS NOT RELEASED because it needs to exist after this instance of ConfigurationManager is gone. It releases itself when the window closes.
@@ -984,16 +979,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Returns TRUE if succeeded
     // Returns FALSE if failed, having already output an error message to the console log
 
-    // If it is a .tblk and has a SUFeedURL, CFBundleVersion, and CFBundleIdentifier Info.plist entries, remember the CFBundleIdentifier for later
-    NSString * bundleId = nil;
-    if (  [targetPath hasSuffix: @".tblk"]  ) {
-        NSDictionary * infoDict = [ConfigurationManager plistInTblkAtPath: targetPath];
-        if (   [infoDict objectForKey: @"SUFeedURL"]
-            && [infoDict objectForKey: @"CFBundleVersion"]  ) {
-            bundleId = [infoDict objectForKey: @"CFBundleIdentifier"];
-        }
-    }
-
     NSArray * arguments = [NSArray arrayWithObject: targetPath];
 
     NSInteger result = [gMC runInstaller: INSTALLER_DELETE
@@ -1025,40 +1010,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     if (  ! [targetPath hasSuffix: @".tblk"]  ) {
         return TRUE;
-    }
-
-
-    if (  bundleId  ) {
-
-        // Stop updating any configurations with this bundleId
-        [[gMC myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
-
-        // Delete all master stub .tblk containers with this bundleId
-        NSArray * stubTblkPaths = [ConfigurationMultiUpdater pathsForMasterStubTblkContainersWithBundleIdentifier: bundleId];
-        NSString * containerPath;
-        NSEnumerator * e = [stubTblkPaths objectEnumerator];
-        while (  (containerPath = [e nextObject])) {
-            arguments = [NSArray arrayWithObject: containerPath];
-            result = [gMC runInstaller: INSTALLER_DELETE
-                        extraArguments: arguments
-                       usingSystemAuth: auth
-                          installTblks: nil];
-            if (  result != 0  ) {
-                NSLog(@"Error while uninstalling master \"stub\" .tblk for '%@' at path %@", bundleId, containerPath);
-                return FALSE;
-            }
-            if (  [gFileMgr fileExistsAtPath: containerPath]  ) {
-                NSLog(@"Could not delete \"stub\" .tblk container %@", containerPath);
-                if (  warn  ) {
-                    NSString * title = NSLocalizedString(@"Could Not Uninstall Configuration", @"Window title");
-                    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
-                    TBShowAlertWindow(title, msg);
-                }
-                return FALSE;
-            } else {
-                NSLog(@"Uninstalled master \"stub\" .tblk for %@", bundleId);
-            }
-        }
     }
 
     return TRUE;
@@ -2083,61 +2034,6 @@ in: (NSString *) sharedOrPrivate {
         }
     }
 
-    // If this outer .tblk is an updatable .tblk, create a "stub" .tblk and add it to 'updateSources' and 'updateTargets'
-    if (  outerUpdatablePlist  ) {
-        // Create a stub .tblk in the temporary folder's "Updatables" subfolder.
-        // A stub consists of an Info.plist file and a "uninstalled" file inside a "Contents" folder inside a .tblk.
-        // A "Resources" folder inside the "Contents" folder may contain a DSA key file if there is one.
-
-        // Get the path at which to create the stub .tblk.
-        NSString * cfBI = [outerUpdatablePlist objectForKey: @"CFBundleIdentifier"];
-        NSString * tblkName = [cfBI stringByAppendingPathExtension: @"tblk"];
-        NSString * tblkStubPath = [[[self tempDirPath] stringByAppendingPathComponent: @"Updatables"]
-                                   stringByAppendingPathComponent: tblkName];
-
-        // Make sure we haven't processed a configuration with that CFBundleIdentifier already
-        if (  [gFileMgr fileExistsAtPath: tblkStubPath]  ) {
-            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n", @"Window text"), cfBI];
-        }
-
-        // Create the Contents directory
-        NSString * contentsPath = [tblkStubPath stringByAppendingPathComponent: @"Contents"];
-        if (  createDir(contentsPath, PERMS_SECURED_FOLDER) == -1 ) {
-            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n", @"Window text"), cfBI];
-        }
-
-        // Copy the Info.plist into the Contents directory and set its permissions
-        NSString * plistPath = [contentsPath stringByAppendingPathComponent: @"Info.plist"];
-        if (  ! [outerUpdatablePlist writeToFile: plistPath atomically: YES]  ) {
-            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n", @"Window text"), cfBI];
-        }
-        NSDictionary * attributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: PERMS_SECURED_READABLE] forKey: NSFilePosixPermissions];
-        if (  ! [gFileMgr tbChangeFileAttributes: attributes atPath: plistPath]  ) {
-            return [NSString stringWithFormat: NSLocalizedString(@"Failed to set permissions on %@\n", @"Window text"), plistPath];
-        }
-
-        // Create the "uninstalled" file in the Contents directory
-        NSString * uninstalledFilePath = [contentsPath stringByAppendingPathComponent: @"installed"];
-        if (  ! [gFileMgr createFileAtPath: uninstalledFilePath contents: [NSData data] attributes: attributes]  ) {
-            return [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n", @"Window text"), cfBI];
-        }
-
-        // Make sure that the update will be done via https: and that it will be digitally signed
-        id obj3 = [outerUpdatablePlist objectForKey: @"SUFeedURL"];
-        BOOL doesNotUseHttps = (  ! (   [[obj3 class] isSubclassOfClass: [NSString class]]
-                                     && [(NSString *)obj3 hasPrefix: @"https://"]  )  );
-        BOOL willNotBeSigned = ! [outerUpdatablePlist objectForKey: @"SUPublicDSAKey"];
-        if (   doesNotUseHttps
-            || willNotBeSigned  ) {
-            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n", @"Window text"), cfBI];
-        }
-
-        NSString * targetPath = [[L_AS_T_TBLKS stringByAppendingPathComponent: cfBI]
-                                 stringByAppendingPathComponent: [outerTblkPath lastPathComponent]];
-        [[self updateSources] addObject: tblkStubPath];
-        [[self updateTargets] addObject: targetPath];
-    }
-
     return nil;
 }
 
@@ -2410,11 +2306,11 @@ in: (NSString *) sharedOrPrivate {
 
 -(NSArray *) connectedConfigurationDisplayNames {
 
-    // Returns an array with display names of .tblk replacements, updates, or deletions that are currently connected, or nil on error
+    // Returns an array with display names of .tblk replacements or deletions that are currently connected, or nil on error
 
     NSMutableArray * list = [[[NSMutableArray alloc] init] autorelease];
 
-    NSArray * targetList = [NSArray arrayWithObjects: [self replaceTargets], [self updateTargets], [self deletions], nil];
+    NSArray * targetList = [NSArray arrayWithObjects: [self replaceTargets], [self deletions], nil];
     NSArray * currentList;
     NSEnumerator * listE = [targetList objectEnumerator];
     while (  (currentList = [listE nextObject])  ) {
@@ -2725,66 +2621,6 @@ in: (NSString *) sharedOrPrivate {
         }
     }
 
-    // Copy updatable stub .tblks into L_AS_T_TBLKS
-
-    // We need to modify target paths to insert the edition number (a unique integer).
-    // So it changes from   /something/.../com.example.something/something
-    //                 to   /something/.../com.example.something_EDITION/something
-    // We set each new edition number to one more than the highest existing edition number
-
-    // So first, we find the highest existing edition number
-    NSString * highestEdition = nil;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
-    NSString * file;
-    while (  (file = [dirEnum nextObject])  ) {
-        [dirEnum skipDescendents];
-        if (   ( ! [file hasPrefix: @"."] )
-            && ( ! [file hasSuffix: @".tblk"] )  ) {
-            NSString * edition = [file pathEdition];
-            if (   ( [edition length] != 0 )
-                && (   ( ! highestEdition )
-                    || [edition caseInsensitiveNumericCompare: highestEdition] == NSOrderedDescending )  ) {
-                highestEdition = edition;
-            }
-        }
-    }
-    if (  ! highestEdition  ) {
-        highestEdition = @"-1";
-    }
-
-    // Now go through and copy the stub .tblks, modifying each target path as we go
-
-    for (  ix=0; ix<[[self updateSources] count]; ix++  ) {
-
-        NSString * source = [[self updateSources] objectAtIndex: ix];
-        NSString * target = [[self updateTargets] objectAtIndex: ix];
-
-        // Insert the new edition into the target path as a suffix to the next-to-last path component
-
-        NSString * targetLast        = [target lastPathComponent];
-        NSString * targetWithoutLast = [target stringByDeletingLastPathComponent];
-        NSString * bundleId          = [targetWithoutLast lastPathComponent];
-
-        highestEdition = [NSString stringWithFormat: @"%u", (unsigned)[highestEdition intValue] + 1];
-
-        target = [[targetWithoutLast
-                   stringByAppendingFormat: @"_%@", highestEdition]
-                  stringByAppendingPathComponent: targetLast];
-
-        NSArray * arguments = [NSArray arrayWithObjects: target, source, nil];
-        NSInteger installerResult = [gMC runInstaller: INSTALLER_COPY
-                                       extraArguments: arguments
-                                      usingSystemAuth: auth
-                                         installTblks: nil];
-        if (  installerResult == 0  ) {
-            [[gMC myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
-            [[gMC myConfigMultiUpdater] performSelectorOnMainThread:@selector(addUpdateCheckingForStubTblkAtPath:) withObject: target waitUntilDone: YES];
-        } else {
-            nUpdateErrors++;
-            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to store updatable configuration stub at %@\n", @"Window text"), target]];
-        }
-    }
-
     // Release the authorization we have been using
 
     [auth release];
@@ -3055,8 +2891,6 @@ in: (NSString *) sharedOrPrivate {
     replaceTargets =   [[NSMutableArray alloc]  initWithCapacity: 100];
     noAdminSources =   [[NSMutableArray alloc]  initWithCapacity: 100];
     noAdminTargets =   [[NSMutableArray alloc]  initWithCapacity: 100];
-    updateSources  =   [[NSMutableArray alloc]  initWithCapacity: 100];
-    updateTargets  =   [[NSMutableArray alloc]  initWithCapacity: 100];
     deletions      =   [[NSMutableArray alloc]  initWithCapacity: 100];
 
     errorLog       =   [[NSMutableString alloc] initWithCapacity: 1000];
@@ -3177,40 +3011,6 @@ in: (NSString *) sharedOrPrivate {
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
         return YES;
-    }
-
-    return NO;
-}
-
-+(BOOL) isConfigurationUpdatableAtPath: (NSString *) path {
-
-    NSString * infoPlistPath = [[path stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Info.plist"];
-    NSString * fileName = [[[NSDictionary dictionaryWithContentsOfFile: infoPlistPath] objectForKey: @"CFBundleIdentifier"] stringByAppendingPathExtension: @"tblk"];
-    if (  fileName  ) {
-        BOOL isUpdatable = FALSE;
-        BOOL isDir;
-        NSString * bundleIdAndEdition;
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
-        while (  (bundleIdAndEdition = [dirEnum nextObject])  ) {
-            [dirEnum skipDescendents];
-            NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
-            if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
-                && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
-                && [gFileMgr fileExistsAtPath: containerPath isDirectory: &isDir]
-                && isDir  ) {
-                NSString * name;
-                NSDirectoryEnumerator * innerEnum = [gFileMgr enumeratorAtPath: containerPath];
-                while (  (name = [innerEnum nextObject] )  ) {
-                    if (  [name isEqualToString: fileName]  ) {
-                        isUpdatable = TRUE;
-                        break;
-                    }
-                }
-            }
-        }
-        if (  isUpdatable  ) {
-            return YES;
-        }
     }
 
     return NO;
@@ -3419,22 +3219,10 @@ in: (NSString *) sharedOrPrivate {
                                       [NSString  stringWithFormat: NSLocalizedString(@"You cannot make the '%@' configuration private because it is set to start when the computer starts.", @"Window text"), localName]);
                     return;
                 }
-                if (   [ConfigurationManager isConfigurationUpdatableAtPath: path]  ) {
-                    TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                      [NSString  stringWithFormat: NSLocalizedString(@"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\n"
-                                                                                     @"Note that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared.", @"Window text"), localName]);
-                    return;  // User has been notified already
-                }
                 [pathsToModify addObject: path];
             }
         } else if (  [path hasPrefix: [gPrivatePath stringByAppendingPathComponent: @"/"]]  ) {
             if (  shared  ) {
-                if (  [ConfigurationManager isConfigurationUpdatableAtPath: path]  ) {
-                    TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                      [NSString  stringWithFormat: NSLocalizedString(@"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\n"
-                                                                                     @"Note that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared.", @"Window text"), localName]);
-                    return;  // User has been notified already
-                }
                 [pathsToModify addObject: path];
             }
         }
@@ -6025,38 +5813,6 @@ done:
                                   target: [ConfigurationManager class]
                                   object: dict
                              disableList: [NSArray arrayWithObject: @"*"]];
-}
-
-+(void) installConfigurationsUpdateInBundleInMainThreadAtPath: (NSString *) path {
-    
-    NSArray * components = [path componentsSeparatedByString: @"/"];
-    if (   ( [components count] !=  7)
-        || ( ! [path hasPrefix: L_AS_T_TBLKS])
-        ) {
-        NSLog(@"Configuration update installer: Not installing configurations update: Invalid path to update");
-    } else {
-        
-        // Secure the update (which makes Info.plist readable by everyone and all folders searchable by everyone)
-        NSArray * args = [NSArray arrayWithObjects:
-                          @"secureUpdate",
-                          [components objectAtIndex: 5],
-                          nil];
-        OSStatus status = runOpenvpnstart(args, nil, nil);
-        if (  status != 0  ) {
-            NSLog(@"Could not secure the update; openvpnstart status was %ld", (long)status);
-        }
-        
-        // Install the updated configurations
-        TBLog(@"DB-UC", @"Installing updated configurations at '%@'", path);
-        [[ConfigurationManager manager] installConfigurations: [NSArray arrayWithObject: path]
-                                                 skipMessages: YES
-                                               notifyDelegate: YES
-                                             disallowCommands: YES];
-    }
-    
-    [gMC configurationsChanged];
-    
-    [gMC startCheckingForConfigurationUpdates];
 }
 
 +(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName log: (NSString *) logContents {

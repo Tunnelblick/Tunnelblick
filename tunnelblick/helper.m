@@ -1750,10 +1750,7 @@ BOOL appHasValidSignature(void) {
 
     NSString * appPath = [[NSBundle mainBundle] bundlePath];
 
-    if (   itemHasValidSignature(appPath, YES)
-        && itemHasValidSignature([appPath stringByAppendingPathComponent:
-                                  @"/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/TunnelblickUpdater.app/Contents/MacOS/fileop"], NO)
-        ) {
+    if (  itemHasValidSignature(appPath, YES)  ) {
         return YES;
     }
 

@@ -28,8 +28,6 @@ LZO_NAME         = lzo-2.10
 
 LZ4_NAME         = lz4-1.10.0
 
-SPARKLE_NAME     = Sparkle-077c64419f9460263bad99ab24dff962a103b1e2
-
 OPENSSL_1_1_NAME = openssl-1.1.1w
 OPENSSL_3_0_NAME = openssl-3.0.17
 OPENSSL_3_5_NAME = openssl-3.5.4
@@ -80,7 +78,6 @@ ifeq ($(TB_CAN_BUILD_ARM),0)
     LZ4_TARGET_ARCHS         = $(TB_COMMON_X86_ARCH)
     LZO_TARGET_ARCHS         = $(TB_COMMON_X86_ARCH)
     PKCS11_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH)
-    SPARKLE_TARGET_ARCHS     = $(TB_COMMON_X86_ARCH)
     TUNTAP_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH)
 
     # Used to build OpenSSL:
@@ -100,7 +97,6 @@ else
     LZ4_TARGET_ARCHS         = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
     LZO_TARGET_ARCHS         = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
     PKCS11_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
-    SPARKLE_TARGET_ARCHS     = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
     TUNTAP_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH) $(TB_TUNTAP_ARM_ARCH)
     OPENSSL_1_1_TARGET_ARCHS = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
     OPENSSL_3_0_TARGET_ARCHS = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
@@ -191,8 +187,7 @@ DOWN_ROOT_ARCH_2_2=$(foreach f, $(TARGET_ARCHS), -arch $f)
 #######################################################################################
 # Define the make rules:
 
-all: 	built-sparkle \
-	built-easy-rsa-tunnelblick \
+all: 	built-easy-rsa-tunnelblick \
 	built-tuntap               \
 	built-openvpn
 	@echo "THIRD_PARTY: Made all third_party for Tunnelblick" ; \

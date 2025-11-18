@@ -26,7 +26,6 @@
 #import "NSString+TB.h"
 
 #import "ConfigurationManager.h"
-#import "ConfigurationMultiUpdater.h"
 #import "MenuController.h"
 #import "NSFileManager+TB.h"
 #import "NSTimer+TB.h"

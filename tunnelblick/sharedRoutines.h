@@ -87,8 +87,6 @@ NSString * allFilesAreReasonableIn(NSString * path);
 uid_t getUidFromName(NSString * username);
 gid_t getGidFromName(NSString * username);
 
-NSDictionary * highestEditionForEachBundleIdinL_AS_T(void);
-
 BOOL invalidConfigurationName (NSString * name,
                                const char badChars[]);
 
