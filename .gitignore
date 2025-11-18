@@ -14,6 +14,9 @@ xcshareddata/
 *.mode1v3
 *.pbxuser
 
+# Subproject build folder
+tunnelblick/Debug_update_signing_util/build
+
 # OS generated files #
 ######################
 .DS_Store
