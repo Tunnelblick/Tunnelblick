@@ -73,6 +73,11 @@
 		632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632BB9E9194F2D13006CD7DA /* AlertWindow.xib */; };
 		633702982E156CE5009115D9 /* client.5.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 633702962E156CE4009115D9 /* client.5.down.tunnelblick.sh */; };
 		633702992E156CE5009115D9 /* client.5.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 633702972E156CE4009115D9 /* client.5.up.tunnelblick.sh */; };
+		63372AE32EC402D6004E5014 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
+		63372AE92EC4030D004E5014 /* update_signing_util.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FF91D12EC25DA200E54E89 /* update_signing_util.m */; };
+		63372AEA2EC40320004E5014 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
+		63372B092EC79472004E5014 /* UpdateSigning.m in Sources */ = {isa = PBXBuildFile; fileRef = 63372B082EC79472004E5014 /* UpdateSigning.m */; };
+		63372B0A2EC7F5B4004E5014 /* UpdateSigning.m in Sources */ = {isa = PBXBuildFile; fileRef = 63372B082EC79472004E5014 /* UpdateSigning.m */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
 		63379F8813F695D700F2554D /* TBBuildNumber.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63379F8713F695D700F2554D /* TBBuildNumber.txt */; };
 		633888F61C00F2FC0076032D /* AlertWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633888F01C00F2FC0076032D /* AlertWindow-RTL.xib */; };
@@ -169,6 +174,7 @@
 		63AE127F25C239500008379F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63AE8599116CCF7A00D36CB1 /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63AE8596116CCF7A00D36CB1 /* pl.lproj */; };
 		63AF2CAE15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */; };
+		63B15DB12ECD107200DBC72B /* update_signing_util_debugger in Copy update_signing_util_debugger */ = {isa = PBXBuildFile; fileRef = 63B15DA42ECD0E2300DBC72B /* update_signing_util_debugger */; };
 		63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31811E34D69007D99DB /* tunnelblick.icns */; };
 		63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */; };
 		63B9CFA5132C73DD009EC6D0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B9CFA4132C73DD009EC6D0 /* WebKit.framework */; };
@@ -187,6 +193,12 @@
 		63C3757A1A45111700D51E81 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63C3757B1A45112500D51E81 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63C3757C1A45113000D51E81 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
+		63C79A262ECB5AEB00B7BDCA /* UpdateSigning.m in Sources */ = {isa = PBXBuildFile; fileRef = 63372B082EC79472004E5014 /* UpdateSigning.m */; };
+		63C79A272ECB5B7100B7BDCA /* UpdateSigning.m in Sources */ = {isa = PBXBuildFile; fileRef = 63372B082EC79472004E5014 /* UpdateSigning.m */; };
+		63C79A282ECB5B7F00B7BDCA /* UpdateSigning.m in Sources */ = {isa = PBXBuildFile; fileRef = 63372B082EC79472004E5014 /* UpdateSigning.m */; };
+		63C79A292ECB5B9100B7BDCA /* UpdateSigning.m in Sources */ = {isa = PBXBuildFile; fileRef = 63372B082EC79472004E5014 /* UpdateSigning.m */; };
+		63C79A2A2ECB5B9F00B7BDCA /* UpdateSigning.m in Sources */ = {isa = PBXBuildFile; fileRef = 63372B082EC79472004E5014 /* UpdateSigning.m */; };
+		63C79A2B2ECB5BB200B7BDCA /* UpdateSigning.m in Sources */ = {isa = PBXBuildFile; fileRef = 63372B082EC79472004E5014 /* UpdateSigning.m */; };
 		63C98A732913D6A700DB78F2 /* KK.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63C98A722913D6A700DB78F2 /* KK.lproj */; };
 		63CC72F91928C5CB00F81220 /* TBUIUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.m */; };
 		63D2658829940ACC00E1C3FF /* HI.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63D2658729940ACC00E1C3FF /* HI.lproj */; };
@@ -304,6 +316,13 @@
 			remoteGlobalIDString = 6317943D118D7E820057ACAF;
 			remoteInfo = atsystemstart;
 		};
+		63372B032EC404E2004E5014 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63372ADF2EC402D6004E5014;
+			remoteInfo = generate_keys;
+		};
 		635BF19F1501CDAF00D87717 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -331,6 +350,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 63AA8E571492C75200C791C9;
 			remoteInfo = "process-network-changes";
+		};
+		63B15DA32ECD0E2300DBC72B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63B15D9F2ECD0E2300DBC72B /* Debug_update_signing_util.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 63372B142EC8BB93004E5014;
+			remoteInfo = debug_update_signing_util;
+		};
+		63B15DAC2ECD0FEB00DBC72B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63B15D9F2ECD0E2300DBC72B /* Debug_update_signing_util.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 63372B132EC8BB93004E5014;
+			remoteInfo = debug_update_signing_util;
 		};
 		63C375861A4513A700D51E81 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -374,6 +407,17 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		63B15DAF2ECD103100DBC72B /* Copy update_signing_util_debugger */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				63B15DB12ECD107200DBC72B /* update_signing_util_debugger in Copy update_signing_util_debugger */,
+			);
+			name = "Copy update_signing_util_debugger";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -460,6 +504,9 @@
 		632BB9E9194F2D13006CD7DA /* AlertWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertWindow.xib; sourceTree = "<group>"; };
 		633702962E156CE4009115D9 /* client.5.down.tunnelblick.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = client.5.down.tunnelblick.sh; sourceTree = "<group>"; };
 		633702972E156CE4009115D9 /* client.5.up.tunnelblick.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = client.5.up.tunnelblick.sh; sourceTree = "<group>"; };
+		63372AE82EC402D6004E5014 /* update_signing_util */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = update_signing_util; sourceTree = BUILT_PRODUCTS_DIR; };
+		63372B072EC79472004E5014 /* UpdateSigning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateSigning.h; sourceTree = "<group>"; };
+		63372B082EC79472004E5014 /* UpdateSigning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateSigning.m; sourceTree = "<group>"; };
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
 		63379F8713F695D700F2554D /* TBBuildNumber.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TBBuildNumber.txt; sourceTree = "<group>"; };
@@ -572,6 +619,7 @@
 		63ABFE9E1349F086003DEB64 /* LoginWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginWindow.xib; sourceTree = "<group>"; };
 		63AE8596116CCF7A00D36CB1 /* pl.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pl.lproj; sourceTree = "<group>"; };
 		63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "client.route-pre-down.tunnelblick.sh"; sourceTree = "<group>"; };
+		63B15D9F2ECD0E2300DBC72B /* Debug_update_signing_util.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Debug_update_signing_util.xcodeproj; path = Debug_update_signing_util/Debug_update_signing_util.xcodeproj; sourceTree = "<group>"; };
 		63B16B4F1E204D37002958D0 /* updates_sign_with_v2_signature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = updates_sign_with_v2_signature; sourceTree = "<group>"; };
 		63B16B501E204D37002958D0 /* updates_sign_with_v1_signature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = updates_sign_with_v1_signature; sourceTree = "<group>"; };
 		63B4DCE41A409DF300F6A74C /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
@@ -666,6 +714,8 @@
 		63FA093F1D25E68500859556 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
 		63FA09401D25E68500859556 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
 		63FAF9A5257A5E7B00932F5B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		63FF91CE2EBF962B00E54E89 /* Tunnelblick-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tunnelblick-Bridging-Header.h"; sourceTree = "<group>"; };
+		63FF91D12EC25DA200E54E89 /* update_signing_util.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = update_signing_util.m; sourceTree = "<group>"; };
 		63FFC3D71D3FDF5100CBB289 /* DropConfigsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropConfigsView.h; sourceTree = "<group>"; };
 		63FFC3D81D3FDF5A00CBB289 /* DropConfigsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropConfigsView.m; sourceTree = "<group>"; };
 		63FFD6521D0E9C8B00D4FFD9 /* Lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock.png; sourceTree = "<group>"; };
@@ -749,6 +799,15 @@
 				639A47B82168BAB60019FBFD /* SystemConfiguration.framework in Frameworks */,
 				634EE8391191F89800DF4E43 /* Security.framework in Frameworks */,
 				6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63372AE22EC402D6004E5014 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63372AE32EC402D6004E5014 /* Foundation.framework in Frameworks */,
+				63372AEA2EC40320004E5014 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,6 +935,7 @@
 				63C374391A4510AA00D51E81 /* tunnelblick-helper */,
 				630680FA2BA104A500563B9A /* Tunnelblick Launcher.app */,
 				636F48B42BBA4406001C9EFE /* TunnelblickUpdateHelper */,
+				63372AE82EC402D6004E5014 /* update_signing_util */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -883,6 +943,7 @@
 		29B97314FDCFA39411CA2CEA /* Tunnelblick */ = {
 			isa = PBXGroup;
 			children = (
+				63B15D9F2ECD0E2300DBC72B /* Debug_update_signing_util.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -895,6 +956,7 @@
 				63432572140D7F5A00015CE0 /* CoreServices.framework */,
 				63B4DCE41A409DF300F6A74C /* ServiceManagement.framework */,
 				634616861A9B85C60049C16C /* SystemConfiguration.framework */,
+				63FF91CE2EBF962B00E54E89 /* Tunnelblick-Bridging-Header.h */,
 			);
 			name = Tunnelblick;
 			sourceTree = "<group>";
@@ -916,6 +978,7 @@
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				63179443118D7EC20057ACAF /* atsystemstart.m */,
 				61BC4D9D0E2FA2F300F24255 /* installer.m */,
+				63FF91D12EC25DA200E54E89 /* update_signing_util.m */,
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
 				63AA8E5E1492C77700C791C9 /* process-network-changes.m */,
 				638A1FE0135CB82500FB932C /* standardize-scutil-output.m */,
@@ -1034,6 +1097,14 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
+		63B15DA02ECD0E2300DBC72B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				63B15DA42ECD0E2300DBC72B /* update_signing_util_debugger */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		63C374521D281EBD004758A3 /* InfoButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1069,6 +1140,8 @@
 				631D15AB2BE8477300728E32 /* TBValidator.m */,
 				631D15AE2BEBFCC400728E32 /* TBUpdaterShared.h */,
 				631D15AF2BEBFCC400728E32 /* TBUpdaterShared.m */,
+				63372B072EC79472004E5014 /* UpdateSigning.h */,
+				63372B082EC79472004E5014 /* UpdateSigning.m */,
 			);
 			name = TBUpdater;
 			sourceTree = "<group>";
@@ -1559,6 +1632,22 @@
 			productReference = 6317943E118D7E820057ACAF /* atsystemstart */;
 			productType = "com.apple.product-type.tool";
 		};
+		63372ADF2EC402D6004E5014 /* update_signing_util */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63372AE52EC402D6004E5014 /* Build configuration list for PBXNativeTarget "update_signing_util" */;
+			buildPhases = (
+				63372AE02EC402D6004E5014 /* Sources */,
+				63372AE22EC402D6004E5014 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = update_signing_util;
+			productName = tunnelblickd;
+			productReference = 63372AE82EC402D6004E5014 /* update_signing_util */;
+			productType = "com.apple.product-type.tool";
+		};
 		636F48B32BBA4406001C9EFE /* TunnelblickUpdateHelper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 636F48B82BBA4406001C9EFE /* Build configuration list for PBXNativeTarget "TunnelblickUpdateHelper" */;
@@ -1648,6 +1737,7 @@
 				616A49200E38D17500477476 /* Build Third Party Items */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
+				63B15DAF2ECD103100DBC72B /* Copy update_signing_util_debugger */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				61BC4D930E2FA26E00F24255 /* Copy Helpers */,
 				610AEAE70E2FE63900EA3C79 /* Create the Applications and .dmgs */,
@@ -1655,6 +1745,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				63B15DAD2ECD0FEB00DBC72B /* PBXTargetDependency */,
+				63372B042EC404E2004E5014 /* PBXTargetDependency */,
 				636F48BC2BBA4430001C9EFE /* PBXTargetDependency */,
 				630681102BA10EFA00563B9A /* PBXTargetDependency */,
 				631795DD118DC57E0057ACAF /* PBXTargetDependency */,
@@ -1687,6 +1779,9 @@
 					636F48B32BBA4406001C9EFE = {
 						CreatedOnToolsVersion = 15.3;
 					};
+					8D1107260486CEB800E47090 = {
+						LastSwiftMigration = 2600;
+					};
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Tunnelblick" */;
@@ -1704,6 +1799,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Tunnelblick */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 63B15DA02ECD0E2300DBC72B /* Products */;
+					ProjectRef = 63B15D9F2ECD0E2300DBC72B /* Debug_update_signing_util.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* Tunnelblick */,
@@ -1717,9 +1818,20 @@
 				630680F92BA104A500563B9A /* Tunnelblick Launcher */,
 				636F48B32BBA4406001C9EFE /* TunnelblickUpdateHelper */,
 				635BF17E1501CCDF00D87717 /* ExternalBuildCleanScript */,
+				63372ADF2EC402D6004E5014 /* update_signing_util */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		63B15DA42ECD0E2300DBC72B /* update_signing_util_debugger */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = update_signing_util_debugger;
+			remoteRef = 63B15DA32ECD0E2300DBC72B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		630680F82BA104A500563B9A /* Resources */ = {
@@ -1901,6 +2013,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63C79A2B2ECB5BB200B7BDCA /* UpdateSigning.m in Sources */,
 				61BC4CDF0E2F9FFA00F24255 /* openvpnstart.m in Sources */,
 				63F2AD9C12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
 				639F0FBA1960EFA100A3090E /* NSString+TB.m in Sources */,
@@ -1912,6 +2025,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63C79A2A2ECB5B9F00B7BDCA /* UpdateSigning.m in Sources */,
 				61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */,
 				B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */,
 				B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
@@ -1928,6 +2042,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63C79A272ECB5B7100B7BDCA /* UpdateSigning.m in Sources */,
 				630680FE2BA104A600563B9A /* AppDelegate.m in Sources */,
 				638307E22BC0716E00384B38 /* NSFileHandle+TB.m in Sources */,
 				6306810A2BA1095D00563B9A /* NSFileManager+TB.m in Sources */,
@@ -1940,9 +2055,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63C79A292ECB5B9100B7BDCA /* UpdateSigning.m in Sources */,
 				63179444118D7EC20057ACAF /* atsystemstart.m in Sources */,
 				63F2AD9E12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
 				B8C7338C162219E400746C0D /* sharedRoutines.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63372AE02EC402D6004E5014 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63372B0A2EC7F5B4004E5014 /* UpdateSigning.m in Sources */,
+				63372AE92EC4030D004E5014 /* update_signing_util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1950,6 +2075,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63C79A262ECB5AEB00B7BDCA /* UpdateSigning.m in Sources */,
 				631D15AD2BEAA3B300728E32 /* TBValidator.m in Sources */,
 				63BFA9392BBB6BD40006484A /* NSDate+TB.m in Sources */,
 				636F48BE2BBA5B4E001C9EFE /* NSFileManager+TB.m in Sources */,
@@ -1979,6 +2105,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63C79A282ECB5B7F00B7BDCA /* UpdateSigning.m in Sources */,
 				63C375791A4510F600D51E81 /* tunnelblick-helper.m in Sources */,
 				63097CE022340EA8005F94CF /* NSDate+TB.m in Sources */,
 				63C3757A1A45111700D51E81 /* NSFileManager+TB.m in Sources */,
@@ -2059,6 +2186,7 @@
 				634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */,
 				6317AD942C80F681008D7CAA /* TunnelblickInfo.m in Sources */,
 				635971421C06736B0055FBC5 /* UIHelper.m in Sources */,
+				63372B092EC79472004E5014 /* UpdateSigning.m in Sources */,
 				63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */,
 				61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */,
 				63E56EE713848338007E39AB /* VPNService.m in Sources */,
@@ -2097,6 +2225,11 @@
 			target = 6317943D118D7E820057ACAF /* atsystemstart */;
 			targetProxy = 631795DC118DC57E0057ACAF /* PBXContainerItemProxy */;
 		};
+		63372B042EC404E2004E5014 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63372ADF2EC402D6004E5014 /* update_signing_util */;
+			targetProxy = 63372B032EC404E2004E5014 /* PBXContainerItemProxy */;
+		};
 		635BF1A01501CDAF00D87717 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 635BF17E1501CCDF00D87717 /* ExternalBuildCleanScript */;
@@ -2116,6 +2249,11 @@
 			isa = PBXTargetDependency;
 			target = 63AA8E571492C75200C791C9 /* process-network-changes */;
 			targetProxy = 63AA8E641492C7CC00C791C9 /* PBXContainerItemProxy */;
+		};
+		63B15DAD2ECD0FEB00DBC72B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = debug_update_signing_util;
+			targetProxy = 63B15DAC2ECD0FEB00DBC72B /* PBXContainerItemProxy */;
 		};
 		63C375871A4513A700D51E81 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2362,6 +2500,52 @@
 			};
 			name = Debug;
 		};
+		63372AE62EC402D6004E5014 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = TBDebug;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		63372AE72EC402D6004E5014 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		635BF17F1501CCDF00D87717 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2540,6 +2724,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				ONLY_ACTIVE_ARCH = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = macosx26.0;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
@@ -2547,6 +2732,7 @@
 		6398C40213DB30F60005FEB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -2575,6 +2761,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.tunnelblick.tunnelblick;
 				PRODUCT_NAME = Tunnelblick;
+				SWIFT_OBJC_BRIDGING_HEADER = "Tunnelblick-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
@@ -2837,6 +3026,7 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -2865,6 +3055,9 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.tunnelblick.tunnelblick;
 				PRODUCT_NAME = Tunnelblick;
+				SWIFT_OBJC_BRIDGING_HEADER = "Tunnelblick-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
@@ -2923,6 +3116,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = macosx26.0;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -2962,6 +3156,15 @@
 			buildConfigurations = (
 				63179440118D7E830057ACAF /* Debug */,
 				6398C40513DB30F60005FEB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63372AE52EC402D6004E5014 /* Build configuration list for PBXNativeTarget "update_signing_util" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63372AE62EC402D6004E5014 /* Debug */,
+				63372AE72EC402D6004E5014 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
