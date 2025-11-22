@@ -50,6 +50,16 @@ NS_ASSUME_NONNULL_BEGIN
     id         delegate;                // Instance of class to notify (for application, gMC, for connection, ??????)
     
     // Info for an appropriate update, obtained from the appcast (nil if no update is appropriate):
+    //      versionString
+    //      build
+    //      minOS
+    //      maxOS
+    //      architectures
+    //      url
+    //      signature
+    //      lengthString
+    //      type
+    //      length       (converted from lengthString)
     NSDictionary * updateInfo;
 
     NSString * currentTunnelblickVersionString; // Info about currently installed Tunnelblick, Mac, and macOS,
