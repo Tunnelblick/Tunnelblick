@@ -575,7 +575,6 @@
 		637A871813B74B81003C1871 /* SplashWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashWindowController.m; sourceTree = "<group>"; };
 		637A871B13B74DFB003C1871 /* SplashWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashWindow.xib; sourceTree = "<group>"; };
 		638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "reactivate-tunnelblick.sh"; sourceTree = "<group>"; };
-		638222201E287C0500A2BD87 /* updates_create_signature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = updates_create_signature; sourceTree = "<group>"; };
 		638307E02BC0716E00384B38 /* NSFileHandle+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileHandle+TB.m"; sourceTree = "<group>"; };
 		638307E12BC0716E00384B38 /* NSFileHandle+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileHandle+TB.h"; sourceTree = "<group>"; };
 		6387F0F4135604240021E41B /* tunnelblick.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; path = tunnelblick.sdef; sourceTree = "<group>"; };
@@ -620,8 +619,6 @@
 		63AE8596116CCF7A00D36CB1 /* pl.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pl.lproj; sourceTree = "<group>"; };
 		63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "client.route-pre-down.tunnelblick.sh"; sourceTree = "<group>"; };
 		63B15D9F2ECD0E2300DBC72B /* Debug_update_signing_util.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Debug_update_signing_util.xcodeproj; path = Debug_update_signing_util/Debug_update_signing_util.xcodeproj; sourceTree = "<group>"; };
-		63B16B4F1E204D37002958D0 /* updates_sign_with_v2_signature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = updates_sign_with_v2_signature; sourceTree = "<group>"; };
-		63B16B501E204D37002958D0 /* updates_sign_with_v1_signature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = updates_sign_with_v1_signature; sourceTree = "<group>"; };
 		63B4DCE41A409DF300F6A74C /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		63B5E31811E34D69007D99DB /* tunnelblick.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick.icns; sourceTree = "<group>"; };
 		63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick_package.icns; sourceTree = "<group>"; };
@@ -701,7 +698,6 @@
 		63ED8EE61A1E84560045D34E /* tunnelblickd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tunnelblickd; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ED90391A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.tunnelblickd.plist; sourceTree = "<group>"; };
 		63EEBD8C137EF4C3001BFFD8 /* help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = help; sourceTree = "<group>"; };
-		63EED3041E0466A40068D328 /* updates_generate_keys */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = updates_generate_keys; sourceTree = "<group>"; };
 		63F0A8AF1507D13700526AF9 /* MainIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainIconView.h; sourceTree = "<group>"; };
 		63F0A8B01507D13700526AF9 /* MainIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainIconView.m; sourceTree = "<group>"; };
 		63F0A8B21507D24800526AF9 /* MainIcon.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainIcon.xib; sourceTree = "<group>"; };
@@ -1217,10 +1213,6 @@
 				6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */,
 				63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */,
 				63F39E951FBDBE1900C18FDE /* re-enable-network-services.sh */,
-				63EED3041E0466A40068D328 /* updates_generate_keys */,
-				638222201E287C0500A2BD87 /* updates_create_signature */,
-				63B16B501E204D37002958D0 /* updates_sign_with_v1_signature */,
-				63B16B4F1E204D37002958D0 /* updates_sign_with_v2_signature */,
 				63E372660FEB3FF00012DDE7 /* leasewatch */,
 				63D92581135DAEE1001FF627 /* leasewatch3 */,
 				63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */,

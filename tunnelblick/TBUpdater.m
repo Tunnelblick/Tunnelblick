@@ -756,16 +756,16 @@ doneReturnErr:
 
             NSMutableDictionary * dict = [[[NSMutableDictionary alloc] initWithCapacity: 20] autorelease];
 
-            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:shortVersionString=\""   before: @"\""]    forKey: @"versionString" inDictionary: dict];
-            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:version=\""              before: @"\""]    forKey: @"build"         inDictionary: dict];
-            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:minimumSystemVersion=\"" before: @"\""]    forKey: @"minOS"         inDictionary: dict];
-            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:maximumSystemVersion=\"" before: @"\""]    forKey: @"maxOS"         inDictionary: dict];
-            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:architectures=\""        before: @"\""]    forKey: @"architectures" inDictionary: dict];
-            [self ifNotNilSetObject: [self extractFromString: string after: @"url=\""                          before: @"\""]    forKey: @"url"           inDictionary: dict];
-            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:dsaSignature=\""         before: @"\""]    forKey: @"signature"     inDictionary: dict];
-            [self ifNotNilSetObject: [self extractFromString: string after: @"length=\""                       before: @"\""]    forKey: @"lengthString"  inDictionary: dict];
-            [self ifNotNilSetObject: [self extractFromString: string after: @"type=\""                         before: @"\""]    forKey: @"type"          inDictionary: dict];
-            [self ifNotNilSetObject: [self extractFromString: string after: @"<![CDATA["                       before: @"]]>\n"] forKey: @"notes"         inDictionary: dict];
+            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:shortVersionString=\""   before: @"\""]    forKey: @"versionString"  inDictionary: dict];
+            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:version=\""              before: @"\""]    forKey: @"build"          inDictionary: dict];
+            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:minimumSystemVersion=\"" before: @"\""]    forKey: @"minOS"          inDictionary: dict];
+            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:maximumSystemVersion=\"" before: @"\""]    forKey: @"maxOS"          inDictionary: dict];
+            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:architectures=\""        before: @"\""]    forKey: @"architectures"  inDictionary: dict];
+            [self ifNotNilSetObject: [self extractFromString: string after: @"url=\""                          before: @"\""]    forKey: @"url"            inDictionary: dict];
+            [self ifNotNilSetObject: [self extractFromString: string after: @"sparkle:ECDSASignature=\""       before: @"\""]    forKey: @"signature"      inDictionary: dict];
+            [self ifNotNilSetObject: [self extractFromString: string after: @"length=\""                       before: @"\""]    forKey: @"lengthString"   inDictionary: dict];
+            [self ifNotNilSetObject: [self extractFromString: string after: @"type=\""                         before: @"\""]    forKey: @"type"           inDictionary: dict];
+            [self ifNotNilSetObject: [self extractFromString: string after: @"<![CDATA["                       before: @"]]>\n"] forKey: @"notes"          inDictionary: dict];
 
             if (   ! dict[@"versionString"]
                 || ! dict[@"build"]
