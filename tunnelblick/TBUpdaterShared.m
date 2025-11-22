@@ -463,10 +463,6 @@ static BOOL verifyNotDowngrading(NSString * updatePath) {
 
 static BOOL moveApp(NSString * path, NSString * newPath) {
 
-    if (  ! [NSFileManager.defaultManager tbRemovePathIfItExists: newPath]  ) {
-        return NO;
-    }
-
     if (  ! [NSFileManager.defaultManager tbForceRenamePath: path toPath: newPath]  ) {
         return NO;
     }
