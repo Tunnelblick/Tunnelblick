@@ -6223,16 +6223,24 @@ static BOOL runningHookupThread = FALSE;
 
     int result = -1;    // Last result from waitForExecuteAuthorized
     BOOL okNow = FALSE;
+    BOOL continueAfterFailure = FALSE;
+
     NSUInteger i;
     for (  i=0; ; i++  ) {
 
         if (  i != 0  ) {
             int result2 = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", "Window title"),
                                           NSLocalizedString(@"The installation or repair took too long or failed. Try again?", "Window text"),
-                                          NSLocalizedString(@"Quit", @"Button"),
-                                          NSLocalizedString(@"Retry", @"Button"),
-                                          nil);
-            if (  result2 != NSAlertAlternateReturn  ) {   // Quit if "Quit" or error
+                                          NSLocalizedString(@"Quit", @"Button"),        // Default
+                                          NSLocalizedString(@"Retry", @"Button"),       // Alternate
+                                          NSLocalizedString(@"Continue", @"Button"));   // Other
+
+            if (  result2 == NSAlertOtherReturn  ) {
+                okNow = FALSE;
+                continueAfterFailure = TRUE;
+                break;
+
+            } else if (  result2 != NSAlertAlternateReturn  ) {   // Quit if "Quit" or error
 				NSString * installerLog = @" (none)";
 				if (  [gFileMgr fileExistsAtPath: INSTALLER_LOG_PATH]  ) {
 					NSData * data = [gFileMgr contentsAtPath: INSTALLER_LOG_PATH];
@@ -6314,6 +6322,12 @@ static BOOL runningHookupThread = FALSE;
         }
 
         return 0;
+    }
+
+    if (  continueAfterFailure  ) {
+        // Alert panel has already been shown to the user, who selected "Continue"
+        NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
+        return -1;
     }
 
 	NSLog(@"Installation or repair succeeded but installFlags = 0x%x; Log:\n%@", installFlags, installerLog);
