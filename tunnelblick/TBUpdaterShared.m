@@ -340,14 +340,21 @@ static NSString * teamIdentifierAtPath(NSString * path) {
     CFDictionaryRef cfSigningInfo = NULL;
     OSStatus copySigningInfoCode = SecCodeCopySigningInformation(staticCode, kSecCSSigningInformation, &cfSigningInfo);
     if (  copySigningInfoCode == noErr) {
-        CFStringRef cfTeamIdentifier = CFDictionaryGetValue(cfSigningInfo, kSecCodeInfoTeamIdentifier);
-        NSString * teamIdentifier = [[[NSString alloc] initWithString: (NSString *)cfTeamIdentifier] autorelease];
-        
-        if (  cfSigningInfo  ) {
-            CFRelease(cfSigningInfo);
+        if (  ! cfSigningInfo  ) {
+            appendLog([NSString stringWithFormat: @"teamIdentifierAtPath: Could not get signing info for %@", path]);
+            CFRelease(staticCode);
+            return nil;
         }
+        CFStringRef cfTeamIdentifier = CFDictionaryGetValue(cfSigningInfo, kSecCodeInfoTeamIdentifier);
+        if (  ! cfTeamIdentifier  ) {
+            appendLog([NSString stringWithFormat: @"teamIdentifierAtPath: Could not get team identifier for %@", path]);
+            CFRelease(staticCode);
+            CFRelease(cfSigningInfo);
+            return nil;
+        }
+        NSString * teamIdentifier = [[[NSString alloc] initWithString: (NSString *)cfTeamIdentifier] autorelease];
         CFRelease(staticCode);
-
+        CFRelease(cfSigningInfo);
         return teamIdentifier;
     }
 
