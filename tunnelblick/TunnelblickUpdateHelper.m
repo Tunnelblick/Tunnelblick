@@ -243,16 +243,10 @@ static void moveAppToOldAndNewToApplications_TB_App(void) {
     }
 
     // Move L_AS_T/Tunnelblick-new.app to /Applications.Tunnelblick.app
-    if (  ! [gFileMgr tbRemovePathIfItExists: APPLICATIONS_TB_APP]  ) {
-        goto fail;
+    if (  [gFileMgr tbForceMovePath: L_AS_T_TB_NEW toPath: APPLICATIONS_TB_APP]  ){
+        appendLog([NSString stringWithFormat: @"Moved %@ to %@", L_AS_T_TB_NEW, APPLICATIONS_TB_APP]);
+        return;
     }
-    appendLog([NSString stringWithFormat: @"Deleted %@", APPLICATIONS_TB_APP]);
-    if (  ! [gFileMgr tbMovePath: L_AS_T_TB_NEW toPath: APPLICATIONS_TB_APP handler: nil]  ){
-        goto fail;
-    }
-
-    appendLog([NSString stringWithFormat: @"Moved %@ to %@", L_AS_T_TB_NEW, APPLICATIONS_TB_APP]);
-    return;
 
 fail:
 
