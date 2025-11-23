@@ -6237,12 +6237,11 @@ static BOOL runningHookupThread = FALSE;
 				if (  [gFileMgr fileExistsAtPath: INSTALLER_LOG_PATH]  ) {
 					NSData * data = [gFileMgr contentsAtPath: INSTALLER_LOG_PATH];
 					if (  data  ) {
-						installerLog = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+						installerLog = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
 					}
 				}
 				NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
 
-				[installerLog release];
                 [self terminateBecause: terminatingBecauseOfError];
 				return -1;
 			}
@@ -6303,13 +6302,12 @@ static BOOL runningHookupThread = FALSE;
 	if (  [gFileMgr fileExistsAtPath: INSTALLER_LOG_PATH]  ) {
 		NSData * data = [gFileMgr contentsAtPath: INSTALLER_LOG_PATH];
 		if (  data  ) {
-			installerLog = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+			installerLog = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
 		}
 	}
 
     if (  okNow  ) {
         NSLog(@"Installation or repair succeeded; Log:\n%@", installerLog);
-        [installerLog release];
 
         if (  [tblksToInstall count] != 0  ) {
             [ConfigurationManager installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: tblksToInstall];
@@ -6320,7 +6318,6 @@ static BOOL runningHookupThread = FALSE;
 
 	NSLog(@"Installation or repair succeeded but installFlags = 0x%x; Log:\n%@", installFlags, installerLog);
 
-	[installerLog release];
     TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
 					NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
 					nil, nil, nil);
