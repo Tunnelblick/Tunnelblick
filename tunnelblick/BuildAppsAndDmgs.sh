@@ -413,7 +413,7 @@ UpdateAllInfoPlistStringsFilesWithCurrentYear() {
         if [  -f "$filePath" ] ; then
 
             if [ "$d" = "en.lproj" ] ; then
-                iconv -f UTF-16LE -t UTF-8-MAC "$filePath" > temp.strings
+                iconv -c -f UTF-16LE -t UTF-8-MAC "$filePath" > temp.strings
                 mv -f temp.strings "$filePath"
             fi
 
