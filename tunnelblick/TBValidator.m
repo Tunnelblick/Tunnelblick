@@ -219,7 +219,7 @@ NSString * callStack(void);
         return NO;    // (Error message has been logged)
     }
 
-    [logger appendLog: @"validateAppcastData: Verified appcast signature"];
+    [logger appendLog: [NSString stringWithFormat: @"validateAppcastData: Verified appcast with signature '%@'", signature]];
     return YES;
 }
 
@@ -243,11 +243,11 @@ NSString * callStack(void);
                                          publicKeyBase64: publicKey
                                          errorMessagePtr: &errorMessage];
     if (  ! itemSignatureIsGood  ) {
-        [logger appendLog: [NSString stringWithFormat: @"validateAppcastData: Failed to verify update .zip signature: %@", errorMessage]];
+        [logger appendLog: [NSString stringWithFormat: @"validateUpdateData: Failed to verify update .zip signature: %@", errorMessage]];
         return NO;
     }
 
-    [logger appendLog: @"validateUpdateData: Verified update .zip signature"];
+    [logger appendLog: [NSString stringWithFormat: @"validateUpdateData: Verified update .zip signature '%@'", signature]];
     return YES;
 }
 

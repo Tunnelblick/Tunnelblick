@@ -584,7 +584,7 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
     BOOL secureZipSignatureVerified = verifySecureZipSignature(secureZipPath, updateSignature);
 
     if (  secureZipSignatureVerified  ) {
-        appendLog(@"updateTunnelblick: The .zip signature was verified");
+        appendLog([NSString stringWithFormat: @"updateTunnelblick: Verified .zip with signature '%@'", updateSignature]);
     } else {
         if (  relaxForgeryRule  ) {
             appendLog(@"updateTunnelblick: The .zip signature was not verified but the 'updateRelaxForgeryRule' preference has been forced, so continuing");
