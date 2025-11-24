@@ -757,6 +757,7 @@ typedef enum
 //*************************************************************************************************
 #define CSTRING_FROM_BOOL(arg) (  (arg) ? "YES" : "NO"  )
 
+#define CFReleaseIfNotNULL(thing) (  (thing == NULL) ? 0 : CFRelease(thing)  );
 
 //*************************************************************************************************
 // Debugging macro to NSLog if a specified preference is TRUE
