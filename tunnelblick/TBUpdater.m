@@ -769,9 +769,9 @@ doneReturnErr:
 
             if (   ! dict[@"versionString"]
                 || ! dict[@"build"]
-                //      || ! dict[@"minOS"]         // Optional
-                //      || ! dict[@"maxOS"]         // Optional
-                //      || ! dict[@"architectures"] // Optional
+                || ! dict[@"minOS"]
+                || ! dict[@"maxOS"]
+                || ! dict[@"architectures"]
                 || ! dict[@"url"]
                 || ! dict[@"signature"]
                 || ! dict[@"lengthString"]
