@@ -1401,6 +1401,7 @@ returnNO:
     } else {                        // Error
         [self setCurrentlyUpdating: NO];
         [self setUpdateAuthorizedByUser: NO];
+        [self closeAlertWindow];
         [self notifyErrorMessage: @"Failed to install update: Error in installer or tunnelblick-helper"];
         [self notifyFailedToInstallUpdate];
     }
