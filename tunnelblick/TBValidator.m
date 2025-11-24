@@ -231,8 +231,10 @@ NSString * callStack(void);
     //
     //  "data" is the data to be validated (the downloaded .zip for an update).
 
-    if (  !data  ) {
-        [logger appendLog: @"validateUpdateData: data == nil"];
+    if (   ( ! data)
+        || ( ! signature)
+        || ( ! publicKey)  ) {
+        [logger appendLog: @"validateUpdateData: data, signature, and/or public key == nil"];
         return NO;
     }
 
