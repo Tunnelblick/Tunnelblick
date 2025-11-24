@@ -375,7 +375,7 @@ extern TBUserDefaults * gTbDefaults;
                           (long) status, ((URL == NULL) ? @"NULL" : @"not NULL"));
                 }
                 if (  URL  ) {
-                    CFRelease(URL);
+                    CFReleaseIfNotNULL(URL);
                 }
             }
 
@@ -392,13 +392,13 @@ extern TBUserDefaults * gTbDefaults;
                 }
             }
 
-            CFRelease(lsLoginItemsSnapshot);
+            CFReleaseIfNotNULL(lsLoginItemsSnapshot);
 
         } else {
             NSLog(@"deleteOurLoginItem: LSSharedFileListCopySnapshot() returned NULL");
         }
 
-        CFRelease(lsLoginItems);
+        CFReleaseIfNotNULL(lsLoginItems);
 
     } else {
         NSLog(@"deleteOurLoginItem: LSSharedFileListCreate() returned NULL");

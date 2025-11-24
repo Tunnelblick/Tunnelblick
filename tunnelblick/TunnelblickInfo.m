@@ -599,7 +599,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     contents = [[NSDictionary dictionaryWithDictionary: dictM] retain];
 
     [dictM release];
-    CFRelease(dictCF);
+    CFReleaseIfNotNULL(dictCF);
     IOObjectRelease(gOptionsRef);
 
     return contents;

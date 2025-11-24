@@ -327,7 +327,7 @@ static NSString * teamIdentifierAtPath(NSString * path) {
                    @"teamIdentifierAtPath: Error %d getting static code",
                    staticCodeResult]);
         if (  staticCode  ) {
-            CFRelease(staticCode);
+            CFReleaseIfNotNULL(staticCode);
         }
         return nil;
     }
@@ -342,27 +342,27 @@ static NSString * teamIdentifierAtPath(NSString * path) {
     if (  copySigningInfoCode == noErr) {
         if (  ! cfSigningInfo  ) {
             appendLog([NSString stringWithFormat: @"teamIdentifierAtPath: Could not get signing info for %@", path]);
-            CFRelease(staticCode);
+            CFReleaseIfNotNULL(staticCode);
             return nil;
         }
         CFStringRef cfTeamIdentifier = CFDictionaryGetValue(cfSigningInfo, kSecCodeInfoTeamIdentifier);
         if (  ! cfTeamIdentifier  ) {
             appendLog([NSString stringWithFormat: @"teamIdentifierAtPath: Could not get team identifier for %@", path]);
-            CFRelease(staticCode);
-            CFRelease(cfSigningInfo);
+            CFReleaseIfNotNULL(staticCode);
+            CFReleaseIfNotNULL(cfSigningInfo);
             return nil;
         }
         NSString * teamIdentifier = [[[NSString alloc] initWithString: (NSString *)cfTeamIdentifier] autorelease];
-        CFRelease(staticCode);
-        CFRelease(cfSigningInfo);
+        CFReleaseIfNotNULL(staticCode);
+        CFReleaseIfNotNULL(cfSigningInfo);
         return teamIdentifier;
     }
 
     if (  cfSigningInfo  ) {
-        CFRelease(cfSigningInfo);
+        CFReleaseIfNotNULL(cfSigningInfo);
     }
 
-    CFRelease(staticCode);
+    CFReleaseIfNotNULL(staticCode);
 
     appendLog([NSString stringWithFormat:
                @"teamIdentifierAtPath: Error %d copying signing information",

@@ -77,7 +77,7 @@ BOOL networkIsReachable(void) {
     Boolean haveFlags = SCNetworkReachabilityGetFlags(reachabilityRef, &flags);
 #pragma clang diagnostic pop
 
-    CFRelease(reachabilityRef);
+    CFReleaseIfNotNULL(reachabilityRef);
 
     if (  ! haveFlags  ) {
         appendLog(@"Error: Could not get network reachability flags");
@@ -579,10 +579,10 @@ BOOL itemHasValidSignature(NSString * path, BOOL deepCheck) {
 
 done:
     if (staticCode) {
-        CFRelease(staticCode);
+        CFReleaseIfNotNULL(staticCode);
     }
     if (errorCF) {
-        CFRelease(errorCF);
+        CFReleaseIfNotNULL(errorCF);
     }
 
     return (status == errSecSuccess);

@@ -304,7 +304,7 @@ NSString * base64Encode(NSData * input) {
 		SecTransformRef transform = SecEncodeTransformCreate(kSecBase64Encoding, NULL);
 		if (  transform != NULL  ) {
 			NSData * data = base64helper(input, transform);
-			CFRelease(transform);
+			CFReleaseIfNotNULL(transform);
 			if (  data  ) {
 				output = [[[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding] autorelease];
 			} else {
@@ -332,7 +332,7 @@ NSData * base64Decode(NSString * input) {
 			SecTransformRef transform = SecDecodeTransformCreate(kSecBase64Encoding, NULL);
 			if (  transform != NULL  ) {
 				output = base64helper(data, transform);
-				CFRelease(transform);
+				CFReleaseIfNotNULL(transform);
 			} else {
 				appendLog(@"base64Decode: SecEncodeTransformCreate() returned NULL");
 			}
@@ -1169,7 +1169,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
 		NSLog(@"CFUserNotificationCreate() returned with error = %ld; notification = %@, so TBRunAlertExtended is terminating Tunnelblick after attempting to display an error window using CFUserNotificationDisplayNotice",
               (long) error, (panelRef ? @"non-0" : @"0"));
         if (  panelRef != NULL  ) {
-            CFRelease(panelRef);
+            CFReleaseIfNotNULL(panelRef);
             panelRef = NULL;
         }
 
@@ -1194,7 +1194,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
                                                         NULL);
         NSLog(@"CFUserNotificationDisplayNotice() returned %ld", (long) status);
         if (  panelRef != NULL  ) {
-            CFRelease(panelRef);
+            CFReleaseIfNotNULL(panelRef);
             panelRef = NULL;
         }
         [gMC terminateBecause: terminatingBecauseOfError];
@@ -1245,7 +1245,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         [AlertRefs removeObject: (id)panelRef];
         TBLog(@"DB-SD", @"TBRunAlertPanelExtended removed %@ from AlertRefs; AlertRefs = %@", (panelRef ? @"non-0" : @"0"), AlertRefs);
         UnlockAlertRefs();
-        CFRelease(panelRef);
+        CFReleaseIfNotNULL(panelRef);
         panelRef = NULL;
     }
 

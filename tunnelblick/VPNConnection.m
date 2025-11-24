@@ -3756,15 +3756,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     CFPropertyListRef result = SCDynamicStoreCopyValue(dynamicStore, (CFStringRef)name);
     if (  result == NULL) {
         appendLog([NSString stringWithFormat: @"Warning: SCDynamicStoreCopyValue(%@) failed", name]);
-        CFRelease(dynamicStore);
+        CFReleaseIfNotNULL(dynamicStore);
         return NULL;
     }
 
-    CFRelease(dynamicStore);
+    CFReleaseIfNotNULL(dynamicStore);
 
     if (  ! [[(id)result class] isSubclassOfClass: [NSDictionary class]]  ) {
         appendLog([NSString stringWithFormat: @"Error: SCDynamicStoreCopyValue(%@) is not a dictionary, it is a %@", name, [[(id)result class] className]]);
-        CFRelease(result);
+        CFReleaseIfNotNULL(result);
         return NULL;
     }
 
@@ -3787,19 +3787,19 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     id addressesString = [(NSDictionary *)cfDict objectForKey: key];
     if (  ! addressesString  ) {
         appendLog([NSString stringWithFormat: @"Error: System Store %@ does not contain an item with key '%@'", name, key]);
-        CFRelease(cfDict);
+        CFReleaseIfNotNULL(cfDict);
         return nil;
     }
 
     if (  ! [[addressesString class] isSubclassOfClass: [NSString class]]  ) {
         appendLog([NSString stringWithFormat: @"Error: System Store object %@ with key '%@' is not a string, it is a %@", name, key, [[addressesString class] className]]);
-        CFRelease(cfDict);
+        CFReleaseIfNotNULL(cfDict);
         return nil;
     }
 
     NSArray * addresses = [(NSString *)addressesString componentsSeparatedByString: @" "];
 
-    CFRelease(cfDict);
+    CFReleaseIfNotNULL(cfDict);
 
     return addresses;
 }

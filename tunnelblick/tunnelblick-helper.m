@@ -3133,7 +3133,7 @@ static int startVPN(NSString * configFile,
                                                      ? TRUE
                                                      : FALSE);
 
-                    CFRelease(target);
+                    CFReleaseIfNotNULL(target);
                     if (   canDetermineReachability
                         && ((flags & kSCNetworkReachabilityFlagsReachable) != 0)
                         && ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0)  ) {

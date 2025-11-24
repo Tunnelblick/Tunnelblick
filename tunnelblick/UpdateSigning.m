@@ -171,7 +171,7 @@
         return NO;
     }
     if (  privateKey != NULL  ) {
-        CFRelease(privateKey);
+        CFReleaseIfNotNULL(privateKey);
         [self logErrorMessage: [NSString stringWithFormat: @"Error: Keychain item named '%@' already exists", itemLabel]
               toNSLogOrString: errorMessagePtr];
         return NO;
@@ -199,7 +199,7 @@
     }
 
     CFReleaseIfNotNULL(cfErr);
-    CFRelease(privateKey);
+    CFReleaseIfNotNULL(privateKey);
 
     return YES;
 }
@@ -300,7 +300,7 @@
 
     CFDataRef publicKeyData = SecKeyCopyExternalRepresentation(publicKey, &cfErr);
 
-    CFRelease(publicKey);
+    CFReleaseIfNotNULL(publicKey);
 
     if (   (! publicKeyData)
         || (cfErr != NULL)  ) {
@@ -429,8 +429,7 @@
                                        (__bridge CFDataRef)signatureData,
                                        &cfErr);
     CFReleaseIfNotNULL(publicKey);
-    CFReleaseIfNotNULL(cfErr);
-
+    
     if (  ok != true  ) {
         [self logErrorMessage: [NSString stringWithFormat: @"Error: Could not verify signature ('%@'); error was %@",
                                 signatureBase64, (__bridge NSError *) cfErr]
@@ -438,6 +437,8 @@
         CFReleaseIfNotNULL(cfErr);
         return NO;
     }
+
+    CFReleaseIfNotNULL(cfErr);
 
     return YES;
 }
@@ -661,18 +662,18 @@
         goto errorExit;
     }
 
-    if (  cfErr          ) CFRelease(cfErr);
-    if (  privateKey     ) CFRelease(privateKey);
-    if (  publicKey      ) CFRelease(publicKey);
-    if (  signatureData  ) CFRelease(signatureData);
+    if (  cfErr          ) CFReleaseIfNotNULL(cfErr);
+    if (  privateKey     ) CFReleaseIfNotNULL(privateKey);
+    if (  publicKey      ) CFReleaseIfNotNULL(publicKey);
+    if (  signatureData  ) CFReleaseIfNotNULL(signatureData);
 
     return YES;
 
 errorExit:
-    if (  cfErr          ) CFRelease(cfErr);
-    if (  privateKey     ) CFRelease(privateKey);
-    if (  publicKey      ) CFRelease(publicKey);
-    if (  signatureData  ) CFRelease(signatureData);
+    if (  cfErr          ) CFReleaseIfNotNULL(cfErr);
+    if (  privateKey     ) CFReleaseIfNotNULL(privateKey);
+    if (  publicKey      ) CFReleaseIfNotNULL(publicKey);
+    if (  signatureData  ) CFReleaseIfNotNULL(signatureData);
 
     return NO;
 }

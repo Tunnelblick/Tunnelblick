@@ -4360,8 +4360,8 @@ static void signal_handler(int signalNumber)
     languageAtLaunchWasRTL = (   [rtlLanguages containsObject: [self languageAtLaunch]]
                               || [gTbDefaults boolForKey: @"useRtlLayout"]);
 
-    CFRelease(allLocalizationsCF);
-    CFRelease(languagesCF);
+    CFReleaseIfNotNULL(allLocalizationsCF);
+    CFReleaseIfNotNULL(languagesCF);
 
     // Maintain the selected panel index if RTL status changed from last launch
     if (   [gTbDefaults objectForKey: @"detailsWindowViewIndex"]
