@@ -865,7 +865,7 @@ doneReturnErr:
         if (  dict[@"architectures"] ) {
             if (  ! [dict[@"architectures"] containsString: self.currentArchitecture]  ) {
                 [self appendUpdaterLog: [NSString stringWithFormat:
-                                         @"isUpdateAppropriate: returning NO -- running on %@ architecture; not in '%@'",
+                                         @"isUpdateAppropriate: returning NO -- running on %@ architecture; not on '%@'",
                                          self.currentArchitecture, dict[@"architectures"]]];
                 return NO;
             }
