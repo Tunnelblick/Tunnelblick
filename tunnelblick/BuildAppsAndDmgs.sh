@@ -286,13 +286,14 @@ CreateOpenvpnDirectoryStructure() {
     # Each "openvpn-x.x.x"folder contains the openvpn binary and the openvpn-down-root.so binary
 
     local default_openvpn
+    local last_openvpn
     local d
     local t
     local u
 
     mkdir -p "${APP_PATH}/Contents/Resources/openvpn"
     default_openvpn="z"
-
+    last_openvpn="z"
     # DEFAULT OpenVPN will be the lowest version linked to OpenSSL with the following prefix:
     default_openvpn_version_prefix="openvpn-2.6"
     default_openssl_version_prefix="openssl-3.0"
@@ -310,6 +311,7 @@ CreateOpenvpnDirectoryStructure() {
             cp "../third_party/products/openvpn/${d}/openvpn-executable" "${APP_PATH}/Contents/Resources/openvpn/${d}/openvpn"
             cp "../third_party/products/openvpn/${d}/openvpn-down-root.so" "${APP_PATH}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
             chmod 744 "${APP_PATH}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
+            last_openvpn="${d}"
             if [ "${d}" \< "${default_openvpn}" ] ; then
                 if [ "${d}" != "${d/$default_openssl_version_prefix/xx}" ] ; then
                     dovp_len=${#default_openvpn_version_prefix}
@@ -327,8 +329,11 @@ CreateOpenvpnDirectoryStructure() {
     if [ "${default_openvpn}" != "z" ] ; then
         rm -f "${APP_PATH}/Contents/Resources/openvpn/default"
         ln -s "${default_openvpn}/openvpn" "${APP_PATH}/Contents/Resources/openvpn/default"
+    elif [ "${last_openvpn}" != "z" ] ; then
+        echo "warning: Could not find a version of OpenVPN matching '$default_openvpn_version_prefix' to use by default. Using $last_openvpn as the default"
+        ln -s "${last_openvpn}/openvpn" "${APP_PATH}/Contents/Resources/openvpn/default"
     else
-        echo "error: Could not find a version of OpenVPN to use by default; default_openvpn_version_prefix = '$default_openvpn_version_prefix'"
+        echo "error: Could not find a version of OpenVPN matching '$default_openvpn_version_prefix' to use by default"
     fi
 }
 
