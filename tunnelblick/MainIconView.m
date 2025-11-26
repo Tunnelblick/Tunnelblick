@@ -23,6 +23,7 @@
 #import "MenuController.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
+#import "VPNConnection.h"
 
 extern MenuController * gMC;
 extern BOOL              gShuttingDownWorkspace;
@@ -40,11 +41,16 @@ extern TBUserDefaults * gTbDefaults;
     if (  gShuttingDownWorkspace  ) {
         return;
     }
-	
+
     if (  theEvent.modifierFlags & NSEventModifierFlagOption  ) {
 
         // Option-Click
         [gMC openPreferencesWindow: self];
+
+    } else if (  theEvent.modifierFlags & NSEventModifierFlagControl  ) {
+
+        // Control-Click
+        [self rightMouseDownMainThread: theEvent]; // Connect or disconnect the first configuration
 
     } else {
 
@@ -53,6 +59,28 @@ extern TBUserDefaults * gTbDefaults;
         NSStatusItem * statusI = [gMC statusItem];
         NSMenu       * menu    = [gMC myVPNMenu];
         [statusI popUpStatusItemMenu: menu];
+    }
+}
+
+-(void) rightMouseDownMainThread: (NSEvent *) theEvent {
+
+    // Invoked in the main thread only
+
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+
+    // Right-Click: Connect or disconnect the first configuration
+    NSDictionary * dict = gMC.myVPNConnectionDictionary;
+    NSArray * arr =  dict.allKeys;
+    if (  arr.count > 0  ) {
+        arr = [arr sortedArrayUsingComparator: ^NSComparisonResult(NSString * string1, NSString * string2) { return [string1 compare: string2]; }];
+        VPNConnection * connection = [dict objectForKey: arr.firstObject];
+        if (  connection.isDisconnected  ) {
+            [connection connectUserKnows: @YES];
+        } else if (  connection.isConnected  ) {
+            [connection startDisconnectingUserKnows: @YES];
+        } // else ignore because configuration is connecting or disconnecting already
     }
 }
 
@@ -175,6 +203,18 @@ extern TBUserDefaults * gTbDefaults;
     
     TBLog(@"DB-SI", @"Mouse down in MainIconView");
     [self performSelectorOnMainThread: @selector(mouseDownMainThread:) withObject: theEvent waitUntilDone: NO];
+}
+
+-(void) rightMouseDown: (NSEvent *) theEvent {
+
+    // Event handler; NOT on MainThread
+
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+
+    TBLog(@"DB-SI", @"Right mouse down in MainIconView");
+    [self performSelectorOnMainThread: @selector(rightMouseDownMainThread:) withObject: theEvent waitUntilDone: NO];
 }
 
 -(void) mouseUp: (NSEvent *) theEvent {
