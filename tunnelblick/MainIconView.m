@@ -41,22 +41,19 @@ extern TBUserDefaults * gTbDefaults;
         return;
     }
 	
-	[gMC recreateMainMenuClearCache: NO];
-    
-	// Detect a triple-click:
-	//        First click comes here and pops up the menu
-	//        Second click pops the menu back (it does not come here)
-	//        Third click comes here and (if within 1 second of first click) opens VPN Details… window
-	NSTimeInterval thisTime = [theEvent timestamp];
-	if (  (mainIconLastClickTime + 1.0) > thisTime  ) {
-		[gMC openPreferencesWindow: self];
-	} else {
-		NSStatusItem * statusI = [gMC statusItem];
-		NSMenu       * menu    = [gMC myVPNMenu];
-		[statusI popUpStatusItemMenu: menu];
-	}
-	
-	mainIconLastClickTime = thisTime;
+    if (  theEvent.modifierFlags & NSEventModifierFlagOption  ) {
+
+        // Option-Click
+        [gMC openPreferencesWindow: self];
+
+    } else {
+
+        // Click:
+        [gMC recreateMainMenuClearCache: NO];
+        NSStatusItem * statusI = [gMC statusItem];
+        NSMenu       * menu    = [gMC myVPNMenu];
+        [statusI popUpStatusItemMenu: menu];
+    }
 }
 
 -(void) removeTrackingRectangle {
