@@ -710,7 +710,6 @@
 		63FA093F1D25E68500859556 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
 		63FA09401D25E68500859556 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
 		63FAF9A5257A5E7B00932F5B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		63FF91CE2EBF962B00E54E89 /* Tunnelblick-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tunnelblick-Bridging-Header.h"; sourceTree = "<group>"; };
 		63FF91D12EC25DA200E54E89 /* update_signing_util.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = update_signing_util.m; sourceTree = "<group>"; };
 		63FFC3D71D3FDF5100CBB289 /* DropConfigsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropConfigsView.h; sourceTree = "<group>"; };
 		63FFC3D81D3FDF5A00CBB289 /* DropConfigsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropConfigsView.m; sourceTree = "<group>"; };
@@ -952,7 +951,6 @@
 				63432572140D7F5A00015CE0 /* CoreServices.framework */,
 				63B4DCE41A409DF300F6A74C /* ServiceManagement.framework */,
 				634616861A9B85C60049C16C /* SystemConfiguration.framework */,
-				63FF91CE2EBF962B00E54E89 /* Tunnelblick-Bridging-Header.h */,
 			);
 			name = Tunnelblick;
 			sourceTree = "<group>";
