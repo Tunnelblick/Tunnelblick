@@ -2793,7 +2793,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     NSImage  * badgedImage = [[image copy] autorelease]; // Copy to avoid modifying the original.
     NSSize imageSize = image.size;
     [badgedImage lockFocus];
-    [alertBadge drawInRect: NSMakeRect(0,0, imageSize.width * 0.6, imageSize.height * 0.6)
+    [alertBadge drawInRect: NSMakeRect(3.0, 0, imageSize.width * 0.6, imageSize.height * 0.6)
                   fromRect: NSZeroRect // Draws full image.
                  operation: NSCompositeSourceOver
                   fraction: 1.0];
