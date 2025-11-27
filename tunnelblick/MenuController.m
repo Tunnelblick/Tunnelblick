@@ -1638,13 +1638,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     return NO;
 }
 
--(void) markImage: (NSImage *) image asTemplate: (BOOL) isTemplate {
-
-    if (   isTemplate
-        && [image respondsToSelector: @selector(setTemplate:)]  ) {
-        [image setTemplate: TRUE];
-    }
-}
 -(NSImage *) tintTemplateImage: (NSImage *) image
 {
     NSImage *tintedImage = [[image copy] autorelease];
@@ -1707,12 +1700,12 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                 if (  [name isEqualToString:@"closed"]) {
                     [*ptrMainImage release];
                     *ptrMainImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
-                    [self markImage: *ptrMainImage asTemplate: usingTemplates];
+                    [*ptrMainImage setTemplate: usingTemplates];
 
                 } else if(  [name isEqualToString:@"open"]) {
                     [*ptrConnectedImage release];
                     *ptrConnectedImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
-                    [self markImage: *ptrConnectedImage asTemplate: usingTemplates];
+                    [*ptrConnectedImage setTemplate: usingTemplates];
 
                 } else {
                     if(  [[file lastPathComponent] isEqualToString:@"0.png"]) {  //[name intValue] returns 0 on failure, so make sure we find the first frame
@@ -1733,7 +1726,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
             if ([gFileMgr fileExistsAtPath:fullPath]) {
                 NSImage * img = [[NSImage alloc] initWithContentsOfFile:fullPath];
                 if (  img  ) {
-                    [self markImage: img asTemplate: usingTemplates];
+                    [img setTemplate: usingTemplates];
                     [*ptrAnimImages addObject: img];
                     [img release];
                 } else {
