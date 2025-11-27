@@ -77,6 +77,8 @@ enum ActiveInactiveState {
     NSStatusItem            * statusItem;                   // Our item in the Status Bar
     NSStatusBarButton       * statusItemButton;             // Or nil if not on 10.10 or higher
     MainIconView            * ourMainIconView;              // View for the main icon
+    NSView                  * yellowTriangleView;           // View of the yellow triangle that overlays the main icon (may be hidden)
+    NSView                  * areConnectedIndicatorView;    // View of the green "are connected" image that overlays the main icon (may be hidden)
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
 	NSMenuItem              * reenableInternetItem;         // "Re-enable Network Access" item for menu
@@ -100,11 +102,13 @@ enum ActiveInactiveState {
     NSMutableArray          * animImages;                   // Images for animation of the Tunnelblick icon in the Status Bar
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
+    NSImage                 * areConnectedIndicatorImage;   // Image to overlay the icon when one or more configurations are connected
 
     NSMutableArray          * highlightedAnimImages;        // Corresponding highlighted images (the large images are never highlighted)
     NSImage                 * highlightedConnectedImage;
     NSImage                 * highlightedMainImage;
-	
+    NSImage                 * highlightedGreenAreConnectedIndicatorImage;
+
     NSMutableArray          * largeAnimImages;              // Images for animation of the Tunnelblick icon in the Status Window
     NSImage                 * largeConnectedImage;          // Image to display when one or more connections are active
     NSImage                 * largeMainImage;               // Image to display when there are no connections active
@@ -189,7 +193,7 @@ enum ActiveInactiveState {
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
     
     BOOL                      tbUpdatesAreAvailable;        // True if updates to the program are available
-    double                  tbUpdatePercentageDownloaded; // Percent of a program update that TBUpdater has downloaded
+    double                    tbUpdatePercentageDownloaded; // Percent of a program update that TBUpdater has downloaded
 
     BOOL                      configUpdatesAreAvailable;    // True if updates to a VPN configuration are available
 
@@ -265,7 +269,8 @@ enum ActiveInactiveState {
 -(BOOL)             loadMenuIconSet;
 -(BOOL)             loadMenuIconSet:                        (NSString * _Nonnull) iconSetName
                                main:                        (NSImage * _Nonnull * _Nonnull) ptrMainImage
-                         connecting:                        (NSImage * _Nonnull * _Nonnull)ptrConnectedImage
+                         connecting:                        (NSImage * _Nonnull * _Nonnull) ptrConnectedImage
+                              green:                        (NSImage * _Nonnull * _Nullable) ptrGreenAreConnectedIndicatorImage
                                anim:                        (NSMutableArray * _Nonnull * _Nonnull) ptrAnimImages;
 -(nonnull NSString *)       localizedNameForDisplayName:            (nonnull NSString *)        displayName;
 -(nonnull NSString *)       localizedNameforDisplayName:            (nonnull NSString *)        displayName
@@ -377,6 +382,7 @@ TBPROPERTY(nullable TBUIUpdater  *, uiUpdater,                 setUiUpdater)
 TBPROPERTY(nullable NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
 TBPROPERTY(nullable NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
 TBPROPERTY(nullable NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
+TBPROPERTY(nullable NSImage      *, highlightedGreenAreConnectedIndicatorImage, setHighlightedGreenAreConnectedIndicatorImage)
 TBPROPERTY(nullable NSImage      *, highlightedMainImage,      setHighlightedMainImage)
 TBPROPERTY(nullable NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
 TBPROPERTY(nullable NSMutableArray *, connectionsToRestoreOnWakeup, setConnectionsToRestoreOnWakeup)

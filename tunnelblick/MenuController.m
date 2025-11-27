@@ -206,6 +206,7 @@ TBSYNTHESIZE_OBJECT(retain, TBUIUpdater  *, uiUpdater,                 setUiUpda
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
 TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
+TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedGreenAreConnectedIndicatorImage, setHighlightedGreenAreConnectedIndicatorImage)
 TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedMainImage,      setHighlightedMainImage)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnWakeup,     setConnectionsToRestoreOnWakeup)
@@ -1376,6 +1377,18 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     }
 }
 
+- (NSView *) viewWithImage: (NSImage *) image
+                     frame: (NSRect)    frame {
+
+    // Return an NSImageView for the image
+
+    NSImageView *iv = [[[NSImageView alloc] initWithFrame: frame] autorelease];
+    iv.image            = image;
+    iv.imageScaling     = NSImageScaleAxesIndependently;   // stretch to fill exactly
+    iv.imageAlignment   = NSImageAlignCenter;
+    return iv;
+}
+
 - (void) createStatusItem {
 
     // Places an item with our icon in the Status Bar, replacing any existing item
@@ -1395,6 +1408,51 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [button addSubview: ourMainIconView];
     [statusItem setMenu: myVPNMenu];
     TBLog(@"DB-SI", @"createStatusItem: Set menu for status item")
+
+    // Get views of the yellow triangle and the green dot to overlay the icon
+    NSString * fileType = NSFileTypeForHFSTypeCode(kAlertCautionIcon);
+    NSImage  * yellowTriangleImage = [[NSWorkspace sharedWorkspace] iconForFileType: fileType];
+    [yellowTriangleImage setTemplate: NO];
+    CGFloat width  = button.frame.size.width;
+    CGFloat height = button.frame.size.height;
+    NSRect yellowTriangleFrame  = NSMakeRect(0, height / 2,  width / 2, height / 2 );
+    yellowTriangleView = [self viewWithImage: yellowTriangleImage
+                                       frame: yellowTriangleFrame];
+    [self showYellowTriangleIfAppropriate];
+    [button addSubview: yellowTriangleView];
+
+    if (  areConnectedIndicatorImage  ) {
+        width  = button.frame.size.width;
+        height = button.frame.size.height;
+        NSRect areConnectedFrame  = NSMakeRect(-1, 0,  width, height );
+        areConnectedIndicatorView = [self viewWithImage: areConnectedIndicatorImage
+                                                  frame: areConnectedFrame];
+        [self showGreenAreConnectedIndicatorIfAppropriate];
+        [button addSubview: areConnectedIndicatorView];
+    }
+}
+
+-(void) showYellowTriangleIfAppropriate {
+
+    BOOL hideYellowTriangle = (   warningsItem.isHidden
+                               && ( ! tbUpdatesAreAvailable )
+                               && configUpdateAvailableItem.isHidden);
+    [yellowTriangleView setHidden: hideYellowTriangle];
+
+    TBLog(@"DB-SI", @"Set yellow triangle hidden = %s; warningsHidden = %s; tbUpdatesAvailable = %s; configUpdatesHidden = %s",
+          CSTRING_FROM_BOOL(hideYellowTriangle), CSTRING_FROM_BOOL(warningsItem.isHidden),
+          CSTRING_FROM_BOOL(tbUpdatesAreAvailable), CSTRING_FROM_BOOL(configUpdateAvailableItem.isHidden));
+}
+
+-(void) showGreenAreConnectedIndicatorIfAppropriate {
+
+    BOOL connected = [lastState isEqualToString: @"CONNECTED"];
+    BOOL showPreference = [gTbDefaults boolForKey: @"showGreenAreConnectedIndicator"];
+    BOOL showGreenAreConnectedIndicator = connected && showPreference;
+    [areConnectedIndicatorView setHidden: ! showGreenAreConnectedIndicator];
+
+    TBLog(@"DB-SI", @"Set green are connected indicator hidden = %s; connected = %s; showPreference = %s",
+          CSTRING_FROM_BOOL( ! showGreenAreConnectedIndicator), CSTRING_FROM_BOOL(connected), CSTRING_FROM_BOOL(showPreference));
 }
 
 -(void) updateScreenList {
@@ -1456,6 +1514,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [self createMenu];
     [self updateIconImage];
     [statusItem setMenu: myVPNMenu];
+    [self showYellowTriangleIfAppropriate];
+    [self showGreenAreConnectedIndicatorIfAppropriate];
 }
 
 -(void) screenParametersChanged {
@@ -1552,6 +1612,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     if (  [mainImage isTemplate]  ) {
         [self setHighlightedMainImage:      [self tintTemplateImage: mainImage]];
         [self setHighlightedConnectedImage: [self tintTemplateImage: connectedImage]];
+        [self setHighlightedGreenAreConnectedIndicatorImage: [self tintTemplateImage: areConnectedIndicatorImage]];
 
         [self setHighlightedAnimImages: [NSMutableArray arrayWithCapacity: [animImages count]]];
         NSUInteger i;
@@ -1563,6 +1624,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         // Default to the non-highlighted versions if there are not any highlighted versions
         [self setHighlightedMainImage:      mainImage];
         [self setHighlightedConnectedImage: connectedImage];
+        [self setHighlightedGreenAreConnectedIndicatorImage: areConnectedIndicatorImage];
         [self setHighlightedAnimImages:     animImages];
         NSLog(@"Using icon set '%@' without Retina images", menuIconSet);
     }
@@ -1576,10 +1638,12 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         if (  [self loadMenuIconSet: requestedMenuIconSet
                                main: &mainImage
                          connecting: &connectedImage
+                              green: &areConnectedIndicatorImage
                                anim: &animImages]  ) {
             if (  [self loadMenuIconSet: requestedLargeIconSet
                                    main: &largeMainImage
                              connecting: &largeConnectedImage
+                                  green: nil
                                    anim: &largeAnimImages]  ) {
                 [self loadHighlightedIconSet: requestedMenuIconSet];
                 [self updateIconImage];
@@ -1591,6 +1655,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
             if (  [self loadMenuIconSet: requestedLargeIconSet
                                    main: &largeMainImage
                              connecting: &largeConnectedImage
+                                  green: nil
                                    anim: &largeAnimImages]  ) {
                 NSLog(@"Icon set '%@' not found", requestedMenuIconSet);
             } else {
@@ -1605,10 +1670,12 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         if (   [self loadMenuIconSet: menuIconSet
                                 main: &mainImage
                           connecting: &connectedImage
+                               green: &areConnectedIndicatorImage
                                 anim: &animImages]
             && [self loadMenuIconSet: [NSString stringWithFormat: @"large-%@", menuIconSet]
                                 main: &largeMainImage
                           connecting: &largeConnectedImage
+                               green: nil
                                 anim: &largeAnimImages]  )
         {
             [self loadHighlightedIconSet: menuIconSet];
@@ -1624,10 +1691,12 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     if (   [self loadMenuIconSet: menuIconSet
                             main: &mainImage
                       connecting: &connectedImage
+                           green: nil
                             anim: &animImages]
         && [self loadMenuIconSet: [NSString stringWithFormat: @"large-%@", menuIconSet]
                             main: &largeMainImage
                       connecting: &largeConnectedImage
+                           green: nil
                             anim: &largeAnimImages]  )
     {
         [self loadHighlightedIconSet: menuIconSet];
@@ -1651,6 +1720,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 -(BOOL) loadMenuIconSet: (NSString *)        iconSetName
                    main: (NSImage **)        ptrMainImage
              connecting: (NSImage **)        ptrConnectedImage
+                  green: (NSImage **)        ptrGreenImage
                    anim: (NSMutableArray **) ptrAnimImages
 {
     // Search for the folder with the animated icon set in (1) Deploy and (2) Shared, before falling back on the copy in the app's Resources
@@ -1706,6 +1776,12 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                     [*ptrConnectedImage release];
                     *ptrConnectedImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
                     [*ptrConnectedImage setTemplate: usingTemplates];
+
+                } else if(   ptrGreenImage
+                          && [name isEqualToString:@"areConnectedIndicator"]) {
+                    [*ptrGreenImage release];
+                    *ptrGreenImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+                    [*ptrGreenImage setTemplate: NO];
 
                 } else {
                     if(  [[file lastPathComponent] isEqualToString:@"0.png"]) {  //[name intValue] returns 0 on failure, so make sure we find the first frame
@@ -2005,7 +2081,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [myVPNMenu addItem: quitItem];
 
     if (  statusItem.button  ) {
-        [statusItem.button setImage: [self badgedImageIfUpdateAvailableOrWarnings: mainImage]];
+        [statusItem.button setImage: mainImage];
         [statusItem setMenu: myVPNMenu];
     }
 
@@ -2705,6 +2781,9 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 
+    [self showYellowTriangleIfAppropriate];
+    [self showGreenAreConnectedIndicatorIfAppropriate];
+
     if (   (![lastState isEqualToString:@"EXITING"])
         && (![lastState isEqualToString:@"CONNECTED"]) ) {
         //  Anything other than connected or disconnected shows the animation
@@ -2722,19 +2801,19 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 
         if (  statusItem.button  ) {
             if (  [lastState isEqualToString:@"CONNECTED"]  ) {
-                [statusItem.button setImage: [self badgedImageIfUpdateAvailableOrWarnings: connectedImage]];
+                [statusItem.button setImage: connectedImage];
             } else {
-                [statusItem.button setImage: [self badgedImageIfUpdateAvailableOrWarnings: mainImage]];
+                [statusItem.button setImage: mainImage];
             }
         } else {
             if (  [lastState isEqualToString:@"CONNECTED"]  ) {
-                [[self ourMainIconView] setImage: [self badgedImageIfUpdateAvailableOrWarnings: (  menuIsOpen
-                                                                                                 ? highlightedConnectedImage
-                                                                                                 : connectedImage)]];
+                [[self ourMainIconView] setImage: (  menuIsOpen
+                                                   ? highlightedConnectedImage
+                                                   : connectedImage)];
             } else {
-                [[self ourMainIconView] setImage: [self badgedImageIfUpdateAvailableOrWarnings: (  menuIsOpen
-                                                                                                 ? highlightedMainImage
-                                                                                                 : mainImage)]];
+                [[self ourMainIconView] setImage: (  menuIsOpen
+                                                   ? highlightedMainImage
+                                                   : mainImage)];
             }
         }
     }
@@ -2778,28 +2857,6 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
             [[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:img waitUntilDone:YES];
         }
     }
-}
-
--(NSImage *) badgedImageIfUpdateAvailableOrWarnings: (NSImage *) image {
-
-    if (   warningsItem.isHidden
-        && tbUpdateAvailableItem.isHidden
-        && configUpdateAvailableItem.isHidden  ) {
-        return image;
-    }
-
-    NSString * fileType = NSFileTypeForHFSTypeCode(kAlertCautionIcon);
-    NSImage  * alertBadge = [[NSWorkspace sharedWorkspace] iconForFileType: fileType];
-    NSImage  * badgedImage = [[image copy] autorelease]; // Copy to avoid modifying the original.
-    NSSize imageSize = image.size;
-    [badgedImage lockFocus];
-    [alertBadge drawInRect: NSMakeRect(3.0, 0, imageSize.width * 0.6, imageSize.height * 0.6)
-                  fromRect: NSZeroRect // Draws full image.
-                 operation: NSCompositeSourceOver
-                  fraction: 1.0];
-    [badgedImage unlockFocus];
-    [badgedImage setTemplate: NO];
-    return badgedImage;
 }
 
 -(NSString *) extractItemFromSwVersWithOption: (NSString *) option {

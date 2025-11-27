@@ -1008,6 +1008,7 @@ name = newValue;                                    \
 @"doNotShowSplashScreen",	\
 @"doNotShowOutlineViewOfConfigurations",	\
 @"showConnectedDurations",	\
+@"showGreenAreConnectedIndicator", \
 \
 @"connectionLogTickInterval", \
 @"connectionLogEntrySizeLimit", \
