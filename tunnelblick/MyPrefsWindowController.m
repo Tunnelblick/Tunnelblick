@@ -3343,6 +3343,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	[self setupAppearanceIconSetButton];
     
+    [self setValueForCheckbox: [appearancePrefsView appearanceDisplayConnectedIndicatorCheckbox]
+                preferenceKey: @"showGreenAreConnectedIndicator"
+                     inverted: NO
+                   defaultsTo: FALSE];
+
     [self setValueForCheckbox: [appearancePrefsView appearanceDisplayConnectionSubmenusCheckbox]
                 preferenceKey: @"doNotShowConnectionSubmenus"
                      inverted: YES
@@ -3370,6 +3375,12 @@ static BOOL firstTimeShowingWindow = TRUE;
     //       setupAppearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox
 	// are invoked by setSelectedAppearanceConnectionWindowDisplayCriteriaIndex,
 	//                which is invoked by setupAppearanceConnectionWindowDisplayCriteriaButton
+}
+
+-(IBAction) appearanceDisplayConnectedIndicatorCheckboxWasClicked: (NSButton *) sender
+{
+    [gTbDefaults setBool: [sender state]  forKey:@"showGreenAreConnectedIndicator"];
+    [gMC changedDisplayConnectionTimersSettings];
 }
 
 -(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (NSButton *) sender

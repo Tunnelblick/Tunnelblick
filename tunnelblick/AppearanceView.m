@@ -58,6 +58,7 @@ extern MenuController * gMC;
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceIconSetArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,     appearanceIconSetButton)
 
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectedIndicatorCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectionSubmenusCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectionTimersCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectAndDisconnectPrefixesCheckbox)
@@ -122,6 +123,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWi
 														   @"HTML info for the 'Icon' button."))];
     [UIHelper setTitle: nil ofControl: appearanceIconSetButton shift: rtl narrow: YES enable: YES];
     
+    [appearanceDisplayConnectedIndicatorCheckbox
+     setTitle: NSLocalizedString(@"Display an indicator when any configuration is connected", @"Checkbox name")
+     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p>"
+                                                           @"<p><strong>When not checked</strong>, no such indicator will appear.</p>",
+                                                           @"HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox."))];
+
 	// Menu checkboxes
 	[appearanceMenuTFC setTitle: NSLocalizedString(@"Menu:", @"Window text")];
 	[appearanceDisplayConnectionSubmenusCheckbox
