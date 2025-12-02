@@ -673,9 +673,6 @@
 "Could Not Move Configuration" = "接続先を移動できません";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "接続先をアンインストールできません";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "サンプルの接続先を作成して修正しますか？";
 
 /* Window title */
@@ -1185,9 +1182,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "設定 %@ が安全な状態ではありません。Tunnelblickを再インストールしてください";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "設定 %@ は自動更新に対応してないから自動更新できない\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "設定 '%1$@' は Tunnelblick %2$@ 以降のバージョンが必要です(Tunnelblick %3$@ を使用中)。\n\n設定を行うために Tunnelblick をアップデートする必要があります。";
 
@@ -1315,16 +1309,7 @@
 "Failed to copy %@ to %@" = "%1$@ を %2$@ にコピーできませんでした";
 
 /* Window text */
-"Failed to create folder at %@" = "%@ にフォルダーを作るの失敗しました";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "%1$@ から %2$@ へのシンボリックリンクを作るの失敗しました";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Tunnelblickのシステム拡張機能 tun と tap のインストールに失敗しました。";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "%@ に権限設定できませんでした\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Tunnelblickのシステム拡張機能 tunとtap のアンインストールに失敗しました。";
@@ -1481,9 +1466,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "拡張子が .ovpn でも .conf でもありません: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "存在する設定を上書きしない為、'%@'は'TBKeepExistingFilesList'を使えません";
 
 /* Window text */
 "On expected disconnect:" = "管理された切断時:";
@@ -1807,9 +1789,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "接続先に問題があったため、起動できませんでした。詳細はコンソールログで検証してください。";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "%@の設定を完全削除できませんでした。詳細はコンソールログを参照してください。";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "接続先「%@」をコピーできませんでした。詳細はコンソールログを参照してください。";
 
 /* Window text */
@@ -2020,9 +1999,6 @@
 "Unable to set permissions on '%@'" = "'%@' に対するパーミッションの設定ができません";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "「%@」にstubである更新可能な設定が保存できません\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "%@ 設定をインストールできませんでした\n";
 
 /* Window text */
@@ -2042,18 +2018,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "読み取れないファイルがありました：%@\n\n明細はコンソールをご覧ください。";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "「stub .tblk」の内の「Contents」が作成できなかったため、更新可能な設定「%@」はアップデートとして保存されませんでした。\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "「stub .tblk」の内の「Contents/Resources」が作成できなかったため、、更新可能な設定「%@」は保存されませんでした。";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "「CFBundleIdentifier」が既に処理されたため、「%@」は更新可能な設定として保存されませんでした。\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "本来はアップデート可能な設定'%@'は、Info.plistに'SUPublicDSAKey'に値が含まれていないか、'SUFeedURL'でhttps:を明示していないため、アップデート可能なように設定されていません。\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "%@ はVPN設定のバージョン番号が古いためインストールされません。";
@@ -2108,9 +2072,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "%@はコンピューター起動時に接続されるため、個人用に変更できません";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "%@という設定ファイルが更新可能になっているため、プライベート及び共有に設定できません。\n\n更新可能な設定ファイルはプライベート及び共有に設定できませんが、内部の設定ファイルはプライベートまたは共有に設定することができます。";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "配付用の設定は名称変更、又は移動ができません";

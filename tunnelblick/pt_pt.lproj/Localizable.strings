@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Desconectar quando o utilizador sair";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Mostrar «Ligar» e «Desligar» com nomes de configuração";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Mostrar um indicador quando qualquer configuração estiver ligada";
+
+/* Checkbox name */
 "Display connection submenus" = "Mostrar submenus de conexão";
 
 /* Checkbox name */
@@ -671,9 +677,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Não Foi Possível Mover a Configuração";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "Não Foi Possível Desinstalar a Configuração";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Criar e Editar uma Configuração de Exemplo?";
@@ -1185,9 +1188,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "A configuração '%@' não está segura. Por favor reinstale o Tunnelblick.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "A configuração ' %@' não é atualizável porque não foi possível marcar a mesma como 'atualizável'.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "A configuração '%1$@' requer o Tunnelblick %2$@ ou superior; está a usar o Tunelblick %3$@.\n\nDeverá atualizar o Tunneblick para instalar esta configuração.";
 
@@ -1315,16 +1315,7 @@
 "Failed to copy %@ to %@" = "Falha ao copiar %1$@ para %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Falha ao criar pasta em %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Falha ao criar o atalho simbólico\n  para %1$@\n  em %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Falha ao instalar as extensões de sistema tun e tap do Tunnelblick.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Falha ao definir permissões em %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Falha a desinstalar as extensões de sistema tun e tap do Tunnelblick.";
@@ -1481,9 +1472,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Não é .ovpn ou .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Não foi possível substituir uma configuração existente, a configuração ' %@' não pode utilizar 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "Numa desconexão esperada:";
@@ -1807,9 +1795,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "O Tunnelblick não conseguiu ser iniciado por causa de um problema com a configuração. Veja o Registo da Consola para mais detalhes.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "O Tunnelblick não conseguiu remover completamente a configuração '%@'. Veja o Registo da Consola para mais detalhes.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "O Tunnelblick não conseguiu copiar a pasta '%@'. Veja o Registo da Consola para mais detalhes.";
 
 /* Window text */
@@ -2020,9 +2005,6 @@
 "Unable to set permissions on '%@'" = "Incapaz de definir permissões em '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Incapaz de armazenar o rascunho da configuração atualizável em %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Incapaz de desinstalar a configuração '%@'\n";
 
 /* Window text */
@@ -2042,18 +2024,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Ficheiro ilegível em %@\n\nVeja o Registo da Consola para mais detalhes.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "A configuração atualizável '%@' não foi armazenada como atualizável porque não foi possível criar 'Contents' no rascunho .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "A configuração atualizável '%@' não foi armazenada como atualizável porque não foi possível armazenar o ficheiro Info.plist no rascunho .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "A configuração atualizável '%@' não foi guardada como atualizável porque o CFBundleIdentifier já foi processado\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "A configuração atualizável '%@' não foi armazenada como atualizável porque o Info.plist não tinha uma entrada 'SUPublicDSAKey' ou a sua entrada 'SUFeedURL' não especificou o uso de https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "A configuração VPN %@ NÃO será instalada porque possui uma versão inferior.";
@@ -2108,9 +2078,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Não pode tornar a configuração '%@' privada porque ela está configurada para iniciar quando o computador iniciar.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Não pode tornar a configuração '%@' privada ou compartilhada porque é uma configuração atualizável.\n\nNote que uma Configuração VPN do Tunnelblick que é atualizável não pode ser tornada privada ou partilhada; apenas configurações dentro destas podem ser tornadas privadas ou partilhadas.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Não pode renomear ou mover uma configuração já disponibilizada.";
@@ -2319,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Quando marcada</strong>, as janelas de estado da VPN para todas as configurações 'ativas' serão mostradas quando o cursor estiver sobre o ícone do Tunnelblick.</p><p>Configurações 'ativas' são configurações que você tentou conectar desde que o Tunnelblick foi iniciado.</p><p><strong>Esta seleção é desativada</strong> quando 'Nunca Mostrar' estiver marcada acima.</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Quando selecionado</strong>, um indicador visual será exibido no ícone do Tunnelblick quando qualquer configuração estiver conectada.</p><p><strong>Quando não selecionado</strong>, esse indicador não será exibido.</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Quando marcada</strong>, uma janela mostrará o progresso do Tunnelblick enquanto inicializa.</p>";
 
@@ -2339,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Quando marcada</strong>, nenhuma verificação automática de atualizações ou mudanças de endereço IP serão realizadas, independente de outras configurações. Nota: estas duas atividades acessam o website do Tunnelblick.</p>\n<p><strong>Quando não marcada</strong>, verificação automática de atualizações serão realizadas se estiver ativo abaixo, e verificação por mudanças de endereço IP serão realizadas quando estiver conectando uma configuração que estiver com esta definição ativa.</p><p>Veja <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacidade e Segurança</a> [tunnelblick.net] para detalhes.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>Quando selecionado</strong>, o menu do Tunnelblick incluirá as palavras «Ligar» e «Desligar» com os nomes das configurações.</p>\n<p><strong>Quando não selecionado</strong>, o menu do Tunnelblick não incluirá as palavras «Ligar» e «Desligar» com os nomes das configurações, facilitando o uso do teclado para selecionar as configurações para ligar e desligar.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Quando selecionada</strong>, a janela de estado da VPN é mostrada quando a configuração é desconectada.</p><p><strong>Esta seleção está desativada</strong> quando 'Nunca Mostrar' estiver selecionada acima.</p>";

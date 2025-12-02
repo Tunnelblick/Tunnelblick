@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Shkëput kur përdoruesi shkyçet";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Shfaq ‘Lidhu’ dhe ‘Shkëputu’ me emrat e konfigurimeve";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Shfaq një tregues kur çfarëdo konfigurimi është i lidhur";
+
+/* Checkbox name */
 "Display connection submenus" = "Shfaq nënmenutë e lidhjeve";
 
 /* Checkbox name */
@@ -671,9 +677,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Nuk munda te zhvendos konfigurimin";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "Nuk munda te çinstaloj konfigurimin";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Krijo dhe modifiko nje konfigurim shembull?";
@@ -1185,9 +1188,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfigurimi '%@' nuk është i sigurt. Ju lutemi, riinstaloni Tunnelblick.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurimi '%@' nuk mund të përditësohet sepse nuk u shënua si 'i përditësuar'.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfigurimi '%1$@' kërkon Tunnelblick versionin %2$@ ose më të lartë; ju po përdorni Tunnelblick %3$@.\n\nDuhet të përditësoni Tunnelblick për të instaluar këtë konfigurim.";
 
@@ -1315,16 +1315,7 @@
 "Failed to copy %@ to %@" = "Dështoi kopjimi i %1$@ në %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Dështoi krijimi i dosjes në %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Dështoi krijimi i symlink-ut te \n %1$@ \n në %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Dështoi instalimi i zgjerimeve të sistemit tun dhe tap të Tunnelblick.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Dështoi vendosja e lejeve te %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Dështoi çinstalimi i zgjerimeve të sistemit tun dhe tap të Tunnelblick.";
@@ -1481,9 +1472,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Ky nuk është një skedar .ovpn ose .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nuk po zëvendësohet një konfigurim ekzistues, prandaj konfigurimi '%@' nuk mund të përdorë 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "Në shkëputje të pritur:";
@@ -1807,9 +1795,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick nuk mundi të nisë për shkak të një problemi me konfigurimin. Ju lutemi, shikoni Console Log për detaje.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick nuk arriti ta fshinte plotësisht konfigurimin '%@'. Shihni \"Console Log\" për detaje.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick nuk arriti të kopjonte dosjen '%@'. Shihni \"Console Log\" për detaje.";
 
 /* Window text */
@@ -2020,9 +2005,6 @@
 "Unable to set permissions on '%@'" = "Nuk është e mundur të vendosen lejet për '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Nuk është e mundur të ruhet stubi i konfigurimit të përditësueshëm në %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Nuk është e mundur të çinstalohet konfigurimi '%@'\n";
 
 /* Window text */
@@ -2042,18 +2024,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Skedar i palexueshëm në %@. \n\nShihni \"Console log\" për detaje.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Konfigurimi i përditësueshëm '%@' nuk u ruajt si i përditësueshëm, sepse 'Contents' në skedarin e shkurtuar .tblk nuk mund të krijohej\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Konfigurimi i përditësueshëm '%@' nuk u ruajt si i përditësueshëm, sepse skedari i tij Info.plist nuk mundi të ruhej si stub .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Konfigurimi i përditësueshëm '%@' nuk u ruajt si i përditësueshëm, sepse CFBundleIdentifier është përpunuar tashmë\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Konfigurimi i përditësueshëm '%@' nuk u ruajt si i përditësueshëm, sepse skedari Info.plist nuk kishte një element 'SUPublicDSAKey' ose elementi 'SUFeedURL' nuk specifikonte përdorimin e https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "Konfigurimi i VPN-së %@ NUK do të instalohet sepse ka një numër versioni më të ulët.";
@@ -2108,9 +2078,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Nuk mund ta bëni konfigurimin '%@' privat sepse është vendosur të fillojë kur ndizet kompjuteri.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Nuk mund ta bëni konfigurimin '%@' privat ose të përbashkët sepse është një konfigurim i përditësueshëm.\n\nVini re se një konfigurim VPN i Tunnelblick që është i përditësueshëm nuk mund të bëhet privat ose i përbashkët; vetëm konfigurimet brenda tij mund të bëhen private ose të përbashkëta.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Nuk mund të riemërtoni ose zhvendosni një konfigurim të karikuar.";
@@ -2319,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Kur aktivizohet</strong>, dritaret e statusit të VPN-së për të gjitha konfigurimet 'aktive' shfaqen kur kursori i miut kalon sipër ikonës së Tunnelblick.</p><p>Konfigurimet 'aktive' janë konfigurimet që keni provuar t'i lidhni që kur është hapur Tunnelblick.</p><p><strong>Kjo kutizë kontrolli çaktivizohet</strong> kur 'Asnjëherë mos e shfaq' është zgjedhur më lart.</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Kur është i shënuar</strong>, një tregues vizual do të shfaqet mbi ikonën e Tunnelblick kur cilado konfigurim të jetë i lidhur.</p><p><strong>. Kur nuk është i shënuar</strong> asnjë tregues nuk do te shfaqet.</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Kur aktivizohet</strong>, një dritare do të shfaqë ecurinë e Tunnelblick gjatë hapjes.</p>";
 
@@ -2339,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Kur aktivizohet</strong>, nuk do të bëhet asnjë kontroll automatik për përditësime ose kontroll për ndryshime të adresave IP, pavarësisht nga cilësimet e tjera. Shënim: të dyja këto veprimtari hyjnë në faqen e internetit të Tunnelblick.</p><p><strong>Kur nuk aktivizohet</strong>, kontrolli automatik për përditësime do të bëhet nëse është aktivizuar më poshtë, dhe kontrolli për ndryshime të adresave IP do të bëhet kur lidhet një konfigurim, nëse cilësimi i konfigurimit për ta bërë këtë është aktivizuar.</p><p>Shihni <a href=\"https://tunnelblick.net/cPrivacy.html\">Privatësia dhe Siguria</a> [tunnelblick.net] për detaje.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>Kur është i shënuar<strong>, menuja e Tunnelblick do të përfshijë fjalët ‘Lidhu’ dhe ‘Shkëputu’ bashkë me emrat e konfigurimeve.</p>\n<p><strong>Kur nuk është i shënuar</strong>, menuja e Tunnelblick nuk do të përfshijë fjalët ‘Lidhu’ dhe ‘Shkëputu’ me emrat e konfigurimeve, duke e bërë më të lehtë përdorimin e tastierës për të zgjedhur konfigurimet për lidhje dhe shkëputje.</p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Kur aktivizohet</strong>, dritarja e statusit të VPN-së shfaqet edhe kur konfigurimi është shkëputur.</p><p><strong>Kjo kutizë kontrolli çaktivizohet</strong> kur 'Asnjëherë mos e shfaq' është zgjedhur më lart.</p>";

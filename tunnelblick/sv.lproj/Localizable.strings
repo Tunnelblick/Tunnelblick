@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Koppla från vid användarbyte";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Visa \"Anslut\" och \"Koppla från\" tillsammans med konfigurationsnamnen";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Visa en indikator när en konfiguration är ansluten";
+
+/* Checkbox name */
 "Display connection submenus" = "Visa undermenyer till anslutningar";
 
 /* Checkbox name */
@@ -671,9 +677,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Kunde inte flytta konfiguration";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "Kunde inte avinstallera konfiguration";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Skapa och redigera en exempelkonfiguration?";
@@ -1185,9 +1188,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfigurationen \"%@\" är inte säker. Tunnelblick behöver installeras om.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurationen \"%@\" kan inte uppdateras eftersom den inte kunde markeras som \"uppdaterbar\".\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfiguration '%1$@' kräver Tunnelblick %2$@ eller nyare; du använder Tunnelblick %3$@. \n\nDu måste uppdatera Tunnelblick för att installera denna konfiguration.";
 
@@ -1315,16 +1315,7 @@
 "Failed to copy %@ to %@" = "Kopiering av %1$@ till %2$@ misslyckades";
 
 /* Window text */
-"Failed to create folder at %@" = "Misslyckades med att skapa mapp %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Gick inte att skapa symlänk\ntill %1$@\nfrån %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Det gick inte att installera Tunnelblicks tun och tap systemtillägg.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Kunde inte sätta behörigheter på %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Det gick inte att avinstallera Tunnelblicks tun och tap systemtillägg.";
@@ -1481,9 +1472,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Inte en .ovpn eller .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Ersätter inte en existerande konfiguration, så konfigurationen '%@' kan inte använda 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "Vid normal frånkoppling:";
@@ -1807,9 +1795,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kunde inte startas på grund av ett problem med konfigurationen. Var god undersök konsolloggen för detaljer.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick kunde inte avinstallera konfigurationen \"%@\". Öppna konsolloggen för mer detaljer.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick kunde inte kopiera mappen '%@' . Se konsolloggen för detaljer.";
 
 /* Window text */
@@ -2020,9 +2005,6 @@
 "Unable to set permissions on '%@'" = "Gick inte att sätta rättigheter på \"%@\"";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Gick inte att spara den uppdaterade konfigurations delen på %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Det gick inte att avinstallera konfigurationen \"%@\"\n";
 
 /* Window text */
@@ -2042,18 +2024,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Oläslig fil %@\n\nSe konsolloggen för mer detaljer.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Uppdaterbara konfigurationen \"%@\" sparades inte som uppdaterbar eftersom innehållet i delen .tblk kunde kunde skapas\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Uppdaterbara konfigurationen \"%@\" sparades inte som uppdaterbar dess Info.plist inte sparades i delen .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Uppdaterbara konfigurationen \"%@\" sparades inte som uppdaterbar eftersom CFBundleIdentifier redan har behandlats\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Den uppdateringsbara konfigurationen '%@' kunde inte sparas som uppdateringsbar, eftersom Info.plist saknar en 'SUPublicDSAKey', eller så är dess 'SUFeedURL' inte angiven med https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN konfigurationen %@ kommer inte att installeras eftersom den har ett lägre versionsnummer.";
@@ -2108,9 +2078,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Det går inte att göra konfigurationen '%@' privat eftersom den är inställd att starta när datorn startar.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Konfigurationen \"%@\" kan inte delas eller göras privat eftersom den kan uppdateras.\n\nNotera att en Tunnelblick VPN-konfiguration som kan uppdateras inte kan delas eller göras privat; bara konfigurationerna inuti den kan delas eller göras privata.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Du kan inte byta namn eller flytta en konfiguration som används.";
@@ -2319,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>När vald</strong> visas VPN-statusen för alla 'aktiva' konfigurationer när du för muspekaren över Tunnelblicks ikon.</p>\n<p>'Aktiva' konfigurationer är konfigurationer som du har försökt använda sedan Tunnelblick startades.</p><p><strong>Denna kryssruta är inaktiverad</strong> när inställningen 'Visa aldrig' ovan är vald.</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>När markerad</strong> kommer en indikator att visas i Tunnelblick-ikonen då en konfiguration är ansluten.</p><p><strong>Om ej markerad</strong> kommer indikatorn inte att visas.</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>När vald</strong> öppnas ett fönster som visar tidsåtgången då Tunnelblick startas.</p>";
 
@@ -2339,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>När vald</strong>, kommer inte någon automatisk kontroll av uppdateringar eller kontroll av IP adress ändringar att göras, oavsett andra inställningar. Notera: båda dessa aktiviteter ansluter till Tunnelblicks websida. </p>\n<p><strong>När inte vald</strong>, kommer automatisk kontroll av uppdateringar att göras om detta har aktiverats nedan, och kontroll av IP adress ändringar kommer att göras när en konfiguration ansluts om konfigurationens inställning att göra så är aktiverad.</p><p>Se <a href=\"https://tunnelblick.net/cPrivacy.html\">Sekretessinformation och säkerhet</a> [tunnelblick.net] för detaljer.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>När markerad</strong> kommer Tunnelblick-menyn inkludera orden \"Anslut\" och \"Koppla från\" tillsammans med konfigurationsnamnen.</p>\n<p><strong>Om ej markerad</strong> kommer Tunnelblick-menyn inte inkludera orden \"Anslut\" och \"Koppla från\" och det blir då enklare att använda tangentbordet för att välja konfigurationer för anslutning och frånkoppling.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>När inställningen är vald</strong>, så visas fönstret med VPN status även när konfigurationen är frånkopplad.</p><p><strong>Denna inställning är avstängd</strong> när 'Visa aldrig' är vald ovan.</p>";

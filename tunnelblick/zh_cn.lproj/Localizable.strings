@@ -451,6 +451,9 @@
 "Disconnect when user switches out" = "用户转出时, 断开连接";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "在配置名显示连接和断开连接";
+
+/* Checkbox name */
 "Display connection submenus" = "显示连接子菜单";
 
 /* Checkbox name */
@@ -671,9 +674,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "未能移动配置";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "未能卸载配置";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "新建并且编辑配置样本?";
@@ -1185,9 +1185,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "名为 '%@' 的配置文件并不安全。请重新安装 Tunnelblick 。";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "配置文件 '%@' 是不能自动更新的，因为它不能被标记为为 '可自动更新的'\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "配置文件 '%1$@' 需要 Tunnelblick %2$@ 或更高版本，您正在使用Tunnelblick %3$@.\n\n要安装此配置文件，您需要升级 Tunnelblick。";
 
@@ -1315,16 +1312,7 @@
 "Failed to copy %@ to %@" = "未能将 %1$@ 复制到 %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "无法创建文件夹 %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "无法创建软连接\n 到 %1$@\n 在 %2$@ 中";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "安装Tunnelblick的tun和tap系统扩展失败了。";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "未能在 %@ 上设置权限\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "卸载Tunnelblick的tun和tap系统扩展失败了。";
@@ -1481,9 +1469,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "不是.ovpn 或.conf 文件： %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "不替换现有的配置，所以配置 ' %@' 不能使用 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "在故意断开连接时：";
@@ -1807,9 +1792,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "由于配置的问题, Tunnelblick 未能启动. 详情请查看控制台日志.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick 不能完全删除配置文件 '%@'. 详情请查看控制台日志.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick无法复制文件夹'%@'。详情见控制台日志。";
 
 /* Window text */
@@ -2020,9 +2002,6 @@
 "Unable to set permissions on '%@'" = "无法在为 '%@' 设置权限";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "无法将可自动更新的配置文件的 stub 储存到 %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "无法卸载 '%@' 配置\n";
 
 /* Window text */
@@ -2042,18 +2021,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "文件 %@ 处不可读.\n\n详情请查看控制台日志.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "可自动更新的配置文件 '%@' 没有储存为可更新的配置，因为无法在 stub .tblk 中创建 'Contents'\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "可自动更新的配置文件 '%@' 没有储存为可更新的配置，因为它的 Info.plist 不能储存到 stub .tblk 中\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "可自动更新的配置文件 '%@' 没有被储存为可自动更新的配置，因为 CFBundleIdentifier 已经被处理过\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "可自动更新的配置 '%@' 没有被储存为可更新的配置，因为它的 info.plist 没有 'SUPublicDSAKey' 的条目或者它的 'SUFeedURL' 没有指明 https 的用法\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "因为它有一个较低的版本号码，所以无法安装 VPN 配置 %@。";
@@ -2108,9 +2075,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "无法将'%@' 配置文件设置为私有, 因为它被设置成开机启动.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "不能将'%@' 设置为私有或者共享，因为它是可更新的配置文件。\n\n请注意，可更新的Tunnelblick VPN配置文件是无法被设置为私有或共享的，但该配置文件下的子配置文件可被设置为私有或共享。";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "您不能重命名一个已发布的配置文件。";

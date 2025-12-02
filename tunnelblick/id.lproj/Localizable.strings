@@ -673,9 +673,6 @@
 "Could Not Move Configuration" = "Konfigurasi tidak dapat dipindahkan";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Tidak Dapat Membongkar Konfigurasi";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "Buat dan Sunting sebuah Konfigurasi Contoh?";
 
 /* Window title */
@@ -1182,9 +1179,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfigurasi '%@' tidak aman. Harap pasang ulang Tunnelblick.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurasi '%@' tidak dapat di-update karena tidak dapat ditandai sebagai 'dapat di-update'.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfigurasi '%1$@' memerlukan Tunnelblick %2$@ atau lebih tinggi; Anda sedang memakai Tunnelblick %3$@.\n\nAnda harus memperbarui Tunnelblick untuk memasang konfigurasi ini.";
 
@@ -1312,16 +1306,7 @@
 "Failed to copy %@ to %@" = "Tidak dapat menyalin %1$@ ke %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Gagal membuat folder %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Gagal membuat taut simbolik\n ke %1$@\n pada %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Gagal menginstal ekstensi sistem tun dan tap Tunnelblick.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Gagal menata ijin pada %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Gagal menghapus ekstensi sistem tun dan tap Tunnelblick.";
@@ -1478,9 +1463,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Bukan sebuah .ovpn atau .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Tidak menggantikan konfigurasi yang ada, sehingga konfigurasi '%@' tidak bisa memakai 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "Saat pemutusan yang sudah diduga:";
@@ -1804,9 +1786,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick tidak bisa memulai karena ada masalah konfigurasi. Silakan periksa Console Log untuk lebih detil.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak bisa menghapus konfigurasi '%@' secara tuntas. Silakan lihat Console Log untuk rincian lebih lanjut.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick tidak dapat menyalin folder '%@'. Silakan lihat Console Log untuk rincian lebih lanjut.";
 
 /* Window text */
@@ -2017,9 +1996,6 @@
 "Unable to set permissions on '%@'" = "Tidak bisa menata hak '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Tidak bisa menyimpan stub konfigurasi yang dapat diperbarui pada %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Tidak bisa membongkar konfigurasi '%@'\n";
 
 /* Window text */
@@ -2039,18 +2015,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Berkas tak dapat dibaca pada %@\n\nLihat Log konsol untuk rincian.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Konfigurasi '%@' yang dapat dimutakhirkan tidak disimpan sebagai dapat dimutakhirkan karena 'Contents' dalam .tblk stub tidak dapat dibuat\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Konfigurasi '%@' yang dapat dimutakhirkan tidak disimpan sebagai dapat dimutakhirkan karena Info.plist-nya tidak dapat disimpan dalam .tblk stub\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Konfigurasi yang dapat dimutakhirkan '%@' tidak disimpan sebagai dapat dimutakhirkan karena CFBundleIdentifier itu telah diproses\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Konfigurasi yang dapat dimutakhirkan '%@' tidak disimpan sebagai dapat dimutakhirkan karena Info.plist tidak punya suatu entri 'SUPublicDSAKey' atau entri 'SUFeedURL'-nya tidak menyatakan penggunaan https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "Konfigurasi VPN %@ TIDAK akan dipasang karena punya nomor versi lebih rendah.";
@@ -2105,9 +2069,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Anda tidak dapat membuat konfigurasi '%@' pribadi karena itu ditata agar mulai berjalan ketika komputer mulai menyala.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Anda tidak bisa membuat konfigurasi '%@' pribadi atau dipakai bersama karena itu konfigurasi yang dapat diperbarui.\n\nCatat bahwa suatu Konfigurasi VPN Tunnelblick yang dapat diperbarui tidak bisa dibuat menjadi pribadi atau dipakai bersama: hanya konfigurasi di dalamnya yang dapat dibuat pribadi atau dipakai bersama.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Anda tidak dapat mengganti nama atau memindahkan suatu konfigurasi yang Disebarkan.";

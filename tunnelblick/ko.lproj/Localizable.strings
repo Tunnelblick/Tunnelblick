@@ -607,9 +607,6 @@
 "Could Not Move Configuration" = "설정을 옮길 수 없습니다";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "설정을 삭제할 수 없습니다";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "예제 설정 파일을 만들고 수정하겠습니까?";
 
 /* Window title */
@@ -1050,9 +1047,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "구성 '%@'은 보호되지 않습니다. Tunnelblick을 다시 설치하십시오.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "'%@' 설정은 수정 할 수 없습니다. '수정 가능' 으로 설정할 수 없기 때문입니다.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "설정 '%1$@' 은(는) Tunnelblick %2$@ 나 그 이상을 필요로 합니다; 당신은 Tunnelblick %3$@ 을(를) 이용하고 있습니다.\n\n이 설정을 설치하기 위해서는 Tunnelblick의 업데이트가 필요합니다.";
 
@@ -1169,15 +1163,6 @@
 
 /* Window text */
 "Failed to copy %@ to %@" = "%1$@에서 %2$@로 복사 실패";
-
-/* Window text */
-"Failed to create folder at %@" = "%@에 폴더 만들기 실패";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "%1$@ 의 심볼릭 링크를\n%2$@ 에 만들 수 없습니다.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "%@에 권한 설정 실패\n";
 
 /* Window text */
 "Fast User Switching" = "빠른 사용자 전환";
@@ -1331,9 +1316,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = ".ovpn 이나 .conf 가 아닙니다: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "이미 존재하는 설정을 덮어쓰지 않기 때문에, '%@'은 'TBKeepExistingFilesList'을 사용할 수 없습니다.";
 
 /* Window text */
 "On expected disconnect:" = "예상된 연결 해제 시:";
@@ -1771,9 +1753,6 @@
 "Unable to set permissions on '%@'" = "'%@'의 사용 권한을 설정할 수 없습니다.";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "업데이트 가능한 구성 복사본을 %@에 저장할 수 없습니다.\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "'%@' 설정을 설치할 수 없습니다\n";
 
 /* Window text */
@@ -1793,18 +1772,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "파일 %@ 을 읽을 수 없습니다.\n\n자세한 내용은 콘솔 로그를 참조 하십시오.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "수정 가능한 설정 '%@' 은 stub .tblk의 'Contents'를 생성할 수 없기 때문에 수정이 불가합니다\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "수정 가능한 설정 '%@' 은 Info.plist을 stub .tblk로 저장을 실패했기 때문에 수정이 불가합니다\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "수정 가능한 설정 '%@' 은 CFBundleIdentifier이 이미 처리되었기 때문에 수정이 불가합니다\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "자동 업데이트 구성 '%@'은 업데이트 가능하게 저장될 수 없습니다. Info.plist의 'SUPublicDSAKey' 항목이 없거나 'SUFeedURL'이 https:를 사용하지 않았기 때문입니다.\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN 설정 %@ 은 버전이 낮기 때문에 설치 불가합니다.";
@@ -1850,9 +1817,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "'%@' 구성은 컴퓨터가 시작할 때 연결하도록 되어있기 때문에 개인 구성으로 변경할 수 없습니다.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "'%@' 구성은 자동 업데이트 구성이기 때문에 개인 또는 공유 구성으로 변경할 수 없습니다.\n\n업데이트 가능한 Tunnelblick VPN 구성은 개인 또는 공유 용도로 변경할 수 없지만, 내부의 구성은 개인 또는 공유 용도로 변경할 수 있습니다.";
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "컴퓨터 시작 시 연결하도록 되어있는 구성의 이름을 변경하거나 옮길 수 없습니다.";

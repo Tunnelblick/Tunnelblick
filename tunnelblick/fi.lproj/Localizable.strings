@@ -673,9 +673,6 @@
 "Could Not Move Configuration" = "Konfiguraation siirtäminen epäonnistui";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Konfiguraation poisto epäonnistui";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "Luo tai muokkaa mallikonfiguraatiota?";
 
 /* Window title */
@@ -1185,9 +1182,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfiguraatio '%@' ei ole turvallinen. Asenna Tunnelblick uudelleen.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguraatiota '%@' ei voi päivittää, koska sitä ei ole merkitty 'päivitettävissä olevaksi'.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfiguraatio '%1$@' vaatii Tunnelblick %2$@:n tai uudemman; käytät Tunnelblickin versiota %3$@.\n\nTämän konfiguraation asentaminen vaatii Tunnelblickin päivttämistä.";
 
@@ -1315,16 +1309,7 @@
 "Failed to copy %@ to %@" = "Ei voitu kopioida objektia %1$@ kohteeseen %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Kansion %@ luominen ei onnistunut";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Ei voitu luoda symbolista linkkiä\n  kohteeseen %1$@\n  paikkaan %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Virhe asennettaessa Tunnelblickin tun ja tap järjestelmän lisäosia";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Ei voitu asettaa käyttöoikeuksia kohteelle %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Virhe poistettaessa Tunnelblickin tun ja tap järjestelmän lisäosia";
@@ -1481,9 +1466,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Ei .ovpn tai .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Olemassa olevaa konfiguraatiota ei korvata, joten konfiguraatio '%@' ei voi käyttää 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "Yhteyden odotetusti katketessa:";
@@ -1807,9 +1789,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblickiä ei voitu käynnistää konfiguraatio-ongelman vuoksi.  Tutki päätelokista lisätietoja.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt poistamaan täysin konfiguraatiota '%@'. Katso lisätietoja konsolilokista.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick ei pysty kopioimaan kansiota '%@'. Katso lokista lisätietoja.";
 
 /* Window text */
@@ -2020,9 +1999,6 @@
 "Unable to set permissions on '%@'" = "Käyttöoikeuksien määrittäminen kohteelle '%@' epäonnistui";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Päivitettävissä olevan konfiguraation tynkää kohteessa %@ ei voitu tallentaa\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Konfiguraation '%@' poisto epäonnistui\n";
 
 /* Window text */
@@ -2042,18 +2018,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Lukukelvoton tiedosto: %@\n\nKatso lisätietoja konsoli logista.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska 'Contents' tynkätiedostossa .tblk ei pystytty luomaan\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska sen info.plist-tiedostoa ei voitu tallentaa tynkätiedostoon .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska CFBundleIdentifier on jo käsitelty\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävänä, koska tiedostossa Info.plist ei ollut kohtaa 'SUPublicDSAKey' tai sen kohta 'SUFeedURL' ei määrittänyt käyttöön protokollaa https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN-konfiguraatiota %@ EI asenneta, koska sillä on pienempi versionumero.";
@@ -2108,9 +2072,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Et voi tehdä konfiguraatiosta '%@' yksityistä, koska se on asetettu käynnistymään, kun tietokone käynnistyy.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Et voi tehdä konfiguraatiosta '%@' yksityistä tai jaettua, koska se on päivitettävissä oleva konfiguraatio.\n\nHuomaa, että päivitettävissä olevasta Tunnelblick VPN-konfiguraatiosta ei voi tehdä yksityistä tai jaettua; vain sen sisällä olevat konfiguraatiot voi tehdä yksityiseksi tai jaetuksi.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Asetuksia, jotka tulevat Tunnelblick asennuksen mukana ei voi nimetä tai siirtää.";

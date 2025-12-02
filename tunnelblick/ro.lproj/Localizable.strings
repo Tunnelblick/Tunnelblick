@@ -673,9 +673,6 @@
 "Could Not Move Configuration" = "Nu s-a putut muta configurarea";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Nu s-a putut dezinstala configurarea";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "Creează și editează un exemplu de configurare?";
 
 /* Window title */
@@ -1185,9 +1182,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Configurarea %@ nu este sigură. Vă rugăm să reinstalați Tunnelblick.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configurarea %@ nu este actualizabilă, deoarece nu a putut fi marcată ca \"actualizabilă\".\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Configurația '%1$@' necesită Tunnelblick %2$@ sau mai mare; utilizați Tunnelblick %3$@.\n\nTrebuie să actualizați Tunnelblick pentru a instala această configurație.";
 
@@ -1315,16 +1309,7 @@
 "Failed to copy %@ to %@" = "Nu s-a copia %1$@ la %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Nu am putut crea dosarul %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Nu a reușit să creeze symlink\n   până la %1$@\n   la %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Încercare eșuată de a instala extensiile de sistem tun și tap pentru Tunnelblick.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Nu s-au putut seta permisiunile pentru %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Încercare eșuată de dezinstalare a extensiilor de sistem tun și tap pentru Tunnelblick.";
@@ -1481,9 +1466,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Nu este .ovpn sau .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nu înlocuiți o configurație existentă, astfel încât configurația %@ nu poate utiliza 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "La deconectarea preconizată:";
@@ -1807,9 +1789,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick nu a putut fi lansat din cauza unei probleme cu configurația. Vă rugăm să examinați Console Log pentru detalii.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick nu a putut elimina în totalitate configurația '%@'. Consultați consola de log pentru mai multe detalii.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick nu a putut copia dosarul '%@'. Consultați consola de log pentru mai multe detalii. ";
 
 /* Window text */
@@ -2020,9 +1999,6 @@
 "Unable to set permissions on '%@'" = "Nu s-au putut seta permisiunile pentru %@";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Nu se poate stoca ciot de configurare actualizabile la %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Nu se poate instala configurația %@\n";
 
 /* Window text */
@@ -2042,18 +2018,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Fișier la %@ ilizibil\n\nConsultați Console Log pentru detalii.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Configurație actualizabilă %@ nu a fost stocată ca actualizabilă, deoarece 'Contents' în ciot .tblk nu a putut fi creat\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Configurația actualizabilă %@ nu a fost stocată ca actualizabilă, deoarece în Info.plist-ul său nu a putut fi stocat în .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Configurația actualizabilă %@ nu a fost stocată ca actualizabilă pentru că CFBundleIdentifier a fost deja procesată\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Configurația actualizabilă %@ nu a fost stocată ca actualizabilă deoarece Info.plist nu a avut o intrare \"SUPublicDSAKey\" sau intrarea sa \"SUFeedURL\" nu a specificat utilizarea https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "Configurarea VPN %@ NU va fi instalată, deoarece are un număr de versiune inferioară.";
@@ -2108,9 +2072,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Nu poți face configurația %@ privata deoarece este programată să înceapă la pornirea computerului.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Nu puteți face configurația %@ privată sau partajată, deoarece este o configurație actualizabilă. \n \n Rețineți că o configurație Tunnelblick VPN care este actualizabilă nu poate fi privată sau partajată; numai configurațiile din cadrul acesteia pot fi private sau partajate.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Nu puteți redenumi sau deplasa o configurație deja lansată.";

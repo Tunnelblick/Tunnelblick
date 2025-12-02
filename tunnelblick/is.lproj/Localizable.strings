@@ -610,9 +610,6 @@
 "Could Not Move Configuration" = "Tókst ekki að færa samskipan";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Tókst ekki að eyða samskipan út";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "Búa til og breyta sýnissamskipan?";
 
 /* Window title */
@@ -984,9 +981,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Samskipanin „%@“ er ekki örugg. Vinsamlegast settu Tunnelblick upp aftur.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Samskipanin „%@“ getur ekki verið uppfærð því hún er merkt sem „óuppfæranleg“.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Samskipanin „%1$@“ krefst Tunnelblick %2$@ eða nýrra. Þú ert með Tunneblick %3$@.\n\nÞú verður að uppfæra Tunneblick til að setja þessa samskipan upp.";
 
@@ -1094,15 +1088,6 @@
 
 /* Window text */
 "Failed to copy %@ to %@" = "Tókst ekki að afrita %1$@ í %2$@";
-
-/* Window text */
-"Failed to create folder at %@" = "Tókst ekki að búa til möppu í %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Tókst ekki að búa til táknræna tengingu\n við %1$@\n í %2$@";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Tókst ekki að breyta eignastjórn á „%@“\n";
 
 /* Window text */
 "Fast User Switching" = "Skipt um notanda";
@@ -1598,9 +1583,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Ekki er hægt að gera samskipanina „%@“ leynilega því hún er stillt þannig að hún opnast þegar tölvan ræsist upp.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Ekki er hægt að gera samskipanina „%@“ leynilega eða opinbera því hún er uppfæranleg samskipan.\n\nÞess má geta að uppfæranlega Tunneblick-samskipan má ekki gera leynilega eða opinbera: einungis má gera þær samskipanir sem hún inniheldur leynilegar eða opinberar.";
 
 /* Window text */
 "You may not duplicate a Deployed configuration." = "Ekki má tvírita faststillta samskipan.";

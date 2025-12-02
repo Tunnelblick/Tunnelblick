@@ -667,9 +667,6 @@
 "Could Not Move Configuration" = "העברת הגדרות נכשלה";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "הסרת הגדרות נכשלה";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "צור וערוך הגדרות לדוגמה?";
 
 /* Window title */
@@ -1131,9 +1128,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "ההגדרות %@ אינן מאובטחות. נא התקן(י) Tunnelblick מחדש.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "לא ניתן לעדכן את הקונפיגורציה '%@' מכיוון שהיא אינה מסומנת כניתנת לעדכון.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "הקונפיגורציה '%1$@' דורשת את גרסא %2$@ ומעלה; אתה משתמש בTunnelblick %3$@.\n\nאנא עדכן את Tunnelblick בכדי להתקין את הקונפיגורציה הזו.";
 
@@ -1253,15 +1247,6 @@
 
 /* Window text */
 "Failed to copy %@ to %@" = "ההעתקה מ%1$@ ל%2$@ נכשלה";
-
-/* Window text */
-"Failed to create folder at %@" = "אירעה שגיעה במהלך יצירת התיקיה ב%@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "נכשלה יצירת קיצורי הדרך\nל %1$@\nב %2$@";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "נכשלה הגדרת ההרשאות של %@\n";
 
 /* Window text */
 "Fast User Switching" = "החלפת משתמשים מהירה";
@@ -1415,9 +1400,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "קובץ זה איננו ovpn. או conf. תקני: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "אינך מחליף קונפיגורציה קיימת, כך שהקונפיגורציה '%@' לא יכולה להשתמש ב'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "בעת ניתוק צפוי:";

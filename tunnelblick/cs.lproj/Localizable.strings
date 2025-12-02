@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Odpojit při přepnutí uživatele";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Zobrazit \"Připojit\" a \"Odpojit\" s názvy konfigurací";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Zobrazit indikátor, když je připojena jakákoliv konfigurace";
+
+/* Checkbox name */
 "Display connection submenus" = "Zobrazit podnabídky spojení";
 
 /* Checkbox name */
@@ -671,9 +677,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Nelze přesunout konfiguraci";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "Nelze odinstalovat konfiguraci";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Vytvořit a modifikovat příklad konfigurace?";
@@ -1185,9 +1188,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfigurace '%@' není zabezpečena. Nainstalujte prosím Tunnelblick znovu.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguraci '%@' není možné aktualizovat, protože ji není možné označit jako 'aktualizovatelná'.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfigurace \"%1$@\" vyžaduje Tunnelblick %2$@ nebo vyšší: používáte Tunnelblick %3$@.\n\nPro instalování této konfigurace musíte aktualizovat Tunnelblick.";
 
@@ -1315,16 +1315,7 @@
 "Failed to copy %@ to %@" = "Nepodařilo se zkopírovat %1$@ do %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Nepodařilo se vytvořit složku v %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Nepodařilo se vytvořit symbolický odkaz\n  na%1$@\n  v %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Nepovedlo se nainstalovat Tun a tap  od Tunnelblicku do systémových rozšíření";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Nepodařilo se nastavit oprávnění na %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Nepovedlo se odinstalovat Tun od Tunnelblicku a přidat do systémových rozšíření";
@@ -1481,9 +1472,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Není .ovpn ani .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nepřepsatelná existující konfigurace, takže konfigurace '%@' nemůže použít  'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "Při očekávaném odpojení:";
@@ -1807,9 +1795,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Díky problému s konfigurací nelze spustit Tunnelblick. Zkontrolujte detaily v logu konzoly.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick nemohl kompletně odstranit konfigurraci '%@'. Více informací najdete v logu konzole.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick nemohl zkopírovat složku '%@'. Více informací najdete v logu konzole.";
 
 /* Window text */
@@ -2020,9 +2005,6 @@
 "Unable to set permissions on '%@'" = "Není možné nastavit oprávnění na '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Není možné uložit část aktualizovatelné konfigurace na %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Není možné odinstalovat konfiguraci '%@'\n";
 
 /* Window text */
@@ -2042,18 +2024,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Nečitelný soubor %@\n\nVíce informací je v logu konzole.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Aktualizovatelná konfigurace '%@' nebyla uložena jako aktualizovatelná, protože nebylo možné vytvořit 'Contents' v části .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Aktualizovatelná konfigurace '%@' nebyla uložena jako aktualizovatelná, protože Info.plist nemohl být uložen do části .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Aktualizovatelná konfigurace '%@' nebyla uložena jako aktualizovatelná, protože CFBundleIdentifier již byl zpracován\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Aktualizovatelná konfigurace '%@' nebyla uložena jako aktualizovatelná, protože Info.plist neobsahoval položku 'SUPublicDSAKey', nebo položka 'SUFeedURL' nespecifikuje použití https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "Konfigurace VPN %@ nebude instalována, protože má nižší číslo verze.";
@@ -2108,9 +2078,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Není možné nastavit konfiguraci '%@' jako privátní, protože sa spouští po spuštění počítače.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Není možné vytvořit konfiguraci '%@' privátních nebo sdílenou, protože je označena jako \"aktualizovatelná\".\n\nJe nutno dodat, že VPN konfigurace Tunnelblick, která je aktualizovatelná nemůže být privátních nebo sdílená. Pouze konfigurace umístěné vevnitř aktualizovatelné VPN konfigurace Tunnelblick, můžou být privátní nebo sdílené.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Není možné přejmenovat nebo přesouvat zabudovanou konfiguraci.";
@@ -2319,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Je-li zaškrtnuto,</strong>, budou při přejetí ikony Tunnelblicku zobrazena okna stavu VPN pro všechny 'aktivní' konfigurace. </p><p>'Aktivní' konfigurace jsou ty, jež jste se pokoušeli připojit od spuštění Tunnelblicku.</p><p><strong>Toto zatržítko je nedostupné</strong> v případě, že je vybráno výše uvedené 'Nikdy nezobrazovat'.</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Při zaškrtnutí</strong> bude během připojení k jakékoliv konfigurace na ikoně Tunnelblicku zobrazen vizuální indikátor.</p><p><strong>Při nezaškrtnutí</strong> se indikátor nezobrazí.</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Je-li zaškrtnuto</strong>, bude během spouštění Tunnelblicku zobrazeno okno s průběhem.</p>";
 
@@ -2339,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Je-li zaškrtnuto</strong>, nebudou provedeny žádné kontroly aktualizací nebo změn IP adres, bez ohledu na jiná nastavení. Pozn.: obě tyto aktivity přistupují na web Tunnelblicku.</p>\n<p><strong>Není-li zaškrtnuto</strong>, budou se při povolení níže provádět automatické kontroly aktualizací a kontrola změn IP adres se bude provádět při připojení konfigurace, je-li tato volba v nastavení konfigurace povolena.</p><p>Pro více detailů viz <a href=\"https://tunnelblick.net/cPrivacy.html\">Soukromí a zabezpečení</a> [tunnelblick.net]</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>Při zaškrtnutí</strong> budou v Tunneblick menu zahrnuta slova \"Připojit\" a \"Odpojit\" spolu s názvy konfigurací.</p>\n<p><strong>Při nezaškrtnutí</strong> slova \"Připojit\" a \"Odpojit\" zahrnuta nebudou, čímž se zjednoduší používání klávesnice při výběru konfigurací k připojení a odpojení.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Je-li zaškrtnuto</strong>, je okno se stavem VPN zobrazeno i tehdy, je-li konfigurace odpojena.</p><p><strong>Toto zatržítko je nedostupné</strong> v případě, že je vybráno výše uvedené 'Nikdy nezobrazovat'.</p>";

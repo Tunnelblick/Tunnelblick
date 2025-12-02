@@ -648,9 +648,6 @@
 "Could Not Move Configuration" = "Nevaram pārvietot konfigurāciju";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Nevaram atinstalēt konfigurāciju";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "Vai izveidot un labot parauga konfigurāciju?";
 
 /* Window title */
@@ -1124,9 +1121,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfigurācija '%@' nav droša. Lūdzu pārinstalējiet Tunnelblick.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurāciju '%@' nevar atjaunināt, jo tā nevarēja būt atzīmēta kā 'atjaunināma'.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfigurācijas '%1$@' darbam nepieciešama Tunnelblick versija %2$@ vai jaunāka; jūs šobrīd izmantojat Tunnelblick %3$@.\n\nLai izmantotu šo konfigurāciju, jums jāatjauno Tunnelblick.";
 
@@ -1248,16 +1242,7 @@
 "Failed to copy %@ to %@" = "Neizdevās nokopēt %1$@ uz %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Neizdevās izveidot mapi %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Neizdevās izveidot simbolisko saiti\n  no %2$@\n  uz %1$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Neizdevās uzinstalēt Tunnelblick tun un tap sistēmas spraudņus.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Neizdevās uzstādīt atļaujas %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Neizdevās atiestatīt Tunnelblick tun un tap sistēmas spraudņus.";
@@ -1414,9 +1399,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Nav .opvn vai .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Esošanā konfigurācija nav aizvietota, tādēļ konfigurācija '%@' nedrīkst izmantot 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "Paredzēta atvienošanās:";
@@ -1734,9 +1716,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick neizdevās pašpalaisties dēl problēmām ar konfigurāciju. Vairāk informācijas notikumu žurnālā.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick neizdevās pilnībā atinstalēt konfigurāciju '%@'. Sīkāka informācija pieejama Notikumu žurnāla.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick neizdevās nokopēt mapi '%@'. Sikaka informācija pieejama Notikumu žurnālā.";
 
 /* Window text */
@@ -1932,9 +1911,6 @@
 "Unable to set permissions on '%@'" = "Nav iespējams uzstādīt atļaujas %@";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Nav iespējams saglabāt atjaunināmo konfigurācijas pamatni %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Nav iespējams noņemt '%@' konfigurāciju\n";
 
 /* Window text */
@@ -1954,18 +1930,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Nenolasāma datne %@\n\nVairāk informācijas notikumu žurnālā.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Atjaunināmā konfigurācija '%@' netika saglabāta kā atjaunināma, jo neizdevās izveidot saturu .tblk datnē\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Atjaunināmā konfigurācija '%@' netika saglabāta kā atjaunināma, jo Info.plist nebija iespējams saglabāt .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Atjaunināmā konfigurācija '%@' netika saglabāta kā atjaunināma, jo CFBundleIdentifier jau reiz tika apstrādāts\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Atjaunināmā konfigurācija '%@' netika saglabāta kā atjaunināma, jo Info.plist nesatur 'SUPublicDSAKey' ierakstu vai 'SUFeedURL' ieraksts nenosaka lietot https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN konfigurācija %@ NETIKS uzstādīta, jo tai ir zemāks versijas numurs.";
@@ -2020,9 +1984,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Jūs nevarat padarīt konfigurāciju '%@'par privātu, jo tā ir nozīmēta startēšanai līdz ar datora ieslēgšanos.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Jūs nevarat padarīt konfigurāciju '%@'par privātu vai kopīgu, jo tā ir atjaunināmā konfigurācija.\n\nŅemiet vērā, ka atjaunināmā Tunnelblick VPN konfigurācija nevar būt privāta vai kopīga; tikai ieliktās tajā konfigurācijas var būt privātas vai kopīgas.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Jūs nevarat pārsaukt vai pārvietot aktīvās konfigurācijas.";

@@ -630,9 +630,6 @@
 "Could Not Move Configuration" = "Haikuweza Kusogeza Usanidi";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Haikuweza Kuondoa Usanidi";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "Unda na Uhariri Usanidi wa Mfano?";
 
 /* Window title */
@@ -1054,9 +1051,6 @@
 
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Usanidi '%@' si salama. Tafadhali sakinisha tena Tunnelblick.";
-
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Usanidi '%@' hauwezi kusasishwa kwa sababu haukuweza kutiwa alama kuwa 'unaoweza kusasishwa'.\n";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Usanidi '%1$@' unahitaji Tunnelblick %2$@ au toleo jipya zaidi; unatumia Tunnelblick %3$@.\n\nLazima usasishe Tunnelblick ili kusakinisha usanidi huu.";

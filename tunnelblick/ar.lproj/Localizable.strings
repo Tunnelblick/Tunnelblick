@@ -8,7 +8,7 @@
 "Disconnect All (%@)" = "قطع كافة الاتصالات (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) IP: %@" = "قطع كافة الإتصالات (%1$d روابط) IP: %2$@";
+"Disconnect All (%d Connections) IP: %@" = "قطع كافة الاتصالات (%1$d روابط) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "فصل كافة الإتصالات ال (%d)";
@@ -83,10 +83,10 @@
 "Delete Credentials" = "حذف بيانات الدخول";
 
 /* Button */
-"Delete saved passphrase and try again" = "إحذف عبارة المرور المحفوظة سابقاً وأعد المحاولة";
+"Delete saved passphrase and try again" = "احذف عبارة المرور المحفوظة سابقاً وأعد المحاولة";
 
 /* Button */
-"Delete saved password and try again" = "إحذف كلمة السرالمحفوظة سابقاً وأعد المحاولة";
+"Delete saved password and try again" = "احذف كلمة السر المحفوظة سابقاً وأعد المحاولة";
 
 /* Button */
 "Delete" = "حذف";
@@ -128,7 +128,7 @@
 "Install and Relaunch" = "ثبت و اعد التشغيل";
 
 /* Button */
-"Install tun and tap system extensions..." = "ثبت التطبيق واضغط على ملحقات النظام";
+"Install tun and tap system extensions..." = "ثبت التطبيق واضغط على ملحقات النظام...";
 
 /* Button */
 "Install" = "تثبيت";
@@ -210,10 +210,10 @@
 "Restart connection" = "إعادة الاتصال";
 
 /* Button */
-"Restore" = "إستعادة";
+"Restore" = "استعادة";
 
 /* Button text */
-"Retry with manual response" = "إعادة المحاولة بإستجابة يدوية";
+"Retry with manual response" = "إعادة المحاولة باستجابة يدوية";
 
 /* Button */
 "Retry" = "إعادة المحاولة";
@@ -237,7 +237,7 @@
 "Show when connection status changes" = "عرض عند تغيير حالة الإتصال";
 
 /* Button */
-"Show while connecting and connected" = "عرض أثناء الإتصال والتوصيل";
+"Show while connecting and connected" = "عرض اثناء الاتصال والتوصيل";
 
 /* Button */
 "Show while connecting" = "عرض أثناء انشاء الإتصال";
@@ -298,6 +298,13 @@
 
 /* Button */
 "When computer starts" = "عند بدء تشغيل الكمبيوتر";
+
+/* Menu item
+   Menu item. '%1.2f' will be replaced with a decimal number such as '45.5', and the '%%' will be replaced by a single percentage sign ('%'). */
+"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "تحديث جديد متوفر الآن (تم تحميل %1.2f)…";
+
+/* Menu item */
+"A Tunnelblick Update is Available and Downloaded..." = "تحديث جديد متوفر و تم تحميله…";
 
 /* Menu item */
 "A Tunnelblick Update is Available..." = "متاح تحديث Tunnelblick";
@@ -643,9 +650,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "غير قادر على نقل الإعدادات";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "غير قادر على حذف الإعدادات";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "إنشاء وتعديل نموذج الإعدادات ؟";
@@ -1121,9 +1125,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "التكوين '%@' ليست آمنة. الرجاء إعادة تثبيت تُنلـبليك.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "التضبيط التالي '%@' غير قابل للتحديث, لأنه لا يمكن أن تكون علامة عليه على أنه 'قابل للتحديث'.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "الاعدادات في '%1$@' تحتاج نسخة تُنلـبليك %2$@ او احدث؛ انت تستخدم نسخة تُنلـبليك %3$@.\n\nيجب عليك تحديث نسخة تُنلـبليك قبل ان يمكنك تنصيب هذه الاعدادات.";
 
@@ -1245,16 +1246,7 @@
 "Failed to copy %@ to %@" = "فشل في نسخ %1$@ الى %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "فشل في إنشاء ملف في %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "فشل في إنشاء الارتباط الرمزي \nل %1$@\nفي %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "فشل في تثبيت امتدادات الجهاز الافتراضي \"tun and tap\" في تطبيق Tunnelblick.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "فشل في تعيين الإذونات في %@";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "فشل في حذف امتدادات الجهاز الافتراضي \"tun and tap\" في تطبيق Tunnelblick.";
@@ -1411,9 +1403,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "الملف ليس بامتداد ‎.ovpn أو ‎.conf:\n‏‎%@‎";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "لن يتم تغيير الاعدادات الحالية ، لذلك لا يمكن لاعدادات %@ استخدام TBKeepExistingFilesList";
 
 /* Window text */
 "On expected disconnect:" = "عند قطع الاتصال المتوقع:";
@@ -1734,9 +1723,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "تعذر اقلاع برنامج تُنلـبليك نتيجة مشكلة في الاعدادات. تفحص السجل للتفاصيل.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "تعذر ازالة اعدادات ‘%@‘ بشكل كامل. راجع السجل للتفاصيل.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "تعذر نسخ اعدادات الاتصال ‘%@‘. راجع السجل للتفاصيل.";
 
 /* Window text */
@@ -1932,9 +1918,6 @@
 "Unable to set permissions on '%@'" = "غير قادر على وضع اذونات ل%@";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "تعذر حفظ الاعدادات المحدثة في النسخة الجزئية عند %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "غير قادر على حذف %@ الاعدادات\n";
 
 /* Window text */
@@ -1954,18 +1937,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "الملف غير قابل للقراءه عند %@\n\nراجع السجل للتفاصيل.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "لم يتم خزن ألإعدادات '%@' لان المحتوى في stub .tblk لم يتم إنشاءه\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "لم يتم تخزين الإعدادات '%@' بسبب Info.plist لم يتم خزنها في stub .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "لم يتم خزن الاعدادات '%@' لان الملف 'CFBundleIdentifier ' قد تم تفعيله مسبقا\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "لم تخزن التكوين للتحديث '%@' كما قابلة للتحديث لأن Info.plist لم يكن لديك دخول إلى \"SUPublicDSAKey\" أو دخولها \"SUFeedURL\" لم يحدد استخدام من https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "اعدادات اتصال VPN %@ لن يتم تثبيتها لأن نسخة VPN المستخدمة فيها قديمة.";
@@ -2020,9 +1991,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "لا يمكنك تخصيص اعدادات الاتصال ‘%@‘ لمستخدم واحد لأنها معدة للاتصال عند بدء تشغيل الجهاز.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "لا يمكنك تخصيص أو مشاركة اعدادات الاتصال ‘%@‘ لأنها اعدادات يتم تحديثها تلقائيا.\n\nيجب التنويه ان اعدادات تُنلـبليك للاتصال التي يتم تحديثها تلقائيا لا يمكن تخصيصها أو مشاركتها؛ فقط يمكن تخصيص أو مشاركة الاعدادات المحتواه داخلها.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "لا يمكن تعديل اعدادات مفعلة.";

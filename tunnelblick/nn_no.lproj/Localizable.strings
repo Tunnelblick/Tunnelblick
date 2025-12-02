@@ -670,9 +670,6 @@
 "Could Not Move Configuration" = "Kunne ikkje flytta konfigurasjon";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Kunne ikkje avinnstallera konfigurasjon";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "Opprett og rediger dømekonfigurasjon?";
 
 /* Window title */
@@ -1219,16 +1216,7 @@
 "Failed to copy %@ to %@" = "Kunne ikkje kopiera %1$@ til %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Kunne ikkje oppretta mappa ved %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Kunne ikkje oppretta symlink\n  frå %1$@\n  til %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Klarte ikkje installera Tunnelblicks tun og tap systemutvidingar.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Kunne ikkje sette løyva på %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Klarte ikkje avinstallere Tunnelblicks tun og tap systemutvidingar.";
@@ -1618,9 +1606,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kunne ikkje startast grunna konfigurasjonsproblem. Ver vennleg og undersøk konsolloggen for detaljar.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick kunne ikkje fullstendig fjerne '%@'-konfigurasjonen. Sjå konsolloggen for detaljar.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick klarte ikkje å kopiera katalogen '%@'. Sjå konsolloggen for detaljar.";
 
 /* Window text */
@@ -1810,9 +1795,6 @@
 "Unable to set permissions on '%@'" = "Kunne ikkje angi løyve på '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Kan ikkje lagra den oppdaterbare konfigurasjonsstumpen ved %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Kan ikkje avinstallere '%@'-konfigurasjonen\n";
 
 /* Window text */
@@ -1832,12 +1814,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Uleseleg fil på %@\n\nSe konsoll-loggen for detaljar.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Den oppdaterbare konfigurasjonen '%@' vart ikkje lagra som oppdaterbar fordi 'Contents' i .tblk-stumpen ikkje kunne opprettast\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Den oppdaterbare konfigurasjonen '%@' vart ikkje lagra som oppdaterbar fordi dens Info.plist ikkje kunne lagrast i .tlbk-stumpen\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN-konfigurasjon %@ vert IKKJE installert, fordi han har eit lågare versjonsnummer.";
@@ -1892,9 +1868,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Du kan ikkje gjera '%@'-konfigurasjonen privat fordi han er sett til å starta når datamaskina startar.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Du kan ikkje gjera '%@' konfigurasjonen privat eller delt fordi det er ein oppdaterbar konfigurasjon. \n\nVennligst merk at Tunnelblick VPN konfigurasjon som er oppdaterbar kan ikkje gjerast privat eller delt; berre konfigurasjonar innan applikasjonen kan gjerast privat eller delt.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Du kan ikkje endra namn eller flytta ein konfigurasjon som er i bruk.";

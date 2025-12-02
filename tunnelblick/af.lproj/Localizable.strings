@@ -642,9 +642,6 @@
 "Could Not Move Configuration" = "Kon Nie Konfigurasie Skuif Nie";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Kon Nie Konfigurasie Verwyder Nie";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "Skep en Wysig 'n Konfigurasie Voorbeeld?";
 
 /* Window title */
@@ -1112,9 +1109,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Opstelling '% @' is nie veilig nie. Installeer asseblief Tunnelblick.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurasie '% @' kan nie opdateer word nie omdat dit nie as 'opdateerbaar' gemerk kon word nie.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Opstelling '% 1 $ @' benodig Tunnelblick% 2 $ @ of hoër; jy gebruik Tunnelblick% 3 $ @.\n\nU moet Tunnelblick opdateer om hierdie konfigurasie te installeer.";
 
@@ -1236,16 +1230,7 @@
 "Failed to copy %@ to %@" = "Misluk om %1$@ na %2$@ te kopy";
 
 /* Window text */
-"Failed to create folder at %@" = "Omslag by %@ het misluk om geskep te word";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Kon nie simlink skep nie\n  tot% 1 $ @\n  teen% 2 $ @";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Kon nie Tunnelblick se tun en tap-stelseluitbreidings installeer nie.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Kon nie toestemmings op% @ instel nie\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Kon nie Tunnelblick se tun en tap-stelseluitbreidings verwyder nie.";
@@ -1402,9 +1387,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Nie 'n .ovpn of .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "'N Bestaande konfigurasie word nie vervang nie. Konfigurasie'% @ 'kan dus nie' TBKeepExistingFilesList 'gebruik nie";
 
 /* Window text */
 "On expected disconnect:" = "Op verwagte ontkoppeling:";
@@ -1722,9 +1704,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kon nie van stapel gestuur word nie as gevolg van 'n probleem met die konfigurasie. Bestudeer die konsolelogboek vir meer inligting.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick kon die '% @' -konfigurasie nie heeltemal verwyder nie. Raadpleeg die konsolelogboek vir meer inligting.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick kon die gids '% @' nie kopieer nie. Raadpleeg die konsolelogboek vir meer inligting.";
 
 /* Window text */
@@ -1920,9 +1899,6 @@
 "Unable to set permissions on '%@'" = "Kan nie toestemmings op '% @' instel nie";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Kan nie opdaterbare konfigurasie-stomp by% @ stoor nie\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Kan nie die '% @' -konfigurasie verwyder nie\n";
 
 /* Window text */
@@ -1942,18 +1918,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Onleesbare lêer by% @\n\nRaadpleeg die Console-logboek vir meer inligting.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Opdaterbare konfigurasie '% @' is nie gestoor as bywerkbaar nie, omdat 'Inhoud' in die stomp .tblk nie geskep kon word nie\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Opdaterbare konfigurasie '% @' is nie gestoor as bywerkbaar nie omdat die Info.plist nie in die stomp .tblk gestoor kon word nie.\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Opdaterbare konfigurasie '% @' is nie as opdateerbaar gestoor nie omdat daardie CFBundleIdentifier reeds verwerk is\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Opdaterbare konfigurasie '% @' is nie gestoor as bywerkbaar nie omdat die Info.plist nie 'n 'SUPublicDSAKey' inskrywing gehad het nie, of die 'SUFeedURL' inskrywing nie die gebruik van https gespesifiseer het nie:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN-konfigurasie% @ sal NIE geïnstalleer word nie omdat dit 'n laer weergawe nommer het.";
@@ -2008,9 +1972,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "U kan die '% @' -konfigurasie nie privaat maak nie, want dit is ingestel om te begin wanneer die rekenaar begin.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "U kan die '% @' -konfigurasie nie privaat of gedeeld maak nie, want dit is 'n opdaterbare opset.\n\nLet daarop dat 'n Tunnelblick VPN-opstelling wat opdateerbaar is, nie privaat of gedeel kan word nie; slegs die konfigurasies daarin kan privaat of gedeel word.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "U kan nie 'n gedeaktiveerde konfigurasie hernoem of skuif nie.";

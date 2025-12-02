@@ -652,9 +652,6 @@
 "Could Not Move Configuration" = "ไม่สามารถย้ายคอนฟิกเกอเรชันได้";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "ไม่สามารถถอนการติดตั้งคอนฟิกเกอเรชันได้";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "สร้างและแก้ไขตัวอย่างคอนฟิกเกอเรชัน?";
 
 /* Window title */
@@ -1122,9 +1119,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "คอนฟิกเกอเรชัน '%@' ไม่ปลอดภัย โปรดติดตั้ง Tunnelblick ใหม่อีกครั้ง";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "คอนฟิกเกอเรชัน '%@' ไม่สามารถอัพเดทได้เพราะมันไม่ถูกระบุว่าสามารถอัพเดทได้\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "คอนฟิกเกอเรชัน '%1$@' จำเป็นต้องใช้ Tunnelblick %2$@ หรือสูงกว่า; คุณกำลังใช้ Tunnelblick %3$@ อยู่ขณะนี้\n\nคุณต้องอัพเดท Tunnelblick เพื่อที่จะติดตั้งคอนฟิกเกอเรชันนี้";
 
@@ -1246,16 +1240,7 @@
 "Failed to copy %@ to %@" = "ล้มเหลวในการคัดลอก %1$@ ไปที่ %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "ล้มเหลวในการสร้างโฟลเดอร์ที่ %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "ล้มเหลวในการสร้างจุดเชื่อมโยง\n  จาก %2$@\n  ไปที่ %1$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "ล้มเหลวในการติดตั้งส่วนขยายระบบ tun และ tap ของ Tunnelblick";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "ล้มเหลวในการตั้งความยินยอมที่ %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "ล้มเหลวในการถอนการติดตั้งส่วนขยายระบบ tun และ tap ของ Tunnelblick";
@@ -1412,9 +1397,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "ไม่ใช่ .ovpn หรือ .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "ไม่แทนที่คอนฟิกเกอเรชันที่มีอยู่ ดังนั้นคอนฟิกเกอเรชั่น '%@' ไม่สามารถใช้ 'TBKeepExistingFilesList' ได้";
 
 /* Window text */
 "On expected disconnect:" = "เมื่อตั้งใจจะตัดการเชื่อมต่อ:";
@@ -1732,9 +1714,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "ไม่สามารถเริ่มเปิด Tunnelblick ขึ้นมาทำงานได้เนื่องจากปัญหาเกี่ยวกับคอนฟิกเกอเรชัน โปรดตรวจสอบรายละเอียดที่ Console Log";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick ไม่สามารถลบคอนฟิกเกอเรชัน '%@' ได้อย่างสมบูรณ์ ดูรายละเอียดได้ที่ Console Log";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick ไม่สามารถคัดลอกโฟลเดอร์ '%@' ได้ ดูรายละเอียดได้ที่ Console Log";
 
 /* Window text */
@@ -1930,9 +1909,6 @@
 "Unable to set permissions on '%@'" = "ไม่สามารถตั้งความยินยอมที่ '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "ไม่สามารถเก็บตัวแทนคอนฟิกเกอเรชันเพื่อจะอัพเดทไว้ที่ %@ ได้\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "ไม่สามารถถอนการติดตั้งคอนฟิกเกอเรชันชื่อ '%@' ได้\n";
 
 /* Window text */
@@ -1952,18 +1928,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "ไฟล์ที่ไม่สามารถอ่านได้ที่ %@\n\nดูรายละเอียดได้ที่ Console log";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "ไม่สามารถเก็บคอนฟิกเกอเรชันชื่อ '%@' ไว้เพื่อจะอัพเดทได้เพราะไม่สามารถสร้าง 'Contents' ในตัวแทน .tblk ได้\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "ไม่สามารถเก็บคอนฟิกเกอเรชันชื่อ '%@' ไว้เพื่อจะอัพเดทได้เพราะไม่สามารถเก็บไฟล์ Info.plist ในตัวแทน .tblk ได้\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "ไม่สามารถเก็บคอนฟิกเกอเรชันชื่อ '%@' ไว้เพื่อจะอัพเดทได้เพราะค่า CFBundleIdentifier ได้ถูกใช้ไปแล้ว\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "ไม่สามารถเก็บคอนฟิกเกอเรชันชื่อ '%@' ไว้เพื่อจะอัพเดทได้เพราะ Info.plist ไม่มีรายการ 'SUPublicDSAKey' หรือรายการ 'SUFeedURL' ไม่ได้ระบุว่าใช้ https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "คอนฟิกเกอเรชัน VPN %@ จะไม่ถูกติดตั้งเพราะมีเลขรุ่นต่ำกว่า";
@@ -2018,9 +1982,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "คุณไม่สามารถเปลี่ยนคอนฟิกเกอเรชัน '%@' ให้เป็นส่วนตัวได้เพราะมันถูกตั้งให้ทำงานเมื่อเครื่องคอมพิวเตอร์เริ่มทำงาน";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "คุณไม่สามารถเปลี่ยนคอนฟิกเกอเรชัน '%@' ให้เป็นส่วนตัวหรือใช้ร่วมกันได้เพราะมันเป็นคอนฟิกเกอเรชันที่อัพเดทได้\n\nเรียนให้ทราบว่าคอนฟิกเกอเรชัน VPN ที่อัพเดทได้ของ Tunnelblick นั้นไม่สามารถเปลี่ยนให้เป็นส่วนตัวหรือใช้ร่วมกันได้ มีแค่คอนฟิกเกอเรชันภายในนั้นเท่านั้นที่ทำให้เป็นส่วนตัวหรือใช้ร่วมกันได้";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "คุณไม่สามารถเปลี่ยนชื่อหรือย้ายคอนฟิกเกอเรชันที่ติดตั้งแล้วได้";

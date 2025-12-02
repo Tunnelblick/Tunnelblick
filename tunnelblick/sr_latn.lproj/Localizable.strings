@@ -625,9 +625,6 @@
 "Could Not Move Configuration" = "Neuspešno prebacivanje konfiguracije";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Neuspešna deinstalacija konfiguracije";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "Kreiraj i izmeni primer konfiguracije?";
 
 /* Window title */
@@ -1095,9 +1092,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfiguracija '%@' nije obezbeđena. Molimo reinstalirajte Tunnelblick.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguracija '%@' ne može biti ažurirana jer je nemoguće označiti je kao \"omogućenu za ažuriranje\".\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfiguracija '%1$@' zahteva Tunnelblick verziju %2$@ ili višu; vi koristite Tunnelblick %3$@.\n\nMorate ažurirati Tunnelblick da biste instalirali ovu konfiguraciju.";
 
@@ -1219,16 +1213,7 @@
 "Failed to copy %@ to %@" = "Neuspešno kopiranje %1$@ u %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Neuspešno kreiranje direktorijuma na %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Neuspešno kreiranje simboličkog linka\n na %1$@\n u %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Tunnelblick nije uspeo da instalira neophodne tun i tap sistemske ekstenzije. ";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Neuspešno setovanje dozvola na %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Brisanje Tunnelblick tun i tap ekstenzija nije uspelo. ";
@@ -1385,9 +1370,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Nije .ovpn ili .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nije zamena za postojeću konfiguraciju, tako da konfiguracija '%@' ne može da koristi 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "Prilikom očekivanog prekida konekcije:";
@@ -1705,9 +1687,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick nije mogao biti pokrenut zbog problema sa konfiguracijom. Pogledajte log konzole za detalje.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick nije uspeo da u potpunosti ukloni '%@' konfiguraciju. Pogledajte log konzole za detalje.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick nije uspeo da kopira '%@' folder. Pogledajte log konzole za detalje.";
 
 /* Window text */
@@ -1903,9 +1882,6 @@
 "Unable to set permissions on '%@'" = "Neuspešno setovanje dozvola na '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Neuspešno čuvanje konfiguracijskog isečka koji je moguće osvežiti na lokaciji %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Neuspešna deinstalacija '%@' konfiguracije\n";
 
 /* Window text */
@@ -1925,18 +1901,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Nečitljiva datoteka na %@\n\nPogledajte log konzole za detalje.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Konfiguracija koju je moguće osvežiti '%@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer 'Contents' u stub.tblk nije moguće kreirati\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Konfiguracija koju je moguće osvežiti '%@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer njegov Info.plst nije moguće sačuvati u stub.tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Konfiguracija koju je moguće osvežiti '%@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer je \nCFBundleIdentifier već procesiran\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Konfiguracija koju je moguće osvežiti %@ nije sačuvana kao takva jer Info.plist nije imao 'SUPublicDSAKey' unos ili njegov 'SUFeedURL' unos nije precizirao upotrebu https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN konfiguracija %@ NEĆE biti instalirana jer ima niži broj verzije.";
@@ -1991,9 +1955,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Ne možete '%@' konfiguraciju podesiti kao privatnu jer je podešena da se pokreće prilikom pokretanja računara.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Ne možete podesiti '%@' konfiguraciju kao privatnu ili deljenu jer je to konfiguracija koju je moguće osvežiti.\n\nTunnelblick VPN konfiguracije koje je moguće osvežiti ne mogu biti privatne ili deljene; samo konfiguracije unutar ovakve konfiguracije mogu biti privatne ili deljene.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Ne možete preimenovati ili premjestiti Primenjenu konfiguraciju.";

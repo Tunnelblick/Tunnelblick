@@ -670,9 +670,6 @@
 "Could Not Move Configuration" = "تانوانی در جابجایی پیکربندی";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "ناتوانی در حذف پیکربندی";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "ایجاد و تغییر پیکربندی نمونه؟";
 
 /* Window title */
@@ -1098,9 +1095,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "پیکربندی '%@' امن نیست. لطفا Tunnelblick را مجدد نصب کنید.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "پیکربندی '%@' قابل بروزرسانی نیست زیرا به عنوان 'قابل' بروزرسانی نشان گذاری نشده است.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "پیکربندی '%1$@' نیاز به Tunnelblick نسخه %2$@ و یا بالاتر دارد و شما از Tunnelblick نسخه %3$@ استفاده می نمایید.";
 
@@ -1214,15 +1208,6 @@
 
 /* Window text */
 "Failed to copy %@ to %@" = "رونوشت %1$@ به %2$@ موفق نبود";
-
-/* Window text */
-"Failed to create folder at %@" = "ایجاد پوشه در %@ موفق نبود";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "ایجاد پیوند نمادین موفق نبود\n  به %1$@\n  در %2$@";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "تنظیم اجازه بر روی %@ موفق نبود\n";
 
 /* Window text */
 "Fast User Switching" = "تعویض سریع کاربر";
@@ -1373,9 +1358,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "یک .ovpn یا .conf نیست: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "پیکربندی موجود جایگزین نمی شود، پس پیکربندی '%@' نمی تواند از 'TBKeepExistingFilesList' استفاده کند";
 
 /* Window text */
 "On expected disconnect:" = "در هنگام قطع ارتباط منتظره:";
@@ -1813,9 +1795,6 @@
 "Unable to set permissions on '%@'" = "عدم توانایی در تنظیم اجازه ها بر روی '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "عدم توانایی در ذخیزه سازی بخشی از پیکربندی قابل بروزرسانی در %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "عدم توانایی در حذف پیکربندی '%@'\n";
 
 /* Window text */
@@ -1835,18 +1814,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "فایل غیرقابل خوانده شدن در %@\n\nبرای جزییات بیشتر به میزفرمان گزارشات مراجعه فرمایید.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "پیکربندی قابل بروزرسانی '%@' به صورت قابل بروزرسانی ذخیره نشد زیرا محتوای بخشی .tblk ایجاد نشد\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "پیکربندی قابل بروزرسانی '%@' به صورت قابل بروزرسانی ذخیره نشد زیرا فایل Info.plist آن در فایل بخشی .tblk ذخیره نشد\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "پیکربندی قابل بروزرسانی '%@' به صورت قابل بروزرسانی ذخیره نشد زیرا آن CFBundleIdentifier پیشتر پردازش شده است\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "پیکربندی قابل بروزرسانی '%@' به صورت قابل بروزرسانی ذخیره نشد زیرا فایل Info.plist دارای مقدار 'SUPublicDSAKey' نیست و یا اینکه نشانی اینترنتی 'SUFeedURL' آن استفاده از https را مشخص نکرده:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "پیکربندی وی پی ان %@ نصب نخواهد شد زیرا دارای شماره نسخه پایین تری است.";
@@ -1892,9 +1859,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "شما نمی توایند پیکربندی '%@' را خصوصی نمایید زیرا برای اجرا در حین راه اندازی رایانه تعیین شده است.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "شما قادر به خصوصی و یا مشترک ساختن پیکربندی '%@' نیستید زیرا این پیکربندی از نوع ویرایش پذیر می باشد.\n\nتوجه داشته باشید که پیکربندی ویرایش پذیر وی پی ان در Tunnelblick قابل خصوصی و مشترک سازی نمی باشد; فقط تنظیمات درون آن را می توان خصوصی و یا مشترک کرد.";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "شما تلاش کردید تا یه فایل نمونه پیکربندی را به جای فایل اصلی پیکربندی نصب نمایید. این فایل پیکربندی باید برای اتصال به وی پی ان تغییر کند. همچنین شما باید فایل های دیگری همچون اعتبارنامه و یا کلید را همراه داشته باشید.\n\nجهت دریافت فایل پیکربندی و یا سایر فایل های و یا اطلاعات بیشتر برای تغییر در فایل نمونه، با مدیر شبکه و یا اراسه دهنده سرویس وی پی ان خود تماس حاصل فرمایید.\n\nفایل پیکربندی در مسیر زیر قرار دارد:\n%@\n\n";

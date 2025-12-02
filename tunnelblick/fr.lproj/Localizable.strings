@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Déconnecter lors du passage à un autre compte d’utilisateur";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Afficher \"Connecter\" et \"Déconnecter\" avec les noms des configurations";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Afficher un indicateur lorsqu'une configuration est connectée";
+
+/* Checkbox name */
 "Display connection submenus" = "Afficher les sous-menus de connexion";
 
 /* Checkbox name */
@@ -671,9 +677,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "La configuration n’a pas pue être déplacée";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "La configuration n’a pas pue être supprimée";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Créer et rédiger une configuration d'exemple ?";
@@ -1185,9 +1188,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "La configuration '%@' n'est pas sécurisée. Merci de réinstaller Tunnelblick.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "La configuration '%@' ne peut être mise à jour parce qu'elle n'a pas pu être marquée comme \"modifiable\".\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "La configuration '%1$@' nécessite Tunnelblick %2$@ ou supérieur&nbsp;; vous utilisez Tunnelblick %3$@.\n\nVous devez mettre à jour Tunnelblick pour installer cette configuration.";
 
@@ -1315,16 +1315,7 @@
 "Failed to copy %@ to %@" = "Impossible de copier %1$@ vers %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Impossible de créer le dossier %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Impossible de créer le lien symbolique\n  de %1$@\n  vers %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Échec de l'installation des extensions système TUN et TAP de Tunnelblick.\n";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Impossible d'appliquer les permissions sur %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Échec de la désinstallation des extensions système TUN et TAP de Tunnelblick.";
@@ -1481,9 +1472,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Le fichier %@ n'est ni un .ovpn, ni un .conf";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Ne remplace pas une configuration existante, alors la configuration '%@' ne peut pas utiliser 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "En cas de déconnexion attendue :";
@@ -1807,9 +1795,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick n'a pas pu se lancer pas parce qu’il y a un problème avec la configuration. Veuillez examiner les messages de la console pour les détails.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick n'a pas pu éliminer complètement la configuration '%@'. Consultez les messages de la console pour plus de détails.\n";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick n'a pas pu copier le dossier '%@'. Consultez les messages de la console pour plus de détails.";
 
 /* Window text */
@@ -2020,9 +2005,6 @@
 "Unable to set permissions on '%@'" = "Impossible de définir les autorisations de '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Impossible de mémoriser le bouchon (stub) de configuration modifiable à l'emplacement %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Impossible de désinstaller la configuration '%@'\n";
 
 /* Window text */
@@ -2042,18 +2024,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Fichier illisible a %@\n\nRegarder le fichier journal de la Console pour plus de détails.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "La configuration modifiable '%@' n'a pas été mémorisée comme modifiable car 'Contents' dans le bouchon (stub) .tblk n'a pu être créé\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "La configuration modifiable '%@' n'a pas été mémorisée comme modifiable car son Info.plist n'a pu être mémorisée dans son bouchon (stub) .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "La configuration modifiable '%@' n'a pas été mémorisée comme modifiable car ce CFBundleIdentifier a déjà été traité\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "La configuration modifiable '%@' n'a pas été enregistrée comme modifiable parce que le fichier Info.plist n'avait pas d'entrée 'SUPublicDSAKey' ou que l'entrée 'SUFeedURL' ne demandait pas l'utilisation de https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "La configuration VPN %@ ne sera PAS installée parce qu'il a un numéro de version inférieur.";
@@ -2108,9 +2078,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Vous ne pouvez rendre la configuration '%@' privée car elle est réglée pour être lancée au démarrage de l'ordinateur.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Vous ne pouvez rendre la configuration '%@' privée ou partagée car il s'agit d'une configuration modifiable.\n\nÀ savoir : une configuration VPN Tunnelblick modifiable ne peut être rendue privée ou partagée; seules les configurations qui se trouvent dans celle ci peuvent être rendues privées ou partagées.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Il n'est pas permis de renommer ou déplacer une configuration 'Déployée'.";
@@ -2287,19 +2254,19 @@
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Si cette option est cochée</strong>, OpenVPN lancera un test pour déterminer le MTU maximum pour la connexion. Le test est lancé à chaque connexion et peut prendre plusieurs minutes. Les résultats apparaissent dans le fichier journal de Tunnelblick.</p>\n";
 
 /* HTML info for the 'Check only when connected to a VPN' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates automatically only when connected to a VPN.</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Lorsque cochée</strong>, Tunnelblick vérifiera automatiquement les mises à jour seulement lorsqu'il est connecté à un VPN.</p>\n<p><strong>Cette case à cocher est désactivée</strong> et décochée lorsque 'Empêcher la vérification automatique des mises à jour et la vérification de l'adresse IP' est coché, et lorsque l'utilisateur n'est pas un administrateur de l'ordinateur et que seuls les administrateurs sont autorisés à installer les mises à jour.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will check for updates automatically only when connected to a VPN.</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Si cette option cochée</strong>, Tunnelblick vérifiera automatiquement les mises à jour seulement lorsqu'il est connecté à un VPN.</p>\n<p><strong>Cette option est désactivée</strong> et décochée lorsque 'Empêcher la vérification automatique des mises à jour et la vérification de l'adresse IP' est coché, et lorsque l'utilisateur n'est pas un administrateur de l'ordinateur et que seuls les administrateurs sont autorisés à installer les mises à jour.</p>";
 
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick cherchera les mises à jour en version beta.</p><p><strong>Si cette option n'est pas cochée</strong>, Tunnelblick cherchera uniquement les mises à jour en version stable.</p><p><strong>Cette option est indisponible</strong> et toujours activée lorsque vous utilisez une version beta.</p>";
 
 /* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Lorsque ceci est coché</strong>, Tunnelblick vérifiera automatiquement les mises à jour au lancement et périodiquement ensuite.</p>\n<p><strong>Cette case à cocher est désactivée</strong> et décochée lorsque 'Empêcher la vérification automatique des mises à jour et la vérification de l'adresse IP' est coché, et lorsque l'utilisateur n'est pas un administrateur de l'ordinateur et que seuls les administrateurs sont autorisés à installer les mises à jour.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick vérifiera automatiquement les mises à jour au lancement et périodiquement ensuite.</p>\n<p><strong>Cette option est désactivée</strong> et décochée lorsque 'Empêcher la vérification automatique des mises à jour et la vérification de l'adresse IP' est coché, et lorsque l'utilisateur n'est pas un administrateur de l'ordinateur et que seuls les administrateurs sont autorisés à installer les mises à jour.</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick déterminera l'adresse IP publique apparente de l'ordinateur avant et après que le VPN soit connecté et affichera un avertissement si l'adresse IP ne change pas.</p>\n<p>Le site web tunnelblick.net sera contacté à cette fin. L'accès se fait généralement via https: ave le nom tunnelblick.net, sauf si cet accès échoue, auquel cas une autre tentative d'accès sera faite avec http: et l'adresse IP du site web.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, Tunnelblick ne vérifie pas le changement d'adresse IP et n'affiche pas d'avertissement si l'adresse IP n'a pas changé après la connection du VPN.</p>\n";
 
 /* HTML info for the 'Download updates when found' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will download updates when they are detected (the user's permission will be required to install updates).</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Lorsque cette option est cochée</strong>, Tunnelblick téléchargera automatiquement les mises à jour lorsqu'elles sont disponibles (l'autorisation de l'utilisateur sera demandée pour installer les mises à jour).</p>\n<p><strong>Cette case à cocher est désactivée</strong> et décochée lorsque 'Empêcher la vérification automatique des mises à jour et la vérification de l'adresse IP' est coché, et lorsque l'utilisateur n'est pas un administrateur de l'ordinateur et que seuls les administrateurs sont autorisés à installer les mises à jour.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will download updates when they are detected (the user's permission will be required to install updates).</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick téléchargera automatiquement les mises à jour lorsqu'elles sont disponibles (l'autorisation de l'utilisateur sera demandée pour installer les mises à jour).</p>\n<p><strong>Cette option est désactivée</strong> et décochée lorsque 'Empêcher la vérification automatique des mises à jour et la vérification de l'adresse IP' est coché, et lorsque l'utilisateur n'est pas un administrateur de l'ordinateur et que seuls les administrateurs sont autorisés à installer les mises à jour.</p>";
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick demandera à OpenVPN de router tout le trafic IPv4 à travers le serveur VPN.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, par defaut OpenVPN utilisera le VPN uniquement pour le trafic qui est destiné au réseau du VPN. Tout le reste du trafic utilisera la connexion internet normale sans passser par le VPN. Le comportement par défaut de OpenVPN peut être modifié dans la configuration OpenVPN ou dans le serveur VPN et peut faire que tout le trafic IPv4 soit routé vers le serveurVPN comme si cette option était cochée. </p>\n";
@@ -2318,6 +2285,9 @@
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Lorsque cette option est cochée</strong>, la fenêtre du statut VPN s'affiche pour l'ensemble des connexions 'actives' lorsque vous passer votre curseur sur l'icône Tunnelblick.</p><p>Les configurations 'actives' signifient l'ensemble des tentatives de connexions réalisées depuis le lancement initial de l'application Tunnelblick.</p><p><strong>Cette option est n'est pas disponible</strong> lorsque l'option 'Ne jamais afficher' est cochée ci-dessus.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Si cette option est cochée</strong>, un indicateur visuel sera affiché sur l'icône Tunnelblick lorsqu'une configuration est connectée.</p><p><strong>Si cette option n'est pas cochée</strong>, l'indicateur n'apparaîtra pas.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Si cette option est cochée</strong>, une fenêtre affichera la progression lors du démarrage de Tunnelblick.</p>";
@@ -2339,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Si cette option est cochée</strong>, aucune vérification des mises à jour ou de l'adresse IP ne sera effectuée, quels que soient les autres réglages. Note: ces deux actions utilisent un accès au site de Tunnelblick.</p>\n<p><strong>Si elle n'est pas cochée</strong>, la vérification des mises à jour sera effectuée si elle est activée ci-dessous et la vérification du changement de l'adresse IP sera effectuée si les réglages de connexion le demandent.</p><p>Voir <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] pour les détails.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>Si cette option est cochée</strong>, le menu Tunnelblick affichera les mots 'Connectrer' et 'Déconnecter' avec les noms des configurations.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, le menu Tunnelblick n'affichera pqs les mots 'Connectrer' et 'Déconnecter' avec les noms des configurations, ce qui rend plus facile l'utilisation du clavier pour choisir les configurations et connecter ou déconnecter.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Lorsque cochée</strong>, la fenêtre du statut VPN est affichée même si vous êtes déconnecté.</p><p><strong>Cette case à cocher est non active</strong> lorsque l'option 'Ne jamais afficher' est sélectionnée ci-dessus.</p>";

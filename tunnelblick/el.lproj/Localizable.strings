@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Αποσύνδεσε όταν ο χρήστης εξέλθει";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Εμφάνιση «Σύνδεση» και «Αποσύνδεση» με τα ονόματα διαμόρφωσης";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Εμφάνιση δείκτη όταν οποιαδήποτε διαμόρφωση είναι συνδεδεμένη";
+
+/* Checkbox name */
 "Display connection submenus" = "Εμφάνισε υπομενού σύνδεσης";
 
 /* Checkbox name */
@@ -671,9 +677,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Αδυναμία μεταφοράς παραμέτρων";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "Αδυναμία απεγκατάστασης παραμέτρων";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Δημιουργία και επεξεργασία δήγματος παραμέτρων;";
@@ -1185,9 +1188,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Η ρύθμιση '%@' δεν είναι ασφαλής. Παρακαλώ επανεγκαταστείστε το Tunnelblick.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Η παράμετρος '%@' δεν είναι ενημερώσιμη επειδή δεν μπορεί να δηλωθεί ως \"ενημερώσιμη\".\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Η διαμόρφωση '%1$@' απαιτεί Tunnelblick %2$@ ή νεότερο ενώ χρησιμοποιείτε το Tunnelblick %3$@.\n\nΠρέπει να ενημερώσετε το Tunnelblick για να εγκαταστήσετε αυτήν τη διαμόρφωση.";
 
@@ -1315,16 +1315,7 @@
 "Failed to copy %@ to %@" = "Απέτυχε η αντιγραφή %1$@ σε %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Αδυναμία δημιουργίας φακέλου %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Αποτυχία δημιουργίας symlink \n   στο %1$@ \n   στο %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Αποτυχία κατά την εγκατάσταση των επεκτάσεων συστήματος 'tun' και 'tap' του Tunnelblick.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Αποτυχία ορισμού δικαιωμάτων στο %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Αποτυχία κατά την απεγκατάσταση των επεκτάσεων συστήματος 'tun' και 'tap' του Tunnelblick.";
@@ -1481,9 +1472,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Δεν είναι .ovpn ή .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Δεν αντικαταστάθηκε η υπάρχουσα διαμόρφωση, έτσι διαμόρφωση '%@' δεν μπορεί να χρησιμοποιήσει το TBKeepExistingFilesList";
 
 /* Window text */
 "On expected disconnect:" = "Σε περίπτωση αναμενόμενης αποσύνδεσης:";
@@ -1807,9 +1795,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Το Tunnelblick δεν μπορεί να εκκινηθεί λόγο ενός προβλήματος στης παραμέτρους. Παρακαλούμε εξετάστε το ημερολόγιο Κονσόλας για πληροφορίες.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Το Tunnelblick δεν μπόρεσε να διαγράψει πλήρως την διαμόρφωση '%@'. Δείτε το αρχείο καταγραφής σφαλμάτων της κονσόλας για λεπτομέρειες.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Το Tunnelblick δεν μπόρεσε να αντιγράψει τον φάκελο '%@'. Δείτε το αρχείο καταγραφής σφαλμάτων της κονσόλας για λεπτομέρειες.";
 
 /* Window text */
@@ -2020,9 +2005,6 @@
 "Unable to set permissions on '%@'" = "Αδυναμία ορισμού δικαιωμάτων στο '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Αδυναμία αποθηκεύσεις ενημέρωσης παραμέτρων %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Αδυναμία απεγκατάστασης της παραμέτρου %@\n";
 
 /* Window text */
@@ -2042,18 +2024,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Μη αναγνώσιμο αρχείο στην τοποθεσία %@\n\nΔείτε το αρχείο Κονσόλας για λεπτομέρειες.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Ενημερωμένες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή ο φάκελος \"Contents\" στο .tblk δεν μπορούσε να δημιουργηθεί\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Ενημερωμένες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή το Info.plist δεν αποθηκεύτηκε στο στέλεχος του .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Ενημερώσιμες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερώσιμες επειδή το CFBundleIdentifier ήταν σε λειτουργία\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Η ενημερώσιμη ρύθμιση '%@' αποθηκεύτηκε ως ενημερώσιμη γιατίο το info.plist δεν διαθέτει εγγραφή 'SUPublicDSAKey' ή η εγγραφή 'SUFeedURL' δεν περιγράφει τη χρήση https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "Η διαμόρφωση VPN %@ δεν θα εγκατασταθεί επειδή έχει παλιότερο αριθμό έκδοσης.";
@@ -2108,9 +2078,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Δεν μπορείτε να δημιουργήσετε την ιδιωτική ρύθμιση '%@' γιατί είναι ρυθμισμένη να ξεκινά με την έναρξη του υπολογιστή.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Δεν είναι δυνατή η δημιουργία της ιδιωτικής ή κοινής ρύθμισης '%@', γιατί είναι μια ενημερόσιμη ρύθμιση.\n\nΣημειώστε ότι μια ρύθμιση Tunnelblick VPN η οποία είναι ενημερόσιμη δεν μπορεί να γίνει ιδιωτική ή κοινή, μόνον οι εσωτερικές ρυθμίσεις μπορούν να γίνουν ιδιωτικές ή κοινές.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Δεν μπορείτε να μετονομάσετε μια Λειτουργική ρύθμιση.";
@@ -2319,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>ελέγχεται</strong>, VPN καθεστώς των windows για όλους \"ενεργό\" συνθέσεις εμφανίζονται όταν ο δείκτης του ποντικιού είναι πάνω από το εικονίδιο του Tunnelblick.</p><p> \"Ενεργό\" συνθέσεις είναι διαμορφώσεις που προσπαθήσατε να συνδεθείτε από το Tunnelblick ξεκίνησε.</p><p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong>, όταν \"Ποτέ Εκπομπή\" επιλέγεται παραπάνω.</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, θα εμφανίζεται ένας οπτικός δείκτης στο εικονίδιο του Tunnelblick όταν οποιαδήποτε διαμόρφωση είναι συνδεδεμένη.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, δε θα εμφανίζεται τέτοιος δείκτης.</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Όταν είναι επιλεγμένο </strong>, ένα παράθυρο θα εμφανίσει την πρόοδο του Tunnelblick κατά την εκκίνηση.</p>";
 
@@ -2339,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, δεν πραγματοποιείται αυτόματος έλεγχος ενημερώσεων ή έλεγχος αλλαγών διεύθυνσης IP, ανεξάρτητα από άλλες ρυθμίσεις. Σημείωση: και οι δύο αυτές δραστηριότητες απαιτούν πρόσβαση στον ιστότοπο του Tunnelblick.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, ο αυτόματος έλεγχος ενημερώσεων θα γίνει εάν ενεργοποιηθεί παρακάτω και ο έλεγχος αλλαγών διεύθυνσης IP θα γίνει όταν συνδέεται μια διαμόρφωση, εάν αυτό είναι ενεργοποιημένο στις ρυθμίσεις της διαμόρφωσης.</p><p>Δείτε <a href=\"https://tunnelblick.net/cPrivacy.html\"> Απόρρητο και Ασφάλεια</a> [tunnelblick.net] για λεπτομέρειες.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το μενού του Tunnelblick θα περιλαμβάνει τις λέξεις «Σύνδεση» και «Αποσύνδεση» με τα ονόματα διαμόρφωσης.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το μενού του Tunnelblick δεν θα περιλαμβάνει τις λέξεις «Σύνδεση» και «Αποσύνδεση» με τα ονόματα διαμόρφωσης, διευκολύνοντας τη χρήση του πληκτρολογίου για την επιλογή διαμορφώσεων προς σύνδεση και αποσύνδεση.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Όταν είναι ενεργοποιημένο</strong>, το παράθυρο κατάστασης του VPN θα φαίνεται ακόμα και όταν η ρύθμιση είναι αποσυνδεδεμένη.</p><p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> όταν η επιλογή παραπάνω \"Να μην εμφανίζεται\" είναι ενεργοποιημένη.</p>";

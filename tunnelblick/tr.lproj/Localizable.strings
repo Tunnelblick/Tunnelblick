@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Kullanıcı değiştirilirse bağlantıyı kes";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "'Bağlan' ve 'Bağlantıyı kes'i yapılandırma isimleriyle göster";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Herhangi bir yapılandırma bağlandığında bir gösterge göster";
+
+/* Checkbox name */
 "Display connection submenus" = "Bağlantı altmenülerini göster";
 
 /* Checkbox name */
@@ -671,9 +677,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Yapılanma Taşınamadı";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "Yapılanma Silinemedi";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Bir Yapılandırma örneği oluştur ve düzenle?";
@@ -1185,9 +1188,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "'%@' yapılandırması güvenli değil. Lütfen Tunnelblick'i tekrar yükleyin.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Yapılandırma '%@' güncellenemez çünkü 'güncellenebilir' olarak işaretlenmemiş.\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "%1$@ yapılandırmasını kullanmak için en az %2$@ sürümüne sahip olmalısınız. Sizin sürümünüz %3$@. Bu yapılandırmayı kullanmak için lütfen Tunnelblick’i güncelleyin.";
 
@@ -1315,16 +1315,7 @@
 "Failed to copy %@ to %@" = "Kopyalama başarısız oldu %1$@ to %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Klasör oluşturulamadı %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Kısayol oluşturulamadı\n %1$@'dan\n %2$@'a";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Tunnelblick'in tun ve tap sistem genişletmeleri kurulamadı.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "İzin ayarları kaydedilemedi %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Tunnelblick'in tun ve tap sistem genişletmeleri kaldırılamadı.";
@@ -1481,9 +1472,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "ovpn ve ya .conf dosyası değil: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Var olan yapılandırma değiştirilmiyor, yani '%@' yapılandırması 'TBKeepExistingFilesList' kullanamaz";
 
 /* Window text */
 "On expected disconnect:" = "(Normal) bağlantı kesildiğinde:";
@@ -1807,9 +1795,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick yapılandırmadaki bir problemden dolayı çalıştırılmadı. Lütfen detaylar için Konsol Kayıtlarının inceleyin.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick '%@' yapılandırmasını tamamen kaldıramadı. Detaylar için Konsol Günlüğü'ne bakın.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick '%@' klasörünü kopyalayamadı. Detaylar için Konsol Günlüğü'ne bakın.";
 
 /* Window text */
@@ -2020,9 +2005,6 @@
 "Unable to set permissions on '%@'" = "'%@' için izinler ayarlanamadı";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "%@ taki güncellenebilir stub yapılandırması saklanamıyor\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "'%@' yapılandırması kaldırılamadı\n";
 
 /* Window text */
@@ -2042,18 +2024,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "%@ okunamayan bir dosya\n\nDetaylar için konsol kayıt dosyasına bakın.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "stub .tblk da bulunan 'Contents' yaratılamadığı için güncellenebilir yapılandırma '%@' güncellenebilir olarak saklanamadı\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Info.plist stub .tblk içerisinde saklanamadığı için güncellenebilir yapılandırma '%@' güncellenebilir olarak saklanamadı\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "CFBundleIdentifier zaten işlendiği için güncellenebilir yapılandırma '%@' güncellenebilir olarak saklanamadı\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Güncellenebilir yapılandırma '%@' güncellenebilir olarak saklanamadı çünkü Info.plist'in 'SUPublicDSAKey' girişi yok veya 'SUFeedURL' girişi https kullanımı belirtmedi:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "%@ VPN Yapılandırması YÜKLENMEYECEK çünkü daha düşük bir sürüm numarasına sahip.";
@@ -2108,9 +2078,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "'%@' yapılandırmasını özel yapamazsınız çünkü bilgisayar başladığında çalışacak şekilde ayarlanmış.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "'%@' güncellenebilir yapılandırma olduğundan özel yapılandırma haline getirilemiyor.\n\nGüncellenebilir Tunnelblick Ayarları, özel ya da paylaşımlı yapılamaz; sadece özel ya da paylaşımlı ayarlar kendi içinde yapılandırılabilir.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Yüklenmiş yapılandırmayı taşıyamaz veya silemezsiniz.";
@@ -2319,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Seçildiğinde</strong>, fare imleci Tunnelblick ikonu üzerine geldiğinde 'aktif' olan tüm Tunnelblick bağlantıları için durum penceresi gösterilir.</p><p>'Aktif' bağlantılar, Tunnelblick çalışmaya başladıktan sonra bağlanmayı denediğiniz tüm bağlantılardır.</p><p>Üstteki 'Asla gösterme' seçeneği seçiliyse <strong>bu kutu seçilemez</strong>.</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>İşaretlendiğinde</strong>, herhangi bir yapılandırma bağlandığında Tunnelblick simgesi üzerinde bir gösterge gösterilir.</p><p><strong>İşaretlenmediğinde</strong>, böyle bir gösterge gösterilmez.</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>İşaretlendiğinde</strong>, bir pencerede Tunnelblick'in ilerleme durumunu gösterilecektir.</p>";
 
@@ -2339,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>İşaretlendiğinde</strong>, diğer ayarlardan bağımsız olarak, güncellemeler ve IP adres değişiklikleri için otomatik kontrol yapılmayacaktır. Not: her iki eylem de Tunnelblick websitesine erişimi gerektirir.</p>\n<p><strong>İşaretlenmediğinde</strong>, aşağıda etkinleştirilmişse güncellemeler için otomatik kontrol yapılacak ve IP adresi değişiklikleri için kontroller de aynı şekilde ilgili yapılandırma için etkinse bu yapılandırmaya bağlanırken yapılacaktır.</p><p>Detaylar için bkz <a href=\"https://tunnelblick.net/cPrivacy.html\">Gizlilik ve Güvenlik</a> [tunnelblick.net].</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>İşaretlendiğinde</strong>, Tunnelblick menüsü 'Bağlan' ve 'Bağlantıyı kes' ifadelerini yapılandırma isimleriyle birlikte gösterir.</p>\n<p><strong>İşaretlenmediğinde</strong>, bağlanma ve bağlantı kesme için klavye ile yapılandırma seçmeyi kolaylaştırmak için Tunnelblick menüsü 'Bağlan' ve 'Bağlantıyı kes' ifadelerini yapılandırma isimleriyle birlikte içermeyecektir.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>İşaretlendiğinde</strong>, VPN durum penceresi yapılandırma bağlantısı kesilse de gösterilecektir.</p><p>Yukarıda 'Hiçbir Zaman Gösterme' seçili ise <strong>bu kutucuk etkin değildir.</strong></p>";

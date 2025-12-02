@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Прекъсване когато потребителя се смени";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Показвай 'Свързване' и 'Спиране' с имената на конфигурациите";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Показвай индикация когато някоя конфигурация е свързана";
+
+/* Checkbox name */
 "Display connection submenus" = "Показване на подменюта за свързване";
 
 /* Checkbox name */
@@ -671,9 +677,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Не можа да премести конфигурацията";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "Не може да деинсталирате конфигурацията";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Създаване и редактиране на примерна конфигурация?";
@@ -1185,9 +1188,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Конфигурация '%@' не е сигурна. Моля, преинсталирайте Tunnelblick.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Конфигурацията '%@' няма възможност за актуализация, защото тя не може да бъде маркирана като \"С възможност за актуализиране\".\n";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Конфигурацията '%1$@' изисква Tunnelblick версия %2$@ или по-висока; използвате Tunnelblick %3$@.\n\nТрябва да актуализирате Tunnelblick, за да инсталирате тази конфигурация.";
 
@@ -1315,16 +1315,7 @@
 "Failed to copy %@ to %@" = "Не може да се копира %1$@ в %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Не може да е създаде папка в %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Не може да се създаде symlink\n  към %1$@\n  в %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Неуспешно инсталиране на 'tun' и 'tap' системните разширения.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Не може да зададе резрешения на %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Неуспешно дееинсталиране на 'tun' и 'tap' системните разширения.";
@@ -1481,9 +1472,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Не е .ovpn или .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Не заменя съществуващата конфигурация, така че конфигурацията '%@' не може да използва\"TBKeepExistingFilesList\"";
 
 /* Window text */
 "On expected disconnect:" = "При очаквано прекъсване на връзката:";
@@ -1807,9 +1795,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick не може да бъде стартиран поради проблем с конфигурацията. Прегледайте конзолния лог за подробности.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick не може напълно да деинсталира конфигурацията на \"%@\". Вижте конзолния лог за подробности.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick не може да копира '%@' конфигурацията. Моля вижте конзолния лог за повече детайли.";
 
 /* Window text */
@@ -2020,9 +2005,6 @@
 "Unable to set permissions on '%@'" = "Не може да зададете разрешения за '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Не може да се съхранява недовършена актуализируема конфигурация в %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Не може да деинсталира '%@' конфигурацията\n";
 
 /* Window text */
@@ -2042,18 +2024,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Нечетим файл на %@\n\nВиж конзонлния лог за повече детайли.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Обновяема конфигурация \"%@\" не е била съхранявана като обновяема, защото секция \"Съдържание\" в стъб .tblk не можа да бъде създадена\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Обновяема конфигурация \"%@\" не е била съхранявана като обновяема, защото нейния Info.plist не може да се съхрани в .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Обновяема конфигурация \"%@\" не е била съхранявана като обновяема защото съответния CFBundleIdentifier вече е обработен\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Обновяема конфигурация '%@' не беше съхранена, защото Info.plist няма запис 'SUPublicDSAKey' или стойността в 'SUFeedURL' не използва https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "Конфигурацията на VPN %@ няма да бъде инсталирана, защото има по-ниска версия.";
@@ -2108,9 +2078,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Не можете да зададете '%@' конфигурация като лична, защото е зададена да се изпълнява когато компютъра се стартира.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Не можете да зададете '%@' конфигурация като лична, защото е зададена като \"обновяема\" (с възможност за актуализации).";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Не може да преименувате или преместите \"Deployed\" конфигурация.";
@@ -2319,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Ако е избрана</strong>, VPN статус прозореца за всички активни конфигурации ще се показва когато мишката е над иконата на Tunnelblick.</p><p>'Активни' конфигурации са конфигурации, за които са правени свързвания откакто е стартиран Tunnelblick.</p><p><strong>Неактивна</strong> когато 'Не показвай никога' е избрано по-горе.</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Когато е маркирано</strong>, визуална индикация ще бъде показвана на иконата на Tunnelblick когато някоя конфигурация е свързана.</p><p><strong>Когато не е маркирано</strong>, няма да се показва такъв индикатор.</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Ако е избрана</strong> тази опция, прозорец ще показва прогреса докато Tunnelblick се стартира.</p>";
 
@@ -2339,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Маркирано</strong>, не се правят автоматични проверки за актуализации или промяна на IP адреса, независимо от другите настройки. Забележка: и двете дейности ползват сайта на Tunnelblick.</p>\n<p><strong>Немаркирано</strong>, правят се автоматични проверки за актуализации или промяна на IP адреса при свързване ако тази настройка е маркирана.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Лични данни и поверителност</a> [tunnelblick.net] за подробности.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>Когато е маркирано</strong>, Tunnelblick менюто ще включва позиции със 'Свързване' и 'Спиране' с имената на конфигурациите.</p>\n<p><strong>Когато не е маркирано</strong>, Tunnelblick менюто Няма да включва позиции със 'Свързване' и 'Спиране' с имената на конфигурациите, за да е по-лесно избирането с клавиатура за свързване и спиране на връзка.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Ако е маркирано</strong>, прозорецът за статус на VPN ще се показва дори и конфигурацията да не е свързана.</p><p><strong>Ако не е активна</strong> тогава 'Не показвай никога' опцията е избрана по-горе.</p>";

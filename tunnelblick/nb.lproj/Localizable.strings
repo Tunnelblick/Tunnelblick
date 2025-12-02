@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Koble fra når bruker byttes";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Vis 'Tilkoble' og 'Frakoble' med navn på konfigurasjon";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Hvis en indikasjon når en konfigurasjon er tilkoblet";
+
+/* Checkbox name */
 "Display connection submenus" = "Vis undermenyer for oppkobling";
 
 /* Checkbox name */
@@ -671,9 +677,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Kunne ikke flytte konfigurasjon";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "Kunne ikke avinnstallere konfigurasjon";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Opprett og editer eksempelkonfigurasjon?";
@@ -1185,9 +1188,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfigurasjonen '%@' er ikke sikker. Vennligst reinstaller Tunnelblick.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurasjon '%@' er ikke oppdaterbar fordi den kunne ikke markeres som oppdaterbar. ";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfigurasjonen '%1$@' krever Tunnelblick %2$@ eller høyere; din versjon er Tunnelblick %3$@.";
 
@@ -1315,16 +1315,7 @@
 "Failed to copy %@ to %@" = "Kunne ikke kopiere %1$@ til %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Kunne ikke opprette mappen ved %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Kunne ikke opprette symlink\n  fra %1$@\n  til %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "Klarte ikke installere Tunnelblicks tun og tap systemutvidelser.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Kunne ikke sette tillatelsene på %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "Klarte ikke avinstallere Tunnelblicks tun og tap systemutvidelser.";
@@ -1481,9 +1472,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Ikke en .ovpn eller .conf: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Erstatter ikke en eksisterende konfigurasjon, så konfigurasjonen '%@' kan ikke bruke 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "Ved forventet frakobling:";
@@ -1807,9 +1795,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kunne ikke startes grunnet konfigurasjonsproblemer. Vennligst undersøk konsolloggen for detaljer.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick kunne ikke fullstendig fjerne '%@'-konfigurasjonen. Se konsolloggen for detaljer.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick klarte ikke å kopiere katalogen '%@'. Se konsolloggen for detaljer.";
 
 /* Window text */
@@ -2020,9 +2005,6 @@
 "Unable to set permissions on '%@'" = "Kunne ikke angi tillatelser på '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Kan ikke lagre den oppdaterbare konfigurasjonsstumpen ved %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Kan ikke avinstallere '%@'-konfigurasjonen\n";
 
 /* Window text */
@@ -2042,18 +2024,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Uleselig fil på %@\n\nSe konsoll-loggen for detaljer.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Den oppdaterbare konfigurasjonen '%@' ble ikke lagret som oppdaterbar fordi 'Contents' i .tblk-stumpen ikke kunne opprettes\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Den oppdaterbare konfigurasjonen '%@' ble ikke lagret som oppdaterbar fordi dens Info.plist ikke kunne lagres i .tlbk-stumpen\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Den oppdaterbare konfigurasjonen '%@' ble ikke lagret som oppdaterbar fordi CFBundleIdentifier allerede har blitt behandlet\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Oppdatert konfigurasjon '%@' ble ikke lagret som oppdaterbar fordi Info.plist manglet en 'SUPublicDSAKey' oppføring, eller dens 'SUFeedURL' oppføring spesifiserte ikke bruk av https:\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN-konfigurasjon %@ blir IKKE installert, fordi den har et lavere versjonsnummer.";
@@ -2108,9 +2078,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Du kan ikke gjøre '%@'-konfigurasjonen privat fordi den er satt til å starte når datamaskinen starter.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Du kan ikke gjøre '%@' konfigurasjonen privat eller delt fordi det er en oppdaterbar konfigurasjon. \n\nVennligst merk at Tunnelblick VPN konfigurasjon som er oppdaterbar kan ikke gjøres privat eller delt; kun konfigurasjoner innen applikasjonen kan gjøres privat eller delt.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Du kan ikke endre navn eller flytte en konfigurasjon som er i bruk.";

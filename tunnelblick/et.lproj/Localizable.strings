@@ -505,9 +505,6 @@
 "Could Not Move Configuration" = "Konfiguratsiooni liigutamine ebaõnnestus";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Konfiguratsiooni eemaldamine ebaõnnestus";
-
-/* Window title */
 "Create and Edit a Sample Configuration?" = "Loo ja muuda näidis-konfiguratsioon?";
 
 /* Window title */

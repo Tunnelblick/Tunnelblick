@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Megszakítás, amikor a felhasználó kijelentkezik";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Mutasd a \"Csatlakozz\" és \"Megszakítás\" szöveget a konfigurációs nevekkel";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Jelzés megjelenítése, ha bármilyen konfiguráció csatlakozik";
+
+/* Checkbox name */
 "Display connection submenus" = "A Kapcsolatok almenü megjelenítése";
 
 /* Checkbox name */
@@ -671,9 +677,6 @@
 
 /* Window title */
 "Could Not Move Configuration" = "A konfiguráció nem mozgatható át";
-
-/* Window title */
-"Could Not Uninstall Configuration" = "A konfiguráció nem távolítható el";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Minta konfigurációs állomány létrehozása és szerkesztése?";
@@ -1185,9 +1188,6 @@
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "A '%@' konfiguráció nem biztonságos. Kérjük, telepítse újra a Tunnelblicket.";
 
-/* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "A(z) '%@' konfiguráció nem frissíthető, mert nem lett megjelölve frissíthetőnek.";
-
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "A(z) '%1$@' konfiguráció használatához Tunnelblick %2$@ vagy újabb verzió szükséges, Ön a Tunnelblick %3$@ verziót használja.\n\nFrissítenie kell a Tunnelblicket ezen konfiguráció telepítéséhez.";
 
@@ -1315,16 +1315,7 @@
 "Failed to copy %@ to %@" = "A %1$@ másolása sikertelen ide: %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Nem sikerült létrehozni a következő mappát: %@";
-
-/* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Nem sikerült létrehozni a szimbolikus linket:\n   innen: %1$@ \n   ide: %2$@";
-
-/* Window text */
 "Failed to install Tunnelblick's tun and tap system extensions." = "A Tunnelblick tun és tap rendszerkiegészítőinek telepítése sikertelen.";
-
-/* Window text */
-"Failed to set permissions on %@\n" = "Jogosultságok beállítása sikertelen a következőn: %@\n";
 
 /* Window text */
 "Failed to uninstall Tunnelblick's tun and tap system extensions." = "A Tunnelblick tun és tap rendszerkiegészítőinek eltávolítása sikertelen.";
@@ -1481,9 +1472,6 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Nem egy .ovpn vagy .conf fájl: %@";
-
-/* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nem meglévő konfigurációt cserél, így a(z) '%@' konfigurációban nem használható a 'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "Tervezett szétcsatlakozás esetén:";
@@ -1807,9 +1795,6 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "A Tunnelblick nem tudott elindulni, mert valamilyen probléma van a konfigurációs fájllal. Kérem tekintse meg a Konzol log-ot.";
 
 /* Window text */
-"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "A Tunnelblick nem tudta teljesen eltávolítani a(z) '%@' konfigurációt. További információk a Konzol naplóban.";
-
-/* Window text */
 "Tunnelblick could not copy folder '%@'. See the Console Log for details." = "A Tunnelblick nem tudja másolni a(z) '%@' mappát. Részletek a Konzol naplóban.";
 
 /* Window text */
@@ -2020,9 +2005,6 @@
 "Unable to set permissions on '%@'" = "Nem sikerül az engedélyeket beállítani: '%@'";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Nem tárolható a frissíthető konfigurációs részfájl: %@\n";
-
-/* Window text */
 "Unable to uninstall the '%@' configuration\n" = "Nem távolítható el a(z) '%@' konfiguráció";
 
 /* Window text */
@@ -2042,18 +2024,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Olvashatatlan fájl a következő helyen: %@\n\nLásd a Konzol naplót a részletekért.";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "A(z) '%@' frissíthető konfiguráció nem lett elmentve frissíthetőként, mert a 'Tartalom' a részleges .tblk állományban nem készült el\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "A(z) '%@' frissíthető konfiguráció nem lett elmentve frissíthetőként, mert a hozzá tartozó Info.plist nem lett letárolva a részleges .tblk fájlban\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "A(z) '%@' frissíthető konfiguráció nem lett elmentve frissíthetőként, mert a hozzá tartozó CFBundleIdentifier már fel lett dolgozva\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "A '%@' frissíthető konfigurációt nem frissíthetőként tároltuk, mert az Info.plist nem tartalmaz 'SUPublicDSAKey' bejegyzést vagy a 'SUFeedURL' bejegyzés nem specifikálta a https: használatát\n";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN konfiguráció %@ nem lesz telepítve, mert alacsonyabb a verziója.";
@@ -2108,9 +2078,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "A '%@' konfiguráció nem tehető priváttá, mert úgy van beállítva, hogy a számítógép indulásával együtt induljon.";
-
-/* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "A '%@' konfiguráció nem tehető priváttá vagy megosztottá, mert ez egy frissíthető konfiguráció.\n\nKérjük vegye figyelembe, hogy csak a frissíthető Tunnelblick VPN konfiguráción belüli Tunnelblick VPN konfiguráció tehető priváttá vagy megosztottá, a frissíthető konfiguráció nem.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Egy Telepített konfiguráció nem mozgatható vagy nevezhető át.";
@@ -2319,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Ha </strong> van bejelölve, VPN státusz ablakok minden \"aktív\" konfigurációknak megjelennek ha a mutató a Tunnelblick ikonra mutat. </p><p> \"Aktív\" konfigurációk konfigurációk, amelyet el akarsz érni, a Tunnelblick indításakor. </p><p > <strong> Ez az opció ki van tiltva </strong>, ha a 'Sohase mutat \"van kiválasztva. </p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Ha be van jelölve</strong>, akkor bármely konfiguráció csatlakozásakor vizuális jelző jelenik meg a Tunnelblick ikonon. </p><p><strong>Ha nincs bejelölve</strong>, akkor nem jelenik meg ilyen jelző. </p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Kiválasztás esetén</strong>a Tunnelblick indítása során egy ablakban látható az indítási folyamat.</p>";
 
@@ -2339,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Ha </strong> van bejelölve, akkor az automatikus frissítések keresésére vagy IP cím megváltozásának ellenőrzésére nem kerül sor, függetlenül attól, hogy mi a többi beállítás. Megjegyzés: mindkét tevékenység eléri a Tunnelblick honlapját. </p>\n<p> <strong> Ha a nincs kiválasztva </strong>, automatikus frissítések keresésére kerül sor, ha engedélyezve van alul, és az IP-cím változások ellenőrzésére akkor kerül sor, amikor csatlakoztatja a konfigurációt, ha a konfigurációs beállításása erre engedélyezett. </p><p> Lásd <a href=\"https://tunnelblick.net/cPrivacy.html\"> adatvédelem és biztonság </a> [tunnelblick.net] a részletekért. </p> <p>&nbsp; </p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>Ha be van jelölve</strong>, a Tunnelblick menü mutatni fogja a „Csatlakozás” és „Csatlakozás bontása” szavakat a konfigurációk neveivel együtt.</p>\n<p><strong>Ha nincs bejelölve</strong>, a Tunnelblick menü nem mutatja a „Csatlakozás” és „Csatlakozás bontása” szavakat a konfigurációk neveivel, így könnyebb a billentyűzet segítségével kiválasztani a csatlakozáshoz és a csatlakozás bontásához szükséges konfigurációkat.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Kiválasztás esetén</strong> a VPN státusz ablak akkor is látható, ha a konfiguráció nem kapcsolódik.</p><p><strong>A jelölőnégyzet ki van kapcsolva</strong> ha fent a 'Soha ne mutassa' opciót választotta.</p>";
