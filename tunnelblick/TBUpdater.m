@@ -841,10 +841,16 @@ doneReturnErr:
         }
 
 
-        if (  [self.currentBuild caseInsensitiveNumericCompare: dict[@"build"]] != NSOrderedAscending  ) {
-            [self appendUpdaterLog: [NSString stringWithFormat: @"isUpdateAppropriate: returning NO -- current build %@ >= update build %@",
-                                     self.currentBuild, dict[@"build"]]];
-            return NO;
+        NSInteger compareResult = [self.currentBuild caseInsensitiveNumericCompare: dict[@"build"]];
+        if (  compareResult != NSOrderedAscending  ) {
+            if (   (compareResult != NSOrderedSame)
+                || ( ! [gTbDefaults isTrueReadOnlyForKey: @"updateToSameBuild"] ) ) {
+                [self appendUpdaterLog: [NSString stringWithFormat: @"isUpdateAppropriate: returning NO -- current build %@ >= update build %@",
+                                         self.currentBuild, dict[@"build"]]];
+                return NO;
+            }
+            [self appendUpdaterLog: [NSString stringWithFormat: @"isUpdateAppropriate: current build %@ == update build; 'updateToSameBuild' is forced TRUE",
+                                     self.currentBuild]];
         }
 
         if (  dict[@"minOS"]  ) {

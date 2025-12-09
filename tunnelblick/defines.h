@@ -883,6 +883,7 @@ name = newValue;                                    \
 @"useRtlLayout",	/* Use RTL language layout, regardless of language (for debugging RTL layout issues) */	\
 \
 @"allowNonAdminSafeConfigurationReplacement",  /* Must be forced; regular preference is ignored */	\
+@"updateToSameBuild",                          /* Must be forced; regular preference is ignored */ /* Used when testing a new build of Tunnelblick */  \
 \
 @"-skipWarningAboutAppUpdateError", \
 @"-skipWarningAboutVpnUpdateError", \

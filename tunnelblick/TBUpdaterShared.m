@@ -448,6 +448,33 @@ static NSString * buildFromInfoPlistInApp(NSString * path) {
     return appVersionBuildString;
 }
 
+static BOOL isTrueReadOnlyForKey(NSString * key) {
+
+    // Returns TRUE if it is there is a forced preference for the key and it is TRUE, FALSE otherwise
+    // (i.e., not found, doesn't have a boolValue, or the boolValue is FALSE.)
+    //
+    // This is a modified version of the isTrueReadOnlyForKey method of TBUserDefaults which can
+    // be used outside of the Tunnelblick application, (e.g., in installer or tunnelblick-helper).
+
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    if (  ! dict  ) {
+        appendLog([NSString stringWithFormat: @"Cannot load %@ as a dictionary", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
+        return NO;
+    }
+
+    id value = [dict objectForKey: key];
+    if (  ! value  ) {
+        appendLog([NSString stringWithFormat: @"Cannot find key '%@' in %@", key, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
+        return NO;
+    }
+
+    if (  [value respondsToSelector: @selector(boolValue)]  ) {
+        return [value boolValue];
+    }
+
+    appendLog([NSString stringWithFormat: @"Value '%@' for '%@' must be able to be converted to a BOOL, it is a %@", value, key, [value class]]);
+    return NO;
+}
 static BOOL verifyNotDowngrading(NSString * updatePath) {
 
     NSDictionary * infoPlist = infoPlistForThisApp();
@@ -457,10 +484,19 @@ static BOOL verifyNotDowngrading(NSString * updatePath) {
 
     if (   existingBuild
         && updateBuild  ) {
-        if (  [updateBuild caseInsensitiveNumericCompare: existingBuild]  != NSOrderedDescending  ) {
+        NSInteger compareResult = [updateBuild caseInsensitiveNumericCompare: existingBuild];
+        if (  compareResult  != NSOrderedDescending  ) {
+            if (   (compareResult  == NSOrderedSame)
+                && isTrueReadOnlyForKey(@"updateToSameBuild")  ) {
+                appendLog([NSString stringWithFormat: @"updateTunnelblick: Verified this is an update to the same build (%@), which is allowed by the 'updateToSameBuild' forced-preference",
+                           existingBuild]);
+                return YES;
+            }
+
             appendLog([NSString stringWithFormat: @"verifyNotADowngrade: Downgrades are not allowed (from build %@ to build %@)", existingBuild, updateBuild]);
             return NO;
         }
+
         appendLog(@"updateTunnelblick: Verified not a downgrade");
         return YES;
     }
