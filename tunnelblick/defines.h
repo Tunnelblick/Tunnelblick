@@ -950,7 +950,7 @@ name = newValue;                                    \
 @"hookupTimeout",	\
 @"displayUpdateInterval",	\
 \
-@"TBUpdaterAllowNonAdminToUpdateTunnelblick", \
+@"TBUpdaterAllowNonAdminToUpdateTunnelblick",   /* Must be forced; regular preference is ignored */    \
 @"TBUpdaterCheckOnlyWhenConnectedToVPN", \
 @"TBUpdaterDownloadUpdateWhenAvailable", \
 @"TBUpdateVersionStringForDownloadedAppUpdate", \
@@ -1037,8 +1037,8 @@ name = newValue;                                    \
 @"lastConnectedDisplayName",	\
 @"keyboardShortcutIndex",	\
 @"doNotUnrebrandLicenseDescription",	\
-@"useSharedConfigurationsWithDeployedOnes",	\
-@"usePrivateConfigurationsWithDeployedOnes",	\
+@"useSharedConfigurationsWithDeployedOnes",   /* Must be forced; regular preference is ignored */    \
+@"usePrivateConfigurationsWithDeployedOnes",  /* Must be forced; regular preference is ignored */    \
 @"namedCredentialsThatAllConfigurationsUse",	\
 @"namedCredentialsNames",	\
 \
@@ -1129,7 +1129,7 @@ name = newValue;                                    \
 @"autoConnect",	\
 @"-onSystemStart",	\
 @"useDNS",	\
-@"-authenticateOnConnect", \
+@"-authenticateOnConnect",   /* Must be forced; regular preference is ignored */    \
 @"-notMonitoringConnection",	\
 @"-doNotRestoreOnDnsReset",	\
 @"-doNotRestoreOnWinsReset",	\
