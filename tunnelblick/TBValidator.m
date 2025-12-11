@@ -52,7 +52,7 @@ NSString * callStack(void);
     if (   (NSOrderedDescending == [beforeDateTime compare: currentDateTime])
         || (NSOrderedAscending  == [afterDateTime compare: currentDateTime])  ) {
         [logger appendLog: [NSString stringWithFormat:
-                            @"Failed to verify appcast signature; signature not yet now (%@); it is valid from %@ to %@",
+                            @"Failed to verify appcast signature; signature not valid now (%@); it is valid from %@ to %@",
                             currentDateTime, beforeDateTime, afterDateTime]];
         return YES;
     }
