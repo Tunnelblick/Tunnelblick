@@ -248,8 +248,6 @@ static void moveAppToOldAndNewToApplications_TB_App(void) {
         return;
     }
 
-fail:
-
     // Try to get Tunnelblick.app back
     if (  [gFileMgr tbForceMovePath: L_AS_T_TB_OLD toPath: APPLICATIONS_TB_APP]  ){
         appendLog([NSString stringWithFormat: @"Restored %@", APPLICATIONS_TB_APP]);
