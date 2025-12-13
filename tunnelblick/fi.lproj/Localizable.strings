@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Sulje yhteys käyttäjän vaihtuessa";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Näytä 'Muodosta yhteys' ja 'Katkaise yhteys' määritysten nimien yhteydessä";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Näytä ilmaisin, kun jokin määritys on yhdistettynä";
+
+/* Checkbox name */
 "Display connection submenus" = "Näytä yhteyden alivalikot";
 
 /* Checkbox name */
@@ -2280,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Kun valittu</strong>, VPN tilanne ikkuna kaikille 'aktiivisille' asetuksille näytetään, kun hiiren osoitin viedään Tunnelblick kuvakkeen päälle.</p><p>'Aktiiviset' asetukset ovat niitä joihin olet yrittänyt yhdistää Tunnelblick:in käynnistymisen jälkeen.</p><p><strong>Tämä valinta on estetty,</strong> kun 'Älä Näytä Koskaan' on valittuna ylempänä.</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Kun valittuna</strong>, Tunnelblick -kuvakkeessa näytetään visuaalinen ilmaisin aina, kun jokin määritys on yhdistettynä.</p><p><strong>Kun ei valittuna</strong>, ilmaisinta ei näytetä.</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Kun valittu</strong>, ikkuna näyttää Tunnelblick:in edistymisen käynnistyessä.</p>\n ";
 
@@ -2300,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Kun valittu</strong>, automaattista päivitysten tarkistusta, tai IP osoitteen tarkistusta ei tehdä, riippumatta siitä mitä asetuksia muualla on. Huom: molemmat näistä toiminnoista ottaa yhteyden Tunnelblick:in kotisivulle.</p>\n<p><strong>Kun ei valittu</strong>, automaattinen päivitysten tarkistus tehdään, jos sallittu alla, ja IP osoitteen muutosten tarkistus tehdään yhteyden muodostuessa, jos se on asetuksissa on sallittu.</p><p>Katso <a href=\"https://tunnelblick.net/cPrivacy.html\">Yksityisyys ja Turvallisuus</a> [tunnelblick.net] saadaksesi lisätietoja.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>Kun valittuna</strong>, Tunnelblick -valikko sisältää 'Muodosta yhteys' ja 'Katkaise yhteys' määritysten nimien kanssa.</p>\n<p><strong>Kun ei valittuna</strong>, Tunnelblick -valikko ei sisällä 'Muodosta yhteys' ja 'Katkaise yhteys' määritysten nimien kanssa, mikä helpottaa näppäimistön käyttöä määritysten valitsemiseksi yhteyden muodostamista ja katkaisemista varten.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Kun valittu</strong>, VPN tilanneikkuna näytetään vaikka yhteys olisi katkaistu.</p><p><strong>Tämä valinta on estetty</strong> kun 'Älä näytä koskaan' on valittuna ylhäällä.</p>";

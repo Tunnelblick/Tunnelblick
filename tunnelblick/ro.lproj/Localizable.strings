@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Deconectează când utilizatorul se deloghează";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Afișează 'Conectează' și 'Deconectează' cu numele configurațiilor";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Afișează un indicator când orice configurație e conectată";
+
+/* Checkbox name */
 "Display connection submenus" = "Afișează submeniuri la conexiune";
 
 /* Checkbox name */
@@ -2280,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Când este bifată</strong>, fereastra de stare VPN pentru toate conexiunile 'active' este afișată când pointer-ul se află peste iconița Tunnelblick.</p><p>Configurațiile 'Active' sunt acelea pe care ați încercat să le deschideți de când a fost lansat Tunnelblick.</p><p><strong>Această căsuță este inactivă</strong> când opțiunea 'Nu afișa niciodată' este activă mai sus.</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Când e bifat</strong>, un indicator vizual va fi afișat pe iconița Tunnelblick când orice configurație e conectată.</p><p><strong>Când nu e bifat</strong>, nici un indicator nu va fi afișat.</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Când este bifată</strong>, o fereastră va afișa progresul Tunnelblick când acesta pornește.</p>";
 
@@ -2300,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Când este bifată</strong> nu se face verificare automată a versiunilor noi, nici a schimbării adresei de IP, indiferent de alte setări. Notă: aceste două funcționalități contactează site-ul Tunnelblick.</p>\n<p><strong>Când nu este bifată</strong>, verificarea automată a versiunilor noi se va face dacă este bifată mai jos, iar verificarea schimbării adresei de IP se face în momentul conectării la VPN, dacă configurația selectată are activă această opțiune.</p><p>Consultați secțiunea <a href=\"https://tunnelblick.net/cPrivacy.html\">Securitate și Intimitate</a> [tunnelblick.net] pentru detalii.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>Când e bifat</strong>, meniul Tunnelblick va conține cuvintele 'Conectează' și 'Deconectează' cu numele configurațiilor.</p>\n<p><strong>Când nu e bifat</strong>, meniul Tunnelblick nu va conține cuvintele 'Conectează' și 'Deconectează' cu numele configurațiilor, ușurând folosirea tastaturii pentru a selecta configurațiile pentru conectare si deconectare.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Când este bifată</strong>, fereastra de stare a conexiunii VPN este afișată chiar când aplicația nu are o conexiune activă.</p><p><strong>Această bifă este inactivă</strong> când setarea ferestrei de stare de mai sus are selectată opțiunea 'Nu afișa niciodată'.</p>";

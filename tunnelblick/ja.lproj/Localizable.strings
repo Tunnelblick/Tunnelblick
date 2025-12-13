@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "切り替え時に切断する";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "設定ネームで「接続」と「切断」を表示する";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "接続されたどの構成でもインジケーターを表示する";
+
+/* Checkbox name */
 "Display connection submenus" = "接続サブメニューを表示する";
 
 /* Checkbox name */
@@ -2280,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>チェックすると</strong>、ポインタがTunnelblickアイコンの上にある場合、すべての「アクティブ」構成のVPNステータスウィンドウが表示されます。</p><p>「アクティブ」な構成とは、Tunnelblickの起動以降に接続を試みた構成です。</p><p>上で[表示しない]が選択されている場合、<strong>このチェックボックスは無効になっています</strong>。</p>\n";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>チェックした場合</strong>、接続されたどの構成でもTunnelblickのアイコンでビジュアルなインジケーターを表示する。</p><p><strong>チェックしなかった場合</strong>、インジケーターは表示されません。</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>チェックすると</strong>、起動中のTunnelblickの進行状況がウィンドウに表示されます。</p>";
 
@@ -2300,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p> <strong>チェックすると</strong>、他の設定に関係なく、更新の自動チェックやIPアドレスの変更のチェックは行われません。 注：これらのアクティビティはいずれもTunnelblickWebサイトにアクセスします。</p>\n<p> <strong>チェックされていない場合</strong>、以下で有効にすると更新の自動チェックが実行され、構成の設定が有効になっている場合は、構成の接続時にIPアドレスの変更のチェックが実行されます。</p> <p>詳細については、<a href=\"https://tunnelblick.net/cPrivacy.html\">プライバシーとセキュリティ</a> [tunnelblick.net]を参照してください。</p> <p>＆nbsp; </p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>チェックした場合</strong>、Tunnelblickのメニューに設定ネームで「接続」と「切断」を含まれます。</p><p><strong>チェックしなかった場合</strong>、Tunnelblickのメニューに設定ネームで「接続」と「切断」を含まれないので、接続と切断のための構成をキーボードで選ぶことが簡単になります。</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>チェックすると</strong>、構成が切断されている場合でもVPNステータスウィンドウが表示されます。</p><p> 上で[表示しない]が選択されている場合、<strong>このチェックボックスは無効になっています</strong>。</p>";

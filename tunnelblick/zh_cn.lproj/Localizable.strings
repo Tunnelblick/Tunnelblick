@@ -454,6 +454,9 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "在配置名显示连接和断开连接";
 
 /* Checkbox name */
+"Display an indicator when any configuration is connected" = "当任何一个配置已连接时显示一个标示";
+
+/* Checkbox name */
 "Display connection submenus" = "显示连接子菜单";
 
 /* Checkbox name */
@@ -2283,6 +2286,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>选中时</strong>，鼠标悬停在Tunnelblick图标上的时候将展示所有‘活跃’ 配置的VPN状态窗口。</p><p>‘活跃’ 配置是指打开了Tunnelblick之后你连接过的配置。</p><p>如果选中了上面的‘永不显示’ <strong>此复选框会被禁用</strong>。</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>当选上时</strong>，在任何一个配置已连接上的情况下，一个视觉标示将会在 Tunnelblick 的图标上显示。</p><p><strong>当未选上时</strong>，此视觉标示将不会显示。</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>选中时</strong>，会有一个窗口展示Tunnelblick启动进度。</p>";
 
@@ -2303,6 +2309,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>选中时</strong>，自动检测更新和IP地址检查的相关修改都不会生效，无视其他相关设置。提示：这两项修改都会访问Tunnelblick网站。</p>\n<p><strong>不选中时</strong>，如果下面开启了，会开启自动更新，并且如果配置中开启了检查IP地址的设置，在连接配置的时候会进行IP地址检查。</p><p>参见 <a href=\"https://tunnelblick.net/cPrivacy.html\">隐私和安全</a> [tunnelblick.net] 获取详细说明。</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>当选上时</strong>，Tunnelblick 的菜单界面将会包含 “连接” 和 “断开连接” 以及其配置名称。</p>\n<p><strong>当未选上时</strong>，Tunnelblick 的菜单界面将不会包含 “连接” 和 “断开连接” 以及其配置名称。这样会让使用键盘来操纵任意配置的连接与断连更加方便。</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>选中时</strong>，配置连接断开的时候也将展示VPN状态窗口。</p><p>如果选择了上面的‘永不显示’<strong>此复选框被禁用</strong>。</p>";
