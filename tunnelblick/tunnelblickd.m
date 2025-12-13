@@ -721,8 +721,8 @@ int main(void) {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error from kevent(): %m");
             goto done;
         } else if (  0 == filedesc  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Timed out; exiting");
-			
+            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Nothing to do; exiting after rolling the log if necessary");
+
 			// If the current log file is too large, start it over
 			asl_close(asl);
 			struct stat st;
