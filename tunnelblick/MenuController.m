@@ -7949,11 +7949,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     [gTbDefaults removeObjectForKey: @"skipWarningAboutNoSignature"];
     [gTbDefaults setBool: TRUE forKey: @"haveStartedAnUpdateOfTheApp"];
 
-    reasonForTermination = terminatingBecauseOfUpdate;
-
     [gTbDefaults setBool: NO forKey: @"launchAtNextLogin"];
-
-    terminatingAtUserRequest = TRUE;
 
     NSLog(@"tbUpdateDidInstallUpdate: Starting cleanup.");
     if (  [self cleanup]  ) {
