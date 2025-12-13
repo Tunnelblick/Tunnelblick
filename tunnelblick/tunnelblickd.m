@@ -725,6 +725,7 @@ int main(void) {
 
 			// If the current log file is too large, start it over
 			asl_close(asl);
+            asl = NULL;
 			struct stat st;
 			int stat_result = stat(TUNNELBLICKD_LOG_PATH_C, &st);
 			if (  0 == stat_result  ) {
