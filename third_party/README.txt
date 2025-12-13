@@ -1,4 +1,4 @@
-THE THIRD_PARTY FOLDER                                             Last updated 2019-05-11
+THE THIRD_PARTY FOLDER                                             Last updated 2025-12-13
 
 CONTENTS
     INTRODUCTION
@@ -21,8 +21,8 @@ included in the Tunnelblick source. This is done for several reasons, among them
 
  * To ensure that the software combinations work together correctly.
 
- * To allow older versions of some components (openssl, libressl) to be used with older
-   copies of OpenVPN that are included in Tunnelblick to be compatible with older VPN servers. 
+ * To allow older versions of openssl to be used with older copies of OpenVPN that are
+   included in Tunnelblick to be compatible with older VPN servers. 
 
  * To protect against a compromise of the network or the servers containing the source
    code or other "supply chain attacks".
@@ -46,8 +46,8 @@ versions of the GNU autotools be installed. The "autotools" programs consist of 
 versions of the autotools programs, and macOS 10.8.5 with Xcode 4 and higher does not
 include the autotools programs at all.
 
-The "third_party/ShellScriptToInstallAutotools.sh" script will download recent (possibly not the most
-recent) versions of the autotools and install them into /usr/local/bin.
+The "third_party/ShellScriptToInstallAutotools.sh" script will download compatible
+(possibly not the most recent) versions of the autotools and install them into /usr/local/bin.
 
 When building Tunnelblick, the first build phase "Run Script" that builds the third party
 programs sets the path to look in /usr/local/bin first (before other folders), so any
@@ -63,6 +63,7 @@ Three programs are built and used by Tunnelblick directly:
 
     openvpn-down-root.so: This is a "helper" program used by OpenVPN. It is launched by
                OpenVPN when invoked with a certain options Tunnelblick passes to OpenVPN.
+               It is included in the OpenVPN source code and is built when OpenVPN is built.
 
     tuntaposx: This program consists of tun and tap kexts which are loaded by Tunnelblick
                on demand.
@@ -71,10 +72,7 @@ There may be several different versions of OpenVPN in the third_party/tunnelblic
 Each copy is created with the Tunnelblick OpenVPN Xor Patch (see
 https://tunnelblick.net/cOpenvpn_xorpatch.html).
 
-Two programs are used slightly differently:
-
-    Sparkle:   This program creates the Sparkle.framework, which Tunnelblick uses to
-               manage some updates to VPN configurations and to the Tunnelblick application.
+One programs is used slightly differently:
 
     easy-rsa:  This is a collection of shell scripts which can be used to manage a public
                key infrastructure (PKI). They are "installed" by copying them into a
@@ -93,7 +91,6 @@ Four programs are built as libraries and statically linked to OpenVPN:
     LZO:           A compression/decompression library
     LZ4:           A compression/decompression library
     OpenSSL:       A TLS/SSL library
-    LibreSSL:      A TLS/SSL library
     pkcs11-helper: A library for dealing with PKCS#11 devices
 
 
@@ -162,48 +159,37 @@ The "sources" folder contains the source code for each of the third party progra
 that the version numbers in this document may not match the versions included in the
 current Tunnelblick source code._
 
-    libressl-2.5.5.tar.gz
-        This is an archive of the source code for LibreSSL 2.5.5, as downloaded from
-        https://ftp.openbsd.org/pub/OpenBSD/LibreSSL on 2017-08-11.
-
-    lz4-1.7.5.tar.gz
+    lz4-1.10.0.tar.gz
         This is an archive of the source code for LZ4 1.7.5, as downloaded from
         https://github.com/lz4/lz4/releases.
 
     lzo-2.10.tar.gz
         This is an archive of the source code for LZO 2.10, as downloaded from
-        https://www.oberhumer.com/opensource/lzo on 2017-08-11.
+        https://www.oberhumer.com/opensource/lzo.
 
-    openssl-1.0.2l.tar.gz
-        This is an archive of the source code for OpenSSL 1.0.2l, as downloaded from
-        https://www.openssl.org/source on 2017-08-11.
+    openssl-3.5.4.tar.gz, openssl-3.0.18.tar.gz, and openssl-1.1.1w.tar.gz
+        This are archives of the source code for OpenSSL, as downloaded from
+        https://www.openssl.org/source.
 
-    pkcs11-helper-1.22.tar.bz2
+    pkcs11-helper-1.27.0.tar.bz2
         This is an archive of the source code for pkcs11-helper 1.22, as downloaded from
-        https://github.com/OpenSC/pkcs11-helper on 2017-08-11.
-
-    Sparkle-1.23.0-with-submodules.tar.gz
-        This is an archive of the source code for Sparkle release 1.23.0, as downloaded
-        from https://github.com/sparkle-project/Sparkle. See "To replace Sparkle", below,
-        for details about how the downloaded source code has been supplemented with the
-        submodules which it requires.
+        https://github.com/OpenSC/pkcs11-helper.
 
     patches
-        This folder may contain patches for OpenSSL and Sparkle. tuntap and OpenVPN each have
+        This folder may contain patches for OpenSSL. tuntap and OpenVPN each have
         a similar folder of patches for each version. The process of creating the third
         party programs expands the source code into the third_party/build folder, patches
-        the source code, and then builds the patched source code. As of 2016-07-31, only
-        Sparkle has patches. (If easy-rsa, LZO, LZ4, or pkcs11-helper need patches, it
-        will be necessary to modify their respective makefiles to implement the patching process.)
+        the source code, and then builds the patched source code. As of 2025-12-13, none
+        of the programs had patches. (If easy-rsa, LZO, LZ4, or pkcs11-helper need patches,
+        it will be necessary to modify their respective makefiles to implement the patching
+        process.)
 
     tuntap
-        This folder contains source code and patches to create the version(s)s of
-        tuntap that are used by Tunnelblick. If additional newer versions are required,
-        they should be put in this folder and the makefile modified to build them.
+        This folder contains source code and patches to create the version of
+        tuntap that is used by Tunnelblick.
 
-            tuntap-20111101
             tuntap-20141104
-                These folders each contain an archive with the source code for a version
+                This folder contains an archive with the source code for a version
                 of tuntap, along with a folder containing patches for that version.
 
     openvpn
@@ -259,7 +245,7 @@ CHANGING THIRD PARTY PROGRAMS
     When a new version of a third party program is released, it is usually appropriate
     to include the new version in Tunnelblick.
 
-To replace an older version of LibreSSL, LZ4, LZO, OpenSSL, or pkcs11-helper:
+To replace an older version of LZ4, LZO, OpenSSL, or pkcs11-helper:
 
     1. Download an archive containing the source code and copy it to the "sources"
        subfolder. Download the same type of archive (".tar.gz", ".tar.bz2", or ".zip") as
@@ -272,6 +258,15 @@ To replace an older version of LibreSSL, LZ4, LZO, OpenSSL, or pkcs11-helper:
        it may be necessary to modify the makefile for the program to expand the archive
         with a different program.
 
+To add a new version of OpenSSL:
+    1. Download an archive containing the source code and copy it to the "sources"
+       subfolder. Download the same type of archive (".tar.gz", ".tar.bz2", or ".zip") as
+       the original archive that is being replaced.
+    2. If necessary, create or modify the .diff file for each patch that is needed and
+       copy the .diff file into the appropriate subfolder in third_party/patches.
+    3. Add variables to Makefile corresponding to each variable whose name starts with
+       OPENSSL_.
+
 To add a new version of OpenVPN:
     1. Download an archive containing the source code and copy it to a new subfolder in
        third_party/openvpn. (The subfolder must be named "openvpn-x.y.z", where x.y.z is
@@ -282,9 +277,13 @@ To add a new version of OpenVPN:
     3. If necessary, or create or modify a 'configuration-options.txt' file to specify
        the options used to configure the version of OpenVPN, and copy the file into the
        subfolder.
+    4. Add variables to Makefile corresponding to each variable whose name starts with
+       OPENVPN_.
 
 To remove a version of OpenVPN:
-    Remove the version's folder from /third_party/openvpn.
+    1. Remove the version's folder from /third_party/openvpn.
+    2. Remove variables from Makefile whose name starts with OPENVPN_ and which
+       correspond to the OpenVPN version that is being removed. 
 
 To add a new version of tuntap:
     1. Download an archive containing the source code and copy it to a new subfolder in
@@ -296,39 +295,3 @@ To add a new version of tuntap:
        several places.
     5. Other changes may be needed in the Tunnelblick source code to use the new version
        (for example, if it is only for specific versions of macOS).
-
-To replace Sparkle:
-
-	Note: Using the .tar.gz or .zip of a Sparkle release does not work because of a
-	bug/feature of GitHub. The problem is that the downloaded archive does not include
-	the source code of the ed25519 submodule. So getting a .tar.gz with the full Sparkle
-	source code for a branch is a multi-step process.
-
-	Here is an example of getting the source of Sparkle release 1.23.0:
-
-	First, in Terminal, cd to a folder in which to work. Then execute the following commands:
-
-		git clone --depth 1 --branch 1.23.0 --recursive https://github.com/sparkle-project/Sparkle
-		mv Sparkle Sparkle-1.23.0-with-submodules
-		tar -czf Sparkle-1.23.0-with-submodules.tar.gz Sparkle-1.23.0-with-submodules
-		rm -fr Sparkle-1.23.0-with-submodules
-
-	Second, copy the new .tar.gz into the third_party/sources folder.
-
-	Third, remove the old Sparkle .tar.gz or .zip file.
-
-	Finally, change SPARKLE_NAME in third_party/Makefile to the name of the newly created .tar.gz but
-	without the ".tag.gz". In the example above, set SPARKLE_NAME to Sparkle-1.23.0-with-submodules.
-
-	Detailed explanation of the commands:
-		git clone... downloads a clone of the source code from GitHub.
-					"--depth 1" causes the clone to include only the last revision .
-					"--branch 1.23.0" causes the commit with tag "1.23.0" to be cloned.
-					"--recursive" causes all submodule source code to be included.
-					"https://github.com/sparkle-project/Sparkle" is the GitHub URL for the Sparkle project.
-
-		tar -czf...	creates the .tar.gz
-					"-czf Sparkle-1.23.0-with-submodules.tar.gz" causes tar to create a new .tar.gz archive with that name
-					"Sparkle" specifies the folder from which the .tar.gz is to be made
-
-		rm -fr Sparkle removes the downloaded source code
