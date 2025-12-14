@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24128" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24128"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,19 +26,19 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="322" width="505" height="248"/>
+            <rect key="contentRect" x="196" y="322" width="505" height="223"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="505" height="248"/>
+                <rect key="frame" x="0.0" y="0.0" width="505" height="223"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="27">
-                        <rect key="frame" x="20" y="160" width="70" height="70"/>
+                        <rect key="frame" x="20" y="135" width="70" height="70"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="28"/>
                     </imageView>
                     <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3">
-                        <rect key="frame" x="96" y="187" width="391" height="17"/>
+                        <rect key="frame" x="96" y="162" width="391" height="17"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="title$" id="4">
                             <font key="font" metaFont="system"/>
@@ -47,19 +47,19 @@
                         </textFieldCell>
                     </textField>
                     <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21">
-                        <rect key="frame" x="20" y="100" width="465" height="25"/>
+                        <rect key="frame" x="20" y="75" width="467" height="25"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="WjA-c1-zjI">
-                            <rect key="frame" x="1" y="1" width="448" height="23"/>
+                            <rect key="frame" x="1" y="1" width="450" height="23"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" id="24">
-                                    <rect key="frame" x="0.0" y="0.0" width="448" height="23"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="23"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="448" height="23"/>
-                                    <size key="maxSize" width="465" height="10000000"/>
+                                    <size key="minSize" width="450" height="23"/>
+                                    <size key="maxSize" width="467" height="10000000"/>
                                     <attributedString key="textStorage">
                                         <fragment content="message$">
                                             <attributes>
@@ -78,12 +78,12 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="22">
-                            <rect key="frame" x="449" y="1" width="15" height="23"/>
+                            <rect key="frame" x="451" y="1" width="15" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vI9-dR-3B2" customClass="TBButton">
-                        <rect key="frame" x="18" y="79" width="469" height="18"/>
+                        <rect key="frame" x="18" y="54" width="469" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Do not warn again$" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="3AY-eq-7Fb">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -124,7 +124,7 @@
                         </connections>
                     </button>
                     <progressIndicator maxValue="100" doubleValue="50" style="bar" id="EgY-Ws-Gfk">
-                        <rect key="frame" x="20" y="138" width="465" height="20"/>
+                        <rect key="frame" x="20" y="113" width="465" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     </progressIndicator>
                 </subviews>
@@ -132,7 +132,7 @@
             <connections>
                 <outlet property="initialFirstResponder" destination="13" id="30"/>
             </connections>
-            <point key="canvasLocation" x="898" y="630"/>
+            <point key="canvasLocation" x="897.5" y="617.5"/>
         </window>
     </objects>
 </document>
