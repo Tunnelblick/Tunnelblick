@@ -227,6 +227,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     CGFloat newWindowHeight = w.frame.size.height;
     CGFloat heightChange = oldWindowHeight - newWindowHeight;
 
+    // Scroll to the top of the view
+    [tv scrollPoint: NSMakePoint(0.0, 0.0)];
+
     // Set up the checkbox (if any) and move it within the window to adjust for the change in the window's height
 	[self setupCheckboxWithHeightChange: - heightChange];
 }
