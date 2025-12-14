@@ -986,9 +986,11 @@ doneReturnErr:
 
     NSString * wouldYouMessage = NSLocalizedString(@"<hr><p><strong>Would you like to update to the new version now?</strong></p>\n", @"HTML window text");
 
-    NSString * htmlMessage = [NSString stringWithFormat:
-                              @"%@\n%@\n<hr>\n%@\n%@\n%@",
-                              introMessage, updateInfo[@"notes"], adminMessage, disconnectMessage, wouldYouMessage];
+    NSMutableString * htmlMessage = [[[NSMutableString alloc] initWithString: updateInfo[@"notes"]] autorelease];
+    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_INTRO@="      withString: introMessage      options: 0 range: NSMakeRange(0, htmlMessage.length)];
+    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_ADMIN@="      withString: adminMessage      options: 0 range: NSMakeRange(0, htmlMessage.length)];
+    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_DISCONNECT@=" withString: disconnectMessage options: 0 range: NSMakeRange(0, htmlMessage.length)];
+    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_WOULD_YOU@="  withString: wouldYouMessage   options: 0 range: NSMakeRange(0, htmlMessage.length)];
 
     NSAttributedString * message =  attributedLightDarkStringFromHTML(htmlMessage);
     if (  ! message) {
