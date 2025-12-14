@@ -149,70 +149,60 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     [self.progressInd setHidden: (self.initialPercentage == 0.0)];
 }
 
-float heightForStringDrawing(NSString *myString,
-							 NSFont *myFont,
-							 float myWidth) {
-	
-	// From http://stackoverflow.com/questions/1992950/nsstring-sizewithattributes-content-rect/1993376#1993376
-	
-	NSTextStorage *textStorage = [[[NSTextStorage alloc] initWithString:myString] autorelease];
-	NSTextContainer *textContainer = [[[NSTextContainer alloc] initWithContainerSize:NSMakeSize(myWidth, FLT_MAX)] autorelease];
-	
-	NSLayoutManager *layoutManager = [[[NSLayoutManager alloc] init] autorelease];
-	[layoutManager addTextContainer:textContainer];
-	[textStorage addLayoutManager:layoutManager];
-	[textStorage addAttribute:NSFontAttributeName value:myFont
-						range:NSMakeRange(0, [textStorage length])];
-	[textContainer setLineFragmentPadding:0.0];
-	
-	(void) [layoutManager glyphRangeForTextContainer:textContainer];
-	return [layoutManager
-			usedRectForTextContainer:textContainer].size.height;
+-(void) resizeWindow: (NSWindow *)           window
+          scrollView: (NSScrollView *)       scrollView
+            textView: (NSTextView *)         textView
+ forAttributedString: (NSAttributedString *) attrString {
+
+    // Also loads the text view with the attributed string
+
+    // Get the height of the text view BEFORE we change the text.
+    NSRect oldUsedRect = [textView.layoutManager usedRectForTextContainer:textView.textContainer];
+    CGFloat oldRequiredTextHeight = ceil(NSHeight(oldUsedRect));
+
+    // Load the new string into the text view.
+    [[textView textStorage] setAttributedString:attrString];
+    [textView.layoutManager ensureLayoutForTextContainer:textView.textContainer];
+
+    // Compute the height needed for the text and the change in height.
+    NSRect usedRect = [textView.layoutManager usedRectForTextContainer:textView.textContainer];
+    CGFloat requiredTextHeight = ceil(NSHeight(usedRect));
+    CGFloat textHeightChange = requiredTextHeight - oldRequiredTextHeight;
+
+    // Don't do anything if the text already fits (i.e., don't make window smaller).
+    if (textHeightChange < 0) {
+        return;
+    }
+
+    // Hide the vertical scroller now that it isn’t needed.
+    scrollView.hasVerticalScroller = NO;
+
+    // Resize the NSWindow to contain the enlarged scroll view.
+    NSRect winFrame = window.frame;
+    winFrame.size.height += textHeightChange;
+    winFrame.origin.y -= textHeightChange;
+    [window setFrame:winFrame display:YES animate:YES];
+
+    // Resize the NSScrollView so scrolling isn’t required.
+    NSEdgeInsets insets = scrollView.contentInsets;
+    CGFloat totalScrollHeightChange = textHeightChange + insets.top + insets.bottom;
+
+    NSRect svFrame = scrollView.frame;
+    svFrame.size.height += totalScrollHeightChange;
+    svFrame.origin.y -= textHeightChange;
+    [scrollView setFrame: svFrame];
+
+    // Resize the NSTextView (width stays the same).
+    NSRect tvFrame = textView.frame;
+    tvFrame.size.height += textHeightChange;
+    tvFrame.origin.y -= textHeightChange;
+    [textView setFrame: tvFrame];
 }
 
 -(void) setupMessageAndCheckbox {
-	
-	NSTextView * tv = [self messageTV];
-	
-	// Calculate the change in height required to fit the text
-	NSRect tvFrame = [tv frame];
-	NSFont * font = [NSFont systemFontOfSize: 11.9];
-	NSString * messageS = (  message
-						   ? [[message copy] autorelease]
-						   : [messageAS string]);
-    NSString * msgWithLfLfX = (  [messageS hasSuffix: @"\n\n"]
-                               ? messageS
-                               : [messageS stringByAppendingString: @"\n\nX"]);
-    CGFloat newHeight = heightForStringDrawing(msgWithLfLfX, font, tvFrame.size.width);
-	
-	CGFloat heightChange = newHeight - tvFrame.size.height;
-    CGFloat heightChangePlus = 1.1 * heightChange;
 
-	// Adjust the window for the new height
-	NSWindow * w = [self window];
-	[w setShowsResizeIndicator: NO];
-	NSRect wFrame = [w frame];
-	wFrame.size.height += heightChangePlus;
-	wFrame.origin.y -= heightChangePlus;
-	[w setFrame: wFrame display: NO];
-	
-	// Adjust the scroll view for the new height
-	NSScrollView * sv = [self messageSV];
-	[sv setBorderType: NSNoBorder];
-	[sv setHasVerticalScroller: NO];
-	NSRect svFrame = [sv frame];
-	svFrame.size.height += heightChangePlus;
-	svFrame.origin.y    -= heightChangePlus;
-	[sv setFrame: svFrame];
-
-
-	// Adjust the text view for the new height
-	tvFrame.size.height = newHeight;
-	tvFrame.origin.y -= heightChange;
-	[tv setFrame: tvFrame];
-	
 	// Set the string
-	NSString * msg = [self message];
+	NSString * msg = self.message;
 	NSAttributedString * msgAS = (   msg
 								  ? [[[NSAttributedString alloc] initWithString: msg] autorelease]
 								  : [self messageAS]);
@@ -220,20 +210,25 @@ float heightForStringDrawing(NSString *myString,
 		msgAS = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Program error, please see the Console log.", @"Window text")] autorelease];
 		NSLog(@"AlertWindowController: no message or messageAS; stack trace: %@", callStack());
 	}
-	
-	// To get the correct background for the entire last line, make the text end in a single newline.
-	NSMutableAttributedString * mAS = [[msgAS mutableCopy] autorelease];
-	while (  [[mAS string] hasSuffix: @"\n"]  ) {
-		[mAS deleteCharactersInRange: NSMakeRange([[mAS string] length] - 1, 1)];
-	}
-	[mAS appendAttributedString: [[[NSAttributedString alloc] initWithString: @"\n" attributes: nil] autorelease]];
 
-	[[tv textStorage] setAttributedString: mAS];
-	
-	// Make the cursor disappear
-	[tv setSelectedRange: NSMakeRange([msg length] + 1, 0)];
-	
-	[self setupCheckboxWithHeightChange: heightChange];
+    // Remove trailing linefeeds
+    NSMutableAttributedString * mutableAS = [[msgAS mutableCopy] autorelease];
+    while (  [[mutableAS string] hasSuffix: @"\n"]  ) {
+        [mutableAS deleteCharactersInRange: NSMakeRange([[mutableAS string] length] - 1, 1)];
+    }
+    msgAS = [[[NSAttributedString alloc] initWithAttributedString: mutableAS] autorelease];
+
+    // Put the string into the NSTextView, and resize the height of the window, the scrollView, and the textView so the text fits without scrolling
+    NSWindow * w = self.window;
+    NSScrollView * sv = self.messageSV;
+    NSTextView * tv = self.messageTV;
+    CGFloat oldWindowHeight = w.frame.size.height;
+    [self resizeWindow: w scrollView: sv textView: tv forAttributedString: msgAS];
+    CGFloat newWindowHeight = w.frame.size.height;
+    CGFloat heightChange = oldWindowHeight - newWindowHeight;
+
+    // Set up the checkbox (if any) and move it within the window to adjust for the change in the window's height
+	[self setupCheckboxWithHeightChange: - heightChange];
 }
 
 -(void) setupCheckboxWithHeightChange: (CGFloat) heightChange {
