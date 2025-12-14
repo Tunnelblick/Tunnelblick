@@ -157,16 +157,24 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     // Also loads the text view with the attributed string
 
     // Get the height of the text view BEFORE we change the text.
-    NSRect oldUsedRect = [textView.layoutManager usedRectForTextContainer:textView.textContainer];
+    NSRect oldUsedRect = [textView.layoutManager usedRectForTextContainer: textView.textContainer];
     CGFloat oldRequiredTextHeight = ceil(NSHeight(oldUsedRect));
 
     // Load the new string into the text view.
-    [[textView textStorage] setAttributedString:attrString];
-    [textView.layoutManager ensureLayoutForTextContainer:textView.textContainer];
+    [textView.textStorage setAttributedString: attrString];
+    [textView.layoutManager ensureLayoutForTextContainer: textView.textContainer];
 
-    // Compute the height needed for the text and the change in height.
-    NSRect usedRect = [textView.layoutManager usedRectForTextContainer:textView.textContainer];
+    // Compute the height needed for the text.
+    NSRect usedRect = [textView.layoutManager usedRectForTextContainer: textView.textContainer];
     CGFloat requiredTextHeight = ceil(NSHeight(usedRect));
+
+    // Restrict the height to 80% of the height of the screen.
+    CGFloat screenHeight = window.screen.frame.size.height;
+    if (  requiredTextHeight > (0.8 * screenHeight)  ) {
+        requiredTextHeight = (0.8 * screenHeight );
+    }
+
+    // Calculate the change in height
     CGFloat textHeightChange = requiredTextHeight - oldRequiredTextHeight;
 
     // Don't do anything if the text already fits (i.e., don't make window smaller).
@@ -181,7 +189,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     NSRect winFrame = window.frame;
     winFrame.size.height += textHeightChange;
     winFrame.origin.y -= textHeightChange;
-    [window setFrame:winFrame display:YES animate:YES];
+    [window setFrame: winFrame display: YES animate: YES];
 
     // Resize the NSScrollView so scrolling isn’t required.
     NSEdgeInsets insets = scrollView.contentInsets;
