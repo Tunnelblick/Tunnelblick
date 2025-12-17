@@ -504,8 +504,9 @@ NSAttributedString * attributedStringFromHTML(NSString * html) {
 
 NSAttributedString * attributedLightDarkStringFromHTML(NSString * html) {
 
-	NSString * withSpan = [NSString stringWithFormat: @"<span style=\"color:%@;background-color:%@\">%@</span>",
-							rgbValues(YES), rgbValues(NO), html];
+    NSString * withSpan = [NSString stringWithFormat:
+                           @"<span style=\"color:%@;background-color:%@; font-family: sans-serif; font-size: 1.2em;\">%@</span>",
+                           rgbValues(YES), rgbValues(NO), html];
 
 	NSAttributedString * result = attributedStringFromHTML(withSpan);
 	return result;
@@ -889,7 +890,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
         // Surround the msg with a span that sets text foreground/background colors for light or dark mode and the font and size
         NSMutableString * ms = [[[NSMutableString alloc]
                                  initWithFormat:
-                                     @"<span style=\"color:%@;background-color:%@\">%@</span>",
+                                     @"<span style=\"color:%@;background-color:%@; font-family: sans-serif; font-size: 1.2em;\">%@</span>",
                                  rgbValues(YES), rgbValues(NO), msg]
                                 autorelease];
         // Do simplest possible conversion of text to HTML by replacing newlines with <br>
