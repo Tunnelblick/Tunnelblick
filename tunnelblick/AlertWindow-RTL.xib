@@ -16,6 +16,8 @@
                 <outlet property="messageSV" destination="21" id="26"/>
                 <outlet property="messageTV" destination="24" id="25"/>
                 <outlet property="otherButton" destination="YXb-qb-Wqb" id="fUQ-RQ-GeX"/>
+                <outlet property="sizingSV" destination="Ft3-G2-H0P" id="wyI-oD-ojR"/>
+                <outlet property="sizingTV" destination="9aG-68-x4q" id="vNI-m2-0Aj"/>
                 <outlet property="window" destination="1" id="12"/>
             </connections>
         </customObject>
@@ -46,12 +48,12 @@
                     </textField>
                     <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21">
                         <rect key="frame" x="20" y="86" width="465" height="25"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="xVS-GY-fTl">
                             <rect key="frame" x="1" y="1" width="448" height="23"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" baseWritingDirection="rightToLeft" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" id="24">
+                                <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" baseWritingDirection="rightToLeft" usesRuler="YES" allowsNonContiguousLayout="YES" id="24">
                                     <rect key="frame" x="0.0" y="0.0" width="448" height="23"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -67,9 +69,10 @@
                                             </attributes>
                                         </fragment>
                                     </attributedString>
-                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
                             </subviews>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="23">
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
@@ -128,5 +131,44 @@
             </connections>
             <point key="canvasLocation" x="322.5" y="712"/>
         </window>
+        <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="Ft3-G2-H0P">
+            <rect key="frame" x="0.0" y="0.0" width="465" height="25"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="1LQ-Ux-OBm">
+                <rect key="frame" x="1" y="1" width="448" height="23"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" baseWritingDirection="rightToLeft" usesRuler="YES" spellingCorrection="YES" id="9aG-68-x4q">
+                        <rect key="frame" x="0.0" y="0.0" width="448" height="23"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <size key="minSize" width="448" height="23"/>
+                        <size key="maxSize" width="465" height="10000000"/>
+                        <attributedString key="textStorage">
+                            <fragment content="message$">
+                                <attributes>
+                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <font key="NSFont" size="12" name="Helvetica"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="rightToLeft" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </textView>
+                </subviews>
+                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+            </clipView>
+            <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="awz-2i-EW7">
+                <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </scroller>
+            <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="ZbP-uM-WNB">
+                <rect key="frame" x="449" y="1" width="15" height="23"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </scroller>
+            <point key="canvasLocation" x="365" y="498"/>
+        </scrollView>
     </objects>
 </document>

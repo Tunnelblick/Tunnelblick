@@ -401,19 +401,16 @@ BOOL displaysHaveDifferentSpaces(void) {
 
 NSString * rgbValues(BOOL foreground) {
 
-    BOOL darkMode = gTbInfo.runningInDarkMode;
+    NSColor * color = (  foreground
+                       ? NSColor.textColor
+                       : NSColor.textBackgroundColor);
+    NSColor * rgbColor = [color colorUsingColorSpace: [NSColorSpace sRGBColorSpace]];
 
-	NSString * result = (  foreground
-						 ? (  darkMode
-							? @"rgb(224,224,224)"
-							: @"rgb(36,36,36)")
-						 : (  darkMode
-							? @"rgb(48,50,52)"
-							: @"rgb(236,236,236)"
-							)
-						 );
+    CGFloat r, g, b, a;
+    [rgbColor getRed:&r green:&g blue:&b alpha:&a];
 
-	return result;
+    NSString * result = [NSString stringWithFormat: @"color(srgb %f %f %f)", r, g, b];
+    return result;
 }
 
 NSString * architecturesForExecutable(NSString * path) {

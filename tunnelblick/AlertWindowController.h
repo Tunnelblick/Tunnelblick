@@ -54,6 +54,9 @@
 	IBOutlet NSScrollView       * messageSV;
 	IBOutlet NSTextView         * messageTV;
 
+    IBOutlet NSScrollView       * sizingSV;
+    IBOutlet NSTextView         * sizingTV;
+
     IBOutlet NSProgressIndicator * progressInd;
 
 	IBOutlet TBButton			* doNotWarnAgainCheckbox;
@@ -92,6 +95,9 @@ TBPROPERTY_READONLY(NSTextFieldCell *, headlineTFC)
 
 TBPROPERTY_READONLY(NSScrollView    *, messageSV)
 TBPROPERTY_READONLY(NSTextView      *, messageTV)
+
+TBPROPERTY_READONLY(NSScrollView    *, sizingSV)
+TBPROPERTY_READONLY(NSTextView      *, sizingTV)
 
 TBPROPERTY_READONLY(NSProgressIndicator *, progressInd)
 

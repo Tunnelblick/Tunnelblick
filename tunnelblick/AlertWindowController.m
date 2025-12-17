@@ -63,6 +63,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSScrollView    *, messageSV)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextView      *, messageTV)
 TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, progressInd)
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSScrollView    *, sizingSV)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextView      *, sizingTV)
+
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton        *, doNotWarnAgainCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, defaultButton)
@@ -74,70 +77,70 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     if (  ! self  ) {
         return nil;
     }
-    
-	[self retain];		// Retain ourself. windowWillClose will release ourself.
+
+    [self retain];		// Retain ourself. windowWillClose will release ourself.
     return self;
 }
 
 -(void) dealloc {
-    
+
     [headline			    release]; headline				 = nil;
     [message			    release]; message				 = nil;
-	[messageAS			    release]; messageAS				 = nil;
-	[preferenceToSetTrue    release]; preferenceToSetTrue	 = nil;
+    [messageAS			    release]; messageAS				 = nil;
+    [preferenceToSetTrue    release]; preferenceToSetTrue	 = nil;
     [preferenceName         release]; preferenceName         = nil;
     [preferenceValue        release]; preferenceValue        = nil;
-	[checkboxTitle          release]; checkboxTitle			 = nil;
-	[checkboxInfoTitle      release]; checkboxInfoTitle		 = nil;
+    [checkboxTitle          release]; checkboxTitle			 = nil;
+    [checkboxInfoTitle      release]; checkboxInfoTitle		 = nil;
     [responseTarget         release]; responseTarget         = nil;
     [defaultButtonTitle     release]; defaultButtonTitle     = nil;
     [alternateButtonTitle   release]; alternateButtonTitle   = nil;
     [otherButtonTitle       release]; otherButtonTitle       = nil;
 
-	[super dealloc];
+    [super dealloc];
 }
 
 -(void) windowWillClose: (NSNotification *) notification {
-	
+
     (void) notification;
 
-	if (  [doNotWarnAgainCheckbox state] == NSOnState  ) {
-		if (   preferenceToSetTrue
+    if (  [doNotWarnAgainCheckbox state] == NSOnState  ) {
+        if (   preferenceToSetTrue
             && ( ! [preferenceToSetTrue hasSuffix: @"-NotAnActualPreference"] )  ) {
-			[gTbDefaults setBool: TRUE forKey: preferenceToSetTrue];
-		}
+            [gTbDefaults setBool: TRUE forKey: preferenceToSetTrue];
+        }
 
-		if (   preferenceName
-			&& preferenceValue  ) {
-			[gTbDefaults setObject: preferenceValue forKey: preferenceName];
-		}
+        if (   preferenceName
+            && preferenceValue  ) {
+            [gTbDefaults setObject: preferenceValue forKey: preferenceName];
+        }
 
         [gMC recreateMenu];
-	}
+    }
 
     if (  self.windowWillCloseSelector  ) {
         [self.responseTarget performSelectorOnMainThread: self.windowWillCloseSelector withObject: nil waitUntilDone: NO];
     }
 
-	[self autorelease];
+    [self autorelease];
 }
 
 -(void) setupHeadline {
-    
-	NSTextField     * tf =  [self headlineTF];
-	NSTextFieldCell * tfc = [self headlineTFC];
 
-	[tfc setFont: [NSFont boldSystemFontOfSize: 12.0]];
-	
-	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
-	CGFloat widthChange = [UIHelper setTitle: [self headline] ofControl: tfc frameHolder: tf shift: rtl narrow: NO enable: YES];
+    NSTextField     * tf =  [self headlineTF];
+    NSTextFieldCell * tfc = [self headlineTFC];
 
-	// If title doesn't fit window, adjust the window width so it does
+    [tfc setFont: [NSFont boldSystemFontOfSize: 12.0]];
+
+    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+    CGFloat widthChange = [UIHelper setTitle: [self headline] ofControl: tfc frameHolder: tf shift: rtl narrow: NO enable: YES];
+
+    // If title doesn't fit window, adjust the window width so it does
     if (  widthChange > 0.0  ) {
-		NSWindow * w = [self window];
-		NSRect windowFrame = [w frame];
+        NSWindow * w = [self window];
+        NSRect windowFrame = [w frame];
         windowFrame.size.width += widthChange;
-		[w setFrame: windowFrame display: NO];
+        [w setFrame: windowFrame display: NO];
     }
 }
 
@@ -149,62 +152,41 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     [self.progressInd setHidden: (self.initialPercentage == 0.0)];
 }
 
+-(void) changeWindow: (NSWindow *) window
+            heightBy: (CGFloat)    heightChange {
+
+    NSRect winFrame = window.frame;
+    winFrame.size.height += heightChange;
+    winFrame.origin.y -= heightChange;
+    [window setFrame: winFrame display: YES animate: YES];
+}
+
 -(void) resizeWindow: (NSWindow *)           window
           scrollView: (NSScrollView *)       scrollView
             textView: (NSTextView *)         textView
  forAttributedString: (NSAttributedString *) attrString {
 
-    // Also loads the text view with the attributed string
+    // Hide the vertical scrollers and don't offset scroll view contents.
+    sizingSV.hasVerticalScroller = NO;
+    [sizingSV setContentInsets: NSEdgeInsetsZero];
+    scrollView.hasVerticalScroller = NO;
+    [scrollView setContentInsets: NSEdgeInsetsZero];
 
-    // Get the height of the text view BEFORE we change the text.
-    NSRect oldUsedRect = [textView.layoutManager usedRectForTextContainer: textView.textContainer];
-    CGFloat oldRequiredTextHeight = ceil(NSHeight(oldUsedRect));
+    // Put the attributed string in a hidden NSTextView which isn't in the window
+    // (so it doesn't change the window size) and whose height isn't constrained.
+    // Then calculate the height change when the text view is sized to fit.
+    CGFloat oldTvHeight = sizingTV.frame.size.height;
+    [sizingTV.textStorage setAttributedString: attrString];
+    [sizingTV.layoutManager ensureLayoutForTextContainer: sizingTV.textContainer];
+    [sizingTV sizeToFit];
+    CGFloat newTvHeight = sizingTV.frame.size.height;
+    CGFloat heightChange = newTvHeight - oldTvHeight;
 
-    // Load the new string into the text view.
+    // Store the attributed string in the text view that will be displayed
     [textView.textStorage setAttributedString: attrString];
     [textView.layoutManager ensureLayoutForTextContainer: textView.textContainer];
 
-    // Compute the height needed for the text.
-    NSRect usedRect = [textView.layoutManager usedRectForTextContainer: textView.textContainer];
-    CGFloat requiredTextHeight = ceil(NSHeight(usedRect));
-
-    // Restrict the height to 80% of the height of the screen.
-    CGFloat screenHeight = window.screen.frame.size.height;
-    if (  requiredTextHeight > (0.8 * screenHeight)  ) {
-        requiredTextHeight = (0.8 * screenHeight );
-    }
-
-    // Calculate the change in height
-    CGFloat textHeightChange = requiredTextHeight - oldRequiredTextHeight;
-
-    // Don't do anything if the text already fits (i.e., don't make window smaller).
-    if (textHeightChange < 0) {
-        return;
-    }
-
-    // Hide the vertical scroller now that it isn’t needed.
-    scrollView.hasVerticalScroller = NO;
-
-    // Resize the NSWindow to contain the enlarged scroll view.
-    NSRect winFrame = window.frame;
-    winFrame.size.height += textHeightChange;
-    winFrame.origin.y -= textHeightChange;
-    [window setFrame: winFrame display: YES animate: YES];
-
-    // Resize the NSScrollView so scrolling isn’t required.
-    NSEdgeInsets insets = scrollView.contentInsets;
-    CGFloat totalScrollHeightChange = textHeightChange + insets.top + insets.bottom;
-
-    NSRect svFrame = scrollView.frame;
-    svFrame.size.height += totalScrollHeightChange;
-    svFrame.origin.y -= textHeightChange;
-    [scrollView setFrame: svFrame];
-
-    // Resize the NSTextView (width stays the same).
-    NSRect tvFrame = textView.frame;
-    tvFrame.size.height += textHeightChange;
-    tvFrame.origin.y -= textHeightChange;
-    [textView setFrame: tvFrame];
+    [self changeWindow: window heightBy: heightChange];
 }
 
 -(void) setupMessageAndCheckbox {
