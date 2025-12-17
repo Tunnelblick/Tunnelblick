@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="alternateButton" destination="axz-0P-6GO" id="x19-Ne-xdf"/>
                 <outlet property="defaultButton" destination="13" id="udp-Z1-s1t"/>
+                <outlet property="doNotWarnAgainCheckbox" destination="sMg-K1-XRD" id="QaC-Jl-GEE"/>
                 <outlet property="headlineTF" destination="3" id="31"/>
                 <outlet property="headlineTFC" destination="4" id="32"/>
                 <outlet property="iconIV" destination="27" id="29"/>
