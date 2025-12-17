@@ -499,10 +499,6 @@ NSAttributedString * attributedStringFromHTML(NSString * html) {
         }
     }
 
-    if (  as == nil  ) {
-        NSLog(@"attributedStringFromHTML: returning nil");
-    }
-
     return as;
 }
 
