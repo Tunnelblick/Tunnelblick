@@ -880,8 +880,13 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	[awc setCheckboxInfoTitle:   checkboxInfoTitle];
 	[awc setCheckboxIsChecked:   checkboxIsOn];
 
-	if (  [[msg class] isSubclassOfClass: [NSString class]]  ) {
-        // Surround the msg with a span that sets text foreground/background colors for light or dark mode
+    NSAttributedString * displayMessage = nil;
+
+    if (  [[msg class] isSubclassOfClass: [NSAttributedString class]]  ) {
+        displayMessage = [[msg copy] autorelease];
+
+    } else if (  [[msg class] isSubclassOfClass: [NSString class]]  ) {
+        // Surround the msg with a span that sets text foreground/background colors for light or dark mode and the font and size
         NSMutableString * ms = [[[NSMutableString alloc]
                                  initWithFormat:
                                      @"<span style=\"color:%@;background-color:%@\">%@</span>",
@@ -891,14 +896,14 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
         //    and multiple spaces with multiple &nbsp;
         [ms replaceOccurrencesOfString: @"\n" withString: @"<br>" options: 0 range: NSMakeRange(0, [ms length])];
         [ms replaceOccurrencesOfString: @"  " withString: @"&nbsp;&nbsp;" options: 0 range: NSMakeRange(0, [ms length])];
-        NSAttributedString * result = attributedStringFromHTML(ms);
-        [awc setMessageAS: result];
-	} else if (  [[msg class] isSubclassOfClass: [NSAttributedString class]]  ) {
-		[awc setMessageAS: msg];
-	} else {
-		NSLog(@"TBShowAlertWindow invoked with invalid message type %@; stack trace: %@", [msg className], callStack());
-		[awc setMessageAS: [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Program error, please see the Console log.", @"Window text")] autorelease]];
-	}
+       displayMessage = attributedStringFromHTML(ms);
+
+    } else {
+        NSLog(@"TBShowAlertWindow invoked with invalid message type %@; stack trace: %@", [msg className], callStack());
+        displayMessage = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Program error, please see the Console log.", @"Window text")] autorelease];
+    }
+
+    [awc setMessageAS: displayMessage];
 
 	NSWindow * win = [awc window];
     [win center];
