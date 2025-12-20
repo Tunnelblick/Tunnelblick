@@ -976,6 +976,16 @@ doneReturnErr:
                                                     @"Window text\nThe two %@ are descriptions of configuration versions (e.g. '1.2.3'"),
                                   self.updateInfo[@"versionString"], self.currentTunnelblickVersionString]);
 
+    NSString * securityRlsMessage = NSLocalizedString(@"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>", @"HTML window text");
+
+    NSString * thisReleaseMessage = NSLocalizedString(@"<p><font color=\"red\">\n"
+                                                      @"<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\n"
+                                                      @"It may also require one additional authorization from a computer administrator"
+                                                      " <em>immediately after</em> the update.</font></p>",
+                                                      @"HTML window text");
+
+    NSString * seeRNotesMessage = NSLocalizedString(@"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n", @"HTML window text");
+
     NSString * adminMessage = (  [gTbDefaults isTrueReadOnlyForKey: self.nonAdminCanUpdateAppPref]
                                ? @""
                                : NSLocalizedString(@"<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n", @"HTML window text"));
@@ -987,10 +997,13 @@ doneReturnErr:
     NSString * wouldYouMessage = NSLocalizedString(@"<hr><p><strong>Would you like to update to the new version now?</strong></p>\n", @"HTML window text");
 
     NSMutableString * htmlMessage = [[[NSMutableString alloc] initWithString: updateInfo[@"notes"]] autorelease];
-    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_INTRO@="      withString: introMessage      options: 0 range: NSMakeRange(0, htmlMessage.length)];
-    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_ADMIN@="      withString: adminMessage      options: 0 range: NSMakeRange(0, htmlMessage.length)];
-    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_DISCONNECT@=" withString: disconnectMessage options: 0 range: NSMakeRange(0, htmlMessage.length)];
-    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_WOULD_YOU@="  withString: wouldYouMessage   options: 0 range: NSMakeRange(0, htmlMessage.length)];
+    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_INTRO@="        withString: introMessage       options: 0 range: NSMakeRange(0, htmlMessage.length)];
+    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_SECURITY_RLS@=" withString: securityRlsMessage options: 0 range: NSMakeRange(0, htmlMessage.length)];
+    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_THESE_NOTES@="  withString: thisReleaseMessage options: 0 range: NSMakeRange(0, htmlMessage.length)];
+    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_SEE_NOTES@="    withString: seeRNotesMessage   options: 0 range: NSMakeRange(0, htmlMessage.length)];
+    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_ADMIN@="        withString: adminMessage       options: 0 range: NSMakeRange(0, htmlMessage.length)];
+    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_DISCONNECT@="   withString: disconnectMessage  options: 0 range: NSMakeRange(0, htmlMessage.length)];
+    [htmlMessage replaceOccurrencesOfString:@"@=TB_RELEASE_NOTES_MSG_WOULD_YOU@="    withString: wouldYouMessage    options: 0 range: NSMakeRange(0, htmlMessage.length)];
 
     NSAttributedString * message =  attributedLightDarkStringFromHTML(htmlMessage);
     if (  ! message) {
