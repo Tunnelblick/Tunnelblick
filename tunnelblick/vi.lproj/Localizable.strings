@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Ngắt kết nối khi chuyển sang người dùng khác";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Hiển thị 'Kết nối' và 'Ngắt kết nối' kèm theo tên cấu hình";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Hiển thị chỉ báo khi có bất kỳ cấu hình nào đang được kết nối";
+
+/* Checkbox name */
 "Display connection submenus" = "Hiển thị kết nối trong menu con";
 
 /* Checkbox name */
@@ -2208,6 +2214,12 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Thông tin thêm</a> [tunnelblick.net]</p>\n";
 
 /* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\">\n<big><strong>BẢN CẬP NHẬT NÀY CÓ THỂ MẤT TỪ 60 ĐẾN 90 GIÂY!<strong></big><br>&nbsp;<br>\nNo cũng có thể yêu cầu thêm một lần xác thực từ quản trị viên máy tính <em>ngay sau khi</em> quá trình cập nhật hoàn tất.</font></p>";
+
+/* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Yêu cầu quyền admin để cài đặt bản cập nhật này.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
@@ -2280,6 +2292,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Khi được chọn</strong>, Cửa sổ trạng thái VPN cho tất cả các cấu hình 'hoạt động' được hiển thị khi con trỏ ở trên biểu tượng Tunnelblick.</p><p>'Kích hoạt' cấu hình là cấu hình mà bạn đã cố gắng kết nối kể từ khi Tunnelblick được khởi chạy.</p><p><strong>Khi checkbox này bị tắt</strong> khi 'Không bao giờ hiển thị' được chọn ở phía trên.</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Khi được chọn</strong>, một chỉ báo trực quan sẽ được hiển thị trên biểu tượng Tunnelblick khi có bất kỳ cấu hình nào đang được kết nối.</p><p><strong>Khi không được chọn</strong>, sẽ không hiển thị chỉ báo này.</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Khi được chọn</strong>, một cửa sổ sẽ hiển thị tiến trình của Tunnelblick trong khi khởi động.</p>";
 
@@ -2300,6 +2315,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Khi được chọn</strong>, sẽ không tự động kiểm tra các bản cập nhật hoặc kiểm tra các thay đổi địa chỉ IP, bất kể các cài đặt khác. Lưu ý: cả hai hoạt động này đều truy cập trang web Tunnelblick.</p>\n<p><strong>Khi không được chọn</strong>, việc tự động kiểm tra các bản cập nhật sẽ được thực hiện nếu được bật bên dưới và kiểm tra các thay đổi địa chỉ IP sẽ được thực hiện khi kết nối cấu hình nếu cài đặt của cấu hình để làm như vậy được bật.</p><p>Xem <a href=\"https://tunnelblick.net/cPrivacy.html\">Quyền riêng tư và Bảo mật</a> [tunnelblick.net] để biết thêm chi tiết.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>Khi được chọn</strong>, menu Tunnelblick sẽ bao gồm các từ 'Kết nối' and 'Ngắt kết nối' kèm theo tên cấu hình.</p>\n<p><strong>Khi không được chọn</strong>, menu Tunnelblick sẽ không bao gồm các từ 'Kết nối' and 'Ngắt kết nối' kèm theo tên cấu hình, giúp việc sử dụng bàn phím để chọn cấu hình kết nối hoặc ngắt kết nối trở nên dễ dàng hơn.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Khi được chọn</strong>, cửa sổ trạng thái VPN được hiển thị ngay cả khi cấu hình bị ngắt kết nối.</p><p><strong>Checkbox này tắt</strong> khi 'Không bao giờ hiển thị' được chọn ở phía trên.</p>";
@@ -2381,6 +2399,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Xem<a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tương lai của VPN Tun và Tap trên macOS</a> [tunnelblick.net] để biết thêm chi tiết.</p>\n";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Xem <a href=\"https://tunnelblick.net/cRlsNotes.html\">Ghi chú phát hành</a> để biết thêm chi tiết.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Chỉ định số lượng ghi nhật ký được thực hiện bởi Tunnelblick và OpenVPN.</p>";

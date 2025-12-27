@@ -2214,6 +2214,12 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Més informació</a> [tunnelblick.net]</p>";
 
 /* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>ACTUALITZACIÓ DE SEGURETAT</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\">\n<big><strong>AQUESTA ACTUALITZACIÓ TRIGARÀ ENTRE 60 I 90 SEGONS!<strong></big><br>&nbsp;<br>\nTambé pot requerir una autorització addicional d'un administrador de l'ordinador <em>immediatament després</em> de l'actualització.</font></p>";
+
+/* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Es requereix l'autorització d'un administrador per instal·lar aquesta actualització.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
@@ -2393,6 +2399,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Veure <a href=\"https://tunnelblick.net/cTunTapConnections.html\">El Futur de les VPNs Tun i Tap a macOS</a> [tunnelblick.net] per a més informació.</p>\n";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Mira les <a href=\"https://tunnelblick.net/cRlsNotes.html\">Notes de la versió</a> per a més informació.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Especifica la quantitat de missatges de registre generats per Tunnelblick i OpenVPN.</p>";

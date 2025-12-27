@@ -2214,6 +2214,12 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Ulteriori informazioni</a> [tunnelblick.net]</p>";
 
 /* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>AGGIORNAMENTO DI SICUREZZA</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\">\n<big><strong>QUESTO AGGIORNAMENTO PUO' RICHIEDERE 60/90 SECONDI!<strong></big><br>&nbsp;<br>\nPotrebbe inoltre richiedere l'autorizzazione aggiuntiva di un amministratore di sistema <em>immediatamente dopo</em> l'aggiornamento stesso.</font></p>";
+
+/* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Per installare questo aggiornamento è necessaria l'autorizzazione dell'amministratore del computer.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
@@ -2393,6 +2399,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Vedere <a href=\"https://tunnelblick.net/cTunTapConnections.html\">il futuro di VPN Tun e Tap su macOS</a> [tunnelblick.net] per ulteriori informazioni.</p>\n";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Per maggiori dettagli puoi leggere qui le <a href=\"https://tunnelblick.net/cRlsNotes.html\">Note di Rilascio</a>.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Specifica la quantità di messaggi informativi prodotti da Tunnelblick e OpenVPN.</p>";

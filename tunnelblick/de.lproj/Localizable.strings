@@ -2214,6 +2214,12 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Mehr Informationen</a> [tunnelblick.net]</p>";
 
 /* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>SICHERHEITSUPDATE</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\">\n<big><strong>DIESES UPDATE KANN 60 BIS 90 SEKUNDEN DAUERN!<strong></big><br>&nbsp;<br>\nEs kann auch eine weitere Berechtigung von einem Administrator des Computers <em>direkt nach</em> dem Update benötigen.</font></p>";
+
+/* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Die Berechtigung eines Administrators des Computers wird für die Installation dieses Updates benötigt.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
@@ -2393,6 +2399,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = " \n<p>Für weitere Information siehe <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Die Zukunft von TUN- und TAP-VPNs in macOS</a>  [tunnelblick.net].</p>";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Details sind in den <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> zu finden.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Legt den Umfang des Loggings fest, welches von Tunnelblick und OpenVPN durchgeführt wird.</p>";

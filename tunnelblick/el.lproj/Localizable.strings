@@ -2214,6 +2214,9 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Περισσότερες πληροφορίες</a>[tunnelblick.net]</p>";
 
 /* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\">\n<big><strong>ΑΥΤΗ Η ΕΝΗΜΕΡΩΣΗ ΜΠΟΡΕΙ ΝΑ ΔΙΑΡΚΕΣΕΙ 60 ΕΩΣ 90 ΔΕΥΤΕΡΟΛΕΠΤΑ!<strong></big><br>&nbsp;<br>\nΕνδέχεται επίσης να απαιτηθεί μία επιπλέον εξουσιοδότηση από έναν διαχειριστή υπολογιστή <em>αμέσως μετά</em> την ενημέρωση.</font></p>";
+
+/* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Για την εγκατάσταση αυτής της ενημέρωσης απαιτείται η έγκριση ενός διαχειριστή συστήματος.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */

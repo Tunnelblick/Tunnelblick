@@ -110,7 +110,7 @@
 "Download and Install" = "Pobierz i zainstaluj";
 
 /* Button */
-"Export Tunnelblick Setup" = "Eksportuj konfigurację Tunnelblick";
+"Export Tunnelblick Setup" = "Eksportuj konfigurację Tunnelblicka";
 
 /* Button */
 "Help" = "Pomoc";
@@ -2214,6 +2214,12 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Więcej informacji</a> [tunnelblick.net]</p>";
 
 /* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>AKTUALIZACJA BEZPIECZEŃSTWA</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\">\n<big><strong>TA AKTUALIZACJA MOŻE POTRWAĆ OD 60 DO 90 SEKUND!<strong></big><br>&nbsp;<br>\nMoże być również wymagana dodatkowa autoryzacja administratora komputera <em>natychmiast po</em> aktualizacji.</font></p>";
+
+/* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Do zainstalowania tej aktualizacji wymagana jest autoryzacja administratora komputera.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
@@ -2393,6 +2399,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Zobacz <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Przyszłość Tun i Tap VPN na macOS</a> [tunnelblick.net] po więcej informacji.</p>";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Szczegóły noty wydania znajdziesz w <a href=\"https://tunnelblick.net/cRlsNotes.html\"></a>.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Określa poziom szczegółów logowania przez Tunnelblick i OpenVPN.</p>";

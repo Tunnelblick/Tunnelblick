@@ -310,7 +310,7 @@
 "A Tunnelblick Update is Available..." = "Hay Una Actualización de Tunnelblick Disponible…";
 
 /* Menu item */
-"A VPN Configuration Update is Available..." = "Hay Una Actualización de Configuración VPN Disponible…";
+"A VPN Configuration Update is Available..." = "Hay una Actualización de Configuración VPN Disponible…";
 
 /* Menu item */
 "Add a VPN..." = "Añadir una VPN";
@@ -688,10 +688,10 @@
 "Do you wish to connect?" = "¿Desea conectarse?";
 
 /* Window title */
-"Error getting Tunnelblick update..." = "Error obteniendo una actualización de Tunnelblick…";
+"Error getting Tunnelblick update..." = "Error al obtener una actualización de Tunnelblick…";
 
 /* WIndow title */
-"Error getting VPN update..." = "Error obteniendo una actualización de VPN…";
+"Error getting VPN update..." = "Error al obtener una actualización de VPN…";
 
 /* Window title */
 "File not found" = "Archivo no encontrado";
@@ -2214,6 +2214,12 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Más Información</a> [tunnelblick.net]</p>";
 
 /* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>ACTUALIZACIÓN DE SEGURIDAD</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\">\n<big><strong>ESTA ACTUALIZACIÓN PUEDE LLEVAR DE 60 A 90 SEGUNDOS<strong></big><br>&nbsp;<br>\nTambién puede necesitar autorización adicional por parte de un administrador del equipo <em>inmediatamente después</em> de la actualización.</font></p>";
+
+/* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Se requiere la autorización de un administrador para instalar esta actualización.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
@@ -2393,6 +2399,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = " \n<p>Véase <a href=\"https://tunnelblick.net/cTunTapConnections.html\">El futuro de VPNs Tun y Tap en macOS</a>  [tunnelblick.net] para mayor información.</p>";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Ver las <a href=\"https://tunnelblick.net/cRlsNotes.html\">Notas de la Publicación</a> para más detalles.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Especifica la cantidad de datos (logging) guardados en el Registro por Tunnelblick y OpenVPN.</p>";

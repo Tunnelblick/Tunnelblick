@@ -2214,6 +2214,12 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Více informací</a> [tunnelblick.net]</p>";
 
 /* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>UPDATE ZABEZPEČENÍ</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\"><big><strong>Tat aktualizace může trvat 60 až 90 sec!<strong></big><br>&nbsp;<br>Také může <em>bezprostředně po aktualizaci</em> vyžadovat dodatečnou autorizaci administrátora.</font></p>";
+
+/* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Pro instalaci aktualizace je potřeba schválení administrátorem.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
@@ -2393,6 +2399,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Navštivte <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Budoucnost Tun a Tap VPN v macOS</a> [tunnelblick.net] pro více informací.</p>";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Pro detaily vizte <a href=\"https://tunnelblick.net/cRlsNotes.html\">Poznámky k verzi</a>.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Specifikuje rozsah logování, který provádí Tunnelblick a OpenVPN.</p>";

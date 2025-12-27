@@ -1,6 +1,8 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) IP: %@" = "(%1$@) में IP: %2$@ को छोड़ दो";
 
 /* Status message */
 "No Active Connections" = "कोई सक्रिय संपर्क नहीं";

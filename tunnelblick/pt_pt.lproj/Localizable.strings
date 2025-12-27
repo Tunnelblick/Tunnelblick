@@ -2214,6 +2214,12 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Mais informações</a> [tunnelblick.net]</p>";
 
 /* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>ATUALIZAÇÃO DE SEGURANÇA</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\">\n<big><strong>ESTA ATUALIZAÇÃO PODE DEMORAR ENTRE 60 A 90 SEGUNDOS!<strong></big><br>&nbsp;<br>\nTambém pode ser necessária uma autorização adicional de um administrador de computador <em>imediatamente após</em> a atualização.</font></p>";
+
+/* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>É necessária a autorização de um administrador do computador para instalar esta atualização.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
@@ -2393,6 +2399,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Veja <a href=\"https://tunnelblick.net/cTunTapConnections.html\">O Futuro dos VPNs Tun and Tap no macOS</a> [tunnelblick.net] para mais informações.</p>\n";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Veja as <a href=\"https://tunnelblick.net/cRlsNotes.html\">Notas de Versão</a> para detalhes.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Especifica a quantidade de registos feitos pelo Tunnelblick e pelo OpenVPN.</p>";
