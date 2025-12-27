@@ -130,7 +130,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     NSTextField     * tf =  [self headlineTF];
     NSTextFieldCell * tfc = [self headlineTFC];
 
-    [tfc setFont: [NSFont boldSystemFontOfSize: 12.0]];
+    [tfc setFont: [NSFont boldSystemFontOfSize: 16.0]];
 
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
     CGFloat widthChange = [UIHelper setTitle: [self headline] ofControl: tfc frameHolder: tf shift: rtl narrow: NO enable: YES];
