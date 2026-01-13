@@ -123,6 +123,22 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[tunnelblickVersionString copy] autorelease];
 }
 
+-(NSString *) tunnelblickCopyrightNotice {
+
+    if (  ! tunnelblickCopyrightNotice  ) {
+        NSString * buildDateString = @__DATE__;
+        NSString * year = [buildDateString substringWithRange: NSMakeRange(7, 4)];
+        NSString * notice =  [NSString stringWithFormat:
+                              NSLocalizedString(@"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved.",
+                                                @"Window text. The '%@' will be replaced by a four-digit year such as 2024."),
+                              year];
+
+        tunnelblickCopyrightNotice = [notice retain];
+    }
+
+    return [[tunnelblickCopyrightNotice copy] autorelease];
+}
+
 -(NSString *) forcedPreferenceStringOrInfoPlistStringForKey: (NSString *) key {
 
     // The forced preference's value for the key will be returned if it is present

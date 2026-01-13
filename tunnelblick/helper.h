@@ -54,8 +54,6 @@ BOOL           keychainHasPrivateKeyForDisplayName(NSString * name);
 BOOL           keychainHasUsernameWithoutPasswordForDisplayName(NSString * name);
 BOOL           keychainHasUsernameAndPasswordForDisplayName(NSString * name);
 
-NSString     * copyrightNotice          (void);
-
 NSString     * escaped                  (NSString * string);
 
 BOOL okToUpdateConfigurationsWithoutAdminApproval(void);

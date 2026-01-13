@@ -26,9 +26,11 @@
 #import "UIHelper.h"
 #import "NSTimer+TB.h"
 #import "TBUserDefaults.h"
+#import "TunnelblickInfo.h"
 
 
 extern TBUserDefaults * gTbDefaults;
+extern TunnelblickInfo * gTbInfo;
 
 
 @implementation InfoView
@@ -582,7 +584,7 @@ extern TBUserDefaults * gTbDefaults;
     [infoCreditTV setEditable:              NO];
     [infoCreditTV replaceCharactersInRange: NSMakeRange( 0, 0 ) withRTF: rtfData];
 
-    [infoCopyrightTFC setTitle: copyrightNotice()];
+    [infoCopyrightTFC setTitle: gTbInfo.tunnelblickCopyrightNotice];
 }
 
 -(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier

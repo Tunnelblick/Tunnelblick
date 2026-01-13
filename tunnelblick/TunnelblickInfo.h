@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSString * tunnelblickBuildString;
     NSString * tunnelblickVersionString;
+    NSString * tunnelblickCopyrightNotice;
 
     NSNumber * runningATunnelblickBeta;
 
@@ -70,6 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(NSString *) tunnelblickBuildString;
 -(NSString *) tunnelblickVersionString;
+-(NSString *) tunnelblickCopyrightNotice;
 
 -(BOOL) runningATunnelblickBeta;
 

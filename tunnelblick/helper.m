@@ -1522,18 +1522,6 @@ NSString * valueIfStringOtherwiseNil(id value) {
     return nil;
 }
 
-NSString * copyrightNotice(void)
-{
-    NSDateFormatter * dateFormat = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormat setLocale: [NSLocale localeWithLocaleIdentifier: @"en_US_POSIX"]];
-    [dateFormat setDateFormat:@"YYYY"];
-    NSString * year = [dateFormat stringFromDate: [NSDate date]];
-    return [NSString stringWithFormat:
-            NSLocalizedString(@"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved.",
-                              @"Window text. The '%@' will be replaced by a four-digit year such as 2024."),
-            year];
-}
-
 NSString * stringForLog(NSString * outputString, NSString * header)
 {
     outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

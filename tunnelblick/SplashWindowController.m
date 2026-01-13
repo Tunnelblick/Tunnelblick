@@ -63,8 +63,8 @@ extern TunnelblickInfo * gTbInfo;
 
     [self setMessage: NSLocalizedString(@"Starting Tunnelblick...", @"Window text in the splash screen")];
     
-    [copyrightTFC setStringValue: copyrightNotice()];
-    
+    [copyrightTFC setStringValue: gTbInfo.tunnelblickCopyrightNotice];
+
     [[self window] center];
     [[self window] display];
     [self showWindow: self];
