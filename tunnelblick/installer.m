@@ -132,9 +132,9 @@ void debugLog(NSString * string) {
 }
 
 void openLog(BOOL clearLog) {
-    
+
     const char * path = [INSTALLER_LOG_PATH fileSystemRepresentation];
-	
+
 	if (  clearLog  ) {
 		gLogFile = fopen(path, "w");
 	} else {
@@ -550,8 +550,15 @@ int main(int argc, char *argv[])
     
     BOOL forceLoadLaunchDaemon = copyApp || secureApp;
     
-	openLog(  clearLog  );
-	
+    // Create the folder which contains the log
+    gFileMgr = [NSFileManager defaultManager];
+    if (  ! createDirWithPermissionAndOwnership(@"/Library/Application Support/Tunnelblick",
+                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
+        errorExit();
+    }
+
+    openLog(  clearLog  );
+
 	NSBundle * ourBundle = [NSBundle mainBundle];
 	NSString * resourcesPath = [ourBundle bundlePath]; // (installer itself is in Resources)
     NSArray  * execComponents = [resourcesPath pathComponents];
@@ -583,8 +590,7 @@ int main(int argc, char *argv[])
 	
 	appendLog([NSString stringWithFormat: @"Tunnelblick installer started %@. %d arguments:%@", dateMsg, argc - 1, argString]);
 	
-    gFileMgr = [NSFileManager defaultManager];
-    gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
+     gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
     
     // If we copy the .app to /Applications, other changes to the .app affect THAT copy, otherwise they affect the currently running copy
     NSString * appResourcesPath = (copyApp
@@ -617,13 +623,8 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
-    // (1) Create directories or repair their ownership/permissions as needed
+    // (1) Create other directories or repair their ownership/permissions as needed
     //        and convert old entries in L_AS_T_TBLKS to the new format, with an bundleId_edition folder enclosing a .tblk
-    
-    if (  ! createDirWithPermissionAndOwnership(@"/Library/Application Support/Tunnelblick",
-                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
-        errorExit();
-    }
     
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_LOGS,
                                                 PERMS_SECURED_FOLDER, 0, 0)  ) {
