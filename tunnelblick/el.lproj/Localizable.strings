@@ -2214,6 +2214,9 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Περισσότερες πληροφορίες</a>[tunnelblick.net]</p>";
 
 /* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>ΕΝΗΜΕΡΩΣΗ ΑΣΦΑΛΕΙΑΣ</strong></big></font></p>";
+
+/* HTML window text */
 "<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\">\n<big><strong>ΑΥΤΗ Η ΕΝΗΜΕΡΩΣΗ ΜΠΟΡΕΙ ΝΑ ΔΙΑΡΚΕΣΕΙ 60 ΕΩΣ 90 ΔΕΥΤΕΡΟΛΕΠΤΑ!<strong></big><br>&nbsp;<br>\nΕνδέχεται επίσης να απαιτηθεί μία επιπλέον εξουσιοδότηση από έναν διαχειριστή υπολογιστή <em>αμέσως μετά</em> την ενημέρωση.</font></p>";
 
 /* HTML window text */
@@ -2396,6 +2399,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Δείτε <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Το Μέλλον των Tun και Tap συνδέσεων VPN στο macOS</a> [tunnelblick.net] για περισσότερες πληροφορίες.</p>\n";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Δείτε τις <a href=\"https://tunnelblick.net/cRlsNotes.html\">Σημειώσεις Έκδοσης</a> για λεπτομέρειες.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Καθορίζει την ποσότητα καταγραφής που γίνεται από το Tunnelblick και το OpenVPN.</p>";

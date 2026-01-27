@@ -451,6 +451,12 @@
 "Disconnect when user switches out" = "Putuskan ketika pengguna berganti";
 
 /* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "Tampilkan 'Sambung' dan 'Putus' dengan nama konfigurasi";
+
+/* Checkbox name */
+"Display an indicator when any configuration is connected" = "Tampilkan suatu indikator ketika sebarang konfigurasi tersambung";
+
+/* Checkbox name */
 "Display connection submenus" = "Tampilkan sub menu koneksi";
 
 /* Checkbox name */
@@ -941,6 +947,9 @@
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " PERINGATAN: Salinan Tunnelblick ini telah diotak-atik.\n\n";
+
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (imported)" = "%@ (diimpor)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ ada tetapi bukan folder";
@@ -2195,11 +2204,20 @@
 /* HTML window text */
 "<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Apakah Anda hendak memutakhirkan ke versi baru sekarang?</strong></p>\n";
 
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>Versi '<strong>Diimpor</strong>' dari OpenVPN dapat dipakai tapi tidak disertakan dalam salinan aplikasi Tunnelblick ini. Mereka diimpor dan dipasang oleh seorang administrator komputer.</p>";
+
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Mengizinkan' ekstensi sistem mungkin membutuhkan perubahan pada pengaturan sistem keamanan. Pengaturan hanya dapat diubah pada mode Pemulihan. Anda mungkin perlu memulai ulang pada mode Pemulihan, membuat perubahan, lalu memulai ulang kembali secara normal. macOS akan memandu Anda melalui proses ini.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Informasi lebih lanjut</a>[tunnelblick.net]</p>";
+
+/* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>PEMUTAKHIRAN KEAMANAN</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\"><big><strong>PEMUTAKHIRAN INI MUNGKIN MAKAN WAKTU 60 SAMPAI 90 DETIK!<strong></big><br>&nbsp;<br>Itu mungkin juga memerlukan satu otorisasi tambahan dari seorang administrator komputer <em>seketika setelah</em> pemutakhiran.</font></p>";
 
 /* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Otorisasi administrator komputer diperlukan untuk memasang pemutakhiran ini.</strong></p>\n";
@@ -2274,6 +2292,9 @@
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Ketika dicentang</strong>, jendela status VPN bagi semua konfigurasi 'aktif' ditampilkan ketika kursor berada di atas ikon Tunnelblick.</p><p>Konfigurasi 'aktif' adalah konfigurasi yang telah Anda coba sambungkan semenjak Tunnelblick diluncurkan.</p><p><strong>Kotak centang ini dinonaktifkan</strong> ketika 'Jangan Pernah Tampilkan' dipilih di atas.</p>";
 
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Saat dicentang</strong>, suatu indikator visual akan ditampilkan pada ikon Tunnelblick ketika sebarang konfigurasi tersambung.</p><p><strong>Ketika tidak dicentang</strong>, tidak ada indikator yang muncul.</p>";
+
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Ketika dicentang</strong>, suatu jendela akan menampilkan kemajuan Tunnelblick ketika memulai.</p>";
 
@@ -2294,6 +2315,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Ketika dicentang</strong>, pemeriksaan otomatis untuk pembaruan atau pemeriksaan perubahan alamat IP tidak dilakukan, tanpa peduli pengaturan lain. Catatan: kedua aktivitas ini mengakses situs web Tunnelblick.</p>\n<p><strong>Ketika tidak dicentang</strong>, pemeriksaan otomatis untuk pembaruan akan dilakukan bila difungsikan di bawah, dan pemeriksaan perubahan alamat IP akan dilakukan ketika menyambungkan suatu konfigurasi bila pengaturan konfigurasi untuk melakukan hal itu difungsikan.</p><p>Lihat <a href=\"https://tunnelblick.net/cPrivacy.html\">Privasi dan Keamanan</a>[tunnelblick.net] untuk rincian.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>Saat dicentang</strong>, menu Tunnelblick akan termasuk kata 'Sambung' dan 'Putus' dengan nama-nama konfigurasi.</p>\n<p><strong>Saat tidak dicentang</strong>, menu Tunnelblick tidak akan menyertakan kata 'Sambung' dan 'Putus' dengan nama=nama konfigurasi, membuat lebih mudah memakai papan tik untuk memilih konfigurasi bagi penyambungan dan pemutusan sambungan.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Ketika dicentang</strong>, jendela status VPN ditampilkan bahkan ketika konfigurasi sedang terputus.</p><p><strong>Kotak centang ini dinonaktifkan</strong> ketika 'Jangan Pernah Tampilkan' dipilih di atas.</p>";
@@ -2375,6 +2399,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Lihat <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Masa depan VPN Tun dan Tap  pada macOS</a>[tunnelblick.net] untuk informasi lebih lanjut.</p>";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Lihat <a href=\"https://tunnelblick.net/cRlsNotes.html\">Catatan Rilis</a> untuk rincian.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Menyatakan banyaknya catatan log yang dilakukan oleh Tunnelblick dan OpenVPN.</p>";
