@@ -26,9 +26,13 @@ OpenDNS Home	208.67.222.222	208.67.220.220	208.67.222.220	208.67.220.222	2620:11
 OpenNIC	107.150.40.234	50.116.23.211
 OpenNIC	69.195.152.204	23.94.60.240
 puntCAT	109.69.8.51
-Quad9 (was Global Cyber Alliance)	9.9.9.9
+Quad9 (Recommended)	9.9.9.9	149.112.112.112	2620:fe::fe	2620:fe::9
+Quad9 (Secured w/ECS)	9.9.9.11	149.112.112.11	2620:fe::11	2620:fe::fe:11
+Quad9 (Unsecured)	9.9.9.10	149.112.112.10	2620:fe::10	2620:fe::fe:10
 SafeDNS	195.46.39.39	195.46.39.40
 SmartViper	208.76.50.50	208.76.51.51
 UncensoredDNS (was censurfridns.dk)	91.239.100.100	89.233.43.71
 Verisign	64.6.64.6	64.6.65.6
-Yandex.DNS (was Yandex)	77.88.8.8	77.88.8.1
+Yandex (common)	77.88.8.8	77.88.8.1	2a02:6b8:0:1::feed:ff	2a02:6b8::feed:ff
+Yandex (safe)	77.88.8.2	77.88.8.88	2a02:6b8::feed:bad	2a02:6b8:0:1::feed:bad
+Yandex (family)	77.88.8.3	77.88.8.7	2a02:6b8::feed:a11	2a02:6b8:0:1::feed:a11
