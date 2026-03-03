@@ -311,22 +311,41 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
 
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
 
+    // As we localize the buttons, keep track of how much wider the window needs to be to fit them.
+
+    // First, calculate the amount of extra space between the "alternate" button and the "other" button.
+    // We can grow the buttons by that amount without widening the window.
+    CGFloat extraSpace = NSMinX(alternateButton.frame) - NSMaxX(otherButton.frame);
+
+    // Track the amount the buttons have grown horizontally. Initialized to a negative number so that the extra
+    // space between the "other" button and the "alternate" button is used up before widening the window.
+    // If the growth is positive we need to grow the window; if negative or zero, we do nothing.
+    CGFloat cumulativeWidthGrowth = - extraSpace;
+
     if (  ! defaultButtonTitle  ) {
         [self setDefaultButtonTitle: NSLocalizedString(@"OK", @"Button")];
     }
 
     widthChange = [UIHelper setTitle: defaultButtonTitle ofControl: [self defaultButton] shift: ( !rtl ) narrow: NO enable: YES];
+    cumulativeWidthGrowth += widthChange;
+
+    // Shift the "alternate" button to the left or right if the "default" button grew or shrank.
     [UIHelper shiftControl: self.alternateButton by: (- widthChange) reverse: ( ! rtl)];
 
     if (  self.alternateButtonTitle  ) {
-        [UIHelper setTitle: self.alternateButtonTitle   ofControl: self.alternateButton   shift: ( !rtl ) narrow: NO enable: YES];
+        widthChange = [UIHelper setTitle: self.alternateButtonTitle   ofControl: self.alternateButton   shift: ( !rtl ) narrow: NO enable: YES];
+        cumulativeWidthGrowth += widthChange;
         [self.alternateButton setHidden: NO];
     }
 
     if (  self.otherButtonTitle  ) {
-        [UIHelper setTitle: self.otherButtonTitle ofControl: self.otherButton shift: ( rtl ) narrow: NO enable: YES];
+        widthChange = [UIHelper setTitle: self.otherButtonTitle ofControl: self.otherButton shift: ( rtl ) narrow: NO enable: YES];
+        cumulativeWidthGrowth += widthChange;
         [self.otherButton setHidden: NO];
     }
+
+    // Widen the window to account for wider buttons.
+    [self widenWindowBy: cumulativeWidthGrowth];
 
 	NSWindow * w = [self window];
     
