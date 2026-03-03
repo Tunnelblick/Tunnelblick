@@ -125,7 +125,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     [self autorelease];
 }
 
--(void) setupHeadline {
+-(CGFloat) setupHeadline {
+
+    // Sets up the headline and returns the window width change needed to fit the headline
 
     NSTextField     * tf =  [self headlineTF];
     NSTextFieldCell * tfc = [self headlineTFC];
@@ -134,14 +136,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
 
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
     CGFloat widthChange = [UIHelper setTitle: [self headline] ofControl: tfc frameHolder: tf shift: rtl narrow: NO enable: YES];
-
-    // If title doesn't fit window, adjust the window width so it does
-    if (  widthChange > 0.0  ) {
-        NSWindow * w = [self window];
-        NSRect windowFrame = [w frame];
-        windowFrame.size.width += widthChange;
-        [w setFrame: windowFrame display: NO];
-    }
+    return widthChange;
 }
 
 -(void) setupProgressInd {
@@ -290,14 +285,28 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     [self.window close];
 }
 
+-(void) widenWindowBy: (CGFloat) widthChange {
+
+    // Widen the window by widthChange if widthChange is positive.
+
+    if (  widthChange > 0.0  ) {
+        NSWindow * w = [self window];
+        NSRect windowFrame = [w frame];
+        windowFrame.size.width += widthChange;
+        [w setFrame: windowFrame display: NO];
+    }
+}
+
 -(void) awakeFromNib {
 	
     [[self window] setDelegate: self];
     
     [iconIV setImage: [NSImage imageNamed: @"NSApplicationIcon"]];
     
-	[self setupHeadline];
-    
+    // Widen the window to account for wider headline
+	CGFloat widthChange = [self setupHeadline];
+    [self widenWindowBy: widthChange];
+
 	[self setupMessageAndCheckbox];
 	
     [self setupProgressInd];
@@ -307,7 +316,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     if (  ! defaultButtonTitle  ) {
         [self setDefaultButtonTitle: NSLocalizedString(@"OK", @"Button")];
     }
-    CGFloat widthChange = [UIHelper setTitle: defaultButtonTitle ofControl: [self defaultButton] shift: ( !rtl ) narrow: NO enable: YES];
+
+    widthChange = [UIHelper setTitle: defaultButtonTitle ofControl: [self defaultButton] shift: ( !rtl ) narrow: NO enable: YES];
     [UIHelper shiftControl: self.alternateButton by: (- widthChange) reverse: ( ! rtl)];
 
     if (  self.alternateButtonTitle  ) {
