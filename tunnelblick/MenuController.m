@@ -1370,7 +1370,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 - (void) removeStatusItem {
 
     if (  statusItem  ) {
-        [NSStatusBar.systemStatusBar removeStatusItem: (NSStatusItem *)statusItem];
+        [NSStatusBar.systemStatusBar removeStatusItem: statusItem];
         [statusItem release];
         statusItem = nil;
         TBLog(@"DB-SI", @"removeStatusItem: Removing status item from status bar")
