@@ -1389,6 +1389,10 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     return iv;
 }
 
+-(void) createStatusItemDeferred {
+    [self performSelectorOnMainThread: @selector(createStatusItem) withObject: nil waitUntilDone: NO];
+}
+
 - (void) createStatusItem {
 
     // Places an item with our icon in the Status Bar, replacing any existing item
@@ -1397,11 +1401,16 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
     // Create new status item
     statusItem = [[NSStatusBar.systemStatusBar statusItemWithLength: 16] retain];
-    if (  statusItem  ) {
-        TBLog(@"DB-SI", @"createStatusItem: Created status item");
-    } else {
-        NSLog(@"Can't obtain status item");
+    if (  ! statusItem  ) {
+        NSLog(@"Can't obtain status item; will retry");
+        [self performSelector: @selector(createStatusItemDeferred)
+                   withObject: nil
+                   afterDelay: 1.0];
+        return;
     }
+
+    TBLog(@"DB-SI", @"createStatusItem: Created status item");
+
     NSStatusBarButton * button = statusItem.button;
     [button setImage: mainImage];
     ourMainIconView = [[MainIconView alloc] initWithFrame: button.frame];
