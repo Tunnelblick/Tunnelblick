@@ -1412,6 +1412,10 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     TBLog(@"DB-SI", @"createStatusItem: Created status item");
 
     NSStatusBarButton * button = statusItem.button;
+    if (  ! button  ) {
+        NSLog(@"status item has no button");
+        return;
+    }
     [button setImage: mainImage];
     ourMainIconView = [[MainIconView alloc] initWithFrame: button.frame];
     [button addSubview: ourMainIconView];
@@ -2785,6 +2789,10 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void) updateIconImage
 {
+    if (  ! statusItem  ) {
+        return;
+    }
+
     if (  gShuttingDownWorkspace  ) {
         [theAnim stopAnimation];
         return;
@@ -2847,6 +2855,10 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress
 {
+    if (  ! statusItem  ) {
+        return;
+    }
+    
     if (  gShuttingDownWorkspace  ) {  // Stop _any_ animation we are doing
         [animation stopAnimation];
         return;
@@ -2862,7 +2874,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         NSImage * img = [images objectAtIndex: (unsigned) (lround(progress * [images count]) - 1)];
         if (  statusItem.button  ) {
             [statusItem.button performSelectorOnMainThread:@selector(setImage:) withObject: img waitUntilDone:YES];
-        } else {
+        } else if (  statusItem  ) {
             [[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:img waitUntilDone:YES];
         }
     }
