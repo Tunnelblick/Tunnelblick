@@ -7460,13 +7460,14 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 	(void) userData;
 
     // When the hotKey is pressed, pop up the Tunnelblick menu from the Status Bar
-    MenuController * menuC = gMC;
-	NSStatusBarButton * statusButton = menuC.statusItem.button;
+	NSStatusBarButton * statusButton = gMC.statusItem.button;
 	if (  statusButton  ) {
 		[statusButton performClick: nil];
 	} else {
-		NSStatusItem * statusI = [menuC statusItem];
-		[statusI popUpStatusItemMenu: [menuC myVPNMenu]];
+        NSMenu * menu = gMC.myVPNMenu;
+        if (  menu  ) {
+            [gMC.statusItem popUpStatusItemMenu: menu];
+        }
 	}
 
 	return noErr;
