@@ -106,7 +106,13 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) drawRect: (NSRect) rect {
 
+    TBLog(@"DB-SI", @"MainIconView: drawRect: invoked");
     NSStatusItem * statusI = [gMC statusItem];
+    if (  ! statusI  ) {
+        TBLog(@"DB-SI", @"MainIconView: drawRect: no status item");
+        return;
+    }
+
     BOOL menuIsOpen = [gMC menuIsOpen];
     [statusI drawStatusBarBackgroundInRect: rect withHighlight: menuIsOpen];
     

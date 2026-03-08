@@ -1373,7 +1373,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         [NSStatusBar.systemStatusBar removeStatusItem: statusItem];
         [statusItem release];
         statusItem = nil;
-        TBLog(@"DB-SI", @"removeStatusItem: Removing status item from status bar")
+        TBLog(@"DB-SI", @"removeStatusItem: Removed status item from status bar")
     }
 }
 
@@ -1381,7 +1381,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                      frame: (NSRect)    frame {
 
     // Return an NSImageView for the image
-
+    TBLog(@"DB-SI", @"viewWithImage:frame: invoked");
     NSImageView *iv = [[[NSImageView alloc] initWithFrame: frame] autorelease];
     iv.image            = image;
     iv.imageScaling     = NSImageScaleAxesIndependently;   // stretch to fill exactly
@@ -1402,7 +1402,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     // Create new status item
     statusItem = [[NSStatusBar.systemStatusBar statusItemWithLength: 16] retain];
     if (  ! statusItem  ) {
-        NSLog(@"Can't obtain status item; will retry");
+        TBLog(@"DB-SI", @"createStatusItem: Can't obtain status item; will retry");
         [self performSelector: @selector(createStatusItemDeferred)
                    withObject: nil
                    afterDelay: 1.0];
@@ -1413,40 +1413,49 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
     NSStatusBarButton * button = statusItem.button;
     if (  ! button  ) {
-        NSLog(@"status item has no button");
+        TBLog(@"DB-SI", @"createStatusItem: status item has no button");
         return;
     }
     [button setImage: mainImage];
     ourMainIconView = [[MainIconView alloc] initWithFrame: button.frame];
+    if ( ! ourMainIconView  ) {
+        TBLog(@"DB-SI", @"createStatusItem: Could not alloc/init MainIconView");
+        return;
+    }
     [button addSubview: ourMainIconView];
     [statusItem setMenu: myVPNMenu];
-    TBLog(@"DB-SI", @"createStatusItem: Set menu for status item")
+    TBLog(@"DB-SI", @"createStatusItem: Set menu for status item %@", myVPNMenu.description)
 
     // Get views of the yellow triangle and the green dot to overlay the icon
-    NSString * fileType = NSFileTypeForHFSTypeCode(kAlertCautionIcon);
-    NSImage  * yellowTriangleImage = [[NSWorkspace sharedWorkspace] iconForFileType: fileType];
-    [yellowTriangleImage setTemplate: NO];
     CGFloat width  = button.frame.size.width;
     CGFloat height = button.frame.size.height;
-    NSRect yellowTriangleFrame  = NSMakeRect(0, height / 2,  width / 2, height / 2 );
-    yellowTriangleView = [self viewWithImage: yellowTriangleImage
-                                       frame: yellowTriangleFrame];
-    [self showYellowTriangleIfAppropriate];
-    [button addSubview: yellowTriangleView];
+    NSString * fileType = NSFileTypeForHFSTypeCode(kAlertCautionIcon);
+    NSImage  * yellowTriangleImage = [[NSWorkspace sharedWorkspace] iconForFileType: fileType];
+    if (  yellowTriangleImage  ) {
+        [yellowTriangleImage setTemplate: NO];
+        NSRect yellowTriangleFrame  = NSMakeRect(0, height / 2,  width / 2, height / 2 );
+        yellowTriangleView = [self viewWithImage: yellowTriangleImage
+                                           frame: yellowTriangleFrame];
+        [self showYellowTriangleIfAppropriate];
+        [button addSubview: yellowTriangleView];
+    } else {
+        TBLog(@"DB-SI", @"createStatusItem: Could not find yellowTriangleImage");
+    }
 
     if (  areConnectedIndicatorImage  ) {
-        width  = button.frame.size.width;
-        height = button.frame.size.height;
         NSRect areConnectedFrame  = NSMakeRect(-1, 0,  width, height );
         areConnectedIndicatorView = [self viewWithImage: areConnectedIndicatorImage
                                                   frame: areConnectedFrame];
         [self showGreenAreConnectedIndicatorIfAppropriate];
         [button addSubview: areConnectedIndicatorView];
+    } else {
+        TBLog(@"DB-SI", @"createStatusItem: areConnectedIndicatorImage is nil");
     }
 }
 
 -(void) showYellowTriangleIfAppropriate {
 
+    TBLog(@"DB-SI", @"showYellowTriangleIfAppropriate invoked");
     BOOL hideYellowTriangle = (   warningsItem.isHidden
                                && ( ! tbUpdatesAreAvailable )
                                && configUpdateAvailableItem.isHidden);
@@ -1459,6 +1468,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
 -(void) showGreenAreConnectedIndicatorIfAppropriate {
 
+    TBLog(@"DB-SI", @"showGreenAreConnectedIndicatorIfAppropriate invoked");
     BOOL connected = [lastState isEqualToString: @"CONNECTED"];
     BOOL showPreference = [gTbDefaults boolForKey: @"showGreenAreConnectedIndicator"];
     BOOL showGreenAreConnectedIndicator = connected && showPreference;
@@ -1621,7 +1631,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 -(void) loadHighlightedIconSet: (NSString *) menuIconSet {
     // Attempts to load a highlighted image set
     // Assumes regular and large image sets have already loaded successfully
-
+    TBLog(@"DB-SI", @"loadHighlightedIconSet invoked");
     if (  [mainImage isTemplate]  ) {
         [self setHighlightedMainImage:      [self tintTemplateImage: mainImage]];
         [self setHighlightedConnectedImage: [self tintTemplateImage: connectedImage]];
@@ -1736,6 +1746,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                   green: (NSImage **)        ptrGreenImage
                    anim: (NSMutableArray **) ptrAnimImages
 {
+    TBLog(@"DB-SI", @"loadMenuIconSet:main:connecting:green:anim: invoked");
     // Search for the folder with the animated icon set in (1) Deploy and (2) Shared, before falling back on the copy in the app's Resources
     BOOL isDir;
     NSString * iconSetDir = [[gDeployPath stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: iconSetName];
