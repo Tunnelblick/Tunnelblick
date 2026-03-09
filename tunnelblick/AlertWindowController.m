@@ -347,6 +347,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     // Widen the window to account for wider buttons.
     [self widenWindowBy: cumulativeWidthGrowth];
 
+    [self setupMessageAndCheckbox];
+
 	NSWindow * w = [self window];
     
     [w setTitle: NSLocalizedString(@"Tunnelblick", @"Window title")];
@@ -361,8 +363,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
             [self.otherButton setHidden: FALSE];
         }
     }
-
-    [self setupMessageAndCheckbox];
 
 	[w center];
     [w display];
