@@ -307,8 +307,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
 	CGFloat widthChange = [self setupHeadline];
     [self widenWindowBy: widthChange];
 
-	[self setupMessageAndCheckbox];
-	
     [self setupProgressInd];
 
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
@@ -344,6 +342,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
             [self.otherButton setHidden: FALSE];
         }
     }
+
+    [self setupMessageAndCheckbox];
 
 	[w center];
     [w display];
