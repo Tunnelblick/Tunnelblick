@@ -728,10 +728,10 @@ static void exitIfTblkNeedsRepair(void) {
     //
     // There is a SIMILAR function in sharedRoutines: secureOneFolder, that SECURES a folder and can be used on a .tblk
     //
-    ////////
+    //
     // NOTES: THIS ROUTINE DOES NOT DEAL WITH PRIVATE CONFIGURATIONS, since you can't connect them
-    //        THIS ROUTINE DOES NOT DEAL WIth forced-preferences.plist or .executable files, since they can't appear inside a .tblk that can be connected
-    ////////
+    //        THIS ROUTINE DOES NOT DEAL WITH forced-preferences.plist or .executable files, since they can't appear inside a .tblk that can be connected
+    //
 
     // If it isn't an existing folder, then it can't be secured!
     if (  ! folderExistsForRootAtPath(gConfigPath)  ) {
