@@ -1933,7 +1933,7 @@ static void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgL
     stopBeingRootToAccessPath(actualConfigPath);
 
     if (  ! data  ) {
-        fprintf(stderr, "No configuration file at %s\n", [actualConfigPath UTF8String]);
+        fprintf(stderr, "Cannot read configuration file at %s\n", [actualConfigPath UTF8String]);
         exitOpenvpnstart(166);
     }
 
