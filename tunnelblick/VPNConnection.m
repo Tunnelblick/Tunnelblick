@@ -4601,16 +4601,16 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         NSString *payload = [line substringWithRange:r];
 
         // Split the payload into two components: flags and prompt text
-        NSArray *items = [payload componentsSeparatedByString:@":"];
-        if (items.count != 2) {
+        r = [payload rangeOfString: @":"];
+        if (  r.location == NSNotFound  ) {
             NSLog(@"Syntax error in management command '%@'", line);
             return;
         }
 
-        NSString *flagsString = items[0];
-        NSString *crPrompt = items[1];
+        NSString *flagsString = [payload substringToIndex: r.location];
+        NSString *crPrompt = [payload substringFromIndex: r.location + 1];
 
-        [self addToLog:[NSString stringWithFormat:@"CR_TEXT prompt: %@", crPrompt]];
+        [self addToLog:[NSString stringWithFormat:@"CR_TEXT prompt: '%@'", crPrompt]];
 
         // Parse flags
         NSArray *flags = [flagsString componentsSeparatedByString:@","];
