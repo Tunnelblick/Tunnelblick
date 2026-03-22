@@ -1894,6 +1894,8 @@ static void revertToShadow (NSString * fileName) {
 }
 
 static void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode) {
+
+    BOOL needRoot = FALSE;
     NSString * configPrefix = nil;
     switch (cfgLocCode) {
         case CFG_LOC_PRIVATE:
@@ -1910,9 +1912,11 @@ static void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgL
             break;
         case CFG_LOC_DEPLOY:
             configPrefix = [[gDeployPath copy] autorelease];
+            needRoot = TRUE;
             break;
         case CFG_LOC_SHARED:
             configPrefix = L_AS_T_SHARED;
+            needRoot = TRUE;
             break;
         default:
             fprintf(stderr, "Invalid cfgLocCode = %u\n", cfgLocCode);
@@ -1928,9 +1932,13 @@ static void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgL
                                     stringByAppendingPathComponent: configFile]
                                    stringByAppendingPathComponent: configSuffix];
 
-    becomeRootToAccessPath(actualConfigPath, @"get config contents");
+    if (  needRoot ) {
+        becomeRootToAccessPath(actualConfigPath, @"get config contents");
+    }
     NSData * data = [NSFileManager.defaultManager contentsAtPath: actualConfigPath];
-    stopBeingRootToAccessPath(actualConfigPath);
+    if (  needRoot ) {
+        stopBeingRootToAccessPath(actualConfigPath);
+    }
 
     if (  ! data  ) {
         fprintf(stderr, "Cannot read configuration file at %s\n", [actualConfigPath UTF8String]);
