@@ -445,7 +445,7 @@ release_ipv6() {
                                         "Error happened trying to release IPv6 addresses" \
                                         /usr/sbin/ipconfig set "$dev" NONE-V6
     fi
-
+}
 ##########################################################################################
 restore_ipv6() {
 
