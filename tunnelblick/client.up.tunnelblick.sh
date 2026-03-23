@@ -1548,26 +1548,13 @@ configureDhcpDns() {
 					(( nWinsServerIndex++ ))
 				done
 
-				for tSearchDomain in $( echo "$sGetPacketOutput" | grep "search_domain" | grep -Eo "\{([-A-Za-z0-9\-\.]+)(, [-A-Za-z0-9\-\.]+)*\}" | grep -Eo "([-A-Za-z0-9\-\.]+)" ); do
+				for tSearchDomain in $( echo "$sGetPacketOutput" | grep -e "search_domain" -e "domain_search" | grep -Eo "\{([-A-Za-z0-9\-\.]+)(, [-A-Za-z0-9\-\.]+)*\}" | grep -Eo "([-A-Za-z0-9\-\.]+)" ); do
 					aSearchDomains[nSearchDomainIndex-1]="$( trim "$tSearchDomain" )"
 					(( nSearchDomainIndex++ ))
 				done
 
 				sDomainName="$( echo "$sGetPacketOutput" | grep "domain_name " | grep -Eo ": [-A-Za-z0-9\-\.]+" | grep -Eo "[-A-Za-z0-9\-\.]+" )"
 				sDomainName="$( trim "$sDomainName" )"
-
-				if [ ${#aNameServers[*]} -gt 0 ] && [ "$sDomainName" ]; then
-					logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [" "${aNameServers[@]}" "], domain name [ $sDomainName ], search domain(s) [" "${aSearchDomains[@]}" "] and SMB server(s) [" "${aWinsServers[@]}" "]"
-					setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@] aSearchDomains[@]
-					return 0
-				elif [ ${#aNameServers[*]} -gt 0 ]; then
-					logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [" "${aNameServers[@]}" "], search domain(s) [" "${aSearchDomains[@]}" "] and SMB server(s) [" "${aWinsServers[@]}" "] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
-					setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@] aSearchDomains[@]
-					return 0
-				else
-					# Should we return 1 here and indicate an error, or attempt the old method?
-					logMessage "No useful information extracted from DHCP/BOOTP packet. Attempting legacy configuration."
-				fi
 
 			set -e # We instruct bash that it CAN again fail on errors
 		else
@@ -1577,6 +1564,49 @@ configureDhcpDns() {
 	else
 		logMessage "WARNING: Failed or had no output: 'ipconfig getpacket \"$dev\"'"
 	fi
+
+    if ${ARG_ENABLE_IPV6_ON_TAP} ; then
+        logDebugMessage "About to 'ipconfig getv6packet $dev' as IPV6 on TAP is enabled"
+        sGetPacketOutput6="$( ipconfig getv6packet "$dev" ; true )"
+        logDebugMessage "Completed 'ipconfig getv6packet $dev'; sGetPacketOutput = $sGetPacketOutput6"
+
+        if [ "$sGetPacketOutput6" ]; then
+            sGetPacketOutput6_FirstLine="$( echo "$sGetPacketOutput6" | head -n 1 )"
+            logDebugMessage "sGetPacketOutput_FirstLine = $sGetPacketOutput6_FirstLine"
+
+            if [[ $sGetPacketOutput6_FirstLine == DHCPv6\ REPLY* ]]; then
+                set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
+
+                        for tNameServer6 in $( echo "$sGetPacketOutput6" | grep "DNS_SERVERS" | sed "s/.*DNS_SERVERS.* Length[^:]*: //"  | grep -Eo "([0-9a-f:]+)(, [0-9a-f:]+)*" | grep -Eo  "([0-9a-f:]+)" ); do
+                                aNameServers[nNameServerIndex-1]="$( trim "$tNameServer6" )"
+                                (( nNameServerIndex++ ))
+                        done
+
+                        for tSearchDomain6 in $( echo "$sGetPacketOutput6" | grep "DOMAIN_LIST" | grep -Eo "\{([-A-Za-z0-9\-\.]+)(, [-A-Za-z0-9\-\.]+)*\}" | grep -Eo "([-A-Za-z0-9\-\.]+)" ); do
+                                aSearchDomains[nSearchDomainIndex-1]="$( trim "$tSearchDomain6" )"
+                                (( nSearchDomainIndex++ ))
+                        done
+            else
+                # Should we return 1 here and indicate an error, or attempt the old method?
+                logMessage "No DHCPv6 packet found on interface. Attempting legacy configuration."
+            fi
+        else
+            logMessage "WARNING: Failed or had no output: 'ipconfig getv6packet \"$dev\"'"
+        fi
+    fi
+
+    if [ ${#aNameServers[*]} -gt 0 ] && [ "$sDomainName" ]; then
+            logMessage "Retrieved from DHCP/BOOTP or DHCPv6 packet: name server(s) [" "${aNameServers[@]}" "], domain name [ $sDomainName ], search domain(s) [" "${aSearchDomains[@]}" "] and SMB server(s) [" "${aWinsServers[@]}" "]"
+            setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@] aSearchDomains[@]
+            return 0
+    elif [ ${#aNameServers[*]} -gt 0 ]; then
+            logMessage "Retrieved from DHCP/BOOTP or DHCPv6 packet: name server(s) [" "${aNameServers[@]}" "], search domain(s) [" "${aSearchDomains[@]}" "] and SMB server(s) [" "${aWinsServers[@]}" "] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
+            setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@] aSearchDomains[@]
+            return 0
+    else
+            # Should we return 1 here and indicate an error, or attempt the old method?
+            logMessage "No useful information extracted from DHCP/BOOTP or DHCPv6 packet. Attempting legacy configuration."
+    fi
 
 	unset sDomainName
 	unset sNameServer
@@ -2208,7 +2238,7 @@ if ${ARG_TAP} ; then
 	else
 		if [ -z "${route_vpn_gateway}" ] || [ "$route_vpn_gateway" == "dhcp" ] || [ "$route_vpn_gateway" == "DHCP" ]; then
 			# Check if $dev already has an ip configuration
-			hasIp="$(ifconfig "$dev" | grep inet | cut -d ' ' -f 2)"
+			hasIp="$(ifconfig "$dev" | grep "inet[^6]" | cut -d ' ' -f 2)"
 			if [ "${hasIp}" ]; then
 				logMessage "Not using DHCP because $dev already has an IP configuration ($hasIp). route_vpn_gateway = '$route_vpn_gateway'"
 			else
