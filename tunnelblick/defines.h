@@ -575,8 +575,9 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 #define OPENVPNSTART_ON_BIG_SUR_OR_NEWER                0x02000000u
 #define OPENVPNSTART_DISABLE_SECONDARY_NET_SERVICES     0x04000000u
 #define OPENVPNSTART_FORCE_DNS_UP_DOWN                  0x08000000u
+#define OPENVPNSTART_USE_EXTERNAL_KEY                   0x10000000u
 // DUPLICATE THE HIGHEST VALUE BELOW					vvvvvvvvvvv
-#define OPENVPNSTART_HIGHEST_BITMASK_BIT				0x08000000u
+#define OPENVPNSTART_HIGHEST_BITMASK_BIT				0x10000000u
 
 
 //*************************************************************************************************
@@ -1103,6 +1104,7 @@ name = newValue;                                    \
 @"keyboardShortcutKeyCode",	\
 @"keyboardShortcutModifiers",	\
 @"managementPortStartingPortNumber",	\
+@"managementExternalKeyProxySocketPath",	\
 @"maximumLogSize",	\
 @"onlyAdminsCanUnprotectConfigurationFiles",	\
 @"skipWarningAboutUsingOpenvpnTxpVersion",	\

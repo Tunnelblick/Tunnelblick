@@ -23,6 +23,10 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <pthread.h>
 #import <signal.h>
+#import <sys/socket.h>
+#import <sys/un.h>
+#import <netinet/in.h>
+#import <netdb.h>
 #import <SystemConfiguration/SCDynamicStore.h>
 
 #import "helper.h"
@@ -121,6 +125,14 @@ extern NSArray          * gTotalUnits;
                               key:              (NSString *)        key;
 
 -(NSString *)       timeString;
+
+// External key proxy support (for --management-external-key and --management-external-cert)
+-(NSString *)       externalKeyProxySocketPath;
+-(BOOL)             connectToExternalKeyProxy;
+-(void)             disconnectFromExternalKeyProxy;
+-(NSString *)       sendCommandToExternalKeyProxy: (NSString *) command;
+-(void)             processNeedCertificateWithParameterString: (NSString *) parameterString;
+-(void)             processPkSignWithParameterString: (NSString *) parameterString;
 
 TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,        setMessagesIfConnectionFails)
 
@@ -255,6 +267,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         statistics.lastSet = [[NSDate date] retain];
 
         [self clearStatisticsIncludeTotals: YES];
+
+        // Initialize external key proxy state
+        externalKeyProxySocket = -1;
     }
 
     return self;
@@ -296,6 +311,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     // Reinitializes a connection -- as if we quit Tunnelblick and then relaunched
 
     [self disconnectFromManagmentSocket];
+    [self disconnectFromExternalKeyProxy];
     [connectedSinceDate release]; connectedSinceDate = [[NSDate alloc] init];
     [self clearStatisticsIncludeTotals: NO];
     [self initializeAuthAgent];
@@ -2923,6 +2939,16 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
     bitMask = bitMask | OPENVPNSTART_ON_BIG_SUR_OR_NEWER;
 
+    // Enable external key management if the proxy socket path is configured
+    NSString * externalKeySocketPath = [self externalKeyProxySocketPath];
+    if (  externalKeySocketPath  ) {
+        bitMask = bitMask | OPENVPNSTART_USE_EXTERNAL_KEY;
+        TBLog(@"DB-AU", @"External key proxy enabled with socket path: %@", externalKeySocketPath);
+        [self addToLog: [NSString stringWithFormat: @"External key management enabled, socket: %@", externalKeySocketPath]];
+    } else {
+        TBLog(@"DB-AU", @"External key proxy not configured (managementExternalKeyProxySocketPath is nil)");
+    }
+
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
 
     NSString * leasewatchOptionsKey = [displayName stringByAppendingString: @"-leasewatchOptions"];
@@ -3495,6 +3521,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  ! wereWaitingForNetworkAvailability  ) {
 		[self disconnectFromManagmentSocket];
 	}
+    [self disconnectFromExternalKeyProxy];
     portNumber       = 0;
     pid              = 0;
     areDisconnecting = FALSE;
@@ -4517,6 +4544,278 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+#pragma mark - External Key Proxy Support
+// This feature allows Tunnelblick to proxy --management-external-key and --management-external-cert
+// commands to an external program via a Unix socket. The external program handles certificate and
+// signing requests, mimicking OpenVPN's management interface protocol.
+//
+// Configuration (via forced preferences in /Library/Application Support/Tunnelblick/forced-preferences.plist):
+//   - managementExternalKeyProxySocketPath: Path to Unix socket
+//
+// Protocol: Tunnelblick connects to the socket and forwards NEED-CERTIFICATE and PK_SIGN/RSA_SIGN
+// commands. The external program responds in OpenVPN management interface format.
+
+-(NSString *) externalKeyProxySocketPath {
+    // Returns the path to the external key proxy socket from forced preferences, or nil if not configured
+    return [gTbDefaults stringForKey: @"managementExternalKeyProxySocketPath"];
+}
+
+-(BOOL) connectToExternalKeyProxy {
+    // Connects to the external key proxy socket.
+    // Returns YES on success, NO on failure.
+    // The connection is kept open for the duration of the VPN session.
+
+    if (  externalKeyProxySocket >= 0  ) {
+        // Already connected
+        return YES;
+    }
+
+    NSString * socketPath = [self externalKeyProxySocketPath];
+    if (  ! socketPath  ) {
+        return NO;
+    }
+
+    [self addToLog: [NSString stringWithFormat: @"Connecting to external key proxy at %@", socketPath]];
+    TBLog(@"DB-AU", @"Connecting to external key proxy socket '%@'", socketPath);
+
+    // Create Unix domain socket
+    struct sockaddr_un addr;
+    memset(&addr, 0, sizeof(addr));
+    addr.sun_family = AF_UNIX;
+
+    if (  [socketPath length] >= sizeof(addr.sun_path)  ) {
+        NSLog(@"connectToExternalKeyProxy: Socket path too long: %@", socketPath);
+        [self addToLog: @"External key proxy socket path too long"];
+        return NO;
+    }
+    strncpy(addr.sun_path, [socketPath UTF8String], sizeof(addr.sun_path) - 1);
+
+    int sock = socket(AF_UNIX, SOCK_STREAM, 0);
+    if (  sock < 0  ) {
+        NSLog(@"connectToExternalKeyProxy: Failed to create Unix socket: %s", strerror(errno));
+        [self addToLog: [NSString stringWithFormat: @"Failed to create socket for external key proxy: %s", strerror(errno)]];
+        return NO;
+    }
+
+    if (  connect(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0  ) {
+        NSLog(@"connectToExternalKeyProxy: Failed to connect to Unix socket %@: %s", socketPath, strerror(errno));
+        [self addToLog: [NSString stringWithFormat: @"Failed to connect to external key proxy: %s", strerror(errno)]];
+        close(sock);
+        return NO;
+    }
+
+    // Set socket timeout (30 seconds for initial connection)
+    struct timeval timeout;
+    timeout.tv_sec = 30;
+    timeout.tv_usec = 0;
+    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+    setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout));
+
+    externalKeyProxySocket = sock;
+    [self addToLog: @"Connected to external key proxy"];
+    return YES;
+}
+
+-(void) disconnectFromExternalKeyProxy {
+    // Closes the connection to the external key proxy
+
+    if (  externalKeyProxySocket >= 0  ) {
+        close(externalKeyProxySocket);
+        externalKeyProxySocket = -1;
+        TBLog(@"DB-AU", @"Disconnected from external key proxy");
+    }
+}
+
+-(NSString *) sendCommandToExternalKeyProxy: (NSString *) command {
+    // Sends a command to the external key proxy and returns the response.
+    // Automatically connects if not already connected.
+    // Returns nil on error.
+
+    if (  ! [self connectToExternalKeyProxy]  ) {
+        return nil;
+    }
+
+    TBLog(@"DB-AU", @"Sending command to external key proxy: %@", command);
+
+    // Send the command with newline
+    NSString * commandWithNewline = [command stringByAppendingString: @"\n"];
+    NSData * commandData = [commandWithNewline dataUsingEncoding: NSUTF8StringEncoding];
+    ssize_t sent = send(externalKeyProxySocket, [commandData bytes], [commandData length], 0);
+    if (  sent < 0 || (NSUInteger)sent != [commandData length]  ) {
+        NSLog(@"sendCommandToExternalKeyProxy: Failed to send command: %s", strerror(errno));
+        [self addToLog: @"Failed to send command to external key proxy"];
+        [self disconnectFromExternalKeyProxy];
+        return nil;
+    }
+
+    // Read the response until we see "END" on its own line
+    NSMutableData * responseData = [NSMutableData data];
+    char buffer[4096];
+    BOOL foundEnd = NO;
+
+    while (  ! foundEnd  ) {
+        ssize_t received = recv(externalKeyProxySocket, buffer, sizeof(buffer) - 1, 0);
+        if (  received < 0  ) {
+            NSLog(@"sendCommandToExternalKeyProxy: Failed to receive response: %s", strerror(errno));
+            [self addToLog: @"Failed to receive response from external key proxy"];
+            [self disconnectFromExternalKeyProxy];
+            return nil;
+        }
+        if (  received == 0  ) {
+            // Connection closed unexpectedly
+            NSLog(@"sendCommandToExternalKeyProxy: Connection closed by proxy");
+            [self addToLog: @"External key proxy closed connection unexpectedly"];
+            [self disconnectFromExternalKeyProxy];
+            return nil;
+        }
+        [responseData appendBytes: buffer length: (NSUInteger)received];
+
+        // Check if we've received "END" terminator
+        NSString * currentResponse = [[[NSString alloc] initWithData: responseData encoding: NSUTF8StringEncoding] autorelease];
+        if (  currentResponse  ) {
+            // Check for END on its own line
+            if (  [currentResponse hasSuffix: @"END\n"] ||
+                  [currentResponse hasSuffix: @"END\r\n"] ||
+                  [currentResponse hasSuffix: @"END"]  ) {
+                foundEnd = YES;
+            }
+        }
+
+        // Safety limit: don't read more than 1MB
+        if (  [responseData length] > 1024 * 1024  ) {
+            NSLog(@"sendCommandToExternalKeyProxy: Response too large, aborting");
+            [self addToLog: @"External key proxy response too large"];
+            [self disconnectFromExternalKeyProxy];
+            return nil;
+        }
+    }
+
+    NSString * response = [[[NSString alloc] initWithData: responseData encoding: NSUTF8StringEncoding] autorelease];
+    TBLog(@"DB-AU", @"Received response from external key proxy: %@", response);
+
+    return response;
+}
+
+-(void) processNeedCertificateWithParameterString: (NSString *) parameterString {
+    // Handle >NEED-CERTIFICATE:hint
+    // If an external key proxy is configured, forward the request there.
+    // Otherwise, log that this command is not supported.
+
+    NSString * socketPath = [self externalKeyProxySocketPath];
+    if (  ! socketPath  ) {
+        NSLog(@"Received NEED-CERTIFICATE but no external key proxy is configured. "
+              @"Set the 'managementExternalKeyProxySocketPath' forced preference to enable this feature.");
+        [self addToLog: @"NEED-CERTIFICATE received but no external key proxy configured"];
+        return;
+    }
+
+    [self addToLog: [NSString stringWithFormat: @"Processing NEED-CERTIFICATE: %@", parameterString]];
+
+    // Forward the full command to the proxy
+    NSString * fullCommand = [NSString stringWithFormat: @">NEED-CERTIFICATE:%@", parameterString];
+    NSString * proxyResponse = [self sendCommandToExternalKeyProxy: fullCommand];
+
+    if (  ! proxyResponse  ) {
+        NSLog(@"Failed to get certificate from external key proxy for %@", [self displayName]);
+        [self addToLog: @"Failed to get certificate from external key proxy"];
+        return;
+    }
+
+    // The proxy response should be in the format:
+    // certificate
+    // [BASE64_CERT_LINES]
+    // END
+    //
+    // We need to send this directly to OpenVPN's management interface.
+
+    // Normalize line endings
+    NSString * normalizedResponse = [proxyResponse stringByReplacingOccurrencesOfString: @"\r\n" withString: @"\n"];
+
+    // Verify the response format
+    if (  ! [normalizedResponse hasPrefix: @"certificate"]  ) {
+        NSLog(@"Invalid certificate response from proxy (doesn't start with 'certificate'): %@", proxyResponse);
+        [self addToLog: @"Invalid certificate response from external key proxy"];
+        return;
+    }
+
+    // Send each line to OpenVPN (convert to \r\n for management interface)
+    NSArray * lines = [normalizedResponse componentsSeparatedByString: @"\n"];
+    for (  NSString * line in lines  ) {
+        if (  [line length] > 0  ) {
+            NSString * lineWithCRLF = [line stringByAppendingString: @"\r\n"];
+            [self sendStringToManagementSocket: lineWithCRLF encoding: NSUTF8StringEncoding];
+        }
+    }
+
+    [self addToLog: @"Certificate sent to OpenVPN from external key proxy"];
+}
+
+-(void) processPkSignWithParameterString: (NSString *) parameterString {
+    // Handle >PK_SIGN:base64_data,algorithm or >RSA_SIGN:base64_data
+    // If an external key proxy is configured, forward the request there.
+    // Otherwise, log that this command is not supported.
+
+    NSString * socketPath = [self externalKeyProxySocketPath];
+    if (  ! socketPath  ) {
+        NSLog(@"Received PK_SIGN/RSA_SIGN but no external key proxy is configured. "
+              @"Set the 'managementExternalKeyProxySocketPath' forced preference to enable this feature.");
+        [self addToLog: @"PK_SIGN/RSA_SIGN received but no external key proxy configured"];
+        return;
+    }
+
+    [self addToLog: [NSString stringWithFormat: @"Processing PK_SIGN: %@", parameterString]];
+
+    // Forward the full command to the proxy
+    // We need to determine if this was PK_SIGN or RSA_SIGN based on the format
+    // PK_SIGN has algorithm info, RSA_SIGN doesn't
+    NSString * fullCommand;
+    if (  [parameterString rangeOfString: @","].location != NSNotFound  ) {
+        fullCommand = [NSString stringWithFormat: @">PK_SIGN:%@", parameterString];
+    } else {
+        // Could be RSA_SIGN (no comma) or PK_SIGN with no algorithm
+        // We'll send it as PK_SIGN anyway since the proxy should handle both
+        fullCommand = [NSString stringWithFormat: @">PK_SIGN:%@", parameterString];
+    }
+
+    NSString * proxyResponse = [self sendCommandToExternalKeyProxy: fullCommand];
+
+    if (  ! proxyResponse  ) {
+        NSLog(@"Failed to get signature from external key proxy for %@", [self displayName]);
+        [self addToLog: @"Failed to get signature from external key proxy"];
+        return;
+    }
+
+    // The proxy response should be in the format:
+    // pk-sig (or rsa-sig)
+    // [BASE64_SIG_LINES]
+    // END
+    //
+    // We need to send this directly to OpenVPN's management interface.
+
+    // Normalize line endings
+    NSString * normalizedResponse = [proxyResponse stringByReplacingOccurrencesOfString: @"\r\n" withString: @"\n"];
+
+    // Verify the response format (should start with pk-sig or rsa-sig)
+    if (  ! [normalizedResponse hasPrefix: @"pk-sig"] && ! [normalizedResponse hasPrefix: @"rsa-sig"]  ) {
+        NSLog(@"Invalid signature response from proxy (doesn't start with 'pk-sig' or 'rsa-sig'): %@", proxyResponse);
+        [self addToLog: @"Invalid signature response from external key proxy"];
+        return;
+    }
+
+    // Send each line to OpenVPN (convert to \r\n for management interface)
+    NSArray * lines = [normalizedResponse componentsSeparatedByString: @"\n"];
+    for (  NSString * line in lines  ) {
+        if (  [line length] > 0  ) {
+            NSString * lineWithCRLF = [line stringByAppendingString: @"\r\n"];
+            [self sendStringToManagementSocket: lineWithCRLF encoding: NSUTF8StringEncoding];
+        }
+    }
+
+    [self addToLog: @"Signature sent to OpenVPN from external key proxy"];
+}
+
+#pragma mark -
+
 -(void) sendHoldRelease {
 
     [self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
@@ -4676,6 +4975,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     } else if (  [command isEqualToString: @"INFO"]) {
         [self addToLog: line];
+
+    } else if (  [command isEqualToString: @"NEED-CERTIFICATE"]) {
+        [self processNeedCertificateWithParameterString: parameterString];
+
+    } else if (  [command isEqualToString: @"PK_SIGN"] || [command isEqualToString: @"RSA_SIGN"]) {
+        [self processPkSignWithParameterString: parameterString];
 
     } else {
         NSLog(@"Ignored unrecognized message from management interface for %@: %@", [self displayName], line);
