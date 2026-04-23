@@ -835,10 +835,10 @@
 "     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • Adres serwera DNS %1$@ jest używany przez VPN '%2$@', a nie powinien. Może to oznaczać, że aktywny jest więcej niż jeden interfejs sieciowy. Tunnelblick nie obsługuje wielu aktywnych interfejsów sieciowych. \n\n";
 
 /* Window text */
-"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Adres serwera DNS %@ nie jest publicznym serwerem DNS rozpoznanym przez Tunnelblicka i nie jest trasowany przez VPN.\n\n";
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Adres serwera DNS %@ nie jest publicznym serwerem DNS rozpoznanym przez Tunnelblicka i nie jest przekierowany poprzez VPN'a.\n\n";
 
 /* Window text */
-"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • Adres serwera DNS %@ nie jest publicznym adresem IP i nie jest trasowany przez VPN.\n\n";
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • Adres serwera DNS %@ nie jest publicznym adresem IP i nie jest kierowany przez VPN'a.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • Adres serwera DNS %1$@ nie jest używany, ale miał być używany przez VPN '%2$@'.\n\n";
@@ -1093,7 +1093,7 @@
 "An error occurred getting the list of loaded system extensions." = "Wystąpił błąd podczas pobierania listy załadowanych rozszerzeń systemu.";
 
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Wystąpił błąd podczas próby pobrania aktualizacji.\n\nWięcej informacji można znaleźć w logu";
+"An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Wystąpił błąd podczas próby pobrania aktualizacji.\n\nWięcej informacji można znaleźć w logu\n\n%@";
 
 /* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Wystąpił błąd podczas próby pobrania informacji o aktualizacjach.\n\n%1$@Więcej informacji znajdziesz w pliku log:\n\n%2$@";
@@ -2257,7 +2257,7 @@
 "<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Jeśli zaznaczone</strong>, OpenVPN zmieni ustawienia DNS i inne po tym jak ustawi routing dla VPN zamiast przed ustawieniem routingu.</p>\n<p><strong>Jeśli nie zaznaczone</strong>, OpenVPN zmieni ustawienia DNS i inne zanim ustawi routing dla VPN zamiast po ustawieniu routingu. Może to prowadzić do problemów lub opóźnień w działaniu DNS jeśli dla przykładu ustawianie routingu trwa zbyt długo ponieważ jest dużo tras do ustawienia.</p>\n";
 
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Jeśli zaznaczone</strong>. OpenVPN uruchomi test aby określić maksymalny dla tego połączenia rozmiar MTU. Test jest uruchamiany za każdym razem gdy nawiązywane jest połączenia i może potrwać kilka minut. Wynik pojawi się w logu Tunelblick.</p>\n";
+"<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Jeśli zaznaczone</strong>. OpenVPN uruchomi test aby określić maksymalny dla tego połączenia rozmiar MTU. Test jest uruchamiany za każdym razem gdy nawiązywane jest połączenia i może potrwać kilka minut. Wynik pojawi się w logu Tunnelblick.</p>\n";
 
 /* HTML info for the 'Check only when connected to a VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates automatically only when connected to a VPN.</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "373 / 5,000\n<p><strong>Jeśli zaznaczone</strong>, Tunnelblick będzie automatycznie sprawdzać dostępność aktualizacji tylko po połączeniu z VPN.</p>\n<p><strong>To pole wyboru jest wyłączone</strong> i odznaczone, gdy zaznaczona jest opcja „Wstrzymaj automatyczne sprawdzanie aktualizacji i sprawdzania adresu IP” oraz gdy użytkownik nie jest administratorem komputera a tylko administratorzy komputerów mogą instalować aktualizacje.</p>";
@@ -2455,7 +2455,7 @@
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>W celu użycia tej konfiguracji, musisz zainstalować rozszerzenia systemu od Tunnelblicka.</p><p>Możesz to zrobić w panelu „Narzędzia” Tunnelblicka.</p><p>Po zainstalowaniu rozszerzeń systemu macOS poprowadzi Cię przez proces nadania im zezwoleń, co będzie wymagać ponownego uruchomienia komputera.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
-"Admin mode %@ remaining" = "Tryb Administratora, pozostało %@";
+"Admin mode %@ remaining" = "Tryb Administratora %@, pozostało";
 
 /* Credit description */
 "Afrikaans translation" = "Afrykańskie tłumaczenie";
@@ -2536,7 +2536,7 @@
 "Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Nie ostrzegaj o tym ponownie;\nzawsze włącz ponownie po opuszczeniu Tunnelblick";
 
 /* Checkbox text */
-"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Nie ostrzegaj o tym ponownie;\nnigdy nie włącz ponownie po uruchomieniu Tunnelblick";
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Nie ostrzegaj o tym ponownie;\nnigdy nie włączaj ponownie po uruchomieniu Tunnelblick";
 
 /* Credit description */
 "Dutch translation" = "Holenderskie tłumaczenie";
