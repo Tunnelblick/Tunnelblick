@@ -1455,15 +1455,20 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
 -(void) showYellowTriangleIfAppropriate {
 
-    TBLog(@"DB-SI", @"showYellowTriangleIfAppropriate invoked");
     BOOL hideYellowTriangle = (   warningsItem.isHidden
                                && ( ! tbUpdatesAreAvailable )
                                && configUpdateAvailableItem.isHidden);
-    [yellowTriangleView setHidden: hideYellowTriangle];
-
-    TBLog(@"DB-SI", @"Set yellow triangle hidden = %s; warningsHidden = %s; tbUpdatesAvailable = %s; configUpdatesHidden = %s",
-          CSTRING_FROM_BOOL(hideYellowTriangle), CSTRING_FROM_BOOL(warningsItem.isHidden),
-          CSTRING_FROM_BOOL(tbUpdatesAreAvailable), CSTRING_FROM_BOOL(configUpdateAvailableItem.isHidden));
+    if (   yellowTriangleView.isHidden
+        != hideYellowTriangle  ) {
+        [yellowTriangleView setHidden: hideYellowTriangle];
+        TBLog(@"DB-SI", @"CHANGED yellow triangle hidden to %s; warningsHidden = %s; tbUpdatesAvailable = %s; configUpdatesHidden = %s",
+              CSTRING_FROM_BOOL(hideYellowTriangle), CSTRING_FROM_BOOL(warningsItem.isHidden),
+              CSTRING_FROM_BOOL(tbUpdatesAreAvailable), CSTRING_FROM_BOOL(configUpdateAvailableItem.isHidden));
+    } else {
+        TBLog(@"DB-SI", @"UNCHANGED yellow triangle hidden is %s; warningsHidden = %s; tbUpdatesAvailable = %s; configUpdatesHidden = %s",
+              CSTRING_FROM_BOOL(hideYellowTriangle), CSTRING_FROM_BOOL(warningsItem.isHidden),
+              CSTRING_FROM_BOOL(tbUpdatesAreAvailable), CSTRING_FROM_BOOL(configUpdateAvailableItem.isHidden));
+    }
 }
 
 -(void) showGreenAreConnectedIndicatorIfAppropriate {
