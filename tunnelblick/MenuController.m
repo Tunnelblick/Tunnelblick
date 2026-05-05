@@ -1468,14 +1468,19 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
 -(void) showGreenAreConnectedIndicatorIfAppropriate {
 
-    TBLog(@"DB-SI", @"showGreenAreConnectedIndicatorIfAppropriate invoked");
     BOOL connected = [lastState isEqualToString: @"CONNECTED"];
     BOOL showPreference = [gTbDefaults boolForKey: @"showGreenAreConnectedIndicator"];
-    BOOL showGreenAreConnectedIndicator = connected && showPreference;
-    [areConnectedIndicatorView setHidden: ! showGreenAreConnectedIndicator];
-
-    TBLog(@"DB-SI", @"Set green are connected indicator hidden = %s; connected = %s; showPreference = %s",
-          CSTRING_FROM_BOOL( ! showGreenAreConnectedIndicator), CSTRING_FROM_BOOL(connected), CSTRING_FROM_BOOL(showPreference));
+    BOOL hideGreenAreConnectedIndicator = (   (! connected)
+                                           || (! showPreference));
+    if (   areConnectedIndicatorView.isHidden
+        != hideGreenAreConnectedIndicator  ) {
+        [areConnectedIndicatorView setHidden: hideGreenAreConnectedIndicator];
+        TBLog(@"DB-SI", @"CHANGED green are connected indicator hidden to %s; connected = %s; showPreference = %s",
+              CSTRING_FROM_BOOL(hideGreenAreConnectedIndicator), CSTRING_FROM_BOOL(connected), CSTRING_FROM_BOOL(showPreference));
+    } else {
+        TBLog(@"DB-SI", @"UNCHANGED green are connected indicator hidden is %s; connected = %s; showPreference = %s",
+              CSTRING_FROM_BOOL(hideGreenAreConnectedIndicator), CSTRING_FROM_BOOL(connected), CSTRING_FROM_BOOL(showPreference));
+    }
 }
 
 -(void) updateScreenList {
