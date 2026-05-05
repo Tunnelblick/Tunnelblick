@@ -1537,6 +1537,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [self createMenu];
     [self updateIconImage];
     [statusItem setMenu: myVPNMenu];
+    TBLog(@"DB-SI", @"set statusItem.menu to myVPNMenu");
     [self showYellowTriangleIfAppropriate];
     [self showGreenAreConnectedIndicatorIfAppropriate];
 }
@@ -2106,7 +2107,9 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
     if (  statusItem.button  ) {
         [statusItem.button setImage: mainImage];
+        TBLog(@"DB-SI", @"set statusItem.button.image to mainImage");
         [statusItem setMenu: myVPNMenu];
+        TBLog(@"DB-SI", @"set statusItem.menu to myVPNMenu");
     }
 
     // If appropriate, create a cache of the menu items that are configurations and/or folders of configurations.
@@ -2830,18 +2833,28 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  statusItem.button  ) {
             if (  [lastState isEqualToString:@"CONNECTED"]  ) {
                 [statusItem.button setImage: connectedImage];
+                TBLog(@"DB-SI", @"set statusItem.button.image to connectedImage");
             } else {
                 [statusItem.button setImage: mainImage];
+                TBLog(@"DB-SI", @"set statusItem.button.image to mainImage");
             }
         } else {
             if (  [lastState isEqualToString:@"CONNECTED"]  ) {
                 [[self ourMainIconView] setImage: (  menuIsOpen
                                                    ? highlightedConnectedImage
                                                    : connectedImage)];
+                TBLog(@"DB-SI", @"set statusItem.button.image to %@",
+                      (  menuIsOpen
+                       ? @"highlightedConnectedImage"
+                       : @"connectedImage"));
             } else {
                 [[self ourMainIconView] setImage: (  menuIsOpen
                                                    ? highlightedMainImage
                                                    : mainImage)];
+                TBLog(@"DB-SI", @"set statusItem.button.image to %@",
+                      (  menuIsOpen
+                       ? @"highlightedMainImage"
+                       : @"mainImage"));
             }
         }
     }
@@ -2891,8 +2904,10 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         NSImage * img = [images objectAtIndex: ix];
         if (  statusItem.button  ) {
             [statusItem.button performSelectorOnMainThread:@selector(setImage:) withObject: img waitUntilDone:YES];
+            TBLog(@"DB-SI", @"on main thread: set statusItem.button.image to image #%lu", ix);
         } else if (  statusItem  ) {
             [[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:img waitUntilDone:YES];
+            TBLog(@"DB-SI", @"on main thread: set ourMainIconView.image to image #%lu", ix);
         }
     }
 }
@@ -7501,10 +7516,12 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 	NSStatusBarButton * statusButton = gMC.statusItem.button;
 	if (  statusButton  ) {
 		[statusButton performClick: nil];
+        TBLog(@"DB-SI", @"performed statusItem.button.click");
 	} else {
         NSMenu * menu = gMC.myVPNMenu;
         if (  menu  ) {
             [gMC.statusItem popUpStatusItemMenu: menu];
+            TBLog(@"DB-SI", @"performed statusItem.popUpStatusItemMenu");
         }
 	}
 
