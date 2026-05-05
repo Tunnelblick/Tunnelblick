@@ -2882,7 +2882,13 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                                       ? highlightedAnimImages
                                       : animImages)
                                    );
-        NSImage * img = [images objectAtIndex: (unsigned) (lround(progress * [images count]) - 1)];
+        long int ixi = lround(progress * [images count]) - 1;
+        if (  ixi < 0  ) {
+            NSLog(@"Error: not enough images to show image #%lu! Will try to use image[0]", ixi);
+            ixi = 0;
+        }
+        NSUInteger ix = (NSUInteger)ixi;
+        NSImage * img = [images objectAtIndex: ix];
         if (  statusItem.button  ) {
             [statusItem.button performSelectorOnMainThread:@selector(setImage:) withObject: img waitUntilDone:YES];
         } else if (  statusItem  ) {
