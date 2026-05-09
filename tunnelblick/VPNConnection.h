@@ -162,6 +162,9 @@ struct Statistics {
 
 	BOOL volatile   skipConfigurationUpdateCheckOnce; // True only after have skipped a configuration update, so the next
 													  // connection attempt will not try to check for the update
+    
+    // External key proxy support (for --management-external-key and --management-external-cert)
+    int             externalKeyProxySocket;  // File descriptor for persistent connection to external key proxy, or -1 if not connected
 }
 
 // PUBLIC METHODS:

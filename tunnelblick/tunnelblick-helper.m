@@ -2737,6 +2737,13 @@ static int startVPN(NSString * configFile,
         [arguments addObject: @"--management-hold"];
     }
 
+    if (  (bitMask & OPENVPNSTART_USE_EXTERNAL_KEY) != 0  ) {
+        [arguments addObject: @"--management-external-cert"];
+        [arguments addObject: @"enclaved"];
+        [arguments addObject: @"--management-external-key"];
+        appendLog([NSString stringWithFormat: @"Adding --management-external-cert enclaved --management-external-key to OpenVPN arguments (bitMask=%u)", bitMask]);
+    }
+
     if (  (bitMask & OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1) != 0  ) {
         [arguments addObject: @"--redirect-gateway"];
         [arguments addObject: @"def1"];
