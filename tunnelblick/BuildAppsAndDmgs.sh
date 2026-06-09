@@ -295,8 +295,8 @@ CreateOpenvpnDirectoryStructure() {
     default_openvpn="z"
     last_openvpn="z"
     # DEFAULT OpenVPN will be the lowest version linked to OpenSSL with the following prefix:
-    default_openvpn_version_prefix="openvpn-2.6"
-    default_openssl_version_prefix="openssl-3.0"
+    default_openvpn_version_prefix="openvpn-2.7"
+    default_openssl_version_prefix="openssl-3.5"
 
     for d in $( ls "../third_party/products/openvpn" ) ; do
 
