@@ -1646,7 +1646,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     if (  [mainImage isTemplate]  ) {
         [self setHighlightedMainImage:      [self tintTemplateImage: mainImage]];
         [self setHighlightedConnectedImage: [self tintTemplateImage: connectedImage]];
-        [self setHighlightedGreenAreConnectedIndicatorImage: [self tintTemplateImage: areConnectedIndicatorImage]];
+        [self setHighlightedGreenAreConnectedIndicatorImage: areConnectedIndicatorImage];
 
         [self setHighlightedAnimImages: [NSMutableArray arrayWithCapacity: [animImages count]]];
         NSUInteger i;
