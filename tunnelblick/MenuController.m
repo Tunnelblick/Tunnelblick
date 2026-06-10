@@ -1426,30 +1426,37 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [statusItem setMenu: myVPNMenu];
     TBLog(@"DB-SI", @"createStatusItem: Set menu for status item %@", myVPNMenu.description)
 
-    // Get views of the yellow triangle and the green dot to overlay the icon
-    CGFloat width  = button.frame.size.width;
-    CGFloat height = button.frame.size.height;
-    NSString * fileType = NSFileTypeForHFSTypeCode(kAlertCautionIcon);
-    NSImage  * yellowTriangleImage = [[NSWorkspace sharedWorkspace] iconForFileType: fileType];
-    if (  yellowTriangleImage  ) {
-        [yellowTriangleImage setTemplate: NO];
-        NSRect yellowTriangleFrame  = NSMakeRect(0, height / 2,  width / 2, height / 2 );
-        yellowTriangleView = [self viewWithImage: yellowTriangleImage
-                                           frame: yellowTriangleFrame];
-        [self showYellowTriangleIfAppropriate];
-        [button addSubview: yellowTriangleView];
+    if (  [gTbDefaults boolForKey: @"DEBUG-inhibitAddingSubviewsToStatusIcon"] ) {
+        TBLog(@"DB-SI", @"createStatusItem: not adding subview for yellowTriangleImage or areConnectedIndicator");
     } else {
-        TBLog(@"DB-SI", @"createStatusItem: Could not find yellowTriangleImage");
-    }
 
-    if (  areConnectedIndicatorImage  ) {
-        NSRect areConnectedFrame  = NSMakeRect(-1, 0,  width, height );
-        areConnectedIndicatorView = [self viewWithImage: areConnectedIndicatorImage
-                                                  frame: areConnectedFrame];
-        [self showGreenAreConnectedIndicatorIfAppropriate];
-        [button addSubview: areConnectedIndicatorView];
-    } else {
-        TBLog(@"DB-SI", @"createStatusItem: areConnectedIndicatorImage is nil");
+        // Get views of the yellow triangle and the green dot to overlay the icon
+        CGFloat width  = button.frame.size.width;
+        CGFloat height = button.frame.size.height;
+        NSString * fileType = NSFileTypeForHFSTypeCode(kAlertCautionIcon);
+        NSImage  * yellowTriangleImage = [[NSWorkspace sharedWorkspace] iconForFileType: fileType];
+        if (  yellowTriangleImage  ) {
+            [yellowTriangleImage setTemplate: NO];
+            NSRect yellowTriangleFrame  = NSMakeRect(0, height / 2,  width / 2, height / 2 );
+            yellowTriangleView = [self viewWithImage: yellowTriangleImage
+                                               frame: yellowTriangleFrame];
+            [self showYellowTriangleIfAppropriate];
+            [button addSubview: yellowTriangleView];
+            TBLog(@"DB-SI", @"createStatusItem: added subview for yellowTriangleImage");
+        } else {
+            TBLog(@"DB-SI", @"createStatusItem: Could not find yellowTriangleImage");
+        }
+
+        if (  areConnectedIndicatorImage  ) {
+            NSRect areConnectedFrame  = NSMakeRect(-1, 0,  width, height );
+            areConnectedIndicatorView = [self viewWithImage: areConnectedIndicatorImage
+                                                      frame: areConnectedFrame];
+            [self showGreenAreConnectedIndicatorIfAppropriate];
+            [button addSubview: areConnectedIndicatorView];
+            TBLog(@"DB-SI", @"createStatusItem: added subview for areConnectedIndicator");
+        } else {
+            TBLog(@"DB-SI", @"createStatusItem: areConnectedIndicatorImage is nil");
+        }
     }
 }
 
