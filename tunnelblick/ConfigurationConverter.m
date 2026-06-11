@@ -1508,7 +1508,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
         return CommandOptionsError;  // Error was already logged to the Console
     }
     
-    // Append newline to file if it doesn't aleady end in one (simplifies parsing)
+    // Append newline to file if it doesn't already end in one (simplifies parsing)
     if (  ! [configString hasSuffix: @"\n"]  ) {
         [configString appendString: @"\n"];
     }
