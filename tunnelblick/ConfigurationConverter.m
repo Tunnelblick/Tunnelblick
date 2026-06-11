@@ -1478,6 +1478,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     return inBlacklist;
 }
 
+-(void) releaseTokens {
+
+    [tokens release];
+    tokens = nil;
+}
+
 -(CommandOptionsStatus) commandOptionsStatusForOpenvpnConfigurationAtPath: (NSString *) path
                                                                  fromTblk: (NSString *) tblkPath {
 
@@ -1518,6 +1524,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     tokens = [[self getTokens] copy];
     if (  ! tokens  ) {
         NSLog(@"commandOptionsStatusForOpenvpnConfigurationAtPath: Could not get tokens for %@", configPath);
+        [self releaseTokens];
         return CommandOptionsError;
     }
     
@@ -1546,6 +1553,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 					}
 					if (  tokenIx >= [tokens count]  ) {
 						NSLog(@"Option '%@' was not terminated in %@", option, path);
+                        [self releaseTokens];
 						return CommandOptionsError;
 					}
 					newOption = [[tokens objectAtIndex: tokenIx] stringValue];
@@ -1554,6 +1562,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 				
 				if (  [ConfigurationConverter optionIsInBlacklist: option]  ) {
 					NSLog(@"Option '%@' can execute code; found in %@", option, path);
+                    [self releaseTokens];
 					return CommandOptionsYes;
 				}
 				
@@ -1572,6 +1581,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
         }
     }
     
+    [self releaseTokens];
     return (  haveUnknown ? CommandOptionsUnknown : CommandOptionsNo  );
 }
 
