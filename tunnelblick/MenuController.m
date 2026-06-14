@@ -1462,6 +1462,12 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
 -(void) showYellowTriangleIfAppropriate {
 
+    if (  ! [NSThread isMainThread]  ) {
+        TBLog(@"DB-SI", @"showYellowTriangleIfAppropriate invoked but not on main thread; stack trace = %@", callStack());
+        [self performSelectorOnMainThread: @selector(showYellowTriangleIfAppropriate)
+                               withObject: nil waitUntilDone: NO];
+    }
+
     BOOL hideYellowTriangle = (   warningsItem.isHidden
                                && ( ! tbUpdatesAreAvailable )
                                && configUpdateAvailableItem.isHidden);
@@ -1479,6 +1485,12 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 }
 
 -(void) showGreenAreConnectedIndicatorIfAppropriate {
+
+    if (  ! [NSThread isMainThread]  ) {
+        TBLog(@"DB-SI", @"showGreenAreConnectedIndicatorIfAppropriate invoked but not on main thread; stack trace = %@", callStack());
+        [self performSelectorOnMainThread: @selector(showGreenAreConnectedIndicatorIfAppropriate)
+                               withObject: nil waitUntilDone: NO];
+    }
 
     BOOL connected = [lastState isEqualToString: @"CONNECTED"];
     BOOL showPreference = [gTbDefaults boolForKey: @"showGreenAreConnectedIndicator"];
