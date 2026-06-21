@@ -43,9 +43,9 @@ exit_if_suspicious_domain_name() {
     # Prevent script injection attacks from a domain name supplied by the OpenVPN server.
     #
     # This is a very loose test, it exits after outputting an error message if a domain name
-    # contains characters that don't belong in a domain name.
+    # contains any characters other than spaces or characters which don't belong in a domain name.
     #
-    # Allows empty string or any sequence of characters 0-9, A-F, a-f, "." and "-", and any Unicode characters.
+    # Allows empty string or any sequence of characters 0-9, A-F, a-f, ".", "-", space, and any Unicode characters.
     #
     # Will allow (for example) "", "-", "9", all of which are invalid domain names, as well as domain
     # names that are longer than 63 characters.
@@ -83,7 +83,8 @@ exit_if_suspicious_domain_name() {
         fi
 
         if [ "$ch" = "." ] \
-        || [ "$ch" = "-" ] ; then # . or -
+        || [ "$ch" = "-" ] \
+        || [ "$ch" = " " ] ; then # . or - or space
             continue;
         fi
 
