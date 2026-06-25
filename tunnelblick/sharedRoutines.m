@@ -629,7 +629,7 @@ BOOL checkOwnedByRootWheel(NSString * path)
 
 BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_t gid, BOOL traverseLink)
 {
-    // NOTE: THIS ROUTINE MAY ONLY BE USED FROM installer BECAUSE IT REQUIRES ROOT PERMISSIONS.
+    // NOTE: THIS ROUTINE REQUIRES ROOT PERMISSIONS.
     //       It is included in sharedRoutines because when ConfigurationConverter's processPathRange()
     //       function is called from installer, it calls createDirWithPermissionAndOwnership(), which
     //       uses checkSetOwnership(), which uses checkSetItemOwnership().
@@ -670,7 +670,7 @@ BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_
 
 BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
 {
-    // NOTE: THIS ROUTINE MAY ONLY BE USED FROM installer BECAUSE IT REQUIRES ROOT PERMISSIONS.
+    // NOTE: THIS ROUTINE REQUIRES ROOT PERMISSIONS.
     //       It is included in sharedRoutines because when ConfigurationConverter's processPathRange()
     //       function is called from installer, it calls createDirWithPermissionAndOwnership(), which
     //       uses checkSetOwnership().
