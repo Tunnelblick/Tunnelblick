@@ -764,6 +764,9 @@ typedef enum
 // Debugging macro to NSLog if a specified preference is TRUE
 #define TBLog(preference_key, ...)     if (  [gTbDefaults boolForKey: preference_key] || [gTbDefaults boolForKey: @"DB-ALL"]  ) NSLog(preference_key @": "  __VA_ARGS__);
 
+//*************************************************************************************************
+#define Log(...)    appendLog([NSString stringWithFormat: __VA_ARGS__])
+
 
 //*************************************************************************************************
 // Macros to make it easy to use nil values in dictionaries or arrays
