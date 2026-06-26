@@ -90,6 +90,8 @@ BOOL makeUnlockedAtPath(NSString * path);
 
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser);
 
+BOOL secureOneFolderMaintainOwnership(NSString * path, BOOL isPrivate, uid_t theUser, BOOL maintainOwnership);
+
 NSDictionary * getSafeEnvironment(NSString * configName, unsigned configLocCode, NSDictionary * additionalEntries);
 
 uint64_t nowAbsoluteNanoseconds(void);

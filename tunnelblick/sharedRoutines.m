@@ -1064,12 +1064,13 @@ BOOL makeUnlockedAtPath(NSString * path)
 
     return TRUE;
 }
-
-BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
+BOOL secureOneFolderMaintainOwnership(NSString * path, BOOL isPrivate, uid_t theUser, BOOL maintainOwnership)
 {
     // Makes sure that ownership/permissions of a FOLDER AND ITS CONTENTS are secure (a .tblk, or the shared, Deploy, private, or alternate config folder)
     //
     // 'theUser' is used only if 'isPrivate' is TRUE. It should be the uid of the user who should own the folder and its contents.
+    //
+    // If maintainOwnership is TRUE, ownership of items is not modified
     //
     // Returns YES if successfully secured everything, otherwise returns NO
     //
@@ -1123,7 +1124,9 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
         otherPerms          = PERMS_SECURED_OTHER;
     }
 
-    BOOL result = checkSetOwnership(path, YES, user, group);
+    BOOL result = (  maintainOwnership
+                   ? YES
+                   : checkSetOwnership(path, YES, user, group)  );
 
     result = result && checkSetPermissions(path, folderPerms, YES);
 
@@ -1166,6 +1169,11 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
     }
 
     return result;
+}
+
+BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
+{
+    return secureOneFolderMaintainOwnership(path, isPrivate, theUser, NO);
 }
 
 NSData * availableDataOrError(NSFileHandle * file) {
