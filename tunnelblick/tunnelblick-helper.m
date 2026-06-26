@@ -1842,10 +1842,15 @@ static void compareShadowCopy (NSString * fileName) {
 }
 
 static void revertToShadow (NSString * fileName) {
-	// Compares the specified private configuration .tblk with its shadow copy.
-	// Returns the results as one of the following result codes:
-    //      OPENVPNSTART_COMPARE_CONFIG_SAME
-    //      OPENVPNSTART_COMPARE_CONFIG_DIFFERENT
+
+	// Reverts the specified private configuration .tblk to its shadow copy.
+	//
+    // fileName is the display name of the configuration, plus the .tblk extension
+    //
+    // Returns the results as one of the following result codes:
+    //      OPENVPNSTART_REVERT_CONFIG_OK
+    //      OPENVPNSTART_REVERT_CONFIG_MISSING
+    //      a different integer, indicating an unexpected error.
 
 	if (  gUidOfUser == 0  ) {
 		fprintf(stderr, "Invalid cfgLocCode (revertToShadow not allowed when running as root)\n");
