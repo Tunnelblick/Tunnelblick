@@ -239,8 +239,8 @@ static BOOL openLog(BOOL clearLog) {
 void appendLog(NSString * s) {
 
     if (  gLogFile != NULL  ) {
-        NSString * now = [[NSDate date] tunnelblickUserLogRepresentation];
-        fprintf(gLogFile, "%s: %s\n", [now UTF8String], [s UTF8String]);
+        NSString * now = NSDate.date.tunnelblickUserLogRepresentation;
+        fprintf(gLogFile, "%s: %s\n", now.UTF8String, s.UTF8String);
     }
 
     NSLog(@"%@", s);
@@ -249,9 +249,9 @@ void appendLog(NSString * s) {
 static void errorExit(void) {
 
 #ifdef TBDebug
-    appendLog([NSString stringWithFormat: @"errorExit(): Stack trace: %@", callStack()]);
+    Log(@"errorExit(): Stack trace: %@", callStack());
 #else
-    appendLog(@"Tunnelblick installer failed");
+    Log(@"Tunnelblick installer failed");
 #endif
 
     storeAuthorizedDoneFileAndExit(EXIT_FAILURE);
@@ -276,7 +276,7 @@ static const char * fileSystemRepresentationFromPath(NSString * path) {
 
     const char * pathC = path.fileSystemRepresentation;
     if (  ! pathC  ) {
-        appendLog([NSString stringWithFormat: @"Could not get filesystem representation for %@", path]);
+        Log(@"Could not get filesystem representation for %@", path);
         errorExit();
     }
 
@@ -327,14 +327,14 @@ static void resolveSymlinksInPath(NSString * targetPath) {
                      || [resolvedPath hasPrefix: L_AS_T_USERS]
                      || [resolvedPath hasPrefix: gDeployPath]
                      )  ) {
-                appendLog([NSString stringWithFormat: @"Symlink is not to an allowed path: %@", resolvedPath]);
+                Log(@"Symlink is not to an allowed path: %@", resolvedPath);
                 errorExit();
             }
 
             NSData * data = [gFileMgr contentsAtPath: resolvedPath];
 
             if (  ! data  ) {
-                appendLog([NSString stringWithFormat: @"Could not get contents of %@", resolvedPath]);
+                Log(@"Could not get contents of %@", resolvedPath);
                 errorExit();
             }
 
@@ -347,9 +347,9 @@ static void resolveSymlinksInPath(NSString * targetPath) {
                                          nil];
 
             if (  [gFileMgr createFileAtPath: fullPath contents: data attributes: attributes]  ) {
-                appendLog([NSString stringWithFormat: @"Replaced symlink at %@\n with copy of %@", fullPath, resolvedPath]);
+                Log(@"Replaced symlink at %@\n with copy of %@", fullPath, resolvedPath);
             } else {
-                appendLog([NSString stringWithFormat: @"Could not replace symlink at %@\n     with a copy of %@", fullPath, resolvedPath]);
+                Log(@"Could not replace symlink at %@\n     with a copy of %@", fullPath, resolvedPath);
                 errorExit();
             }
         }
@@ -384,7 +384,7 @@ NSString * lastPartOfPath(NSString * path) {
             if (  [path length] > [configFolder length]  ) {
                 return [path substringFromIndex: [configFolder length]+1];
             } else {
-                appendLog([NSString stringWithFormat: @"No display name in path '%@'", path]);
+                Log(@"No display name in path '%@'", path);
                 return @"X";
             }
         }
@@ -431,10 +431,10 @@ static void structureTblkProperly(NSString * path) {
 
     for (  NSUInteger i=0; i<[sourcePaths count]; i++  ) {
         if (  ! [gFileMgr tbMovePath: sourcePaths[i] toPath: targetPaths[i] handler: nil]  ) {
-            appendLog([NSString stringWithFormat: @"Unable to move %@ to %@", sourcePaths[i], targetPaths[i]]);
+            Log(@"Unable to move %@ to %@", sourcePaths[i], targetPaths[i]);
             errorExit();
         } else {
-            appendLog([NSString stringWithFormat: @"Moved %@ to %@", sourcePaths[i], targetPaths[i]]);
+            Log(@"Moved %@ to %@", sourcePaths[i], targetPaths[i]);
         }
     }
 }
@@ -448,7 +448,7 @@ static void errorExitIfAnySymlinkInPath(NSString * path) {
             NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
             if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
                 if (  ! [curPath hasSuffix: @"/Tunnelblick.app/Contents/Resources/openvpn/default"]  ) {
-                    appendLog([NSString stringWithFormat: @"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path]);
+                    Log(@"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path);
                     errorExit();
                 }
             }
@@ -466,7 +466,7 @@ static void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * pa
         return;
     }
 
-    appendLog([NSString stringWithFormat: @"File does not exist or is not readable: %@", path]);
+    Log(@"File does not exist or is not readable: %@", path);
     errorExit();
 }
 
@@ -480,7 +480,7 @@ void removeExtendedAttributes(NSString * tunnelblickAppPath) {
     NSArray * arguments = @[@"-crs", tunnelblickAppPath];
     OSStatus status = runTool(TOOL_PATH_FOR_XATTR, arguments, nil, nil);
     if (  status != EXIT_SUCCESS  ) {
-        appendLog([NSString stringWithFormat: @"'xattr -crs %@' failed", tunnelblickAppPath]);
+        Log(@"'xattr -crs %@' failed", tunnelblickAppPath);
         errorExit();
     }
 }
@@ -505,7 +505,7 @@ static void securelyDeleteFolder(NSString * path) {
 
     // Now that the folder is empty, remove it
     if (  0 != rmdir(fileSystemRepresentationFromPath(path))  ) {
-        appendLog([NSString stringWithFormat: @"rmdir() failed with error %d ('%s') for path %@", errno, strerror(errno), path]);
+        Log(@"rmdir() failed with error %d ('%s') for path %@", errno, strerror(errno), path);
         errorExit();
     }
 }
@@ -519,7 +519,7 @@ static void securelyDeleteItem(NSString * path) {
     struct stat status;
 
     if (  lstat(pathC, &status) != 0  ) {
-        appendLog([NSString stringWithFormat: @"lstat() failed with error %d ('%s') for %@", errno, strerror(errno), path]);
+        Log(@"lstat() failed with error %d ('%s') for %@", errno, strerror(errno), path);
         errorExit();
     }
 
@@ -528,7 +528,7 @@ static void securelyDeleteItem(NSString * path) {
         securelyDeleteFolder(path);
     } else {
         if (  0 != unlink(pathC)  ) {
-            appendLog([NSString stringWithFormat: @"unlink() failed with error %d ('%s') for path %@", errno, strerror(errno), path]);
+            Log(@"unlink() failed with error %d ('%s') for path %@", errno, strerror(errno), path);
             errorExit();
         }
     }
@@ -556,27 +556,27 @@ static void securelyRename(NSString * sourcePath, NSString * targetPath) {
 
     if (  renamex_npWorks  ) {
         if (  0 != renamex_np(fileSystemRepresentationFromPath(sourcePath), fileSystemRepresentationFromPath(targetPath), (RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ){
-            appendLog([NSString stringWithFormat: @"renamex_np() failed with error %d ('%s') trying to rename %@ to %@",
-                       errno, strerror(errno), sourcePath, targetPath]);
+            Log(@"renamex_np() failed with error %d ('%s') trying to rename %@ to %@",
+                       errno, strerror(errno), sourcePath, targetPath);
 
             // Source and target may be on different volumes. Try moving instead of renaming.
             NSError * err = nil;
             if (  [gFileMgr moveItemAtPath: sourcePath toPath: targetPath error: &err]  ) {
-                appendLog([NSString stringWithFormat: @"Used NSFileManager to move %@ to %@", sourcePath, targetPath]);
+                Log(@"Used NSFileManager to move %@ to %@", sourcePath, targetPath);
             } else {
-                appendLog([NSString stringWithFormat: @"NSFileManager error moving %@ to %@: %@", sourcePath, targetPath, err]);
+                Log(@"NSFileManager error moving %@ to %@: %@", sourcePath, targetPath, err);
                 errorExit();
             }
         } else {
-            appendLog([NSString stringWithFormat: @"renamex_np() succeeded renaming %@ to %@", sourcePath, targetPath]);
+            Log(@"renamex_np() succeeded renaming %@ to %@", sourcePath, targetPath);
         }
     } else {
         if (  0 != rename(fileSystemRepresentationFromPath(sourcePath), fileSystemRepresentationFromPath(targetPath))  ){
-            appendLog([NSString stringWithFormat: @"rename() failed with error %d ('%s') trying to rename %@ to %@",
-                       errno, strerror(errno), sourcePath, targetPath]);
+            Log(@"rename() failed with error %d ('%s') trying to rename %@ to %@",
+                       errno, strerror(errno), sourcePath, targetPath);
             errorExit();
         } else {
-            appendLog([NSString stringWithFormat: @"rename() succeeded renaming %@ to %@", sourcePath, targetPath]);
+            Log(@"rename() succeeded renaming %@ to %@", sourcePath, targetPath);
         }
     }
 }
@@ -592,13 +592,13 @@ static void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * path) {
         int result = mkdir(fileSystemRepresentationFromPath(path), 0700);
         umask(S_IWGRP | S_IWOTH);
         if (  result != 0  ) {
-            appendLog([NSString stringWithFormat: @"mkdir() returned error %d ('%s') for path %@", errno, strerror(errno), path]);
+            Log(@"mkdir() returned error %d ('%s') for path %@", errno, strerror(errno), path);
             errorExit();
         }
     } else {
         int result = open(fileSystemRepresentationFromPath(path), (O_CREAT | O_EXCL | O_APPEND | O_NOFOLLOW_ANY), 0700);
         if (  result < 0  ) {
-            appendLog([NSString stringWithFormat: @"open() returned error %d ('%s') for path %@", errno, strerror(errno), path]);
+            Log(@"open() returned error %d ('%s') for path %@", errno, strerror(errno), path);
             errorExit();
         }
         close(result); // Ignore errors
@@ -634,9 +634,9 @@ static void securelyCreateFolderAndParents(NSString * path) {
         errorExit();
     }
 
-    appendLog([NSString stringWithFormat: @"Created %@ with owner %@:%@ (%@:%@) and permissions 0%lo", path,
+    Log(@"Created %@ with owner %@:%@ (%@:%@) and permissions 0%lo", path,
                [attributes fileOwnerAccountName], [attributes fileGroupOwnerAccountName],
-               [attributes fileOwnerAccountID],   [attributes fileGroupOwnerAccountID],   [attributes filePosixPermissions]]);
+               [attributes fileOwnerAccountID],   [attributes fileGroupOwnerAccountID],   [attributes filePosixPermissions]);
 }
 
 static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
@@ -650,7 +650,7 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     // Open the item as READ-ONLY (we're not changing it now)
     int fd = open(targetPathC, (O_RDONLY | O_NOFOLLOW_ANY));
     if (  fd == -1  ) {
-        appendLog([NSString stringWithFormat: @"Could not open %s", targetPathC]);
+        Log(@"Could not open %s", targetPathC);
         errorExit();
     }
 
@@ -661,15 +661,15 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
         || (status.st_uid != 0)
         || (status.st_nlink != (isDir ? 2 : 1))
         || (status.st_mode  != (isDir ? S_IFDIR | 0700 : S_IFREG | 0700))  ) {
-        appendLog([NSString stringWithFormat: @"Item has been modified after being created at path %@\nowner = %u; group = %u; nlink = %u; mode = 0%o",
-                   targetPath, status.st_uid, status.st_gid, status.st_nlink, status.st_mode]);
+        Log(@"Item has been modified after being created at path %@\nowner = %u; group = %u; nlink = %u; mode = 0%o",
+                   targetPath, status.st_uid, status.st_gid, status.st_nlink, status.st_mode);
         errorExit();
     }
 
     // Change owner group (owner is already 0)
     result = fchown(fd, 0, 0);
     if (  result != 0  ) {
-        appendLog([NSString stringWithFormat: @"lchown() returned error %d ('%s') for path %s", errno, strerror(errno), targetPathC]);
+        Log(@"fchown() returned error %d ('%s') for path %s", errno, strerror(errno), targetPathC);
         errorExit();
     }
 
@@ -678,7 +678,7 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     mode_t mode = [[sourceAttributes objectForKey: NSFilePosixPermissions] unsignedIntValue];
     result = fchmod(fd, mode);
     if (  result != 0  ) {
-        appendLog([NSString stringWithFormat: @"chmod() returned error %d ('%s') for path %s", errno, strerror(errno), targetPathC]);
+        Log(@"fchmod() returned error %d ('%s') for path %s", errno, strerror(errno), targetPathC);
         errorExit();
     }
 
@@ -693,8 +693,8 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
         || (status.st_gid != 0)
         || (status.st_nlink != (isDir ? 2 : 1))
         || (status.st_mode  != mode)  ) {
-        appendLog([NSString stringWithFormat: @"Failed to modify group and/or permissions at path %@\nowner = %u; group = %u; nlink = %u; mode = 0%o",
-                   targetPath, status.st_uid, status.st_gid, status.st_nlink, status.st_mode]);
+        Log(@"Failed to modify group and/or permissions at path %@\nowner = %u; group = %u; nlink = %u; mode = 0%o",
+                   targetPath, status.st_uid, status.st_gid, status.st_nlink, status.st_mode);
         errorExit();
     }
 
@@ -707,7 +707,7 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     // Get creation and modified dates
     result = lstat(sourcePathC, &status);
     if (  result != 0  ) {
-        appendLog([NSString stringWithFormat: @"lstat() failed for path %s", sourcePathC]);
+        Log(@"lstat() failed for path %s", sourcePathC);
         errorExit();
     }
     struct timespec createdTS  = status.st_birthtimespec;
@@ -720,7 +720,7 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     struct timeval createdTimevals[2] = {createdTV, createdTV};
     result = futimes(fd, createdTimevals);
     if (  result != 0  ) {
-        appendLog([NSString stringWithFormat: @"lutimes() #1 failed for %s", targetPathC]);
+        Log(@"lutimes() #1 failed for %s", targetPathC);
         errorExit();
     }
 
@@ -731,7 +731,7 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     struct timeval modifiedTimevals[2] = {modifiedTV, modifiedTV};
     result = futimes(fd, modifiedTimevals);
     if (  result != 0  ) {
-        appendLog([NSString stringWithFormat: @"lutimes() #1 failed for %s", targetPathC]);
+        Log(@"lutimes() #1 failed for %s", targetPathC);
         errorExit();
     }
 
@@ -763,20 +763,20 @@ static void securelyCopyFileOrFolderContents(BOOL isDir, NSString * sourcePath, 
                                               options: (NSDataReadingUncached | NSDataReadingMappedIfSafe)
                                                 error: nil];
         if (  ! data  ) {
-            appendLog([NSString stringWithFormat: @"Could not read data from %@", sourcePath]);
+            Log(@"Could not read data from %@", sourcePath);
             errorExit();
         }
 
         NSFileHandle * fh = [NSFileHandle fileHandleForWritingAtPath: targetPath];
         if (  ! fh  ) {
-            appendLog([NSString stringWithFormat: @"Could not get file handle to write to %@", targetPath]);
+            Log(@"Could not get file handle to write to %@", targetPath);
             errorExit();
         }
 
         @try {
             [fh writeData: data];
         } @catch (NSException *exception exception) {
-            appendLog([NSString stringWithFormat: @"Could not write data (%@) to %@", exception, targetPath]);
+            Log(@"Could not write data (%@) to %@", exception, targetPath);
             [fh release];
             errorExit();
         }
@@ -797,7 +797,7 @@ static void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
     BOOL isDir;
 
     if (  ! [gFileMgr fileExistsAtPath: sourcePath isDirectory: &isDir]  ) {
-        appendLog([NSString stringWithFormat: @"Does not exist: %@", sourcePath]);
+        Log(@"Does not exist: %@", sourcePath);
         errorExit();
     }
 
@@ -823,7 +823,7 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     BOOL isDir;
 
     if (  ! [gFileMgr fileExistsAtPath: sourcePath isDirectory: &isDir]  ) {
-        appendLog([NSString stringWithFormat: @"Does not exist: %@", sourcePath]);
+        Log(@"Does not exist: %@", sourcePath);
         errorExit();
     }
 
@@ -852,18 +852,18 @@ static BOOL testRenamex_np(NSString * folder) {
     NSString * test1Path = [folder stringByAppendingPathComponent: @"renamex_np-test-target-1"];
     securelyDeleteItemIfItExists(test1Path);
     if (  ! [gFileMgr createFileAtPath: test1Path contents: nil attributes: nil]  ) {
-        appendLog([NSString stringWithFormat: @"testRenamex_np: Can't create renamex_np-test-target-1 in %@", folder]);
+        Log(@"testRenamex_np: Can't create renamex_np-test-target-1 in %@", folder);
     }
     NSString * test2Path = [folder stringByAppendingPathComponent: @"renamex_np-test-target-2"];
     securelyDeleteItemIfItExists(test2Path);
     if (  ! [gFileMgr createFileAtPath: test2Path contents: nil attributes: nil]  ) {
-        appendLog([NSString stringWithFormat: @"testRenamex_np: Can't create renamex_np-test-target-2 in %@", folder]);
+        Log(@"testRenamex_np: Can't create renamex_np-test-target-2 in %@", folder);
     }
 
     // Try to rename test1 to test2. This should fail because test2 exists and the RENAME_EXCL option is used
     if (  0 == renamex_np(fileSystemRepresentationFromPath(test1Path), fileSystemRepresentationFromPath(test2Path),(RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ) {
         // renamex_np succeeded but should have failed
-        appendLog([NSString stringWithFormat: @"renamex_np() test #1 failed for %@", folder]);
+        Log(@"renamex_np() test #1 failed for %@", folder);
         securelyDeleteItemIfItExists(test1Path);
         securelyDeleteItemIfItExists(test2Path);
         return FALSE;
@@ -874,7 +874,7 @@ static BOOL testRenamex_np(NSString * folder) {
     // Try to rename test1 to test2. This should now succeed because test2 does not exist
     if (  0 != renamex_np(fileSystemRepresentationFromPath(test1Path), fileSystemRepresentationFromPath(test2Path),(RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ) {
         // renamex_np() failed
-        appendLog([NSString stringWithFormat: @"renamex_np() test #2 failed for %@", folder]);
+        Log(@"renamex_np() test #2 failed for %@", folder);
         securelyDeleteItemIfItExists(test1Path);
         securelyDeleteItemIfItExists(test2Path);
         return FALSE;
@@ -894,7 +894,7 @@ static NSString * userUsername(void) {
         return gUsername;
     }
 
-    appendLog(@"Tried to access userUsername, which was not set");
+    Log(@"Tried to access userUsername, which was not set");
     errorExit();
     return nil; // Satisfy analyzer
 }
@@ -905,7 +905,7 @@ static NSString * userHomeDirectory(void) {
         return gHomeDirectory;
     }
 
-    appendLog(@"Tried to access userHomeDirectory, which was not set");
+    Log(@"Tried to access userHomeDirectory, which was not set");
     errorExit();
     return nil; // Satisfy analyzer
 }
@@ -916,7 +916,7 @@ static NSString * userPrivatePath(void) {
         return gPrivatePath;
     }
 
-    appendLog(@"Tried to access userPrivatePath, which was not set");
+    Log(@"Tried to access userPrivatePath, which was not set");
     errorExit();
     return nil; // Satisfy analyzer
 }
@@ -927,7 +927,7 @@ static uid_t userUID(void) {
         return gUserID;
     }
 
-    appendLog(@"Tried to access userUID, which was not set");
+    Log(@"Tried to access userUID, which was not set");
     errorExit();
     return 0; // Satisfy analyzer
 }
@@ -938,7 +938,7 @@ static gid_t userGID(void) {
         return gGroupID;
     }
 
-    appendLog(@"Tried to access userGID, which was not set");
+    Log(@"Tried to access userGID, which was not set");
     errorExit();
     return 0; // Satisfy analyzer
 }
@@ -950,20 +950,20 @@ static void getUidAndGidFromUsername(NSString * username, uid_t * uid_ptr, gid_t
 
     const char * username_C = [username cStringUsingEncoding: NSASCIIStringEncoding];
     if(  username_C == NULL  ) {
-        appendLog([NSString stringWithFormat: @"Failed to convert username '%@' to an ASCII username.", username]);
+        Log(@"Failed to convert username '%@' to an ASCII username.", username);
         errorExit();
     }
 
     struct passwd * pwd = calloc(1, sizeof(struct passwd));
     if(  pwd == NULL  ) {
-        appendLog(@"Failed to allocate struct passwd for getpwnam_r.");
+        Log(@"Failed to allocate struct passwd for getpwnam_r.");
         errorExit();
     }
 
     size_t buffer_len = sysconf(_SC_GETPW_R_SIZE_MAX) * sizeof(char);
     char *buffer = malloc(buffer_len);
     if(  buffer == NULL  ) {
-        appendLog(@"Failed to allocate buffer for getpwnam_r.");
+        Log(@"Failed to allocate buffer for getpwnam_r.");
         free(pwd);
         errorExit();
     }
@@ -972,13 +972,13 @@ static void getUidAndGidFromUsername(NSString * username, uid_t * uid_ptr, gid_t
     struct passwd * result = pwd;  // getpwnam_r overwrites this copy of pwd but we keep pwd so we can free it later
     int return_status = getpwnam_r(username_C, pwd, buffer, buffer_len, &result);
     if (  return_status != 0  ) {
-        appendLog([NSString stringWithFormat: @"getpwnam_r returned error %d; errno = %d ('%s')", return_status, errno, strerror(errno)]);
+        Log(@"getpwnam_r returned error %d; errno = %d ('%s')", return_status, errno, strerror(errno));
         free(pwd);
         free(buffer);
         errorExit();
     }
     if(  result == NULL  ) {
-        appendLog([NSString stringWithFormat: @"getpwnam_r failed to find entry for '%s'. (First argument to installer must be a username.)", username_C]);
+        Log(@"getpwnam_r failed to find entry for '%@'. (First argument to installer must be a username.)", username);
         free(pwd);
         free(buffer);
         errorExit();
@@ -991,7 +991,7 @@ static void getUidAndGidFromUsername(NSString * username, uid_t * uid_ptr, gid_t
     free(buffer);
 
     if (  *uid_ptr == 0  ) {
-        appendLog(@"Cannot run installer using username 'root'");
+        Log(@"Cannot run installer using username 'root'");
         errorExit();
     }
 }
@@ -1092,7 +1092,7 @@ static void setupUserGlobals(int argc, char *argv[], unsigned operation) {
                          stringByAppendingPathComponent: @"Configurations"]
                         retain];
         gGroupID = privateFolderGroup(gPrivatePath);
-        appendLog([NSString stringWithFormat: @"Determined username '%@' from getuid(): %u", gUsername, gUserID]);
+        Log(@"Determined username '%@' from getuid(): %u", gUsername, gUserID);
 
     } else if (  operation == INSTALLER_INSTALL_PRIVATE_CONFIG  ) {
         //
@@ -1100,22 +1100,22 @@ static void setupUserGlobals(int argc, char *argv[], unsigned operation) {
         //
 
         if (  argc < 3  ) {
-            appendLog(@"Must provide path and username when copying a private configuration");
+            Log(@"Must provide path and username when copying a private configuration");
             errorExit();
         }
 
         gUsername = [[NSString stringWithCString: argv[2] encoding: NSASCIIStringEncoding] retain];
         if (   ( gUsername == nil )
             || ( ! usernameIsValid(gUsername) )  ) {
-            appendLog(@"Second argument must be a valid username");
+            Log(@"Second argument must be a valid username");
             errorExit();
         }
 
         setupUserGlobalsFromGUsername();
         if (  gUserID == 0  ) {
-            appendLog([NSString stringWithFormat: @"Could not get uid for user '%@' (determined from second argument)", gUsername]);
+            Log(@"Could not get uid for user '%@' (determined from second argument)", gUsername);
         } else {
-            appendLog([NSString stringWithFormat: @"Determined username '%@' from second argument", gUsername]);
+            Log(@"Determined username '%@' from second argument", gUsername);
         }
     } else {
         //
@@ -1123,7 +1123,7 @@ static void setupUserGlobals(int argc, char *argv[], unsigned operation) {
         //
         gUsername = [usernameFromPossiblePrivatePath([gFileMgr currentDirectoryPath]) retain];
         if (  gUsername  ) {
-            appendLog([NSString stringWithFormat: @"Determined username '%@' from current working directory", gUsername]);
+            Log(@"Determined username '%@' from current working directory", gUsername);
             setupUserGlobalsFromGUsername();
 
         } else {
@@ -1139,7 +1139,7 @@ static void setupUserGlobals(int argc, char *argv[], unsigned operation) {
             }
 
             if (  gUsername  ) {
-                appendLog([NSString stringWithFormat: @"Determined username '%@' from a path provided as an argument", gUsername]);
+                Log(@"Determined username '%@' from a path provided as an argument", gUsername);
                 setupUserGlobalsFromGUsername();
             } else {
                 //
@@ -1151,7 +1151,7 @@ static void setupUserGlobals(int argc, char *argv[], unsigned operation) {
                 gUsername = nil;
                 gPrivatePath = nil;
                 gHomeDirectory = nil;
-                appendLog(@"Unable to determine user. Some operations cannot be performed");
+                Log(@"Unable to determine user. Some operations cannot be performed");
             }
         }
     }
@@ -1164,16 +1164,16 @@ static BOOL isLaunchDaemonLoaded(void) {
 	
 	// Must have uid=0 (not merely euid=0) for runTool(launchctl) to work properly
     if (  setuid(0)  ) {
-		appendLog([NSString stringWithFormat: @"setuid(0) failed; error was %d: '%s'", errno, strerror(errno)]);
+		Log(@"setuid(0) failed; error was %d: '%s'", errno, strerror(errno));
 		errorExit();
 	}
 	if (  setgid(0)  ) {
-		appendLog([NSString stringWithFormat: @"setgid(0) failed; error was %d: '%s'", errno, strerror(errno)]);
+		Log(@"setgid(0) failed; error was %d: '%s'", errno, strerror(errno));
 		errorExit();
 	}
  	
 	if (  ! [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]  ) {
-		appendLog([NSString stringWithFormat: @"No file at %@; assuming tunnelblickd is not loaded", TUNNELBLICKD_PLIST_PATH]);
+		Log(@"No file at %@; assuming tunnelblickd is not loaded", TUNNELBLICKD_PLIST_PATH);
 		return NO;
 	}
 	
@@ -1184,8 +1184,8 @@ static BOOL isLaunchDaemonLoaded(void) {
 	if (   (status != EXIT_SUCCESS)
 		|| [stdoutString isEqualToString: @""]  ) {
         
-        appendLog([NSString stringWithFormat: @"'%@ list' failed or had no output; assuming tunnelblickd is not loaded; error was %d: '%s'\nstdout = '%@'\nstderr='%@'",
-                   TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString]);
+        Log(@"'%@ list' failed or had no output; assuming tunnelblickd is not loaded; error was %d: '%s'\nstdout = '%@'\nstderr='%@'",
+                   TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString);
 		return NO;
 	}
 	
@@ -1197,11 +1197,11 @@ static void loadLaunchDaemonUsingLaunchctl(void) {
 	
 	// Must have uid=0 (not merely euid=0) for runTool(launchctl) to work properly
     if (  setuid(0)  ) {
-		appendLog([NSString stringWithFormat: @"setuid(0) failed; error was %d: '%s'", errno, strerror(errno)]);
+		Log(@"setuid(0) failed; error was %d: '%s'", errno, strerror(errno));
 		errorExit();
 	}
 	if (  setgid(0)  ) {
-		appendLog([NSString stringWithFormat: @"setgid(0) failed; error was %d: '%s'", errno, strerror(errno)]);
+		Log(@"setgid(0) failed; error was %d: '%s'", errno, strerror(errno));
 		errorExit();
 	}
  	
@@ -1212,8 +1212,8 @@ static void loadLaunchDaemonUsingLaunchctl(void) {
 		NSArray * arguments = [NSArray arrayWithObjects: @"unload", TUNNELBLICKD_PLIST_PATH, nil];
 		OSStatus status = runTool(TOOL_PATH_FOR_LAUNCHCTL, arguments, &stdoutString, &stderrString);
 		if (  status != EXIT_SUCCESS  ) {
-			appendLog([NSString stringWithFormat: @"'%@ unload' failed; error was %d: '%s'\nstdout = '%@'\nstderr='%@'",
-                       TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString]);
+			Log(@"'%@ unload' failed; error was %d: '%s'\nstdout = '%@'\nstderr='%@'",
+                       TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString);
 			// Continue even after the error. If we can load, it doesn't matter that we didn't unload.
 		}
 		
@@ -1226,10 +1226,10 @@ static void loadLaunchDaemonUsingLaunchctl(void) {
 	if (   (status == EXIT_SUCCESS)
 		&& [stdoutString isEqualToString: @""]
 		&& [stderrString isEqualToString: @""]  ) {
-		appendLog(@"Used launchctl to load tunnelblickd");
+		Log(@"Used launchctl to load tunnelblickd");
 	} else {
-		appendLog([NSString stringWithFormat: @"'%@ load -w %@' failed; status = %d; errno = %d: '%s'\nstdout = '%@'\nstderr='%@'",
-                   TOOL_PATH_FOR_LAUNCHCTL, TUNNELBLICKD_PLIST_PATH, status, errno, strerror(errno), stdoutString, stderrString]);
+		Log(@"'%@ load -w %@' failed; status = %d; errno = %d: '%s'\nstdout = '%@'\nstderr='%@'",
+                   TOOL_PATH_FOR_LAUNCHCTL, TUNNELBLICKD_PLIST_PATH, status, errno, strerror(errno), stdoutString, stderrString);
 		errorExit();
 	}
 }
@@ -1249,13 +1249,13 @@ static void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
     
     NSData * plistData = [gFileMgr contentsAtPath: TUNNELBLICKD_PLIST_PATH];
     if (  ! plistData  ) {
-        appendLog([NSString stringWithFormat: @"Could not find tunnelblickd launchd .plist at '%@'", TUNNELBLICKD_PLIST_PATH]);
+        Log(@"Could not find tunnelblickd launchd .plist at '%@'", TUNNELBLICKD_PLIST_PATH);
         errorExit();
     }
     NSString * plistHash = sha256HexStringForData(plistData);
     NSData * plistHashData = [NSData dataWithBytes: [plistHash UTF8String] length: [plistHash length]];
     if (  ! [gFileMgr createFileAtPath: L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH contents: plistHashData attributes: hashFileAttributes]  ) {
-        appendLog(@"Could not store tunnelblickd launchd .plist hash");
+        Log(@"Could not store tunnelblickd launchd .plist hash");
         errorExit();
     }
     
@@ -1267,13 +1267,13 @@ static void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
 #endif
     NSData   * daemonData = [gFileMgr contentsAtPath: tunnelblickdPath];
     if (  ! daemonData  ) {
-        appendLog([NSString stringWithFormat: @"Could not find tunnelblickd at '%@'", tunnelblickdPath]);
+        Log(@"Could not find tunnelblickd at '%@'", tunnelblickdPath);
         errorExit();
     }
     NSString * daemonHash = sha256HexStringForData(daemonData);
     NSData * daemonHashData = [NSData dataWithBytes: [daemonHash UTF8String] length: [daemonHash length]];
     if (  ! [gFileMgr createFileAtPath: L_AS_T_TUNNELBLICKD_HASH_PATH contents: daemonHashData attributes: hashFileAttributes]  ) {
-        appendLog(@"Could not store tunnelblickd hash");
+        Log(@"Could not store tunnelblickd hash");
         errorExit();
     }
 }
@@ -1288,7 +1288,7 @@ static void setupLaunchDaemon(void) {
     BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
     NSDictionary * newPlistContents = tunnelblickdPlistDictionaryToUse();
     if (  ! newPlistContents  ) {
-        appendLog(@"Unable to get a model for tunnelblickd.plist");
+        Log(@"Unable to get a model for tunnelblickd.plist");
         errorExit();
     }
     if (  hadExistingPlist  ) {
@@ -1301,9 +1301,9 @@ static void setupLaunchDaemon(void) {
         if (  ! checkSetPermissions(TUNNELBLICKD_PLIST_PATH, PERMS_SECURED_READABLE, YES)  ) {
             errorExit();
         }
-        appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
+        Log(@"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH);
     } else {
-        appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
+        Log(@"Unable to create %@", TUNNELBLICKD_PLIST_PATH);
         errorExit();
     }
 
@@ -1339,7 +1339,7 @@ static BOOL installOrUpdateOneKext(NSString * initialKextInLibraryExtensionsPath
 
         if (   [initialNameOfKext isEqualToString: finalNameOfKext]
             && [gFileMgr contentsEqualAtPath: initialKextInLibraryExtensionsPath andPath: kextInAppPath]  ) {
-            appendLog([NSString stringWithFormat: @"Kext is up-to-date: %@", finalNameOfKext]);
+            Log(@"Kext is up-to-date: %@", finalNameOfKext);
             return NO;
         }
     }
@@ -1364,7 +1364,7 @@ static BOOL installOrUpdateOneKext(NSString * initialKextInLibraryExtensionsPath
     NSString * verb = (  initialKextExists
                        ? @"Updated"
                        : @"Installed");
-    appendLog([NSString stringWithFormat: @"%@ %@ in %@", verb, finalNameOfKext, [finalPath stringByDeletingLastPathComponent]]);
+    Log(@"%@ %@ in %@", verb, finalNameOfKext, [finalPath stringByDeletingLastPathComponent]);
 
     return YES;
 }
@@ -1394,7 +1394,7 @@ static void updateTheKextCaches(void) {
 
     // According to the man page for kextcache, kext caches should be updated by executing 'touch /Library/Extensions'; the following is the equivalent:
     if (  utimes(fileSystemRepresentationFromPath(@"/Library/Extensions"), NULL) != 0  ) {
-        appendLog([NSString stringWithFormat: @"utimes(\"/Library/Extensions\", NULL) failed with error %d ('%s')", errno, strerror(errno)]);
+        Log(@"utimes(\"/Library/Extensions\", NULL) failed with error %d ('%s')", errno, strerror(errno));
         errorExit();
     }
 }
@@ -1407,7 +1407,7 @@ static BOOL uninstallOneKext(NSString * path) {
     
     securelyDeleteItem(path);
 
-    appendLog([NSString stringWithFormat: @"Uninstalled %@", [path lastPathComponent]]);
+    Log(@"Uninstalled %@", path.lastPathComponent);
 
     return YES;
 }
@@ -1421,7 +1421,7 @@ static void uninstallKexts(void) {
     if (  shouldUpdateKextCaches  ) {
         updateTheKextCaches();
     } else {
-        appendLog(@"There are no kexts to uninstall");
+        Log(@"There are no kexts to uninstall");
         gErrorOccurred = TRUE;
     }
 }
@@ -1460,7 +1460,7 @@ static void installOrUpdateKexts(BOOL forceInstall) {
     
     if (   ( ! tunKextInAppPath)
         || ( ! tapKextInAppPath)  ) {
-        appendLog(@"Tun or tap kext not found");
+        Log(@"Tun or tap kext not found");
         errorExit();
     }
     
@@ -1667,18 +1667,18 @@ static void copyTheApp(void) {
     errorExitIfAnySymlinkInPath(@"/Applications");
 
     if (  [sourcePath isEqualToString: APPLICATIONS_TB_APP]  ) {
-        appendLog(@"Not copying app because this copy is already where it should be copied");
+        Log(@"Not copying app because this copy is already where it should be copied");
     } else {
         if (  [gFileMgr fileExistsAtPath: APPLICATIONS_TB_APP]  ) {
             if (  [gFileMgr fileExistsAtPath: L_AS_T_TB_OLD]  ) {
                 if (  [gFileMgr tbRemoveFileAtPath: L_AS_T_TB_OLD handler: nil]  ) {
-                    appendLog([NSString stringWithFormat: @"Deleted %@", L_AS_T_TB_OLD]);
+                    Log(@"Deleted %@", L_AS_T_TB_OLD);
                 } else {
                     errorExit();
                 }
             }
             if (  [gFileMgr tbMovePath: APPLICATIONS_TB_APP toPath: L_AS_T_TB_OLD handler: nil]  ) {
-                appendLog([NSString stringWithFormat: @"Moved %@ to %@", APPLICATIONS_TB_APP, L_AS_T_TB_OLD]);
+                Log(@"Moved %@ to %@", APPLICATIONS_TB_APP, L_AS_T_TB_OLD);
             } else {
                 errorExit();
             }
@@ -1686,7 +1686,7 @@ static void copyTheApp(void) {
     }
 
     if (  [gFileMgr tbCopyPath: sourcePath toPath: APPLICATIONS_TB_APP handler: nil]  ) {
-        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, APPLICATIONS_TB_APP]);
+        Log(@"Copied %@ to %@", sourcePath, APPLICATIONS_TB_APP);
     } else {
         errorExit();
     }
@@ -1721,18 +1721,18 @@ static void copyAppToL_AS_T(NSString * sourcePath) {
             NSError * err = nil;
             NSDictionary * dict = [gFileMgr attributesOfItemAtPath: sourcePath error: &err];
             if (  [dict.fileType isEqualToString: NSFileTypeSymbolicLink]  ) {
-                appendLog(@"Updating from 7.0:");
+                Log(@"Updating from 7.0:");
                 // Delete the symlink
                 int result = unlink(sourcePath.fileSystemRepresentation);
                 if (  result != 0 ) {
-                    appendLog([NSString stringWithFormat: @"Error %u ('%s') trying to delete symlink at %@", errno, strerror(errno), sourcePath]);
+                    Log(@"Error %u ('%s') trying to delete symlink at %@", errno, strerror(errno), sourcePath);
                     errorExit();
                 }
-                appendLog([NSString stringWithFormat: @"    Deleted the symlink at %@", sourcePath]);
+                Log(@"    Deleted the symlink at %@", sourcePath);
                 NSString * temp = targetPath;
                 targetPath = sourcePath;
                 sourcePath = temp;
-                appendLog(@"    Swapped source and target paths");
+                Log(@"    Swapped source and target paths");
                 secureTheApp([[sourcePath stringByAppendingPathComponent: @"Contents"]
                               stringByAppendingPathComponent: @"Resources"], NO);
                 updateFrom7 = TRUE;
@@ -1744,15 +1744,15 @@ static void copyAppToL_AS_T(NSString * sourcePath) {
         errorExit();
     }
     if (  [gFileMgr tbCopyItemAtPath: sourcePath toBeOwnedByRootWheelAtPath: targetPath]) {
-        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+        Log(@"Copied %@ to %@", sourcePath, targetPath);
         if (  updateFrom7  ) {
             secureTheApp([[targetPath stringByAppendingPathComponent: @"Contents"]
                           stringByAppendingPathComponent: @"Resources"], NO);
-            appendLog([NSString stringWithFormat: @"Secured %@", targetPath]);
+            Log(@"Secured %@", targetPath);
         }
         removeExtendedAttributes(targetPath);
     } else {
-        appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
+        Log(@"Unable to copy %@ to %@", sourcePath, targetPath);
         errorExit();
     }
 
@@ -1817,7 +1817,7 @@ static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T) {
 	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: tunnelblickPath];
 	NSString * file;
 	BOOL isDir;
-	while (  (file = [dirEnum nextObject])  ) {
+	while (  (file = dirEnum.nextObject)  ) {
 		NSString * fullPath = [tunnelblickPath stringByAppendingPathComponent: file];
 		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
 			&& isDir  ) {
@@ -1829,15 +1829,15 @@ static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T) {
 			unsigned long  permsShouldHave = (perms & ~(S_IWGRP | S_IWOTH | S_ISUID | S_ISGID));
 			if (  (perms != permsShouldHave )  ) {
 				if (  chmod(fileSystemRepresentationFromPath(fullPath), permsShouldHave) == 0  ) {
-					appendLog([NSString stringWithFormat: @"Changed permissions from %lo to %lo on %@",
-							   (long) perms, (long) permsShouldHave, fullPath]);
+					Log(@"Changed permissions from %lo to %lo on %@",
+						(long) perms, (long) permsShouldHave, fullPath);
 				} else {
 					NSString * fileIsImmutable = (  [atts fileIsImmutable]
 												  ? @"; file is immutable"
 												  : @"" );
 
-					appendLog([NSString stringWithFormat: @"Unable to change permissions (error %ld: '%s'%@) from %lo to %lo on %@",
-							   (long)errno, strerror(errno), fileIsImmutable, (long) perms, (long) permsShouldHave, fullPath]);
+					Log(@"Unable to change permissions (error %ld: '%s'%@) from %lo to %lo on %@",
+                        (long)errno, strerror(errno), fileIsImmutable, (long) perms, (long) permsShouldHave, fullPath);
 					okSoFar = FALSE;
 				}
 			}
@@ -1916,7 +1916,7 @@ static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T) {
 		&& isDir  ) {
 		okSoFar = okSoFar && secureOneFolder(iconSetsPath, NO, 0);
 	} else {
-		appendLog([NSString stringWithFormat: @"Missing IconSets folder, which should be at %@", iconSetsPath]);
+		Log(@"Missing IconSets folder, which should be at %@", iconSetsPath);
 		errorExit();
 	}
 	
@@ -1929,7 +1929,7 @@ static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T) {
 	okSoFar = checkSetPermissions(tunnelblickHelperPath, PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 
 	if (  ! okSoFar  ) {
-		appendLog(@"Unable to secure Tunnelblick.app");
+		Log(@"Unable to secure Tunnelblick.app");
 		errorExit();
 	}
 
@@ -1957,9 +1957,9 @@ static void secureAllTblks(void) {
 					errorExit();
 				}
 				if (  [gFileMgr tbCopyPath: privateTblkPath toPath: altTblkPath handler: nil]  ) {
-					appendLog([NSString stringWithFormat: @"Created shadow copy of %@", privateTblkPath]);
+					Log(@"Created shadow copy of %@", privateTblkPath);
 				} else {
-					appendLog([NSString stringWithFormat: @"Unable to create shadow copy of %@", privateTblkPath]);
+					Log(@"Unable to create shadow copy of %@", privateTblkPath);
 					errorExit();
 				}
 			}
@@ -1979,14 +1979,14 @@ static void secureAllTblks(void) {
 	}
 	
 	if (  ! okSoFar  ) {
-		appendLog([NSString stringWithFormat: @"Warning: Unable to secure all .tblk packages"]);
+		Log(@"Warning: Unable to secure all .tblk packages");
 	}
 }
 
 static void installForcedPreferences(NSString * firstPath, NSString * secondPath) {
 
 	if (  secondPath  ) {
-		appendLog(@"Operation is INSTALLER_INSTALL_FORCED_PREFERENCES but secondPath is set");
+		Log(@"Operation is INSTALLER_INSTALL_FORCED_PREFERENCES but secondPath is set");
 		errorExit();
 	}
 	
@@ -1994,7 +1994,7 @@ static void installForcedPreferences(NSString * firstPath, NSString * secondPath
 		// Make sure the .plist is valid
 		NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: firstPath];
 		if (  ! dict  ) {
-			appendLog([NSString stringWithFormat: @"Not a valid .plist: %@", firstPath]);
+			Log(@"Not a valid .plist: %@", firstPath);
 			errorExit();
 		}
 		
@@ -2007,22 +2007,22 @@ static void installForcedPreferences(NSString * firstPath, NSString * secondPath
 		}
 		
 		if (  [gFileMgr tbCopyPath: firstPath toPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH handler: nil]  ) {
-			appendLog([NSString stringWithFormat: @"copied %@\n    to %@", firstPath, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
+			Log(@"copied %@\n    to %@", firstPath, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 			if (  checkSetOwnership(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, NO, 0, 0)  )  {
 				if (  ! checkSetPermissions(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, PERMS_SECURED_READABLE, YES)  )  {
-					appendLog([NSString stringWithFormat: @"Unable to set permssions of %ld on %@", (long)PERMS_SECURED_READABLE, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
+					Log(@"Unable to set permssions of %ld on %@", (long)PERMS_SECURED_READABLE, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 					errorExit();
 				}
 			} else {
-				appendLog([NSString stringWithFormat: @"Unable to set ownership to root:wheel on %@", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
+				Log(@"Unable to set ownership to root:wheel on %@", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 				errorExit();
 			}
 		} else {
-			appendLog([NSString stringWithFormat: @"unable to copy %@ to %@", firstPath, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
+			Log(@"unable to copy %@ to %@", firstPath, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 			errorExit();
 		}
 	} else {
-		appendLog([NSString stringWithFormat: @"Not a .plist: %@", firstPath]);
+		Log(@"Not a .plist: %@", firstPath);
 		errorExit();
 	}
 }
@@ -2035,15 +2035,15 @@ static void doFolderRename(NSString * sourcePath, NSString * targetPath) {
 
 
     if (  ! [gFileMgr fileExistsAtPath: sourcePath]  ) {
-        appendLog([NSString stringWithFormat: @"rename source does not exist: %@ to %@", sourcePath, targetPath]);
+        Log(@"rename source does not exist: %@ to %@", sourcePath, targetPath);
         errorExit();
     }
     if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-        appendLog([NSString stringWithFormat: @"rename target exists: %@ to %@", sourcePath, targetPath]);
+        Log(@"rename target exists: %@ to %@", sourcePath, targetPath);
         errorExit();
     }
     securelyRename(sourcePath, targetPath);
-    appendLog([NSString stringWithFormat: @"Renamed %@ to %@", sourcePath, targetPath]);
+    Log(@"Renamed %@ to %@", sourcePath, targetPath);
 
     if (  [sourcePath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]]  ) {
 
@@ -2057,11 +2057,11 @@ static void doFolderRename(NSString * sourcePath, NSString * targetPath) {
 
         if (  [gFileMgr fileExistsAtPath: secureSourcePath]  ) {
             if (  [gFileMgr fileExistsAtPath: secureTargetPath]  ) {
-                appendLog([NSString stringWithFormat: @"rename target exists: %@ to %@", secureSourcePath, secureTargetPath]);
+                Log(@"rename target exists: %@ to %@", secureSourcePath, secureTargetPath);
                 errorExit();
             }
             securelyRename(secureSourcePath, secureTargetPath);
-            appendLog([NSString stringWithFormat: @"Renamed %@ to %@", secureSourcePath, secureTargetPath]);
+            Log(@"Renamed %@ to %@", secureSourcePath, secureTargetPath);
         }
     }
 }
@@ -2070,7 +2070,7 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 	
 	if (   ( ! firstPath )
 		|| ( ! secondPath )  ){
-		appendLog(@"Operation is INSTALLER_COPY or INSTALLER_MOVE but firstPath and/or secondPath are not set");
+		Log(@"Operation is INSTALLER_COPY or INSTALLER_MOVE but firstPath and/or secondPath are not set");
 		errorExit();
 	}
 	
@@ -2080,12 +2080,12 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
     // An empty source path means create a folder at the target path.
     if (  [sourcePath isEqualToString: @""]  ) {
         if (  [targetPath hasSuffix: @".tblk"]  ) {
-            appendLog([NSString stringWithFormat: @"When source is '', target cannot be a .tblk: %@", targetPath]);
+            Log(@"When source is '', target cannot be a .tblk: %@", targetPath);
             errorExit();
         }
 
         if (  [gFileMgr fileExistsAtPath: secondPath]  ) {
-            appendLog([NSString stringWithFormat: @"When source is '', target cannot exist: %@", targetPath]);
+            Log(@"When source is '', target cannot exist: %@", targetPath);
             errorExit();
         }
 
@@ -2101,13 +2101,13 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
             && ( ! targetIsTblk ))
         || (   targetIsTblk
             && ( ! sourceIsTblk ) )  ) {
-		appendLog([NSString stringWithFormat: @"Only two .tblks or two folders may be copied or moved: %@ to %@", sourcePath, targetPath]);
+		Log(@"Only two .tblks or two folders may be copied or moved: %@ to %@", sourcePath, targetPath);
 		errorExit();
 	}
 
     if (  ! sourceIsTblk  ) { // And, by the above, the target is not a .tblk either
         if (  ! moveNotCopy  ) {
-            appendLog([NSString stringWithFormat: @"Can only move, not **copy**, a folder: %@ to %@", sourcePath, targetPath]);
+            Log(@"Can only move, not **copy**, a folder: %@ to %@", sourcePath, targetPath);
             errorExit();
         }
         BOOL isDir;
@@ -2119,7 +2119,7 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
             doFolderRename(sourcePath, targetPath);
             return;
         } else {
-            appendLog([NSString stringWithFormat: @"Source does not exist or target does exist for copy or move: %@ to %@", sourcePath, targetPath]);
+            Log(@"Source does not exist or target does exist for copy or move: %@ to %@", sourcePath, targetPath);
             errorExit();
         }
     }
@@ -2208,17 +2208,17 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 static void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 	
 	if (  ! firstPath) {
-		appendLog(@"Operation is INSTALLER_DELETE but firstPath is not set");
+		Log(@"Operation is INSTALLER_DELETE but firstPath is not set");
 		errorExit();
 	}
 	
 	if (  secondPath  ) {
-		appendLog(@"Operation is INSTALLER_DELETE but secondPath is set");
+		Log(@"Operation is INSTALLER_DELETE but secondPath is set");
 		errorExit();
 	}
 
     if (  [firstPath hasPrefix: L_AS_T_USERS]  ) {
-        appendLog([NSString stringWithFormat: @"Did not delete %@.\nTo delete a shadow copy, delete the user's copy; the shadow copy will be deleted automatically.", firstPath]);
+        Log(@"Did not delete %@.\nTo delete a shadow copy, delete the user's copy; the shadow copy will be deleted automatically.", firstPath);
         errorExit();
     }
 
@@ -2226,7 +2226,7 @@ static void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 		errorExitIfAnySymlinkInPath(firstPath);
 		makeUnlockedAtPath(firstPath);
         securelyDeleteItem(firstPath);
-		appendLog([NSString stringWithFormat: @"removed %@", firstPath]);
+		Log(@"removed %@", firstPath);
 
 		// Delete shadow copy, too, if it exists
 		if (  isPathPrivate(firstPath)  ) {
@@ -2238,11 +2238,11 @@ static void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 				errorExitIfAnySymlinkInPath(shadowCopyPath);
 				makeUnlockedAtPath(shadowCopyPath);
                 securelyDeleteItem(shadowCopyPath);
-				appendLog([NSString stringWithFormat: @"removed %@", shadowCopyPath]);
+				Log(@"removed %@", shadowCopyPath);
 			}
 		}
     } else {
-        appendLog([NSString stringWithFormat: @"No file to delete at %@", firstPath]);
+        Log(@"No file to delete at %@", firstPath);
         gErrorOccurred = TRUE;
 	}
 }
@@ -2263,7 +2263,7 @@ static BOOL installerUpdateTunnelblick(NSString * updateSignature, NSString * ve
 static void createExportFolder(NSString * path) {
 	
 	if (  ! createDirWithPermissionAndOwnership(path, privateFolderPermissions(path), 0, 0)  ) {
-		appendLog([NSString stringWithFormat: @"Error creating folder %@", path]);
+		Log(@"Error creating folder %@", path);
 		errorExit();
 	}
 }
@@ -2328,7 +2328,7 @@ static void pruneFolderAtPath(NSString * path) {
 		NSDirectoryEnumerator * innerEnum = [gFileMgr enumeratorAtPath: pruneCandidatePath];
 		if (  ! [innerEnum nextObject]  ) {
             securelyDeleteItemIfItExists(pruneCandidatePath);
-			appendLog([NSString stringWithFormat: @"Removed folder because it was empty: %@", pruneCandidatePath]);
+			Log(@"Removed folder because it was empty: %@", pruneCandidatePath);
 		}
 	}
 }
@@ -2409,7 +2409,7 @@ static void exportToPath(NSString * exportPath) {
 						   nil];
 	NSString * targetTBInfoPlistPath = [tempOutputFolderPath stringByAppendingPathComponent: @"TBInfo.plist"];
 	if (  ! [dict writeToFile: targetTBInfoPlistPath atomically: YES]  ){
-		appendLog([NSString stringWithFormat: @"writeToFile failed for %@", targetTBInfoPlistPath]);
+		Log(@"writeToFile failed for %@", targetTBInfoPlistPath);
 		errorExit();
 	}
 	
@@ -2458,7 +2458,7 @@ static void safeCopyPathToPathAndSetUidAndGid(NSString * sourcePath, NSString * 
         errorExit();
     }
     
-	appendLog([NSString stringWithFormat: @"%@ and set ownership to %@: %@", verb, formattedUserGroup(newUid, newGid), targetPath]);
+	Log(@"%@ and set ownership to %@: %@", verb, formattedUserGroup(newUid, newGid), targetPath);
 }
 
 static void mergeConfigurations(NSString * sourcePath, NSString * targetPath, uid_t uid, gid_t gid, BOOL mergeIconSets) {
@@ -2496,8 +2496,8 @@ static void mergeConfigurations(NSString * sourcePath, NSString * targetPath, ui
                 // Secure the .tblk or .TBMenuIcons
                 BOOL isPrivate = isPathPrivate(targetFullPath);
                 if (  ! secureOneFolder(targetFullPath, isPrivate, uid)  ) {
-                    appendLog([NSString stringWithFormat: @"Failed: secureOneFolder('%@', %s, %d)",
-                               targetFullPath, CSTRING_FROM_BOOL(isPrivate), uid]);
+                    Log(@"Failed: secureOneFolder('%@', %s, %d)",
+                               targetFullPath, CSTRING_FROM_BOOL(isPrivate), uid);
                     errorExit();
                 }
 
@@ -2541,7 +2541,7 @@ static void mergeGlobalUsersFolder(NSString * tblkSetupPath, NSDictionary * name
 								  ? [nameMap objectForKey: name]
 								  : name);
 			if (  ! newName) {
-				appendLog([NSString stringWithFormat: @"Expected username %@ in .tblkSetup to be mapped to a user on this computer but it isn't", name]);
+				Log(@"Expected username %@ in .tblkSetup to be mapped to a user on this computer but it isn't", name);
 				errorExit();
 			}
 			
@@ -2613,7 +2613,7 @@ static void errorExitIfTblkSetupIsNotValid(NSString * tblkSetupPath) {
 		|| ( ! [tbInfoPlist objectForKey:  @"TBBundleVersion"] )
 		|| ( ! [tbInfoPlist objectForKey:  @"TBBundleShortVersionString"] )
 		|| ( ! [tbInfoPlist objectForKey:  @"TBDateCreated"] )  ) {
-		appendLog([NSString stringWithFormat: @"TBInfo.plist is damaged at %@", tblkSetupPath]);
+		Log(@"TBInfo.plist is damaged at %@", tblkSetupPath);
 		errorExit();
 	}
 }
@@ -2635,7 +2635,7 @@ static NSDictionary * nameMapFromString(NSString * usernameMap, NSString * tblkS
 		}
 		NSArray * names = [namePair componentsSeparatedByString: @":"];
 		if (  [names count] != 2  ) {
-			appendLog([NSString stringWithFormat: @"Format error in name-pair %@", namePair]);
+			Log(@"Format error in name-pair %@", namePair);
 			errorExit();
 		}
 		NSString * sourceName = [names firstObject];
@@ -2645,11 +2645,11 @@ static NSDictionary * nameMapFromString(NSString * usernameMap, NSString * tblkS
 								 stringByAppendingPathComponent: sourceName];
 		NSString * targetPath = [@"/Users" stringByAppendingPathComponent: targetName];
 		if (  ! [gFileMgr fileExistsAtPath: sourcePath]  ) {
-			appendLog([NSString stringWithFormat: @"No data for username %@ exists in this .tblkSetup", targetName]);
+			Log(@"No data for username %@ exists in this .tblkSetup", targetName);
 			errorExit();
 		}
 		if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
-			appendLog([NSString stringWithFormat: @"No username %@ on this computer", targetName]);
+			Log(@"No username %@ on this computer", targetName);
 			errorExit();
 		}
 		
@@ -2670,13 +2670,13 @@ static void createImportInfoFile(NSString * tblkSetupPath) {
             if (  ! checkSetOwnership(importInfoFilePath, NO, 0, 0)  ) {
                 errorExit();
             }
-			appendLog([NSString stringWithFormat: @"Created and set ownership to   %@: %@", formattedUserGroup(0, 0), importInfoFilePath]);
+			Log(@"Created and set ownership to   %@: %@", formattedUserGroup(0, 0), importInfoFilePath);
 		} else {
-			appendLog([NSString stringWithFormat: @"Could not create %@", importInfoFilePath]);
+			Log(@"Could not create %@", importInfoFilePath);
 			errorExit();
 		}
 	} else {
-		appendLog([NSString stringWithFormat: @"File already exists:               %@", importInfoFilePath]);
+		Log(@"File already exists:               %@", importInfoFilePath);
 	}
 }
 
@@ -2692,13 +2692,13 @@ static void mergeForcedPreferences(NSString * sourcePath) {
 									   ? [[[NSDictionary dictionaryWithContentsOfFile: targetPath] mutableCopy] autorelease]
 									   : [NSMutableDictionary dictionaryWithCapacity: 100]  );
 		if (  ! existingPreferences  ) {
-			appendLog([NSString stringWithFormat: @"Error: could not read %@ (or create NSDictionary)", targetPath]);
+			Log(@"Error: could not read %@ (or create NSDictionary)", targetPath);
 			errorExit();
 		}
 		
 		NSDictionary * preferencesToMerge = [NSDictionary dictionaryWithContentsOfFile: sourcePath];
 		if (  ! preferencesToMerge  ) {
-			appendLog([NSString stringWithFormat: @"Error: could not read %@  ", sourcePath]);
+			Log(@"Error: could not read %@  ", sourcePath);
 			errorExit();
 		}
 
@@ -2712,24 +2712,24 @@ static void mergeForcedPreferences(NSString * sourcePath) {
 				if (  [newValue isNotEqualTo: oldValue]) {
 					[existingPreferences setObject: newValue forKey: key];
 					modifiedExistingPreferences = TRUE;
-					appendLog([NSString stringWithFormat: @"Changed forced preference %@ = %@ (was %@)", key, newValue, oldValue]);
+					Log(@"Changed forced preference %@ = %@ (was %@)", key, newValue, oldValue);
 				}
 			} else {
 				[existingPreferences setObject: newValue forKey: key];
 				modifiedExistingPreferences = TRUE;
-				appendLog([NSString stringWithFormat: @"Added   forced preference %@ = %@", key, newValue]);
+				Log(@"Added   forced preference %@ = %@", key, newValue);
 			}
 		}
 		
 		if (  modifiedExistingPreferences  ) {
             securelyDeleteItemIfItExists(targetPath);
 			if (  ! [existingPreferences writeToFile: targetPath atomically: YES]  ) {
-				appendLog([NSString stringWithFormat: @"Error: could not write %@  ", sourcePath]);
+				Log(@"Error: could not write %@  ", sourcePath);
 				errorExit();
 			}
 			
 		} else {
-			appendLog([NSString stringWithFormat: @"Do not need to create or modify             %@  ", targetPath]);
+			Log(@"Do not need to create or modify             %@  ", targetPath);
 		}
 	}
 }
@@ -2782,7 +2782,7 @@ int main(int argc, char *argv[]) {
 
     if (  argc < 2  ) {
 		openLog(FALSE);
-        appendLog(@"1 or more arguments are required");
+        Log(@"1 or more arguments are required");
         errorExit();
 	}
 
@@ -2846,15 +2846,15 @@ int main(int argc, char *argv[]) {
 
     BOOL created_L_AS_T = openLog(doClearLog);
 
-    appendLog(logString);
+    Log(@"%@", logString);
 
     if (  created_L_AS_T  ) {
         NSDictionary * atts = [gFileMgr tbFileAttributesAtPath: L_AS_T traverseLink: NO];
         unsigned long permissions = [atts filePosixPermissions];
         unsigned long theOwner = [[atts fileOwnerAccountID] unsignedLongValue];
         unsigned long theGroup = [[atts fileGroupOwnerAccountID] unsignedLongValue];
-        appendLog([NSString stringWithFormat: @"Created directory %@ with owner %lu:%lu and permissions %lo",
-                   L_AS_T, (unsigned long)theOwner, (unsigned long)theGroup, (unsigned long)permissions]);
+        Log(@"Created directory %@ with owner %lu:%lu and permissions %lo",
+                   L_AS_T, (unsigned long)theOwner, (unsigned long)theGroup, (unsigned long)permissions);
     }
 
     setupLibrary_Application_Support_Tunnelblick();
@@ -2862,7 +2862,7 @@ int main(int argc, char *argv[]) {
 	NSString * resourcesPath = thisAppResourcesPath(); // (installer itself is in Resources)
     NSArray  * execComponents = [resourcesPath pathComponents];
 	if (  [execComponents count] < 3  ) {
-        appendLog([NSString stringWithFormat: @"too few execComponents; resourcesPath = %@", resourcesPath]);
+        Log(@"too few execComponents; resourcesPath = %@", resourcesPath);
         errorExit();
     }
     
@@ -2951,9 +2951,9 @@ int main(int argc, char *argv[]) {
                                         encoding: NSUTF8StringEncoding
                                            error: &err];
     if (  success  ) {
-        appendLog([NSString stringWithFormat: @"Wrote '%@' to %@", appResourcesPath, L_AS_T_DEBUG_APP_RESOURCES_PATH]);
+        Log(@"Wrote '%@' to %@", appResourcesPath, L_AS_T_DEBUG_APP_RESOURCES_PATH);
     } else {
-        appendLog([NSString stringWithFormat: @"Could not write %@", L_AS_T_DEBUG_APP_RESOURCES_PATH]);
+        Log(@"Could not write %@", L_AS_T_DEBUG_APP_RESOURCES_PATH);
         errorExit();
     }
 #else
@@ -2961,7 +2961,7 @@ int main(int argc, char *argv[]) {
     // A non-debug version of tunnelblickd can thus always find tunnelblick-helper in /Applications/Tunnelblick.app/Contents/Resources.
     if (  [gFileMgr fileExistsAtPath: L_AS_T_DEBUG_APP_RESOURCES_PATH]  ) {
         securelyDeleteItem(L_AS_T_DEBUG_APP_RESOURCES_PATH);
-        appendLog([NSString stringWithFormat: @"Deleted %@", L_AS_T_DEBUG_APP_RESOURCES_PATH]);
+        Log(@"Deleted %@", L_AS_T_DEBUG_APP_RESOURCES_PATH);
     }
 #endif
 
@@ -3027,7 +3027,7 @@ int main(int argc, char *argv[]) {
         } else if (   (operation == INSTALLER_INSTALL_PRIVATE_CONFIG)
                    && thirdArg  ) {
             if (  argc < 4  ) {
-                appendLog(@"installing a private configuration requires a username and a path");
+                Log(@"installing a private configuration requires a username and a path");
                 errorExit();
             }
             NSString * targetPath = userPrivatePath();
@@ -3044,12 +3044,12 @@ int main(int argc, char *argv[]) {
         } else if (  operation == INSTALLER_INSTALL_SHARED_CONFIG  ) {
 
             if (  argc < 3  ) {
-                appendLog(@"installing a shared configuration requires a path");
+                Log(@"installing a shared configuration requires a path");
                 errorExit();
             }
 
             if (  argc > 4  ) {
-                appendLog(@"installing a shared configuration takes at most three arguments");
+                Log(@"installing a shared configuration takes at most three arguments");
                 errorExit();
             }
 
@@ -3145,14 +3145,14 @@ int main(int argc, char *argv[]) {
 
             pid_t tunnelblickPid = [fifthArg intValue];
             if (  tunnelblickPid == 0  ) {
-                appendLog(@"Tunnelblick PID cannot be zero for operation INSTALLER_UPDATE_TUNNELBLICK");
-                appendLog(@"Tunnelblick installer finished with errors;");
+                Log(@"Tunnelblick PID cannot be zero for operation INSTALLER_UPDATE_TUNNELBLICK");
+                Log(@"Tunnelblick installer finished with errors;");
                 gErrorOccurred = TRUE;
             } else if (  ! installerUpdateTunnelblick(secondArg, thirdArg, fourthArg, userUID(), userGID(), tunnelblickPid)  ) {
                 gErrorOccurred = TRUE;
             }
         } else {
-            appendLog(@"Missing argument(s); cannot perform INSTALLER_UPDATE_TUNNELBLICK");
+            Log(@"Missing argument(s); cannot perform INSTALLER_UPDATE_TUNNELBLICK");
             gErrorOccurred = TRUE;
         }
     }
@@ -3161,10 +3161,10 @@ int main(int argc, char *argv[]) {
     // DONE
 
     if (  gErrorOccurred  ) {
-        appendLog(@"Tunnelblick installer finished with errors");
+        Log(@"Tunnelblick installer finished with errors");
         storeAuthorizedDoneFileAndExit(EXIT_FAILURE);
     }
 
-    appendLog(@"Tunnelblick installer succeeded");
+    Log(@"Tunnelblick installer succeeded");
     storeAuthorizedDoneFileAndExit(EXIT_SUCCESS);
 }
