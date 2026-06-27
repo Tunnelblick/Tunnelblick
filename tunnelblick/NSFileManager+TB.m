@@ -265,10 +265,8 @@ void appendLog(NSString * errMsg);
 
     // Nothing owned by root:wheel should be writable by group or other!
     if (  permissions != (permissions & 0755)  ) {
-        NSString * errMsg = [NSString stringWithFormat:
-                             @"Invalid permissions 0%3o (cannot allow write by group or other) in tbCopyFilePath to '%@'; stack trace: %@",
-                             permissions, source, [NSThread callStackSymbols]];
-        appendLog(errMsg);
+        Log(@"Invalid permissions 0%3o (cannot allow write by group or other) in tbCopyFilePath to '%@'; stack trace: %@",
+            permissions, source, NSThread.callStackSymbols);
         return NO;
     }
 
@@ -282,10 +280,8 @@ void appendLog(NSString * errMsg);
                                                                  options: 0
                                                                    error: &err];
     if (  ! data  ) {
-        NSString * errMsg = [NSString stringWithFormat:
-                             @"Error returned from dataWithContentsOfFile: '%@'; Error was %@; stack trace: %@",
-                             source, err, [NSThread callStackSymbols]];
-        appendLog(errMsg);
+        Log(@"Error returned from dataWithContentsOfFile: '%@'; Error was %@; stack trace: %@",
+            source, err, NSThread.callStackSymbols);
         return NO;
     }
 
@@ -293,11 +289,9 @@ void appendLog(NSString * errMsg);
 
     int filedes = open(destinationC, O_WRONLY | O_CREAT | O_NOFOLLOW, 0700 );
     if (  filedes == -1  ) {
-        NSString * errMsg = [NSString stringWithFormat:
-                             @"Error returned from open: '%s'; Error was %d (%s); stack trace: %@",
-                             destinationC, errno, strerror(errno), [NSThread callStackSymbols]];
         [data release]; data = nil;
-        appendLog(errMsg);
+        Log(@"Error returned from open: '%s'; Error was %d (%s); stack trace: %@",
+            destinationC, errno, strerror(errno), NSThread.callStackSymbols);
         return NO;
     }
 
@@ -309,27 +303,21 @@ void appendLog(NSString * errMsg);
     [data release]; data = nil;
 
     if (  (written < 0)  ) {
-        NSString * errMsg = [NSString stringWithFormat:
-                             @"Error returned from write: '%s'; expected to write %lu bytes but wrote %ld bytes; stack trace: %@",
-                             destinationC, length, written, [NSThread callStackSymbols]];
-        appendLog(errMsg);
+        Log(@"Error returned from write: '%s'; expected to write %lu bytes but wrote %ld bytes; stack trace: %@",
+            destinationC, length, written, NSThread.callStackSymbols);
         return NO;
     }
     if (  (NSUInteger)written != length  ) {
-        NSString * errMsg = [NSString stringWithFormat:
-                             @"Error returned from write: '%s'; expected to write %ld bytes but wrote %ld bytes; stack trace: %@",
-                             destinationC, length, written, [NSThread callStackSymbols]];
-        appendLog(errMsg);
+        Log(@"Error returned from write: '%s'; expected to write %ld bytes but wrote %ld bytes; stack trace: %@",
+            destinationC, length, written, NSThread.callStackSymbols);
         return NO;
     }
 
 
     int status = close(filedes);
     if (  status != 0  ) {
-        NSString * errMsg = [NSString stringWithFormat:
-                             @"Error returned from close: '%s'; Error was %d (%s); stack trace: %@",
-                             destinationC, errno, strerror(errno), [NSThread callStackSymbols]];
-        appendLog(errMsg);
+        Log(@"Error returned from close: '%s'; Error was %d (%s); stack trace: %@",
+        destinationC, errno, strerror(errno), NSThread.callStackSymbols);
         return NO;
     }
 
@@ -348,29 +336,23 @@ void appendLog(NSString * errMsg);
 
     status = chown(destinationC, 0, intermediate_gid);
     if (  status != 0  ) {
-        NSString * errMsg = [NSString stringWithFormat:
-                             @"Error returned from chown(0, %d): '%s'; Error was %d (%s); stack trace: %@",
-                             intermediate_gid, destinationC, errno, strerror(errno), [NSThread callStackSymbols]];
-        appendLog(errMsg);
+        Log(@"Error %d (%s) returned from chown('%s', 0, %d); stack trace: %@",
+            errno, strerror(errno), destinationC, intermediate_gid, NSThread.callStackSymbols);
         return NO;
     }
 
     status = chmod(destinationC, permissions);
     if (  status != 0  ) {
-        NSString * errMsg = [NSString stringWithFormat:
-                             @"Error returned from chmod('%s',0%3o); Error was %d (%s); stack trace: %@",
-                             destinationC, permissions, errno, strerror(errno), [NSThread callStackSymbols]];
-        appendLog(errMsg);
+        Log(@"Error returned from chmod('%s',0%3o); Error was %d (%s); stack trace: %@",
+            destinationC, permissions, errno, strerror(errno), NSThread.callStackSymbols);
         return NO;
     }
 
     if (  0 != intermediate_gid  ) {
         status = chown(destinationC, 0, 0);
         if (  status != 0  ) {
-            NSString * errMsg = [NSString stringWithFormat:
-                                 @"Error returned from chown(0, 0): '%s'; Error was %d (%s); stack trace: %@",
-                                 destinationC, errno, strerror(errno), [NSThread callStackSymbols]];
-            appendLog(errMsg);
+            Log(@"Error %d (%s) returned from chown('%s', 0, 0); stack trace: %@",
+                errno, strerror(errno), destinationC, NSThread.callStackSymbols);
             return NO;
         }
     }
