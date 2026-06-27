@@ -66,7 +66,7 @@ BOOL networkIsReachable(void) {
     SCNetworkReachabilityRef reachabilityRef = SCNetworkReachabilityCreateWithAddress(NULL, (const struct sockaddr *)(&zeroIPAddress));
 #pragma clang diagnostic pop
     if (  reachabilityRef == NULL  ) {
-        appendLog(@"SCNetworkReachabilityCreateWithAddress failed");
+        Log(@"SCNetworkReachabilityCreateWithAddress failed");
         return NO;
     }
 
@@ -80,7 +80,7 @@ BOOL networkIsReachable(void) {
     CFReleaseIfNotNULL(reachabilityRef);
 
     if (  ! haveFlags  ) {
-        appendLog(@"Error: Could not get network reachability flags");
+        Log(@"Error: Could not get network reachability flags");
         return NO;
     }
 
@@ -153,8 +153,8 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t per
         return YES;
     }
 
-    appendLog([NSString stringWithFormat: @"File %@ is owned by %@:%@ with permissions: %lo but must be owned by %ld:%ld with permissions %lo",
-               fPath, fileOwner, fileGroup, perms, (long)uid, (long)gid, (long)permsShouldHave]);
+    Log(@"File %@ is owned by %@:%@ with permissions: %lo but must be owned by %ld:%ld with permissions %lo",
+        fPath, fileOwner, fileGroup, perms, (long)uid, (long)gid, (long)permsShouldHave);
     return NO;
 }
 
@@ -164,13 +164,13 @@ unsigned int uidOrGidFromName(NSString * name, BOOL shouldGetGid) {
     NSArray  * arguments = [NSArray arrayWithObjects: (shouldGetGid ? @"-g" : @"-u"), name, nil];
     OSStatus status = runTool(TOOL_PATH_FOR_ID, arguments, &stdoutString, nil);
     if (  status != 0  ) {
-        appendLog([NSString stringWithFormat: @"Could not get %@ for %@", (shouldGetGid ? @"uid" : @"gid"), name]);
+        Log(@"Could not get %@ for %@", (shouldGetGid ? @"uid" : @"gid"), name);
         return 0;
     }
 
     unsigned int value = [stdoutString unsignedIntValue];
     if (  value == UINT_MAX  ) {
-        appendLog([NSString stringWithFormat: @"Could not get %@ for %@ (was UINT_MAX)", (shouldGetGid ? @"uid" : @"gid"), name]);
+        Log(@"Could not get %@ for %@ (was UINT_MAX)", (shouldGetGid ? @"uid" : @"gid"), name);
         return 0;
     }
 
@@ -232,7 +232,7 @@ NSString * sha256HexStringForData (NSData * data) {
     if (  data  ) {
         unsigned len = UINT_MAX;    // If too much data, just use the first bit. Shouldn't happen, but…
         if (  data.length > UINT_MAX  ) {
-            appendLog([NSString stringWithFormat: @"data.length (%lu) too large; : Stack trace: %@", (unsigned long)data.length, callStack()]);
+            Log(@"data.length (%lu) too large; : Stack trace: %@", (unsigned long)data.length, callStack());
         } else {
             len = (unsigned)data.length;
         }
@@ -317,29 +317,27 @@ BOOL needToReplaceLaunchDaemon(void) {
                      && plistHashesMatch
                      && activePlistMatches  );
         if (  ! daemonOk  ) {
-            NSString * msg = [NSString stringWithFormat: @"Need to replace and/or reload 'tunnelblickd':\n"
-                              @"    daemonHashesMatch  = %s\n"
-                              @"    plistHashesMatch   = %s\n"
-                              @"    activePlistMatches = %s",
-                              CSTRING_FROM_BOOL(daemonHashesMatch),
-                              CSTRING_FROM_BOOL(plistHashesMatch),
-                              CSTRING_FROM_BOOL(activePlistMatches)];
-            appendLog(msg);
+            Log(@"Need to replace and/or reload 'tunnelblickd':\n"
+                @"    daemonHashesMatch  = %s\n"
+                @"    plistHashesMatch   = %s\n"
+                @"    activePlistMatches = %s",
+                CSTRING_FROM_BOOL(daemonHashesMatch),
+                CSTRING_FROM_BOOL(plistHashesMatch),
+                CSTRING_FROM_BOOL(activePlistMatches));
             return TRUE;
         }
     }
 
     if (  ! daemonOk  ) {
-        NSString * msg = [NSString stringWithFormat: @"Need to replace and/or reload 'tunnelblickd':\n"
-                          @"    tunnelblickdHashOK   = %s\n"
-                          @"    launchctlPlistHashOK = %s\n"
-                          @"    tunnelblickdPlistOK  = %s\n"
-                          @"    socketExists         = %s",
-                          CSTRING_FROM_BOOL(tunnelblickdHashOK),
-                          CSTRING_FROM_BOOL(launchctlPlistHashOK),
-                          CSTRING_FROM_BOOL(tunnelblickdPlistOK),
-                          CSTRING_FROM_BOOL(socketExists)];
-        appendLog(msg);
+        Log(@"Need to replace and/or reload 'tunnelblickd':\n"
+            @"    tunnelblickdHashOK   = %s\n"
+            @"    launchctlPlistHashOK = %s\n"
+            @"    tunnelblickdPlistOK  = %s\n"
+            @"    socketExists         = %s",
+            CSTRING_FROM_BOOL(tunnelblickdHashOK),
+            CSTRING_FROM_BOOL(launchctlPlistHashOK),
+            CSTRING_FROM_BOOL(tunnelblickdPlistOK),
+            CSTRING_FROM_BOOL(socketExists));
         return TRUE;
     }
 
@@ -352,7 +350,7 @@ unsigned cvt_atou(const char * s, NSString * description)
     unsigned u;
     i = atoi(s);
     if (  i < 0  ) {
-        appendLog([NSString stringWithFormat: @"Negative values are not allowed for %@", description]);
+        Log(@"Negative values are not allowed for %@", description);
     }
     u = (unsigned) i;
     return u;
@@ -385,7 +383,7 @@ BOOL isOnRemoteVolume(NSString * path) {
         if ([  parent length] > 1  ) {
             return isOnRemoteVolume(parent);
         }
-        appendLog(@"isOnRemoteVolume: No parents for path");
+        Log(@"isOnRemoteVolume: No parents for path");
         return NO;
     }
 
@@ -394,12 +392,12 @@ BOOL isOnRemoteVolume(NSString * path) {
 
     if (  0 == statfs(pathC, &stats_buf)  ) {
         if (  (stats_buf.f_flags & MNT_LOCAL) == 0  ) {
-            appendLog([NSString stringWithFormat: @"Not mounted locally: '%s'", pathC]);
+            Log(@"Not mounted locally: '%s'", pathC);
             return TRUE;
         }
     } else {
-        appendLog([NSString stringWithFormat: @"statfs on %@ failed; cannot check if volume is remote\nError was %ld: '%s'\n",
-                   path, (unsigned long)errno, strerror(errno)]);
+        Log(@"statfs on %@ failed; cannot check if volume is remote\nError was %ld: '%s'\n",
+            path, (unsigned long)errno, strerror(errno));
     }
 
     return FALSE;
@@ -446,13 +444,14 @@ int createDir(NSString * dirPath, unsigned long permissions) {
             }
             if (  [NSFileManager.defaultManager tbChangeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
                 unsigned long oldPermissions = [oldPermissionsAsNumber unsignedLongValue];
-                appendLog([NSString stringWithFormat: @"Changed permissions from %lo to %lo on %@", oldPermissions, permissions, dirPath]);
+                Log(@"Changed permissions from %lo to %lo on %@", oldPermissions, permissions, dirPath);
                 return 1;
             }
-            appendLog([NSString stringWithFormat: @"Warning: Unable to change permissions from %lo to %lo on %@", [oldPermissionsAsNumber longValue], permissions, dirPath]);
+            Log(@"Warning: Unable to change permissions from %lo to %lo on %@",
+                [oldPermissionsAsNumber longValue], permissions, dirPath);
             return 0;
         } else {
-            appendLog([NSString stringWithFormat: @"Error: %@ exists but is not a directory", dirPath]);
+            Log(@"Error: %@ exists but is not a directory", dirPath);
             return -1;
         }
     }
@@ -461,10 +460,10 @@ int createDir(NSString * dirPath, unsigned long permissions) {
     if (  ! [NSFileManager.defaultManager tbCreateDirectoryAtPath: dirPath withIntermediateDirectories: YES attributes: permissionsAsAttribute] ) {
         if (   [NSFileManager.defaultManager fileExistsAtPath: dirPath isDirectory: &isDir]
             && isDir  ) {
-            appendLog([NSString stringWithFormat: @"Warning: Created directory %@ but unable to set permissions to %lo", dirPath, permissions]);
+            Log(@"Warning: Created directory %@ but unable to set permissions to %lo", dirPath, permissions);
             return 1;
         } else {
-            appendLog([NSString stringWithFormat: @"Error: Unable to create directory %@ with permissions %lo", dirPath, permissions]);
+            Log(@"Error: Unable to create directory %@ with permissions %lo", dirPath, permissions);
             return -1;
         }
     }
@@ -481,7 +480,7 @@ BOOL itemHasValidSignature(NSString * path, BOOL deepCheck) {
 
     OSStatus status = SecStaticCodeCreateWithPath((__bridge CFURLRef)urlToCheck, kSecCSDefaultFlags, &staticCode);
     if (status != errSecSuccess) {
-        appendLog([NSString stringWithFormat: @"SecStaticCodeCreateWithPath() failed with status = %d for path %@", status, path]);
+        Log(@"SecStaticCodeCreateWithPath() failed with status = %d for path %@", status, path);
         goto done;
     }
 
@@ -494,11 +493,13 @@ BOOL itemHasValidSignature(NSString * path, BOOL deepCheck) {
 
     if (status != errSecSuccess) {
         if (status == errSecCSUnsigned) {
-            appendLog([NSString stringWithFormat: @"Error: Item is not digitally signed at path = %@", path]);
+            Log(@"Error: Item is not digitally signed at path = %@", path);
         } else if (status == errSecCSReqFailed) {
-            appendLog([NSString stringWithFormat: @"Error: The item failed the code requirements check at path = %@\nError = '%@'", path, (__bridge NSError *)errorCF]);
+            Log(@"Error: The item failed the code requirements check at path = %@\nError = '%@'",
+                path, (__bridge NSError *)errorCF);
         } else {
-            appendLog([NSString stringWithFormat: @"Error: The item failed the digital signature check (status = %ld) at path = %@\nError = '%@'", (long)status, path, (__bridge NSError *)errorCF]);
+            Log(@"Error: The item failed the digital signature check (status = %ld) at path = %@\nError = '%@'",
+                (long)status, path, (__bridge NSError *)errorCF);
         }
     }
 
@@ -568,8 +569,8 @@ BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_
     if (  ! (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: (int) uid]]
              && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: (int) gid]]  )  ) {
         if (  [atts fileIsImmutable]  ) {
-            appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ from %d:%d to %d:%d because it is locked",
-                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid]);
+            Log(@"Unable to change ownership of %@ from %d:%d to %d:%d because it is locked",
+                path, (int) oldUid, (int) oldGid, (int) uid, (int) gid);
             return NO;
         }
 
@@ -583,8 +584,8 @@ BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_
         }
 
         if (  result != 0  ) {
-            appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ from %d:%d to %d:%d\nError was '%s'",
-                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid, strerror(errno)]);
+            Log(@"Unable to change ownership of %@ from %d:%d to %d:%d\nError was '%s'",
+                path, (int) oldUid, (int) oldGid, (int) uid, (int) gid, strerror(errno));
             return NO;
         }
         return YES;
@@ -608,7 +609,7 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
     BOOL changedDeep = FALSE;
 
     if (  ! [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
-        appendLog([NSString stringWithFormat: @"checkSetOwnership: '%@' does not exist", path]);
+        Log(@"checkSetOwnership: '%@' does not exist", path);
         return NO;
     }
 
@@ -619,14 +620,14 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
     if (  ! (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithUnsignedInt: uid]]
              && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithUnsignedInt: gid]]  )  ) {
         if (  [atts fileIsImmutable]  ) {
-            appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ from %d:%d to %d:%d because it is locked",
-                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid]);
+            Log(@"Unable to change ownership of %@ from %d:%d to %d:%d because it is locked",
+                path, (int) oldUid, (int) oldGid, (int) uid, (int) gid);
             return NO;
         }
 
         if (  chown([path fileSystemRepresentation], uid, gid) != 0  ) {
-            appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ from %d:%d to %d:%d\nError was '%s'",
-                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid, strerror(errno)]);
+            Log(@"Unable to change ownership of %@ from %d:%d to %d:%d\nError was '%s'",
+                path, (int) oldUid, (int) oldGid, (int) uid, (int) gid, strerror(errno));
             return NO;
         }
 
@@ -648,16 +649,16 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
 
     if (  changedBase ) {
         if (  changedDeep  ) {
-            appendLog([NSString stringWithFormat: @"Changed ownership of %@ and its contents from %d:%d to %d:%d",
-                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid]);
+            Log(@"Changed ownership of %@ and its contents from %d:%d to %d:%d",
+                path, (int) oldUid, (int) oldGid, (int) uid, (int) gid);
         } else {
-            appendLog([NSString stringWithFormat: @"Changed ownership of %@ from %d:%d to %d:%d",
-                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid]);
+            Log(@"Changed ownership of %@ from %d:%d to %d:%d",
+                path, (int) oldUid, (int) oldGid, (int) uid, (int) gid);
         }
     } else {
         if (  changedDeep  ) {
-            appendLog([NSString stringWithFormat: @"Changed ownership of the contents of %@ from %d:%d to %d:%d",
-                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid]);
+            Log(@"Changed ownership of the contents of %@ from %d:%d to %d:%d",
+                path, (int) oldUid, (int) oldGid, (int) uid, (int) gid);
         }
     }
 
@@ -672,7 +673,7 @@ BOOL checkSetPermissions(NSString * path, mode_t permsShouldHave, BOOL fileMustE
 
     if (  ! [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
         if (  fileMustExist  ) {
-            appendLog([NSString stringWithFormat: @"File '%@' must exist but does not", path]);
+            Log(@"File '%@' must exist but does not", path);
             return NO;
         }
         return YES;
@@ -686,16 +687,20 @@ BOOL checkSetPermissions(NSString * path, mode_t permsShouldHave, BOOL fileMustE
     }
 
     if (  [atts fileIsImmutable]  ) {
-        appendLog([NSString stringWithFormat: @"Cannot change permissions from %lo to %lo because item is locked: %@", (long) perms, (long) permsShouldHave, path]);
+        Log(@"Cannot change permissions from %lo to %lo because item is locked: %@",
+            (long) perms, (long) permsShouldHave, path);
         return NO;
     }
 
     if (  chmod([path fileSystemRepresentation], permsShouldHave) != 0  ) {
         appendLog([NSString stringWithFormat: @"Unable to change permissions from %lo to %lo on %@", (long) perms, (long) permsShouldHave, path]);
+        Log(@"Unable to change permissions from %lo to %lo on %@",
+            (long) perms, (long) permsShouldHave, path);
         return NO;
     }
 
-    appendLog([NSString stringWithFormat: @"Changed permissions from %lo to %lo on %@", (long) perms, (long) permsShouldHave, path]);
+    Log(@"Changed permissions from %lo to %lo on %@",
+        (long) perms, (long) permsShouldHave, path);
     return YES;
 }
 
@@ -724,15 +729,15 @@ BOOL createDirWithPermissionAndOwnershipWorker(NSString * dirPath, mode_t permis
 
         // Parent directory exists. Create the directory we want
         if (  mkdir([dirPath fileSystemRepresentation], permissions) != 0  ) {
-            appendLog([NSString stringWithFormat: @"Unable to create directory %@ with permissions %lo", dirPath, (long) permissions]);
+            Log(@"Unable to create directory %@ with permissions %lo", dirPath, (long) permissions);
             return NO;
         }
 
         NSDictionary * atts = [NSFileManager.defaultManager tbFileAttributesAtPath: dirPath traverseLink: NO];
         unsigned long theOwner = [[atts fileOwnerAccountID] unsignedLongValue];
         unsigned long theGroup = [[atts fileGroupOwnerAccountID] unsignedLongValue];
-        appendLog([NSString stringWithFormat: @"Created directory %@ with owner %lu:%lu and permissions %lo",
-                   dirPath, (unsigned long) theOwner, (unsigned long) theGroup, (long) permissions]);
+        Log(@"Created directory %@ with owner %lu:%lu and permissions %lo",
+            dirPath, (unsigned long) theOwner, (unsigned long) theGroup, (long) permissions);
     }
 
 
@@ -802,13 +807,13 @@ BOOL isAGoogleDriveIconFile(NSString * path) {
         && (  [name length] == 5)  ) {
         NSDictionary * attributes = [NSFileManager.defaultManager tbFileAttributesAtPath: path traverseLink: NO];
         if (  ! attributes  ) {
-            appendLog([NSString stringWithFormat: @"No attributes for %@; treating it as a Google Drive Icon File", path]);
+            Log(@"No attributes for %@; treating it as a Google Drive Icon File", path);
             return YES;
         }
         if ( [attributes fileSize] == 0 ) {
             return YES;
         }
-        appendLog([NSString stringWithFormat: @"File not zero size at %@; not treating it as a Google Drive Icon File", path]);
+        Log(@"File not zero size at %@; not treating it as a Google Drive Icon File", path);
         return NO;
     }
 
@@ -822,7 +827,7 @@ NSString * fileIsReasonableAt(NSString * path) {
     if (  ! path  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                              @": allFilesAreReasonableIn: path is nil", @""]; // (Empty string 2nd arg so we can use commmon error message that takes two args)
-        appendLog(errMsg);
+        Log(@"%@", errMsg);
         return errMsg;
     }
 
@@ -834,7 +839,7 @@ NSString * fileIsReasonableAt(NSString * path) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"Path '%@' contains characters that are not allowed.\n\n"
                                                                           @"Characters that are not allowed: '%s'\n\n", @"Window text"),
                              path, PROHIBITED_DISPLAY_NAME_CHARACTERS_WITH_SPACES_CSTRING];
-        appendLog(errMsg);
+        Log(@"%@", errMsg);
         return errMsg;
     }
 
@@ -842,7 +847,7 @@ NSString * fileIsReasonableAt(NSString * path) {
     if (  ! atts  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                              @": allFilesAreReasonableIn: Cannot get attributes: ", path];
-        appendLog(errMsg);
+        Log(@"%@", errMsg);
         return errMsg;
     }
 
@@ -850,21 +855,21 @@ NSString * fileIsReasonableAt(NSString * path) {
     if (  ! fileType  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                              @": allFilesAreReasonableIn: Cannot get type: ", path];
-        appendLog(errMsg);
+        Log(@"%@", errMsg);
         return errMsg;
     }
 
     if (  [fileType isEqualToString: NSFileTypeRegular]  ) {
         NSString * errMsg = fileIsReasonableSize(path);
         if (  errMsg  ) {
-            appendLog(errMsg);
+            Log(@"%@", errMsg);
             return errMsg;
         }
     } else if (   ( ! [fileType isEqualToString: NSFileTypeDirectory])
                && ( ! [fileType isEqualToString: NSFileTypeSymbolicLink]  )  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                              @": allFilesAreReasonableIn: Not a regular file, folder, or symlink: ", path];
-        appendLog(errMsg);
+        Log(@"%@", errMsg);
         return errMsg;
     }
 
@@ -879,7 +884,7 @@ NSString * allFilesAreReasonableIn(NSString * path) {
     if (  ! path  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                              @": allFilesAreReasonableIn: path is nil", @""]; // (Empty string 2nd arg so we can use commmon error message that takes two args)
-        appendLog(errMsg);
+        Log(@"%@", errMsg);
         return errMsg;
     }
 
@@ -887,7 +892,7 @@ NSString * allFilesAreReasonableIn(NSString * path) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"Path '%@' contains characters that are not allowed.\n\n"
                                                                           @"Characters that are not allowed: '%s'\n\n", @"Window text"),
                              path, PROHIBITED_DISPLAY_NAME_CHARACTERS_WITH_SPACES_CSTRING];
-        appendLog(errMsg);
+        Log(@"%@", errMsg);
         return errMsg;
     }
 
@@ -905,7 +910,7 @@ NSString * allFilesAreReasonableIn(NSString * path) {
         && ( ! isDir)  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                              @": allFilesAreReasonableIn: Not a folder, .conf, or .ovpn: ", path];
-        appendLog(errMsg);
+        Log(@"%@", errMsg);
         return errMsg;
     }
 
@@ -914,7 +919,7 @@ NSString * allFilesAreReasonableIn(NSString * path) {
     if (  ! dirEnum  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                              @": allFilesAreReasonableIn: Cannot get enumeratorAtPath: ", path];
-        appendLog(errMsg);
+        Log(@"%@", errMsg);
         return errMsg;
     }
 
@@ -935,7 +940,7 @@ unsigned int getFreePort(void)
 
     int fd = socket(AF_INET, SOCK_STREAM, 0);
     if (  fd == -1  ) {
-        appendLog(@"getFreePort: could not get an fd");
+        Log(@"getFreePort: could not get an fd");
         return 0;
     }
 
@@ -951,7 +956,7 @@ unsigned int getFreePort(void)
         struct sockaddr_in address;
         unsigned len = sizeof(struct sockaddr_in);
         if (  len > UCHAR_MAX  ) {
-            appendLog([NSString stringWithFormat: @"getFreePort: sizeof(struct sockaddr_in) is %u, which is > UCHAR_MAX -- can't fit it into address.sin_len", len]);
+            Log(@"getFreePort: sizeof(struct sockaddr_in) is %u, which is > UCHAR_MAX -- can't fit it into address.sin_len", len);
             close(fd);
             return 0;
         }
@@ -975,8 +980,8 @@ unsigned int getFreePort(void)
     close(fd);
 
     if (  result != 0  ) {
-        appendLog([NSString stringWithFormat: @"getFreePort: could not get a free port (in %u through %u) in %u tries",
-                   MIN_MANAGMENT_INTERFACE_PORT_NUMBER, MAX_MANAGMENT_INTERFACE_PORT_NUMBER, tries_to_do]);
+        Log(@"getFreePort: could not get a free port (in %u through %u) in %u tries",
+            MIN_MANAGMENT_INTERFACE_PORT_NUMBER, MAX_MANAGMENT_INTERFACE_PORT_NUMBER, tries_to_do);
         resultPort = 0;
     }
 
@@ -1026,14 +1031,14 @@ BOOL makeOneItemUnlockedAtPath(NSString * path)
             break;
         }
         [NSFileManager.defaultManager tbChangeFileAttributes: newAttributes atPath: path];
-        appendLog([NSString stringWithFormat: @"Unlocked %@", path]);
+        Log(@"Unlocked %@", path);
         if (  i != 0  ) {
             sleep(1);
         }
     }
 
     if (  [curAttributes fileIsImmutable]  ) {
-        appendLog([NSString stringWithFormat: @"Failed to unlock %@ in %d attempts", path, maxTries]);
+        Log(@"Failed to unlock %@ in %d attempts", path, maxTries);
         return FALSE;
     }
 
@@ -1086,7 +1091,7 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
     if (  isPrivate  ) {
         user  = theUser;     // Private files are owned by <user>
         if (  user == 0  ) {
-            appendLog(@"Tunnelblick internal error: secureOneFolder: No user");
+            Log(@"Tunnelblick internal error: secureOneFolder: No user");
             return NO;
         }
 
@@ -1174,7 +1179,7 @@ NSData * availableDataOrError(NSFileHandle * file) {
 
         NSDate * now = [NSDate date];
         if (  [now compare: timeout] == NSOrderedDescending  ) {
-            appendLog(@"availableDataOrError: Taking a long time checking for data from a pipe");
+            Log(@"availableDataOrError: Taking a long time checking for data from a pipe");
             timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
             (void)timeout; // Avoid static analyzer warning that timeout will not be read
         }
@@ -1212,7 +1217,7 @@ NSString * configFolderPathFromConfigNameAndLocCode(NSString * configName, unsig
             break;
 
         default:
-            appendLog([NSString stringWithFormat: @"Invalid configLocCode %u; stack trace = %@", configLocCode, callStack()]);
+            Log(@"Invalid configLocCode %u; stack trace = %@", configLocCode, callStack());
             return nil;
             break;
     }
@@ -1274,7 +1279,7 @@ NSString * newTemporaryDirectoryPath(void)
     size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
     char * tempDirectoryNameCString = (char *) malloc( bufferLength );
     if (  ! tempDirectoryNameCString  ) {
-        appendLog(@"Unable to allocate memory for a temporary directory name");
+        Log(@"Unable to allocate memory for a temporary directory name");
         exit(-1);
     }
 
@@ -1282,7 +1287,7 @@ NSString * newTemporaryDirectoryPath(void)
 
     char * dirPath = mkdtemp(tempDirectoryNameCString);
     if (  ! dirPath  ) {
-        appendLog(@"Unable to create a temporary directory");
+        Log(@"Unable to create a temporary directory");
         exit(-1);
     }
 
@@ -1296,7 +1301,7 @@ NSString * newTemporaryDirectoryPath(void)
                 NSString * afterVar = [tempFolder substringFromIndex: 5];
                 tempFolder = [@"/private/var" stringByAppendingPathComponent:afterVar];
             } else {
-                appendLog(@"Warning: /var is a symlink but not to /private/var so it is being left intact");
+                Log(@"Warning: /var is a symlink but not to /private/var so it is being left intact");
             }
         }
     }
@@ -1322,7 +1327,7 @@ OSStatus runToolExtended(NSString     * launchPath,
 
     NSString * tempDir    = [newTemporaryDirectoryPath() autorelease];
     if (  ! tempDir  ) {
-        appendLog([NSString stringWithFormat: @"Catastrophic error: Could not create a temporary directory"]);
+        Log(@"Catastrophic error: Could not create a temporary directory");
         exit(EXIT_FAILURE);
     }
 
@@ -1330,28 +1335,28 @@ OSStatus runToolExtended(NSString     * launchPath,
     NSString * stdErrPath = [tempDir stringByAppendingPathComponent: @"stderr.txt"];
 
     if (  ! [NSFileManager.defaultManager createFileAtPath: stdOutPath contents: [NSData data] attributes: nil]  ) {
-        appendLog([NSString stringWithFormat: @"Catastrophic error: Could not get create %@", stdOutPath]);
+        Log(@"Catastrophic error: Could not get create %@", stdOutPath);
         exit(EXIT_FAILURE);
     }
     if (  ! [NSFileManager.defaultManager createFileAtPath: stdErrPath contents: [NSData data] attributes: nil]  ) {
-        appendLog([NSString stringWithFormat: @"Catastrophic error: Could not get create %@", stdErrPath]);
+        Log(@"Catastrophic error: Could not get create %@", stdErrPath);
         exit(EXIT_FAILURE);
     }
 
     NSFileHandle * outFile = [NSFileHandle fileHandleForWritingAtPath: stdOutPath];
     if (  ! outFile  ) {
-        appendLog(@"Catastrophic error: Could not get file handle for stdout.txt");
+        Log(@"Catastrophic error: Could not get file handle for stdout.txt");
         exit(EXIT_FAILURE);
     }
     NSFileHandle * errFile = [NSFileHandle fileHandleForWritingAtPath: stdErrPath];
     if (  ! errFile  ) {
-        appendLog(@"Catastrophic error: Could not get file handle for stderr.txt");
+        Log(@"Catastrophic error: Could not get file handle for stderr.txt");
         exit(EXIT_FAILURE);
     }
 
     NSTask * task = [[[NSTask alloc] init] autorelease];
     if (  ! task  ) {
-        appendLog(@"Catastrophic error: Could not create NSTask instance");
+        Log(@"Catastrophic error: Could not create NSTask instance");
         exit(EXIT_FAILURE);
     }
 
@@ -1368,7 +1373,7 @@ OSStatus runToolExtended(NSString     * launchPath,
         [task launch];
     } @catch (NSException * exception) {
         NSString * errorMessage = [NSString stringWithFormat: @"Exception: '%@'; could not start program %@", exception, launchPath];
-        appendLog(errorMessage);
+        Log(@"%@", errorMessage);
         if (  stdErrStringPtr  ) {
             *stdErrStringPtr = [NSString stringWithString: errorMessage];
         }
@@ -1392,14 +1397,13 @@ OSStatus runToolExtended(NSString     * launchPath,
 
             if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
                 warnTime = [warnTime dateByAddingTimeInterval: 10.00];
-                appendLog([NSString stringWithFormat: @"Warning: program has not finished after %.0f seconds: %@",
-                           ([[NSDate date] timeIntervalSinceDate: startTime]), launchPath]);
+                Log(@"Warning: program has not finished after %.0f seconds: %@",
+                           ([[NSDate date] timeIntervalSinceDate: startTime]), launchPath);
             }
 
             if (  [terminateTime compare: [NSDate date]] == NSOrderedAscending  ) {
                 // Try to terminate the task with SIGTERM
-                appendLog([NSString stringWithFormat: @"No response after 60 seconds; attempting to terminate program: %@",
-                           launchPath]);
+                Log(@"No response after 60 seconds; attempting to terminate program: %@", launchPath);
                 [task terminate];
                 requestedTermination = TRUE;
                 terminateTime = nil; // Only terminate once
@@ -1462,7 +1466,7 @@ OSStatus runToolExtended(NSString     * launchPath,
         } else {
             message = @"";
         }
-        appendLog([NSString stringWithFormat: @"'%@' returned status = %ld%@", [launchPath lastPathComponent], (long)status, message]);
+        Log(@"'%@' returned status = %ld%@", [launchPath lastPathComponent], (long)status, message);
         if (   (status == EXIT_SUCCESS)
             && requestedTermination  ) {
             status = EXIT_FAILURE;
@@ -1492,13 +1496,13 @@ void storeAuthorizedDoneFileAndExit(OSStatus status) {
                             : @"B"), // Good
                            time(NULL)];
     if ( contents == nil  ) {
-        appendLog([NSString stringWithFormat: @"Error creating content for %@", AUTHORIZED_DONE_PATH]);
+        Log(@"Error creating content for %@", AUTHORIZED_DONE_PATH);
         exit(EXIT_FAILURE);
     }
 
     // Write out the file, overwriting any existing file
     if ( ! [contents writeToFile: AUTHORIZED_DONE_PATH atomically: YES encoding: NSUTF8StringEncoding error: nil]  ) {
-        appendLog([NSString stringWithFormat: @"Error creating or overwriting file at %@", AUTHORIZED_DONE_PATH]);
+        Log(@"Error creating or overwriting file at %@", AUTHORIZED_DONE_PATH);
         exit(EXIT_FAILURE);
     }
 
@@ -1545,7 +1549,7 @@ unsigned getLoadedKextsMask(void) {
                               &stdOutString,
                               nil);
     if (  status != noErr  ) {
-        appendLog([NSString stringWithFormat: @"kextstat returned status %ld", (long) status]);
+        Log(@"kextstat returned status %ld", (long) status);
         return 0;
     }
 
@@ -1728,7 +1732,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     // Create a Unix domain socket as a stream
     sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
     if (  sockfd < 0  ) {
-        appendLog([NSString stringWithFormat: @"runTunnelblickd: Error creating Unix domain socket; errno = %u; error was '%s'", errno, strerror(errno)]);
+        Log(@"runTunnelblickd: Error creating Unix domain socket; errno = %u; error was '%s'", errno, strerror(errno));
         goto error2;
     }
 
@@ -1737,12 +1741,14 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     socket_data.sun_len    = sizeof(socket_data);
     socket_data.sun_family = AF_UNIX;
     if (  sizeof(socket_data.sun_path) <= strlen(socketPath)  ) {
-        appendLog([NSString stringWithFormat: @"runTunnelblickd: socketPath is %lu bytes long but there is only room for %lu bytes in socket_data.sun_path", strlen(socketPath), sizeof(socket_data.sun_path)]);
+        Log(@"runTunnelblickd: socketPath is %lu bytes long but there is only room for %lu bytes in socket_data.sun_path",
+            strlen(socketPath), sizeof(socket_data.sun_path));
         goto error1;
     }
     memmove((char *)&socket_data.sun_path, (char *)socketPath, strlen(socketPath));
     if (  connect(sockfd, (struct sockaddr *)&socket_data, sizeof(socket_data)  ) < 0) {
-        appendLog([NSString stringWithFormat: @"runTunnelblickd: Error connecting to tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno)]);
+        Log(@"runTunnelblickd: Error connecting to tunnelblickd server socket; errno = %u; error was '%s'",
+            errno, strerror(errno));
         goto error1;
     }
 
@@ -1752,13 +1758,13 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     while (  bytes_to_write != 0  ) {
         n = write(sockfd, buf_ptr, bytes_to_write);
         if (  n < 0  ) {
-            appendLog([NSString stringWithFormat: @"runTunnelblickd: Error writing to tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno)]);
+            Log(@"runTunnelblickd: Error writing to tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno));
             goto error1;
         }
 
         buf_ptr += n;
         bytes_to_write -= n;
-        //        appendLog([NSString stringWithFormat: @"runTunnelblickd: Wrote %lu bytes to tunnelblickd server socket: '%@'", (unsigned long)n, command]);
+        //        Log(@"runTunnelblickd: Wrote %lu bytes to tunnelblickd server socket: '%@'", (unsigned long)n, command]);
     }
 
     // Receive from the socket until we receive a \0
@@ -1766,7 +1772,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
 
     // Set the socket to use non-blocking I/O (but we've already done the output, so we're really just doing non-blocking input)
     if (  -1 == fcntl(sockfd, F_SETFL,  O_NONBLOCK)  ) {
-        appendLog([NSString stringWithFormat: @"runTunnelblickd: Error from fcntl(sockfd, F_SETFL,  O_NONBLOCK) with tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno)]);
+        Log(@"runTunnelblickd: Error from fcntl(sockfd, F_SETFL,  O_NONBLOCK) with tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno));
         goto error1;
     }
 
@@ -1785,12 +1791,12 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
             sleepTimeMicroseconds *= 2;
             if (  sleepTimeMicroseconds > 5000000  ) {
                 sleepTimeMicroseconds = 5000000;
-                appendLog([NSString stringWithFormat: @"runTunnelblickd: no data available from tunnelblickd socket; sleeping %f seconds...", ((float)sleepTimeMicroseconds)/1000000.0]);
+                Log(@"runTunnelblickd: no data available from tunnelblickd socket; sleeping %f seconds...", ((float)sleepTimeMicroseconds)/1000000.0);
             }
             usleep(sleepTimeMicroseconds);
             continue;
         } else if (  n < 0  ) {
-            appendLog([NSString stringWithFormat: @"runTunnelblickd: Error reading from tunnelblickd socket; status = %ld; errno = %u; error was '%s'", n, errno, strerror(errno)]);
+            Log(@"runTunnelblickd: Error reading from tunnelblickd socket; status = %ld; errno = %u; error was '%s'", n, errno, strerror(errno));
             goto error1;
         }
 
@@ -1800,7 +1806,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
             buffer[n] = '\0';
             if (  strchr(buffer, '\0') != (buffer + n)  ) {
                 if (  strchr(buffer, '\0') != (buffer + n - 1)  ) {
-                    appendLog(@"runTunnelblickd: Data from tunnelblickd after the zero byte that should terminate the data");
+                    Log(@"runTunnelblickd: Data from tunnelblickd after the zero byte that should terminate the data");
                     goto error1;
                 }
                 foundZeroByte = TRUE;
@@ -1813,24 +1819,24 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     close(sockfd);
 
     if (  ! foundZeroByte  ) {
-        appendLog([NSString stringWithFormat: @"runTunnelblickd: tunnelblickd is not responding; received %lu bytes", [data length]]);
+        Log(@"runTunnelblickd: tunnelblickd is not responding; received %lu bytes", [data length]);
         goto error2;
     }
 
     NSString * output = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     if (  ! output  ) {
-        appendLog([NSString stringWithFormat: @"runTunnelblickd: Data from tunnelblickd was not valid UTF-8; data was '%@'", data]);
+        Log(@"runTunnelblickd: Data from tunnelblickd was not valid UTF-8; data was '%@'", data);
         goto error2;
     }
     NSRange rngNl = [output rangeOfString: @"\n"];
     if (  rngNl.length == 0  ) {
-        appendLog([NSString stringWithFormat: @"Invalid output from tunnelblickd: no newline; full output = '%@'", output]);
+        Log(@"Invalid output from tunnelblickd: no newline; full output = '%@'", output);
         goto error2;
     }
     NSString * header = [output substringWithRange: NSMakeRange(0, rngNl.location)];
     NSArray * headerComponents = [header componentsSeparatedByString: @" "];
     if (  [headerComponents count] != 3) {
-        appendLog([NSString stringWithFormat: @"Invalid output from tunnelblickd: header line does not have three components; full output = '%@'", output]);
+        Log(@"Invalid output from tunnelblickd: header line does not have three components; full output = '%@'", output);
         goto error2;
     }
     OSStatus status = [((NSString *)[headerComponents objectAtIndex: 0]) intValue];
@@ -1840,7 +1846,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     NSRange stdErrRng = NSMakeRange(rngNl.location + 1 + stdOutLen, stdErrLen);
     NSString * stdOutContents = [output substringWithRange: stdOutRng];
     NSString * stdErrContents = [output substringWithRange: stdErrRng];
-    //    appendLog([NSString stringWithFormat: @"runTunnelblickd: Output from tunnelblickd server: status = %d\nstdout = '%@'\nstderr = '%@'", status, stdOutContents, stdErrContents]);
+    //    Log(@"runTunnelblickd: Output from tunnelblickd server: status = %d\nstdout = '%@'\nstderr = '%@'", status, stdOutContents, stdErrContents);
     if (  stdoutString ) {
         *stdoutString = stdOutContents;
     }
@@ -1920,7 +1926,7 @@ NSString * sanitizedConfigurationContents(NSString * cfgContents) {
                 }
             }
             if (  ! foundEnd  ) {
-                appendLog([NSString stringWithFormat: @"Tunnelblick: Error parsing configuration at line %u; unterminated '-----BEGIN' at line %u\n", i+1, beginLineNumber+1]);
+                Log(@"Tunnelblick: Error parsing configuration at line %u; unterminated '-----BEGIN' at line %u\n", i+1, beginLineNumber+1);
                 if (  i != (beginLineNumber + 1)  ) {
                     [outputString appendFormat: @" [Lines that appear to be security-related have been omitted]\n"];
                 }
@@ -1931,7 +1937,7 @@ NSString * sanitizedConfigurationContents(NSString * cfgContents) {
             NSArray * tokens = tokensFromConfigurationLine(line);
 
             if (  ! tokens  ) {
-                appendLog([NSString stringWithFormat: @"Tunnelblick: Error parsing configuration at line %u\n", i+1]);
+                Log(@"Tunnelblick: Error parsing configuration at line %u\n", i+1);
                 return nil;
             }
 
@@ -1949,7 +1955,7 @@ NSString * sanitizedConfigurationContents(NSString * cfgContents) {
                             tokens = tokensFromConfigurationLine(line);
 
                             if (  ! tokens  ) {
-                                appendLog([NSString stringWithFormat: @"Tunnelblick: Error parsing configuration at line %u\n", i+1]);
+                                Log(@"Tunnelblick: Error parsing configuration at line %u\n", i+1);
                                 return nil;
                             }
 
@@ -1965,7 +1971,7 @@ NSString * sanitizedConfigurationContents(NSString * cfgContents) {
                         }
 
                         if (  ! foundEnd  ) {
-                            appendLog([NSString stringWithFormat: @"Tunnelblick: Error parsing configuration at line %u; unterminated %s at line %u\n", i+1, [[beginInlineKeys objectAtIndex: j] UTF8String], beginLineNumber+1]);
+                            Log(@"Tunnelblick: Error parsing configuration at line %u; unterminated %s at line %u\n", i+1, [[beginInlineKeys objectAtIndex: j] UTF8String], beginLineNumber+1);
                             return nil;
                         }
                     }
@@ -1995,13 +2001,13 @@ BOOL dealWithDotOldAndHyphenOldApp(void) {
     if (  [fm fileExistsAtPath: oldDashOldPath]  ) {
         if (  [fm fileExistsAtPath: L_AS_T_TB_OLD]  ) {
             if (  [fm removeItemAtPath: oldDashOldPath error: nil]  ) {
-                appendLog([NSString stringWithFormat: @"Deleted %@", oldDashOldPath]);
+                Log(@"Deleted %@", oldDashOldPath);
             } else {
                 return FALSE;
             }
         } else {
             if (  [fm tbMovePath: oldDashOldPath toPath: L_AS_T_TB_OLD handler: nil]  ) {
-                appendLog([NSString stringWithFormat: @"Moved %@ to %@", oldDashOldPath, L_AS_T_TB_OLD]);
+                Log(@"Moved %@ to %@", oldDashOldPath, L_AS_T_TB_OLD);
             } else {
                 return FALSE;
             }
@@ -2012,13 +2018,13 @@ BOOL dealWithDotOldAndHyphenOldApp(void) {
     if (  [fm fileExistsAtPath: oldDotOldPath]  ) {
         if (  [fm fileExistsAtPath: L_AS_T_TB_OLD]  ) {
             if (  [fm removeItemAtPath: oldDotOldPath error: nil]  ) {
-                appendLog([NSString stringWithFormat: @"Deleted %@", oldDotOldPath]);
+                Log(@"Deleted %@", oldDotOldPath);
             } else {
                 return FALSE;
             }
         } else {
             if (  [fm tbMovePath: oldDotOldPath toPath: L_AS_T_TB_OLD handler: nil]  ) {
-                appendLog([NSString stringWithFormat: @"Moved %@ to %@", oldDotOldPath, L_AS_T_TB_OLD]);
+                Log(@"Moved %@ to %@", oldDotOldPath, L_AS_T_TB_OLD);
             } else {
                 return FALSE;
             }
@@ -2037,7 +2043,7 @@ BOOL removeOldDotMipFile(void) {
         if (  [fileName hasSuffix: @".mip"]  ) {
             NSString * path = [L_AS_T stringByAppendingPathComponent: fileName];
             if (  [NSFileManager.defaultManager tbRemovePathIfItExists: path]  ) {
-                appendLog([NSString stringWithFormat: @"Deleted %@", path]);
+                Log(@"Deleted %@", path);
                 break;
             } else {
                 return FALSE;
