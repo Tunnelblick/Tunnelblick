@@ -33,7 +33,7 @@
 # third_party/do-not-clean file does not exist, and then build Tunnelblick normally.
 
 # Make sure we have a recent version of Xcode
-if [ ${XCODE_VERSION_ACTUAL} -lt 0731 ] ; then
+if [ "${XCODE_VERSION_ACTUAL}" -lt 0731 ] ; then
   outer_dir="${PWD%/*}"
   echo "error: Tunnelblick must be built with Xcode 7.3.1 or higher. See ${outer_dir}/README.txt."
   exit 1
