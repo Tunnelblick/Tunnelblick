@@ -55,6 +55,15 @@ else
 fi
 export TB_CAN_BUILD_ARM
 
+# Check if this version of Xcode can build for the X86_64 architecture
+if [ "${ARCHS_STANDARD/x86_64/}" = "${ARCHS_STANDARD}" ] ; then
+    TB_CAN_BUILD_X86_64=0
+    echo "Not building for Intel. ARCHS_STANDARD = '${ARCHS_STANDARD}'"
+else
+    TB_CAN_BUILD_X86_64=1
+fi
+export TB_CAN_BUILD_X86_64
+
 # Set the host (that is, the current build environment)
 # If building on x86_64 natively, it will be "x86_64..."
 # If building on ARM natively, it will be "arm64..."
