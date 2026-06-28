@@ -64,6 +64,23 @@ else
 fi
 export TB_CAN_BUILD_X86_64
 
+# Log what architecture(s) are being built for
+if [ $TB_CAN_BUILD_ARM = 0 ] ; then
+    if [ $TB_CAN_BUILD_X86_64 = 0 ] ; then
+        echo "error: No architecture to build for: not building for Intel or Apple Silicon. ARCHS_STANDARD = '${ARCHS_STANDARD}'"
+        exit 1
+    else
+        echo "warning: Building only for Intel. ARCHS_STANDARD = '${ARCHS_STANDARD}'"
+    fi
+else
+    if [ $TB_CAN_BUILD_X86_64 = 0 ] ; then
+        echo "warning: Building only for Apple Silicon. ARCHS_STANDARD = '${ARCHS_STANDARD}'"
+        exit 1
+    else
+        echo "Building for both Intel and Apple Silicon. ARCHS_STANDARD = '${ARCHS_STANDARD}'"
+    fi
+fi
+
 # Set the host (that is, the current build environment)
 # If building on x86_64 natively, it will be "x86_64..."
 # If building on ARM natively, it will be "arm64..."
