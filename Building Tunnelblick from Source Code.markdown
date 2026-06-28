@@ -1,6 +1,6 @@
 **Building Tunnelblick from Source Code**
 
-_Last Updated 2025-08-05_
+_Last Updated 2026-06-28_
 
 You can build Tunnelblick from the source code. Usually, people install
 and use a ready-to-use binary version of Tunnelblick. The most recent
@@ -15,25 +15,14 @@ with sufficient technical skills and resources can create their own
 binary and use it as they see fit under the terms of the license. This
 document describes how to do that.
 
-Tunnelblick runs on macOS High Sierra (10.13) and higher when built with Xcode 16
+Tunnelblick runs on macOS Ventura (10.18) and higher when built with Xcode 26.0.1
 as described in this document.
 
-When running on recent versions of macOS, Tunnelblick's tun and tap system
-extensions are restricted:
-
- * On macOS Catalina (10.15), the computer must be restarted after loading the
-   system extensions for the first time.
-
- * On macOS Big Sur (10.16), Tunnelblick's tun and tap system extensions can be
-   used only after being installed and approved by an administrator;
-   the installation process involves restarting the computer.
-
- * On Apple Silicon (M1) Macs, installing Tunnelblick's system extensions
-   requires a change to the default security settings, which requires two
-   additional computer restarts.
-
-See [The Future of Tun and Tap VPNs on macOS](https://tunnelblick.net/cTunTapConnections.html)
-For details.
+When running on Apple Silicon (M1) Macs, installing Tunnelblick's system
+extensions requires a change to the default security settings, which requires
+two additional computer restarts. See
+[The Future of Tun and Tap VPNs on macOS](https://tunnelblick.net/cTunTapConnections.html)
+for details.
 
 To build Tunnelblick from the source code:
 
@@ -41,12 +30,13 @@ To build Tunnelblick from the source code:
  2. You need a copy of the Tunnelblick source code;
  3. You need to have installed the GNU autotools;
  4. If you want to build a release version, you need to give Xcode "Full Disk Access";
- 5. If building on an Apple Silicon Mac, you need to install Rosetta;
- 6. You need to install Xcode command line tools;
- 7. On Apple Silicon Macs, you need to install Rosetta 2.
- 8. You need to have set up Xcode to build Tunnelblick;
- 9. You need to select the type of build you want to create; and then
- 10. You can (finally!) build Tunnelblick.
+ 5. If building on an Apple Silicon Mac, you need to install Rosetta 2;
+ 6. You need to install the command line tools;
+ 7. You need to have set up Xcode to build Tunnelblick;
+ 8. You need to select the type of build you want to create
+
+ Then you're ready to build Tunnelblick!
+
 
 This document has a section about each of these steps.
 
@@ -67,12 +57,26 @@ to the virtual machine's hard drive and building there is recommended.
 
 **1. Supported Versions of macOS and Xcode**
 
-The current version of Tunnelblick should be built using:
- * Xcode 16.0  on macOS 14.7 on an Intel or Apple Silicon Mac; Rosetta is required
-on Apple Silicon Macs because of a bug in Apple's "files" command line utility.
+The current version of Tunnelblick will create a Universal binary and run
+natively on Intel or Apple Silicon processors.
 
-Tunnelblick will be a Universal binary and run natively on Intel or Apple Silicon
-processors.
+Tunnelblick should be built using Xcode 26.0.1  on macOS 15.7.7 on an Intel or
+Apple Silicon Mac.
+
+Rosetta 2 is required on Apple Silicon Macs because the LZO compression library
+is so old that its build process does not recognize the ARM architecture used by
+Apple Silicon. By using the "arch -x86_64" command, the entire build process is
+run in Rosetta 2, making the LZO build script behave as if it is building on
+an Intel processor. (The build process creates a Universal binary of LZO because
+the toolchain used to build it is more modern.)
+
+This means that
+
+ * **Tunnelblick cannot be built with LZO support on macOS 27
+(Golden Gate), which does not include support for Rosetta 2.**
+
+ * **Tunnelblick cannot be built with LZO support on using Xcode versions later
+ than 26.3, which is the last version that builds for Intel processors.**
 
 Other versions of Xcode and macOS may fail to build Tunnelblick, or create
 Tunnelblick binaries that crash or have other unpredictable behavior.
@@ -81,9 +85,9 @@ Tunnelblick binaries that crash or have other unpredictable behavior.
 
 Tunnelblick source code is maintained using the git version control program. The
 three branches normally used are:
- * *master*: Contains the most recent code; beta releases are based on master.
- * *3*: Contains the most recent code for the latest 3.* release
- * *3.5*: Contains the most recent code for the 3.5.* release (very old!)
+ * **master***: Contains the most recent code; beta releases are based on master.
+ * **3***: Contains the most recent code for the latest 3.* release
+ * **3.5***: Contains the most recent code for the 3.5.* release (very old!)
 
 Download the Tunnelblick source code from the [Tunnelblick Project on
 GitHub](https://github.com/Tunnelblick//Tunnelblick).
@@ -147,26 +151,19 @@ System Settings >> Privacy and Security >> Full Disk Access >> Xcode
 
 **5. Installing Rosetta**
 
-On an Apple Silicon Mac, Tunnelblick's build process requires Rosetta because
-it uses Apple's "files" command line program, which has a bug which requires
-Rosetta to work properly. Install Rosetta by typing the following into Terminal:
-
-softwareupdate --install-rosetta
-
-**6. Installing Xcode command line tools**
-
-Xcode needs to have the command line tools installed. You can
-do that in Terminal with the following command:
-```xcode-select --install```
-
-**7. Installing Rosetta 2**
-
-On Apple Silcon Macs, Tunnelblick's build process requires Rosetta 2 to be installed.
-You can do that in Terminal with the following command:
+On an Apple Silicon Mac, Tunnelblick's build process requires Rosetta 2 as
+noted above. Install Rosetta 2 by typing the following into Terminal:
 ```softwareupdate --install-rosetta```
 Note that you'll need to agree to the software license agreement.
 
-**8. Setting up Xcode to Build Tunnelblick**
+**6. Installing the command line tools**
+
+The command line tools need to be installed to build the third-party software
+used by Tunnelblick. You can install them in Terminal with the following
+command:
+```xcode-select --install```
+
+**7. Setting up Xcode to Build Tunnelblick**
 
 Double-click **TBS**/tunnelblick/Tunnelblick.xcodeproj to
 open the Tunnelblick source code in Xcode.
@@ -184,10 +181,10 @@ Dependencies".
 
 Xcode also needs to be set to build in "legacy" locations. In Xcode 16:
 Xcode >> Settings >> Locations >> Build Location..., set "Build Location" to "Legacy".
-In older versions: Xcode, >> Settings >> Locations >> Advanced, set
+In older versions of Xcode, >> Settings >> Locations >> Advanced, set
 "Build Location" to "Legacy".
 
-**9. Selecting the Type of Build You Want to Create**
+**8. Selecting the Type of Build You Want to Create**
 
 There are two different types of builds:
 
