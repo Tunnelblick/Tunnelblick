@@ -22,6 +22,29 @@ built-lzo:
 	@echo "THIRD_PARTY: Expanding LZO..."
 	mkdir -p build
 	tar -x -f sources/$(LZO_NAME).tar.gz -C build
+	@echo "THIRD_PARTY: Updating config.guess and config.sub"
+	if [ -f "${LZO_BUILD_DIR}/autoconf/config.guess" ] ; then \
+		cp -f -p "${SOURCES_DIR}/replacements/autoconf/config.guess" "${LZO_BUILD_DIR}/autoconf/config.guess" ; \
+		cpstatus=$$? ; \
+		if [ "$$cpstatus" = "0" ] ; then \
+			echo "replaced with an updated version: ${LZO_BUILD_DIR}/autoconf/config.guess" ; \
+		else \
+			echo "error: status = $$cpstatus copying to ${LZO_BUILD_DIR}/autoconf/config.guess" ; \
+		fi \
+	else \
+		echo "error: does not exist: ${LZO_BUILD_DIR}/autoconf/config.guess" ; \
+	fi ; \
+	if [ -f "${LZO_BUILD_DIR}/autoconf/config.sub" ] ; then \
+		cp -f -p "${SOURCES_DIR}/replacements/autoconf/config.sub" "${LZO_BUILD_DIR}/autoconf/config.sub" ; \
+		cpstatus=$$? ; \
+		if [ "$$cpstatus" = "0" ] ; then \
+			echo "replaced with an updated version: ${LZO_BUILD_DIR}/autoconf/config.sub" ; \
+		else \
+			echo "error: status = $$cpstatus copying to ${LZO_BUILD_DIR}/autoconf/config.sub" ; \
+		fi \
+	else \
+		echo "error: does not exist: ${LZO_BUILD_DIR}/autoconf/config.sub" ; \
+	fi
 	@echo "THIRD_PARTY: Building LZO..."
 	for a in $(LZO_TARGET_ARCHS); do \
 		cd $(LZO_BUILD_DIR) ; \
