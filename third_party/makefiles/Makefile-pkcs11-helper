@@ -21,6 +21,29 @@ built-pkcs11-helper: built-allssl
 	@echo "THIRD_PARTY: Expanding PKCS11-Helper..."
 	mkdir -p $(PKCS11_BUILD_DIR)
 	tar -x -f sources/$(PKCS11_NAME).tar.bz2 -C build
+	@echo "THIRD_PARTY: Updating config.guess and config.sub"
+	if [ -f "${PKCS11_BUILD_DIR}/config.guess" ] ; then \
+		cp -f -p "${SOURCES_DIR}/replacements/autoconf/config.guess" "${PKCS11_BUILD_DIR}/config.guess" ; \
+		cpstatus=$$? ; \
+		if [ "$$cpstatus" = "0" ] ; then \
+			echo "replaced with an updated version: ${PKCS11_BUILD_DIR}/config.guess" ; \
+		else \
+			echo "error: status = $$cpstatus copying to ${PKCS11_BUILD_DIR}/config.guess" ; \
+		fi \
+	else \
+		echo "error: does not exist: ${PKCS11_BUILD_DIR}/config.guess" ; \
+	fi ; \
+	if [ -f "${PKCS11_BUILD_DIR}/config.sub" ] ; then \
+		cp -f -p "${SOURCES_DIR}/replacements/autoconf/config.sub" "${PKCS11_BUILD_DIR}/config.sub" ; \
+		cpstatus=$$? ; \
+		if [ "$$cpstatus" = "0" ] ; then \
+			echo "replaced with an updated version: ${PKCS11_BUILD_DIR}/config.sub" ; \
+		else \
+			echo "error: status = $$cpstatus copying to ${PKCS11_BUILD_DIR}/config.sub" ; \
+		fi \
+	else \
+		echo "error: does not exist: ${PKCS11_BUILD_DIR}/config.sub" ; \
+	fi
 	@echo "THIRD_PARTY: Building PKCS11-Helper..."
 	for a in $(PKCS11_TARGET_ARCHS); do \
 		cd $(PKCS11_BUILD_DIR) ; \

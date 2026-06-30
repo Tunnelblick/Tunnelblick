@@ -1993,7 +1993,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "arch -x86_64 ../third_party/BuildThirdPartyItems.sh\n";
+			shellScript = "../third_party/BuildThirdPartyItems.sh\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
