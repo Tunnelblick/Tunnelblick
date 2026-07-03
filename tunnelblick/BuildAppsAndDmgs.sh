@@ -304,11 +304,16 @@ CreateOpenvpnDirectoryStructure() {
         t="${t/_git/}"
         t="${t/_rc/}"
         u="${VERSION_STRING/beta/}"
-        if [ "$d" == "$t" ] || [ "${CONFIGURATION}" = "Debug" ] || [ "$u" != "$VERSION_STRING" ] ; then
+# REMOVED this "if" so we can include OpenVPN 2.5_git_37160ee in stable releases.
+# WE USED TO accept non-released versions, then stopped when it became problematic.
+# BUT THIS non-released version is a bug/security fix that will never be released
+#          because 2.5 is no longer being supported by OpenVPN.
+#        if [ "$d" == "$t" ] || [ "${CONFIGURATION}" = "Debug" ] || [ "$u" != "$VERSION_STRING" ] ; then
             mkdir -p "${APP_PATH}/Contents/Resources/openvpn/${d}"
             cp "../third_party/products/openvpn/${d}/openvpn-executable" "${APP_PATH}/Contents/Resources/openvpn/${d}/openvpn"
             cp "../third_party/products/openvpn/${d}/openvpn-down-root.so" "${APP_PATH}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
             chmod 744 "${APP_PATH}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
+            last_openvpn="${d}"
             if [ "${d}" \< "${default_openvpn}" ] ; then
                 if [ "${d}" != "${d/$default_openssl_version_prefix/xx}" ] ; then
                     dovp_len=${#default_openvpn_version_prefix}
@@ -318,9 +323,9 @@ CreateOpenvpnDirectoryStructure() {
                     fi
                 fi
             fi
-        else
-            echo "warning: Not including '$d' because it is not a stable release and this is not a Debug build and this is not a Tunnelblick beta"
-        fi
+#        else
+#            echo "warning: Not including '$d' because it is not a stable release and this is not a Debug build and this is not a Tunnelblick beta"
+#        fi
     done
 
     if [ "${default_openvpn}" != "z" ] ; then
