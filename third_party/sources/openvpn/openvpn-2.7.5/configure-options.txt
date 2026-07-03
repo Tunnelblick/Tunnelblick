@@ -1,0 +1,1 @@
+--enable-static=yes --enable-shared --disable-debug --disable-plugin-auth-pam --disable-dependency-tracking
