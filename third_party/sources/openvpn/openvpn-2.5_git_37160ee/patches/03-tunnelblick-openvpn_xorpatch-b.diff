@@ -1,16 +1,16 @@
-diff -u -r -x .DS_Store openvpn-2.5.9.old/src/openvpn/options.c openvpn-2.5.9.new/src/openvpn/options.c
---- openvpn-2.5.9.old/src/openvpn/options.c	2023-02-16 10:23:30.000000000 -0500
-+++ openvpn-2.5.9.new/src/openvpn/options.c	2023-02-16 10:23:30.000000000 -0500
-@@ -826,6 +826,9 @@
-     o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
+diff -u -r A/src/openvpn/options.c B/src/openvpn/options.c
+--- A/src/openvpn/options.c	2026-07-01 09:20:46
++++ B/src/openvpn/options.c	2026-07-03 09:54:39
+@@ -827,6 +827,9 @@
      o->resolve_in_advance = false;
      o->proto_force = -1;
+     o->occ = true;
 +    o->ce.xormethod = 0;
 +    o->ce.xormask = "\0";
 +    o->ce.xormasklen = 0;
-     o->occ = true;
  #ifdef ENABLE_MANAGEMENT
      o->management_log_history_cache = 250;
+     o->management_echo_buffer_size = 100;
 @@ -979,6 +982,9 @@
      setenv_str_i(es, "local_port", e->local_port, i);
      setenv_str_i(es, "remote", e->remote, i);
@@ -31,10 +31,11 @@ diff -u -r -x .DS_Store openvpn-2.5.9.old/src/openvpn/options.c openvpn-2.5.9.ne
  
      if (o->http_proxy_options)
      {
-@@ -6329,6 +6338,46 @@
+@@ -6328,6 +6337,46 @@
+             goto err;
          }
          options->proto_force = proto_force;
-     }
++    }
 +    else if (streq (p[0], "scramble") && p[1])
 +    {
 +        VERIFY_PERMISSION (OPT_P_GENERAL|OPT_P_CONNECTION);
@@ -74,7 +75,6 @@ diff -u -r -x .DS_Store openvpn-2.5.9.old/src/openvpn/options.c openvpn-2.5.9.ne
 +            msg (msglevel, "No recognized 'scramble' method specified or extra parameters for 'scramble'");
 +            goto err;
 +        }
-+    }
+     }
      else if (streq(p[0], "http-proxy") && p[1] && !p[5])
      {
-         struct http_proxy_options *ho;
