@@ -58,12 +58,6 @@ BOOL checkOwnedByRootWheel(NSString * path);
 
 BOOL itemHasValidSignature(NSString * path, BOOL deepCheck);
 
-BOOL checkSetItemOwnership(NSString *     path,
-						   NSDictionary * atts,
-						   uid_t          uid,
-						   gid_t          gid,
-						   BOOL           traverseLink);
-
 BOOL checkSetOwnership(NSString * path,
 					   BOOL       deeply,
 					   uid_t      uid,
