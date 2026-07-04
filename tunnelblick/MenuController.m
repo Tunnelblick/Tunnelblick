@@ -715,7 +715,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         [self createMenu];
 
         TBLog(@"DB-SU", @"init: 015.1")
-        [self createStatusItem];
 
         [self setState: @"EXITING"]; // synonym for "Disconnected"
 
@@ -4409,6 +4408,9 @@ static void signal_handler(int signalNumber)
 {
     (void) notification;
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 001")
+
+    [self createStatusItem];
+    TBLog(@"DB-SI", @"Created statusItem");
 
     [self installSignalHandler];
     [self updateScreenList];
