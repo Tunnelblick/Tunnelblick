@@ -1425,7 +1425,11 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [statusItem setMenu: myVPNMenu];
     TBLog(@"DB-SI", @"createStatusItem: Set menu for status item %@", myVPNMenu.description)
 
-    if (  [gTbDefaults boolForKey: @"DEBUG-inhibitAddingSubviewsToStatusIcon"] ) {
+    BOOL showYellowAsTemplate = [gTbDefaults boolForKey: @"DEBUG-statusIconYellowTriangleIsTemplate"];
+    BOOL showGreenAsTemplate  = [gTbDefaults boolForKey: @"DEBUG-statusIconGreenAreConnectedIndicatorIsTemplate"];
+    if (   [gTbDefaults boolForKey: @"DEBUG-inhibitAddingSubviewsToStatusIcon"]
+        && ( ! showYellowAsTemplate)
+        && ( ! showGreenAsTemplate)  ) {
         TBLog(@"DB-SI", @"createStatusItem: not adding subview for yellowTriangleImage or areConnectedIndicator");
     } else {
 
@@ -1435,7 +1439,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         NSString * fileType = NSFileTypeForHFSTypeCode(kAlertCautionIcon);
         NSImage  * yellowTriangleImage = [[NSWorkspace sharedWorkspace] iconForFileType: fileType];
         if (  yellowTriangleImage  ) {
-            [yellowTriangleImage setTemplate: NO];
+            TBLog(@"DB-SI", @"createStatusItem: yellowTriangleImage.isTemplate = %s; setting yellow triangle as a template: %s",
+                  CSTRING_FROM_BOOL(yellowTriangleImage.isTemplate), CSTRING_FROM_BOOL(showYellowAsTemplate));
+            [yellowTriangleImage setTemplate: showYellowAsTemplate];
             NSRect yellowTriangleFrame  = NSMakeRect(0, height / 2,  width / 2, height / 2 );
             yellowTriangleView = [self viewWithImage: yellowTriangleImage
                                                frame: yellowTriangleFrame];
@@ -1447,6 +1453,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         }
 
         if (  areConnectedIndicatorImage  ) {
+            TBLog(@"DB-SI", @"createStatusItem: areConnectedIndicatorImage.isTemplate = %s; setting green are connected indicator as a template: %s",
+                  CSTRING_FROM_BOOL(areConnectedIndicatorImage.isTemplate), CSTRING_FROM_BOOL(showGreenAsTemplate));
+            [areConnectedIndicatorImage setTemplate: showGreenAsTemplate];
             NSRect areConnectedFrame  = NSMakeRect(-1, 0,  width, height );
             areConnectedIndicatorView = [self viewWithImage: areConnectedIndicatorImage
                                                       frame: areConnectedFrame];
@@ -1662,9 +1671,17 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     // Assumes regular and large image sets have already loaded successfully
     TBLog(@"DB-SI", @"loadHighlightedIconSet invoked");
     if (  [mainImage isTemplate]  ) {
+        TBLog(@"DB-SI", @"loadHighlightedIconSet: mainImage.isTemplate = %s; connectedImage.isTemplate = %s; areConnectedIndicatorImage.isTemplate = %s",
+              CSTRING_FROM_BOOL(mainImage.isTemplate), CSTRING_FROM_BOOL(connectedImage.isTemplate), CSTRING_FROM_BOOL(areConnectedIndicatorImage.isTemplate));
+        if (  areConnectedIndicatorImage  ) {
+            [areConnectedIndicatorImage setTemplate: YES];
+            TBLog(@"DB-SI", @"loadHighlightedIconSet: set areConnectedIndicatorImage.isTemplate to YES");
+        } else {
+            TBLog(@"DB-SI", @"loadHighlightedIconSet:  areConnectedIndicatorImage is nil");
+        }
         [self setHighlightedMainImage:      [self tintTemplateImage: mainImage]];
         [self setHighlightedConnectedImage: [self tintTemplateImage: connectedImage]];
-        [self setHighlightedGreenAreConnectedIndicatorImage: areConnectedIndicatorImage];
+        [self setHighlightedGreenAreConnectedIndicatorImage: [self tintTemplateImage: areConnectedIndicatorImage]];
 
         [self setHighlightedAnimImages: [NSMutableArray arrayWithCapacity: [animImages count]]];
         NSUInteger i;
@@ -4408,6 +4425,20 @@ static void signal_handler(int signalNumber)
 {
     (void) notification;
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 001")
+
+    if (  areConnectedIndicatorImage) {
+        BOOL showGreenAsTemplate  = [gTbDefaults boolForKey: @"DEBUG-statusIconGreenAreConnectedIndicatorIsTemplate"];
+        if (  showGreenAsTemplate  ) {
+            TBLog(@"DB-SI", @"applicationDidFinishLaunching: areConnectedIndicatorImage.isTemplate = %s; setting green are connected indicator as a template: YES",
+                  CSTRING_FROM_BOOL(areConnectedIndicatorImage.isTemplate));
+            [areConnectedIndicatorImage setTemplate: YES];
+        } else {
+            TBLog(@"DB-SI", @"areConnectedIndicatorImage.isTemplate = %s; did not set it as a template",
+                  CSTRING_FROM_BOOL(areConnectedIndicatorImage.isTemplate));
+        }
+    } else {
+        TBLog(@"DB-SI", @"ERROR: areConnectedIndicateImage is nil");
+    }
 
     [self createStatusItem];
     TBLog(@"DB-SI", @"Created statusItem");
