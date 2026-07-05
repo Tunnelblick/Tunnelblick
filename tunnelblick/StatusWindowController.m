@@ -635,11 +635,8 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     [self setName: theName]; // Also sets "localName"
     [self setStatus: theStatus];
-    // Only show the elapsed connection time while actually CONNECTED. In the transient
-    // states before a connection is established, and while disconnecting, "connectedSince"
-    // is not a meaningful elapsed-connection time, so showing it misleads the user.
     [self setConnectedSince: (  (   theTime
-                                 && [theStatus isEqualToString: @"CONNECTED"]   )
+                                 && ( ! [theStatus isEqualToString: @"EXITING"])   )
                               ? [NSString stringWithFormat: @" %@", theTime]
                               : @"")];
     
