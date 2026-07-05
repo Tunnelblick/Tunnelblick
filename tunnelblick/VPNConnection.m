@@ -3078,9 +3078,13 @@ ifConnectionPreference: (NSString *)     keySuffix
 
 -(NSString *) connectTimeString {
 
-    // Get connection duration if preferences say to
+    // Get connection duration if preferences say to.
+    // Only show the duration while actually CONNECTED: connectedSinceDate is not a
+    // meaningful "connected since" value in the transient states before a connection
+    // is established (CONNECTING, AUTH, RESOLVE, TCP_CONNECT, …) or while disconnecting
+    // (DISCONNECTING), so showing an elapsed time in those states misleads the user.
     if (   [gTbDefaults boolWithDefaultYesForKey:@"showConnectedDurations"]
-        && ( ! [[self state] isEqualToString: @"EXITING"] )    ) {
+        && [[self state] isEqualToString: @"CONNECTED"]    ) {
         NSString * cTimeS = @"";
         NSDate * csd = [self connectedSinceDate];
         NSTimeInterval ti = [csd timeIntervalSinceNow];
