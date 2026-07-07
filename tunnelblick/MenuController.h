@@ -267,11 +267,6 @@ enum ActiveInactiveState {
 -(unsigned)         incrementTunCount;
 -(void)             installOrUninstallKexts;
 -(BOOL)             loadMenuIconSet;
--(BOOL)             loadMenuIconSet:                        (NSString * _Nonnull) iconSetName
-                               main:                        (NSImage * _Nonnull * _Nonnull) ptrMainImage
-                         connecting:                        (NSImage * _Nonnull * _Nonnull) ptrConnectedImage
-                              green:                        (NSImage * _Nonnull * _Nullable) ptrGreenAreConnectedIndicatorImage
-                               anim:                        (NSMutableArray * _Nonnull * _Nonnull) ptrAnimImages;
 -(nonnull NSString *)       localizedNameForDisplayName:            (nonnull NSString *)        displayName;
 -(nonnull NSString *)       localizedNameforDisplayName:            (nonnull NSString *)        displayName
                                        tblkPath:            (nonnull NSString *)        tblkPath;
