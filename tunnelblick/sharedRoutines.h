@@ -30,8 +30,6 @@ NSDictionary * tunnelblickdPlistDictionaryToUse(void);
 
 BOOL needToReplaceLaunchDaemon(void);
 
-OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix);
-
 unsigned cvt_atou(const char * s, NSString * description);
 
 int            createDir(NSString * d,
