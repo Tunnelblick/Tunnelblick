@@ -1410,17 +1410,30 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
     TBLog(@"DB-SI", @"createStatusItem: Created status item");
 
+    TBLog(@"DB-SI", @"statusItem.isVisible = %s", CSTRING_FROM_BOOL(statusItem.isVisible));
+    [statusItem setVisible: NO];
+    TBLog(@"DB-SI", @"Set statusItem visible: NO");
+
     NSStatusBarButton * button = statusItem.button;
     if (  ! button  ) {
         TBLog(@"DB-SI", @"createStatusItem: status item has no button");
         return;
     }
+    TBLog(@"DB-SI", @"statusItem.button.isHidden = %s", CSTRING_FROM_BOOL(statusItem.button.isHidden));
+    [button setHidden: YES];
+    TBLog(@"DB-SI", @"Set statusItem.button.hidden: YES");
+
     [button setImage: mainImage];
+
     ourMainIconView = [[MainIconView alloc] initWithFrame: button.frame];
     if ( ! ourMainIconView  ) {
         TBLog(@"DB-SI", @"createStatusItem: Could not alloc/init MainIconView");
         return;
     }
+    TBLog(@"DB-SI", @"ourMainIconView.isHidden = %s", CSTRING_FROM_BOOL(ourMainIconView.isHidden));
+    [ourMainIconView setHidden: YES];
+    TBLog(@"DB-SI", @"Set ourMainIconView.hidden: YES");
+
     [button addSubview: ourMainIconView];
     [statusItem setMenu: myVPNMenu];
     TBLog(@"DB-SI", @"createStatusItem: Set menu for status item %@", myVPNMenu.description)
@@ -1445,7 +1458,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
             NSRect yellowTriangleFrame  = NSMakeRect(0, height / 2,  width / 2, height / 2 );
             yellowTriangleView = [self viewWithImage: yellowTriangleImage
                                                frame: yellowTriangleFrame];
-            [self showYellowTriangleIfAppropriate];
+            TBLog(@"DB-SI", @"yellowTriangleView.isHidden = %s", CSTRING_FROM_BOOL(yellowTriangleView.isHidden));
+            [yellowTriangleView setHidden: YES];
+            TBLog(@"DB-SI", @"Set yellowTriangleView hidden: YES");
             [button addSubview: yellowTriangleView];
             TBLog(@"DB-SI", @"createStatusItem: added subview for yellowTriangleImage");
         } else {
@@ -1459,13 +1474,27 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
             NSRect areConnectedFrame  = NSMakeRect(-1, 0,  width, height );
             areConnectedIndicatorView = [self viewWithImage: areConnectedIndicatorImage
                                                       frame: areConnectedFrame];
-            [self showGreenAreConnectedIndicatorIfAppropriate];
+            TBLog(@"DB-SI", @"areConnectedIndicatorView.isHidden = %s", CSTRING_FROM_BOOL(areConnectedIndicatorView.isHidden));
+            [areConnectedIndicatorView setHidden: YES];
+            TBLog(@"DB-SI", @"Set areConnectedIndicatorView hidden: YES");
             [button addSubview: areConnectedIndicatorView];
             TBLog(@"DB-SI", @"createStatusItem: added subview for areConnectedIndicator");
         } else {
             TBLog(@"DB-SI", @"createStatusItem: areConnectedIndicatorImage is nil");
         }
     }
+    
+    [self showYellowTriangleIfAppropriate];
+    [self showGreenAreConnectedIndicatorIfAppropriate];
+
+    [button setHidden: NO];
+    TBLog(@"DB-SI", @"Set statusItem.button.hidden: NO");
+
+    [statusItem setVisible: YES];
+    TBLog(@"DB-SI", @"Set statusItem visible: YES");
+
+    [ourMainIconView setHidden: NO];
+    TBLog(@"DB-SI", @"Set ourMainIconView.hidden: NO");
 }
 
 -(void) showYellowTriangleIfAppropriate {
