@@ -1053,6 +1053,7 @@ name = newValue;                                    \
 @"updateCheckInterval",	\
 @"updateFeedURL",	\
 \
+@"NSStatusItem Preferred Position Item-0" \
 @"NSWindow Frame SettingsSheetWindow",	\
 @"NSWindow Frame ConnectingWindow",	\
 @"NSWindow Frame SUStatusFrame",	\
