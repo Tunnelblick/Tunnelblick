@@ -3347,6 +3347,8 @@ static BOOL firstTimeShowingWindow = TRUE;
                 preferenceKey: @"showGreenAreConnectedIndicator"
                      inverted: NO
                    defaultsTo: FALSE];
+    [appearancePrefsView.appearanceDisplayConnectedIndicatorCheckbox setState: NSOffState];
+    [appearancePrefsView.appearanceDisplayConnectedIndicatorCheckbox setEnabled: NO];
 
     [self setValueForCheckbox: [appearancePrefsView appearanceDisplayConnectionSubmenusCheckbox]
                 preferenceKey: @"doNotShowConnectionSubmenus"
