@@ -175,7 +175,7 @@ TBSYNTHESIZE_NONOBJECT_GET(BOOL volatile, menuIsOpen)
 TBSYNTHESIZE_NONOBJECT_GET(BOOL volatile, launchFinished)
 TBSYNTHESIZE_NONOBJECT_GET(BOOL         , languageAtLaunchWasRTL)
 
-TBSYNTHESIZE_NONOBJECT(BOOL         , doingSetupOfUI, setDoingSetupOfUI)
+TBSYNTHESIZE_NONOBJECT(BOOL         , doingSetupOfUI,           setDoingSetupOfUI)
 TBSYNTHESIZE_NONOBJECT(BOOL         , showingImportSetupWindow, setShowingImportSetupWindow)
 
 TBSYNTHESIZE_OBJECT_GET(retain, MyPrefsWindowController *,   logScreen)
@@ -185,8 +185,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            largeAnimImages)
 TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,                   largeConnectedImage)
 TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,                   largeMainImage)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArray *,                   animImages)
-TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,                   connectedImage)
-TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,                   mainImage)
 TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *,              statusItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,                    myVPNMenu)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            activeIPCheckThreads)
@@ -204,10 +202,10 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, nondisconnectedConnections,setNondis
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
 TBSYNTHESIZE_OBJECT(retain, TBUIUpdater  *, uiUpdater,                 setUiUpdater)
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
-TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
-TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
-TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedGreenAreConnectedIndicatorImage, setHighlightedGreenAreConnectedIndicatorImage)
-TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedMainImage,      setHighlightedMainImage)
+TBSYNTHESIZE_OBJECT(retain, NSImage      *, connectedImage,            setConnectedImage)
+TBSYNTHESIZE_OBJECT(retain, NSImage      *, mainImage,                 setMainImage)
+TBSYNTHESIZE_OBJECT(retain, NSImage      *, connectedCautionImage,     setConnectedCautionImage)
+TBSYNTHESIZE_OBJECT(retain, NSImage      *, mainCautionImage,          setMainCautionImage)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnWakeup,     setConnectionsToRestoreOnWakeup)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
@@ -715,6 +713,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         [self createMenu];
 
         TBLog(@"DB-SU", @"init: 015.1")
+        [self createStatusItem];
+        TBLog(@"DB-SI", @"Created statusItem");
 
         [self setState: @"EXITING"]; // synonym for "Disconnected"
 
@@ -1265,9 +1265,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [animImages release];
     [connectedImage release];
     [mainImage release];
-    [highlightedAnimImages release];
-    [highlightedConnectedImage release];
-    [highlightedMainImage release];
+    [mainCautionImage release];
+    [connectedCautionImage release];
 
     [gConfigDirs release];
 
@@ -1396,11 +1395,19 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
     // Places an item with our icon in the Status Bar, replacing any existing item
 
+    static unsigned deferred = 0;
+
     [self removeStatusItem];
 
     // Create new status item
     statusItem = [[NSStatusBar.systemStatusBar statusItemWithLength: 16] retain];
     if (  ! statusItem  ) {
+        if (  ++deferred > 10  ) {
+            appendLog(@"createStatusItem: Cannot create status item");
+            [self terminateBecause: terminatingBecauseOfError];
+            return;
+        }
+
         TBLog(@"DB-SI", @"createStatusItem: Can't obtain status item; will retry");
         [self performSelector: @selector(createStatusItemDeferred)
                    withObject: nil
@@ -1415,19 +1422,21 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     TBLog(@"DB-SI", @"Set statusItem visible: NO");
 
     NSStatusBarButton * button = statusItem.button;
+    [button setHidden: YES];
     if (  ! button  ) {
-        TBLog(@"DB-SI", @"createStatusItem: status item has no button");
+        appendLog(@"createStatusItem: status item has no button");
+        [self terminateBecause: terminatingBecauseOfError];
         return;
     }
     TBLog(@"DB-SI", @"statusItem.button.isHidden = %s", CSTRING_FROM_BOOL(statusItem.button.isHidden));
     [button setHidden: YES];
     TBLog(@"DB-SI", @"Set statusItem.button.hidden: YES");
 
-    [button setImage: mainImage];
-
     ourMainIconView = [[MainIconView alloc] initWithFrame: button.frame];
+    [ourMainIconView setHidden: YES];
     if ( ! ourMainIconView  ) {
-        TBLog(@"DB-SI", @"createStatusItem: Could not alloc/init MainIconView");
+        appendLog(@"createStatusItem: Could not alloc/init MainIconView");
+        [self terminateBecause: terminatingBecauseOfError];
         return;
     }
     TBLog(@"DB-SI", @"ourMainIconView.isHidden = %s", CSTRING_FROM_BOOL(ourMainIconView.isHidden));
@@ -1435,113 +1444,27 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     TBLog(@"DB-SI", @"Set ourMainIconView.hidden: YES");
 
     [button addSubview: ourMainIconView];
+    TBLog(@"DB-SI", @"createStatusItem: Added ourMainIconView as subview to statusItem.button");
+
     [statusItem setMenu: myVPNMenu];
-    TBLog(@"DB-SI", @"createStatusItem: Set menu for status item %@", myVPNMenu.description)
+    TBLog(@"DB-SI", @"createStatusItem: Set menu for statusItem");
 
-    BOOL showYellowAsTemplate = [gTbDefaults boolForKey: @"DEBUG-statusIconYellowTriangleIsTemplate"];
-    BOOL showGreenAsTemplate  = [gTbDefaults boolForKey: @"DEBUG-statusIconGreenAreConnectedIndicatorIsTemplate"];
-    if (   [gTbDefaults boolForKey: @"DEBUG-inhibitAddingSubviewsToStatusIcon"]
-        && ( ! showYellowAsTemplate)
-        && ( ! showGreenAsTemplate)  ) {
-        TBLog(@"DB-SI", @"createStatusItem: not adding subview for yellowTriangleImage or areConnectedIndicator");
-    } else {
-
-        // Get views of the yellow triangle and the green dot to overlay the icon
-        CGFloat width  = button.frame.size.width;
-        CGFloat height = button.frame.size.height;
-        NSString * fileType = NSFileTypeForHFSTypeCode(kAlertCautionIcon);
-        NSImage  * yellowTriangleImage = [[NSWorkspace sharedWorkspace] iconForFileType: fileType];
-        if (  yellowTriangleImage  ) {
-            TBLog(@"DB-SI", @"createStatusItem: yellowTriangleImage.isTemplate = %s; setting yellow triangle as a template: %s",
-                  CSTRING_FROM_BOOL(yellowTriangleImage.isTemplate), CSTRING_FROM_BOOL(showYellowAsTemplate));
-            [yellowTriangleImage setTemplate: showYellowAsTemplate];
-            NSRect yellowTriangleFrame  = NSMakeRect(0, height / 2,  width / 2, height / 2 );
-            yellowTriangleView = [self viewWithImage: yellowTriangleImage
-                                               frame: yellowTriangleFrame];
-            TBLog(@"DB-SI", @"yellowTriangleView.isHidden = %s", CSTRING_FROM_BOOL(yellowTriangleView.isHidden));
-            [yellowTriangleView setHidden: YES];
-            TBLog(@"DB-SI", @"Set yellowTriangleView hidden: YES");
-            [button addSubview: yellowTriangleView];
-            TBLog(@"DB-SI", @"createStatusItem: added subview for yellowTriangleImage");
-        } else {
-            TBLog(@"DB-SI", @"createStatusItem: Could not find yellowTriangleImage");
-        }
-
-        if (  areConnectedIndicatorImage  ) {
-            TBLog(@"DB-SI", @"createStatusItem: areConnectedIndicatorImage.isTemplate = %s; setting green are connected indicator as a template: %s",
-                  CSTRING_FROM_BOOL(areConnectedIndicatorImage.isTemplate), CSTRING_FROM_BOOL(showGreenAsTemplate));
-            [areConnectedIndicatorImage setTemplate: showGreenAsTemplate];
-            NSRect areConnectedFrame  = NSMakeRect(-1, 0,  width, height );
-            areConnectedIndicatorView = [self viewWithImage: areConnectedIndicatorImage
-                                                      frame: areConnectedFrame];
-            TBLog(@"DB-SI", @"areConnectedIndicatorView.isHidden = %s", CSTRING_FROM_BOOL(areConnectedIndicatorView.isHidden));
-            [areConnectedIndicatorView setHidden: YES];
-            TBLog(@"DB-SI", @"Set areConnectedIndicatorView hidden: YES");
-            [button addSubview: areConnectedIndicatorView];
-            TBLog(@"DB-SI", @"createStatusItem: added subview for areConnectedIndicator");
-        } else {
-            TBLog(@"DB-SI", @"createStatusItem: areConnectedIndicatorImage is nil");
-        }
-    }
-    
-    [self showYellowTriangleIfAppropriate];
-    [self showGreenAreConnectedIndicatorIfAppropriate];
-
-    [button setHidden: NO];
-    TBLog(@"DB-SI", @"Set statusItem.button.hidden: NO");
-
-    [statusItem setVisible: YES];
-    TBLog(@"DB-SI", @"Set statusItem visible: YES");
+    [self updateIconImage];
 
     [ourMainIconView setHidden: NO];
-    TBLog(@"DB-SI", @"Set ourMainIconView.hidden: NO");
+    TBLog(@"DB-SI", @"createStatusItem: Set ourMainIconView hidden: NO");
+    [button setHidden: NO];
+    TBLog(@"DB-SI", @"createStatusItem: Set statusItem.button hidden: NO");
+    [statusItem setVisible: YES];
+    TBLog(@"DB-SI", @"createStatusItem: Set statusItem visible: YES");
 }
 
--(void) showYellowTriangleIfAppropriate {
+-(BOOL) shouldShowCautionMarker {
 
-    if (  ! [NSThread isMainThread]  ) {
-        TBLog(@"DB-SI", @"showYellowTriangleIfAppropriate invoked but not on main thread; stack trace = %@", callStack());
-        [self performSelectorOnMainThread: @selector(showYellowTriangleIfAppropriate)
-                               withObject: nil waitUntilDone: NO];
-    }
-
-    BOOL hideYellowTriangle = (   warningsItem.isHidden
-                               && ( ! tbUpdatesAreAvailable )
-                               && configUpdateAvailableItem.isHidden);
-    if (   yellowTriangleView.isHidden
-        != hideYellowTriangle  ) {
-        [yellowTriangleView setHidden: hideYellowTriangle];
-        TBLog(@"DB-SI", @"CHANGED yellow triangle hidden to %s; warningsHidden = %s; tbUpdatesAvailable = %s; configUpdatesHidden = %s",
-              CSTRING_FROM_BOOL(hideYellowTriangle), CSTRING_FROM_BOOL(warningsItem.isHidden),
-              CSTRING_FROM_BOOL(tbUpdatesAreAvailable), CSTRING_FROM_BOOL(configUpdateAvailableItem.isHidden));
-    } else {
-        TBLog(@"DB-SI", @"UNCHANGED yellow triangle hidden is %s; warningsHidden = %s; tbUpdatesAvailable = %s; configUpdatesHidden = %s",
-              CSTRING_FROM_BOOL(hideYellowTriangle), CSTRING_FROM_BOOL(warningsItem.isHidden),
-              CSTRING_FROM_BOOL(tbUpdatesAreAvailable), CSTRING_FROM_BOOL(configUpdateAvailableItem.isHidden));
-    }
-}
-
--(void) showGreenAreConnectedIndicatorIfAppropriate {
-
-    if (  ! [NSThread isMainThread]  ) {
-        TBLog(@"DB-SI", @"showGreenAreConnectedIndicatorIfAppropriate invoked but not on main thread; stack trace = %@", callStack());
-        [self performSelectorOnMainThread: @selector(showGreenAreConnectedIndicatorIfAppropriate)
-                               withObject: nil waitUntilDone: NO];
-    }
-
-    BOOL connected = [lastState isEqualToString: @"CONNECTED"];
-    BOOL showPreference = [gTbDefaults boolForKey: @"showGreenAreConnectedIndicator"];
-    BOOL hideGreenAreConnectedIndicator = (   (! connected)
-                                           || (! showPreference));
-    if (   areConnectedIndicatorView.isHidden
-        != hideGreenAreConnectedIndicator  ) {
-        [areConnectedIndicatorView setHidden: hideGreenAreConnectedIndicator];
-        TBLog(@"DB-SI", @"CHANGED green are connected indicator hidden to %s; connected = %s; showPreference = %s",
-              CSTRING_FROM_BOOL(hideGreenAreConnectedIndicator), CSTRING_FROM_BOOL(connected), CSTRING_FROM_BOOL(showPreference));
-    } else {
-        TBLog(@"DB-SI", @"UNCHANGED green are connected indicator hidden is %s; connected = %s; showPreference = %s",
-              CSTRING_FROM_BOOL(hideGreenAreConnectedIndicator), CSTRING_FROM_BOOL(connected), CSTRING_FROM_BOOL(showPreference));
-    }
+    return (   tbUpdatesAreAvailable
+            || (! configUpdateAvailableItem.isHidden)
+            || (! warningsItem.isHidden)
+            );
 }
 
 -(void) updateScreenList {
@@ -1602,10 +1525,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 {
     [self createMenu];
     [self updateIconImage];
-    [statusItem setMenu: myVPNMenu];
-    TBLog(@"DB-SI", @"set statusItem.menu to myVPNMenu");
-    [self showYellowTriangleIfAppropriate];
-    [self showGreenAreConnectedIndicatorIfAppropriate];
 }
 
 -(void) screenParametersChanged {
@@ -1695,40 +1614,18 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     }
 }
 
--(void) loadHighlightedIconSet: (NSString *) menuIconSet {
-    // Attempts to load a highlighted image set
-    // Assumes regular and large image sets have already loaded successfully
-    TBLog(@"DB-SI", @"loadHighlightedIconSet invoked");
-    if (  [mainImage isTemplate]  ) {
-        TBLog(@"DB-SI", @"loadHighlightedIconSet: mainImage.isTemplate = %s; connectedImage.isTemplate = %s; areConnectedIndicatorImage.isTemplate = %s",
-              CSTRING_FROM_BOOL(mainImage.isTemplate), CSTRING_FROM_BOOL(connectedImage.isTemplate), CSTRING_FROM_BOOL(areConnectedIndicatorImage.isTemplate));
-        if (  areConnectedIndicatorImage  ) {
-            [areConnectedIndicatorImage setTemplate: YES];
-            TBLog(@"DB-SI", @"loadHighlightedIconSet: set areConnectedIndicatorImage.isTemplate to YES");
-        } else {
-            TBLog(@"DB-SI", @"loadHighlightedIconSet:  areConnectedIndicatorImage is nil");
-        }
-        [self setHighlightedMainImage:      [self tintTemplateImage: mainImage]];
-        [self setHighlightedConnectedImage: [self tintTemplateImage: connectedImage]];
-        [self setHighlightedGreenAreConnectedIndicatorImage: [self tintTemplateImage: areConnectedIndicatorImage]];
+-(void) complainIfImageIsNotTemplate: (NSImage *) image {
 
-        [self setHighlightedAnimImages: [NSMutableArray arrayWithCapacity: [animImages count]]];
-        NSUInteger i;
-        for (  i=0; i<[animImages count] - 1; i++  ) {
-            NSImage * animImage = [animImages objectAtIndex: i];
-            [highlightedAnimImages addObject: [self tintTemplateImage: animImage]];
-        }
-    } else {
-        // Default to the non-highlighted versions if there are not any highlighted versions
-        [self setHighlightedMainImage:      mainImage];
-        [self setHighlightedConnectedImage: connectedImage];
-        [self setHighlightedGreenAreConnectedIndicatorImage: areConnectedIndicatorImage];
-        [self setHighlightedAnimImages:     animImages];
-        NSLog(@"Using icon set '%@' without Retina images", menuIconSet);
+    if (  ! image.isTemplate) {
+        TBLog(@"DB-SI", @"image is not a template");
     }
 }
+
 -(BOOL) loadMenuIconSet
 {
+    NSImage * ignoredMainCautionImage = nil;
+    NSImage * ignoredConnectedCautionImage = nil;
+
     // Try with the specified icon set
     NSString * requestedMenuIconSet = [gTbDefaults stringForKey:@"menuIconSet"];
     if (  requestedMenuIconSet   ) {
@@ -1737,50 +1634,49 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                                main: &mainImage
                          connecting: &connectedImage
                               green: &areConnectedIndicatorImage
+                        mainCaution: &mainCautionImage
+                  connectingCaution: &connectedCautionImage
                                anim: &animImages]  ) {
             if (  [self loadMenuIconSet: requestedLargeIconSet
                                    main: &largeMainImage
                              connecting: &largeConnectedImage
                                   green: nil
+                            mainCaution: &ignoredMainCautionImage
+                      connectingCaution: &ignoredConnectedCautionImage
                                    anim: &largeAnimImages]  ) {
-                [self loadHighlightedIconSet: requestedMenuIconSet];
                 [self updateIconImage];
                 return YES;
             } else {
                 NSLog(@"Icon set '%@' not found", requestedLargeIconSet);
             }
         } else {
-            if (  [self loadMenuIconSet: requestedLargeIconSet
-                                   main: &largeMainImage
-                             connecting: &largeConnectedImage
-                                  green: nil
-                                   anim: &largeAnimImages]  ) {
-                NSLog(@"Icon set '%@' not found", requestedMenuIconSet);
-            } else {
-                NSLog(@"Icon set '%@' not found and icon set '%@' not found", requestedMenuIconSet, requestedLargeIconSet);
-            }
+            NSLog(@"Icon set '%@' not found", requestedMenuIconSet);
         }
     }
 
     // Try with standard icon set if haven't already
     NSString * menuIconSet = @"TunnelBlick.TBMenuIcons";
     if (  ! [requestedMenuIconSet isEqualToString: menuIconSet]  ) {
+        NSString * largeIconSet = [NSString stringWithFormat: @"large-%@", menuIconSet];
         if (   [self loadMenuIconSet: menuIconSet
                                 main: &mainImage
                           connecting: &connectedImage
                                green: &areConnectedIndicatorImage
+                         mainCaution: &mainCautionImage
+                   connectingCaution: &connectedCautionImage
                                 anim: &animImages]
-            && [self loadMenuIconSet: [NSString stringWithFormat: @"large-%@", menuIconSet]
+
+            && [self loadMenuIconSet: largeIconSet
                                 main: &largeMainImage
                           connecting: &largeConnectedImage
                                green: nil
-                                anim: &largeAnimImages]  )
-        {
-            [self loadHighlightedIconSet: menuIconSet];
+                         mainCaution: &ignoredMainCautionImage
+                   connectingCaution: &ignoredConnectedCautionImage
+                                anim: &largeAnimImages]  ) {
             [self updateIconImage];
             return YES;
         } else {
-            NSLog(@"Icon set '%@' not found", menuIconSet);
+            NSLog(@"Icon set '%@' or '%@' not found", menuIconSet, largeIconSet);
         }
     }
 
@@ -1789,15 +1685,18 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     if (   [self loadMenuIconSet: menuIconSet
                             main: &mainImage
                       connecting: &connectedImage
-                           green: nil
+                           green: &areConnectedIndicatorImage
+                     mainCaution: &mainCautionImage
+               connectingCaution: &connectedCautionImage
                             anim: &animImages]
+
         && [self loadMenuIconSet: [NSString stringWithFormat: @"large-%@", menuIconSet]
                             main: &largeMainImage
                       connecting: &largeConnectedImage
                            green: nil
-                            anim: &largeAnimImages]  )
-    {
-        [self loadHighlightedIconSet: menuIconSet];
+                     mainCaution: &ignoredMainCautionImage
+               connectingCaution: &ignoredConnectedCautionImage
+                            anim: &largeAnimImages]  ) {
         [self updateIconImage];
         return YES;
     }
@@ -1815,13 +1714,17 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [tintedImage setTemplate: NO];
     return tintedImage;
 }
+
 -(BOOL) loadMenuIconSet: (NSString *)        iconSetName
                    main: (NSImage **)        ptrMainImage
              connecting: (NSImage **)        ptrConnectedImage
                   green: (NSImage **)        ptrGreenImage
+            mainCaution: (NSImage **)        ptrMainCautionImage
+      connectingCaution: (NSImage **)        ptrConnectedCautionImage
                    anim: (NSMutableArray **) ptrAnimImages
 {
-    TBLog(@"DB-SI", @"loadMenuIconSet:main:connecting:green:anim: invoked");
+    TBLog(@"DB-SI", @"loadMenuIconSet:main:connecting:mainCaution:connectingCaution:anim: invoked");
+
     // Search for the folder with the animated icon set in (1) Deploy and (2) Shared, before falling back on the copy in the app's Resources
     BOOL isDir;
     NSString * iconSetDir = [[gDeployPath stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: iconSetName];
@@ -1846,6 +1749,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: iconSetDir];
     NSArray *allObjects = [dirEnum allObjects];
 
+    // If any of the file names start with "templates.", set usingTemplates TRUE, otherwise, set it FALSE
     BOOL usingTemplates = FALSE;
     NSUInteger i=0;
     for(  i=0; i<[allObjects count]; i++  ) {
@@ -1855,9 +1759,17 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         }
     }
 
+    // Initialize all images
+
+    [*ptrMainImage             release]; *ptrMainImage = nil;
+    [*ptrConnectedImage        release]; *ptrConnectedImage = nil;
+    [*ptrMainCautionImage      release]; *ptrMainCautionImage = nil;
+    [*ptrConnectedCautionImage release]; *ptrConnectedCautionImage = nil;
+
     [*ptrAnimImages release];
     *ptrAnimImages = [[NSMutableArray alloc] init];
 
+    // Set images from the files
     for(i=0;i<[allObjects count];i++) {
         file = [allObjects objectAtIndex:i];
         fullPath = [iconSetDir stringByAppendingPathComponent:file];
@@ -1876,21 +1788,32 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                     *ptrConnectedImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
                     [*ptrConnectedImage setTemplate: usingTemplates];
 
-                } else if(   ptrGreenImage
-                          && [name isEqualToString:@"areConnectedIndicator"]) {
-                    [*ptrGreenImage release];
-                    *ptrGreenImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
-                    [*ptrGreenImage setTemplate: NO];
+                } else if (  [name isEqualToString:@"closed-caution"]) {
+                    [*ptrMainCautionImage release];
+                    *ptrMainCautionImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+                    [*ptrMainCautionImage setTemplate: usingTemplates];
 
-                } else {
-                    if(  [[file lastPathComponent] isEqualToString:@"0.png"]) {  //[name intValue] returns 0 on failure, so make sure we find the first frame
-                        nFrames++;
-                    } else if(  [name intValue] > 0) {
-                        nFrames++;
-                    }
+                } else if(  [name isEqualToString:@"open-caution"]) {
+                    [*ptrConnectedCautionImage release];
+                    *ptrConnectedCautionImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+                    [*ptrConnectedCautionImage setTemplate: usingTemplates];
+
+                } else if(  [file.lastPathComponent isEqualToString:@"0.png"]) {  // name.intValue returns 0 on failure, so make sure we find the first frame
+                    nFrames++;
+                } else if(  name.intValue > 0) {
+                    nFrames++;
                 }
             }
         }
+    }
+
+    // If no caution images, set them to the main image
+    // TODO: Modify the main images with a caution marker
+    if (  ! (*ptrMainCautionImage)  ) {
+        *ptrMainCautionImage = *ptrMainImage;
+    }
+    if (  ! (*ptrConnectedCautionImage)  ) {
+        *ptrConnectedCautionImage = *ptrConnectedImage;
     }
 
     // don't choke on a bad set of files, e.g., {0.png, 1abc.png, 2abc.png, 3.png, 4.png, 6.png}
@@ -1913,6 +1836,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
     if (   (*ptrMainImage == nil)
         || (*ptrConnectedImage == nil)
+        || (*ptrMainCautionImage == nil)
+        || (*ptrConnectedCautionImage == nil)
         || ([*ptrAnimImages count] == 0)  ) {
         NSLog(@"Icon set '%@' does not have required images", iconSetName);
         return FALSE;
@@ -2179,12 +2104,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
     [myVPNMenu addItem: quitItem];
 
-    if (  statusItem.button  ) {
-        [statusItem.button setImage: mainImage];
-        TBLog(@"DB-SI", @"set statusItem.button.image to mainImage");
-        [statusItem setMenu: myVPNMenu];
-        TBLog(@"DB-SI", @"set statusItem.menu to myVPNMenu");
-    }
+    [statusItem setMenu: myVPNMenu];
+    TBLog(@"DB-SI", @"set statusItem.menu to myVPNMenu");
 
     // If appropriate, create a cache of the menu items that are configurations and/or folders of configurations.
     // This is done after the creation of all menu items because the menu may be reordered as items are inserted.
@@ -2886,49 +2807,48 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 
-    [self showYellowTriangleIfAppropriate];
-    [self showGreenAreConnectedIndicatorIfAppropriate];
-
-    if (   (![lastState isEqualToString:@"EXITING"])
-        && (![lastState isEqualToString:@"CONNECTED"]) ) {
+    if (   (  ! [lastState isEqualToString:@"EXITING"]  )
+        && (  ! [lastState isEqualToString:@"CONNECTED"]  ) ) {
         //  Anything other than connected or disconnected shows the animation
-        if (![theAnim isAnimating])
-        {
-            //NSLog(@"Starting Animation");
+        if ( ! theAnim.isAnimating) {
             [theAnim startAnimation];
+            TBLog(@"DB-SI", @"updateIconImage: Animation started");
+        } else {
+            TBLog(@"DB-SI", @"updateIconImage: Animation continuing");
         }
     } else
     {
         //we have a new connection, or error, so stop animating and show the correct icon
-        if (  [theAnim isAnimating]  ) {
+        if (  theAnim.isAnimating  ) {
             [theAnim stopAnimation];
+            TBLog(@"DB-SI", @"updateIconImage: Animation stopped");
         }
 
-        if (  statusItem.button  ) {
-            if (  [lastState isEqualToString:@"CONNECTED"]  ) {
-                [statusItem.button setImage: connectedImage];
-                TBLog(@"DB-SI", @"set statusItem.button.image to connectedImage");
+        BOOL caution = self.shouldShowCautionMarker;
+        if (  [lastState isEqualToString:@"CONNECTED"]  ) {
+            NSImage * image =  (  caution
+                                ? connectedCautionImage
+                                : connectedImage);
+            if (  statusItem.button.image != image  ) {
+                [statusItem.button setImage: image];
+                TBLog(@"DB-SI", @"updateIconImage: set statusItem.button.image to image to ConnectedImage with caution = %s",
+                      CSTRING_FROM_BOOL(caution));
             } else {
-                [statusItem.button setImage: mainImage];
-                TBLog(@"DB-SI", @"set statusItem.button.image to mainImage");
+                TBLog(@"DB-SI", @"updateIconImage: did not change statusItem.button.image as Connected with caution = %s",
+                      CSTRING_FROM_BOOL(caution));
+
             }
         } else {
-            if (  [lastState isEqualToString:@"CONNECTED"]  ) {
-                [[self ourMainIconView] setImage: (  menuIsOpen
-                                                   ? highlightedConnectedImage
-                                                   : connectedImage)];
-                TBLog(@"DB-SI", @"set statusItem.button.image to %@",
-                      (  menuIsOpen
-                       ? @"highlightedConnectedImage"
-                       : @"connectedImage"));
+            NSImage * image =  (  caution
+                                ? mainCautionImage
+                                : mainImage);
+            if (  statusItem.button.image != image  ) {
+                [statusItem.button setImage: image];
+                TBLog(@"DB-SI", @"updateIconImage: set statusItem.button.image to image to mainImage with caution = %s",
+                      CSTRING_FROM_BOOL(caution));
             } else {
-                [[self ourMainIconView] setImage: (  menuIsOpen
-                                                   ? highlightedMainImage
-                                                   : mainImage)];
-                TBLog(@"DB-SI", @"set statusItem.button.image to %@",
-                      (  menuIsOpen
-                       ? @"highlightedMainImage"
-                       : @"mainImage"));
+                TBLog(@"DB-SI", @"updateIconImage: did not change statusItem.button.image as mainImage with caution = %s",
+                      CSTRING_FROM_BOOL(caution));
             }
         }
     }
@@ -2963,19 +2883,13 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 
     if (animation == theAnim) {
-        NSMutableArray * images = (  statusItem.button
-                                   ? animImages
-                                   : (  menuIsOpen
-                                      ? highlightedAnimImages
-                                      : animImages)
-                                   );
-        long int ixi = lround(progress * [images count]) - 1;
+        long int ixi = lround(progress * [animImages count]) - 1;
         if (  ixi < 0  ) {
             NSLog(@"Error: not enough images to show image #%lu! Will try to use image[0]", ixi);
             ixi = 0;
         }
         NSUInteger ix = (NSUInteger)ixi;
-        NSImage * img = [images objectAtIndex: ix];
+        NSImage * img = [animImages objectAtIndex: ix];
         if (  statusItem.button  ) {
             [statusItem.button performSelectorOnMainThread:@selector(setImage:) withObject: img waitUntilDone:YES];
             TBLog(@"DB-SI", @"on main thread: set statusItem.button.image to image #%lu", ix);
@@ -4455,23 +4369,6 @@ static void signal_handler(int signalNumber)
     (void) notification;
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 001")
 
-    if (  areConnectedIndicatorImage) {
-        BOOL showGreenAsTemplate  = [gTbDefaults boolForKey: @"DEBUG-statusIconGreenAreConnectedIndicatorIsTemplate"];
-        if (  showGreenAsTemplate  ) {
-            TBLog(@"DB-SI", @"applicationDidFinishLaunching: areConnectedIndicatorImage.isTemplate = %s; setting green are connected indicator as a template: YES",
-                  CSTRING_FROM_BOOL(areConnectedIndicatorImage.isTemplate));
-            [areConnectedIndicatorImage setTemplate: YES];
-        } else {
-            TBLog(@"DB-SI", @"areConnectedIndicatorImage.isTemplate = %s; did not set it as a template",
-                  CSTRING_FROM_BOOL(areConnectedIndicatorImage.isTemplate));
-        }
-    } else {
-        TBLog(@"DB-SI", @"ERROR: areConnectedIndicateImage is nil");
-    }
-
-    [self createStatusItem];
-    TBLog(@"DB-SI", @"Created statusItem");
-
     [self installSignalHandler];
     [self updateScreenList];
 
@@ -4488,7 +4385,6 @@ static void signal_handler(int signalNumber)
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 004")
 
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 05")
-    [self updateIconImage];
     [self updateMenuAndDetailsWindowForceLeftNavigation: YES];
 
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 06")
