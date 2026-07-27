@@ -125,11 +125,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWi
     
     [appearanceDisplayConnectedIndicatorCheckbox
      setTitle: NSLocalizedString(@"Display an indicator when any configuration is connected", @"Checkbox name")
-     infoTitle: attributedStringFromHTML([NSString stringWithFormat: @"%@%@",
-                                          NSLocalizedString(@"<p><strong>This feature is not yet available.</strong></p>", @"Window text"),
-                                          NSLocalizedString(@"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p>"
-                                                            @"<p><strong>When not checked</strong>, no such indicator will appear.</p>",
-                                                            @"HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox.")])];
+     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p>"
+                                                           @"<p><strong>When not checked</strong>, no such indicator will appear.</p>",
+                                                           @"HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox."))];
 
 	// Menu checkboxes
 	[appearanceMenuTFC setTitle: NSLocalizedString(@"Menu:", @"Window text")];
