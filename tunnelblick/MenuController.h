@@ -77,8 +77,6 @@ enum ActiveInactiveState {
     NSStatusItem            * statusItem;                   // Our item in the Status Bar
     NSStatusBarButton       * statusItemButton;             // Or nil if not on 10.10 or higher
     MainIconView            * ourMainIconView;              // View for the main icon
-    NSView                  * yellowTriangleView;           // View of the yellow triangle that overlays the main icon (may be hidden)
-    NSView                  * areConnectedIndicatorView;    // View of the green "are connected" image that overlays the main icon (may be hidden)
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
 	NSMenuItem              * reenableInternetItem;         // "Re-enable Network Access" item for menu
@@ -103,11 +101,8 @@ enum ActiveInactiveState {
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
     NSImage                 * areConnectedIndicatorImage;   // Image to overlay the icon when one or more configurations are connected
-
-    NSMutableArray          * highlightedAnimImages;        // Corresponding highlighted images (the large images are never highlighted)
-    NSImage                 * highlightedConnectedImage;
-    NSImage                 * highlightedMainImage;
-    NSImage                 * highlightedGreenAreConnectedIndicatorImage;
+    NSImage                 * connectedCautionImage;        // Image to display when one or more connections are active
+    NSImage                 * mainCautionImage;             // Image to display when there are no connections active
 
     NSMutableArray          * largeAnimImages;              // Images for animation of the Tunnelblick icon in the Status Window
     NSImage                 * largeConnectedImage;          // Image to display when one or more connections are active
@@ -335,6 +330,8 @@ enum ActiveInactiveState {
 -(nullable NSArray *)        animImages;
 -(nullable NSImage *)        connectedImage;
 -(nullable NSImage *)        mainImage;
+-(nullable NSImage *)        connectedCautionImage;
+-(nullable NSImage *)        mainCautionImage;
 -(nullable NSMutableArray *) largeAnimImages;
 -(nullable NSImage *)        largeConnectedImage;
 -(nullable NSImage *)        largeMainImage;
@@ -375,17 +372,13 @@ TBPROPERTY(nullable NSArray      *, nondisconnectedConnections,setNondisconnecte
 TBPROPERTY(nullable NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
 TBPROPERTY(nullable TBUIUpdater  *, uiUpdater,                 setUiUpdater)
 TBPROPERTY(nullable NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
-TBPROPERTY(nullable NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
-TBPROPERTY(nullable NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
-TBPROPERTY(nullable NSImage      *, highlightedGreenAreConnectedIndicatorImage, setHighlightedGreenAreConnectedIndicatorImage)
-TBPROPERTY(nullable NSImage      *, highlightedMainImage,      setHighlightedMainImage)
 TBPROPERTY(nullable NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
 TBPROPERTY(nullable NSMutableArray *, connectionsToRestoreOnWakeup, setConnectionsToRestoreOnWakeup)
 TBPROPERTY(nullable NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
 TBPROPERTY(nullable NSBundle       *, deployLocalizationBundle, setDeployLocalizationBundle)
-TBPROPERTY(nullable NSString       *, languageAtLaunch,        setLanguageAtLaunch)
-TBPROPERTY(nullable NSString       *, publicIPAddress,         setPublicIPAddress)
-TBPROPERTY(BOOL            , showingImportSetupWindow, setShowingImportSetupWindow)
+TBPROPERTY(nullable NSString       *, languageAtLaunch,         setLanguageAtLaunch)
+TBPROPERTY(nullable NSString       *, publicIPAddress,          setPublicIPAddress)
+TBPROPERTY(BOOL                     , showingImportSetupWindow, setShowingImportSetupWindow)
 TBPROPERTY(nullable NSDate         *, lastCheckNow,             setLastCheckNow)
 
 @end
