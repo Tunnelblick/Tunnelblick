@@ -1868,59 +1868,85 @@ static void compareShadowCopy (NSString * fileName) {
 
 static void revertToShadow (NSString * fileName) {
 
-	// Reverts the specified private configuration .tblk to its shadow copy.
-	//
+    // Reverts the specified private configuration .tblk to its shadow copy.
+    //
     // fileName is the display name of the configuration, plus the .tblk extension
     //
     // Returns the results as one of the following result codes:
     //      OPENVPNSTART_REVERT_CONFIG_OK
     //      OPENVPNSTART_REVERT_CONFIG_MISSING
     //      a different integer, indicating an unexpected error.
+    //
+    // To do this safely:
+    //
+    // AS ROOT:
+    //
+    //    1. Make an only-root-writable copy of the shadow configuration in L_AS_T/<UUID>
+    //
+    //    2. Set all permissions of the copy as if it were owned by the user
+    //
+    //    3. Force move the copy to the user's Configurations folder, or to the appropriate subfolder of that folder
+    //
+    //    4. Set ownership of the copy to the user and user's group
 
-	if (  gUidOfUser == 0  ) {
-		Log(@"Invalid cfgLocCode (revertToShadow not allowed when running as root)");
-		exitOpenvpnstart(188);
-	}
+    if (  gUidOfUser == 0  ) {
+        Log(@"Invalid cfgLocCode (revertToShadow not allowed when running as root)");
+        exitOpenvpnstart(188);
+    }
 
     NSString * privatePrefix = [gUserHome     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
-	NSString * privatePath   = [privatePrefix stringByAppendingPathComponent: fileName];
+    NSString * privatePath   = [privatePrefix stringByAppendingPathComponent: fileName];
 
     NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
     NSString * shadowPath    = [shadowPrefix stringByAppendingPathComponent: fileName];
 
-	NSString * createdReplaced = @"Created";
-	if (   folderExistsForRootAtPath(shadowPath)  ) {
-		if (  folderExistsForRootAtPath(privatePath)  ) {
-			createdReplaced = @"Replaced";
-            becomeRoot(@"remove config that is being replaced");
-			BOOL removed = [gFileMgr tbRemoveFileAtPath: privatePath handler: nil];
-            stopBeingRoot();
-            if (  ! removed  ) {
-				fprintf(stderr, "Unable to delete %s\n", [privatePath UTF8String]);
-				exitOpenvpnstart(246);
-			}
-		}
-        becomeRoot(@"copy config");
-		BOOL copied = [gFileMgr tbCopyPath: shadowPath toPath: privatePath handler: nil];
+    NSString * tempCopyPath  = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
+
+    if (   folderExistsForRootAtPath(shadowPath)  ) {
+
+        becomeRoot(@"revert to use shadow configuration");
+
+        [gFileMgr tbRemovePathIfItExists: tempCopyPath];
+        BOOL result = [gFileMgr tbCopyPath: shadowPath toPath: tempCopyPath handler: nil];
+        if (  ! result  ) {
+            exitOpenvpnstart(156);
+        }
+
+        result = secureOneFolderMaintainOwnership(tempCopyPath, YES, gUidOfUser, YES);
+        if (  ! result  ) {
+            [gFileMgr tbRemovePathIfItExists: tempCopyPath];
+            exitOpenvpnstart(199);
+        }
+
+        result = [gFileMgr tbForceMovePath: tempCopyPath toPath: privatePath];
+        if (  ! result  ) {
+            [gFileMgr tbRemovePathIfItExists: tempCopyPath];
+            exitOpenvpnstart(226);
+        }
+
+        // Set user:admin ownership of everything inside the .tblk
+        result = checkSetOwnership(privatePath, YES, gUidOfUser, ADMIN_GROUP_ID);
+        if (  ! result  ) {
+            [gFileMgr tbRemovePathIfItExists: privatePath];
+            exitOpenvpnstart(246);
+        }
+
+        // Set user:staff ownership of the .tblk itself
+        result = checkSetOwnership(privatePath, NO, gUidOfUser, STAFF_GROUP_ID);
+        if (  ! result  ) {
+            [gFileMgr tbRemovePathIfItExists: privatePath];
+            exitOpenvpnstart(246);
+        }
+
         stopBeingRoot();
-        if (  copied  ) {
-			fprintf(stderr, "%s %s\n", [createdReplaced UTF8String], [privatePath UTF8String]);
-            becomeRoot(@"secure reverted .tblk");
-			BOOL secured = secureOneFolder(privatePath, YES, gUidOfUser);
-            stopBeingRoot();
-            if (  secured  ) {
-                exitOpenvpnstart(OPENVPNSTART_REVERT_CONFIG_OK);
-            } else {
-                exitOpenvpnstart(199);  // Already logged an error message
-            }
-		} else {
-			fprintf(stderr, "Unable to copy %s to %s\n", [shadowPath UTF8String], [privatePath UTF8String]);
-			exitOpenvpnstart(226);
-		}
-	} else {
+
+        Log(@"Created or replaced %@ from %@", privatePath, shadowPath);
+        exitOpenvpnstart(OPENVPNSTART_REVERT_CONFIG_OK);
+
+    } else {
         Log(@"No secured (shadow) copy of a .tblk at %@", shadowPath);
-		exitOpenvpnstart(OPENVPNSTART_REVERT_CONFIG_MISSING);
-	}
+        exitOpenvpnstart(OPENVPNSTART_REVERT_CONFIG_MISSING);
+    }
 }
 
 static void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode) {

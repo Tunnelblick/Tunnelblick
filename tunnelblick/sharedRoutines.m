@@ -553,7 +553,7 @@ BOOL checkOwnedByRootWheel(NSString * path)
     return YES;
 }
 
-BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_t gid, BOOL traverseLink)
+BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_t gid)
 {
     // NOTE: THIS ROUTINE REQUIRES ROOT PERMISSIONS.
     //       It is included in sharedRoutines because when ConfigurationConverter's processPathRange()
@@ -574,18 +574,10 @@ BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_
             return NO;
         }
 
-        int result = 0;
-        if (   traverseLink
-            || ( ! [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink] )
-            ) {
-            result = chown([path fileSystemRepresentation], uid, gid);
-        } else {
-            result = lchown([path fileSystemRepresentation], uid, gid);
-        }
-
+        int result = lchown(path.fileSystemRepresentation, uid, gid);
         if (  result != 0  ) {
-            Log(@"Unable to change ownership of %@ from %d:%d to %d:%d\nError was '%s'",
-                path, (int) oldUid, (int) oldGid, (int) uid, (int) gid, strerror(errno));
+            Log(@"Error %d (%s) returned from lchown('%@', %u, %u) (changing from %u:%u); stack trace: %@",
+                errno, strerror(errno), path, uid, gid, oldUid, oldGid, NSThread.callStackSymbols);
             return NO;
         }
         return YES;
@@ -625,9 +617,9 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
             return NO;
         }
 
-        if (  chown([path fileSystemRepresentation], uid, gid) != 0  ) {
-            Log(@"Unable to change ownership of %@ from %d:%d to %d:%d\nError was '%s'",
-                path, (int) oldUid, (int) oldGid, (int) uid, (int) gid, strerror(errno));
+        if (  lchown(path.fileSystemRepresentation, uid, gid) != 0  ) {
+            Log(@"Error %d (%s) returned from lchown('%@', %d, %d) (changing from %u:%u); stack trace: %@",
+                errno, strerror(errno), path, uid, gid, oldUid, oldGid, NSThread.callStackSymbols);
             return NO;
         }
 
@@ -640,10 +632,7 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
         while (  (file = [dirEnum nextObject])  ) {
             NSString * filePath = [path stringByAppendingPathComponent: file];
             atts = [NSFileManager.defaultManager tbFileAttributesAtPath: filePath traverseLink: NO];
-            changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, NO) || changedDeep;
-            if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, YES) || changedDeep;
-            }
+            changedDeep = checkSetItemOwnership(filePath, atts, uid, gid) || changedDeep;
         }
     }
 
@@ -692,10 +681,9 @@ BOOL checkSetPermissions(NSString * path, mode_t permsShouldHave, BOOL fileMustE
         return NO;
     }
 
-    if (  chmod([path fileSystemRepresentation], permsShouldHave) != 0  ) {
-        appendLog([NSString stringWithFormat: @"Unable to change permissions from %lo to %lo on %@", (long) perms, (long) permsShouldHave, path]);
-        Log(@"Unable to change permissions from %lo to %lo on %@",
-            (long) perms, (long) permsShouldHave, path);
+    if (  lchmod([path fileSystemRepresentation], permsShouldHave) != 0  ) {
+        Log(@"Error %d (%s) from lchmod(%@, 0%3o) (changing from 0%3lo); stack trace: %@",
+            errno, strerror(errno), path, (unsigned)permsShouldHave, perms, NSThread.callStackSymbols);
         return NO;
     }
 

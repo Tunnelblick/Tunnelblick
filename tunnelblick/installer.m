@@ -671,6 +671,7 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     }
 
     // Change owner group (owner is already 0)
+    // Note: using fchown() is secure because it won't follow symlinks because the fd was created above using open() with O_NOFOLLOW_ANY
     result = fchown(fd, 0, 0);
     if (  result != 0  ) {
         Log(@"fchown() returned error %d ('%s') for path %s", errno, strerror(errno), targetPathC);
@@ -678,6 +679,7 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     }
 
     // Change permissions
+    // Note: using fchown() is secure because it won't follow symlinks because the fd was created above using open() with O_NOFOLLOW_ANY
     NSDictionary * sourceAttributes = [gFileMgr tbFileAttributesAtPath: sourcePath traverseLink: NO];
     mode_t mode = [[sourceAttributes objectForKey: NSFilePosixPermissions] unsignedIntValue];
     result = fchmod(fd, mode);
@@ -1832,7 +1834,7 @@ static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T) {
 			// Nothing should be writable by group, writable by user, be suid, or be sgid
 			unsigned long  permsShouldHave = (perms & ~(S_IWGRP | S_IWOTH | S_ISUID | S_ISGID));
 			if (  (perms != permsShouldHave )  ) {
-				if (  chmod(fileSystemRepresentationFromPath(fullPath), permsShouldHave) == 0  ) {
+				if (  lchmod(fileSystemRepresentationFromPath(fullPath), permsShouldHave) == 0  ) {
 					Log(@"Changed permissions from %lo to %lo on %@",
 						(long) perms, (long) permsShouldHave, fullPath);
 				} else {

@@ -323,7 +323,7 @@ void appendLog(NSString * errMsg);
 
     // Set ownership and permissions.
     //
-    // root:wheel can't chmod() to get anything other than 0_55 or 0_00 permissions (e.g. 0_44).
+    // root:wheel can't lchmod() to get anything other than 0_55 or 0_00 permissions (e.g. 0_44).
     // So because the desired ownership is root:wheel,
     //    if the desired permissions are not 0_55 or 0_00,
     //    then we change the ownership to root:admin, change the permissions, then change the ownership to root:wheel
@@ -334,24 +334,24 @@ void appendLog(NSString * errMsg);
                               ? 0
                               : ADMIN_GROUP_ID);
 
-    status = chown(destinationC, 0, intermediate_gid);
+    status = lchown(destinationC, 0, intermediate_gid);
     if (  status != 0  ) {
-        Log(@"Error %d (%s) returned from chown('%s', 0, %d); stack trace: %@",
+        Log(@"Error %d (%s) returned from lchown('%s', 0, %d); stack trace: %@",
             errno, strerror(errno), destinationC, intermediate_gid, NSThread.callStackSymbols);
         return NO;
     }
 
-    status = chmod(destinationC, permissions);
+    status = lchmod(destinationC, permissions);
     if (  status != 0  ) {
-        Log(@"Error returned from chmod('%s',0%3o); Error was %d (%s); stack trace: %@",
-            destinationC, permissions, errno, strerror(errno), NSThread.callStackSymbols);
+        Log(@"Error %d (%s) returned from lchmod('%s',0%3o); stack trace: %@",
+            errno, strerror(errno), destinationC, permissions, NSThread.callStackSymbols);
         return NO;
     }
 
     if (  0 != intermediate_gid  ) {
-        status = chown(destinationC, 0, 0);
+        status = lchown(destinationC, 0, 0);
         if (  status != 0  ) {
-            Log(@"Error %d (%s) returned from chown('%s', 0, 0); stack trace: %@",
+            Log(@"Error %d (%s) returned from lchown('%s', 0, 0); stack trace: %@",
                 errno, strerror(errno), destinationC, NSThread.callStackSymbols);
             return NO;
         }
