@@ -77,13 +77,6 @@ void appendLog(NSString * msg) {
     fprintf(stdout, "%s\n", msg.UTF8String);
 }
 
-static BOOL isOpenVPN_2_3(NSString *openvpnPath) {
-
-	NSString * enclosingFolderName = [[openvpnPath stringByDeletingLastPathComponent] // Remove "/openvpn" to get name of enclosing folder
-									  lastPathComponent];
-	return [enclosingFolderName hasPrefix: @"openvpn-2.3"];
-}
-
 static const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 	// Returns the fileSystemRepresentation of an NSString.
@@ -2723,9 +2716,7 @@ static int startVPN(NSString * configFile,
                                  @"--cd",         cdFolderPath,
                                  nil];
 
-    if (  ! isOpenVPN_2_3(openvpnPath)  ) {
-        [arguments addObject: @"--machine-readable-output"];
-    }
+    [arguments addObject: @"--machine-readable-output"];
 
     // Set IV_GUI_VER using the "--setenv" option
     // We get the Info.plist contents as follows because NSBundle's objectForInfoDictionaryKey: method returns the object as it was at
