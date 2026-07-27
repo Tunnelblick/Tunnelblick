@@ -1443,6 +1443,29 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [ourMainIconView setHidden: YES];
     TBLog(@"DB-SI", @"Set ourMainIconView.hidden: YES");
 
+    BOOL showYellow = [gTbDefaults boolForKey: @"DEBUG-showStatusIconYellowTriangle"];
+    if (  showYellow  ) {
+        NSString * fileType = NSFileTypeForHFSTypeCode(kAlertCautionIcon);
+        NSImage  * yellowTriangleImage = [[NSWorkspace sharedWorkspace] iconForFileType: fileType];
+        if (  yellowTriangleImage  ) {
+            [yellowTriangleImage setTemplate: NO];
+            CGFloat width  = button.frame.size.width;
+            CGFloat height = button.frame.size.height;
+            NSRect yellowTriangleFrame  = NSMakeRect(0, 0,  width / 2, height / 2 );
+            yellowTriangleView = [[self viewWithImage: yellowTriangleImage
+                                                frame: yellowTriangleFrame]
+                                  retain];
+            [yellowTriangleView setHidden: YES];
+            TBLog(@"DB-SI", @"Set yellowTriangleView hidden: YES");
+            [ourMainIconView addSubview: yellowTriangleView];
+            TBLog(@"DB-SI", @"createStatusItem: added subview for yellowTriangleImage to ourMainIconView");
+        } else {
+            appendLog(@"createStatusItem: Could not find yellow triangle image");
+            [self terminateBecause: terminatingBecauseOfError];
+            return;
+        }
+    }
+
     [button addSubview: ourMainIconView];
     TBLog(@"DB-SI", @"createStatusItem: Added ourMainIconView as subview to statusItem.button");
 
@@ -2825,6 +2848,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         }
 
         BOOL caution = self.shouldShowCautionMarker;
+        [yellowTriangleView setHidden: ! caution];
         if (  [lastState isEqualToString:@"CONNECTED"]  ) {
             NSImage * image =  (  caution
                                 ? connectedCautionImage
