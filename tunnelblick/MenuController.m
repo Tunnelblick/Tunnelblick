@@ -1451,7 +1451,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
             [yellowTriangleImage setTemplate: NO];
             CGFloat width  = button.frame.size.width;
             CGFloat height = button.frame.size.height;
-            NSRect yellowTriangleFrame  = NSMakeRect(0, 0,  width / 2, height / 2 );
+            NSRect yellowTriangleFrame  = NSMakeRect(0, 0, width / 2, height / 2 );
             yellowTriangleView = [[self viewWithImage: yellowTriangleImage
                                                 frame: yellowTriangleFrame]
                                   retain];
@@ -1463,6 +1463,25 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
             appendLog(@"createStatusItem: Could not find yellow triangle image");
             [self terminateBecause: terminatingBecauseOfError];
             return;
+        }
+    }
+
+    BOOL showGreen = [gTbDefaults boolForKey: @"showGreenAreConnectedIndicator"];
+    if (  showGreen  ) {
+        if (  areConnectedIndicatorImage  ) {
+            [areConnectedIndicatorImage setTemplate: NO];
+            CGFloat width  = button.frame.size.width;
+            CGFloat height = button.frame.size.height;
+            NSRect areConnectedFrame  = NSMakeRect(-1, 0, width, height );
+            areConnectedIndicatorView = [[self viewWithImage: areConnectedIndicatorImage
+                                                      frame: areConnectedFrame]
+                                         retain];
+            [areConnectedIndicatorView setHidden: YES];
+            TBLog(@"DB-SI", @"Set areConnectedIndicatorView hidden: YES");
+            [ourMainIconView addSubview: areConnectedIndicatorView];
+            TBLog(@"DB-SI", @"createStatusItem: added subview for areConnectedIndicator to ourMainIconView");
+        } else {
+            TBLog(@"DB-SI", @"createStatusItem: Could not find areConnectedIndicatorImage");
         }
     }
 
@@ -1820,6 +1839,10 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                     [*ptrConnectedCautionImage release];
                     *ptrConnectedCautionImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
                     [*ptrConnectedCautionImage setTemplate: usingTemplates];
+
+                } else if(  [name isEqualToString:@"areConnectedIndicator"]) {
+                    [*ptrGreenImage release];
+                    *ptrGreenImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
 
                 } else if(  [file.lastPathComponent isEqualToString:@"0.png"]) {  // name.intValue returns 0 on failure, so make sure we find the first frame
                     nFrames++;
@@ -2833,14 +2856,14 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     if (   (  ! [lastState isEqualToString:@"EXITING"]  )
         && (  ! [lastState isEqualToString:@"CONNECTED"]  ) ) {
         //  Anything other than connected or disconnected shows the animation
+        [areConnectedIndicatorView setHidden: YES];
         if ( ! theAnim.isAnimating) {
             [theAnim startAnimation];
             TBLog(@"DB-SI", @"updateIconImage: Animation started");
         } else {
             TBLog(@"DB-SI", @"updateIconImage: Animation continuing");
         }
-    } else
-    {
+    } else {
         //we have a new connection, or error, so stop animating and show the correct icon
         if (  theAnim.isAnimating  ) {
             [theAnim stopAnimation];
@@ -2853,6 +2876,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
             NSImage * image =  (  caution
                                 ? connectedCautionImage
                                 : connectedImage);
+            [areConnectedIndicatorView setHidden: NO];
             if (  statusItem.button.image != image  ) {
                 [statusItem.button setImage: image];
                 TBLog(@"DB-SI", @"updateIconImage: set statusItem.button.image to image to ConnectedImage with caution = %s",
@@ -2866,6 +2890,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
             NSImage * image =  (  caution
                                 ? mainCautionImage
                                 : mainImage);
+            [areConnectedIndicatorView setHidden: YES];
             if (  statusItem.button.image != image  ) {
                 [statusItem.button setImage: image];
                 TBLog(@"DB-SI", @"updateIconImage: set statusItem.button.image to image to mainImage with caution = %s",
