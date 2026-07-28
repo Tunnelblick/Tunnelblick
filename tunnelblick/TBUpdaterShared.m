@@ -594,9 +594,7 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
         return FALSE;
     }
 
-    // The .zip was downloaded from tunnelblick.net using https:, so it should be valid.
-    //
-    // Usually, we require that it's DSA signature is valid, too,
+    // Usually, we require that the .zip's DSA signature is valid,
     // AND we require that the .app was codesigned with the same Team ID that signed the current .app
     //
     // But if the "updateRelaxForgeryRule" preference is forced, we allow an update if either one of those
