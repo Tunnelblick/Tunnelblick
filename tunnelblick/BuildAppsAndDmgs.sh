@@ -98,7 +98,7 @@ CopyEasyRsaIntoResources() {
     find   "${APP_PATH}/Contents/Resources/easy-rsa-tunnelblick"   -name .DS_Store -exec rm -f  '{}' ';'
 }
 
-CopyInstallerScriptsIntoResources() {
+CopyUninstallerScriptsIntoResources() {
 
     # Copy the uninstaller scripts into Resources
     cp -p -f tunnelblick-uninstaller.sh          "${APP_PATH}/Contents/Resources/tunnelblick-uninstaller.sh"
@@ -696,7 +696,7 @@ shopt nullglob
 
     CopyEasyRsaIntoResources
 
-    CopyInstallerScriptsIntoResources
+    CopyUninstallerScriptsIntoResources
 
     CopyHelpersIntoResources
 
