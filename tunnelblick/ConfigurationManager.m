@@ -3359,7 +3359,13 @@ in: (NSString *) sharedOrPrivate {
             stringByAppendingPathComponent: @"config.ovpn"];
 
     ConfigurationParser * config = [ConfigurationParser parsedConfigurationAtPath: path];
-    return (config.doesNotContainAnyUnsafeOptions);
+    if ( ! config  ) {
+        NSLog(@"Could not create a ConfigurationParser for %@", path);
+        return NO;
+    }
+    
+    BOOL safe = config.doesNotContainAnyUnsafeOptions;
+    return safe;
 }
 
 +(BOOL) allAreSafeConfigurationsForDisplayNames: (NSArray *) displayNames {

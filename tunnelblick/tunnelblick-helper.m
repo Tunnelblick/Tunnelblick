@@ -2185,6 +2185,11 @@ static BOOL forceCopyFileAsRoot(NSString * sourceFullPath, NSString * targetFull
 static BOOL isSafeConfigFileForInstallOrUpdate(NSString * sourcePath) {
 
     ConfigurationParser * parser = [ConfigurationParser parsedConfigurationAtPath: sourcePath];
+    if ( ! parser  ) {
+        NSLog(@"Could not create a ConfigurationParser for %@", sourcePath);
+        return NO;
+    }
+
     BOOL result = [parser doesNotContainAnyUnsafeOptions];
     return result;
 }

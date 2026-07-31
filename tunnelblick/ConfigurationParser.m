@@ -50,7 +50,10 @@ extern TBUserDefaults * gTbDefaults;
     // Returns nil if an error occurred
 
     NSString * contents = [NSString stringWithContentsOfFile: path encoding: NSUTF8StringEncoding error: nil];
-
+    if (  ! contents  ) {
+        return nil;
+    }
+    
     return [ConfigurationParser parsedConfigurationWithString: contents];
 }
 
