@@ -3353,6 +3353,11 @@ in: (NSString *) sharedOrPrivate {
         return NO;
     }
 
+    path = [[[path
+              stringByAppendingPathComponent: @"Contents"]
+             stringByAppendingPathComponent: @"Resources"]
+            stringByAppendingPathComponent: @"config.ovpn"];
+
     ConfigurationParser * config = [ConfigurationParser parsedConfigurationAtPath: path];
     return (config.doesNotContainAnyUnsafeOptions);
 }
