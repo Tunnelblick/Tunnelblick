@@ -59,6 +59,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceIconSetArrayContr
 TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,     appearanceIconSetButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectedIndicatorCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayWarningIndicatorCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectionSubmenusCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectionTimersCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectAndDisconnectPrefixesCheckbox)
@@ -128,6 +129,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWi
      infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p>"
                                                            @"<p><strong>When not checked</strong>, no such indicator will appear.</p>",
                                                            @"HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox."))];
+
+    [appearanceDisplayWarningIndicatorCheckbox
+     setTitle: NSLocalizedString(@"Display a prominent indicator when any warnings are available", @"Checkbox name")
+     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p>"
+                                                           @"<p><strong>When not checked</strong>, no such indicator will appear.</p>",
+                                                           @"HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox."))];
 
 	// Menu checkboxes
 	[appearanceMenuTFC setTitle: NSLocalizedString(@"Menu:", @"Window text")];

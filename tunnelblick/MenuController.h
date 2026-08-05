@@ -77,7 +77,7 @@ enum ActiveInactiveState {
     NSStatusItem            * statusItem;                   // Our item in the Status Bar
     NSStatusBarButton       * statusItemButton;             // Or nil if not on 10.10 or higher
     MainIconView            * ourMainIconView;              // View for the main icon
-    NSView                  * yellowTriangleView;           // View of the yellow triangle that overlays the main icon (may be hidden)
+    NSView                  * warningIndicatorView;           // View of the yellow triangle that overlays the main icon (may be hidden)
     NSView                  * areConnectedIndicatorView;    // View of the green "are connected" image that overlays the main icon (may be hidden)
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
@@ -103,6 +103,7 @@ enum ActiveInactiveState {
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
     NSImage                 * areConnectedIndicatorImage;   // Image to overlay the icon when one or more configurations are connected
+    NSImage                 * warningIndicatorImage;        // Image to overlay the icon when warnings are available
     NSImage                 * connectedCautionImage;        // Image to display when one or more connections are active
     NSImage                 * mainCautionImage;             // Image to display when there are no connections active
 

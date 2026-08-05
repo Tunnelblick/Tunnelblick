@@ -62,7 +62,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="LV1-A2-Liu">
                                         <rect key="frame" x="1" y="1" width="165" height="396"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1064" id="1062">
                                                 <rect key="frame" x="-4" y="-4" width="165" height="396"/>
@@ -262,7 +262,7 @@
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <clipView key="contentView" drawsBackground="NO" id="pFr-B8-Xbr">
                                                                         <rect key="frame" x="1" y="1" width="671" height="329"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <textView editable="NO" importsGraphics="NO" horizontallyResizable="YES" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="583" customClass="TBTextView">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="671" height="329"/>
@@ -985,7 +985,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <userGuides>
                 <userLayoutGuide location="307" affinity="minX"/>
-                <userLayoutGuide location="351" affinity="minY"/>
+                <userLayoutGuide location="352" affinity="minY"/>
             </userGuides>
             <subviews>
                 <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="48">
@@ -1030,7 +1030,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="388">
-                    <rect key="frame" x="17" y="334" width="284" height="17"/>
+                    <rect key="frame" x="17" y="313" width="284" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="M..." id="389">
                         <font key="font" metaFont="system"/>
@@ -1039,7 +1039,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="390">
-                    <rect key="frame" x="18" y="205" width="283" height="17"/>
+                    <rect key="frame" x="18" y="184" width="283" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="C..." id="391">
                         <font key="font" metaFont="system"/>
@@ -1048,7 +1048,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54" customClass="TBButton">
-                    <rect key="frame" x="305" y="333" width="597" height="18"/>
+                    <rect key="frame" x="305" y="312" width="597" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="55">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1060,7 +1060,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e6k-4g-eTy" customClass="TBButton">
-                    <rect key="frame" x="306" y="294" width="597" height="18"/>
+                    <rect key="frame" x="306" y="273" width="597" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="Bfh-rK-mP5">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1072,7 +1072,7 @@
                     </connections>
                 </button>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="811">
-                    <rect key="frame" x="18" y="250" width="283" height="17"/>
+                    <rect key="frame" x="18" y="229" width="283" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="S..." id="814">
                         <font key="font" metaFont="system"/>
@@ -1081,7 +1081,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="812" customClass="TBButton">
-                    <rect key="frame" x="305" y="249" width="597" height="19"/>
+                    <rect key="frame" x="305" y="228" width="597" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="813">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1093,7 +1093,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1026" customClass="TBButton">
-                    <rect key="frame" x="305" y="147" width="597" height="18"/>
+                    <rect key="frame" x="305" y="126" width="597" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1027">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1105,7 +1105,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1032" customClass="TBButton">
-                    <rect key="frame" x="305" y="126" width="597" height="17"/>
+                    <rect key="frame" x="305" y="105" width="597" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1033">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1117,7 +1117,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52" customClass="TBButton">
-                    <rect key="frame" x="305" y="313" width="597" height="17"/>
+                    <rect key="frame" x="305" y="292" width="597" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="57">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1129,7 +1129,7 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="396" customClass="TBPopUpButton">
-                    <rect key="frame" x="305" y="199" width="385" height="26"/>
+                    <rect key="frame" x="305" y="178" width="385" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Never..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="399" id="397">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1151,7 +1151,7 @@
                     </connections>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1177" customClass="TBPopUpButton">
-                    <rect key="frame" x="305" y="168" width="385" height="26"/>
+                    <rect key="frame" x="305" y="147" width="385" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="1178">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1172,15 +1172,27 @@
                     </connections>
                 </popUpButton>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oti-ek-vag" customClass="TBButton">
-                    <rect key="frame" x="306" y="370" width="597" height="17"/>
+                    <rect key="frame" x="306" y="370" width="597" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="Q9d-wX-Neq">
+                    <buttonCell key="cell" type="check" title="Display are connected indicator" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="Q9d-wX-Neq">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
                         <action selector="appearanceDisplayConnectedIndicatorCheckboxWasClicked:" target="-2" id="kmB-hA-tnl"/>
                         <outlet property="nextKeyView" destination="812" id="rdL-mi-XQZ"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VTc-oI-fNh" customClass="TBButton">
+                    <rect key="frame" x="306" y="349" width="597" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Display warning indicator..." bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="FUT-c5-Mzp">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="appearanceDisplayWarningIndicatorCheckboxWasClicked:" target="-2" id="nJf-7r-ddX"/>
+                        <outlet property="nextKeyView" destination="812" id="Qba-H4-JKR"/>
                     </connections>
                 </button>
             </subviews>
@@ -1197,6 +1209,7 @@
                 <outlet property="appearanceDisplaySplashScreenCheckbox" destination="812" id="818"/>
                 <outlet property="appearanceDisplayStatisticsWindowsCheckbox" destination="1026" id="1096"/>
                 <outlet property="appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox" destination="1032" id="1037"/>
+                <outlet property="appearanceDisplayWarningIndicatorCheckbox" destination="VTc-oI-fNh" id="3Ri-xj-QGK"/>
                 <outlet property="appearanceHelpButton" destination="48" id="490"/>
                 <outlet property="appearanceIconSetArrayController" destination="237" id="352"/>
                 <outlet property="appearanceIconSetButton" destination="46" id="216"/>
@@ -1204,7 +1217,7 @@
                 <outlet property="appearanceMenuTFC" destination="389" id="405"/>
                 <outlet property="appearanceSplashTFC" destination="814" id="819"/>
             </connections>
-            <point key="canvasLocation" x="766" y="-81"/>
+            <point key="canvasLocation" x="596" y="-21"/>
         </customView>
         <arrayController id="409" userLabel="ConnectionWindowDisplayCriteria Array Controller">
             <declaredKeys>

@@ -445,7 +445,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="DMN-lE-Qdt">
                                         <rect key="frame" x="1" y="1" width="135" height="366"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1064" id="1062">
                                                 <rect key="frame" x="-8" y="-5" width="135" height="366"/>
@@ -1031,7 +1031,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="388">
-                    <rect key="frame" x="682" y="332" width="214" height="17"/>
+                    <rect key="frame" x="682" y="313" width="214" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="left" title="M..." id="389">
                         <font key="font" metaFont="system"/>
@@ -1040,7 +1040,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="390">
-                    <rect key="frame" x="682" y="203" width="214" height="17"/>
+                    <rect key="frame" x="682" y="184" width="214" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="left" title="C..." id="391">
                         <font key="font" metaFont="system"/>
@@ -1049,7 +1049,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54" customClass="TBButton">
-                    <rect key="frame" x="18" y="331" width="648" height="19"/>
+                    <rect key="frame" x="18" y="312" width="648" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="55">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1061,7 +1061,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q12-uw-TxR" customClass="TBButton">
-                    <rect key="frame" x="18" y="290" width="648" height="17"/>
+                    <rect key="frame" x="18" y="272" width="648" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="3ib-Zy-JPg">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1073,7 +1073,7 @@
                     </connections>
                 </button>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="811">
-                    <rect key="frame" x="682" y="248" width="214" height="17"/>
+                    <rect key="frame" x="682" y="229" width="214" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="left" title="S..." id="814">
                         <font key="font" metaFont="system"/>
@@ -1082,7 +1082,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="812" customClass="TBButton">
-                    <rect key="frame" x="18" y="247" width="648" height="19"/>
+                    <rect key="frame" x="18" y="228" width="648" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="813">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1094,7 +1094,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1026" customClass="TBButton">
-                    <rect key="frame" x="18" y="144" width="648" height="19"/>
+                    <rect key="frame" x="18" y="126" width="648" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1027">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1106,7 +1106,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1032" customClass="TBButton">
-                    <rect key="frame" x="18" y="123" width="648" height="20"/>
+                    <rect key="frame" x="18" y="104" width="648" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1033">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1118,7 +1118,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52" customClass="TBButton">
-                    <rect key="frame" x="18" y="311" width="648" height="17"/>
+                    <rect key="frame" x="18" y="292" width="648" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="57">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1130,7 +1130,7 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="396" customClass="TBPopUpButton">
-                    <rect key="frame" x="280" y="197" width="387" height="26"/>
+                    <rect key="frame" x="280" y="178" width="387" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Never..." bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="399" id="397">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1152,7 +1152,7 @@
                     </connections>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1177" customClass="TBPopUpButton">
-                    <rect key="frame" x="280" y="167" width="387" height="26"/>
+                    <rect key="frame" x="280" y="148" width="387" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Default screen" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="1180" id="1178">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1174,13 +1174,24 @@
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z0X-fp-29y" customClass="TBButton">
                     <rect key="frame" x="18" y="370" width="648" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="fVb-WF-Q8c">
+                    <buttonCell key="cell" type="check" title="Display are connected indicator" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="fVb-WF-Q8c">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
                         <action selector="appearanceDisplayConnectedIndicatorCheckboxWasClicked:" target="-2" id="kll-jw-InL"/>
                         <outlet property="nextKeyView" destination="44" id="fJD-H5-D0q"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="asb-8K-t7M" customClass="TBButton">
+                    <rect key="frame" x="18" y="349" width="648" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Display warning indicator" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="4Vs-Jr-m8b">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <outlet property="nextKeyView" destination="44" id="8P7-k4-ocl"/>
                     </connections>
                 </button>
             </subviews>
@@ -1197,6 +1208,7 @@
                 <outlet property="appearanceDisplaySplashScreenCheckbox" destination="812" id="818"/>
                 <outlet property="appearanceDisplayStatisticsWindowsCheckbox" destination="1026" id="1096"/>
                 <outlet property="appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox" destination="1032" id="1037"/>
+                <outlet property="appearanceDisplayWarningIndicatorCheckbox" destination="asb-8K-t7M" id="rC7-FU-a6W"/>
                 <outlet property="appearanceHelpButton" destination="48" id="490"/>
                 <outlet property="appearanceIconSetArrayController" destination="237" id="352"/>
                 <outlet property="appearanceIconSetButton" destination="46" id="216"/>

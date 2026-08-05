@@ -165,6 +165,7 @@
 // Methods for AppearanceView
 
 -(IBAction) appearanceDisplayConnectedIndicatorCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) appearanceDisplayWarningIndicatorCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked:   (NSButton *) sender;
 -(IBAction) appearanceDisplayConnectAndDisconnectPrefixesCheckboxWasClicked: (NSButton *) sender;
