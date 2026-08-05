@@ -125,8 +125,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWi
     [UIHelper setTitle: nil ofControl: appearanceIconSetButton shift: rtl narrow: YES enable: YES];
     
     [appearanceDisplayConnectedIndicatorCheckbox
-     setTitle: NSLocalizedString(@"Display an indicator when any configuration is connected", @"Checkbox name")
-     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p>"
+     setTitle: NSLocalizedString(@"Display a prominent indicator when any configuration is connected", @"Checkbox name")
+     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p>"
                                                            @"<p><strong>When not checked</strong>, no such indicator will appear.</p>",
                                                            @"HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox."))];
 
