@@ -1443,22 +1443,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [ourMainIconView setHidden: YES];
     TBLog(@"DB-SI", @"Set ourMainIconView.hidden: YES");
 
-    if (  warningIndicatorImage) {
-        [warningIndicatorImage setTemplate: NO];
-        CGFloat width  = button.frame.size.width;
-        CGFloat height = button.frame.size.height;
-        NSRect warningFrame  = NSMakeRect(0, 0, width / 2, height / 2 );
-        warningIndicatorView = [[self viewWithImage: warningIndicatorImage
-                                              frame: warningFrame]
-                                retain];
-        [warningIndicatorView setHidden: YES];
-        TBLog(@"DB-SI", @"Set warningIndicatorView hidden: YES");
-        [ourMainIconView addSubview: warningIndicatorView];
-        TBLog(@"DB-SI", @"createStatusItem: added subview for warningIndicator to ourMainIconView");
-    } else {
-        appendLog(@"createStatusItem: No warning image for this icon set");
-    }
-
     if (  areConnectedIndicatorImage  ) {
         [areConnectedIndicatorImage setTemplate: NO];
         CGFloat width  = button.frame.size.width;
@@ -1473,6 +1457,22 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         TBLog(@"DB-SI", @"createStatusItem: added subview for areConnectedIndicator to ourMainIconView");
     } else {
         TBLog(@"DB-SI", @"createStatusItem: No are connected image for this icon set");
+    }
+
+    if (  warningIndicatorImage) {
+        [warningIndicatorImage setTemplate: NO];
+        CGFloat width  = button.frame.size.width;
+        CGFloat height = button.frame.size.height;
+        NSRect warningFrame  = NSMakeRect(0, 0, width / 2, height / 2 );
+        warningIndicatorView = [[self viewWithImage: warningIndicatorImage
+                                              frame: warningFrame]
+                                retain];
+        [warningIndicatorView setHidden: YES];
+        TBLog(@"DB-SI", @"Set warningIndicatorView hidden: YES");
+        [ourMainIconView addSubview: warningIndicatorView];
+        TBLog(@"DB-SI", @"createStatusItem: added subview for warningIndicator to ourMainIconView");
+    } else {
+        appendLog(@"createStatusItem: No warning image for this icon set");
     }
 
     [button addSubview: ourMainIconView];
