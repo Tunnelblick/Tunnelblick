@@ -3348,6 +3348,11 @@ static BOOL firstTimeShowingWindow = TRUE;
                      inverted: NO
                    defaultsTo: FALSE];
 
+    [self setValueForCheckbox: [appearancePrefsView appearanceDisplayWarningIndicatorCheckbox]
+                preferenceKey: @"showYellowWarningIndicator"
+                     inverted: NO
+                   defaultsTo: FALSE];
+
     [self setValueForCheckbox: [appearancePrefsView appearanceDisplayConnectionSubmenusCheckbox]
                 preferenceKey: @"doNotShowConnectionSubmenus"
                      inverted: YES
@@ -3380,6 +3385,13 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(IBAction) appearanceDisplayConnectedIndicatorCheckboxWasClicked: (NSButton *) sender
 {
     [gTbDefaults setBool: [sender state]  forKey:@"showGreenAreConnectedIndicator"];
+    [gMC changedDisplayConnectionTimersSettings];
+    [gMC updateIconImage];
+}
+
+-(IBAction) appearanceDisplayWarningIndicatorCheckboxWasClicked: (NSButton *) sender
+{
+    [gTbDefaults setBool: [sender state]  forKey:@"showYellowWarningIndicator"];
     [gMC changedDisplayConnectionTimersSettings];
     [gMC updateIconImage];
 }

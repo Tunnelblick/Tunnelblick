@@ -1011,6 +1011,7 @@ name = newValue;                                    \
 @"doNotShowOutlineViewOfConfigurations",	\
 @"showConnectedDurations",	\
 @"showGreenAreConnectedIndicator", \
+@"showYellowWarningIndicator", \
 \
 @"connectionLogTickInterval", \
 @"connectionLogEntrySizeLimit", \

@@ -1443,46 +1443,36 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [ourMainIconView setHidden: YES];
     TBLog(@"DB-SI", @"Set ourMainIconView.hidden: YES");
 
-    BOOL showYellow = [gTbDefaults boolForKey: @"DEBUG-showStatusIconYellowTriangle"];
-    if (  showYellow  ) {
-        NSString * fileType = NSFileTypeForHFSTypeCode(kAlertCautionIcon);
-        NSImage  * yellowTriangleImage = [[NSWorkspace sharedWorkspace] iconForFileType: fileType];
-        if (  yellowTriangleImage  ) {
-            [yellowTriangleImage setTemplate: NO];
-            CGFloat width  = button.frame.size.width;
-            CGFloat height = button.frame.size.height;
-            NSRect yellowTriangleFrame  = NSMakeRect(0, 0, width / 2, height / 2 );
-            yellowTriangleView = [[self viewWithImage: yellowTriangleImage
-                                                frame: yellowTriangleFrame]
-                                  retain];
-            [yellowTriangleView setHidden: YES];
-            TBLog(@"DB-SI", @"Set yellowTriangleView hidden: YES");
-            [ourMainIconView addSubview: yellowTriangleView];
-            TBLog(@"DB-SI", @"createStatusItem: added subview for yellowTriangleImage to ourMainIconView");
-        } else {
-            appendLog(@"createStatusItem: Could not find yellow triangle image");
-            [self terminateBecause: terminatingBecauseOfError];
-            return;
-        }
+    if (  warningIndicatorImage) {
+        [warningIndicatorImage setTemplate: NO];
+        CGFloat width  = button.frame.size.width;
+        CGFloat height = button.frame.size.height;
+        NSRect warningFrame  = NSMakeRect(0, 0, width / 2, height / 2 );
+        warningIndicatorView = [[self viewWithImage: warningIndicatorImage
+                                              frame: warningFrame]
+                                retain];
+        [warningIndicatorView setHidden: YES];
+        TBLog(@"DB-SI", @"Set warningIndicatorView hidden: YES");
+        [ourMainIconView addSubview: warningIndicatorView];
+        TBLog(@"DB-SI", @"createStatusItem: added subview for warningIndicator to ourMainIconView");
+    } else {
+        appendLog(@"createStatusItem: No warning image for this icon set");
     }
 
-    BOOL showGreen = [gTbDefaults boolForKey: @"showGreenAreConnectedIndicator"];
-    if (  showGreen  ) {
-        if (  areConnectedIndicatorImage  ) {
-            [areConnectedIndicatorImage setTemplate: NO];
-            CGFloat width  = button.frame.size.width;
-            CGFloat height = button.frame.size.height;
-            NSRect areConnectedFrame  = NSMakeRect(-1, 0, width, height );
-            areConnectedIndicatorView = [[self viewWithImage: areConnectedIndicatorImage
-                                                      frame: areConnectedFrame]
-                                         retain];
-            [areConnectedIndicatorView setHidden: YES];
-            TBLog(@"DB-SI", @"Set areConnectedIndicatorView hidden: YES");
-            [ourMainIconView addSubview: areConnectedIndicatorView];
-            TBLog(@"DB-SI", @"createStatusItem: added subview for areConnectedIndicator to ourMainIconView");
-        } else {
-            TBLog(@"DB-SI", @"createStatusItem: Could not find areConnectedIndicatorImage");
-        }
+    if (  areConnectedIndicatorImage  ) {
+        [areConnectedIndicatorImage setTemplate: NO];
+        CGFloat width  = button.frame.size.width;
+        CGFloat height = button.frame.size.height;
+        NSRect areConnectedFrame  = NSMakeRect(-1, 0, width, height );
+        areConnectedIndicatorView = [[self viewWithImage: areConnectedIndicatorImage
+                                                   frame: areConnectedFrame]
+                                     retain];
+        [areConnectedIndicatorView setHidden: YES];
+        TBLog(@"DB-SI", @"Set areConnectedIndicatorView hidden: YES");
+        [ourMainIconView addSubview: areConnectedIndicatorView];
+        TBLog(@"DB-SI", @"createStatusItem: added subview for areConnectedIndicator to ourMainIconView");
+    } else {
+        TBLog(@"DB-SI", @"createStatusItem: No are connected image for this icon set");
     }
 
     [button addSubview: ourMainIconView];
@@ -1676,6 +1666,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                                main: &mainImage
                          connecting: &connectedImage
                               green: &areConnectedIndicatorImage
+                             yellow: &warningIndicatorImage
                         mainCaution: &mainCautionImage
                   connectingCaution: &connectedCautionImage
                                anim: &animImages]  ) {
@@ -1683,6 +1674,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                                    main: &largeMainImage
                              connecting: &largeConnectedImage
                                   green: nil
+                                 yellow: nil
                             mainCaution: &ignoredMainCautionImage
                       connectingCaution: &ignoredConnectedCautionImage
                                    anim: &largeAnimImages]  ) {
@@ -1704,6 +1696,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                                 main: &mainImage
                           connecting: &connectedImage
                                green: &areConnectedIndicatorImage
+                              yellow: &warningIndicatorImage
                          mainCaution: &mainCautionImage
                    connectingCaution: &connectedCautionImage
                                 anim: &animImages]
@@ -1712,6 +1705,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                                 main: &largeMainImage
                           connecting: &largeConnectedImage
                                green: nil
+                              yellow: nil
                          mainCaution: &ignoredMainCautionImage
                    connectingCaution: &ignoredConnectedCautionImage
                                 anim: &largeAnimImages]  ) {
@@ -1728,6 +1722,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                             main: &mainImage
                       connecting: &connectedImage
                            green: &areConnectedIndicatorImage
+                          yellow: &warningIndicatorImage
                      mainCaution: &mainCautionImage
                connectingCaution: &connectedCautionImage
                             anim: &animImages]
@@ -1736,6 +1731,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                             main: &largeMainImage
                       connecting: &largeConnectedImage
                            green: nil
+                          yellow: nil
                      mainCaution: &ignoredMainCautionImage
                connectingCaution: &ignoredConnectedCautionImage
                             anim: &largeAnimImages]  ) {
@@ -1761,6 +1757,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                    main: (NSImage **)        ptrMainImage
              connecting: (NSImage **)        ptrConnectedImage
                   green: (NSImage **)        ptrGreenImage
+                 yellow: (NSImage **)        ptrWarningIndicatorImage
             mainCaution: (NSImage **)        ptrMainCautionImage
       connectingCaution: (NSImage **)        ptrConnectedCautionImage
                    anim: (NSMutableArray **) ptrAnimImages
@@ -1843,6 +1840,10 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                 } else if(  [name isEqualToString:@"areConnectedIndicator"]) {
                     [*ptrGreenImage release];
                     *ptrGreenImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+
+                } else if(  [name isEqualToString:@"warningIndicator"]) {
+                    [*ptrWarningIndicatorImage release];
+                    *ptrWarningIndicatorImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
 
                 } else if(  [file.lastPathComponent isEqualToString:@"0.png"]) {  // name.intValue returns 0 on failure, so make sure we find the first frame
                     nFrames++;
@@ -2853,6 +2854,15 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 
+    BOOL caution = self.shouldShowCautionMarker;
+    if (  [gTbDefaults boolWithDefaultYesForKey: @"showYellowWarningIndicator"]  ) {
+        [warningIndicatorView setHidden: ! caution];
+    } else {
+        [warningIndicatorView setHidden: YES];
+    }
+
+    BOOL showConnectedIndicatorPreference = [gTbDefaults boolForKey: @"showGreenAreConnectedIndicator"];
+
     if (   (  ! [lastState isEqualToString:@"EXITING"]  )
         && (  ! [lastState isEqualToString:@"CONNECTED"]  ) ) {
         //  Anything other than connected or disconnected shows the animation
@@ -2870,13 +2880,11 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
             TBLog(@"DB-SI", @"updateIconImage: Animation stopped");
         }
 
-        BOOL caution = self.shouldShowCautionMarker;
-        [yellowTriangleView setHidden: ! caution];
         if (  [lastState isEqualToString:@"CONNECTED"]  ) {
             NSImage * image =  (  caution
                                 ? connectedCautionImage
                                 : connectedImage);
-            [areConnectedIndicatorView setHidden: NO];
+            [areConnectedIndicatorView setHidden: ( ! showConnectedIndicatorPreference )];
             if (  statusItem.button.image != image  ) {
                 [statusItem.button setImage: image];
                 TBLog(@"DB-SI", @"updateIconImage: set statusItem.button.image to image to ConnectedImage with caution = %s",
