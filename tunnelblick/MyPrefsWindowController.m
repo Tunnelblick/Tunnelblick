@@ -3381,6 +3381,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     [gTbDefaults setBool: [sender state]  forKey:@"showGreenAreConnectedIndicator"];
     [gMC changedDisplayConnectionTimersSettings];
+    [gMC updateIconImage];
 }
 
 -(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (NSButton *) sender
