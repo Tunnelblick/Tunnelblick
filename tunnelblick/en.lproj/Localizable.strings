@@ -451,7 +451,10 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Display 'Connect' and 'Disconnect' with configuration names";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Display an indicator when any configuration is connected";
+"Display a prominent indicator when any configuration is connected" = "Display a prominent indicator when any configuration is connected";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "Display a prominent indicator when any warnings are available";
 
 /* Checkbox name */
 "Display connection submenus" = "Display connection submenus";
@@ -2290,7 +2293,10 @@
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>";
 
 /* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>";
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>";
