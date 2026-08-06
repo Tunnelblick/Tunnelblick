@@ -1743,11 +1743,13 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
             openvpnstartOutput = stringForLog(errOut, @"openvpnstart log:\n");
         }
 
+        NSString * log = [NSString stringWithContentsOfFile: OPENVPNSTART_LOG_PATH];
+
         [self addToLog: [NSString stringWithFormat: @"\n\n"
                          "Could not start OpenVPN (openvpnstart returned with status #%ld)\n\n"
                          "Contents of the openvpnstart log:\n"
-                         "%@",
-                         (long)status, openvpnstartOutput]];
+                         "%@%@",
+                         (long)status, openvpnstartOutput, log]];
 
         if (  status == OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR) {
             NSString * message = (  isDeployedConfiguration
