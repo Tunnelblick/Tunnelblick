@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2023 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2023, 2026 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -734,6 +734,11 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 //             username,
 //             Tunnelblick process ID)
 #define INSTALLER_UPDATE_TUNNELBLICK         0x8000u
+
+// Set forced preference
+// (arguments: name of preference
+//             value (either 0 or 1)
+#define INSTALLER_SET_FORCED_PREFERENCE      0x9000u
 
 
 //*************************************************************************************************

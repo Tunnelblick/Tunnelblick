@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2023, 2025. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2023, 2025, 2026. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -118,15 +118,19 @@
 //      (9) If the operation is INSTALLER_DELETE and only targetPath is given,
 //             deletes the .ovpn or .conf file or .tblk package at targetPath (also deletes the shadow copy if deleting a private configuration)
 //
-//     (10) If not installing a configuration, sets up tunnelblickd
+//     (10) If the operation is INSTALLER_SET_FORCED_PREFERENCE and both arguments are present,
+//             sets the forced preference named in second_arg to <true> if value in third_arg is "1", or or deletes it if value in third_arg is "0"
+//             (May delete the forced preference file if there are no forced preferences.)
 //
-//	   (11) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
+//     (11) If not installing a configuration, sets up tunnelblickd
 //
-//	   (12) If requested, import settings from the .tblkSetup at targetPath
+//	   (12) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
 //
-//     (13) If requested, install or uninstall kexts
+//	   (13) If requested, import settings from the .tblkSetup at targetPath
 //
-//     (14) If requested, update Tunnelblick
+//     (14) If requested, install or uninstall kexts
+//
+//     (15) If requested, update Tunnelblick
 
 // When finished (or if an error occurs), the file at AUTHORIZED_DONE_PATH is written to indicate the program has finished
 
@@ -2257,6 +2261,115 @@ static BOOL installerUpdateTunnelblick(NSString * updateSignature, NSString * ve
     return updateTunnelblick(zipPath, updateSignature, versionAndBuildString, uid, gid, tunnelblickPid);
 }
 
+static BOOL setOrDeleteForcedPreference(NSString * name, NSString * value) {
+
+    // If "value" is "0" the "name" forced preference is removed from the file at
+    //    L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH and TRUE is returned.
+    //
+    // If "value" is "0" and the file doesn't exist, that is logged and TRUE is returned.
+    //
+    // If "value" is "1" the "name" forced preference is set TRUE in the file and TRUE is returned.
+    //
+    // Returns FALSE if there is a syntax error.
+
+    NSError * err = nil;
+
+    //
+    // Check arguments
+    //
+    if (   (name.length == 0)
+        || (value.length != 1)
+        || ( ! [@"01" containsString: value] )  ) {
+
+        return FALSE;
+    }
+
+    //
+    // Get a URL to access the forced preferences file
+    //
+    NSURL * fileURL = [NSURL fileURLWithPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+                                 isDirectory: NO];
+    if (  ! fileURL  ) {
+        Log(@"Failed to create URL with path '%@'",
+            L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+        errorExit();
+    }
+
+    //
+    // Get a dictionary with the current forced preferences (if any)
+    //
+    NSMutableDictionary * dict = [[[NSDictionary dictionaryWithContentsOfURL: fileURL
+                                                                       error: &err]
+                                   mutableCopy]
+                                  autorelease];
+
+    if (   (! dict)
+        && err
+        && ([err.domain isEqualToString: NSCocoaErrorDomain])
+        && (err.code != NSFileNoSuchFileError)
+        && (err.code != NSFileReadNoSuchFileError)  ) {
+        Log(@"Failed to read '%@'; error was %@", fileURL.path, err);
+        errorExit();
+    }
+    BOOL fileExisted = (dict != nil);
+
+    if (  ! fileExisted  ) {
+        if (  [value isEqualToString: @"0"]  ) {
+            // If the file existed it should be deleted, but it doesn't, so just log that
+            // and return success.
+            Log(@"'%@' doesn't exist, so not setting '%@' to 0",
+                fileURL.path, name);
+            return TRUE; // No forced preference to delete
+        }
+        dict = [NSMutableDictionary dictionaryWithCapacity: 1];
+    }
+
+    //
+    // Modify the dictionary appropriately
+    //
+    if (  [value isEqualToString: @"0"]  ) {
+        [dict removeObjectForKey: name];
+        Log(@"Removed forced preference '%@'", name);
+    } else {
+        [dict setObject: @YES forKey: name];
+        Log(@"Set forced preference '%@' to TRUE", name);
+    }
+
+    //
+    // If the file exists but shouldn't, delete it and return success.
+    //
+    if (  fileExisted  ) {
+        if (  dict.count == 0  ) {
+            if (  ! [gFileMgr removeItemAtURL: fileURL error: &err]  ) {
+                Log(@"Failed to delete '%@'; error was %@",
+                    fileURL.path, err);
+                errorExit();
+            }
+            Log(@"No forced preferences, so deleted '%@'",
+                fileURL.path);
+            return TRUE;
+        }
+    }
+
+    //
+    // Write the new dictionary to the file and return success.
+    //
+    if (  dict.count != 0  ) {
+        if  (  ! [dict writeToURL: fileURL atomically: YES]  ) {
+            Log(@"Failed to write dictionary to '%@'",
+                fileURL.path);
+            errorExit();
+        }
+        if (  fileExisted  ) {
+            Log(@"Replaced '%@'", fileURL.path);
+        } else {
+            Log(@"Created '%@'", fileURL.path);
+        }
+    }
+
+    return TRUE;
+}
+
 //**************************************************************************************************************************
 // EXPORT SETUP
 
@@ -2844,6 +2957,7 @@ int main(int argc, char *argv[]) {
     if (  operation == INSTALLER_INSTALL_PRIVATE_CONFIG     ) { [bitMaskDescription appendString: @" InstallPrivateConfig" ]; }
     if (  operation == INSTALLER_INSTALL_SHARED_CONFIG      ) { [bitMaskDescription appendString: @" InstallSharedConfig"  ]; }
     if (  operation == INSTALLER_UPDATE_TUNNELBLICK         ) { [bitMaskDescription appendString: @" UpdateTunnelblick"    ]; }
+    if (  operation == INSTALLER_SET_FORCED_PREFERENCE      ) { [bitMaskDescription appendString: @" SetForcedPreference"  ]; }
 
     // Remove leading space
     [bitMaskDescription deleteCharactersInRange: NSMakeRange(0, 1)];
@@ -3090,7 +3204,20 @@ int main(int argc, char *argv[]) {
     }
     
     //**************************************************************************************************************************
-    // (10) Set up tunnelblickd to load when the computer starts
+    // (10) If the operation is INSTALLER_SET_FORCED_PREFERENCE and both arguments are present,
+    //         sets the forced preference named in second_arg to <true> if value in third_arg is "1", or or deletes it if value in third_arg is "0"
+    //         (May delete the forced preference file if there are no forced preferences.)
+
+    if (  operation == INSTALLER_SET_FORCED_PREFERENCE  ) {
+        if (   fourthArg
+            || ( ! setOrDeleteForcedPreference(secondArg, thirdArg)  )  ) {
+            Log(@"Invalid arguments to 'set forced preference'");
+            errorExit();
+        }
+    }
+
+    //**************************************************************************************************************************
+    // (11) Set up tunnelblickd to load when the computer starts
 
     BOOL installingAConfiguration = (  (argc == 4) || (argc == 5)  ); // (Installing or importing configurations)
 
@@ -3115,7 +3242,7 @@ int main(int argc, char *argv[]) {
     }
 	
 	//**************************************************************************************************************************
-	// (11) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
+	// (12) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
 
 	if (   secondArg
 		&& ( ! thirdArg   )
@@ -3124,7 +3251,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 	//**************************************************************************************************************************
-	// (12) If requested, import settings from the .tblkSetup at secondArg using username mapping in the string in "thirdArg"
+	// (13) If requested, import settings from the .tblkSetup at secondArg using username mapping in the string in "thirdArg"
 	//
 	//		NOTE: "thirdArg" is a string that specifies the username mapping to use when importing.
 
@@ -3135,7 +3262,7 @@ int main(int argc, char *argv[]) {
 	}
 	
     //**************************************************************************************************************************
-    // (13) If requested, uninstall, install kexts, otherwise update them if they are installed
+    // (14) If requested, uninstall, install kexts, otherwise update them if they are installed
 
     if (   doUninstallKexts  ) {
         uninstallKexts();
@@ -3146,7 +3273,7 @@ int main(int argc, char *argv[]) {
     }
     
     //**************************************************************************************************************************
-    // (14) If requested, update Tunnelblick
+    // (15) If requested, update Tunnelblick
     //
 
     if (  operation == INSTALLER_UPDATE_TUNNELBLICK  ) {
