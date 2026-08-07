@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2016, 2019 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2016, 2019, 2026 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -111,7 +111,7 @@ int main (int argc, const char * argv[])
     
     gLogPath = [logFile copy];
     
-    if (  ! [[actions substringWithRange: NSMakeRange(0, 2)] isEqualToString: @"-p"]  ) {
+    if (  ! [actions hasPrefix: @"-p"]  ) {
         appendLog([NSString stringWithFormat: @"Invalid actions = '%@'; must start with '-p'", actions]);
         [gPool drain];
         exit(EXIT_FAILURE);
@@ -385,10 +385,25 @@ NSString * getChanges(NSDictionary * charsAndKeys, NSString * current, NSString 
     return changes;
 }
 
+BOOL rangeIsOutOfBoundsOfString(NSRange r, NSString * s) {
+
+    if (   (r.length == 0)
+        || (r.location == NSNotFound)
+        || (r.location > s.length)
+        || (r.location + r.length > s.length)  ) {
+        appendLog([NSString stringWithFormat: @"ERROR: bad range (location = %lu, length =%lu, so ends at %lu) for string = '%@' (%lu characters long); stack trace:\n%@",
+                   (unsigned long)r.location, (unsigned long)r.length, (unsigned long)(r.location + r.length), s, (unsigned long)s.length, NSThread.callStackSymbols]);
+        return YES;
+    }
+
+    return NO;
+}
+
 NSString * getKeyFromScDictionary(NSString * key, NSString * dictionary)
 {
     NSRange r = rangeOfItemInString(key, dictionary);
-    if (  r.length != 0  ) {
+    if (   (r.length != 0)
+        && ( ! rangeIsOutOfBoundsOfString(r, dictionary))  ) {
         NSString * returnKey = trimWhitespace([dictionary substringWithRange: r]);
         if (   [returnKey isEqualToString:
                @"<array> {\n"
@@ -549,6 +564,11 @@ NSString * standardizedString(NSString * s, NSRange r)
     NSCharacterSet * notWs = [ws invertedSet];
     
     // Collapse each instance of whitespace to a NUL
+    if (  rangeIsOutOfBoundsOfString(r, s)  ) {
+        [gPool drain];
+        exit(EXIT_FAILURE);
+    }
+
     NSMutableString * tempString = [[[s substringWithRange: r] mutableCopy] autorelease];
     NSRange rWS;
     while (  0 != (rWS = [tempString rangeOfCharacterFromSet: ws]).length  ) {
@@ -588,6 +608,10 @@ NSString * trimWhitespace(NSString * s)
 NSString * settingOfInterest(NSString * settingString, NSString * key)
 {
     NSRange r = rangeOfItemInString(settingString, key);
+    if (  rangeIsOutOfBoundsOfString(r, settingString)  ) {
+        return @"";
+    }
+
     NSString * setting = trimWhitespace([settingString substringWithRange: r]);
     
     if (  [setting isEqualToString:

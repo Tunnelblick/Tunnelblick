@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2026 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -141,10 +141,28 @@ void removeFlagCharacter(NSString * flagChar, NSMutableString * theString, BOOL 
     }
 }
 
+BOOL rangeIsOutOfBoundsOfString(NSRange r, NSString * s) {
+
+    if (   (r.length == 0)
+        || (r.location == NSNotFound)
+        || (r.location > s.length)
+        || (r.location + r.length > s.length)  ) {
+        fprintf(stderr, "ERROR: bad range (location = %lu, length =%lu, so ends at %lu) for string = '%s' (%lu characters long); stack trace:\n%s",
+                (unsigned long)r.location, (unsigned long)r.length, (unsigned long)(r.location + r.length), s.UTF8String, (unsigned long)s.length,
+                NSThread.callStackSymbols.description.UTF8String);
+        return YES;
+    }
+
+    return NO;
+}
+
+
 void append(NSString * theName, NSString * inString, NSMutableString * outString)
 {
     NSRange r = rangeOfItemInString(theName, inString);
-    if (  r.length != 0  ) {
+
+    if (   (r.length != 0)
+        && ( ! rangeIsOutOfBoundsOfString(r, inString))  ) {
         NSString * contents = [inString substringWithRange: r];
         if (  ! [contents isEqualToString:
                  @"<array> {\n"
@@ -252,6 +270,11 @@ NSString * standardizedString(NSString * s, NSRange r)
     NSCharacterSet * ws = [NSCharacterSet whitespaceCharacterSet];
     NSCharacterSet * notWs = [ws invertedSet];
     
+    if (  rangeIsOutOfBoundsOfString(r, s)  ) {
+        [gPool drain];
+        exit(EXIT_FAILURE);
+    }
+
     // Collapse each instance of whitespace to a NUL
     NSMutableString * tempString = [[[s substringWithRange: r] mutableCopy] autorelease];
     NSRange rWS;
