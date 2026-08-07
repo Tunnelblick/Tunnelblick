@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2026 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -2955,6 +2955,19 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
+-(void) invokeTarget: (id) target selectorName: selectorName {
+
+
+    SEL selector = NSSelectorFromString(selectorName);
+
+    if (  [target respondsToSelector: selector]  ) {
+        [target performSelector: selector];
+    } else {
+        Log(@"Error: target '%@' does not respond to selector '%@'",
+            target, selectorName);
+    }
+}
+
 -(void) finishAdminApprovalCheckboxWasClickedHelper: (NSMutableDictionary *) dict {
 
     // Runs in main thread
@@ -2967,12 +2980,12 @@ static BOOL firstTimeShowingWindow = TRUE;
                           NSLocalizedString(@"Tunnelblick was unable to make the change. See the Console Log for details.", @"Window text"));
     }
 
+    // Set up the checkbox again, so it reflects what's now in forced-preferences.plist
+    id setupTarget = dict[@"setupTarget"];
+    NSString * setupSelectorName = dict[@"setupSelectorName"];
+    [self invokeTarget: setupTarget selectorName: setupSelectorName];
+
     TBButton * checkbox = dict[@"button"];
-    if (  checkbox == [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox]  ) {
-        [self setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox];
-    } else {
-        [self setupUpdatesAdminApprovalForAppUpdatesCheckbox];
-    }
     [checkbox setEnabled: YES];
 }
 
@@ -2981,19 +2994,20 @@ static BOOL firstTimeShowingWindow = TRUE;
     // Runs in a separate thread so user authorization doesn't hang the main thread
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
-    NSString * forcedPreferencesDictionaryPath = [dict objectForKey: @"tempDictionaryPath"];
+
+    NSString * preferenceName = dict[@"preferenceName"];
+    NSNumber * newValue       = dict[@"value"];
 
     NSString * message = NSLocalizedString(@"Tunnelblick needs to change a setting that may only be changed by a computer administrator.", @"Window text");
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
     if (  auth  ) {
-        NSInteger status = [gMC runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
-                              extraArguments: [NSArray arrayWithObject: forcedPreferencesDictionaryPath]
+        NSInteger status = [gMC runInstaller: INSTALLER_SET_FORCED_PREFERENCE
+                              extraArguments: @[preferenceName, newValue]
                              usingSystemAuth: auth
                                 installTblks: nil];
         [auth release];
         
-        [dict setObject:[NSNumber numberWithLong: (long)status] forKey: @"status"];
+        [dict setObject: [NSNumber numberWithLong: (long)status] forKey: @"status"];
     } else {
         OSStatus status = 1; // User cancelled installation
         [dict setObject: [NSNumber numberWithInt: status] forKey: @"status"];
@@ -3001,12 +3015,14 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     [self performSelectorOnMainThread: @selector(finishAdminApprovalCheckboxWasClickedHelper:) withObject: dict waitUntilDone: NO];
 
-    [gFileMgr tbRemovePathIfItExists: [forcedPreferencesDictionaryPath stringByDeletingLastPathComponent]];  // Ignore error; it has been logged
-    
     [pool drain];
 }
 
--(void) adminApprovalCheckboxWasClickedHelperButton: (TBButton *) checkbox preferenceName: (NSString *) preferenceName {
+-(void) adminApprovalCheckboxWasClickedHelperButton: (TBButton *) checkbox
+                                        setupTarget: (id)         setupTarget
+                                  setupSelectorName: (NSString *) setupSelectorName
+                                     preferenceName: (NSString *) preferenceName
+                                           inverted: (BOOL)       inverted {
 
     if (  [checkbox isEnabled]  ) {
         [checkbox setEnabled: NO];
@@ -3014,43 +3030,34 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
 
-    BOOL newState = [checkbox state];
+    NSString * newValue = (  ( !! checkbox.state !=  !! inverted)
+                           ? @"1"
+                           : @"0");
 
-    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
-    NSMutableDictionary * newDict = (  dict
-                                     ? [NSMutableDictionary dictionaryWithDictionary: dict]
-                                     : [NSMutableDictionary dictionaryWithCapacity: 1]);
+    NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithDictionary: @{ @"button"            : checkbox,
+                                                                                   @"setupTarget"       : setupTarget,
+                                                                                   @"setupSelectorName" : setupSelectorName,
+                                                                                   @"preferenceName"    : preferenceName,
+                                                                                   @"value"             : newValue}];
 
-    [newDict setObject: [NSNumber numberWithBool: ( ! newState) ] forKey: preferenceName];
 
-    NSString * tempDictionaryPath = [newTemporaryDirectoryPath() stringByAppendingPathComponent: @"forced-preferences.plist"];
-    OSStatus status = (  tempDictionaryPath
-                       ? (  [newDict writeToFile: tempDictionaryPath atomically: YES]
-                          ? 0
-                          : -1)
-                       : -1);
-    if (  status == 0  ) {
-        NSMutableDictionary * threadDict = [@{@"button": checkbox,
-                                              @"preferenceName": preferenceName,
-                                              @"tempDictionaryPath": tempDictionaryPath}
-                                             mutableCopy];
-
-        [NSThread detachNewThreadSelector: @selector(adminApprovalCheckboxWasClickedHelperThread:) toTarget: self withObject: threadDict];
-    }
+    [NSThread detachNewThreadSelector: @selector(adminApprovalCheckboxWasClickedHelperThread:) toTarget: self withObject: dict];
 
     // We must restore the checkbox value because the change hasn't been made yet. However, we can't restore it until after all processing of the
     // ...WasClicked event is finished, because after this method returns, further processing changes the checkbox value to reflect the user's click.
     // To undo that afterwards, we delay changing the value for 0.2 seconds.
-    SEL setupCheckbox = (  (checkbox == [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox])
-                         ? @selector(setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox)
-                         : @selector(setupUpdatesAdminApprovalForAppUpdatesCheckbox));
-    [self performSelector: setupCheckbox withObject: nil afterDelay: 0.2];
+    [self invokeTarget: dict[@"setupTarget"]
+          selectorName: dict[@"setupSelectorName"]];
+
 }
 
 -(IBAction) generalAdminApprovalForKeyAndCertificateChangesCheckboxWasClicked: (NSButton *) sender
 {
     [self adminApprovalCheckboxWasClickedHelperButton: [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox]
-                                       preferenceName: @"allowNonAdminSafeConfigurationReplacement"];
+                                          setupTarget: self
+                                    setupSelectorName: @"setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox"
+                                       preferenceName: @"allowNonAdminSafeConfigurationReplacement"
+                                             inverted: YES];
 }
 
 
@@ -3075,7 +3082,10 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(IBAction) updatesAdminApprovalForAppUpdatesCheckboxWasClicked: (NSButton *) sender {
 
     [self adminApprovalCheckboxWasClickedHelperButton: [generalPrefsView updatesAdminApprovalForAppUpdatesCheckbox]
-                                       preferenceName: @"TBUpdaterAllowNonAdminToUpdateTunnelblick"];
+                                          setupTarget: self
+                                    setupSelectorName: @"setupUpdatesAdminApprovalForAppUpdatesCheckbox"
+                                       preferenceName: @"TBUpdaterAllowNonAdminToUpdateTunnelblick"
+                                             inverted: YES];
 }
 
 -(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked: (NSButton *) sender

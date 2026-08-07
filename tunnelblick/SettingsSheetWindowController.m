@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2026 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -122,6 +122,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          soundOnConnectButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          soundOnDisconnectButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnConnectArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayController)
+
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *, authenticateOnConnectCheckbox)
+
 
 -(id) init {
     self = [super initWithWindowNibName: [UIHelper appendRTLIfRTLLanguage: @"SettingsSheet"]];
@@ -1331,77 +1334,20 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 // Methods for Connecting & Disconnecting tab
 - (IBAction)authenticateOnConnectWasClicked:(NSButton *)sender {
-    TBButton * checkbox = authenticateOnConnectCheckbox;
-    if (  [checkbox isEnabled]  ) {
-        [checkbox setEnabled: NO];
-    } else {
-         return;
-    }
-    
-    BOOL newState = [sender state];
-    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
-    NSMutableDictionary * newDict = (  dict
-                                     ? [NSMutableDictionary dictionaryWithDictionary: dict]
-                                     : [NSMutableDictionary dictionaryWithCapacity: 1]);
-    
-    [newDict setObject: [NSNumber numberWithBool: (newState) ] forKey: [configurationName stringByAppendingFormat:@"-authenticateOnConnect"]];
-    
-    NSString * tempDictionaryPath = [newTemporaryDirectoryPath() stringByAppendingPathComponent: @"forced-preferences.plist"];
-    OSStatus status = (  tempDictionaryPath
-                       ? (  [newDict writeToFile: tempDictionaryPath atomically: YES]
-                          ? 0
-                          : -1)
-                       : -1);
-    if (  status == 0  ) {
-        [NSThread detachNewThreadSelector: @selector(secureAuthThread:) toTarget: self withObject: tempDictionaryPath];
-    }
-    
-    // We must restore the checkbox value because the change hasn't been made yet. However, we can't restore it until after all processing of the
-    // ...WasClicked event is finished, because after this method returns, further processing changes the checkbox value to reflect the user's click.
-    // To undo that afterwards, we delay changing the value for 0.2 seconds.
-    [self performSelector: @selector(setupUpdatesAuthenticateOnConnectCheckbox) withObject: nil afterDelay: 0.2];
-}
--(void) secureAuthThread: (NSString *) forcedPreferencesDictionaryPath {
-    // Runs in a separate thread so user authorization doesn't hang the main thread
-    
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
-    NSString * message = NSLocalizedString(@"Tunnelblick needs to change a setting that may only be changed by a computer administrator.", @"Window text");
-    SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
-    if (  auth  ) {
-        NSInteger status = [gMC runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
-                              extraArguments: [NSArray arrayWithObject: forcedPreferencesDictionaryPath]
-                             usingSystemAuth: auth
-                                installTblks: nil];
-        [auth release];
-        
-        [self performSelectorOnMainThread: @selector(finishAuthenticating:) withObject: [NSNumber numberWithLong: (long)status] waitUntilDone: NO];
-    } else {
-        OSStatus status = 1; // User cancelled installation
-        [self performSelectorOnMainThread: @selector(finishAuthenticating:) withObject: [NSNumber numberWithInt: status] waitUntilDone: NO];
-    }
-    
-    [gFileMgr tbRemovePathIfItExists: [forcedPreferencesDictionaryPath stringByDeletingLastPathComponent]];  // Ignore error; it has been logged
-    
-    [pool drain];
-}
 
--(void) finishAuthenticating: (NSNumber *) statusNumber {
-    OSStatus status = [statusNumber intValue];
-     
-    if (   (status != 0)      // status 0 means succeeded
-        && (status != 1)  ) { // status 1 means cancelled by user
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"Tunnelblick was unable to make the change. See the Console Log for details.", @"Window text"));
-    }
-
-     [self setupUpdatesAuthenticateOnConnectCheckbox];
+    (void)sender;
+    
+    MyPrefsWindowController * vpnDetailsWc = [gMC logScreen];
+    [vpnDetailsWc adminApprovalCheckboxWasClickedHelperButton: self.authenticateOnConnectCheckbox
+                                                  setupTarget: self
+                                            setupSelectorName: @"setupUpdatesAuthenticateOnConnectCheckbox"
+                                               preferenceName: [configurationName stringByAppendingFormat:@"-authenticateOnConnect"]
+                                                     inverted: NO];
 }
 
 -(void) setupUpdatesAuthenticateOnConnectCheckbox {
     NSString *key = [configurationName stringByAppendingString:@"-authenticateOnConnect"];
     TBButton * checkbox = authenticateOnConnectCheckbox;
-    [checkbox setEnabled:YES];
     [checkbox setState: (  [gTbDefaults isTrueReadOnlyForKey: key]
                          ? NSOnState
                          : NSOffState)];

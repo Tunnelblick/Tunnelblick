@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020, 2026 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -29,6 +29,7 @@
 @class UtilitiesView;
 @class VPNConnection;
 @class SettingsSheetWindowController;
+@class TBButton;
 
 @interface MyPrefsWindowController : DBPrefsWindowController <NSTextViewDelegate, NSWindowDelegate, NSTabViewDelegate, NSTableViewDelegate>
 {   
@@ -82,6 +83,12 @@
 
 -(void) update;
 -(BOOL) forceDisableOfNetworkMonitoring;
+
+-(void) adminApprovalCheckboxWasClickedHelperButton: (TBButton *) checkbox
+                                        setupTarget: (id)         setupTarget
+                                  setupSelectorName: (NSString *) setupSelectorName
+                                     preferenceName: (NSString *) preferenceName
+                                           inverted: (BOOL)       inverted;
 
 -(void) selectedLeftNavListIndexChanged;
 
