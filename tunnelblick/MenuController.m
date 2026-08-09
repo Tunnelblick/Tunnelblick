@@ -74,6 +74,7 @@ NSFileManager         * gFileMgr = nil;               // NSFileManager.defaultMa
 unsigned                gMaximumLogSize = 0;          // Maximum size (bytes) of buffer used to display the log
 MenuController        * gMC = nil;                    // This singleton instance
 NSString              * gPrivatePath = nil;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
+NSString              * gShadowPath = nil;            // Path to /Library/Application Support/Tunnelblick/Users/<username>
 NSArray               * gProgramPreferences = nil;    // E.g., 'placeIconInStandardPositionInStatusBar'
 NSArray               * gRateUnits = nil;             // Array of strings with localized data units      (KB/s, MB/s, GB/s, etc.)
 BOOL                    gShuttingDownTunnelblick = FALSE;// TRUE if applicationShouldTerminate: has been invoked
@@ -492,8 +493,10 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         // Create private configurations folder if not running as root
         if (  [NSHomeDirectory() hasPrefix: @"/var/root"]) {
             gPrivatePath = nil;
+            gShadowPath  = nil;
         } else {
             gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
+            gShadowPath = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
             if (  createDir(gPrivatePath, privateFolderPermissions(gPrivatePath)) == -1  ) {
                 NSLog(@"Unable to create %@", gPrivatePath);
                 exit(1);
