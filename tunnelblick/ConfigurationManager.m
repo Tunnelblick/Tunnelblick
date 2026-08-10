@@ -959,7 +959,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                    usingSystemAuth: (SystemAuth *) auth
                         warnDialog: (BOOL)         warn {
 
-    // Deletes a config file or package or a folder
+    // Deletes a folder (if targetPath ends in a "/") or a .tblk
     // Returns TRUE if succeeded
     // Returns FALSE if failed, having already output an error message to the console log
 

@@ -679,7 +679,7 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     }
 
     // Change permissions
-    // Note: using fchown() is secure because it won't follow symlinks because the fd was created above using open() with O_NOFOLLOW_ANY
+    // Note: using fchmod() is secure because it won't follow symlinks because the fd was created above using open() with O_NOFOLLOW_ANY
     NSDictionary * sourceAttributes = [gFileMgr tbFileAttributesAtPath: sourcePath traverseLink: NO];
     mode_t mode = [[sourceAttributes objectForKey: NSFilePosixPermissions] unsignedIntValue];
     result = fchmod(fd, mode);
@@ -3199,8 +3199,6 @@ int main(int argc, char *argv[]) {
     
     //**************************************************************************************************************************
     // (9)
-    // If requested, delete a single file or .tblk package (also deletes the shadow copy if deleting a private configuration)
-	
     if (  operation == INSTALLER_DELETE  ) {
 		deleteOneTblk(secondArg, thirdArg);
     }
