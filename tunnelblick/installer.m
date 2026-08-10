@@ -167,7 +167,7 @@ static void copyAppToL_AS_T(NSString * sourcePath);
 
 static void errorExit(void);
 
-static void errorExitIfAnySymlinkInPath(NSString * path);
+static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path);
 
 static const char * fileSystemRepresentationFromPath(NSString * path);
 
@@ -443,7 +443,12 @@ static void structureTblkProperly(NSString * path) {
     }
 }
 
-static void errorExitIfAnySymlinkInPath(NSString * path) {
+static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path) {
+
+    if (  [path containsString: @".."]) {
+        Log(@"Apparent attack detected: '..' found in '%@'",path);
+        errorExit();
+    }
 
     NSString * curPath = path;
     while (   (curPath.length != 0)
@@ -466,7 +471,7 @@ static void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * pa
 
     if (   [gFileMgr fileExistsAtPath: path]
         && [gFileMgr isReadableFileAtPath: path]  ) {
-        errorExitIfAnySymlinkInPath(path);
+        errorExitIfAnySymlinkOrDotDotInPath(path);
         return;
     }
 
@@ -495,7 +500,7 @@ void removeExtendedAttributes(NSString * tunnelblickAppPath) {
 
 static void securelyDeleteFolder(NSString * path) {
 
-    errorExitIfAnySymlinkInPath(path);
+    errorExitIfAnySymlinkOrDotDotInPath(path);
 
     // Can only rmdir() an empty folder, so empty this folder
 
@@ -516,7 +521,7 @@ static void securelyDeleteFolder(NSString * path) {
 
 static void securelyDeleteItem(NSString * path) {
 
-    errorExitIfAnySymlinkInPath(path.stringByDeletingLastPathComponent);
+    errorExitIfAnySymlinkOrDotDotInPath(path.stringByDeletingLastPathComponent);
 
     const char * pathC = fileSystemRepresentationFromPath(path);
 
@@ -540,7 +545,7 @@ static void securelyDeleteItem(NSString * path) {
 
 static void securelyDeleteItemIfItExists(NSString * path) {
 
-    errorExitIfAnySymlinkInPath(path);
+    errorExitIfAnySymlinkOrDotDotInPath(path);
 
     if (  ! [gFileMgr fileExistsAtPath: path]  ) {
         return;
@@ -551,8 +556,8 @@ static void securelyDeleteItemIfItExists(NSString * path) {
 
 static void securelyRename(NSString * sourcePath, NSString * targetPath) {
 
-    errorExitIfAnySymlinkInPath(sourcePath);
-    errorExitIfAnySymlinkInPath(targetPath);
+    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
 
     if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
         securelyDeleteItem(targetPath);
@@ -589,7 +594,7 @@ static void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * path) {
 
     // Create a file or a directory owned by root with 0700 permissions (permissions will be changed to the correct values later)
 
-    errorExitIfAnySymlinkInPath(path);
+    errorExitIfAnySymlinkOrDotDotInPath(path);
 
     if (  isDir  ) {
         umask(0077);
@@ -611,7 +616,7 @@ static void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * path) {
 
 static void securelyCreateFolderAndParents(NSString * path) {
 
-    errorExitIfAnySymlinkInPath(path);
+    errorExitIfAnySymlinkOrDotDotInPath(path);
 
     if (  [gFileMgr fileExistsAtPath: path]  ) {
         return;
@@ -645,8 +650,8 @@ static void securelyCreateFolderAndParents(NSString * path) {
 
 static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
 
-    errorExitIfAnySymlinkInPath(sourcePath);
-    errorExitIfAnySymlinkInPath(targetPath);
+    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
 
     const char * sourcePathC = fileSystemRepresentationFromPath(sourcePath);
     const char * targetPathC = fileSystemRepresentationFromPath(targetPath);
@@ -748,8 +753,8 @@ static void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath);
 
 static void securelyCopyFileOrFolderContents(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
 
-    errorExitIfAnySymlinkInPath(sourcePath);
-    errorExitIfAnySymlinkInPath(targetPath);
+    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
 
     // Copy the folder contents or the file contents
     if (  isDir  ) {
@@ -797,8 +802,8 @@ static void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
     //
     // This routine is called only by securelyCopy() and securelyCopyFileOrFolderContents().
 
-    errorExitIfAnySymlinkInPath(sourcePath);
-    errorExitIfAnySymlinkInPath(targetPath);
+    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
 
     BOOL isDir;
 
@@ -823,8 +828,8 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     //
     // Uses an intermediate file or folder and then renames it, so no partial copy has been done if an error occurs.
 
-    errorExitIfAnySymlinkInPath(sourcePath);
-    errorExitIfAnySymlinkInPath(targetPath);
+    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
 
     BOOL isDir;
 
@@ -842,8 +847,8 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
 
 static void securelyMove(NSString * sourcePath, NSString * targetPath) {
 
-    errorExitIfAnySymlinkInPath(sourcePath);
-    errorExitIfAnySymlinkInPath(targetPath);
+    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
 
     securelyCopy(sourcePath, targetPath);
 
@@ -852,7 +857,7 @@ static void securelyMove(NSString * sourcePath, NSString * targetPath) {
 
 static BOOL testRenamex_np(NSString * folder) {
 
-    errorExitIfAnySymlinkInPath(folder);
+    errorExitIfAnySymlinkOrDotDotInPath(folder);
 
     // Touch two files (delete them first if they exist)
     NSString * test1Path = [folder stringByAppendingPathComponent: @"renamex_np-test-target-1"];
@@ -1523,7 +1528,7 @@ static void createAndSecureConfigurationsSubfolder(NSString * path) {
         grp   = userGID();
         perms = privateFolderPermissions(path);
     }
-    errorExitIfAnySymlinkInPath(path);
+    errorExitIfAnySymlinkOrDotDotInPath(path);
 
     if (  ! createDirWithPermissionAndOwnership(path, perms, own, grp)  ) {
         errorExit();
@@ -1613,7 +1618,7 @@ static void setupLibrary_Application_Support_Tunnelblick(void) {
     }
 
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
-		errorExitIfAnySymlinkInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+		errorExitIfAnySymlinkOrDotDotInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 		if (   ( ! checkSetOwnership(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, NO, 0, 0))
 			|| ( ! checkSetPermissions(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, PERMS_SECURED_READABLE, NO))  ) {
 			errorExit();
@@ -1670,7 +1675,7 @@ static void copyTheApp(void) {
 
     NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
 
-    errorExitIfAnySymlinkInPath(@"/Applications");
+    errorExitIfAnySymlinkOrDotDotInPath(@"/Applications");
 
     if (  [sourcePath isEqualToString: APPLICATIONS_TB_APP]  ) {
         Log(@"Not copying app because this copy is already where it should be copied");
@@ -2005,11 +2010,11 @@ static void installForcedPreferences(NSString * firstPath, NSString * secondPath
 		}
 		
 		if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
-			errorExitIfAnySymlinkInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+			errorExitIfAnySymlinkOrDotDotInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 			makeUnlockedAtPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
             securelyDeleteItem(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 		} else {
-			errorExitIfAnySymlinkInPath([L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH stringByDeletingLastPathComponent]);
+			errorExitIfAnySymlinkOrDotDotInPath([L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH stringByDeletingLastPathComponent]);
 		}
 		
 		if (  [gFileMgr tbCopyPath: firstPath toPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH handler: nil]  ) {
@@ -2177,7 +2182,7 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 										 userUsername(),
 										 lastPartOfTarget];
 		
-		errorExitIfAnySymlinkInPath(shadowTargetPath);
+		errorExitIfAnySymlinkOrDotDotInPath(shadowTargetPath);
 		
 		if (  [gFileMgr fileExistsAtPath: shadowTargetPath]  ) {
             securelyDeleteItem(shadowTargetPath);
@@ -2188,7 +2193,7 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 		BOOL isDir;
 		if (   ( ! [gFileMgr fileExistsAtPath: shadowTargetPath isDirectory: &isDir])
 			&& isDir  ) {
-			errorExitIfAnySymlinkInPath(enclosingFolder);
+			errorExitIfAnySymlinkOrDotDotInPath(enclosingFolder);
 			createDirWithPermissionAndOwnership(enclosingFolder, PERMS_SECURED_FOLDER, 0, 0);
 		}
 		
@@ -2229,7 +2234,7 @@ static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
 
     NSString * path = firstPath;
 
-    errorExitIfAnySymlinkInPath(path);
+    errorExitIfAnySymlinkOrDotDotInPath(path);
 
     NSString * shadowPath = [[L_AS_T_USERS
                               stringByAppendingPathComponent: userUsername()]
@@ -2866,10 +2871,10 @@ static void mergeForcedPreferences(NSString * sourcePath) {
 		
 		if (  modifiedExistingPreferences  ) {
 			if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-				errorExitIfAnySymlinkInPath(targetPath);
+				errorExitIfAnySymlinkOrDotDotInPath(targetPath);
 				makeUnlockedAtPath(targetPath);
 			} else {
-				errorExitIfAnySymlinkInPath([targetPath stringByDeletingLastPathComponent]);
+                errorExitIfAnySymlinkOrDotDotInPath([targetPath stringByDeletingLastPathComponent]);
 			}
 			if (  ! [existingPreferences writeToFile: targetPath atomically: YES]  ) {
 				Log(@"Error: could not write %@", targetPath);
@@ -3059,7 +3064,7 @@ int main(int argc, char *argv[]) {
         secondArg = [gFileMgr stringWithFileSystemRepresentation: argv[2] length: strlen(argv[2])];
         if (   ( gPrivatePath == nil  )
             || ( ! [secondArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfAnySymlinkInPath(secondArg);
+            errorExitIfAnySymlinkOrDotDotInPath(secondArg);
         }
     }
     NSString * thirdArg = nil;
@@ -3067,7 +3072,7 @@ int main(int argc, char *argv[]) {
         thirdArg = [gFileMgr stringWithFileSystemRepresentation: argv[3] length: strlen(argv[3])];
         if (   ( gPrivatePath == nil  )
             || ( ! [thirdArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfAnySymlinkInPath(thirdArg);
+            errorExitIfAnySymlinkOrDotDotInPath(thirdArg);
         }
     }
     
@@ -3076,7 +3081,7 @@ int main(int argc, char *argv[]) {
         fourthArg = [gFileMgr stringWithFileSystemRepresentation: argv[4] length: strlen(argv[4])];
         if (   ( gPrivatePath == nil  )
             || ( ! [fourthArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfAnySymlinkInPath(fourthArg);
+            errorExitIfAnySymlinkOrDotDotInPath(fourthArg);
         }
     }
 
@@ -3085,7 +3090,7 @@ int main(int argc, char *argv[]) {
         fifthArg = [gFileMgr stringWithFileSystemRepresentation: argv[5] length: strlen(argv[5])];
         if (   ( gPrivatePath == nil  )
             || ( ! [fifthArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfAnySymlinkInPath(fifthArg);
+            errorExitIfAnySymlinkOrDotDotInPath(fifthArg);
         }
     }
 
