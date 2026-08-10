@@ -2211,45 +2211,73 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 	}
 }
 
-static void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
-	
-	if (  ! firstPath) {
-		Log(@"Operation is INSTALLER_DELETE but firstPath is not set");
-		errorExit();
-	}
-	
-	if (  secondPath  ) {
-		Log(@"Operation is INSTALLER_DELETE but secondPath is set");
-		errorExit();
-	}
+static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
 
-    if (  [firstPath hasPrefix: L_AS_T_USERS]  ) {
-        Log(@"Did not delete %@.\nTo delete a shadow copy, delete the user's copy; the shadow copy will be deleted automatically.", firstPath);
+    // Deletes a folder (if firstPath ends in a "/") or a .tblk
+    //
+    // The path must be in L_AS_T_SHARED or L_AS_T_USERS/<username>
+
+    //
+    // Check argument(s)
+    //
+
+    if (   ( ! firstPath )
+        || secondPath) {
+        Log(@"Wrong number of arguments; one argument is required");
         errorExit();
     }
 
-	if (  [gFileMgr fileExistsAtPath: firstPath]  ) {
-		errorExitIfAnySymlinkInPath(firstPath);
-		makeUnlockedAtPath(firstPath);
-        securelyDeleteItem(firstPath);
-		Log(@"removed %@", firstPath);
+    NSString * path = firstPath;
 
-		// Delete shadow copy, too, if it exists
-		if (  isPathPrivate(firstPath)  ) {
-			NSString * shadowCopyPath = [NSString stringWithFormat: @"%@/%@/%@",
-										 L_AS_T_USERS,
-										 userUsername(),
-										 lastPartOfPath(firstPath)];
-			if (  [gFileMgr fileExistsAtPath: shadowCopyPath]  ) {
-				errorExitIfAnySymlinkInPath(shadowCopyPath);
-				makeUnlockedAtPath(shadowCopyPath);
-                securelyDeleteItem(shadowCopyPath);
-				Log(@"removed %@", shadowCopyPath);
-			}
-		}
+    errorExitIfAnySymlinkInPath(path);
+
+    NSString * shadowPath = [[L_AS_T_USERS
+                              stringByAppendingPathComponent: userUsername()]
+                             stringByAppendingPathComponent: @"/"];
+    BOOL isShadow = (   [path hasPrefix: shadowPath]
+                     && (path.length > shadowPath.length)  );
+    NSString * sharedPath = [L_AS_T_SHARED
+                             stringByAppendingPathComponent: @"/"];
+    BOOL isShared = (   [path hasPrefix: sharedPath]
+                     && (path.length > sharedPath.length)  );
+
+    if (   ( ! isShadow )
+        && ( ! isShared )  ) {
+        Log(@"Not in a deletable location: '%@'", firstPath);
+        errorExit();
+    }
+
+    //
+    // If path has a trailing "/", remove it
+    // Otherwise, make sure it is a .tblk
+    //
+
+    if (   [path hasSuffix: @"/"]  ) {
+        path = [path substringToIndex: path.length - 1];
+    } else {
+        if (  ! [path hasSuffix: @".tblk"]  ) {
+            Log(@"Not a folder or .tblk: '%@'", firstPath);
+            errorExit();
+        }
+    }
+
+    //
+    // Delete the item
+    //
+
+	if (  [gFileMgr fileExistsAtPath: path]  ) {
+		makeUnlockedAtPath(path);
+        NSError * err = nil;
+        if (  ! [gFileMgr removeItemAtPath: path
+                                     error: &err]  ) {
+            Log(@"Could not delete '%@', error was\n%@",
+                path, err);
+            errorExit();
+        }
+		Log(@"Deleted %@", path);
     } else {
         Log(@"No file to delete at %@", firstPath);
-        gErrorOccurred = TRUE;
+        errorExit();
 	}
 }
 
@@ -3199,8 +3227,10 @@ int main(int argc, char *argv[]) {
     
     //**************************************************************************************************************************
     // (9)
+    // If requested, delete a single folder or .tblk package (must be the shared or shadow copy)
+
     if (  operation == INSTALLER_DELETE  ) {
-		deleteOneTblk(secondArg, thirdArg);
+		deleteOneFolderOrTblk(secondArg, thirdArg);
     }
     
     //**************************************************************************************************************************

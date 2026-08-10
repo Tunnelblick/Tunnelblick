@@ -974,15 +974,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return FALSE;
     }
 
-    NSString * localName = lastPartOfPath(targetPath);
-    if (  [localName hasSuffix: @".tblk"]  ) {
-        localName = [gMC
-                     localizedNameForDisplayName:  [localName stringByDeletingPathExtension]];
-    }
-
     if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
         NSLog(@"Could not remove %@", targetPath);
         if (  warn  ) {
+            NSString * localName = lastPartOfPath(targetPath);
+            if (  [localName hasSuffix: @".tblk"]  ) {
+                localName = [gMC
+                             localizedNameForDisplayName:  [localName stringByDeletingPathExtension]];
+            }
             NSString * title = NSLocalizedString(@"Tunnelblick", @"Window title");
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not remove %@. See the Console Log for details.", @"Window text. The '%@' refers to a configuration or a folder of configurations."), localName];
             TBShowAlertWindow(title, msg);
@@ -991,10 +990,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 
     NSLog(@"Deleted '%@'", targetPath);
-
-    if (  ! [targetPath hasSuffix: @".tblk"]  ) {
-        return TRUE;
-    }
 
     return TRUE;
 }
@@ -3075,59 +3070,100 @@ in: (NSString *) sharedOrPrivate {
     NSEnumerator * e = [displayNames objectEnumerator];
     while (  (displayName = [e nextObject])  ) {
 
-        NSString * path;
+        //
+        // Delete the all copies of the folder or .tblk
+        //
+
+        // "stringByAppendingPathComponent" removes trailing slashes,
+        // but we need one if the item is a folder so we append it as a string
+        NSString * slashSuffix = @"/";
+        NSString * pathSuffix = displayName;
         BOOL isFolder = [displayName hasSuffix: @"/"];
-        if (  isFolder  ) {
-            // Do for shared and private folders. (installer will delete secure folder corresponding to private folder)
-            NSArray * folders = [NSArray arrayWithObjects: L_AS_T_SHARED, gPrivatePath, nil];
-            NSEnumerator * e2 = [folders objectEnumerator];
-            NSString * folder;
-            while (   ok
-                   && (folder = [e2 nextObject])  ) {
-                NSString * path2 = [folder stringByAppendingPathComponent: displayName];
-                if (   [gFileMgr fileExistsAtPath: path2]  ) {
-                    ok = [ConfigurationManager deleteConfigOrFolderAtPath: path2
+        if (  ! isFolder  ) {
+            pathSuffix = [displayName stringByAppendingPathExtension: @"tblk"];
+            slashSuffix = @"";
+        }
+
+        // Delete shared and shadow copies with installer
+        BOOL isDir = NO;
+        NSString * path = [[L_AS_T_SHARED
+                            stringByAppendingPathComponent: pathSuffix]
+                           stringByAppendingString: slashSuffix];
+        if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]  ) {
+            if (  ! isDir  ) {
+                Log(@"Not a folder: '%@'", path);
+                ok = NO;
+            } else {
+                ok = (   [ConfigurationManager deleteConfigOrFolderAtPath: path
                                                           usingSystemAuth: auth
-                                                               warnDialog: YES];
+                                                               warnDialog: YES]
+                      && ok);
+            }
+        }
+        path = [[[L_AS_T_USERS
+                  stringByAppendingPathComponent: NSUserName()]
+                 stringByAppendingPathComponent: pathSuffix]
+                stringByAppendingString: slashSuffix];
+        if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]  ) {
+            if (  ! isDir  ) {
+                Log(@"Not a folder: '%@'", path);
+                ok = NO;
+            } else {
+                ok = (   [ConfigurationManager deleteConfigOrFolderAtPath: path
+                                                          usingSystemAuth: auth
+                                                               warnDialog: YES]
+                      && ok);
+            }
+        }
+
+        // Delete private copy as user
+        path = [[[[NSHomeDirectory()
+                   stringByAppendingPathComponent: L_AS_T]
+                  stringByAppendingPathComponent: @"Configurations"]
+                 stringByAppendingPathComponent: pathSuffix]
+                stringByAppendingString: slashSuffix];
+        if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]  ) {
+            if (  ! isDir  ) {
+                Log(@"Not a folder: '%@'", path);
+                ok = NO;
+            } else {
+                NSError * err = nil;
+                if (  [gFileMgr removeItemAtPath: path
+                                           error: &err]  ) {
+                    Log(@"Deleted '%@'", path);
+                } else {
+                    Log(@"Could not delete '%@'; error was\n%@", path, err);
+                    ok = NO;
                 }
             }
+        }
 
+        //
+        // Remove preferences that refer to the item or its contents
+        //
+
+        if (  isFolder  ) {
             [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: displayName with: nil];
-
         } else {
-            VPNConnection * connection = [gMC connectionForDisplayName: displayName];
-            if (  ! connection  ) {
-                NSLog(@"removeConfigurationsOrFoldersWithDisplayNamesWorker: Cannot get VPNConnection object for display name '%@'", displayName);
-                ok = FALSE;
+            NSString * group = credentialsGroupFromDisplayName(displayName);
+            if (   group
+                && [gTbDefaults numberOfConfigsInCredentialsGroup: group] > 1  ) {
+                group = nil;
             }
+            if (  group  ) {
+                AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: group credentialsGroup: group] autorelease];
 
-            if (  ok  ) {
-                path = [connection configPath];
-                ok = [ConfigurationManager deleteConfigOrFolderAtPath: path
-                                                      usingSystemAuth: auth
-                                                           warnDialog: YES];
-                if (  ok  ) {
-                    NSString * group = credentialsGroupFromDisplayName(displayName);
-                    if (   group
-                        && [gTbDefaults numberOfConfigsInCredentialsGroup: group] > 1  ) {
-                        group = nil;
-                    }
-                    if (  group  ) {
-                        AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: group credentialsGroup: group] autorelease];
-
-                        [myAuthAgent setAuthMode: @"privateKey"];
-                        if (  [myAuthAgent keychainHasAnyCredentials]  ) {
-                            [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
-                        }
-                        [myAuthAgent setAuthMode: @"password"];
-                        if (  [myAuthAgent keychainHasAnyCredentials]  ) {
-                            [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
-                        }
-                    }
-
-                    [gTbDefaults removePreferencesFor: displayName];
+                [myAuthAgent setAuthMode: @"privateKey"];
+                if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+                }
+                [myAuthAgent setAuthMode: @"password"];
+                if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
                 }
             }
+
+            [gTbDefaults removePreferencesFor: displayName];
         }
 
         if (  ! ok  ) {
