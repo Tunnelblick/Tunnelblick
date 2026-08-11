@@ -2216,6 +2216,88 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 	}
 }
 
+static void deleteOrRenameForcedPreferencesForDisplayName(NSString * displayName, NSString * _Nullable newDisplayName) {
+
+    // If newDisplayName is nil or is an empty string, deletes any forced preferences that refer to displayName.
+    //
+    // Otherwise, renames forced preferences that refer to displayName so they refer to newDisplayName.
+
+    if (  ! [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
+        if (  newDisplayName.length == 0  ) {
+            Log(@"Not deleting forced preferences for '%@': there are no forced preferences", displayName);
+        } else {
+            Log(@"Not renaming forced preferences for '%@' to corresponding preferences for '%@': there are no forced preferences",
+                displayName, newDisplayName);
+        }
+        return;
+    }
+
+    //
+    // Get a dictionary with the forced preferenes
+    //
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    if ( dict == nil) {
+        Log(@"Could not load a dictionary from '%@'", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+        errorExit();
+    }
+
+    // Make a mutable copy of the dictionary that we'll modify. This avoids enumerating a dictionary that's being modified
+    NSMutableDictionary * newDict = [dict.mutableCopy autorelease];
+
+    //
+    // Go through all entries in the dictionary, making the requested changes
+    //
+
+    __block BOOL madeChanges = FALSE;
+
+    [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key,
+                                              id  _Nonnull obj,
+                                              BOOL * _Nonnull stop) {
+
+        (void)stop;
+
+        NSString * oldKey = (NSString *)key;
+
+        if (  [oldKey hasSuffix: displayName]  ) {
+
+            //
+            // Have an entry that should be changed
+            //
+            if (  newDisplayName.length != 0  ) {
+
+                //
+                // Renaming: add a new forced preference for the new displayName
+                //
+                NSUInteger lengthOfPrefWithoutName = oldKey.length - displayName.length;
+
+                NSString * newKey = [[oldKey
+                                      substringToIndex: lengthOfPrefWithoutName]
+                                     stringByAppendingString: newDisplayName];
+                [newDict setValue: obj forKey: newKey];
+                Log(@"Added forced preference '%@' : '%@'", newKey, obj);
+            }
+
+            // Delete the old forced preference
+            [newDict removeObjectForKey: oldKey];
+            Log(@"Deleted forced preference '%@' : '%@'", oldKey, obj);
+
+            madeChanges = TRUE;
+        }
+    }];
+
+    //
+    // Write out the modified preferences if anything changed
+    //
+    if (  madeChanges  ) {
+        if (  ! [newDict writeToFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH atomically: YES]  ) {
+            Log(@"Could not write dictionary to '%@'", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+            errorExit();
+        }
+    } else {
+        Log(@"No forced preferences for '%@'", displayName);
+    }
+}
+
 static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
 
     // Deletes a folder (if firstPath ends in a "/") or a .tblk
@@ -2270,8 +2352,8 @@ static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
     // Delete the item
     //
 
-	if (  [gFileMgr fileExistsAtPath: path]  ) {
-		makeUnlockedAtPath(path);
+    if (  [gFileMgr fileExistsAtPath: path]  ) {
+        makeUnlockedAtPath(path);
         NSError * err = nil;
         if (  ! [gFileMgr removeItemAtPath: path
                                      error: &err]  ) {
@@ -2279,11 +2361,25 @@ static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
                 path, err);
             errorExit();
         }
-		Log(@"Deleted %@", path);
+        Log(@"Deleted %@", path);
     } else {
         Log(@"No file to delete at %@", firstPath);
         errorExit();
-	}
+    }
+
+    //
+    // If the item is a .tblk, delete any forced preferences that refer to it
+    //
+    if (  [path hasSuffix: @".tblk"]  ) {
+
+        NSString * displayName = [[path
+                                   substringToIndex: path.length - @".tblk".length]
+                                  substringFromIndex: (  isShadow
+                                                       ? shadowPath.length + 1
+                                                       : sharedPath.length + 1)];
+
+        deleteOrRenameForcedPreferencesForDisplayName(displayName, nil);
+    }
 }
 
 static BOOL installerUpdateTunnelblick(NSString * updateSignature, NSString * versionAndBuildString, NSString * username, uid_t uid, gid_t gid, pid_t tunnelblickPid) {
