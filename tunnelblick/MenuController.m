@@ -1461,9 +1461,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
     if (  warningIndicatorImage) {
         [warningIndicatorImage setTemplate: NO];
-        CGFloat width  = button.frame.size.width;
-        CGFloat height = button.frame.size.height;
-        NSRect warningFrame  = NSMakeRect(0, 0, width / 2, height / 2 );
+        CGFloat width  = ourMainIconView.frame.size.width + 8;
+        CGFloat height = ourMainIconView.frame.size.height + 2;
+        NSRect warningFrame  = NSMakeRect(-2, 0, (width / 2), (height / 2) );
         warningIndicatorView = [[self viewWithImage: warningIndicatorImage
                                               frame: warningFrame]
                                 retain];
