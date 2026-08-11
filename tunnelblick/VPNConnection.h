@@ -105,7 +105,11 @@ struct Statistics {
 	NSString      * authRetryParameter;		// Parameter from auth-retry as seen in configuration file (or nil if not seen)
 	
     NSString     * managementPassword;
-    
+
+	SecIdentityRef keychainIdentity;	// NULL, or the Keychain identity (certificate and private key) that is being used
+	//									// for this connection because the configuration includes the OpenVPN
+	//									// 'management-external-cert' option. Set when OpenVPN asks for the certificate.
+
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     volatile int32_t avoidHasDisconnectedDeadlock; // See note at start of 'hasDisconnected' method
