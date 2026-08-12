@@ -331,7 +331,7 @@ static void resolveSymlinksInPath(NSString * targetPath) {
                      || [resolvedPath hasPrefix: L_AS_T_USERS]
                      || [resolvedPath hasPrefix: gDeployPath]
                      )  ) {
-                Log(@"Symlink is not to an allowed path: %@", resolvedPath);
+                Log(@"Symlink '%@' is not to an allowed path: '%@'; targetPath was '%@'", fullPath, resolvedPath, targetPath);
                 errorExit();
             }
 
