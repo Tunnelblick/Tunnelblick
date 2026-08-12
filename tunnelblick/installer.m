@@ -467,6 +467,14 @@ static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path) {
     }
 }
 
+static void errorExitIfAnyDotDotInPath(NSString * path) {
+
+    if (  [path containsString: @".."]) {
+        Log(@"Apparent attack detected: '..' in path '%@'", path);
+        errorExit();
+    }
+}
+
 static void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * path) {
 
     if (   [gFileMgr fileExistsAtPath: path]
@@ -3279,6 +3287,9 @@ int main(int argc, char *argv[]) {
                 )
             && thirdArg  ) {
 
+            errorExitIfAnyDotDotInPath(secondArg);
+            errorExitIfAnyDotDotInPath(thirdArg);
+
             copyOrMoveOneTblk(secondArg, thirdArg, (operation == INSTALLER_MOVE));
 
         } else if (   (operation == INSTALLER_INSTALL_PRIVATE_CONFIG)
@@ -3313,6 +3324,7 @@ int main(int argc, char *argv[]) {
             NSString * targetPath;
 
             if (  thirdArg  ) {
+                errorExitIfAnyDotDotInPath(thirdArg);
                 targetPath = [L_AS_T_SHARED stringByAppendingPathComponent: thirdArg];
                 securelyCreateFolderAndParents(targetPath);
             } else {
