@@ -597,6 +597,22 @@ static void deleteOrCopyOrRenameForcedPreferencesForDisplayName(NSString * displ
     }
 }
 
+static void deleteForcedPreferencesForDisplayName(NSString * displayName) {
+
+    deleteOrCopyOrRenameForcedPreferencesForDisplayName(displayName, nil, YES);
+}
+
+static void renameForcedPreferencesForDisplayName(NSString * displayName, NSString * newDisplayName) {
+
+    deleteOrCopyOrRenameForcedPreferencesForDisplayName(displayName, newDisplayName, YES);
+}
+
+static void copyForcedPreferencesForDisplayName(NSString * displayName, NSString * newDisplayName) {
+
+    deleteOrCopyOrRenameForcedPreferencesForDisplayName(displayName, newDisplayName, NO);
+}
+
+
 //**************************************************************************************************************************
 // EXTENDED ATTRIBUTES
 
@@ -2414,7 +2430,7 @@ static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
                                                        ? shadowPath.length + 1
                                                        : sharedPath.length + 1)];
 
-        deleteOrCopyOrRenameForcedPreferencesForDisplayName(displayName, nil, YES);
+        deleteForcedPreferencesForDisplayName(displayName);
     }
 }
 
