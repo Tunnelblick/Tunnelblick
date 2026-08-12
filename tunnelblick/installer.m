@@ -503,6 +503,101 @@ static void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * pa
 }
 
 //**************************************************************************************************************************
+// UTILITY ROUTINES FOR FORCED PREFERENCES
+
+static void deleteOrCopyOrRenameForcedPreferencesForDisplayName(NSString * displayName, NSString * _Nullable newDisplayName, BOOL deleteOriginals) {
+
+    // If newDisplayName is nil or is an empty string and "deleteOriginals" is TRUE, deletes any forced preferences that refer to displayName.
+    //
+    // If newDisplayName is not empty and "deleteOriginals" is TRUE, renames forced preferences that refer to displayName to refer to newDisplayName.
+    //
+    // If newDisplayName is not empty and "deleteOriginals" is FALSE, copies forced preferences that refer to displayName so they refer to newDisplayName.
+
+    if (   (newDisplayName == nil)
+        && (! deleteOriginals)  ) {
+        Log(@"deleteOrCopyOrRenameForcedPreferencesForDisplayName: not deleting, copying, or renaming, so nothing to do; stack trace = %@", callStack());
+        return;
+    }
+
+    if (  ! [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
+        if (  newDisplayName.length == 0  ) {
+            Log(@"Not deleting forced preferences for '%@': there are no forced preferences", displayName);
+        } else {
+            Log(@"Not renaming forced preferences for '%@' to corresponding preferences for '%@': there are no forced preferences",
+                displayName, newDisplayName);
+        }
+        return;
+    }
+
+    //
+    // Get a dictionary with the forced preferenes
+    //
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    if ( dict == nil) {
+        Log(@"Could not load a dictionary from '%@'", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+        errorExit();
+    }
+
+    // Make a mutable copy of the dictionary that we'll modify. This avoids enumerating a dictionary that's being modified
+    NSMutableDictionary * newDict = [dict.mutableCopy autorelease];
+
+    //
+    // Go through all entries in the dictionary, making the requested changes
+    //
+
+    __block BOOL madeChanges = FALSE;
+
+    [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key,
+                                              id  _Nonnull obj,
+                                              BOOL * _Nonnull stop) {
+
+        (void)stop;
+
+        NSString * oldKey = (NSString *)key;
+
+        if (  [oldKey hasSuffix: displayName]  ) {
+
+            //
+            // Have an entry that should be changed
+            //
+            if (  newDisplayName.length != 0  ) {
+
+                //
+                // Renaming: add a new forced preference for the new displayName
+                //
+                NSUInteger lengthOfPrefWithoutName = oldKey.length - displayName.length;
+
+                NSString * newKey = [[oldKey
+                                      substringToIndex: lengthOfPrefWithoutName]
+                                     stringByAppendingString: newDisplayName];
+                [newDict setValue: obj forKey: newKey];
+                Log(@"Added forced preference '%@' : '%@'", newKey, obj);
+            }
+
+            // Delete the old forced preference if requested
+            if (  deleteOriginals  ) {
+                [newDict removeObjectForKey: oldKey];
+                Log(@"Deleted forced preference '%@' : '%@'", oldKey, obj);
+            }
+
+            madeChanges = TRUE;
+        }
+    }];
+
+    //
+    // Write out the modified preferences if anything changed
+    //
+    if (  madeChanges  ) {
+        if (  ! [newDict writeToFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH atomically: YES]  ) {
+            Log(@"Could not write dictionary to '%@'", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+            errorExit();
+        }
+    } else {
+        Log(@"No forced preferences for '%@'", displayName);
+    }
+}
+
+//**************************************************************************************************************************
 // EXTENDED ATTRIBUTES
 
 void removeExtendedAttributes(NSString * tunnelblickAppPath) {
@@ -2237,98 +2332,6 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 			}
 		}
 	}
-}
-
-static void deleteOrCopyOrRenameForcedPreferencesForDisplayName(NSString * displayName, NSString * _Nullable newDisplayName, BOOL deleteOriginals) {
-
-    // If newDisplayName is nil or is an empty string and "deleteOriginals" is TRUE, deletes any forced preferences that refer to displayName.
-    //
-    // If newDisplayName is not empty and "deleteOriginals" is TRUE, renames forced preferences that refer to displayName to refer to newDisplayName.
-    //
-    // If newDisplayName is not empty and "deleteOriginals" is FALSE, copies forced preferences that refer to displayName so they refer to newDisplayName.
-
-    if (   (newDisplayName == nil)
-        && (! deleteOriginals)  ) {
-        Log(@"deleteOrCopyOrRenameForcedPreferencesForDisplayName: not deleting, copying, or renaming, so nothing to do; stack trace = %@", callStack());
-        return;
-    }
-
-    if (  ! [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
-        if (  newDisplayName.length == 0  ) {
-            Log(@"Not deleting forced preferences for '%@': there are no forced preferences", displayName);
-        } else {
-            Log(@"Not renaming forced preferences for '%@' to corresponding preferences for '%@': there are no forced preferences",
-                displayName, newDisplayName);
-        }
-        return;
-    }
-
-    //
-    // Get a dictionary with the forced preferenes
-    //
-    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
-    if ( dict == nil) {
-        Log(@"Could not load a dictionary from '%@'", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
-        errorExit();
-    }
-
-    // Make a mutable copy of the dictionary that we'll modify. This avoids enumerating a dictionary that's being modified
-    NSMutableDictionary * newDict = [dict.mutableCopy autorelease];
-
-    //
-    // Go through all entries in the dictionary, making the requested changes
-    //
-
-    __block BOOL madeChanges = FALSE;
-
-    [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key,
-                                              id  _Nonnull obj,
-                                              BOOL * _Nonnull stop) {
-
-        (void)stop;
-
-        NSString * oldKey = (NSString *)key;
-
-        if (  [oldKey hasSuffix: displayName]  ) {
-
-            //
-            // Have an entry that should be changed
-            //
-            if (  newDisplayName.length != 0  ) {
-
-                //
-                // Renaming: add a new forced preference for the new displayName
-                //
-                NSUInteger lengthOfPrefWithoutName = oldKey.length - displayName.length;
-
-                NSString * newKey = [[oldKey
-                                      substringToIndex: lengthOfPrefWithoutName]
-                                     stringByAppendingString: newDisplayName];
-                [newDict setValue: obj forKey: newKey];
-                Log(@"Added forced preference '%@' : '%@'", newKey, obj);
-            }
-
-            // Delete the old forced preference if requested
-            if (  deleteOriginals  ) {
-                [newDict removeObjectForKey: oldKey];
-                Log(@"Deleted forced preference '%@' : '%@'", oldKey, obj);
-            }
-            
-            madeChanges = TRUE;
-        }
-    }];
-
-    //
-    // Write out the modified preferences if anything changed
-    //
-    if (  madeChanges  ) {
-        if (  ! [newDict writeToFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH atomically: YES]  ) {
-            Log(@"Could not write dictionary to '%@'", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
-            errorExit();
-        }
-    } else {
-        Log(@"No forced preferences for '%@'", displayName);
-    }
 }
 
 static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
