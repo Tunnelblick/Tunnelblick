@@ -113,7 +113,7 @@
 //             installs the .plist at targetPath in L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
 //
 //      (8) If the operation is INSTALLER_COPY or INSTALLER_MOVE and both targetPath and sourcePath are given,
-//             copies or moves sourcePath to targetPath. Copies unless INSTALLER_MOVE is set.  (Also copies or moves the shadow copy if deleting a private configuration)
+//             copies or moves sourcePath to targetPath. Copies unless INSTALLER_MOVE is set.
 //
 //      (9) If the operation is INSTALLER_DELETE and only targetPath is given,
 //             deletes the .ovpn or .conf file or .tblk package at targetPath (also deletes the shadow copy if deleting a private configuration)
@@ -180,6 +180,8 @@ static NSString * usernameFromPossiblePrivatePath(NSString * path);
 static NSString * privatePathFromUsername(NSString * username);
 
 static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T);
+
+static NSString * userUsername(void);
 
 //**************************************************************************************************************************
 // LOGGING AND ERROR HANDLING
@@ -473,6 +475,19 @@ static void errorExitIfAnyDotDotInPath(NSString * path) {
         Log(@"Apparent attack detected: '..' in path '%@'", path);
         errorExit();
     }
+}
+
+static void errorExitIfNotShadowOrSharedInPath(NSString * path) {
+
+    if (   [path hasPrefix: [[L_AS_T_USERS
+                              stringByAppendingPathComponent: userUsername()]
+                             stringByAppendingString: @"/"]]
+        || [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+        return;
+    }
+
+    Log(@"Apparent attack detected: Path is not in a shadow copy or in Shared: %@; stack trace = %@", path, callStack());
+    errorExit();
 }
 
 static void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * path) {
@@ -3277,7 +3292,6 @@ int main(int argc, char *argv[]) {
     //**************************************************************************************************************************
     // (8) If requested, install a configuration.
     // Copy or move a single .tblk package (without any nested .tblks).
-    // Also moves/coies/creates a shadow copy if a private configuration.
     // Like the NSFileManager "movePath:toPath:handler" method, we move by copying, then deleting.
 
     if (   secondArg
@@ -3289,6 +3303,12 @@ int main(int argc, char *argv[]) {
 
             errorExitIfAnyDotDotInPath(secondArg);
             errorExitIfAnyDotDotInPath(thirdArg);
+
+            if (  operation == INSTALLER_MOVE  ) {
+                errorExitIfNotShadowOrSharedInPath(secondArg);
+                errorExitIfNotShadowOrSharedInPath(thirdArg);
+
+            }
 
             copyOrMoveOneTblk(secondArg, thirdArg, (operation == INSTALLER_MOVE));
 

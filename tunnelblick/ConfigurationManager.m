@@ -53,6 +53,7 @@ extern NSArray              * gConfigurationPreferences;
 extern NSArray              * gProgramPreferences;
 extern NSString             * gPrivatePath;
 extern NSString             * gDeployPath;
+extern NSString             * gShadowPath;
 extern NSFileManager        * gFileMgr;
 extern MenuController       * gMC;
 extern TunnelblickInfo      * gTbInfo;
@@ -3862,8 +3863,10 @@ in: (NSString *) sharedOrPrivate {
     NSString   * targetDisplayName = [dict objectForKey: @"targetDisplayName"];
     SystemAuth * auth              = [dict objectForKey: @"auth"];
 
-    // Move folders in both Shared and private (installer will copy private to secure if appropriate)
-    NSArray * folders = [NSArray arrayWithObjects: L_AS_T_SHARED, gPrivatePath, nil];
+    //
+    // Move folders in both shared and shadow copy using installer
+    //
+    NSArray * folders = [NSArray arrayWithObjects: L_AS_T_SHARED, gShadowPath, nil];
     NSEnumerator * e = [folders objectEnumerator];
     NSString * folder;
     while (  (folder = [e nextObject])  ) {
@@ -3886,8 +3889,27 @@ in: (NSString *) sharedOrPrivate {
         }
     }
 
-    // Move preferences and credentials of configurations that have, in effect, been moved by the rename.
+    //
+    // Move folder in private copy normally
+    //
+    NSString * fullSourcePath = [gPrivatePath stringByAppendingPathComponent: sourceDisplayName];
+    NSString * fullTargetPath = [gPrivatePath stringByAppendingPathComponent: targetDisplayName];
+    if (   [gFileMgr fileExistsAtPath: fullSourcePath]  ) {
+        if (  ! [gFileMgr fileExistsAtPath: fullTargetPath]  ) {
+            NSError * err;
+            if (  ! [gFileMgr moveItemAtPath: fullSourcePath
+                                      toPath: fullTargetPath
+                                       error: &err]  ) {
+                NSLog(@"Could not rename folder '%@' to '%@'; error was %@", fullSourcePath, fullTargetPath, err);
+            }
+        } else {
+            NSLog(@"Item exists at '%@'", fullTargetPath);
+        }
+    }
 
+    //
+    // Move preferences and credentials of configurations that have, in effect, been moved by the rename.
+    //
     BOOL ok = TRUE;
 
     NSArray * configurations = [[gMC myConfigDictionary] allValues];
@@ -3903,7 +3925,9 @@ in: (NSString *) sharedOrPrivate {
         }
     }
 
+    //
     // Change the preference *values* that reference the old folder to reference the new one
+    //
     [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: sourceDisplayName with: targetDisplayName];
 
     [gMC configurationsChangedForceLeftNavigationUpdate];
