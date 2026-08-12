@@ -2239,11 +2239,19 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 	}
 }
 
-static void deleteOrRenameForcedPreferencesForDisplayName(NSString * displayName, NSString * _Nullable newDisplayName) {
+static void deleteOrCopyOrRenameForcedPreferencesForDisplayName(NSString * displayName, NSString * _Nullable newDisplayName, BOOL deleteOriginals) {
 
-    // If newDisplayName is nil or is an empty string, deletes any forced preferences that refer to displayName.
+    // If newDisplayName is nil or is an empty string and "deleteOriginals" is TRUE, deletes any forced preferences that refer to displayName.
     //
-    // Otherwise, renames forced preferences that refer to displayName so they refer to newDisplayName.
+    // If newDisplayName is not empty and "deleteOriginals" is TRUE, renames forced preferences that refer to displayName to refer to newDisplayName.
+    //
+    // If newDisplayName is not empty and "deleteOriginals" is FALSE, copies forced preferences that refer to displayName so they refer to newDisplayName.
+
+    if (   (newDisplayName == nil)
+        && (! deleteOriginals)  ) {
+        Log(@"deleteOrCopyOrRenameForcedPreferencesForDisplayName: not deleting, copying, or renaming, so nothing to do; stack trace = %@", callStack());
+        return;
+    }
 
     if (  ! [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
         if (  newDisplayName.length == 0  ) {
@@ -2300,10 +2308,12 @@ static void deleteOrRenameForcedPreferencesForDisplayName(NSString * displayName
                 Log(@"Added forced preference '%@' : '%@'", newKey, obj);
             }
 
-            // Delete the old forced preference
-            [newDict removeObjectForKey: oldKey];
-            Log(@"Deleted forced preference '%@' : '%@'", oldKey, obj);
-
+            // Delete the old forced preference if requested
+            if (  deleteOriginals  ) {
+                [newDict removeObjectForKey: oldKey];
+                Log(@"Deleted forced preference '%@' : '%@'", oldKey, obj);
+            }
+            
             madeChanges = TRUE;
         }
     }];
@@ -2401,7 +2411,7 @@ static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
                                                        ? shadowPath.length + 1
                                                        : sharedPath.length + 1)];
 
-        deleteOrRenameForcedPreferencesForDisplayName(displayName, nil);
+        deleteOrCopyOrRenameForcedPreferencesForDisplayName(displayName, nil, YES);
     }
 }
 
