@@ -2404,6 +2404,17 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 			}
 		}
 	}
+
+    if (   sourceIsTblk
+        && targetIsTblk  ) {
+        NSString * sourceDisplayName = lastPartOfPath(sourcePath);
+        NSString * targetDisplayName = lastPartOfPath(targetPath);
+        if (  moveNotCopy  ) {
+            renameForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
+        } else {
+            copyForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
+        }
+    }
 }
 
 static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
