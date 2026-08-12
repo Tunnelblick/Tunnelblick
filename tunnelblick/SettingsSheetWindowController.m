@@ -619,7 +619,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 														   @" it sets up routing for the VPN instead of before setting up the routing.</p>\n"
 														   @"<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up"
 														   @" routing for the VPN, instead of after setting up the routing. This can cause DNS failures"
-														   @" or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n",
+														   @" or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n"
+                                                           @"<p><strong>Warning</strong>: Tap interfaces often need additional configuration changes that are not compatible with this option.</p>",
 														   @"HTML info for the 'Set DNS after routes are set' checkbox."))];
 	
 	[enableIpv6OnTapCheckbox
