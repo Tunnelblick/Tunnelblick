@@ -940,15 +940,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
       mustBeWritable: YES
          renameIfBad: YES];
 
-    // Set up to override user preferences with preferences from L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH and Deploy/forced-permissions.plist
-    NSDictionary * primaryForcedPreferencesDict = nil;
-    if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
-        primaryForcedPreferencesDict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
-        if (  ! primaryForcedPreferencesDict  ) {
-            NSLog(@".plist is being ignored because it is corrupt or unreadable: %@", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
-        }
-    }
-
     NSDictionary * deployedForcedPreferencesDict = nil;
     NSString * deployedForcedPreferencesPath = [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"];
     if (  [gFileMgr fileExistsAtPath: deployedForcedPreferencesPath]  ) {
@@ -1099,9 +1090,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     }
 
     // Scan for unknown preferences
-    [gTbDefaults scanForUnknownPreferencesInDictionary: primaryForcedPreferencesDict  displayName: @"Primary forced preferences"];
-    [gTbDefaults scanForUnknownPreferencesInDictionary: deployedForcedPreferencesDict displayName: @"Deployed forced preferences"];
-    [gTbDefaults scanForUnknownPreferencesInDictionary: userDefaultsDict              displayName: @"preferences"];
+    [gTbDefaults scanForUnknownPreferencesInDictionary: gTbDefaults.primaryForcedPreferences  displayName: @"Primary forced preferences"];
+    [gTbDefaults scanForUnknownPreferencesInDictionary: deployedForcedPreferencesDict         displayName: @"Deployed forced preferences"];
+    [gTbDefaults scanForUnknownPreferencesInDictionary: userDefaultsDict                      displayName: @"preferences"];
 
     return TRUE;
 }
@@ -4992,6 +4983,7 @@ static void signal_handler(int signalNumber)
     // (performSelectorOnMainThread invokes an instance method; it cannot invoke a class method.)
 
     [ConfigurationManager moveOrCopyOneConfiguration: dict];
+    [gTbDefaults clearPrimaryForcedPreferencesCache]; // The move or copy could have changed the primary forced preferences
 
 
 }

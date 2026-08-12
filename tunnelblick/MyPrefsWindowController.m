@@ -2972,6 +2972,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     // Runs in main thread
 
+    [gTbDefaults clearPrimaryForcedPreferencesCache]; // The primary forced preferences were changed
+
     OSStatus status = [dict[@"status"] intValue];
 
     if (   (status != 0)      // status 0 means succeeded

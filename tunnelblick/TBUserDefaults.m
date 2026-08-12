@@ -30,6 +30,62 @@ extern NSArray        * gProgramPreferences;
 
 @implementation TBUserDefaults
 
+TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryPreferencesCache, setPrimaryPreferencesCache)
+
+-(NSDictionary *) primaryPreferencesCache {
+
+    if (  ! primaryPreferencesCache  ) {
+        return nil;
+    }
+
+    if (  primaryPreferencesCache == (NSDictionary *)NSNull.null  ) {
+        return nil;
+    }
+
+    return [[primaryPreferencesCache retain] autorelease];
+}
+
+-(void) clearPrimaryForcedPreferencesCache {
+
+    [self setPrimaryPreferencesCache: nil];
+}
+
+-(NSDictionary *) primaryForcedPreferences {
+
+    // Use a cache to access the contents of L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH:
+    //
+    // If the value of primaryForcedPreferencesCache is
+    //        NSNull.null: return nil (there is no file at L_A_S_T/forced-preferences.plist or
+    //                     the file could not be loaded)
+    //        not nil:     the cached contents
+    //        nil:         the cache will be refreshed from L_A_S_T/forced-preferences.plist and
+    //                     the new new contents will be returned, or nil will be returned if there
+    //                     is no such file or the file could not be loaded into and NSDictionary.
+
+    if (  primaryPreferencesCache == (NSDictionary *)NSNull.null  ) {
+        return nil;
+    }
+
+    if (  primaryPreferencesCache  ) {
+        return [primaryPreferencesCache.copy autorelease ];
+    }
+
+    if (  [NSFileManager.defaultManager fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
+        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+        if (  dict  ) {
+            [self setPrimaryPreferencesCache: dict];
+            return dict;
+        } else {
+            Log(@"Forced preferences file is corrupt at '%@'", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+            [self setPrimaryPreferencesCache: (NSDictionary *)NSNull.null];
+            return nil;
+        }
+    } else {
+        [self setPrimaryPreferencesCache: (NSDictionary *)NSNull.null];
+        return nil;
+    }
+}
+
 -(TBUserDefaults *) initWithDeployedDictionary: (NSDictionary *) inForced {
     self = [super init];
     if ( ! self  ) {
@@ -59,6 +115,7 @@ extern NSArray        * gProgramPreferences;
 -(id) forcedObjectForKey: (NSString *) key {
     
     // Checks for a forced object for a key, implementing wildcard matches
+    // Does NOT check primary forced preferences!
 
     id value = [forcedDefaults objectForKey: key];
     if (  value == nil  ) {
@@ -84,7 +141,7 @@ extern NSArray        * gProgramPreferences;
 
     // Checks for a primary forced object for a key, implementing wildcard matches
 
-    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    NSDictionary * dict = self.primaryForcedPreferences;
     if (  ! dict  ) {
         return nil;
     }
@@ -133,6 +190,12 @@ extern NSArray        * gProgramPreferences;
 }
 
 -(id) objectForKey: (NSString *) key {
+
+    NSDictionary * primary = self.primaryPreferencesCache;
+    if (  [primary isEqualTo: NSNull.null]  ) {
+        primary = nil;
+    }
+
     id value = [self primaryObjectForKey: key wildcards: YES];
     if (  value == nil  ) {
         value = [self forcedObjectForKey: key];
@@ -492,7 +555,7 @@ extern NSArray        * gProgramPreferences;
     
     // Get all key/value pairs (let primary override forced and forced override the user's preferences)
 	NSMutableDictionary * namesAndValues = [[NSMutableDictionary alloc] initWithCapacity: 100];
-    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    NSDictionary * dict = self.primaryPreferencesCache;
 	[self addToDictionary: namesAndValues withSuffix: key from: dict];
 	[self addToDictionary: namesAndValues withSuffix: key from: forcedDefaults];
 	[self addToDictionary: namesAndValues withSuffix: key from: [userDefaults dictionaryRepresentation]];
@@ -714,7 +777,7 @@ extern NSArray        * gProgramPreferences;
 
 -(unsigned) numberOfConfigsInCredentialsGroup: (NSString *) groupName {
     
-    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    NSDictionary * dict = self.primaryPreferencesCache;
     unsigned nPrimary = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: dict];
     unsigned nForced  = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: forcedDefaults];
     unsigned nNormal  = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: [userDefaults dictionaryRepresentation]];
@@ -729,7 +792,7 @@ extern NSArray        * gProgramPreferences;
     }
     
     // Make sure there are no forced preferences with this group
-    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    NSDictionary * dict = self.primaryPreferencesCache;
     unsigned n = (  [self numberOfConfigsInCredentialsGroup: groupName inDictionary: dict]
                   + [self numberOfConfigsInCredentialsGroup: groupName inDictionary: forcedDefaults]);
     if (  n != 0  ) {

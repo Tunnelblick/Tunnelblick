@@ -40,9 +40,14 @@
 #import "defines.h"
 
 @interface TBUserDefaults : NSObject {
-    
+
     NSDictionary   * forcedDefaults;  // nil, or an NSDictionary of preferences from /Deploy/forced-preferences.plist
-    
+
+    NSDictionary   * primaryPreferencesCache;   // Cache for L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+                                                // nil:         an NSDictionary of preferences should be loaded from L_A_S_T/forced-preferences.plist
+                                                // NSNull.null: there is no file at L_A_S_T/forced-preferences.plist or the file could not be loaded
+                                                // otherwise:   the contents of L_A_S_T/forced-preferences.plist
+
     NSUserDefaults * userDefaults;    // [NSUserDefaults standardUserDefaults]
 }
 
@@ -64,11 +69,15 @@
 
 // The following methods are extensions used by Tunnelblick
 
+-(void) clearPrimaryForcedPreferencesCache;
+
+-(NSDictionary *) primaryForcedPreferences;
+
 -(BOOL) canChangeValueForKey:                 (NSString *) key;    // Returns TRUE if key can be modified, FALSE if it can't (because it being overridden)
 
--(NSString *) readOnlyStringForKey:             (NSString *) key;    // Returns the value of a forced or deployed preference if it is a string, nil otherwise
+-(NSString *) readOnlyStringForKey:           (NSString *) key;    // Returns the value of a forced or deployed preference if it is a string, nil otherwise
 
--(BOOL) isTrueReadOnlyForKey:                   (NSString *) key;    // Returns TRUE if a forced or deployed preference for the key is TRUE, false otherwise
+-(BOOL) isTrueReadOnlyForKey:                 (NSString *) key;    // Returns TRUE if a forced or deployed preference for the key is TRUE, false otherwise
 
 -(BOOL) copyPreferencesFrom:                  (NSString *) sourceDisplayName
                          to:                  (NSString *) targetDisplayName;

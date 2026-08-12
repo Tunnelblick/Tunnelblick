@@ -3510,6 +3510,8 @@ in: (NSString *) sharedOrPrivate {
 
         [ConfigurationManager removeConfigurationsOrFoldersWithDisplayNamesWorker: displayNames                                                                  usingSystemAuth: auth];
         [auth release];
+
+        [gTbDefaults clearPrimaryForcedPreferencesCache]; // The deletion could have changed the primary forced preferences
     }
 }
 
@@ -3888,6 +3890,8 @@ in: (NSString *) sharedOrPrivate {
             }
         }
     }
+
+    [gTbDefaults clearPrimaryForcedPreferencesCache]; // The rename could have changed the primary forced preferences
 
     //
     // Move folder in private copy normally
@@ -4823,7 +4827,7 @@ err:
         
         NSString * programPreferencesContents       = [ConfigurationManager getPreferences: gProgramPreferences       prefix: @""];
         
-        id primaryForcedPreferencesContents = [ConfigurationManager getForcedPreferencesAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+        id primaryForcedPreferencesContents = gTbDefaults.primaryForcedPreferences;
 
         id deployedForcedPreferencesContents = [ConfigurationManager getForcedPreferencesAtPath: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
 
