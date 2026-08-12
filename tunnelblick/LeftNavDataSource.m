@@ -313,7 +313,13 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         NSLog(@"Object '%@' passed to outlineView:setObjectValue:forTableColumn:byItem: is not an NSString, it is a %@", newName, [newName class]);
         return;
     }
-	
+
+    if ( [newName hasSuffix: @".tblk"]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"A folder name cannot end in '.tblk'", @"Window text."));
+        return;
+    }
+
     if (  displayNameIsValid(newName, NO)  ) {
         NSString * sourceDisplayName = [item displayName];
         if (  [sourceDisplayName hasSuffix: @"/"]  ) {
