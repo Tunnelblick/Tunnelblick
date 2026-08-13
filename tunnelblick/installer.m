@@ -112,6 +112,9 @@
 //      (7) if the operation is INSTALLER_INSTALL_FORCED_PREFERENCES and targetPath is given and is a .plist and there is no secondPath
 //             installs the .plist at targetPath in L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
 //
+//          If the operation is INSTALLER_INSTALL_FORCED_PREFERENCES_XML and the second argument is an XML dictionary,
+//          installs the dictionary in L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+//
 //      (8) If the operation is INSTALLER_COPY or INSTALLER_MOVE and both targetPath and sourcePath are given,
 //             copies or moves sourcePath to targetPath. Copies unless INSTALLER_MOVE is set.
 //
@@ -2172,6 +2175,59 @@ static void installForcedPreferences(NSString * firstPath, NSString * secondPath
 	}
 }
 
+static void installForcedPreferencesXML(NSString * xmlString) {
+
+    NSData * data = [xmlString dataUsingEncoding: NSUTF8StringEncoding];
+    if (  data == nil  ) {
+        Log(@"INSTALLER_INSTALL_FORCED_PREFERENCES_XML: could not decode input as UTF-8");
+        errorExit();
+    }
+
+    NSError * parseError = nil;
+    NSPropertyListFormat format = NSPropertyListXMLFormat_v1_0;
+
+    id propertyList = [NSPropertyListSerialization propertyListWithData: data
+                                                                options: NSPropertyListImmutable
+                                                                 format: &format
+                                                                  error: &parseError];
+    if (  propertyList == nil  ) {
+        Log(@"INSTALLER_INSTALL_FORCED_PREFERENCES_XML: could not deserialize input as a property list; error was %@", parseError);
+        errorExit();
+    }
+
+    if (  ! [propertyList isKindOfClass:[NSDictionary class]]  ) {
+        Log(@"INSTALLER_INSTALL_FORCED_PREFERENCES_XML: deserialized input is not a dictionary");
+        errorExit();
+    }
+
+    NSString * tempPath = L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH ".tmp";
+
+    if (  ! [propertyList writeToFile: tempPath atomically: YES]  ) {
+        Log(@"INSTALLER_INSTALL_FORCED_PREFERENCES_XML: could not write to '%@'", tempPath);
+        errorExit();
+    }
+
+    if (  ! checkSetOwnership(tempPath, NO, 0, 0)  )  {
+        [gFileMgr tbRemovePathIfItExists: tempPath];
+        Log(@"INSTALLER_INSTALL_FORCED_PREFERENCES_XML: Unable to set ownership to root:wheel on '%@'", tempPath);
+        errorExit();
+    }
+
+    if (  ! checkSetPermissions(tempPath, PERMS_SECURED_READABLE, YES)  )  {
+        [gFileMgr tbRemovePathIfItExists: tempPath];
+        Log(@"INSTALLER_INSTALL_FORCED_PREFERENCES_XML: Unable to set permissions of %ld on '%@'",
+            (long)PERMS_SECURED_READABLE, tempPath);
+        errorExit();
+    }
+
+    if (  ! [gFileMgr tbForceRenamePath: tempPath toPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]) {
+        errorExit();
+    }
+
+    Log(@"Wrote XML to '%@'", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+
+}
+
 static void doFolderRename(NSString * sourcePath, NSString * targetPath) {
 
     // Renames the source folder to the target folder. Both folders need to be in the same folder.
@@ -3131,16 +3187,17 @@ int main(int argc, char *argv[]) {
     unsigned operation = (opsAndFlags & INSTALLER_OPERATION_MASK);
 
     if (   (operation == INSTALLER_COPY)
-        && (argc > 3)                                       ) { [bitMaskDescription appendString: @" CopyConfig"           ]; }
-    if (  operation == INSTALLER_MOVE                       ) { [bitMaskDescription appendString: @" MoveConfig"           ]; }
-    if (  operation == INSTALLER_DELETE                     ) { [bitMaskDescription appendString: @" Delete"               ]; }
-    if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES ) { [bitMaskDescription appendString: @" InstallForcedPrefs"   ]; }
-    if (  operation == INSTALLER_EXPORT_ALL                 ) { [bitMaskDescription appendString: @" ExportAll"            ]; }
-    if (  operation == INSTALLER_IMPORT                     ) { [bitMaskDescription appendString: @" Import"               ]; }
-    if (  operation == INSTALLER_INSTALL_PRIVATE_CONFIG     ) { [bitMaskDescription appendString: @" InstallPrivateConfig" ]; }
-    if (  operation == INSTALLER_INSTALL_SHARED_CONFIG      ) { [bitMaskDescription appendString: @" InstallSharedConfig"  ]; }
-    if (  operation == INSTALLER_UPDATE_TUNNELBLICK         ) { [bitMaskDescription appendString: @" UpdateTunnelblick"    ]; }
-    if (  operation == INSTALLER_SET_FORCED_PREFERENCE      ) { [bitMaskDescription appendString: @" SetForcedPreference"  ]; }
+        && (argc > 3)                                           ) { [bitMaskDescription appendString: @" CopyConfig"            ]; }
+    if (  operation == INSTALLER_MOVE                           ) { [bitMaskDescription appendString: @" MoveConfig"            ]; }
+    if (  operation == INSTALLER_DELETE                         ) { [bitMaskDescription appendString: @" Delete"                ]; }
+    if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES     ) { [bitMaskDescription appendString: @" InstallForcedPrefs"    ]; }
+    if (  operation == INSTALLER_EXPORT_ALL                     ) { [bitMaskDescription appendString: @" ExportAll"             ]; }
+    if (  operation == INSTALLER_IMPORT                         ) { [bitMaskDescription appendString: @" Import"                ]; }
+    if (  operation == INSTALLER_INSTALL_PRIVATE_CONFIG         ) { [bitMaskDescription appendString: @" InstallPrivateConfig"  ]; }
+    if (  operation == INSTALLER_INSTALL_SHARED_CONFIG          ) { [bitMaskDescription appendString: @" InstallSharedConfig"   ]; }
+    if (  operation == INSTALLER_UPDATE_TUNNELBLICK             ) { [bitMaskDescription appendString: @" UpdateTunnelblick"     ]; }
+    if (  operation == INSTALLER_SET_FORCED_PREFERENCE          ) { [bitMaskDescription appendString: @" SetForcedPreference"   ]; }
+    if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES_XML ) { [bitMaskDescription appendString: @" InstallForcedPrefsXML" ]; }
 
     // Remove leading space
     [bitMaskDescription deleteCharactersInRange: NSMakeRange(0, 1)];
@@ -3318,6 +3375,19 @@ int main(int argc, char *argv[]) {
 		installForcedPreferences(secondArg, thirdArg);
     }
     
+    // If the operation is INSTALLER_INSTALL_FORCED_PREFERENCES_XML and the second argument is an XML dictionary,
+    // installs the dictionary in L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+
+    if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES_XML  ) {
+        if (   thirdArg
+            || (secondArg.length == 0)  ) {
+            Log(@"Wrong number of arguments for operation INSTALLER_INSTALL_FORCED_PREFERENCES_XML");
+            errorExit();
+        }
+
+        installForcedPreferencesXML(secondArg);
+    }
+
     //**************************************************************************************************************************
     // (8) If requested, install a configuration.
     // Copy or move a single .tblk package (without any nested .tblks).

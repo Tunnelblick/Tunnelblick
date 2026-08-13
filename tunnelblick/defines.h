@@ -740,6 +740,10 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 //             value (either 0 or 1)
 #define INSTALLER_SET_FORCED_PREFERENCE      0x9000u
 
+// Install forced preferences to L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH (replacing any existing forced preferences)
+// (argument: a UTF-8-encoded XML string (an NSDictionary serialized as XML) containing forced preferences)
+#define INSTALLER_INSTALL_FORCED_PREFERENCES_XML 0xA000u
+
 
 //*************************************************************************************************
 // Size to use to minimize the left navigation area when it is inactive
