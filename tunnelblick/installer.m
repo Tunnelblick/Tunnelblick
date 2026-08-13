@@ -3406,7 +3406,6 @@ int main(int argc, char *argv[]) {
             if (  operation == INSTALLER_MOVE  ) {
                 errorExitIfNotShadowOrSharedInPath(secondArg);
                 errorExitIfNotShadowOrSharedInPath(thirdArg);
-
             }
 
             copyOrMoveOneTblk(secondArg, thirdArg, (operation == INSTALLER_MOVE));
