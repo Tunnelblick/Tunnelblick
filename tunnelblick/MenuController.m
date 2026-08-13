@@ -6014,15 +6014,15 @@ static BOOL runningHookupThread = FALSE;
 {
     TBLog(@"DB-SU", @"relaunchIfNecessary: 001")
 
-	NSString * currentPath = [[NSBundle mainBundle] bundlePath];
+    NSString * currentPath = [[NSBundle mainBundle] bundlePath];
 
-	NSString * contentsPath = [currentPath stringByAppendingPathComponent: @"Contents"];
+    NSString * contentsPath = [currentPath stringByAppendingPathComponent: @"Contents"];
     if (   [gFileMgr fileExistsAtPath: [contentsPath stringByAppendingPathComponent: @"_CodeSignature"]]
-		&& ( ! appHasValidSignature() )  ) {
-		signatureIsInvalid = TRUE;
-	} else {
-		signatureIsInvalid = FALSE;	// (But it might not have one)
-	}
+        && ( ! appHasValidSignature() )  ) {
+        signatureIsInvalid = TRUE;
+    } else {
+        signatureIsInvalid = FALSE;	// (But it might not have one)
+    }
 
     TBLog(@"DB-SU", @"relaunchIfNecessary: 002")
     // Move or copy Tunnelblick.app to /Applications if it isn't already there
@@ -6036,7 +6036,7 @@ static BOOL runningHookupThread = FALSE;
         return;
 #else
         if (  [currentPath isEqualToString: APPLICATIONS_TB_APP]  ) {
-			[self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
+            [self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
             return;
         } else {
             NSLog(@"Tunnelblick can only run when it is /Applications/Tunnelblick.app; path = %@.", currentPath);
@@ -6049,13 +6049,13 @@ static BOOL runningHookupThread = FALSE;
     // Not installed in /Applications on a runnable volume. Need to move/install to /Applications
 
     TBLog(@"DB-SU", @"relaunchIfNecessary: 003")
-	[self warnIfInvalidOrNoSignatureAllowCheckbox: NO];
+    [self warnIfInvalidOrNoSignatureAllowCheckbox: NO];
 
-	if (  ! [self shouldContinueAfterAskingOrInformingAboutInternetAccess]  ) {
-		NSLog(@"The user cancelled the installation");
-		[self terminateBecause: terminatingBecauseOfQuit];
-		return;
-	}
+    if (  ! [self shouldContinueAfterAskingOrInformingAboutInternetAccess]  ) {
+        NSLog(@"The user cancelled the installation");
+        [self terminateBecause: terminatingBecauseOfQuit];
+        return;
+    }
 
     //Install into /Applications
 
@@ -6073,7 +6073,19 @@ static BOOL runningHookupThread = FALSE;
     // Set up message about installing forced preferences on the .dmg
     NSString * forcedPlistToInstallPath = [self findPlistNamed: @"forced-preferences.plist"
                                                toInstallInPath: [currentPath stringByDeletingLastPathComponent]];
-    NSString * plistMsg = (  forcedPlistToInstallPath
+    long argMax = sysconf(_SC_ARG_MAX);
+    if (argMax == -1) {
+        NSLog(@"Error %d ('%s') getting the maximum size of a macOS argument; assuming 1,048,576. ", errno, strerror(errno));
+        argMax = 1048576; // Value for macOS Sequoia
+    }
+    // Allow 100,000 bytes for other arguments, overhead, etc.
+    argMax -= 100000;
+
+    NSString * forcedPlistXMLToInstall = (  forcedPlistToInstallPath
+                                          ? [NSString tbStringWithUTF8ContentsOfFileAtPath: forcedPlistToInstallPath maximumSize: argMax]
+                                          : nil);
+
+    NSString * plistMsg = (  forcedPlistXMLToInstall
                            ? NSLocalizedString(@" Forced preferences will also be installed or replaced.\n\n", @"Window text")
                            : @"");
 
@@ -6200,12 +6212,12 @@ static BOOL runningHookupThread = FALSE;
     TBLog(@"DB-SU", @"relaunchIfNecessary: 007")
     // Install this program and secure it
 	NSInteger installerResult = [self runInstaller: (  INSTALLER_COPY_APP
-													 | (  forcedPlistToInstallPath
-                                                        ? INSTALLER_INSTALL_FORCED_PREFERENCES
+													 | (  forcedPlistXMLToInstall
+                                                        ? INSTALLER_INSTALL_FORCED_PREFERENCES_XML
                                                         : 0)
                                                      )
-									extraArguments: (  forcedPlistToInstallPath
-                                                     ? [NSArray arrayWithObject: forcedPlistToInstallPath]
+									extraArguments: (  forcedPlistXMLToInstall
+                                                     ? [NSArray arrayWithObject: forcedPlistXMLToInstall]
                                                      : nil)
 								   usingSystemAuth: [self startupInstallAuth]
 								      installTblks: tblksToInstallPaths];
@@ -6303,10 +6315,10 @@ static BOOL runningHookupThread = FALSE;
     if (  installFlags & INSTALLER_SECURE_APP                 ) { [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
     if (  installFlags & INSTALLER_COPY_APP_TO_L_AS_T         ) { [msg appendString: NSLocalizedString(@"  • Complete the installation\n",                                    @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
     if (  tblksToInstall                                      ) { [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n",							  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
-    if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES   ) { [msg appendString: NSLocalizedString(@"  • Install forced preferences\n",									  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
 	if (  operation == INSTALLER_DELETE                       ) { [msg appendString: NSLocalizedString(@"  • Remove a configuration\n",										  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
 	if (  operation == INSTALLER_MOVE                         ) { [msg appendString: NSLocalizedString(@"  • Move a configuration\n",										  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
 	if (  operation == INSTALLER_COPY                         ) { [msg appendString: NSLocalizedString(@"  • Copy a configuration\n",										  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
+    if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES_XML) { [msg appendString: NSLocalizedString(@"  • Install forced preferences\n",                                      @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
 
     if (   ( ! appended)
         && ( ! tblksToInstall)  ) {

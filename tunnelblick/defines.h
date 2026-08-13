@@ -700,6 +700,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 #define INSTALLER_DELETE                     0x2000u
 
 // Copy one file to forced preferences
+// NOTE: NO LONGER USED BY TUNNELBLICK, BUT KEPT FOR OTHERS TO USE
 // (argument: path)
 // L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
 #define INSTALLER_INSTALL_FORCED_PREFERENCES 0x3000u
