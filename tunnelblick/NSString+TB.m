@@ -25,6 +25,30 @@ void appendLog(NSString * entry);
 
 @implementation NSString(TB)
 
++(NSString *) tbStringWithUTF8ContentsOfFileAtPath: (NSString *) path
+                                       maximumSize: (NSUInteger) maximumSize {
+
+    NSError * error = nil;
+
+    NSString * text = [[[NSString alloc] initWithContentsOfFile: path
+                                                       encoding: NSUTF8StringEncoding
+                                                          error: &error]
+                       autorelease];
+
+    if (  ! text  ) {
+        appendLog([NSString stringWithFormat: @"Could not get a UTF-8 string from '%@'. Error was %@", path, error]);
+    } else {
+        NSUInteger utf8ByteLength = [text lengthOfBytesUsingEncoding: NSUTF8StringEncoding];
+        if (  utf8ByteLength > maximumSize  ) {
+            appendLog([NSString stringWithFormat: @"UTF-8 string too long from '%@'. It is %lu bytes long but the maximum is %lu bytes long.",
+                       path, (unsigned long)utf8ByteLength, (unsigned long)maximumSize]);
+            text = nil;
+        }
+    }
+
+    return text;
+}
+
 -(NSComparisonResult) caseInsensitiveNumericCompare: (NSString*) theString {
     
     return [self compare: theString options: NSCaseInsensitiveSearch | NSNumericSearch];

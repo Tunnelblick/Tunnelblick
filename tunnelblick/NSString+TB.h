@@ -24,6 +24,9 @@
 
 @interface NSString(TB)
 
++(NSString *) tbStringWithUTF8ContentsOfFileAtPath: (NSString *) path
+                                       maximumSize: (NSUInteger) maximumSize;
+
 -(NSComparisonResult) caseInsensitiveNumericCompare: (NSString*) theString;
 
 -(NSComparisonResult) tunnelblickVersionCompare: (NSString *) theString;
