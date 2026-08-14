@@ -3806,8 +3806,20 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(void) terminateBecauseOfNSNumberReason: (NSNumber *) reason {
+
+    [self terminateBecause: reason.intValue];
+}
+
 -(void) terminateBecause: (enum TerminationReason) reason
 {
+
+    if (  ! [NSThread isMainThread]  ) {
+        [self performSelectorOnMainThread: @selector(terminateBecauseOfNSNumberReason:)
+                               withObject: [NSNumber numberWithInt: reason]
+                            waitUntilDone: YES];
+    }
+
     reasonForTermination = reason;
 
     if (   (reason != terminatingBecauseOfLogout)
