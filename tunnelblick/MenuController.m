@@ -3811,6 +3811,8 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
     [self terminateBecause: reason.intValue];
 }
 
+static volatile int terminationRequested = 0;
+
 -(void) terminateBecause: (enum TerminationReason) reason
 {
 
@@ -3818,6 +3820,15 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
         [self performSelectorOnMainThread: @selector(terminateBecauseOfNSNumberReason:)
                                withObject: [NSNumber numberWithInt: reason]
                             waitUntilDone: YES];
+    }
+
+    // Only terminate once!
+
+    if (  OSAtomicCompareAndSwapIntBarrier(1,
+                                           0,
+                                           &terminationRequested)  ) {
+        NSLog(@"A termination request is already pending; stack trace: %@", callStack());
+        return;
     }
 
     reasonForTermination = reason;
