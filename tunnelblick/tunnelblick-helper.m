@@ -89,7 +89,7 @@ static const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 static void exitOpenvpnstart(OSStatus returnValue) {
 
-	// returnValue: have used 156-245, plus the values in define.h (247-254)
+	// returnValue: have used 150-246, plus the values in define.h (247-254)
 
 	if (  gTemporaryDirectory  ) {
 		[gFileMgr tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
@@ -144,6 +144,11 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
 
             "./openvpnstart re-enable-network-services\n"
 			"               to run Tunnelblick's re-enable-network-services.sh script\n\n"
+
+            "./openvpnstart copyUserItemToNewSecureItem     path\n"
+            "               to create a new, unique, secure copy of the filesystem item (file or directory) at 'path'.\n"
+            "               The full path of the copy will be output to stdout.\n\n"
+            "               NOTE: Copies the resolved targets of symlinks, not the links themselves.\n\n"
 
             "./openvpnstart route-pre-down  flags configName  cfgLocCode\n"
             "               to run Tunnelblick's client.route-pre-down.tunnelblick script.\n\n"
@@ -326,6 +331,21 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
             "For more information on using Deploy, see the Deployment wiki at https://tunnelblick.net/cCusDeployed.html\n"
             , killStringC, killAllStringC, '%');
     exitOpenvpnstart(OPENVPNSTART_RETURN_SYNTAX_ERROR);      // This exit code is used in the VPNConnection connect: method to inhibit display of this long syntax error message because it means there is an internal Tunnelblick error
+}
+
+static void verifyRunningAsUser(void) {
+
+    uid_t uidBefore  = getuid();
+    uid_t euidBefore = geteuid();
+
+    if (   (uidBefore  == 0)
+        && (euidBefore == gUidOfUser)  ) {
+        return;
+    }
+
+    Log(@"Must be running as user: getuid() = %d; geteuid() = %d; gUidOfUser = %d\nStack trace=\n%@",
+        uidBefore, euidBefore, gUidOfUser, callStack());
+    exitOpenvpnstart(204);
 }
 
 static void becomeRoot(NSString * reason) {
@@ -2566,6 +2586,233 @@ static OSStatus updateTunnelblickApp(int argc, char * argv[]) {
 }
 
 //**************************************************************************************************************************
+
+static NSDictionary * dictionaryWithContentsOfItemAtPath(NSString * path) {
+
+    // If the item at path begins with a period ("."), returns nil.
+    //
+    // If the item at "path" is a directory with no files in it or in anyof its subdirectories, returns nil.
+    //
+    // If the item at "path" is a file, returns a dictionary with one entry:
+    //        {name of the item : data with the contents of the item}
+    //
+    // If the item at "path" is a symlink, returns a dictionary with one entry:
+    //        {name of the item : data with the contents of the target of the symlink}
+    //
+    // If the item at "path" is a directory, returns a dictionary with one entry:
+    //        {name of the item with a slash appended to it : dictionary with one or more entries}
+    //
+    // Otherwise returns nil.
+
+    NSError * err = nil;
+
+    NSString * name = path.lastPathComponent;
+    if (  [name hasPrefix: @"."]  ) {
+        return nil;
+    }
+
+    NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: path
+                                                           error: &err];
+
+    if (   [attributes.fileType isEqualToString: NSFileTypeRegular]
+        || [attributes.fileType isEqualToString: NSFileTypeSymbolicLink]  ) {
+
+        // File or symlink
+
+        NSData * contents = [gFileMgr contentsAtPath: path];
+        if (  ! contents  ) {
+            Log(@"dictionaryWithContentsOfItemAtPath: Contents not available at '%@'", path);
+            exitOpenvpnstart(155);
+            return nil; // Satisfy static checking
+        }
+
+        return @{name : contents};
+    }
+
+    if (  ! [attributes.fileType isEqualToString: NSFileTypeDirectory]  ) {
+        Log(@"dictionaryWithContentsOfItemAtPath: Item is not a file or directory '%@'", path);
+        exitOpenvpnstart(154);
+    }
+
+    // Directory. Create a dictionary with one entry per item in the directory
+
+    NSMutableDictionary * dict = [[NSMutableDictionary.alloc initWithCapacity:10] autorelease];
+
+    NSString * relativePath;
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
+    if (  ! dirE  ) {
+        Log(@"dictionaryWithContentsOfItemAtPath: Could not get enumerator at '%@'", path);
+        exitOpenvpnstart(150);
+    }
+
+    while (  (relativePath = dirE.nextObject)) {
+
+        [dirE skipDescendants];
+
+        if (  [relativePath.lastPathComponent hasPrefix: @"."]  ) {
+            continue;
+        }
+
+        NSString * fullPath = [path stringByAppendingPathComponent: relativePath];
+        NSDictionary * contents = dictionaryWithContentsOfItemAtPath(fullPath);
+        if (  contents  ) {
+            [dict setObject: contents.allValues.firstObject forKey: contents.allKeys.firstObject];
+        }
+    }
+
+    if (  dict.count == 0  ) {
+        return nil;
+    }
+
+    name = [name stringByAppendingString: @"/"];    // Indicate it is a directory, not a file
+
+    return @{name : [NSDictionary dictionaryWithDictionary: dict]};
+}
+
+static void createFileAtPath(NSString * path,
+                             NSData   * contents) {
+
+    // Create a file with the specified contents. Creates parent folders if they don't exist.
+
+    NSError * err = nil;
+
+    NSDictionary * attributes = @{NSFileOwnerAccountID      : @0,
+                                  NSFileGroupOwnerAccountID : @0,
+                                  NSFilePosixPermissions    : @0700};
+
+    becomeRoot(@"createFileAtPath: output a file (and maybe its enclosing folder(s)");
+    {
+
+        //
+        // Create a folder to contain the file if the folder doesn't exist already
+        //
+        NSString * containerPath = path.stringByDeletingLastPathComponent;
+
+        if (  ! [gFileMgr fileExistsAtPath: containerPath]  ) {
+            if (  ! [gFileMgr createDirectoryAtPath: containerPath
+                        withIntermediateDirectories: YES
+                                         attributes: attributes
+                                              error: &err]  ) {
+                stopBeingRoot();
+                Log(@"createFileAtPath: error creating outer directory at '%@'; error was %@", path, err);
+                exitOpenvpnstart(151);
+            }
+        }
+
+        //
+        // Create the file
+        //
+        if (  ! [gFileMgr createFileAtPath: path
+                                  contents: contents
+                                attributes: attributes]  ) {
+            Log(@"createFileAtPath: error creating file at '%@'", path);
+            stopBeingRoot();
+            exitOpenvpnstart(152);
+        }
+
+    }
+    stopBeingRoot();
+}
+
+static void outputToPathFromDictionary(NSString     * path,
+                                       NSDictionary * dict) {
+
+    // Creates the files in a dictionary created by dictionaryWithContentsOfItemAtPath() to the specified path.
+
+    NSString * key;
+    NSEnumerator * e = dict.keyEnumerator;
+    if (  ! e  ) {
+        Log(@"outputToPathFromDictionary: Can't get enumerator for dictionary %@ to output to path at '%@'", dict, path);
+        exitOpenvpnstart(153);
+    }
+
+    while (  (key = e.nextObject)  ) {
+
+        id obj = [dict objectForKey: key];
+
+        if (  [key hasSuffix: @"/"]  ) {
+
+            // Subfolder; recursive call:
+            NSString * keyWithoutSlashAtEnd = [key substringToIndex: key.length - 1];
+            NSString * newPath = [path stringByAppendingPathComponent: keyWithoutSlashAtEnd];
+            NSDictionary * newDict = (NSDictionary *)obj;
+
+            outputToPathFromDictionary(newPath, newDict);
+
+        } else {
+
+            // File
+            NSString * newPath = [path stringByAppendingPathComponent: key];
+            createFileAtPath(newPath, (NSData *)obj);
+        }
+    }
+}
+
+static NSString * pathOfNewSecureCopyOfUserItem(NSString * insecurePath) {
+
+    // Copies a user-space (insecure) filesystem item (a file or directory) to a new,
+    // uniquely-named secure item and returns the absolute path of the new item.
+    // (Thus, any return value which does not begin with a "/" is an error message.)
+    //
+    // Reads in the item and creates an NSDictionary, then outputs a copy of the item to a
+    // secure location from the contents of the NSDictionary. This is done before obtaining
+    // admin authorization so that the user can't detect the reading of the user-provided
+    // data and modify it after admin authorization is received but before processing the
+    // user-provided data.
+    //
+    // The dictionary is hierarchical:
+    //     * keys are paths to a file relative to the initial path as an NSString), and
+    //     * values are contents of the corresponding file as an NSData object).
+    //
+    // NOTE: The contents of the targets of symlinks is copied, not the symlinks themselves.
+
+    //
+    // IMPORTANT: RUN AS USER TO ACCESS USER-PROVIDED INFO
+    //
+    verifyRunningAsUser();
+
+    //
+    // Standardize the path and resolve symlinks.
+    //
+    NSString * standardizedPath = insecurePath.stringByStandardizingPath;
+    NSString * path = standardizedPath.stringByResolvingSymlinksInPath;
+    if (  ! path  ) {
+        return [NSString stringWithFormat: @"pathOfNewSecureCopyOfUserItem: Could not get a resolved, standardized path for '%@'", path];
+    }
+
+    //
+    // Get a dictionary with the contents of the path.
+    //
+    NSDictionary * pathContents = dictionaryWithContentsOfItemAtPath(path);
+
+    if (  ! pathContents  ) {
+        return [NSString stringWithFormat: @"pathOfNewSecureCopyOfUserItem: No files at or in '%@'", path];
+    }
+
+    //
+    // Output the dictionary's contents to a new, unique, secure path and output the path of the copy
+    //
+    NSString * outputPath = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
+    outputToPathFromDictionary(outputPath, pathContents);
+
+    NSString * output = [outputPath
+                         stringByAppendingPathComponent: path.lastPathComponent];
+    if (  ! output  ) {
+        return [NSString stringWithFormat: @"pathOfNewSecureCopyOfUserItem: No files at or in '%@'", path];
+    }
+
+    return output;
+}
+
+static void copyUserItemToNewSecureItem(NSString * insecurePath) {
+
+    NSString * result = pathOfNewSecureCopyOfUserItem(insecurePath);
+
+    Log(@"%@", result);
+}
+
+//**************************************************************************************************************************
+
 static int startVPN(NSString * configFile,
                     unsigned   port,
                     unsigned   useScripts,
@@ -3607,6 +3854,14 @@ int main(int argc, char * argv[]) {
             // runScript validates its own arguments
             retCode = runScript(@"connected.sh", argc, argv);
             syntaxError = FALSE;
+
+        } else if ( strcmp(command, "copyUserItemToNewSecureItem") == 0 ) {
+            if (argc == 3  ) {
+                NSString* filePath = [NSString stringWithUTF8String:argv[2]];
+                // copyUserItemToNewSecureItem() does its own validation of the path
+                copyUserItemToNewSecureItem(filePath);
+                syntaxError = FALSE;
+            }
 
         } else if ( strcmp(command, "deleteLog") == 0 ) {
             if (argc == 4) {
