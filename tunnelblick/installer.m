@@ -155,6 +155,7 @@ static uid_t           gUserID = 0;
 static gid_t           gGroupID = 0;
 static NSString      * gUsername = nil;
 NSString             * gPrivatePath = nil;                 // ~/Library/Application Support/Tunnelblick/Configurations
+NSString             * gShadowPath = nil;                  // /Library/Application Support/Tunnelblick/Users/<username>
 static NSString      * gHomeDirectory = nil;
 
 static NSAutoreleasePool * pool;
@@ -175,6 +176,8 @@ static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path);
 static const char * fileSystemRepresentationFromPath(NSString * path);
 
 static NSString * userPrivatePath(void);
+
+static NSString * userShadowPath(void);
 
 static void securelyDeleteItem(NSString * path);
 
@@ -1048,6 +1051,16 @@ static NSString * userPrivatePath(void) {
     return nil; // Satisfy analyzer
 }
 
+static NSString * userShadowPath(void) {
+    if (  gShadowPath != nil  ) {
+        return gShadowPath;
+    }
+
+    Log(@"Tried to access userShadowPath, which was not set");
+    errorExit();
+    return nil; // Satisfy analyzer
+}
+
 static uid_t userUID(void) {
 
     if (  gUserID != 0  ) {
@@ -1196,7 +1209,9 @@ static void setupUserGlobalsFromGUsername(void) {
                       stringByAppendingPathComponent: @"Tunnelblick"]
                      stringByAppendingPathComponent: @"Configurations"]
                     retain];
-
+    gShadowPath = [[L_AS_T_USERS
+                    stringByAppendingPathComponent: gUsername]
+                   retain];
     getUidAndGidFromUsername(gUsername, &gUserID, &gGroupID);
     gGroupID = privateFolderGroup(gPrivatePath);
 }
