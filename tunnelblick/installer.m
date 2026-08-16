@@ -407,15 +407,21 @@ static void structureTblkProperly(NSString * path) {
             && [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
             && ( ! isDir )  ) {
             if (  [entry isEqualToString: @"Info.plist"]  ) {
-                [sourcePaths addObject: fullPath];
-                [targetPaths addObject: [[path stringByAppendingPathComponent: @"/Contents"] stringByAppendingPathComponent: entry]];
+                NSString * targetFullPath = [[path stringByAppendingPathComponent: @"/Contents"] stringByAppendingPathComponent: entry];
+                if (  ! [fullPath isEqualToString: targetFullPath]) {
+                    [sourcePaths addObject: fullPath];
+                    [targetPaths addObject: targetFullPath];
+                }
             } else if (  ! [entry hasPrefix: @"."]  ) {
                 NSString * targetEntry = entry;
                 if (  [entry hasSuffix: @".ovpn"]  ) {
                     targetEntry = [[entry stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"config.ovpn"];
                 }
-                [sourcePaths addObject: fullPath];
-                [targetPaths addObject: [[path stringByAppendingPathComponent: @"/Contents/Resources"] stringByAppendingPathComponent: targetEntry]];
+                NSString * targetFullPath = [[path stringByAppendingPathComponent: @"/Contents/Resources"] stringByAppendingPathComponent: targetEntry];
+                if (  ! [fullPath isEqualToString: targetFullPath]) {
+                    [sourcePaths addObject: fullPath];
+                    [targetPaths addObject: targetFullPath];
+                }
             }
         }
     }
