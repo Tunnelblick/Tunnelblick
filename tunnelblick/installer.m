@@ -189,27 +189,6 @@ static NSString * userUsername(void);
 //**************************************************************************************************************************
 // LOGGING AND ERROR HANDLING
 
-#ifdef TBDebug
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-function"
-static void debugLog(NSString * string) {
-#pragma clang diagnostic pop
-
-	// Call this function to create files in /tmp to show progress through this program
-	// when there are problems that cause the log not to be available
-	// For example, if this installer hangs.
-	//
-	// "string" is a string identifier indicating where debugLog was called from.
-    // "string" must be able to be added as part of a file name, so no ":" or "/" chars, etc.
-
-	static unsigned int debugLogMessageCounter = 0;
-    NSString * now = [[NSDate date] tunnelblickUserLogRepresentation];
-
-	NSString * path = [NSString stringWithFormat: @"/tmp/0-%u-tunnelblick-installer-%@-%@.txt", ++debugLogMessageCounter, now, string];
-	[gFileMgr createFileAtPath: path contents: [NSData data] attributes: nil];
-}
-#endif
-
 static BOOL openLog(BOOL clearLog) {
 
     if (  ! [gFileMgr tbRemovePathIfItExists: INSTALLER_OLD_LOG_PATH]  ) {
