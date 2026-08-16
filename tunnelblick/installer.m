@@ -489,7 +489,7 @@ static void errorExitIfNotShadowOrSharedInPath(NSString * path) {
         return;
     }
 
-    Log(@"Apparent attack detected: Path is not in a shadow copy or in Shared: %@; stack trace = %@", path, callStack());
+    Log(@"Apparent attack detected: Path is not in a shadow copy or in Shared: %@", path);
     errorExit();
 }
 
@@ -518,7 +518,7 @@ static void deleteOrCopyOrRenameForcedPreferencesForDisplayName(NSString * displ
 
     if (   (newDisplayName == nil)
         && (! deleteOriginals)  ) {
-        Log(@"deleteOrCopyOrRenameForcedPreferencesForDisplayName: not deleting, copying, or renaming, so nothing to do; stack trace = %@", callStack());
+        Log(@"deleteOrCopyOrRenameForcedPreferencesForDisplayName: not deleting, copying, or renaming, so nothing to do");
         return;
     }
 
