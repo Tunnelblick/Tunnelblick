@@ -1417,10 +1417,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
     TBLog(@"DB-SI", @"createStatusItem: Created status item");
 
-    TBLog(@"DB-SI", @"statusItem.isVisible = %s", CSTRING_FROM_BOOL(statusItem.isVisible));
-    [statusItem setVisible: NO];
-    TBLog(@"DB-SI", @"Set statusItem visible: NO");
-
     NSStatusBarButton * button = statusItem.button;
     [button setHidden: YES];
     if (  ! button  ) {
