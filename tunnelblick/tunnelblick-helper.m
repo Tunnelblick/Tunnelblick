@@ -150,6 +150,9 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
             "               The full path of the copy will be output to stdout.\n\n"
             "               NOTE: Copies the resolved targets of symlinks, not the links themselves.\n\n"
 
+            "./openvpnstart pruneSecureTemporaryFolder\n"
+            "               to remove items in Tunnelblick's secure temporary folder (L_AS_T_TEMP) that were created more than 24 hours ago.\n\n"
+
             "./openvpnstart route-pre-down  flags configName  cfgLocCode\n"
             "               to run Tunnelblick's client.route-pre-down.tunnelblick script.\n\n"
 			"               If bit 0 of flags is 1, the '-k'  option is used to disable the network for expected disconnections.\n\n"
@@ -2834,6 +2837,39 @@ static void copyUserItemToNewSecureItem(NSString * insecurePath) {
     Log(@"%@", result);
 }
 
+static void pruneSecureTemporaryFolder(void) {
+
+    // Removes items in Tunnelblick's secure temporary folder (L_AS_T_TEMP)
+    // that were created more than 24 hours ago
+
+    NSDate * oneDayAgo = [NSDate dateWithTimeIntervalSinceNow: - SECONDS_PER_DAY];
+
+    becomeRootToAccessPath(L_AS_T_TEMP, @"to prune L_AS_T_TEMP");
+    {
+
+        NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: L_AS_T_TEMP];
+        NSString * subpath;
+        while (  (subpath = dirE.nextObject)  ) {
+            [dirE skipDescendants];
+
+            NSError * err;
+            NSString * fullPath = [L_AS_T_TEMP stringByAppendingPathComponent: subpath];
+            NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: fullPath
+                                                                   error: &err];
+            if (  attributes == nil  ) {
+                Log(@"Could not get attributes of item at '%@'; error was %@", fullPath, err);
+            } else {
+                NSDate * dateCreated = [attributes fileCreationDate];
+                if (  [dateCreated isLessThan: oneDayAgo]  ) {
+                    [gFileMgr tbRemovePathIfItExists: fullPath];
+                }
+            }
+        }
+
+    }
+    stopBeingRootToAccessPath(L_AS_T_TEMP);
+}
+
 static void exitIfUnapprovedScripts(NSString * configurationPath) {
 
     NSError * err = nil;
@@ -3932,6 +3968,12 @@ int main(int argc, char * argv[]) {
                 NSString* filePath = [NSString stringWithUTF8String:argv[2]];
                 // copyUserItemToNewSecureItem() does its own validation of the path
                 copyUserItemToNewSecureItem(filePath);
+                syntaxError = FALSE;
+            }
+
+        } else if ( strcmp(command, "pruneSecureTemporaryFolder") == 0 ) {
+            if (argc == 2  ) {
+                pruneSecureTemporaryFolder();
                 syntaxError = FALSE;
             }
 
