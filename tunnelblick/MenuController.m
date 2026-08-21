@@ -4386,6 +4386,8 @@ static void signal_handler(int signalNumber)
 
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 004")
 
+    runOpenvpnstart(@[@"pruneSecureTemporaryFolder"], nil, nil);
+
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 05")
     [self updateMenuAndDetailsWindowForceLeftNavigation: YES];
 
