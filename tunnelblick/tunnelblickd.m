@@ -752,7 +752,8 @@ int main(void) {
 		if (  0 != getpeereid(filedesc, &client_euid, &client_egid)  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not obtain peer credentials from unix domain socket: %m; our uid = %lu; our euid = %lu; our gid = %lu; our egid = %lu",
 					(unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-			continue; // this isn't fatal
+			close(filedesc); // this isn't fatal
+			continue;
 		} else {
 //			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Peer euid = %lu; egid = %lu; our uid = %lu; our euid = %lu; our gid = %lu; our egid = %lu",
 //					(unsigned long)client_euid, (unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
@@ -763,13 +764,16 @@ int main(void) {
 		nbytes = read(filedesc, buffer, SOCKET_BUF_SIZE - 1);
 		if (  0 == nbytes  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "0 bytes from read()");
-			continue; // this isn't fatal
+			close(filedesc); // this isn't fatal
+			continue;
 		} else if (  nbytes < 0  ) {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error from read(): &m");
-			continue; // this isn't fatal
+			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error from read(): %m");
+			close(filedesc); // this isn't fatal
+			continue;
 		} else if (  SOCKET_BUF_SIZE - 1 == nbytes   ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Too many bytes read; maximum is %lu", (unsigned long)(SOCKET_BUF_SIZE - 2));
-			continue; // this isn't fatal
+			close(filedesc); // this isn't fatal
+			continue;
 		}
 		
 		buffer[nbytes] = '\0';	// Terminate so the request is a string
@@ -777,14 +781,16 @@ int main(void) {
         // Ignore request unless it starts with a valid header and is terminated by a \n
 		if (  0 != strncmp(buffer, command_header, strlen(command_header))  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did it did not start with a valid header; received '%s'", (unsigned long)nbytes, buffer);
-			continue; // this isn't fatal
+			close(filedesc); // this isn't fatal
+			continue;
 		}
         char * nlPtr = strchr(buffer, '\n');
 		if (   (nlPtr == NULL)
 			|| (nlPtr != (buffer + nbytes - 1))
 			) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did not receive a LF at the end; received '%s'", (unsigned long)nbytes, buffer);
-			continue; // this isn't fatal
+			close(filedesc); // this isn't fatal
+			continue;
 		}
 		
 		// Remove the LF at the end of the request
@@ -793,6 +799,7 @@ int main(void) {
 		// Ignore request unless it is a valid UTF-8 string
 		if (  [NSString stringWithUTF8String: buffer] == NULL  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but they were not a valid UTF-8 string", (unsigned long)nbytes);
+			close(filedesc); // this isn't fatal
 			continue;
 		}
 		
@@ -805,15 +812,23 @@ int main(void) {
 		
         // Get the client's username from the client's euid
         struct passwd *pw = getpwuid(client_euid);
+		if (  pw == NULL  ) {
+			asl_log(asl, log_msg, ASL_LEVEL_ERR, "getpwuid(%lu) failed; our uid = %lu; our euid = %lu; our gid = %lu; our egid = %lu; error = %m",
+					(unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+			close(filedesc); // this isn't fatal
+			continue;
+		}
         NSString * userName = [NSString stringWithCString: pw->pw_name encoding: NSUTF8StringEncoding];
 		if (  userName == nil  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret username as UTF-8");
-			goto done;
+			close(filedesc); // this isn't fatal
+			continue;
 		}
         NSString * userHome = [NSString stringWithCString: pw->pw_dir  encoding: NSUTF8StringEncoding];
 		if (  userHome == nil  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret userhome as UTF-8");
-			goto done;
+			close(filedesc); // this isn't fatal
+			continue;
 		}
 		
 		// Set up to have tunnelblick-helper to do the work
