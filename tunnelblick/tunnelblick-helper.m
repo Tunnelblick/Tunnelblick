@@ -2748,6 +2748,25 @@ static void outputToPathFromDictionary(NSString     * path,
     }
 }
 
+static void exitIfContentsAreNotReasonable(NSString * path) {
+
+    NSString * errMsg;
+    if (  [path hasPrefix: L_AS_T_TEMP]  ) {
+        becomeRootToAccessPath(path, @"run allFilesAreReasonableIn()");
+    }
+    
+        if (  nil != (errMsg = allFilesAreReasonableIn(path))  ) {
+            Log(@"%@", errMsg);
+            exitOpenvpnstart(142);
+        }
+
+    if (  [path hasPrefix: L_AS_T_TEMP]  ) {
+        stopBeingRootToAccessPath(path);
+    }
+
+    return;
+}
+
 static NSString * pathOfNewSecureCopyOfUserItem(NSString * insecurePath) {
 
     // Copies a user-space (insecure) filesystem item (a file or directory) to a new,
@@ -2809,6 +2828,50 @@ static void copyUserItemToNewSecureItem(NSString * insecurePath) {
     NSString * result = pathOfNewSecureCopyOfUserItem(insecurePath);
 
     Log(@"%@", result);
+}
+
+static void exitIfUnapprovedScripts(NSString * configurationPath) {
+
+    NSError * err = nil;
+    becomeRootToAccessPath(configurationPath, @"Check Tunnelblick script lines");
+    
+        NSString * configurationString = [NSString stringWithContentsOfFile: configurationPath
+                                                                   encoding: NSUTF8StringEncoding
+                                                                      error: &err];
+    stopBeingRootToAccessPath(configurationPath);
+
+    if (  configurationString == nil  ) {
+        Log(@"Could not read OpenVPN configuration file at '%@'; error was %@", configurationPath, err);
+        exitOpenvpnstart(OPENVPNSTART_NEED_USER_ROOT_SCRIPT_ERROR);
+    }
+
+    NSRange r = [configurationString rangeOfString: @"\n"];
+    if (  r.location == NSNotFound  ) {
+        r.length = configurationString.length;
+    } else {
+        r.length = r.location;
+    }
+    r.location = 0;
+    NSString * firstLine = [configurationString substringWithRange: r];
+    Log(@"OpenVPN configuration file starts with '%@'", [configurationString substringWithRange: r]);
+
+    if (   [configurationString hasPrefix: TUNNELBLICK_SCRIPT_LINE_NONE]
+        || [configurationString hasPrefix: TUNNELBLICK_SCRIPT_LINE_OK]) {
+        return;
+    }
+
+    if        (  [firstLine hasPrefix: TUNNELBLICK_SCRIPT_LINE_ROOT]  ) {
+        exitOpenvpnstart(OPENVPNSTART_NEED_ROOT_SCRIPT_AUTH);
+
+    } else if (  [firstLine hasPrefix: TUNNELBLICK_SCRIPT_LINE_USER]  ) {
+        exitOpenvpnstart(OPENVPNSTART_NEED_USER_SCRIPT_AUTH);
+
+    } else if (  [firstLine hasPrefix: TUNNELBLICK_SCRIPT_LINE_USER_ROOT]  ) {
+        exitOpenvpnstart(OPENVPNSTART_NEED_USER_ROOT_SCRIPT_AUTH);
+
+    } else {
+        exitOpenvpnstart(OPENVPNSTART_NEED_USER_ROOT_SCRIPT_ERROR);
+    }
 }
 
 //**************************************************************************************************************************
