@@ -3721,6 +3721,9 @@ static NSString * validateEnvironment(void) {
 	// If TMPDIR is not as expected, sets TMPDIR to the path of a newly-created temporary directory and returns that directory's path.
 	//								 (That directory and its contents must be deleted when it is no longer needed.)
 
+#ifdef TBDebug
+    return nil;
+#else
 	BOOL errorFound = FALSE;
 
 	NSDictionary * env = [[NSProcessInfo processInfo] environment];
@@ -3780,6 +3783,7 @@ static NSString * validateEnvironment(void) {
 	}
 
 	return newDir;
+#endif
 }
 
 //**************************************************************************************************************************
