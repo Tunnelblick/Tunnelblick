@@ -292,8 +292,6 @@ enum ActiveInactiveState {
 -(void)             setState:                               (nonnull NSString *)        newState;
 -(void)             setPreferenceForSelectedConfigurationsWithDict: (nonnull NSDictionary * ) dict;
 -(void)             setupUpdaterAutomaticChecks;
--(BOOL)             shouldInstallConfigurations: (nonnull NSArray *) filePaths
-                                withTunnelblick: (BOOL) withTunnelblick;
 -(nullable NSArray *)        sortedSounds;
 -(unsigned)         statusScreenIndex;
 -(void)             updateSettingsHaveChanged;

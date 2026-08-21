@@ -3997,125 +3997,11 @@ static void signal_handler(int signalNumber)
     }
 }
 
--(BOOL) shouldInstallConfigurations: (NSArray *) filePaths withTunnelblick: (BOOL) withTunnelblick {
-
-    // If any of the configurations contain commands, asks the user if they should be installed.
-
-    CommandOptionsStatus status = [ConfigurationManager commandOptionsInConfigurationsAtPaths: filePaths];
-
-    int userAction;
-
-    NSString * message;
-
-    NSString * withTunnelblickMessage = (  withTunnelblick
-                                         ? NSLocalizedString(@"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n", @"Window text")
-                                         : @"");
-
-    switch (  status  ) {
-
-        case CommandOptionsNo:
-            return YES;
-
-        case CommandOptionsUserScript:
-            message = [NSString stringWithFormat: @"%@%@", withTunnelblickMessage,
-                       NSLocalizedString(@"One or more VPN configurations that are being installed include programs which"
-                                         @" will run when you connect to a VPN. These programs are part of the configuration"
-                                         @" and are not part of the Tunnelblick application.\n\n"
-                                         @"You should install these configurations only if you trust their author.\n\n"
-                                         @"Do you trust the author of the configurations and wish to install them?\n\n",
-                                         @"Window text")];
-            userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                         message,
-                                         NSLocalizedString(@"Cancel",  @"Button"), // Default
-                                         NSLocalizedString(@"Install", @"Button"), // Alternate
-                                         nil);                                     // Other
-            if (  userAction == NSAlertAlternateReturn  ) {
-                return YES;
-            }
-
-            return NO;
-            break;
-
-        case CommandOptionsYes:
-            message = [NSString stringWithFormat: @"%@%@", withTunnelblickMessage,
-                       NSLocalizedString(@"One or more VPN configurations that are being installed include programs which will run"
-                                         @" as root when you connect to a VPN. These programs are part of the configuration"
-                                         @" and are not part of the Tunnelblick application. They are able to TAKE"
-                                         @" COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
-                                         @"YOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\n"
-                                         @"Do you trust the author of the configurations and wish to install them?\n\n",
-                                         @"Window text")];
-            userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                         message,
-                                         NSLocalizedString(@"Cancel",  @"Button"), // Default
-                                         NSLocalizedString(@"Install", @"Button"), // Alternate
-                                         nil);                                     // Other
-            if (  userAction == NSAlertAlternateReturn  ) {
-                userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                             NSLocalizedString(@"Are you sure you wish to install configurations which can TAKE"
-                                                               @" COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
-                                                               @"Window text"),
-                                             NSLocalizedString(@"Cancel",  @"Button"), // Default
-                                             NSLocalizedString(@"Install", @"Button"), // Alternate
-                                             nil);                                     // Other
-                if (  userAction == NSAlertAlternateReturn  ) {
-                    return YES;
-                }
-            }
-
-            return NO;
-            break;
-
-        case CommandOptionsUnknown:
-            message = [NSString stringWithFormat: @"%@%@", withTunnelblickMessage,
-                       NSLocalizedString(@"One or more VPN configurations that are being installed include OpenVPN options that"
-                                         @" were not recognized by Tunnelblick. That may be an error in the configuration or"
-                                         @" an error in Tunnelblick, or the configurations might include programs"
-                                         @" which will run as root when you connect to a VPN. Such programs would be able to"
-                                         @" TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
-                                         @"YOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\n"
-                                         @"Do you trust the author of the configurations and wish to install them?\n\n",
-                                         @"Window text")];
-            userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                         message,
-                                         NSLocalizedString(@"Cancel",  @"Button"), // Default
-                                         NSLocalizedString(@"Install", @"Button"), // Alternate
-                                         nil);                                     // Other
-
-            if (  userAction == NSAlertAlternateReturn  ) {
-                userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                             NSLocalizedString(@"Are you sure you wish to install configurations which might be able to TAKE"
-                                                               @" COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
-                                                               @"Window text"),
-                                             NSLocalizedString(@"Cancel",  @"Button"), // Default
-                                             NSLocalizedString(@"Install", @"Button"), // Alternate
-                                             nil);                                     // Other
-                return (  userAction == NSAlertAlternateReturn  );
-            }
-
-            return NO;
-            break;
-
-        case CommandOptionsError:
-        default:
-            NSLog(@"error status %ld returned from commandOptionsInConfigurationsAtPaths:", (long)status);
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                            NSLocalizedString(@"An error occurred. See the Console Log for details.", @"Window text"),
-                            nil, nil, nil);
-            return NO;
-    }
-}
-
 -(void) notifyDelegateAfterInstallingConfigurationsInPaths: (NSArray *) filePaths {
 
-    // Configuration(s) were double-clicked or dropped onto Tunnelblick.app.
-    // Installs them, perhaps after issuing a warning if any of them contain programs or OpenVPN options (such as "up") that invoke commands.
+    // Configuration(s) were double-clicked or dropped onto Tunnelblick.app; this installs them.
 
-    if (  [self shouldInstallConfigurations: filePaths withTunnelblick: NO]  ) {
-        [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
-    } else {
-        [self myReplyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
-    }
+    [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
 }
 
 - (BOOL)application: (NSApplication * )theApplication
@@ -6152,13 +6038,6 @@ static BOOL runningHookupThread = FALSE;
             launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed and one configuration was installed or replaced.", @"Window text");
         } else {
             launchWindowText = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick was successfully installed and %ld configurations were installed or replaced.", @"Window text"), (unsigned long)configurationInstallsBeingDone];
-        }
-    }
-
-    if (  tblksToInstallPaths  ) {
-        if (  ! [self shouldInstallConfigurations: tblksToInstallPaths withTunnelblick: YES]  ) {
-            NSLog(@"The Tunnelblick installation was cancelled by the user to avoid installing configurations that may have commands.");
-            [self terminateBecause: terminatingBecauseOfQuit];
         }
     }
 
