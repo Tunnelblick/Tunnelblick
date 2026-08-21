@@ -453,16 +453,18 @@ static void errorExitIfAnyDotDotInPath(NSString * path) {
     }
 }
 
-static void errorExitIfNotShadowOrSharedInPath(NSString * path) {
+static BOOL pathWritableByUser(NSString * path) {
 
-    if (   [path hasPrefix: [[L_AS_T_USERS
-                              stringByAppendingPathComponent: userUsername()]
-                             stringByAppendingString: @"/"]]
-        || [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+    return ( ! [path hasPrefix: L_AS_T] );
+}
+
+static void errorExitIfWritableByUserInPath(NSString * path) {
+
+    if (  ! pathWritableByUser(path)  ) {
         return;
     }
 
-    Log(@"Apparent attack detected: Path is not in a shadow copy or in Shared: %@", path);
+    Log(@"Apparent attack detected: Path is directly writable by user: %@", path);
     errorExit();
 }
 
