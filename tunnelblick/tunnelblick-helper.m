@@ -2814,13 +2814,10 @@ static NSString * pathOfNewSecureCopyOfUserItem(NSString * insecurePath) {
     NSString * outputPath = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
     outputToPathFromDictionary(outputPath, pathContents);
 
-    NSString * output = [outputPath
+    NSString * finalOutputPath = [outputPath
                          stringByAppendingPathComponent: path.lastPathComponent];
-    if (  ! output  ) {
-        return [NSString stringWithFormat: @"pathOfNewSecureCopyOfUserItem: No files at or in '%@'", path];
-    }
 
-    return output;
+    return finalOutputPath;
 }
 
 static void copyUserItemToNewSecureItem(NSString * insecurePath) {
