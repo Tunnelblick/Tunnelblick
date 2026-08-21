@@ -2754,7 +2754,7 @@ static void exitIfContentsAreNotReasonable(NSString * path) {
     if (  [path hasPrefix: L_AS_T_TEMP]  ) {
         becomeRootToAccessPath(path, @"run allFilesAreReasonableIn()");
     }
-    
+
         if (  nil != (errMsg = allFilesAreReasonableIn(path))  ) {
             Log(@"%@", errMsg);
             exitOpenvpnstart(142);
@@ -2813,7 +2813,8 @@ static NSString * pathOfNewSecureCopyOfUserItem(NSString * insecurePath) {
     //
     // Output the dictionary's contents to a new, unique, secure path and output the path of the copy
     //
-    NSString * outputPath = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
+    NSString * itemName = [@"SecureCopy-" stringByAppendingString: NSUUID.UUID.UUIDString];
+    NSString * outputPath = [L_AS_T_TEMP stringByAppendingPathComponent: itemName];
 
     outputToPathFromDictionary(outputPath, pathContents);
 
