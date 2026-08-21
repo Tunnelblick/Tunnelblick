@@ -19,6 +19,7 @@
  */
 
 #import <Security/Security.h>
+#import <AppKit/AppKit.h>
 
 #import "TBPerformer.h"
 
