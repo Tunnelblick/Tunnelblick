@@ -688,8 +688,6 @@ static void securelyRename(NSString * sourcePath, NSString * targetPath) {
                 Log(@"NSFileManager error moving %@ to %@: %@", sourcePath, targetPath, err);
                 errorExit();
             }
-        } else {
-            Log(@"renamex_np() succeeded renaming %@ to %@", sourcePath, targetPath);
         }
     } else {
         if (  0 != rename(fileSystemRepresentationFromPath(sourcePath), fileSystemRepresentationFromPath(targetPath))  ){
@@ -700,6 +698,8 @@ static void securelyRename(NSString * sourcePath, NSString * targetPath) {
             Log(@"rename() succeeded renaming %@ to %@", sourcePath, targetPath);
         }
     }
+
+    Log(@"Renamed %@ to %@", sourcePath, targetPath);
 }
 
 static void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * path) {
