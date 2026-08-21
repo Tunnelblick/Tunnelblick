@@ -1633,6 +1633,106 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     return message;
 }
 
+-(void) setConfigurationToIndicateScriptsAreOK {
+
+    NSString * message = NSLocalizedString(@"Tunnelblick needs authorization to allow scripts to run when the VPN is connected.", @"Window text");
+    SystemAuth * auth = [[SystemAuth newAuthWithPrompt: message] autorelease];
+
+    NSInteger result = [gMC runInstaller: INSTALLER_SET_SCRIPTS_OK
+                          extraArguments: @[displayName]
+                         usingSystemAuth: auth
+                            installTblks: nil];
+
+    if (  result != 0  ) {     // Cancelled or error
+        return;
+    }
+
+    // Configuration has been set to indicate scripts are OK.
+    [self performSelector: @selector(connectUserKnows:)
+               withObject: @YES
+               afterDelay: 0.2];
+    Log(@"Scheduled another connection attempt in 0.2 seconds.");
+}
+
+-(void) processUserScriptAuthorization: (BOOL) rootAuthorizationAlsoRequired {
+
+    int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                             NSLocalizedString(@"This VPN configuration includes one or more programs which will run as"
+                                                               @" you when you connect to a VPN. The program(s) are part of the"
+                                                               @" configuration and are not part of the Tunnelblick application.\n\n"
+                                                               @"You should connect this configuration only if you trust it's author.\n\n"
+                                                               @"Do you trust the author of the configuration and wish to allow the program(s) to run?\n\n",
+                                                               @"Window text"),
+                                             NSLocalizedString(@"Cancel",       @"Button"), // Default
+                                             NSLocalizedString(@"Always Allow", @"Button"), // Alternate
+                                             nil,                                           // Other
+                                             @"skipWarningAboutInstallsWithUserCommands",
+                                             NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                             nil,
+                                             NSAlertAlternateReturn);
+    switch (  userAction  ) {
+
+        case NSAlertDefaultReturn: // Cancel
+            return;
+
+        case NSAlertAlternateReturn: // Always Allow
+            if (  ! rootAuthorizationAlsoRequired  ) {
+                [self setConfigurationToIndicateScriptsAreOK];
+                return;
+            }
+            [self processRootScriptAuthorization];
+            return;
+
+        default:
+            return; // Error; already logged
+    }
+}
+
+-(void) processRootScriptAuthorization {
+
+    int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                             NSLocalizedString(@"This VPN configuration includes one or more programs which will run as"
+                                                               @" root when you connect to a VPN. The program(s) are part of the"
+                                                               @" configuration and are not part of the Tunnelblick application.\n\n"
+                                                               @"They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
+                                                               @"YOU SHOULD NOT CONNECT THIS CONFIGURATION UNLESS YOU TRUST IT'S AUTHOR.\n\n"
+                                                               @"Do you trust the author of the configuration and wish to allow the program(s) to run?\n\n",
+                                                               @"Window text"),
+                                             NSLocalizedString(@"Cancel",       @"Button"), // Default
+                                             NSLocalizedString(@"Always Allow", @"Button"), // Alternate
+                                             nil,                                           // Other
+                                             @"skipWarningAboutConnectionsWithRootCommands",
+                                             NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                             nil,
+                                             NSAlertAlternateReturn);
+
+    switch (  userAction  ) {
+
+        case NSAlertDefaultReturn:   // Cancel
+            return;
+
+        case NSAlertAlternateReturn: // Always Allow
+            userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                         NSLocalizedString(@"Are you sure you wish to connect this configuration, which includes"
+                                                           @" programs which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
+                                                           @"Window text"),
+                                         NSLocalizedString(@"Cancel",       @"Button"), // Default
+                                         NSLocalizedString(@"Always Allow", @"Button"), // Alternate
+                                         nil);                                          // Other
+            if (  userAction == NSAlertDefaultReturn  ) {           //  Cancel
+                return;
+            } else if (  userAction == NSAlertAlternateReturn  ) {  // Always Allow
+                [self setConfigurationToIndicateScriptsAreOK];
+                return;
+            } else {
+                return;                                             // Error
+            }
+
+        default:
+            return;                  // Error; already logged
+    }
+}
+
 -(void) finishMakingConnection: (NSDictionary *) dict {
 
 
@@ -1741,6 +1841,32 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
             openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
         } else {
             openvpnstartOutput = stringForLog(errOut, @"openvpnstart log:\n");
+        }
+
+        if (  status ==  OPENVPNSTART_NEED_USER_SCRIPT_AUTH  ) {
+            [self processUserScriptAuthorization: NO];
+            areConnecting = FALSE;
+            completelyDisconnected = TRUE;
+            return;
+        } else if (  status == OPENVPNSTART_NEED_ROOT_SCRIPT_AUTH  ) {
+            [self processRootScriptAuthorization];
+            areConnecting = FALSE;
+            completelyDisconnected = TRUE;
+            return;
+        } else if (  status == OPENVPNSTART_NEED_USER_ROOT_SCRIPT_AUTH  ) {
+            [self processUserScriptAuthorization: YES];
+            areConnecting = FALSE;
+            completelyDisconnected = TRUE;
+            return;
+        } else if (  status == OPENVPNSTART_NEED_USER_ROOT_SCRIPT_ERROR  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              [NSString stringWithFormat:
+                               NSLocalizedString(@"An unknown error occurred. The attempt to connect %@ has been cancelled. Please reinstall the configuration",
+                                                 @"Window text"),
+                               [self localizedName]]);
+            areConnecting = FALSE;
+            completelyDisconnected = TRUE;
+            return;
         }
 
         NSString * log = [NSString stringWithContentsOfFile: OPENVPNSTART_LOG_PATH];

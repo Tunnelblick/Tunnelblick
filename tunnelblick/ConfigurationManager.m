@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2023 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2023, 2026 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -1564,7 +1564,7 @@ in: (NSString *) sharedOrPrivate {
     NSString * displayNameWithTblkExtension = [displayName stringByAppendingPathExtension: @"tblk"];
     NSString * targetPath = nil;
     if (  [sharedOrPrivate isEqualToString: @"private"]  ) {
-        targetPath = [gPrivatePath  stringByAppendingPathComponent: displayNameWithTblkExtension];
+        targetPath = [gShadowPath  stringByAppendingPathComponent: displayNameWithTblkExtension];
     } else if (  [sharedOrPrivate isEqualToString: @"shared"]  ) {
         targetPath = [L_AS_T_SHARED stringByAppendingPathComponent: displayNameWithTblkExtension];
     } else {
@@ -2427,6 +2427,37 @@ in: (NSString *) sharedOrPrivate {
     }
 }
 
+-(BOOL) copySourcesToSecureLocationAndModifyInstallSources {
+
+    // installer only works from "secure" sources, so we create a secure copy of each of the sources
+    // and replace the entry in installSources with the path to the copy.
+
+    NSArray * sourcesList = @[self.installSources, self.replaceSources, self.noAdminSources];
+    NSEnumerator * e = [sourcesList objectEnumerator];
+    NSMutableArray * sources;
+
+    while (  (sources = e.nextObject)  ) {
+        NSUInteger i;
+        for (  i=0; i<sources.count; i++  ) {
+
+            NSString * path = sources[i];
+            NSString * stdOutString = nil;
+            OSStatus status = runOpenvpnstart(@[@"copyUserItemToNewSecureItem", path], &stdOutString, nil);
+            if (  status !=  EXIT_SUCCESS  ) {
+                Log(@"Error creating a secure item from '%@': %@", path, stdOutString);
+                return NO;
+            }
+
+            stdOutString = [stdOutString
+                            stringByTrimmingCharactersInSet: [NSCharacterSet newlineCharacterSet]];
+            Log(@"Created secure copy of\n'%@' at\n'%@'", path, stdOutString);
+            sources[i] = stdOutString;
+        }
+    }
+
+    return YES;
+}
+
 -(NSApplicationDelegateReply) doUninstallslReplacementsInstallsSkipConfirmMsg: (BOOL) skipConfirmMsg
                                                                 skipResultMsg: (BOOL) skipResultMsg {
 
@@ -2435,6 +2466,10 @@ in: (NSString *) sharedOrPrivate {
     // Returns the value that the delegate should use as an argument to '[gMC myReplyToOpenOrPrint:]' (whether or not it will be needed)
 
     [self setupNonAdminReplacements];
+
+    if (  ! [self copySourcesToSecureLocationAndModifyInstallSources]  ) {
+        return NSApplicationDelegateReplyFailure;
+    }
 
     NSUInteger nToUninstall = [[self deletions]      count];
     NSUInteger nToInstall   = [[self installSources] count];
@@ -2733,109 +2768,6 @@ in: (NSString *) sharedOrPrivate {
     if (  ! [self checkFilesAreReasonable: filePaths]  ) {
         [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
         return;
-    }
-
-    if (  disallowCommands  ) {
-
-        if (  ! [NSThread isMainThread]  ) {
-            NSLog(@"installConfigurations...disallowCommands: YES but not on main thread; stack trace: %@", callStack());
-            [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
-            return;
-        }
-        CommandOptionsStatus status = [ConfigurationManager commandOptionsInConfigurationsAtPaths: filePaths];
-        if (  status == CommandOptionsError  ) {
-            [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
-            return;
-        }
-        if ( status != CommandOptionsNo  ) {
-            if (  privateFromApplescript  ) {
-                NSLog(@"One or more configurations include programs which run when you connect to a VPN. They cannot be installed via AppleScript");
-                [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
-                return;
-            }
-
-            if (  status == CommandOptionsUserScript  ) {
-                int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                                         NSLocalizedString(@"One or more VPN configurations that are being updated include programs which"
-                                                                           @" will run when you connect to a VPN. These programs are part of the configuration"
-                                                                           @" and are not part of the Tunnelblick application.\n\n"
-                                                                           @"You should install these configurations only if you trust their author.\n\n"
-                                                                           @"Do you trust the author of the configurations and wish to install them?\n\n",
-                                                                           @"Window text"),
-                                                         NSLocalizedString(@"Cancel",  @"Button"), // Default
-                                                         NSLocalizedString(@"Install", @"Button"), // Alternate
-                                                         nil,                                      // Other
-                                                         @"skipWarningAboutInstallsWithUserCommands",
-                                                         NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                                         nil,
-                                                         NSAlertAlternateReturn);
-                switch (  userAction  ) {
-
-                    case NSAlertDefaultReturn:
-                        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyCancel];
-                        break;
-
-                    case NSAlertAlternateReturn:
-                        [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
-                        break;
-
-                    case NSAlertOtherReturn:
-
-                    default: // Error; already logged
-                        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
-                }
-
-                return;
-
-            } else {
-                int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                                         NSLocalizedString(@"One or more VPN configurations that are being updated include programs which"
-                                                                           @" will run as root when you connect to a VPN. These programs are part of the configuration"
-                                                                           @" and are not part of the Tunnelblick application. They are able to TAKE"
-                                                                           @" COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
-                                                                           @"YOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\n"
-                                                                           @"Do you trust the author of the configurations and wish to install them?\n\n",
-                                                                           @"Window text"),
-                                                         NSLocalizedString(@"Cancel",  @"Button"), // Default
-                                                         NSLocalizedString(@"Install", @"Button"), // Alternate
-                                                         nil,                                      // Other
-                                                         @"skipWarningAboutInstallsWithCommands",
-                                                         NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                                         nil,
-                                                         NSAlertAlternateReturn);
-
-                switch (  userAction  ) {
-
-                    case NSAlertDefaultReturn:
-                        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyCancel];
-                        break;
-
-                    case NSAlertAlternateReturn:
-                        userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                                     NSLocalizedString(@"Are you sure you wish to install configurations which can TAKE"
-                                                                       @" COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
-                                                                       @"Window text"),
-                                                     NSLocalizedString(@"Cancel",  @"Button"), // Default
-                                                     NSLocalizedString(@"Install", @"Button"), // Alternate
-                                                     nil);                                     // Other
-                        if (  userAction == NSAlertAlternateReturn  ) {
-                            [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
-                        } else if (  userAction == NSAlertDefaultReturn  ) {
-                            [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyCancel];
-                        } else {
-                            [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
-                        }
-                        break;
-
-                    case NSAlertOtherReturn:
-
-                    default: // Error; already logged
-                        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
-                }
-
-                return;
-            }
-        }
     }
 
     // Set up instance variables that we use
@@ -4247,28 +4179,24 @@ err:
 
     int result = NSAlertAlternateReturn; // Cancel
 
-    NSString * tblkPath = configPathFromDisplayName(displayName);
-    BOOL install = [gMC shouldInstallConfigurations: @[tblkPath] withTunnelblick: NO];
-
-    if (  install  ) {
-        if (  updateInfo  ) {
-            result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                     [NSString stringWithFormat: NSLocalizedString(@"An update to the %@ VPN configuration is available.\n\n"
-                                                                                   @"Do you wish to update the configuration?\n\n",
-                                                                                   @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
-                                     NSLocalizedString(@"Update",		    @"Button. 'Update' refers to the update of a configuration."),  // Default
-                                     NSLocalizedString(@"Cancel",		    @"Button"),  // Alternate
-                                     NSLocalizedString(@"Skip this Update", @"Button. 'Update' refers to the update of a configuration.")); // Other
-        } else {
-            result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                     [NSString stringWithFormat: NSLocalizedString(@"The %@ VPN configuration has been modified since it was last secured.\n\n"
-                                                                                   @"Do you wish to secure the modified configuration or revert to the last secured configuration?\n\n",
-                                                                                   @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
-                                     NSLocalizedString(@"Secure the Configuration",		   @"Button"),  // Default
-                                     NSLocalizedString(@"Cancel",						   @"Button"),  // Alternate
-                                     NSLocalizedString(@"Revert to the Last Secured Copy", @"Button")); // Other
-        }
+    if (  updateInfo  ) {
+        result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                 [NSString stringWithFormat: NSLocalizedString(@"An update to the %@ VPN configuration is available.\n\n"
+                                                                               @"Do you wish to update the configuration?\n\n",
+                                                                               @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
+                                 NSLocalizedString(@"Update",            @"Button. 'Update' refers to the update of a configuration."),  // Default
+                                 NSLocalizedString(@"Cancel",            @"Button"),  // Alternate
+                                 NSLocalizedString(@"Skip this Update", @"Button. 'Update' refers to the update of a configuration.")); // Other
+    } else {
+        result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                 [NSString stringWithFormat: NSLocalizedString(@"The %@ VPN configuration has been modified since it was last secured.\n\n"
+                                                                               @"Do you wish to secure the modified configuration or revert to the last secured configuration?\n\n",
+                                                                               @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
+                                 NSLocalizedString(@"Secure the Configuration",           @"Button"),  // Default
+                                 NSLocalizedString(@"Cancel",                           @"Button"),  // Alternate
+                                 NSLocalizedString(@"Revert to the Last Secured Copy", @"Button")); // Other
     }
+
 
 	switch (  result  ) {
 

@@ -618,6 +618,10 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 #define OPENVPNSTART_COMPARE_CONFIG_SAME             0
 #define OPENVPNSTART_REVERT_CONFIG_OK				 0
 #define OPENVPNSTART_UPDATE_SAFE_OK                  0
+#define OPENVPNSTART_NEED_USER_SCRIPT_AUTH           243
+#define OPENVPNSTART_NEED_ROOT_SCRIPT_AUTH           244
+#define OPENVPNSTART_NEED_USER_ROOT_SCRIPT_AUTH      245
+#define OPENVPNSTART_NEED_USER_ROOT_SCRIPT_ERROR     246
 #define OPENVPNSTART_COULD_NOT_LOAD_KEXT             247
 #define OPENVPNSTART_NO_SUCH_OPENVPN_PROCESS         248
 #define OPENVPNSTART_UPDATE_SAFE_NOT_OK              249
@@ -766,6 +770,9 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 // (argument: a UTF-8-encoded XML string (an NSDictionary serialized as XML) containing forced preferences)
 #define INSTALLER_INSTALL_FORCED_PREFERENCES_XML 0xA000u
 
+// Replace first line of Openvpn configuration file with TUNNELBLICK_SCRIPT_LINE_OK
+// (argument: displayName)
+#define INSTALLER_SET_SCRIPTS_OK             0xB000u
 
 //*************************************************************************************************
 // Size to use to minimize the left navigation area when it is inactive
