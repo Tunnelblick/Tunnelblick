@@ -2799,6 +2799,8 @@ static NSString * pathOfNewSecureCopyOfUserItem(NSString * insecurePath) {
         return [NSString stringWithFormat: @"pathOfNewSecureCopyOfUserItem: Could not get a resolved, standardized path for '%@'", path];
     }
 
+    exitIfContentsAreNotReasonable(path);
+
     //
     // Get a dictionary with the contents of the path.
     //
@@ -2812,10 +2814,14 @@ static NSString * pathOfNewSecureCopyOfUserItem(NSString * insecurePath) {
     // Output the dictionary's contents to a new, unique, secure path and output the path of the copy
     //
     NSString * outputPath = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
+
     outputToPathFromDictionary(outputPath, pathContents);
 
     NSString * finalOutputPath = [outputPath
                          stringByAppendingPathComponent: path.lastPathComponent];
+
+    // Check the copy to make sure, in case something was changed while we created the copy
+    exitIfContentsAreNotReasonable(outputPath);
 
     return finalOutputPath;
 }
