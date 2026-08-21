@@ -348,27 +348,12 @@ static void resolveSymlinksInPath(NSString * targetPath) {
     }
 }
 
-static NSArray * configurationPathsFromPath(NSString * path) {
-
-    NSString * privatePath = gPrivatePath;
-    if (  privatePath == nil  ) {
-        NSString * username = usernameFromPossiblePrivatePath(path);
-        if (  username != nil  ) {
-            privatePath = privatePathFromUsername(username);
-        }
-    }
-
-    NSArray * paths = [NSArray arrayWithObjects:
-                       gDeployPath,
-                       L_AS_T_SHARED,
-                       privatePath, // May be nil, so must be last
-                       nil];
-    return paths;
-}
-
 NSString * lastPartOfPath(NSString * path) {
 
-    NSArray * paths = configurationPathsFromPath(path);
+    NSArray * paths = @[gDeployPath,
+                        L_AS_T_SHARED,
+                        userPrivatePath(),
+                        userShadowPath()];
     NSEnumerator * arrayEnum = [paths objectEnumerator];
     NSString * configFolder;
     while (  (configFolder = [arrayEnum nextObject])  ) {
@@ -404,8 +389,7 @@ static void structureTblkProperly(NSString * path) {
     while (  (entry = [dirE nextObject])  ) {
         NSString * fullPath = [path stringByAppendingPathComponent: entry];
         BOOL isDir;
-        if (   ( ! [entry hasPrefix: @"."] )
-            && [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+        if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
             && ( ! isDir )  ) {
             if (  [entry isEqualToString: @"Info.plist"]  ) {
                 NSString * targetFullPath = [[path stringByAppendingPathComponent: @"/Contents"] stringByAppendingPathComponent: entry];
@@ -413,7 +397,7 @@ static void structureTblkProperly(NSString * path) {
                     [sourcePaths addObject: fullPath];
                     [targetPaths addObject: targetFullPath];
                 }
-            } else if (  ! [entry hasPrefix: @"."]  ) {
+            } else {
                 NSString * targetEntry = entry;
                 if (  [entry hasSuffix: @".ovpn"]  ) {
                     targetEntry = [[entry stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"config.ovpn"];
