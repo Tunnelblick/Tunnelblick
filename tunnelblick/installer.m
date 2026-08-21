@@ -33,6 +33,7 @@
 #import "sharedRoutines.h"
 
 #import "ConfigurationConverter.h"
+#import "ConfigurationParser.h"
 #import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
