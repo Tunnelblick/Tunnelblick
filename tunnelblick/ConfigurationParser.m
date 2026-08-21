@@ -19,13 +19,9 @@
 
 #import "ConfigurationParser.h"
 
-#import "TBUserDefaults.h"
 
 #import "VPNConnection.h"
 
-
-extern NSFileManager  * gFileMgr;
-extern TBUserDefaults * gTbDefaults;
 
 @implementation ConfigurationParser
 
