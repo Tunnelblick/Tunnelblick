@@ -934,11 +934,142 @@ static void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
     securelyCopyFileOrFolderContents(isDir, sourcePath, targetPath);
 }
 
+static NSString * openvpnConfigPathFromPath(NSString * path) {
+
+    // Search path for all .ovpn files. Return path if one, nil if none, and errorExit if more than one
+
+    NSString * configPath = nil;
+
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
+    NSString * subPath;
+    while (  (subPath = [dirE nextObject])  ) {
+        if (  [subPath.lastPathComponent.pathExtension isEqualToString: @"ovpn"]  ) {
+            if (  configPath  ) {
+                Log(@"Too many .opvn files in '%@'", path);
+                errorExit();
+            }
+            configPath = [path stringByAppendingPathComponent: subPath];
+        }
+    }
+
+    return configPath;
+}
+
+static void writeOutOpenVPNScriptToPath(NSString * contents, NSString * path) {
+
+    //
+    // Preserve ownership and permissions
+    //
+
+    NSError * err = nil;
+    NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: path
+                                                           error: &err];
+    if (  attributes == nil  ) {
+        Log(@"Could not get attributes of file at '%@'; error was %@", path, err);
+        errorExit();
+    }
+
+    NSNumber * owner = attributes.fileOwnerAccountID;
+    NSNumber * group = attributes.fileGroupOwnerAccountID;
+    NSUInteger permissions = attributes.filePosixPermissions;
+
+    attributes = @{ NSFileOwnerAccountID      : owner,
+                    NSFileGroupOwnerAccountID : group,
+                    NSFilePosixPermissions    : [NSNumber numberWithUnsignedInt: permissions]};
+
+    //
+    // Delete the file, then re-create it
+    //
+
+    NSData * data = [contents dataUsingEncoding: NSUTF8StringEncoding];
+
+    if (  ! [gFileMgr removeItemAtPath: path
+                                 error: &err]  ) {
+        Log(@"Could not delete OpenVPN configuration file before writing it at '%@'; error was %@", path, err);
+        errorExit();
+    }
+
+    if (  ! [gFileMgr createFileAtPath: path
+                              contents: data
+                            attributes: attributes]  ) {
+        Log(@"Could  not write to OpenVPN configuration file at '%@'", path);
+        errorExit();
+    }
+}
+
+void removeTunnelblickScriptLinesFromOvpnFileAtPath(NSString * path) {
+
+    // Removes all lines at the start of the file at path that start with TUNNELBLICK_SCRIPT_LINE_PREFIX
+
+    NSError * err;
+
+    NSMutableString * contents = [[[NSMutableString alloc]
+                                   initWithContentsOfFile: path
+                                                 encoding: NSUTF8StringEncoding
+                                                    error: &err]
+                                  autorelease];
+
+    if (  ! contents  ) {
+        Log(@"Could not read OpenVPN configuration file at '%@'; error was %@", path, err);
+        errorExit();
+    }
+
+    BOOL contentsWereModified = FALSE;
+
+    NSMutableString * logLines = [NSMutableString string];
+
+    while (  [contents hasPrefix: TUNNELBLICK_SCRIPT_LINE_PREFIX]  ) {
+        NSRange rLog = [contents rangeOfString: @"\n"];
+        NSRange rRemove;
+        if (  rLog.location == NSNotFound  ) {
+            rLog = NSMakeRange(0, contents.length);     // No LF, so log and delete contents
+            rRemove = rLog;
+        } else {
+            rLog = NSMakeRange(0, rLog.location);       // Log to, but not including LF
+            rRemove = NSMakeRange(0, rLog.length + 1);// Remove to and including LF
+        }
+
+        [logLines appendFormat: @"Removed line from OpenVPN configuration file: '%@'\n", [contents substringWithRange: rLog]];
+        [contents deleteCharactersInRange: rRemove];
+        contentsWereModified = TRUE;
+    }
+
+    if (  contentsWereModified  ) {
+        writeOutOpenVPNScriptToPath(contents, path);
+        Log(@"%@", logLines);
+    }
+}
+
+static void addLineToConfiguration(NSString * line, NSString * configPath) {
+
+    NSError * err;
+
+    NSMutableString * contents = [[[NSMutableString alloc]
+                                   initWithContentsOfFile: configPath
+                                                 encoding: NSUTF8StringEncoding
+                                                    error: &err]
+                                  autorelease];
+
+    if (  ! contents  ) {
+        Log(@"Could not read OpenVPN configuration file at '%@'; error was %@", configPath, err);
+        errorExit();
+    }
+
+    [contents insertString: [line stringByAppendingString: @"\n"]
+                   atIndex: 0];
+
+    writeOutOpenVPNScriptToPath(contents, configPath);
+    Log(@"Inserted line '%@' into OpenVPN configuration file at '%@'", line, configPath);
+}
+
 static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
 
     // Copies a file, or a folder and its contents, making sure the copy has the same permissions and dates as the original but is owned by root:wheel.
     //
     // Uses an intermediate file or folder and then renames it, so no partial copy has been done if an error occurs.
+    //
+    // Any lines at the start of the OpenVPN configuration file that begin with TUNNELBLICK_SCRIPT_LINE_PREFIX
+    // will be removed if "sourcePath" is not an already-secured path.
 
     errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
     errorExitIfAnySymlinkOrDotDotInPath(targetPath);
@@ -950,9 +1081,13 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
         errorExit();
     }
 
-    NSString * tempPath = [L_AS_T stringByAppendingPathComponent: @"installer-temp"];
+    NSString * tempPath = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
 
     securelyCopyDirectly(sourcePath, tempPath);
+    Log(@"Copied %@ to %@", sourcePath, tempPath);
+
+    NSString * configPath = openvpnConfigPathFromPath(tempPath);
+    removeTunnelblickScriptLinesFromOvpnFileAtPath(configPath);
 
     securelyRename(tempPath, targetPath);
 }
@@ -1226,6 +1361,9 @@ static void setupUserGlobals(int argc, char *argv[], unsigned operation) {
                           stringByAppendingPathComponent: @"Tunnelblick"]
                          stringByAppendingPathComponent: @"Configurations"]
                         retain];
+        gShadowPath = [[L_AS_T_USERS
+                        stringByAppendingPathComponent: gUsername]
+                       retain];
         gGroupID = privateFolderGroup(gPrivatePath);
         Log(@"Determined username '%@' from getuid(): %u", gUsername, gUserID);
 
@@ -1635,35 +1773,14 @@ static void installOrUpdateKexts(BOOL forceInstall) {
 //**************************************************************************************************************************
 // HIGH LEVEL ROUTINES
 
-static void createAndSecureConfigurationsSubfolder(NSString * path) {
+static void createSecuredConfigurationsSubfolder(NSString * path) {
 
-    // Use to create and secure an empty configurations subfolder (either Shared or a private folder). If it is
-    // a private folder, the secured copy is also created.
-    //
-    // A Shared or secured folder is owned by root; a private folder is owned by the user.
+    // Use to create and secure an empty configurations subfolder (either Shared or a shadow folder).
 
-    uid_t  own   = 0;
-    gid_t  grp   = 0;
-    mode_t perms = PERMS_SECURED_FOLDER;
-
-    BOOL private = isPathPrivate(path);
-    if (  private  ) {
-        own   = userUID();
-        grp   = userGID();
-        perms = privateFolderPermissions(path);
-    }
     errorExitIfAnySymlinkOrDotDotInPath(path);
 
-    if (  ! createDirWithPermissionAndOwnership(path, perms, own, grp)  ) {
+    if (  ! createDirWithPermissionAndOwnership(path, PERMS_SECURED_FOLDER, 0, 0)  ) {
         errorExit();
-    }
-
-    // If a private folder, create the secure copy, too.
-    if (  private  ) {
-        NSString * lastPart = lastPartOfPath(path);
-        createAndSecureConfigurationsSubfolder([[L_AS_T_USERS
-                                                 stringByAppendingPathComponent: userUsername()]
-                                                stringByAppendingPathComponent: lastPart]);
     }
 }
 
@@ -2231,7 +2348,6 @@ static void doFolderRename(NSString * sourcePath, NSString * targetPath) {
         errorExit();
     }
     securelyRename(sourcePath, targetPath);
-    Log(@"Renamed %@ to %@", sourcePath, targetPath);
 
     if (  [sourcePath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]]  ) {
 
@@ -2249,38 +2365,124 @@ static void doFolderRename(NSString * sourcePath, NSString * targetPath) {
                 errorExit();
             }
             securelyRename(secureSourcePath, secureTargetPath);
-            Log(@"Renamed %@ to %@", secureSourcePath, secureTargetPath);
         }
     }
 }
 
-static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy) {
-	
-	if (   ( ! firstPath )
-		|| ( ! secondPath )  ){
-		Log(@"Operation is INSTALLER_COPY or INSTALLER_MOVE but firstPath and/or secondPath are not set");
+static BOOL containsTunnelblickRootScripts(NSString * tblkPath) {
+
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tblkPath];
+    NSString * subPath;
+    while (  (subPath = [dirE nextObject])  ) {
+        if (  ! [subPath hasSuffix: @".user.sh"]  ) {
+            if (  [subPath hasSuffix: @".sh"]  ) {
+                return YES;
+            }
+        }
+    }
+
+    return NO;
+}
+
+static BOOL containsTunnelblickUserScripts(NSString * tblkPath) {
+
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tblkPath];
+    NSString * subPath;
+    while (  (subPath = [dirE nextObject])  ) {
+        if (  [subPath hasSuffix: @".user.sh"]  ) {
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
+static void setTunnelblickScriptLinesInTblkAtPath(NSString * tblkPath) {
+
+    //
+    // Parse the configuration file
+    //
+    NSString * configPath = [[[tblkPath
+                               stringByAppendingPathComponent: @"Contents"]
+                              stringByAppendingPathComponent: @"Resources"]
+                             stringByAppendingPathComponent: @"config.ovpn"];
+    ConfigurationParser * parser = [ConfigurationParser parsedConfigurationAtPath: configPath];
+    if ( ! parser  ) {
+        Log(@"Could not create a ConfigurationParser for %@", configPath);
+        errorExit();
+    }
+
+    BOOL hasOpenVPNRootScripts = ! [parser doesNotContainAnyUnsafeOptions];
+
+    BOOL hasTunnelblickRootScripts = containsTunnelblickRootScripts(tblkPath);
+
+    BOOL hasTunnelblickUserScripts = containsTunnelblickUserScripts(tblkPath);
+
+    BOOL hasRootScripts = (   hasOpenVPNRootScripts
+                           || hasTunnelblickRootScripts);
+
+    if (  hasTunnelblickUserScripts  ) {
+        if (  hasRootScripts  ) {
+            addLineToConfiguration(TUNNELBLICK_SCRIPT_LINE_USER_ROOT, configPath);
+        } else {
+            addLineToConfiguration(TUNNELBLICK_SCRIPT_LINE_USER, configPath);
+        }
+    } else {
+        if (  hasRootScripts  ) {
+            addLineToConfiguration(TUNNELBLICK_SCRIPT_LINE_ROOT, configPath);
+        } else {
+            addLineToConfiguration(TUNNELBLICK_SCRIPT_LINE_NONE, configPath);
+        }
+    }
+}
+
+static void setScriptsOK(NSString * displayName) {
+
+    NSArray * folders = @[L_AS_T_SHARED, userShadowPath(), userPrivatePath()];
+
+    NSString * folder;
+    NSEnumerator * e = [folders objectEnumerator];
+    while (  (folder = [e nextObject])  ) {
+        NSString * path = [[[[[folder
+                               stringByAppendingPathComponent: displayName]
+                              stringByAppendingPathExtension: @"tblk"]
+                             stringByAppendingPathComponent: @"Contents"]
+                            stringByAppendingPathComponent: @"Resources"]
+                           stringByAppendingPathComponent: @"config.ovpn"];
+        if (  [gFileMgr fileExistsAtPath: path]  ) {
+            removeTunnelblickScriptLinesFromOvpnFileAtPath(path);
+            addLineToConfiguration(TUNNELBLICK_SCRIPT_LINE_OK, path);
+        }
+    }
+}
+
+static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPath, BOOL moveNotCopy) {
+
+	if (   ( ! sourcePath )
+		|| ( ! targetPath )  ){
+		Log(@"Operation is INSTALLER_COPY or INSTALLER_MOVE but targetPath and/or sourcePath are not set");
 		errorExit();
 	}
 	
-	NSString * sourcePath = [[secondPath copy] autorelease];
-	NSString * targetPath = [[firstPath  copy] autorelease];
-
-    // An empty source path means create a folder at the target path.
+    // An empty source path means CREATE A FOLDER at the target path.
     if (  [sourcePath isEqualToString: @""]  ) {
         if (  [targetPath hasSuffix: @".tblk"]  ) {
             Log(@"When source is '', target cannot be a .tblk: %@", targetPath);
             errorExit();
         }
 
-        if (  [gFileMgr fileExistsAtPath: secondPath]  ) {
+        if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
             Log(@"When source is '', target cannot exist: %@", targetPath);
             errorExit();
         }
 
-        createAndSecureConfigurationsSubfolder(targetPath);
+        createSecuredConfigurationsSubfolder(targetPath);
         return;
     }
 
+    //
+    // Copy or move a folder or .tblk
+    //
     BOOL sourceIsTblk = [[sourcePath pathExtension] isEqualToString: @"tblk"];
     BOOL targetIsTblk = [[targetPath pathExtension] isEqualToString: @"tblk"];
 
@@ -2312,9 +2514,20 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
         }
     }
 
+    //
+    // Copy or move a .tblk
+    //
+
+    // Should not move or copy to a user-writable path
+
+    if (  pathWritableByUser(targetPath)  ) {
+        Log(@"Should not be moving to user-writable path '%@'", targetPath);
+        errorExit();
+    }
+
 	// Create the enclosing folder(s) if necessary. Owned by root unless if in userPrivatePath(), in which case it is owned by the user
 	NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
-    createAndSecureConfigurationsSubfolder(enclosingFolder);
+    createSecuredConfigurationsSubfolder(enclosingFolder);
 
 	// Make sure we can delete the original if we are moving instead of copying
 	if (  moveNotCopy  ) {
@@ -2322,19 +2535,6 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 			errorExit();
 		}
 	}
-	
-	// Resolve symlinks
-	// Do the move or copy
-	// Restructure the target if necessary
-	// Secure the target
-	//
-	// If   we MOVED OR COPIED TO PRIVATE
-	// Then create a shadow copy of the target and secure the shadow copy
-	//
-	// If   we MOVED FROM PRIVATE
-	// Then delete the shadow copy of the target
-	
-	resolveSymlinksInPath(sourcePath);
 	
     if (  moveNotCopy  ) {
         securelyMove(sourcePath, targetPath);
@@ -2344,63 +2544,20 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 
     structureTblkProperly(targetPath);
 
-    BOOL targetIsPrivate = isPathPrivate(targetPath);
-	uid_t uid = (  targetIsPrivate
-				 ? userUID()
-				 : 0);
-	secureOneFolder(targetPath, targetIsPrivate, uid);
+    setTunnelblickScriptLinesInTblkAtPath(targetPath);
 
-	NSString * lastPartOfTarget = lastPartOfPath(targetPath);
-	
-	if (   targetIsPrivate  ) {
-		
-		NSString * shadowTargetPath   = [NSString stringWithFormat: @"%@/%@/%@",
-										 L_AS_T_USERS,
-										 userUsername(),
-										 lastPartOfTarget];
-		
-		errorExitIfAnySymlinkOrDotDotInPath(shadowTargetPath);
-		
-		if (  [gFileMgr fileExistsAtPath: shadowTargetPath]  ) {
-            securelyDeleteItem(shadowTargetPath);
-		}
-		
-		// Create container for shadow copy
-		enclosingFolder = [shadowTargetPath stringByDeletingLastPathComponent];
-		BOOL isDir;
-		if (   ( ! [gFileMgr fileExistsAtPath: shadowTargetPath isDirectory: &isDir])
-			&& isDir  ) {
-			errorExitIfAnySymlinkOrDotDotInPath(enclosingFolder);
-			createDirWithPermissionAndOwnership(enclosingFolder, PERMS_SECURED_FOLDER, 0, 0);
-		}
-		
-		securelyCopy(targetPath, shadowTargetPath);	// Copy the target because the source may have _moved_ to the target
-		
-		secureOneFolder(shadowTargetPath, NO, 0);
-	}
-	
-	if (  isPathPrivate(sourcePath)  ) {
-		if (  moveNotCopy  ) {
-			NSString * lastPartOfSource = lastPartOfPath(sourcePath);
-			NSString * shadowSourcePath   = [NSString stringWithFormat: @"%@/%@/%@",
-											 L_AS_T_USERS,
-											 userUsername(),
-											 lastPartOfSource];
-			if (  [gFileMgr fileExistsAtPath: shadowSourcePath]  ) {
-                securelyDeleteItem(shadowSourcePath);
-			}
-		}
-	}
+    secureOneFolderMaintainOwnership(targetPath, NO, 0, YES);
 
-    if (   sourceIsTblk
-        && targetIsTblk  ) {
-        NSString * sourceDisplayName = lastPartOfPath(sourcePath);
-        NSString * targetDisplayName = lastPartOfPath(targetPath);
-        if (  moveNotCopy  ) {
-            renameForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
-        } else {
-            copyForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
-        }
+    //
+    // If copying to Shared, make a copy in the user's Configurations folder and secure it.
+    //
+
+    if (  [targetPath hasPrefix: L_AS_T_USERS]  ) {
+        NSString * lastPart = lastPartOfPath(targetPath);
+        NSString * privatePath = [userPrivatePath() stringByAppendingPathComponent:lastPart];
+        securelyCopy(targetPath, privatePath);
+        setTunnelblickScriptLinesInTblkAtPath(privatePath);
+        secureOneFolderMaintainOwnership(privatePath, YES, userUID(), NO);
     }
 }
 
@@ -3387,73 +3544,121 @@ int main(int argc, char *argv[]) {
     }
 
     //**************************************************************************************************************************
-    // (8) If requested, install a configuration.
-    // Copy or move a single .tblk package (without any nested .tblks).
+    // (8) If requested, copy or move a single .tblk package or folder,
+    //     or install a .tblk (without any nested .tblks).
+    //
+    //     If installing, the .tblk does not have to be structured properly, installing it will restructure it if necessary.
+    //
     // Like the NSFileManager "movePath:toPath:handler" method, we move by copying, then deleting.
 
-    if (   secondArg
-        && (argc < 6)  ) {
-        if (   (   (operation == INSTALLER_COPY )
-                || (operation == INSTALLER_MOVE)
-                )
-            && thirdArg  ) {
+    if (   (   (operation == INSTALLER_COPY )
+            || (operation == INSTALLER_MOVE)
+            )
+        && secondArg
+        && thirdArg
+        && (argc < 5)
+        ) {
 
-            errorExitIfAnyDotDotInPath(secondArg);
-            errorExitIfAnyDotDotInPath(thirdArg);
+        //
+        // INSTALLER_COPY
+        // INSTALLER_MOVE
+        //      secondArg  = target
+        //      thirdArg   = source (if an empty string, a folder is created at "target")
+        //
 
-            if (  operation == INSTALLER_MOVE  ) {
-                errorExitIfNotShadowOrSharedInPath(secondArg);
-                errorExitIfNotShadowOrSharedInPath(thirdArg);
-            }
+        NSString * targetPath = secondArg;
+        NSString * sourcePath = thirdArg;
 
-            copyOrMoveOneTblk(secondArg, thirdArg, (operation == INSTALLER_MOVE));
-
-        } else if (   (operation == INSTALLER_INSTALL_PRIVATE_CONFIG)
-                   && thirdArg  ) {
-            if (  argc < 4  ) {
-                Log(@"installing a private configuration requires a username and a path");
-                errorExit();
-            }
-            NSString * targetPath = userPrivatePath();
-
-            if (  fourthArg  ) {
-                targetPath = [targetPath stringByAppendingPathComponent: fourthArg];
-                securelyCreateFolderAndParents(targetPath);
-            }
-
-            targetPath = [targetPath stringByAppendingPathComponent: [thirdArg lastPathComponent]];
-
-            copyOrMoveOneTblk(targetPath, thirdArg, false);
-
-        } else if (  operation == INSTALLER_INSTALL_SHARED_CONFIG  ) {
-
-            if (  argc < 3  ) {
-                Log(@"installing a shared configuration requires a path");
-                errorExit();
-            }
-
-            if (  argc > 4  ) {
-                Log(@"installing a shared configuration takes at most three arguments");
-                errorExit();
-            }
-
-            NSString * targetPath;
-
-            if (  thirdArg  ) {
-                errorExitIfAnyDotDotInPath(thirdArg);
-                targetPath = [L_AS_T_SHARED stringByAppendingPathComponent: thirdArg];
-                securelyCreateFolderAndParents(targetPath);
-            } else {
-                targetPath = L_AS_T_SHARED;
-            }
-
-            targetPath = [targetPath stringByAppendingPathComponent: [secondArg lastPathComponent]];
-
-            copyOrMoveOneTblk(targetPath, secondArg, false);
+        if (  ! [sourcePath isEqualToString: @""]  ) {
+            errorExitIfWritableByUserInPath(sourcePath);
+            errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
         }
 
+        errorExitIfWritableByUserInPath(targetPath);
+        errorExitIfAnySymlinkOrDotDotInPath(targetPath);
+
+        copyOrMoveOneFolderOrTblk(sourcePath, targetPath, (operation == INSTALLER_MOVE));
     }
-    
+
+    if (   operation == INSTALLER_INSTALL_PRIVATE_CONFIG  ) {
+        if (   secondArg
+            && thirdArg
+            && (argc < 6)
+            ) {
+
+            //
+            // INSTALLER_INSTALL_PRIVATE_CONFIG
+            //      secondArg = username (i.e., short username)
+            //      thirdArg  = source
+            //      fourthArg = subfolder (optional)
+            //
+            NSString * username   = secondArg;   (void)username; // Not used here. Used in setupUserGlobals()
+            NSString * sourcePath = thirdArg;
+            NSString * subfolder  = fourthArg;
+
+            errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+            if (  subfolder  ) {
+                errorExitIfAnySymlinkOrDotDotInPath(subfolder);
+            }
+
+            NSString * targetFolder = (  subfolder
+                                       ? [userShadowPath() stringByAppendingPathComponent: subfolder]
+                                       : userShadowPath()  );
+            securelyCreateFolderAndParents(targetFolder);
+            NSString * targetPath = [targetFolder stringByAppendingPathComponent: sourcePath.lastPathComponent];
+
+            copyOrMoveOneFolderOrTblk(sourcePath, targetPath, false); // false = not move (i.e., copy)
+        } else {
+            Log(@"Wrong number of arguments for INSTALLER_INSTALL_PRIVATE_CONFIG");
+            errorExit();
+        }
+    }
+    if (  operation == INSTALLER_INSTALL_SHARED_CONFIG  ) {
+        if (   secondArg
+            && (argc < 5)
+            ) {
+
+            //
+            // INSTALLER_INSTALL_SHARED_CONFIG
+            //      secondArg = source
+            //      thirdArg  = subfolder (optional)
+            //
+
+            NSString * sourcePath = secondArg;
+            NSString * subfolder  = thirdArg;
+
+            errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+            if (  subfolder  ) {
+                errorExitIfAnySymlinkOrDotDotInPath(subfolder);
+            }
+
+            NSString * targetFolder = (  subfolder
+                                       ? [L_AS_T_SHARED stringByAppendingPathComponent: subfolder]
+                                       : L_AS_T_SHARED  );
+            securelyCreateFolderAndParents(targetFolder);
+            NSString * targetPath = [targetFolder stringByAppendingPathComponent: sourcePath.lastPathComponent];
+
+            copyOrMoveOneFolderOrTblk(sourcePath, targetPath, false); // false = not move (i.e., copy)
+        } else {
+            Log(@"Wrong number of arguments for INSTALLER_INSTALL_SHARED_CONFIG");
+            errorExit();
+        }
+    }
+
+    if (  operation == INSTALLER_SET_SCRIPTS_OK  ) {
+        if (   secondArg
+            && (argc == 3)
+            ) {
+
+            NSString * displayName = secondArg;
+            setScriptsOK(displayName);
+
+        } else {
+            Log(@"Wrong number of arguments for INSTALLER_SET_SCRIPTS_OK");
+            errorExit();
+        }
+    }
+
     //**************************************************************************************************************************
     // (9)
     // If requested, delete a single folder or .tblk package (must be the shared or shadow copy)
