@@ -89,7 +89,7 @@ static const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 static void exitOpenvpnstart(OSStatus returnValue) {
 
-	// returnValue: have used 150-246, plus the values in define.h (247-254)
+	// returnValue: have used 142-242, plus the values in define.h (243-254)
 
 	if (  gTemporaryDirectory  ) {
 		[gFileMgr tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
@@ -1822,7 +1822,7 @@ static void printTunnelblickKextPolicy(void) {
 
     if (  ! [gFileMgr fileExistsAtPath: TOOL_PATH_FOR_SQLITE3]) {
         Log(@"'sqlite3 not found at %@", TOOL_PATH_FOR_SQLITE3);
-        exitOpenvpnstart(245);
+        exitOpenvpnstart(148);
     }
 
     NSArray * arguments = @[@"-separator", @"|",
@@ -1838,7 +1838,7 @@ static void printTunnelblickKextPolicy(void) {
 
     if (  status != 0  ) {
 		Log(@"/usr/bin/sqlite3 returned error %d", status);
-		exitOpenvpnstart(245);
+		exitOpenvpnstart(146);
 	}
 }
 
@@ -1941,14 +1941,14 @@ static void revertToShadow (NSString * fileName) {
         result = checkSetOwnership(privatePath, YES, gUidOfUser, ADMIN_GROUP_ID);
         if (  ! result  ) {
             [gFileMgr tbRemovePathIfItExists: privatePath];
-            exitOpenvpnstart(246);
+            exitOpenvpnstart(147);
         }
 
         // Set user:staff ownership of the .tblk itself
         result = checkSetOwnership(privatePath, NO, gUidOfUser, STAFF_GROUP_ID);
         if (  ! result  ) {
             [gFileMgr tbRemovePathIfItExists: privatePath];
-            exitOpenvpnstart(246);
+            exitOpenvpnstart(145);
         }
 
         stopBeingRoot();
@@ -2935,7 +2935,7 @@ static int startVPN(NSString * configFile,
     }
     if (  port == 0  ) {
         Log(@"Unable to find a free port to connect to the management interface");
-        exitOpenvpnstart(248);
+        exitOpenvpnstart(144);
     }
 
     // Delete old OpenVPN log files and script log files for this configuration
@@ -3801,14 +3801,14 @@ int main(int argc, char * argv[]) {
 #ifndef TBDebug
     if (  ! [gResourcesPath isEqualToString: @"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources"]  ) {
         Log(@"Tunnelblick must be in /Applications (bundlePath = %@)", gResourcesPath);
-        exitOpenvpnstart(243);
+        exitOpenvpnstart(143);
 		return -1; // Make analyzer happy
     }
     NSString * ourPath = [gResourcesPath stringByAppendingPathComponent: @"tunnelblick-helper"];
     if (  pathIsNotSecure(ourPath, PERMS_SECURED_EXECUTABLE)  ) {
         Log(@"tunnelblick-helper and the path to it have not been secured\n"
                 "You must have installed Tunnelblick to use tunnelblick-helper");
-        exitOpenvpnstart(244);
+        exitOpenvpnstart(149);
     }
 #endif
 
