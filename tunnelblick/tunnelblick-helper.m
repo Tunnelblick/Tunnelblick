@@ -2981,6 +2981,7 @@ static int startVPN(NSString * configFile,
         }
         cdFolderPath = [gConfigPath stringByAppendingPathComponent: @"Contents/Resources"];
         gConfigPath = [cfg copy];
+        exitIfUnapprovedScripts(cfg);
     } else {
         exitIfOvpnNeedsRepair();
         if (  ! [gConfigPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) { // Not a .tblk, so check that it is Deployed
