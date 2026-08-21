@@ -169,7 +169,7 @@ static NSDictionary * getSafeEnvironment(NSString * userName,
     return env;
 }
 
-static void becomeTheClient(uid_t      client_euid,
+static BOOL becomeTheClient(uid_t      client_euid,
                             gid_t      client_egid,
                             aslclient  asl,
                             aslmsg     log_msg) {
@@ -181,6 +181,7 @@ static void becomeTheClient(uid_t      client_euid,
     } else if (  setegid(client_egid)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeTheClient: setegid(%lu) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
                 (unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+        return FALSE;
     }
     if (  geteuid() == client_euid  ) {
         asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeTheClient: seteuid(%lu) unnecessary; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
@@ -189,7 +190,14 @@ static void becomeTheClient(uid_t      client_euid,
     } else if (  seteuid(client_euid)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeTheClient: seteuid(%lu) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
                 (unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+        if (  setegid(0)  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeTheClient: setegid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
+                    (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+        }
+        return FALSE;
     }
+
+    return TRUE;
 }
 
 static void becomeRoot(aslclient  asl,
@@ -277,10 +285,20 @@ static OSStatus runTool(uid_t      client_euid,
     [task setStandardOutput:       outFile];
     [task setStandardError:        errFile];
 
+    BOOL becameTheClient = TRUE;
     if (   (client_euid != 0)
         || (client_egid != 0)  ) {
-        becomeTheClient(client_euid, client_egid, asl, log_msg);
+        if (  ! becomeTheClient(client_euid, client_egid, asl, log_msg)  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_WARNING, "'Could not become client %d:%d",
+                    client_euid, client_egid);
+            becameTheClient = FALSE;
+        }
     }
+
+    OSStatus status = EXIT_FAILURE;
+
+    if (  becameTheClient  ) {
+
         [task launch];
 
         // Same style of deadline as startTool in sharedRoutines.m (warn, then SIGTERM).
@@ -305,11 +323,12 @@ static OSStatus runTool(uid_t      client_euid,
             }
         }
 
-        OSStatus status = [task terminationStatus];
+        status = [task terminationStatus];
 
-    if (   (client_euid != 0)
-        || (client_egid != 0)  ) {
-        becomeRoot(asl, log_msg);
+        if (   (client_euid != 0)
+            || (client_egid != 0)  ) {
+            becomeRoot(asl, log_msg);
+        }
     }
 
     [outFile closeFile];
