@@ -146,7 +146,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWi
 	
 	[appearanceDisplayConnectionTimersCheckbox
 	  setTitle: NSLocalizedString(@"Display connection timers", @"Checkbox name")
-	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>",
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, a timer is displayed in the Tunnelblick menu and in the title of the VPN Details window:</p>\n"
+														   @"<p>While a connection attempt is being made, the timer displays the time that has elapsed trying to make the connection."
+														   @" When a connection is made, the timer restarts and displays the time that has elapsed since the connection was made."
+														   @" While a disconnect attempt is being made, the timer restarts and displays the time that has elapsed trying to disconnect.</p>",
 														   @"HTML info for the 'Display connection timers' checkbox."))];
     [appearanceDisplayConnectAndDisconnectPrefixesCheckbox
      setTitle: NSLocalizedString(@"Display 'Connect' and 'Disconnect' with configuration names", @"Checkbox name")
