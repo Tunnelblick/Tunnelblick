@@ -154,6 +154,27 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 // String containing all whitespace characters in an OpenVPN configuration file
 #define WHITESPACE_CHARACTERS_IN_OPENVPN_CONFIGURATION_FILE @"\t\n\r "
 
+// String containing the prefix of a line in an OpenVPN configuration file used by Tunnelblick.
+#define TUNNELBLICK_LINE_PREFIX      @"# net.tunnelblick.tunnelblick "
+// String containing the prefix of a line in an OpenVPN configuration file used by
+// Tunnelblick to contain information about scripts that could be invoked by the configuration.
+#define TUNNELBLICK_SCRIPT_LINE_PREFIX      @"# net.tunnelblick.tunnelblick scripts "
+
+// Line at start of script indicating configuration does not invoke scripts
+#define TUNNELBLICK_SCRIPT_LINE_NONE        @"# net.tunnelblick.tunnelblick scripts none"
+
+// Line at start of script indicating configuration invokes scripts that have been okayed by a computer admin
+#define TUNNELBLICK_SCRIPT_LINE_OK          @"# net.tunnelblick.tunnelblick scripts ok"
+
+// Line at start of script indicating configuration invokes user scripts
+#define TUNNELBLICK_SCRIPT_LINE_USER        @"# net.tunnelblick.tunnelblick scripts user"
+
+// Line at start of script indicating configuration invokes root scripts
+#define TUNNELBLICK_SCRIPT_LINE_ROOT        @"# net.tunnelblick.tunnelblick scripts root"
+
+// Line at start of script indicating configuration invokes both user scripts and root scripts
+#define TUNNELBLICK_SCRIPT_LINE_USER_ROOT   @"# net.tunnelblick.tunnelblick scripts both"
+
 //*************************************************************************************************
 // Paths:
 
