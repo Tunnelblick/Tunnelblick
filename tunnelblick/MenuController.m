@@ -496,7 +496,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
             gShadowPath  = nil;
         } else {
             gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
-            gShadowPath = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
+            gShadowPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()] copy];
             if (  createDir(gPrivatePath, privateFolderPermissions(gPrivatePath)) == -1  ) {
                 NSLog(@"Unable to create %@", gPrivatePath);
                 exit(1);
