@@ -1375,16 +1375,16 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     }
 }
 
-- (NSView *) viewWithImage: (NSImage *) image
+- (MainIconView *) viewWithImage: (NSImage *) image
                      frame: (NSRect)    frame {
 
     // Return an NSImageView for the image
     TBLog(@"DB-SI", @"viewWithImage:frame: invoked");
-    NSImageView *iv = [[[NSImageView alloc] initWithFrame: frame] autorelease];
+    NSImageView *iv = [[[MainIconView alloc] initWithFrame: frame] autorelease];
     iv.image            = image;
     iv.imageScaling     = NSImageScaleAxesIndependently;   // stretch to fill exactly
     iv.imageAlignment   = NSImageAlignCenter;
-    return iv;
+    return (MainIconView *)iv;
 }
 
 -(void) createStatusItemDeferred {
