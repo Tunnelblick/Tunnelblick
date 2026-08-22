@@ -1651,8 +1651,13 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
 -(BOOL) loadMenuIconSet
 {
-    NSImage * ignoredMainCautionImage = nil;
-    NSImage * ignoredConnectedCautionImage = nil;
+    //
+    // We don't use Connected or Caution/Warning images on large icon sets, so we use these variables, which will be ignored
+    //
+    NSImage * ignoredMainCautionImage           = nil;
+    NSImage * ignoredConnectedCautionImage      = nil;
+    NSImage * ignoredAreConnectedIndicatorImage = nil;
+    NSImage * ignoredWarningIndicatorImage      = nil;
 
     // Try with the specified icon set
     NSString * requestedMenuIconSet = [gTbDefaults stringForKey:@"menuIconSet"];
@@ -1669,8 +1674,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
             if (  [self loadMenuIconSet: requestedLargeIconSet
                                    main: &largeMainImage
                              connecting: &largeConnectedImage
-                                  green: nil
-                                 yellow: nil
+                                  green: &ignoredAreConnectedIndicatorImage
+                                 yellow: &ignoredWarningIndicatorImage
                             mainCaution: &ignoredMainCautionImage
                       connectingCaution: &ignoredConnectedCautionImage
                                    anim: &largeAnimImages]  ) {
@@ -1700,8 +1705,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
             && [self loadMenuIconSet: largeIconSet
                                 main: &largeMainImage
                           connecting: &largeConnectedImage
-                               green: nil
-                              yellow: nil
+                               green: &ignoredAreConnectedIndicatorImage
+                              yellow: &ignoredWarningIndicatorImage
                          mainCaution: &ignoredMainCautionImage
                    connectingCaution: &ignoredConnectedCautionImage
                                 anim: &largeAnimImages]  ) {
@@ -1726,8 +1731,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         && [self loadMenuIconSet: [NSString stringWithFormat: @"large-%@", menuIconSet]
                             main: &largeMainImage
                       connecting: &largeConnectedImage
-                           green: nil
-                          yellow: nil
+                           green: &ignoredAreConnectedIndicatorImage
+                          yellow: &ignoredWarningIndicatorImage
                      mainCaution: &ignoredMainCautionImage
                connectingCaution: &ignoredConnectedCautionImage
                             anim: &largeAnimImages]  ) {
@@ -1749,6 +1754,18 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     return tintedImage;
 }
 
+-(void) setPtrToImage: (NSImage **) ptrToImage
+            imagePath: (NSString *) imagePath
+       usingTemplates: (BOOL)       usingTemplates {
+
+    if (  ptrToImage  ) {
+        [*ptrToImage release];
+        *ptrToImage = [[[NSImage alloc] initWithContentsOfFile: imagePath]
+                       retain];
+        [*ptrToImage setTemplate: usingTemplates];
+    }
+}
+
 -(BOOL) loadMenuIconSet: (NSString *)        iconSetName
                    main: (NSImage **)        ptrMainImage
              connecting: (NSImage **)        ptrConnectedImage
@@ -1758,9 +1775,42 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
       connectingCaution: (NSImage **)        ptrConnectedCautionImage
                    anim: (NSMutableArray **) ptrAnimImages
 {
-    TBLog(@"DB-SI", @"loadMenuIconSet:main:connecting:mainCaution:connectingCaution:anim: invoked");
+    TBLog(@"DB-SI", @"loadMenuIconSet: '%@' invoked", iconSetName);
 
+    //
+    // Make sure we can set all images, and initialize them to nil
+    //
+    if (   (ptrMainImage              == nil)
+        || (ptrConnectedImage         == nil)
+        || (ptrGreenImage             == nil)
+        || (ptrWarningIndicatorImage  == nil)
+        || (ptrMainCautionImage       == nil)
+        || (ptrConnectedCautionImage  == nil)
+        || (ptrAnimImages             == nil)  ) {
+        Log(@"loadMenuIconSet: '%@': No ptr... arguments can be nil", iconSetName);
+        return NO;
+    }
+
+    [*ptrMainImage             release] ; *ptrMainImage             = nil;
+    [*ptrConnectedImage        release] ; *ptrConnectedImage        = nil;
+    [*ptrGreenImage            release] ; *ptrGreenImage            = nil;
+    [*ptrWarningIndicatorImage release] ; *ptrWarningIndicatorImage = nil;
+    [*ptrMainCautionImage      release] ; *ptrMainCautionImage      = nil;
+    [*ptrConnectedCautionImage release] ; *ptrConnectedCautionImage = nil;
+
+    //
+    // Clear the animated images array, too (but set it to an empty array)
+    //
+    if (  ptrAnimImages  ) {
+        [*ptrAnimImages release];
+        *ptrAnimImages = [[[NSMutableArray alloc] init]
+                          retain];
+    }
+
+    //
     // Search for the folder with the animated icon set in (1) Deploy and (2) Shared, before falling back on the copy in the app's Resources
+    //
+
     BOOL isDir;
     NSString * iconSetDir = [[gDeployPath stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: iconSetName];
     if (  ! (   [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
@@ -1778,13 +1828,14 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         }
     }
 
+    //
+    // If any of the file names start with "templates.", set usingTemplates TRUE, otherwise, set it FALSE
+    //
     unsigned nFrames = 0;
     NSString *file;
-    NSString *fullPath;
+    NSString *fullPath = nil;
     NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: iconSetDir];
     NSArray *allObjects = [dirEnum allObjects];
-
-    // If any of the file names start with "templates.", set usingTemplates TRUE, otherwise, set it FALSE
     BOOL usingTemplates = FALSE;
     NSUInteger i=0;
     for(  i=0; i<[allObjects count]; i++  ) {
@@ -1794,17 +1845,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         }
     }
 
-    // Initialize all images
-
-    [*ptrMainImage             release]; *ptrMainImage = nil;
-    [*ptrConnectedImage        release]; *ptrConnectedImage = nil;
-    [*ptrMainCautionImage      release]; *ptrMainCautionImage = nil;
-    [*ptrConnectedCautionImage release]; *ptrConnectedCautionImage = nil;
-
-    [*ptrAnimImages release];
-    *ptrAnimImages = [[NSMutableArray alloc] init];
-
+    //
     // Set images from the files
+    //
     for(i=0;i<[allObjects count];i++) {
         file = [allObjects objectAtIndex:i];
         fullPath = [iconSetDir stringByAppendingPathComponent:file];
@@ -1814,32 +1857,22 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                 NSString *name = [[file lastPathComponent] stringByDeletingPathExtension];
 
                 if (  [name isEqualToString:@"closed"]) {
-                    [*ptrMainImage release];
-                    *ptrMainImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
-                    [*ptrMainImage setTemplate: usingTemplates];
+                    [self setPtrToImage: ptrMainImage imagePath: fullPath usingTemplates: usingTemplates];
 
                 } else if(  [name isEqualToString:@"open"]) {
-                    [*ptrConnectedImage release];
-                    *ptrConnectedImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
-                    [*ptrConnectedImage setTemplate: usingTemplates];
+                    [self setPtrToImage: ptrConnectedImage imagePath: fullPath usingTemplates: usingTemplates];
 
                 } else if (  [name isEqualToString:@"closed-caution"]) {
-                    [*ptrMainCautionImage release];
-                    *ptrMainCautionImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
-                    [*ptrMainCautionImage setTemplate: usingTemplates];
+                    [self setPtrToImage: ptrMainCautionImage imagePath: fullPath usingTemplates: usingTemplates];
 
                 } else if(  [name isEqualToString:@"open-caution"]) {
-                    [*ptrConnectedCautionImage release];
-                    *ptrConnectedCautionImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
-                    [*ptrConnectedCautionImage setTemplate: usingTemplates];
+                    [self setPtrToImage: ptrConnectedCautionImage imagePath: fullPath usingTemplates: usingTemplates];
 
                 } else if(  [name isEqualToString:@"areConnectedIndicator"]) {
-                    [*ptrGreenImage release];
-                    *ptrGreenImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+                    [self setPtrToImage: ptrGreenImage imagePath: fullPath usingTemplates: usingTemplates];
 
                 } else if(  [name isEqualToString:@"warningIndicator"]) {
-                    [*ptrWarningIndicatorImage release];
-                    *ptrWarningIndicatorImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+                    [self setPtrToImage: ptrWarningIndicatorImage imagePath: fullPath usingTemplates: usingTemplates];
 
                 } else if(  [file.lastPathComponent isEqualToString:@"0.png"]) {  // name.intValue returns 0 on failure, so make sure we find the first frame
                     nFrames++;
@@ -1850,38 +1883,49 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         }
     }
 
+    //
     // If no caution images, set them to the main image
-    // TODO: Modify the main images with a caution marker
+    //
     if (  ! (*ptrMainCautionImage)  ) {
         *ptrMainCautionImage = *ptrMainImage;
+        [*ptrMainCautionImage setTemplate: usingTemplates];
     }
     if (  ! (*ptrConnectedCautionImage)  ) {
         *ptrConnectedCautionImage = *ptrConnectedImage;
+        [*ptrConnectedCautionImage setTemplate: usingTemplates];
     }
 
-    // don't choke on a bad set of files, e.g., {0.png, 1abc.png, 2abc.png, 3.png, 4.png, 6.png}
+    //
+    // Find the animated images.
+    // Don't choke on a bad set of files, e.g., {0.png, 1abc.png, 2abc.png, 3.png, 4.png, 6.png}
     // (won't necessarily find all files, but won't try to load files that don't exist)
-    for(i=0;i<nFrames;i++) {
-        fullPath = [iconSetDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%lu.png", (unsigned long)i]];
-        if (  itemIsVisible(fullPath)  ) {
-            if ([gFileMgr fileExistsAtPath:fullPath]) {
-                NSImage * img = [[NSImage alloc] initWithContentsOfFile:fullPath];
-                if (  img  ) {
-                    [img setTemplate: usingTemplates];
-                    [*ptrAnimImages addObject: img];
-                    [img release];
-                } else {
-                    NSLog(@"Unable to load status icon image (possible incorrect permissions) at %@", fullPath);
+    //
+    if (   ptrAnimImages
+        && *ptrAnimImages) {
+        for(i=0;i<nFrames;i++) {
+            fullPath = [iconSetDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%lu.png", (unsigned long)i]];
+            if (  itemIsVisible(fullPath)  ) {
+                if ([gFileMgr fileExistsAtPath:fullPath]) {
+                    NSImage * img = [[NSImage alloc] initWithContentsOfFile:fullPath];
+                    if (  img  ) {
+                        [img setTemplate: usingTemplates];
+                        [*ptrAnimImages addObject: img];
+                        [img release];
+                    } else {
+                        NSLog(@"Unable to load status icon image (possible incorrect permissions) at %@", fullPath);
+                    }
                 }
             }
         }
     }
 
-    if (   (*ptrMainImage == nil)
-        || (*ptrConnectedImage == nil)
-        || (*ptrMainCautionImage == nil)
-        || (*ptrConnectedCautionImage == nil)
-        || ([*ptrAnimImages count] == 0)  ) {
+    BOOL missing = (   (*ptrMainImage             == nil)
+                    || (*ptrConnectedImage        == nil)
+                    || (*ptrMainCautionImage      == nil)
+                    || (*ptrConnectedCautionImage == nil)
+                    || ([*ptrAnimImages count]    == 0)  );
+
+    if (  missing  ) {
         NSLog(@"Icon set '%@' does not have required images", iconSetName);
         return FALSE;
     }
