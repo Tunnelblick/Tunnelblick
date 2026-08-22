@@ -437,6 +437,16 @@ EOF
 }
 
 ##########################################################################################
+release_ipv6() {
+
+    # Releases IPv6 addresses on TAP interface
+    if ${ARG_TAP} ; then
+        execute_command "Released IPv6 addresses" \
+                                        "Error happened trying to release IPv6 addresses" \
+                                        /usr/sbin/ipconfig set "$dev" NONE-V6
+    fi
+}
+##########################################################################################
 restore_ipv6() {
 
     # Undoes the actions performed by the disable_ipv6() routine in client.up.tunnelblick.sh by restoring
@@ -770,6 +780,8 @@ else
 	profile_or_execute remove_leasewatcher
 
 	profile_or_execute release_dhcp
+
+    profile_or_execute release_ipv6
 
 	profile_or_execute restore_disabled_network_services
 
