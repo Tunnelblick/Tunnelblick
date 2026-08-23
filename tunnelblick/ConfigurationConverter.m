@@ -1441,7 +1441,24 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
             return [self logMessage: @"Unable to parse configuration file as UTF-8 (#2)"
                           localized: NSLocalizedString(@"Unable to parse configuration file as UTF-8", @"Window text")];
         }
+        NSDictionary * existingAttributes = [gFileMgr tbFileAttributesAtPath: configPath traverseLink: NO];
         if (  [configString writeToFile: configPath atomically: YES encoding: NSUTF8StringEncoding error: NULL]  ) {
+            id owner = [existingAttributes objectForKey: NSFileOwnerAccountID];
+            id group = [existingAttributes objectForKey: NSFileGroupOwnerAccountID];
+            id perms = [existingAttributes objectForKey: NSFilePosixPermissions];
+            if (   owner
+                && group
+                && perms  ) {
+                NSDictionary * restoreAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                    owner, NSFileOwnerAccountID,
+                                                    group, NSFileGroupOwnerAccountID,
+                                                    perms, NSFilePosixPermissions,
+                                                    nil];
+                if (  ! [gFileMgr tbChangeFileAttributes: restoreAttributes atPath: configPath]  ) {
+                    return [self logMessage: @"Unable to restore permissions on configuration file after modification"
+                                  localized: NSLocalizedString(@"Unable to restore permissions on configuration file after modification", @"Window text")];
+                }
+            }
 			[self logMessage: @"Modified configuration file to remove path information"
                    localized: NSLocalizedString(@"Modified configuration file to remove path information", @"Window text")];
 		} else {
