@@ -934,34 +934,23 @@ okay:
 
 //**************************************************************************************************************************
 static NSString * newTemporaryDirectoryPathInTunnelblickHelper(void) {
-    // Code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
-    // Modified to check for malloc returning NULL, use strlcpy, use gFileMgr, and use more readable length for stringWithFileSystemRepresentation
 
-    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickTemporaryDotTblk-XXXXXX"];
-    const char * tempDirectoryTemplateCString = fileSystemRepresentation(tempDirectoryTemplate);
+    NSString * itemName = [@"Temp-" stringByAppendingString: NSUUID.UUID.UUIDString];
+    NSString * tempPath = [L_AS_T_TEMP stringByAppendingPathComponent: itemName];
 
-    size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
-    char * tempDirectoryNameCString = (char *) malloc( bufferLength );
-    if (  ! tempDirectoryNameCString  ) {
-        Log(@"Unable to allocate memory for a temporary directory name");
-        return nil;
+    becomeRootToAccessPath(tempPath, @"Create temporary directory");
+    {
+        int result = mkdir(tempPath.fileSystemRepresentation, PERMS_SECURED_FOLDER);
+        if (  result != 0  ) {
+            Log(@"Unable to create a temporary directory at '%@': error %d (%s); stack trace = %@",
+                tempPath, errno, strerror(errno), callStack());
+            stopBeingRootToAccessPath(tempPath);
+            exit(141);
+        }
     }
 
-    strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
-
-    char * dirPath = mkdtemp(tempDirectoryNameCString);
-
-    if (  ! dirPath  ) {
-        Log(@"Unable to create a temporary directory");
-        free(tempDirectoryNameCString);
-        return nil;
-    }
-
-    NSString *tempFolder = [gFileMgr stringWithFileSystemRepresentation: tempDirectoryNameCString
-                                                                 length: strlen(tempDirectoryNameCString)];
-    free(tempDirectoryNameCString);
-
-    return [tempFolder retain];
+    stopBeingRootToAccessPath(tempPath);
+    return [tempPath retain];
 }
 
 //**************************************************************************************************************************
