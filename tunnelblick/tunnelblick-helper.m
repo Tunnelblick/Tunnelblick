@@ -2071,7 +2071,10 @@ static void loadOneKext(NSString * tunOrTap, BOOL onBigSurOrNewer) {
         sleep(1);
     }
 
-    unsigned mask = getLoadedKextsMask();
+    becomeRoot(@"to run getLoadedKextsMask()");
+        unsigned mask = getLoadedKextsMask();
+    stopBeingRoot();
+
     BOOL actuallyLoaded = (  [tunOrTap isEqualToString: @"tap"]
                            ? (0 != (mask & OPENVPNSTART_OUR_TAP_KEXT))
                            : (0 != (mask & OPENVPNSTART_OUR_TUN_KEXT)));
@@ -3476,7 +3479,10 @@ static int startVPN(NSString * configFile,
 
     // Unload foo.tun/tap iff we are loading the new net.tunnelblick.tun/tap and foo.tun/tap are loaded
     unsigned unloadMask  = 0;
-    unsigned loadedKexts = getLoadedKextsMask();
+
+    becomeRoot(@"to run getLoadedKextsMask()");
+        unsigned loadedKexts = getLoadedKextsMask();
+    stopBeingRoot();
 
     if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
         if (  (loadedKexts & OPENVPNSTART_FOO_TAP_KEXT) != 0  ) {
