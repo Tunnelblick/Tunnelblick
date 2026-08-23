@@ -283,7 +283,27 @@ static OSStatus runTool(uid_t      client_euid,
     }
         [task launch];
 
-        [task waitUntilExit];
+        // Same style of deadline as startTool in sharedRoutines.m (warn, then SIGTERM).
+        // Helper commands include app updates, so allow longer than startTool's 60 seconds.
+        NSDate * startTime     = [NSDate date];
+        NSDate * warnTime      = [startTime dateByAddingTimeInterval: 30.0];
+        NSDate * terminateTime = [startTime dateByAddingTimeInterval: 300.0];
+        while (  [task isRunning]  ) {
+            usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
+            if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
+                warnTime = [warnTime dateByAddingTimeInterval: 30.0];
+                asl_log(asl, log_msg, ASL_LEVEL_NOTICE,
+                        "Warning: tunnelblick-helper has not finished after %.0f seconds",
+                        [[NSDate date] timeIntervalSinceDate: startTime]);
+            }
+            if (   terminateTime
+                && ([terminateTime compare: [NSDate date]] == NSOrderedAscending)  ) {
+                asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                        "No response after 300 seconds; attempting to terminate tunnelblick-helper");
+                [task terminate];
+                terminateTime = nil;
+            }
+        }
 
         OSStatus status = [task terminationStatus];
 

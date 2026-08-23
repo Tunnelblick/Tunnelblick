@@ -1074,7 +1074,24 @@ static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NS
     becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
 
         [task launch];
-        [task waitUntilExit];
+        // Same 60-second deadline as startTool in sharedRoutines.m
+        NSDate * startTime     = [NSDate date];
+        NSDate * warnTime      = [startTime dateByAddingTimeInterval: 10.0];
+        NSDate * terminateTime = [startTime dateByAddingTimeInterval: 60.0];
+        while (  [task isRunning]  ) {
+            usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
+            if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
+                warnTime = [warnTime dateByAddingTimeInterval: 10.0];
+                Log(@"Warning: program has not finished after %.0f seconds: %@",
+                    ([[NSDate date] timeIntervalSinceDate: startTime]), thePath);
+            }
+            if (   terminateTime
+                && ([terminateTime compare: [NSDate date]] == NSOrderedAscending)  ) {
+                Log(@"No response after 60 seconds; attempting to terminate program: %@", thePath);
+                [task terminate];
+                terminateTime = nil;
+            }
+        }
 
     stopBeingRoot();
 
