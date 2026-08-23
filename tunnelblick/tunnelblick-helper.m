@@ -3805,7 +3805,7 @@ static NSString * validateEnvironment(void) {
 	NSString * oldDir = [env objectForKey: @"TMPDIR"];
 	NSString * newDir = nil;
 	if (  [nstDir isNotEqualTo: oldDir]  )  {
-		newDir = newTemporaryDirectoryPath();
+		newDir = newTemporaryDirectoryPathInTunnelblickHelper();
 		const char * newDirC = [newDir fileSystemRepresentation];
 		setenv("TMPDIR", newDirC, 1);
 		const char * newDirAfterSetC = fileSystemRepresentationOrNULL([[[NSProcessInfo processInfo] environment] objectForKey: @"TMPDIR"]);
