@@ -451,9 +451,7 @@ static void stopBeingRoot(void) {
 }
 
 static void becomeRootToAccessPath(NSString * path, NSString * reason) {
-    if (   (   [path hasPrefix: L_AS_T_USERS]
-            && (  [path length] > [L_AS_T_USERS length]  )  )
-        || [path hasPrefix: L_AS_T_TEMP] ) {
+    if (  [path hasPrefix: L_AS_T] ) {
         becomeRoot(reason);
     } else {
         Log(@"Will not become root to access '%@'", path);
@@ -461,9 +459,7 @@ static void becomeRootToAccessPath(NSString * path, NSString * reason) {
 }
 
 static void stopBeingRootToAccessPath(NSString * path) {
-    if (   (   [path hasPrefix: L_AS_T_USERS]
-            && (  [path length] > [L_AS_T_USERS length]  )  )
-        || [path hasPrefix: L_AS_T_TEMP] ) {
+    if (  [path hasPrefix: L_AS_T] ) {
         stopBeingRoot();
     } else {
         Log(@"Will not stop being root to access '%@'", path);
