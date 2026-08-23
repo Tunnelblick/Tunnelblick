@@ -73,8 +73,14 @@ NSFileManager * gFileMgr;                       // NSFileManager.defaultManager
 
 //**************************************************************************************************************************
 
+void appendLogWithoutTrailingLF(NSString * msg) {
+
+    fprintf(stdout, "%s", msg.UTF8String);
+}
+
 void appendLog(NSString * msg) {
-    fprintf(stdout, "%s\n", msg.UTF8String);
+
+    appendLogWithoutTrailingLF([msg stringByAppendingString: @"\n"]);
 }
 
 static const char * fileSystemRepresentationOrNULL(NSString * s) {
@@ -2836,7 +2842,7 @@ static void copyUserItemToNewSecureItem(NSString * insecurePath) {
 
     NSString * result = pathOfNewSecureCopyOfUserItem(insecurePath);
 
-    Log(@"%@", result);
+    appendLogWithoutTrailingLF(result);
 }
 
 static void pruneSecureTemporaryFolder(void) {
