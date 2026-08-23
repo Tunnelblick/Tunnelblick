@@ -1074,7 +1074,24 @@ static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NS
     becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
 
         [task launch];
-        [task waitUntilExit];
+        // Same 60-second deadline as startTool in sharedRoutines.m
+        NSDate * startTime     = [NSDate date];
+        NSDate * warnTime      = [startTime dateByAddingTimeInterval: 10.0];
+        NSDate * terminateTime = [startTime dateByAddingTimeInterval: 60.0];
+        while (  [task isRunning]  ) {
+            usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
+            if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
+                warnTime = [warnTime dateByAddingTimeInterval: 10.0];
+                Log(@"Warning: program has not finished after %.0f seconds: %@",
+                    ([[NSDate date] timeIntervalSinceDate: startTime]), thePath);
+            }
+            if (   terminateTime
+                && ([terminateTime compare: [NSDate date]] == NSOrderedAscending)  ) {
+                Log(@"No response after 60 seconds; attempting to terminate program: %@", thePath);
+                [task terminate];
+                terminateTime = nil;
+            }
+        }
 
     stopBeingRoot();
 
@@ -3223,6 +3240,10 @@ static void validateConfigName(NSString * name) {
         Log(@"Configuration name is empty");
         exitOpenvpnstart(172);
     }
+    if (  [name length] > DISPLAY_NAME_LENGTH_MAX  ) {
+        Log(@"Configuration name is too long");
+        exitOpenvpnstart(175);
+    }
 
     BOOL haveBadChar = FALSE;
 	unsigned i;
@@ -3778,7 +3799,12 @@ int main(int argc, char * argv[]) {
 
 			if (  (argc > 3) && (argc <= OPENVPNSTART_MAX_ARGC)  ) {
 
-                if (  strlen(argv[3]) <= DISPLAY_NAME_LENGTH_MAX                      ) configFile = [NSString stringWithUTF8String:argv[2]];
+                if (  argv[2]  ) {
+                    NSString * parsedConfig = [NSString stringWithUTF8String: argv[2]];
+                    if (  parsedConfig  ) {
+                        configFile = parsedConfig;
+                    }
+                }
                 if (  (argc >  3) && (strlen(argv[ 3]) <  6)                          ) port = cvt_atou(argv[3], @"port");
                 if (  (argc >  4) && (strlen(argv[ 4]) <  6)                          ) useScripts = cvt_atou(argv[4], @"useScripts");
                 if (  (argc >  5) && (strlen(argv[ 5]) <  6) && (atoi(argv[5]) == 1)  ) skipScrSec = TRUE;
