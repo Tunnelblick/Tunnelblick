@@ -2447,9 +2447,6 @@ in: (NSString *) sharedOrPrivate {
                 Log(@"Error creating a secure item from '%@': %@", path, stdOutString);
                 return NO;
             }
-
-            stdOutString = [stdOutString
-                            stringByTrimmingCharactersInSet: [NSCharacterSet newlineCharacterSet]];
             Log(@"Created secure copy of\n'%@' at\n'%@'", path, stdOutString);
             sources[i] = stdOutString;
         }
