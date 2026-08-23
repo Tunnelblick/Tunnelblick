@@ -427,6 +427,17 @@ BOOL secureOurEasyRsa(void) {
     return YES;
 }
 
+static NSString * appleScriptEscapedString(NSString * s) {
+
+    // Escape for a double-quoted AppleScript string.
+    NSMutableString * escaped = [[s mutableCopy] autorelease];
+    [escaped replaceOccurrencesOfString: @"\\" withString: @"\\\\" options: 0 range: NSMakeRange(0, [escaped length])];
+    [escaped replaceOccurrencesOfString: @"\"" withString: @"\\\"" options: 0 range: NSMakeRange(0, [escaped length])];
+    [escaped replaceOccurrencesOfString: @"\r" withString: @"\\r"   options: 0 range: NSMakeRange(0, [escaped length])];
+    [escaped replaceOccurrencesOfString: @"\n" withString: @"\\n"   options: 0 range: NSMakeRange(0, [escaped length])];
+    return escaped;
+}
+
 BOOL openTerminalWithEasyRsaFolder(NSString * userPath) {
 	
     if ( ! secureOurEasyRsa()  ) {
@@ -434,11 +445,13 @@ BOOL openTerminalWithEasyRsaFolder(NSString * userPath) {
         return NO;
     }
     
-	// Run an AppleScript to open Terminal.app and cd to the easy-rsa folder
+	// Run an AppleScript to open Terminal.app and cd to the easy-rsa folder.
+	// quoted form of builds a safe POSIX shell token for cd.
 	
 	NSArray * applescriptProgram = [NSArray arrayWithObjects:
                                     
-									[NSString stringWithFormat: @"set cmd to \"cd \\\"%@\\\"\"", userPath],
+									[NSString stringWithFormat: @"set thePath to \"%@\"", appleScriptEscapedString(userPath)],
+									@"set cmd to \"cd \" & quoted form of thePath",
 									@"tell application \"System Events\" to set terminalIsRunning to exists application process \"Terminal\"",
 									@"tell application \"Terminal\"",
 									@"     activate",
