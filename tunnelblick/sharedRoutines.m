@@ -871,9 +871,14 @@ NSString * allFilesAreReasonableIn(NSString * path) {
 
     if (  ! path  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
-                             @": allFilesAreReasonableIn: path is nil", @""]; // (Empty string 2nd arg so we can use commmon error message that takes two args)
+                             @": allFilesAreReasonableIn: path is nil", @""]; // (Empty string 2nd arg so we can use common error message that takes two args)
         Log(@"%@", errMsg);
         return errMsg;
+    }
+
+    // Anything that's secure is either reasonable or it is OK that it not reasonable
+    if (  [path hasPrefix: L_AS_T]  ) {
+        return nil;
     }
 
     if (  invalidConfigurationName(path, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
