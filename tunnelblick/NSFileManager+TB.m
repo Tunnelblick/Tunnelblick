@@ -496,7 +496,8 @@ void appendLog(NSString * errMsg);
 
     char * dirPath = mkdtemp(tempDirectoryNameCString);
     if (  ! dirPath  ) {
-        appendLog(@"Unable to create a temporary directory");
+        appendLog([NSString stringWithFormat: @"Unable to create a temporary directory at '%s': error %d (%s)",
+                   tempDirectoryNameCString, errno, strerror(errno)]);
         exit(-1);
     }
 

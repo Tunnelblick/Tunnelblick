@@ -1283,7 +1283,8 @@ NSString * newTemporaryDirectoryPath(void)
 
     char * dirPath = mkdtemp(tempDirectoryNameCString);
     if (  ! dirPath  ) {
-        Log(@"Unable to create a temporary directory");
+        Log(@"Unable to create a temporary directory at '%s': error %d (%s); stack trace = %@",
+            tempDirectoryNameCString, errno, strerror(errno), callStack());
         exit(-1);
     }
 
