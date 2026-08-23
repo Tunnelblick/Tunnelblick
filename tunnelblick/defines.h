@@ -680,6 +680,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 // Set to secure all .tblk packages in
 // Configurations, Shared, and the
 // alternate configuration path
+// NOTE: NO LONGER USED BY TUNNELBLICK, BUT KEPT FOR OTHERS TO USE
 #define INSTALLER_SECURE_TBLKS               0x0010u
 
 // Set to copy /Applications/Tunnelblick.app
