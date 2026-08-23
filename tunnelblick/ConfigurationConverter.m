@@ -1441,20 +1441,29 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
             return [self logMessage: @"Unable to parse configuration file as UTF-8 (#2)"
                           localized: NSLocalizedString(@"Unable to parse configuration file as UTF-8", @"Window text")];
         }
-        FILE * outFile = fopen([configPath fileSystemRepresentation], "w");
-        if (  outFile  ) {
-            size_t numberOfItemsWritten = fwrite(bytes, strlen(bytes), 1, outFile);
-            fclose(outFile);
-			if (  numberOfItemsWritten != 1  ) {
-				return [self logMessage: @"Unable to write to configuration file for modification"
-                              localized: NSLocalizedString(@"Unable to write to configuration file for modification", @"Window text")];
-			}
-			
+        NSDictionary * existingAttributes = [gFileMgr tbFileAttributesAtPath: configPath traverseLink: NO];
+        if (  [configString writeToFile: configPath atomically: YES encoding: NSUTF8StringEncoding error: NULL]  ) {
+            id owner = [existingAttributes objectForKey: NSFileOwnerAccountID];
+            id group = [existingAttributes objectForKey: NSFileGroupOwnerAccountID];
+            id perms = [existingAttributes objectForKey: NSFilePosixPermissions];
+            if (   owner
+                && group
+                && perms  ) {
+                NSDictionary * restoreAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                    owner, NSFileOwnerAccountID,
+                                                    group, NSFileGroupOwnerAccountID,
+                                                    perms, NSFilePosixPermissions,
+                                                    nil];
+                if (  ! [gFileMgr tbChangeFileAttributes: restoreAttributes atPath: configPath]  ) {
+                    return [self logMessage: @"Unable to restore permissions on configuration file after modification"
+                                  localized: NSLocalizedString(@"Unable to restore permissions on configuration file after modification", @"Window text")];
+                }
+            }
 			[self logMessage: @"Modified configuration file to remove path information"
                    localized: NSLocalizedString(@"Modified configuration file to remove path information", @"Window text")];
 		} else {
-            return [self logMessage: @"Unable to open configuration file for modification"
-                          localized: NSLocalizedString(@"Unable to open configuration file for modification", @"Window text")];
+            return [self logMessage: @"Unable to write to configuration file for modification"
+                          localized: NSLocalizedString(@"Unable to write to configuration file for modification", @"Window text")];
 		}
 	} else {
 		[self logMessage: @"Did not need to modify configuration file; no path information to remove"
