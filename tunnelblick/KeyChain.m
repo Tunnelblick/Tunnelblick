@@ -37,8 +37,12 @@
 -(void) logStatus: (OSStatus) status message: (NSString *) message {
 	
 	CFStringRef cfS = SecCopyErrorMessageString(status, NULL);
-	NSString * statusString = [[(__bridge NSString *)cfS copy] autorelease];
-	CFRelease(cfS);
+	NSString * statusString = (  cfS
+							   ? [[(__bridge NSString *)cfS copy] autorelease]
+							   : @"(no error string)");
+	if (  cfS  ) {
+		CFRelease(cfS);
+	}
 	
 	appendLog([NSString stringWithFormat: @"%@: service = '%@'; account = '%@'; status was %d: '%@'",
 			   message, serviceName, accountName, status, statusString]);
