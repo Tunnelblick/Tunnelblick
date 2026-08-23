@@ -4287,34 +4287,54 @@ err:
 		}
 	}
 
-	// Get admin approval because it isn't a "safe" update
+    //
+    // Make a secure copy of the configuration
+    //
+    NSString * cfgPath = [[gMC myConfigDictionary] objectForKey: displayName];
+    if (  ! cfgPath  ) {
+        NSLog(@"createShadowCopyWithDisplayName: No configuration path for '%@'", displayName);
+        return NO;
+    }
+    NSString * errorMessage = allFilesAreReasonableIn(cfgPath);
+    if (  errorMessage  ) {
+        Log(@"Error for allFilesAreReasonableIn('%@'): %@", cfgPath, errorMessage);
+        return NO;
+    }
+    NSString * stdOutString = nil;
+    OSStatus result = runOpenvpnstart(@[@"copyUserItemToNewSecureItem", cfgPath], &stdOutString, nil);
+    if (  result != EXIT_SUCCESS  ) {
+        NSLog(@"createShadowCopyWithDisplayName: Could not create a secure copy of '%@'; error was %@", cfgPath, stdOutString);
+        return NO;
+    }
+    NSString * secureCopyPath = stdOutString;
 
+    //
+	// Get admin approval because it isn't a "safe" update
+    //
     NSString * prompt = NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text");
     SystemAuth * auth = [[SystemAuth newAuthWithPrompt: prompt] autorelease];
     if (   ! auth  ) {
         return NO;
     }
-    
-    NSString * cfgPath = [[gMC myConfigDictionary] objectForKey: displayName];
-    if (  cfgPath  ) {
-        NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
-                                 stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
-        
-        if ( [ConfigurationManager copyConfigPath: cfgPath
-                                           toPath: altCfgPath
-                                  usingSystemAuth: auth
-                                       warnDialog: YES
-                                      moveNotCopy: NO
-                                          noAdmin: NO] ) {    // Copy the config to the alt config
-            NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
-			return YES;
-        } else {
-            NSLog(@"Unable to create or update secure (shadow) copy of configuration file %@", cfgPath);
-        }
-    } else {
-        NSLog(@"createShadowCopyWithDisplayName: No configuration path for '%@'", displayName);
+
+    //
+    // Copy the secure copy of the configuration over the shadow copy, overwriting an existing copy
+    //
+    NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
+                             stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
+
+    if ( [ConfigurationManager copyConfigPath: secureCopyPath
+                                       toPath: altCfgPath
+                              usingSystemAuth: auth
+                                   warnDialog: YES
+                                  moveNotCopy: YES
+                                      noAdmin: NO] ) {    // Copy the config to the alt config
+        NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
+        return YES;
     }
-    
+
+    NSLog(@"Unable to create or update secure (shadow) copy of configuration file %@", cfgPath);
+
 	return NO;
 }
 
