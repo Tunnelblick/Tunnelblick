@@ -7969,7 +7969,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) tbUpdateClearErrorInAppUpdate: (nonnull NSNumber *) inAppUpdate {
 
-    NSString * preferenceKey = (  inAppUpdate
+    NSString * preferenceKey = (  inAppUpdate.boolValue
                                 ? @"-skipWarningAboutAppUpdateError"
                                 : @"-skipWarningAboutVpnUpdateError");
     [self removeWarningNoteWithPreferenceKey: preferenceKey];
