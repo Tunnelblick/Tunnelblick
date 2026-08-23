@@ -2917,7 +2917,8 @@ static void exitIfUnapprovedScripts(NSString * configurationPath) {
         exitOpenvpnstart(OPENVPNSTART_NEED_USER_ROOT_SCRIPT_AUTH);
 
     } else {
-        exitOpenvpnstart(OPENVPNSTART_NEED_USER_ROOT_SCRIPT_ERROR);
+        Log(@"Assuming scripts are OK because legacy configuration does not have script information in the first line at '%@'", configurationPath);
+        return;
     }
 }
 
