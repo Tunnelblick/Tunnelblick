@@ -1464,7 +1464,7 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
         }
 
         if (   myPassphrase
-            && [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasPrivateKey"]]  ) {
+            && [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"-keychainHasPrivateKey"]]  ) {
             KeyChain * passphraseKeychain = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"privateKey" ];
             [passphraseKeychain deletePassword];
             if (  [passphraseKeychain setPassword: myPassphrase] != 0  ) {
@@ -1474,8 +1474,8 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
         }
 
         if (   myUsername
-            && (   [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasUsername"]]
-                || [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasUsernameAndPassword"]]
+            && (   [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"-keychainHasUsername"]]
+                || [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"-keychainHasUsernameAndPassword"]]
                 )  ) {
             KeyChain * usernameKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"username"   ];
             [usernameKeychain deletePassword];
@@ -1486,7 +1486,7 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
         }
 
         if (   myPassword
-           && [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasUsernameAndPassword"]]  ) {
+           && [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"-keychainHasUsernameAndPassword"]]  ) {
             KeyChain * passwordKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"password"   ];
             [passwordKeychain deletePassword];
             if (  [passwordKeychain setPassword: myPassword] != 0  ) {
