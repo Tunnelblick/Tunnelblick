@@ -582,6 +582,162 @@ static void removeShutdownFlagFile(aslclient  asl,
 	}
 }
 
+static BOOL storeMip(NSString *  cfgName,
+                     NSString *  password,
+                     NSString ** stdoutStringPtr,
+                     aslclient   asl,
+                     aslmsg      log_msg) {
+
+    // Appends to *stdoutStringPtr with error messages, if any
+
+    //
+    // Encode the cfgName (which may have path separators in it) to a file name, by changing "/" to "-S"
+    //
+    // (Note there is a small chance of a collision: "abc/def" would encode the same as "abc-Sdef".
+    //  For backward compatibility with existing "connect on system start" configurations,
+    //  we don't encode "-" and "--" first.)
+    //
+
+    //
+    // Get the .mip path and the password as C strings
+    //
+
+    NSString * name = [[cfgName
+                        stringByAppendingPathExtension: @"mip"]
+                       stringByReplacingOccurrencesOfString: @"/" withString: @"-S"];
+    NSString * path = [L_AS_T_MIPS stringByAppendingPathComponent: name];
+    const char * pathC = [path fileSystemRepresentation];
+
+    const char * passwordC = [password cStringUsingEncoding: NSASCIIStringEncoding];
+
+    //
+    // Open the .mip file, write out the password, set its final permissions, close the file, and log the results
+    //
+
+    mode_t oldUmask = umask(0077);
+
+    FILE * file = fopen(pathC, "w");
+    if (  file == NULL  ) {
+        umask(oldUmask);
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Unable to open '%s' for writing", pathC);
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingFormat: @"Unable to open '%s' for writing", pathC];
+        return NO;
+    }
+
+    umask(oldUmask);
+
+    size_t len = strlen(passwordC);
+    size_t wrote = fwrite(passwordC, 1, len, file);
+    if (  wrote != len  ) {
+        fclose(file);
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Unable to write to '%s'", pathC);
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingFormat: @"Unable to write to '%s'", pathC];
+        return NO;
+    }
+
+    if (  fchmod(fileno(file), PERMS_SECURED_ROOT_RO) != 0  ) {
+        fclose(file);
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Unable to chmod '%s' to %o", pathC, PERMS_SECURED_OTHER);
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingFormat: @"Unable to chmod '%s' to 0%3o", pathC, PERMS_SECURED_OTHER];
+        return NO;
+    }
+
+    if (  fclose(file) != 0  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Unable to close '%s'", pathC);
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingFormat: @"Unable to close '%s'", pathC];
+        return NO;
+    }
+
+    asl_log(asl, log_msg, ASL_LEVEL_INFO, "Wrote %lu bytes to '%s'", wrote, pathC);
+
+    return YES;
+}
+
+static NSString * preprocessStartCommandWithPassword(NSString * rawCommand,
+                                                     NSArray  * arguments,
+                                                     NSString ** stdoutStringPtr,
+                                                     aslclient  asl,
+                                                     aslmsg     log_msg) {
+
+    // Appends to *stdoutStringPtr with error messages, if any
+
+    //
+    // Validate and get arguments
+    //
+    if (  arguments.count != OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX + 1  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Wrong number of arguments");
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingString: @"Wrong number of arguments\n"];
+        return nil;
+    }
+
+    NSString * cfgName  = arguments[1];
+    NSString * password = arguments[OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX];
+
+    if (   (password.length == 0)
+        || (cfgName.length  == 0)  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Empty argument(s)");
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingString: @"Empty argument(s)\n"];
+        return nil;
+    }
+
+    //
+    // Store the password in the .mip
+    //
+
+    if (  ! storeMip(cfgName, password, stdoutStringPtr, asl, log_msg)  ) {
+        // Don't process the "start" command because the password won't match the password in the .mip
+        return nil;
+    }
+
+    //
+    // Remove the password, not passing it to tunnelblick-helper.
+    // It will be logged as "<management-password>"
+    //
+
+    NSRange r = [rawCommand rangeOfString: @"\t" options: NSBackwardsSearch];
+    if (  r.location == NSNotFound  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Bad raw command string");
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingString: @"Bad raw command string\n"];
+        return nil;
+    }
+
+    NSString * commandWithoutPassword = [rawCommand
+                                         substringToIndex: r.location];
+
+    return commandWithoutPassword;
+}
+
+static NSString * preprocessCommandsInRawCommand(NSString * rawCommand,
+                                                 NSString ** stdoutStringPtr,
+                                                 aslclient  asl,
+                                                 aslmsg     log_msg) {
+
+    // Appends to *stdoutStringPtr with error messages, if any
+
+    //
+    // We do preprocessing:
+    //
+    //      If the password argument to the "start" command is given, the password is removed (not logged
+    //      or sent to tunnelblick-helper) and a .mip file containing the password is created or overwritten.
+    //
+    // A string with the command to be executed is returned, or nil if there is no command to do.
+
+    // If "start" command with a management password option, then no preprocessing is done.
+
+    NSArray  * arguments = [rawCommand componentsSeparatedByString: @"\t"];
+
+    BOOL isStartCommand =  [arguments.firstObject isEqualToString: @"start"];
+    BOOL isStartCommandWithManagementPassword = (   isStartCommand
+                                                 && (arguments.count == OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX + 1)
+                                                 );
+
+    if ( isStartCommandWithManagementPassword  ) {
+        return preprocessStartCommandWithPassword(rawCommand, arguments, stdoutStringPtr, asl, log_msg);
+    }
+
+    return rawCommand;
+}
+
 int main(void) {
 
 	NSAutoreleasePool * pool = [NSAutoreleasePool new];
@@ -844,60 +1000,112 @@ int main(void) {
 		
 		
 //		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Received %lu bytes from client including a terminating NL: '%s'", (unsigned long)nbytes, buffer);
-		
-		//***************************************************************************************
-		//***************************************************************************************
-		// Process the request by calling tunnelblick-helper and sending its status and output to the client
-		
-        // Get the client's username from the client's euid
-        struct passwd *pw = getpwuid(client_euid);
-		if (  pw == NULL  ) {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR, "getpwuid(%lu) failed; our uid = %lu; our euid = %lu; our gid = %lu; our egid = %lu; error = %m",
-					(unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-			close(filedesc); // this isn't fatal
-			continue;
-		}
-        NSString * userName = [NSString stringWithCString: pw->pw_name encoding: NSUTF8StringEncoding];
-		if (  userName == nil  ) {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret username as UTF-8");
-			close(filedesc); // this isn't fatal
-			continue;
-		}
-        NSString * userHome = [NSString stringWithCString: pw->pw_dir  encoding: NSUTF8StringEncoding];
-		if (  userHome == nil  ) {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret userhome as UTF-8");
-			close(filedesc); // this isn't fatal
-			continue;
-		}
-		
-		// Set up to have tunnelblick-helper to do the work
-		NSString * tunnelblickHelperPath;
-		NSString * bundlePath = [[NSBundle mainBundle] bundlePath];
-		if (  [[bundlePath lastPathComponent] isEqualToString: @"Resources"]  ) {
-			tunnelblickHelperPath = [bundlePath stringByAppendingPathComponent: @"tunnelblick-helper"];
-		} else if (  [[bundlePath pathExtension] isEqualToString: @"app"]  ) {
-			tunnelblickHelperPath = [[[bundlePath stringByAppendingPathComponent: @"Contents"]
-									  stringByAppendingPathComponent: @"Resources"]
-									 stringByAppendingPathComponent: @"tunnelblick-helper"];
-		} else {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Invalid bundlePath = '%s'", [bundlePath UTF8String]);
-			goto done;
-		}
-		NSString * command      = [NSString stringWithUTF8String: buffer + strlen(command_header)];		// Skip over the header
-		NSArray  * arguments    = [command componentsSeparatedByString: @"\t"];
-		NSString * stdoutString = nil;
-		NSString * stderrString = nil;
-		
-		NSMutableString * commandToDisplay = [NSMutableString stringWithString: command];
-		[commandToDisplay replaceOccurrencesOfString: @"\t" withString: @" " options: 0 range: NSMakeRange(0, [commandToDisplay length])];
 
-        OSStatus status = runTool(client_euid, client_egid, userName, userHome, tunnelblickHelperPath, arguments, &stdoutString, &stderrString, asl, log_msg);
+        //
+        // Preprocess the raw command if it's a "start" command with a management password
+        // and set "command" to a command for tunnelblick-helper, or nil to skip further processing.
+        //
+        // If stdoutString isn't empty after the preprocessing, it is an error message that will be passed on
+        // to the program that invoked tunnelblickd. (The error message has already been logged by tunnelblickd.)
 
-        if (  status != 0  ) {
-            // Log the status from executing the command
-            asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Status = %ld from tunnelblick-helper command '%s'", (long) status, [commandToDisplay UTF8String]);
+        NSString * stdoutString = @"";
+        NSString * stderrString = @"";
+        OSStatus status = 0;
+
+        NSString * rawCommand = [NSString stringWithUTF8String: buffer + strlen(command_header)];        // Skip over the header
+        if (  rawCommand.length == 0) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Nothing to do!");
+            close(filedesc);  // This isn't fatal
         }
-		
+
+        //
+        // Remember if this is a "start" command that includes the password
+        //
+
+        NSArray * rawArguments = [rawCommand componentsSeparatedByString: @"\t"];
+        BOOL isStartCommand =  [rawArguments.firstObject isEqualToString: @"start"];
+        BOOL isStartCommandWithManagementPassword = (   isStartCommand
+                                                     && (rawArguments.count == OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX + 1)
+                                                     );
+
+        //
+        // Preprocess the command. If this was a "start" command with a password, log the password as "<management-password>".
+        //
+
+        NSString * command = preprocessCommandsInRawCommand(rawCommand, &stdoutString, asl, log_msg);
+
+        if (  ! command  ) {
+            if (  stdoutString.length != 0  ) {
+                NSUInteger len = 15;
+                if (  len > rawCommand.length  ) {
+                    len = rawCommand.length;
+                }
+                NSString * beginningOfRawCommand = [rawCommand substringToIndex: len];
+                stdoutString = [stdoutString
+                                stringByAppendingFormat: @"Error in command beginning with '%@'\n",
+                                beginningOfRawCommand];
+                asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Error in command beginning with '%s'",
+                        beginningOfRawCommand.UTF8String);
+                status = -1;
+            }
+
+        } else {
+
+            NSArray * arguments = [command componentsSeparatedByString: @"\t"];
+
+            NSMutableString * commandToDisplay = [NSMutableString stringWithString: command];
+            [commandToDisplay replaceOccurrencesOfString: @"\t" withString: @" " options: 0 range: NSMakeRange(0, [commandToDisplay length])];
+            if (isStartCommandWithManagementPassword  ) {
+                [commandToDisplay appendString: @"\t<management-password>"];
+            }
+
+            //
+            // Process the remaining command by calling tunnelblick-helper and sending its status and output to the client
+            //
+
+            // Get the client's username from the client's euid
+            struct passwd *pw = getpwuid(client_euid);
+            if (  pw == NULL  ) {
+                asl_log(asl, log_msg, ASL_LEVEL_ERR, "getpwuid(%lu) failed; our uid = %lu; our euid = %lu; our gid = %lu; our egid = %lu; error = %m",
+                        (unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+                close(filedesc); // this isn't fatal
+                continue;
+            }
+            NSString * userName = [NSString stringWithCString: pw->pw_name encoding: NSUTF8StringEncoding];
+            if (  userName == nil  ) {
+                asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret username as UTF-8");
+                close(filedesc); // this isn't fatal
+                continue;
+            }
+            NSString * userHome = [NSString stringWithCString: pw->pw_dir  encoding: NSUTF8StringEncoding];
+            if (  userHome == nil  ) {
+                asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret userhome as UTF-8");
+                close(filedesc); // this isn't fatal
+                continue;
+            }
+
+            // Set up to have tunnelblick-helper to do the work
+            NSString * tunnelblickHelperPath;
+            NSString * bundlePath = [[NSBundle mainBundle] bundlePath];
+            if (  [[bundlePath lastPathComponent] isEqualToString: @"Resources"]  ) {
+                tunnelblickHelperPath = [bundlePath stringByAppendingPathComponent: @"tunnelblick-helper"];
+            } else if (  [[bundlePath pathExtension] isEqualToString: @"app"]  ) {
+                tunnelblickHelperPath = [[[bundlePath stringByAppendingPathComponent: @"Contents"]
+                                          stringByAppendingPathComponent: @"Resources"]
+                                         stringByAppendingPathComponent: @"tunnelblick-helper"];
+            } else {
+                asl_log(asl, log_msg, ASL_LEVEL_ERR, "Invalid bundlePath = '%s'", [bundlePath UTF8String]);
+                goto done;
+            }
+
+            status = runTool(client_euid, client_egid, userName, userHome, tunnelblickHelperPath, arguments, &stdoutString, &stderrString, asl, log_msg);
+
+            if (  status != 0  ) {
+                // Log the status from executing the command
+                asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Status = %ld from tunnelblick-helper command '%s'", (long) status, [commandToDisplay UTF8String]);
+            }
+        }
+
 		// Send the status, stdout, and stderr to the client as a UTF-8-encoded string which is terminated by a \0.
 		//
 		// The header of the string consists of the signed status, the unsigned length of the stdout string,

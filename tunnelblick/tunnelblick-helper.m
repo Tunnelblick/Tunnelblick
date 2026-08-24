@@ -95,7 +95,7 @@ static const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 static void exitOpenvpnstart(OSStatus returnValue) {
 
-	// returnValue: have used 141-242, plus the values in define.h (243-254)
+    // returnValue: have used 141-242, plus the values in define.h (243-254)
 
 	if (  gTemporaryDirectory  ) {
 		[gFileMgr tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
@@ -218,9 +218,10 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart updateTunnelblick  updateSignature  username  versionAndBuildString  tunnelblickPidString\n\n"
             "               to update Tunnelblick from /Users/username/Library/Application Support/Tunnelblick/tunnelblick-update.zip.\n\n"
 
-            "./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode  [noMonitor  [bitMask  [leasewatchOptions [openvpnVersion] ]]  ]  ]  ]  ]\n\n"
+            "./openvpnstart start  configName mgtPort [useScripts [skipScrSec [cfgLocCode [noMonitor [bitMask [leasewatchOptions [openvpnVersion [password] ] ] ] ] ] ] ]\n\n"
             "               to load the net.tunnelblick.tun and/or net.tunnelblick.tap kexts and start OpenVPN with the specified configuration file and options.\n"
-            "               foo.tun kext will be unloaded before loading net.tunnelblick.tun, and foo.tap will be unloaded before loading net.tunnelblick.tap.\n\n"
+            "               foo.tun kext will be unloaded before loading net.tunnelblick.tun, and foo.tap will be unloaded before loading net.tunnelblick.tap.\n"
+            "               If the optional password is not present, an existing root-only .mip file is reused.\n\n"
 
             "Where:\n\n"
 
@@ -1049,7 +1050,7 @@ static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NS
         }
         [task setStandardError: errFileHandle];
 
-        if (  managementPassword  ) {
+        if (  managementPassword.length != 0  ) {
 
             // Create a file with the contents of the management interface password followed by a linefeed
             // The file must be owned by root and have 0700 permissions so only root can read it.

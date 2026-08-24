@@ -642,15 +642,18 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 
 #define OPENVPNSTART_LOGNAME_ARG_COUNT 5
 
-// Indices of the actual arguments to openvpnstart
-#define OPENVPNSTART_ARG_START_KEYWORD_IX 0
-#define OPENVPNSTART_ARG_CONFIG_FILE_IX   1
-#define OPENVPNSTART_ARG_PORT_IX          2
-#define OPENVPNSTART_ARG_USE_SCRIPTS_IX   3
-#define OPENVPNSTART_ARG_SkIP_SCR_SEC_IX  4
-#define OPENVPNSTART_ARG_CFG_LOC_CODE_IX  5
-#define OPENVPNSTART_ARG_NO_MONITOR_IX    6
-#define OPENVPNSTART_ARG_BITMASK_IX       7
+// Indices of the  arguments to openvpnstart's "start" command, NOT including the initial path to openvpnstart, which is in argv
+#define OPENVPNSTART_ARG_START_KEYWORD_IX       0
+#define OPENVPNSTART_ARG_CONFIG_FILE_IX         1
+#define OPENVPNSTART_ARG_PORT_IX                2
+#define OPENVPNSTART_ARG_USE_SCRIPTS_IX         3
+#define OPENVPNSTART_ARG_SkIP_SCR_SEC_IX        4
+#define OPENVPNSTART_ARG_CFG_LOC_CODE_IX        5
+#define OPENVPNSTART_ARG_NO_MONITOR_IX          6
+#define OPENVPNSTART_ARG_BITMASK_IX             7
+#define OPENVPNSTART_ARG_LEASEWATCH_IX          8
+#define OPENVPNSTART_ARG_OPENVPN_VERSION_IX     9
+#define OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX 10
 
 
 //*************************************************************************************************
