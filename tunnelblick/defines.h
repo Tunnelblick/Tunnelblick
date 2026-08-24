@@ -1100,7 +1100,6 @@ name = newValue;                                    \
 @"NSWindow Frame SUStatusFrame",	\
 @"NSWindow Frame SUUpdateAlert",	\
 @"NSWindow Frame ListingWindow",	\
-@"NSWindow Frame SettingsSheetWindow", \
 @"NSWindow Frame NSFindPanel",      \
 @"detailsWindowFrameVersion",	\
 @"detailsWindowFrame",	\
