@@ -96,7 +96,7 @@ static const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 static void exitOpenvpnstart(OSStatus returnValue) {
 
-	// returnValue: have used 157-245, plus the values in define.h (247-254)
+	// returnValue: have used 156-245, plus the values in define.h (247-254)
 
 	if (  gTemporaryDirectory  ) {
 		[gFileMgr tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
@@ -468,6 +468,17 @@ static BOOL folderExistsForRootAtPath(NSString * path) {
         exitOpenvpnstart(190);
     }
     return exists;
+}
+
+static NSString * stringFromUTF8CString(const char * arg) {
+
+    NSString * s = [NSString stringWithUTF8String: arg];
+    if (  ! s  ) {
+        Log(@"Argument is not a UTF-8 string: '%s'", arg);
+        exitOpenvpnstart(156);
+    }
+
+    return s;
 }
 
 static const char * fileSystemRepresentation(NSString * path) {
@@ -3786,7 +3797,7 @@ int main(int argc, char * argv[]) {
 
 		} else if( strcmp(command, "start") == 0 ) {
 
-            NSString * configFile = @"X";
+            NSString * configFile = nil;
             unsigned   port = 0;
             unsigned   useScripts = 0;
             BOOL       skipScrSec = FALSE;
@@ -3799,21 +3810,16 @@ int main(int argc, char * argv[]) {
 
 			if (  (argc > 3) && (argc <= OPENVPNSTART_MAX_ARGC)  ) {
 
-                if (  argv[2]  ) {
-                    NSString * parsedConfig = [NSString stringWithUTF8String: argv[2]];
-                    if (  parsedConfig  ) {
-                        configFile = parsedConfig;
-                    }
-                }
-                if (  (argc >  3) && (strlen(argv[ 3]) <  6)                          ) port = cvt_atou(argv[3], @"port");
+                configFile = stringFromUTF8CString(argv[2]);
+                if (                 (strlen(argv[ 3]) <  6)                          ) port = cvt_atou(argv[3], @"port");
                 if (  (argc >  4) && (strlen(argv[ 4]) <  6)                          ) useScripts = cvt_atou(argv[4], @"useScripts");
                 if (  (argc >  5) && (strlen(argv[ 5]) <  6) && (atoi(argv[5]) == 1)  ) skipScrSec = TRUE;
                 if (  (argc >  6) && (strlen(argv[ 6]) <  6)                          ) cfgLocCode = cvt_atou(argv[6], @"cfgLocCode");
                 if (  (argc >  7) && (strlen(argv[ 7]) <  6) && (atoi(argv[7]) == 1)  ) noMonitor  = TRUE;
                 if (  (argc >  8) && (strlen(argv[ 8]) < 10)                          ) bitMask = cvt_atou(argv[8], @"bitMask");
-                if (  (argc >  9) && (strlen(argv[ 9]) < 16)                          ) leasewatchOptions = [NSString stringWithUTF8String: argv[9]];
-                if (  (argc > 10) && (strlen(argv[10]) < 128)                         ) openvpnVersion    = [NSString stringWithUTF8String: argv[10]];
-                if (  (argc > 11) && (strlen(argv[11]) < 128)                         ) managementPassword = [NSString stringWithUTF8String: argv[11]];
+                if (  (argc >  9) && (strlen(argv[ 9]) < 16)                          ) leasewatchOptions  = stringFromUTF8CString(argv[9]);
+                if (  (argc > 10) && (strlen(argv[10]) < 128)                         ) openvpnVersion     = stringFromUTF8CString(argv[10]);
+                if (  (argc > 11) && (strlen(argv[11]) < 128)                         ) managementPassword = stringFromUTF8CString(argv[11]);
 
                 validateConfigName(configFile);
                 validatePort(port);
