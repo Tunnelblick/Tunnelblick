@@ -556,12 +556,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		}
 		
 		NSMutableString * contents = [[[NSMutableString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-		if (  contents == nil  ) {
-			[self logMessage: [NSString stringWithFormat: @"Unable to load contents of %@ as UTF-8", source]
-                   localized: [NSString stringWithFormat: NSLocalizedString(@"Unable to load contents of %@ as UTF-8", @"Window text"), source]];
-            return nil;
-        } else {
-		
+		if (  contents  ) {
             if (  [self removeOrReplaceCRs: contents]  ) {
                 if (  [contents writeToFile: target atomically: YES encoding: NSUTF8StringEncoding error: NULL]  ) {
                     [self logMessage: [NSString stringWithFormat: @"Copied %@, removing CR characters", [target lastPathComponent]]
@@ -582,15 +577,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                 }
             }
         }
+		[self logMessage: [NSString stringWithFormat: @"Unable to load contents of %@ as UTF-8", source]
+               localized: [NSString stringWithFormat: NSLocalizedString(@"Unable to load contents of %@ as UTF-8", @"Window text"), source]];
+	}
+	if (  [gFileMgr tbCopyPath: source toPath: target handler: nil]  ) {
+		[self logMessage: [NSString stringWithFormat: @"Copied %@", [target lastPathComponent]]
+			   localized: [NSString stringWithFormat: NSLocalizedString(@"Copied %@", @"Window text"), [target lastPathComponent]]];
+		return nil;
 	} else {
-		if (  [gFileMgr tbCopyPath: source toPath: target handler: nil]  ) {
-			[self logMessage: [NSString stringWithFormat: @"Copied %@", [target lastPathComponent]]
-				   localized: [NSString stringWithFormat: NSLocalizedString(@"Copied %@", @"Window text"), [target lastPathComponent]]];
-			return nil;
-		} else {
-			return [self logMessage: [NSString stringWithFormat: @"Failed to copy %@ to %@", source, target]
-						  localized: [NSString stringWithFormat: NSLocalizedString(@"Failed to copy %@ to %@", @"Window text"), source, target]];
-		}
+		return [self logMessage: [NSString stringWithFormat: @"Failed to copy %@ to %@", source, target]
+					  localized: [NSString stringWithFormat: NSLocalizedString(@"Failed to copy %@ to %@", @"Window text"), source, target]];
 	}
 	
 	return nil;
