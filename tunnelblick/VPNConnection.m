@@ -3376,6 +3376,9 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     BOOL disconnectionComplete = FALSE;
     if (  pid > 0  ) {
         disconnectionComplete = [NSApp waitUntilNoProcessWithID: pid];
+    } else {
+        // No OpenVPN process (not started, or waiting for network). Nothing to wait for.
+        return YES;
     }
 
     if (  disconnectionComplete  ) {
@@ -3388,7 +3391,16 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
 
+    NSDate * terminateTime = [NSDate dateWithTimeIntervalSinceNow: 60.0];
+
     while (  ! disconnectionComplete  ) {
+        if (  [self isDisconnected]  ) {
+            return YES;
+        }
+        if (  [terminateTime compare: [NSDate date]] == NSOrderedAscending  ) {
+            NSLog(@"waitUntilDisconnected: timeout waiting for '%@' (pid = %ld)", [self displayName], (long) pid);
+            return NO;
+        }
         disconnectionComplete = FALSE;
         if (  pid > 0  ) {
             disconnectionComplete = [NSApp waitUntilNoProcessWithID: pid];
