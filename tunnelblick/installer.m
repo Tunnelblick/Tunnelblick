@@ -3230,7 +3230,7 @@ static void mergeForcedPreferences(NSString * sourcePath) {
 		
 		if (  modifiedExistingPreferences  ) {
 			if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-				errorExitIfAnySymlinkOrDotDotInPath(targetPath);
+                errorExitIfAnySymlinkOrDotDotInPath(targetPath);
 				makeUnlockedAtPath(targetPath);
 			} else {
                 errorExitIfAnySymlinkOrDotDotInPath([targetPath stringByDeletingLastPathComponent]);
