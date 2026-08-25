@@ -4503,7 +4503,7 @@ static void signal_handler(int signalNumber)
             NSLog(@"Waiting for Tunnelblick installer to terminate");
             sleep(1);
         }
-        if (  timeoutCount > 60  ) {
+        if (  timeoutCount > 30  ) {
             NSLog(@"Timed out waiting for Tunnelblick installer to terminate");
         } else if (  timeoutCount != 0  ) {
             NSLog(@"Done waiting for Tunnelblick installer to terminate");
