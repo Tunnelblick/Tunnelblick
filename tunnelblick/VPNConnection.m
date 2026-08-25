@@ -3593,14 +3593,19 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) waitUntilCompletelyDisconnected {
 
-    // Cannot be called on the main thread because it will never return
-    if (  [NSThread isMainThread]  ) {
-        NSLog(@"waitUntilCompletelyDisconnected: on main thread");
-        [gMC terminateBecause: terminatingBecauseOfError];
-    }
+    // 60s cap; on the main thread run the loop so socket callbacks can finish
+    NSDate * terminateTime = [NSDate dateWithTimeIntervalSinceNow: 60.0];
 
     while (  ! completelyDisconnected  ) {
-        usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
+        if (  [terminateTime compare: [NSDate date]] == NSOrderedAscending  ) {
+            NSLog(@"waitUntilCompletelyDisconnected: timeout waiting for '%@'", [self displayName]);
+            return;
+        }
+        if (  [NSThread isMainThread]  ) {
+            [[NSRunLoop currentRunLoop] runUntilDate: [NSDate dateWithTimeIntervalSinceNow: 0.1]];
+        } else {
+            usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
+        }
     }
 }
 
