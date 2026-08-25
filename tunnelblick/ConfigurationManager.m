@@ -2344,7 +2344,7 @@ in: (NSString *) sharedOrPrivate {
         if (  connection  ) {
             if (  ! [[connection state] isEqualToString: @"EXITING"]  ) {
                 NSLog(@"Starting disconnection of '%@'", [connection displayName]);
-                [connection performSelectorOnMainThread: @selector(startDisconnectingUserKnows:) withObject: @YES waitUntilDone: NO];
+                [connection performSelectorOnMainThread: @selector(startDisconnectingUserKnows:) withObject: @YES waitUntilDone: YES];
             }
         } else {
             NSLog(@"No entry for '%@' in myVPNConnectionDictionary = '%@'", [connection displayName], dict);
