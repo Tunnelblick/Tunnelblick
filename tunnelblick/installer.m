@@ -2722,12 +2722,24 @@ static void mergeForcedPreferences(NSString * sourcePath) {
 		}
 		
 		if (  modifiedExistingPreferences  ) {
-            securelyDeleteItemIfItExists(targetPath);
+			if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+				errorExitIfAnySymlinkInPath(targetPath);
+				makeUnlockedAtPath(targetPath);
+			} else {
+				errorExitIfAnySymlinkInPath([targetPath stringByDeletingLastPathComponent]);
+			}
 			if (  ! [existingPreferences writeToFile: targetPath atomically: YES]  ) {
-				Log(@"Error: could not write %@  ", sourcePath);
+				Log(@"Error: could not write %@", targetPath);
 				errorExit();
 			}
-			
+			if (  ! checkSetOwnership(targetPath, NO, 0, 0)  ) {
+				Log(@"Unable to set ownership to root:wheel on %@", targetPath);
+				errorExit();
+			}
+			if (  ! checkSetPermissions(targetPath, PERMS_SECURED_READABLE, YES)  ) {
+				Log(@"Unable to set permissions of %ld on %@", (long)PERMS_SECURED_READABLE, targetPath);
+				errorExit();
+			}
 		} else {
 			Log(@"Do not need to create or modify             %@  ", targetPath);
 		}
