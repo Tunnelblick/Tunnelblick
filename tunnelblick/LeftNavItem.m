@@ -39,7 +39,7 @@ static LeftNavItem * rootItem = nil;
 	
     [displayName             release]; displayName             = nil;
     [nameToShowInOutlineView release]; nameToShowInOutlineView = nil;
-    [parent                  release]; parent                  = nil;
+    parent                                                         = nil;
     [children                release]; children                = nil;
 	
     [super dealloc];
@@ -58,7 +58,14 @@ static LeftNavItem * rootItem = nil;
 
 TBSYNTHESIZE_OBJECT(retain, NSString *,       displayName,             setDisplayName             )
 TBSYNTHESIZE_OBJECT(retain, NSString *,       nameToShowInOutlineView, setNameToShowInOutlineView )
-TBSYNTHESIZE_OBJECT(retain, LeftNavItem *,    parent,                  setParent                  )
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, children,                setChildren                )
+
+-(LeftNavItem *) parent {
+    return parent;
+}
+
+-(void) setParent: (LeftNavItem *) newValue {
+    parent = newValue;
+}
 
 @end

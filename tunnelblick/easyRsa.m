@@ -51,7 +51,7 @@ BOOL usingOurEasyRsa(void) {
 	}
 	
 	NSString * pathToUse = easyRsaPathToUse(NO);
-	if (  [pathToUse isEqualToString: pathFromPrefs]  ) {
+	if (  [pathToUse isEqualToString: [pathFromPrefs stringByExpandingTildeInPath]]  ) {
 		return NO;
 	}
 	

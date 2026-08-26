@@ -348,7 +348,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 @"hand-window", @"hash-size", @"help", @"http-proxy-option", @"http-proxy-override", \
 @"http-proxy-retry", @"http-proxy-timeout", @"http-proxy-user-pass", @"http-proxy", \
 @"ifconfig-ipv6-pool", @"ifconfig-ipv6-push", @"ifconfig-ipv6", @"ifconfig-noexec", \
-@"ifconfig-nowarn", @"ifconfig-pool-linear", @"ifconfig-pool-persist", @"ifconfig-pool"\
+@"ifconfig-nowarn", @"ifconfig-pool-linear", @"ifconfig-pool-persist", @"ifconfig-pool", \
 @"ifconfig-push-constraint", @"ifconfig-push", @"ifconfig", @"ignore-unknown-option", \
 @"inactive", @"inetd", @"ip-remote-hint", @"ip-win32", \
 /* UNSAFE: @"ipchange", */ \

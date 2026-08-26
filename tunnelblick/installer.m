@@ -1998,29 +1998,42 @@ static void installForcedPreferences(NSString * firstPath, NSString * secondPath
 			errorExit();
 		}
 		
-		if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
-			errorExitIfAnySymlinkInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
-			makeUnlockedAtPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
-            securelyDeleteItem(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+		NSString * destPath = L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH;
+		NSString * tempPath = [destPath stringByAppendingString: @".new"];
+
+		if (  [gFileMgr fileExistsAtPath: destPath]  ) {
+			errorExitIfAnySymlinkInPath(destPath);
+			makeUnlockedAtPath(destPath);
 		} else {
-			errorExitIfAnySymlinkInPath([L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH stringByDeletingLastPathComponent]);
+			errorExitIfAnySymlinkInPath([destPath stringByDeletingLastPathComponent]);
 		}
-		
-		if (  [gFileMgr tbCopyPath: firstPath toPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH handler: nil]  ) {
-			Log(@"copied %@\n    to %@", firstPath, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
-			if (  checkSetOwnership(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, NO, 0, 0)  )  {
-				if (  ! checkSetPermissions(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, PERMS_SECURED_READABLE, YES)  )  {
-					Log(@"Unable to set permssions of %ld on %@", (long)PERMS_SECURED_READABLE, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
-					errorExit();
-				}
-			} else {
-				Log(@"Unable to set ownership to root:wheel on %@", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
-				errorExit();
-			}
-		} else {
-			Log(@"unable to copy %@ to %@", firstPath, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+
+		if (  [gFileMgr fileExistsAtPath: tempPath]  ) {
+			securelyDeleteItem(tempPath);
+		}
+
+		if (  ! [gFileMgr tbCopyPath: firstPath toPath: tempPath handler: nil]  ) {
+			Log(@"unable to copy %@ to %@", firstPath, tempPath);
 			errorExit();
 		}
+
+		if (  ! checkSetOwnership(tempPath, NO, 0, 0)  )  {
+			Log(@"Unable to set ownership to root:wheel on %@", tempPath);
+			securelyDeleteItem(tempPath);
+			errorExit();
+		}
+		if (  ! checkSetPermissions(tempPath, PERMS_SECURED_READABLE, YES)  )  {
+			Log(@"Unable to set permssions of %ld on %@", (long)PERMS_SECURED_READABLE, tempPath);
+			securelyDeleteItem(tempPath);
+			errorExit();
+		}
+
+		if (  0 != rename([tempPath fileSystemRepresentation], [destPath fileSystemRepresentation])  ) {
+			Log(@"Unable to replace %@ with %@; error was %d: '%s'", destPath, tempPath, errno, strerror(errno));
+			securelyDeleteItem(tempPath);
+			errorExit();
+		}
+		Log(@"copied %@\n    to %@", firstPath, destPath);
 	} else {
 		Log(@"Not a .plist: %@", firstPath);
 		errorExit();

@@ -30,7 +30,13 @@ extern TBUserDefaults * gTbDefaults;
 
 TBSYNTHESIZE_NONOBJECT_GET(BOOL, mouseIsInWindow)
 
-TBSYNTHESIZE_OBJECT(retain, id, delegate, setDelegate)
+-(id) delegate {
+    return delegate;
+}
+
+-(void) setDelegate: (id) newValue {
+    delegate = newValue;
+}
 
 // *******************************************************************************************
 // Mouse Event Handlers
@@ -62,7 +68,7 @@ TBSYNTHESIZE_OBJECT(retain, id, delegate, setDelegate)
 
 -(void) dealloc {
     
-    [delegate release];
+    delegate = nil;
     
     [super dealloc];
 }

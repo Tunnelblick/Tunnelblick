@@ -44,6 +44,10 @@ extern TunnelblickInfo * gTbInfo;
     [contents   release];
     [delegate   release];
 
+    [retryTimer invalidate];
+    [retryTimer release];
+    retryTimer = nil;
+
     [connection cancel];
     [connection release];
 
@@ -94,6 +98,8 @@ extern TunnelblickInfo * gTbInfo;
 
     [self setCurrentlyDownloading: YES];
 
+    [connection cancel];
+    [connection release];
     connection = [[NSURLConnection alloc] initWithRequest: request  delegate: self startImmediately: YES];
     if (  ! connection  ) {
         [self indicateFinishedWithMessage: [NSString stringWithFormat:
@@ -105,19 +111,21 @@ extern TunnelblickInfo * gTbInfo;
 
 -(void) stopDownload {
 
-    if (  ! self.currentlyDownloading  ) {
-        [self indicateFinishedWithMessage: @"ERROR: stopDownload: not currently downloading"];
+    [self.retryTimer invalidate];
+    [self setRetryTimer: nil];
+
+    if (  self.currentlyDownloading  ) {
+        [connection cancel];
+        [self appendUpdaterLog: [NSString stringWithFormat:
+                               @"Cancelled downloading %@",
+                              self.urlString]];
+        [self setCurrentlyDownloading: NO];
+        [self indicateFinishedWithMessage: @"Cancelled"];
         return;
     }
 
     [connection cancel];
-    [self appendUpdaterLog: [NSString stringWithFormat:
-                           @"Cancelled downloading %@",
-                          self.urlString]];
     [self indicateFinishedWithMessage: @"Cancelled"];
-
-    [self.retryTimer invalidate];
-    [self setRetryTimer: nil];
 }
 
 -(void) abortDownload {

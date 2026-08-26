@@ -1720,7 +1720,7 @@ NSString * lineAfterRemovingNulCharacters(NSString * line, NSMutableString * out
 OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString ** stderrString) {
 
     int sockfd;
-    size_t n;
+    ssize_t n;
 
     const char * requestToServer = [[NSString stringWithFormat: @"%s%@", TUNNELBLICKD_OPENVPNSTART_HEADER_C, command] UTF8String];
     const char * socketPath = [TUNNELBLICKD_SOCKET_PATH UTF8String];
@@ -1786,7 +1786,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     while (  [(NSDate *)[NSDate date] compare: timeoutDate] == NSOrderedAscending  ) {
         bzero((char *)buffer, SOCKET_BUF_SIZE);
         n = read(sockfd, (char *)buffer, SOCKET_BUF_SIZE - 1);
-        if (   (n == -1lu)
+        if (   (n < 0)
             && (errno == EAGAIN)  ) {
             sleepTimeMicroseconds *= 2;
             if (  sleepTimeMicroseconds > 5000000  ) {
