@@ -112,6 +112,8 @@
 //
 //      (7) if the operation is INSTALLER_INSTALL_FORCED_PREFERENCES and targetPath is given and is a .plist and there is no secondPath
 //             installs the .plist at targetPath in L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+//             NO LONGER USED BY TUNNELBLICK; KEPT AVAILABLE FOR SCRIPTS BY DEPLOYERS
+//
 //
 //          If the operation is INSTALLER_INSTALL_FORCED_PREFERENCES_XML and the second argument is an XML dictionary,
 //          installs the dictionary in L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
@@ -2237,6 +2239,8 @@ static void secureAllTblks(void) {
 
 static void installForcedPreferences(NSString * firstPath, NSString * secondPath) {
 
+    // NO LONGER USED BY TUNNELBLICK; KEPT AVAILABLE FOR SCRIPTS BY DEPLOYERS
+
 	if (  secondPath  ) {
 		Log(@"Operation is INSTALLER_INSTALL_FORCED_PREFERENCES but secondPath is set");
 		errorExit();
@@ -2549,7 +2553,7 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
     secureOneFolderMaintainOwnership(targetPath, NO, 0, YES);
 
     //
-    // If copying to Shared, make a copy in the user's Configurations folder and secure it.
+    // If copying to Shadow, make a copy in the user's Configurations folder and secure it.
     //
 
     if (  [targetPath hasPrefix: L_AS_T_USERS]  ) {
@@ -3525,6 +3529,8 @@ int main(int argc, char *argv[]) {
     
     //**************************************************************************************************************************
     // (7) Install the .plist at secondArg to L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+    //
+    //     NO LONGER USED BY TUNNELBLICK; KEPT AVAILABLE FOR SCRIPTS BY DEPLOYERS
 
     if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES  ) {
 		installForcedPreferences(secondArg, thirdArg);
