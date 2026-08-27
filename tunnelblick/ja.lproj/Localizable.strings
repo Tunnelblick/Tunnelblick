@@ -454,7 +454,10 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "設定ネームで「接続」と「切断」を表示する";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "接続されたどの構成でもインジケーターを表示する";
+"Display a prominent indicator when any configuration is connected" = "接続された時の設定でインジケーターを表示する";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "警告がある時でインジケーターを表示する";
 
 /* Checkbox name */
 "Display connection submenus" = "接続サブメニューを表示する";
@@ -2253,9 +2256,6 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>チェックした場合</strong>、IPv6は無効化されます。</p>\n<p><strong>チェックしなかった場合</strong>、IPv6は無効化されません。</p>\n<p>多くの場合、IPv6を無効化することを推奨します。何故ならば、多くのVPN設定はIPv6使用による情報漏洩の防衛がありません。ほとんどのインターネットはIPv6を使用しなくてもアクセスできます。</p>\n<p>設定を調整すると、<strong>このチェックボックスは無効化できません</strong>。</p>\n";
 
-/* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>チェックした場合</strong>、 OpenVPNはDNSやそのほかの設定をVPNのルーティング完了前に実行する代わりに、その後に実行します。</p>\n<p><strong>チェックをしない場合</strong>、OpenVPNはDNSやそのほかの設定をVPNのルーティング完了後に実行する代わりに、その前に実行します。 ルーティングの完了に時間がかかる場合、これはDNSの不具合や遅延を引き起こす可能性があります。例えば、それがセットアップ完了のためにたくさんのルートを保持する場合などです。</p>\n";
-
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>チェックした場合、</strong>、OpenVPNは当該コネクションにおける最大MTUを決定するために、pingテストをします。このテストはコネクションが確立するたびに行われ、また数分おきに行われる可能性があります。テストの結果はTunnelblickのログにて確認可能です。</p>\n";
 
@@ -2293,7 +2293,10 @@
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>チェックすると</strong>、ポインタがTunnelblickアイコンの上にある場合、すべての「アクティブ」構成のVPNステータスウィンドウが表示されます。</p><p>「アクティブ」な構成とは、Tunnelblickの起動以降に接続を試みた構成です。</p><p>上で[表示しない]が選択されている場合、<strong>このチェックボックスは無効になっています</strong>。</p>\n";
 
 /* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>チェックした場合</strong>、接続されたどの構成でもTunnelblickのアイコンでビジュアルなインジケーターを表示する。</p><p><strong>チェックしなかった場合</strong>、インジケーターは表示されません。</p>";
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>チェックした場合</strong>、接続された時の設定でもTunnelblickのアイコンでインジケーターを表示する。</p><p><strong>チェックしなかった場合</strong>、インジケーターは表示されません。</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>チェックした場合</strong>、警告がある時でもTunnelblickのアイコンでインジケーターを表示する。</p><p><strong>チェックしなかった場合</strong>、インジケーターは表示されません。</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>チェックすると</strong>、起動中のTunnelblickの進行状況がウィンドウに表示されます。</p>";
@@ -2336,9 +2339,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p> <strong>チェックすると</strong>、VPNで指定されたドメイン名が検索ドメインリストの冒頭に追加されます。</p>\n<p> <strong>チェックされていない場合</strong>、検索ドメインリストはVPNで指定されたドメイン名に置き換えられます。</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p> <strong>チェックすると</strong>、接続が確立されてからの経過時間が、Tunnelblickメニューと[VPNの詳細]ウィンドウのタイトルに表示されます。</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p> <strong>チェックした場合</strong>、接続する前に自分自身を認証する必要があります。 パスワード、或いはTouchIDまたはFaceIDがあればそれらを使用して自分自身を認証できます。</p>\n<p> <strong>チェックされていない場合</strong>、接続する前に認証は必要ありません。</p>\n<p> <strong>このチェックボックスをサポートしていないバージョンのmacOSを使用している場合、このチェックボックスは無効になります</strong>。</p> <p> <strong>注：この設定を変更するには、コンピューター管理者の承認が必要です</strong>。 </p>";

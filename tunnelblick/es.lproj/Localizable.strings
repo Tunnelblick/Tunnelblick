@@ -436,7 +436,7 @@
 "Check if the apparent public IP address changed after connecting" = "Verificar si la aparente dirección de IP pública cambió después de la conexión";
 
 /* Checkbox name */
-"Check only when connected to a VPN" = "Verificar Solamente Cuando Esté Conectado a una VPN";
+"Check only when connected to a VPN" = "Verificar solamente cuando esté conectado a una VPN";
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Deshabilitar IPV6, a menos que el servidor VPN sea accedido utilizando IPV6";
@@ -451,10 +451,13 @@
 "Disconnect when user switches out" = "Desconectar cuando el usuario sale";
 
 /* Checkbox name */
-"Display 'Connect' and 'Disconnect' with configuration names" = "Mostrar 'Conectar' y 'Desconectar' con los nombres de las configuraciones";
+"Display 'Connect' and 'Disconnect' with configuration names" = "Mostrar 'Conectar' y 'Desconectar' junto a los nombres de las configuraciones";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Mostrar un indicador cuando cualquier configuración esté conectada";
+"Display a prominent indicator when any configuration is connected" = "Mostrar un indicador destacado si hay una configuración conectada";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "Mostrar un indicador destacado cuando exista una advertencia";
 
 /* Checkbox name */
 "Display connection submenus" = "Mostrar submenús de conexión";
@@ -928,7 +931,7 @@
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ es software libre: puede redistribuirlo y/o modificarlo de acuerdo a los términos de la licencia %2$@ publicada por la %3$@.\n\n%4$@ es una marca registrada de OpenVPN Inc.";
 
 /* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
-" Do you wish to install %@%@?\n\n" = " Desea instalar %1$@%2$@?\n\n";
+" Do you wish to install %@%@?\n\n" = " ¿Desea instalar %1$@%2$@?\n\n";
 
 /* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
 " Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Desea reemplazar\n    %1$@\n por \n%2$@%3$@?\n\n";
@@ -1093,10 +1096,10 @@
 "An error occurred getting the list of loaded system extensions." = "Ocurrió un error obteniendo la lista de extensiones del sistema cargadas.";
 
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Ocurrió un error intentando descargar la actualización.\n\nPara más información, ver el log en\n\n%@";
+"An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Ocurrió un error al intentar descargar la actualización.\n\nPara más información, ver el registro en\n\n%@";
 
 /* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Ocurrió un error al intentar obtener información sobre las actualizaciones.\n\n%1$@Para más información, ver el log en\n\n%2$@";
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Ocurrió un error al intentar obtener información sobre las actualizaciones.\n\n%1$@Para más información, ver el registro en\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch Tunnelblick." = "Ocurrió un error intentando iniciar Tunnelblick.";
@@ -1963,7 +1966,7 @@
 "Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick puede acceder a %@ para verificar que la dirección IP pública aparente de su computadora cambie cada vez que se conecte a una VPN. Contacte al distribuidor de esta copia de Tunnelblick para más detalles.\n\n";
 
 /* Window text */
-"Tunnelblick will quit because a critical component has been disabled or is missing.\n\nTunnelblick cannot perform functions such as connecting a VPN unless the component is enabled.\n\nPlease re-enable the component in System Settings >> General >> Login Items.\n\nThe component is listed in the 'Runs in the background' section, is named 'Tunnelblick', and is labelled 'affects all users'.\n\nIt is recommended that you also enable the other listed Tunnelblick component if it is also disabled.\n\nNote: If the component is enabled and Tunnelblick still shows this message, please reinstall Tunnelblick.\n\nFor more information, go to https://tunnelblick.net/e2" = "Tunnelblick se cerrará debido a que un componente crítico ha sido deshabilitado o no existe.\n\nTunnelblick no puede ejecutar funciones tales como conectarse a una VPN a menos que el componente esté habilitado.\n\nPor favor vuelva a habilitar el componente en Configuración del Sistema >> General >> Login Items.\n\nEl componente está listado en la sección 'Ejecutar en segundo plano', se denomina 'Tunnelblick', y está rotulado 'afecta a todos los usuarios'.\n\nSe recomienda que habilite también el otro componente de Tunnelblick listado, si el mismo está deshabilitado.\n\nNota: Si el componente está habilitado y Tunnelblick aún muestra este mensaje, por favor reinstale Tunnelblick.\n\nPara más información, vaya a https://tunnelblick.net/e2";
+"Tunnelblick will quit because a critical component has been disabled or is missing.\n\nTunnelblick cannot perform functions such as connecting a VPN unless the component is enabled.\n\nPlease re-enable the component in System Settings >> General >> Login Items.\n\nThe component is listed in the 'Runs in the background' section, is named 'Tunnelblick', and is labelled 'affects all users'.\n\nIt is recommended that you also enable the other listed Tunnelblick component if it is also disabled.\n\nNote: If the component is enabled and Tunnelblick still shows this message, please reinstall Tunnelblick.\n\nFor more information, go to https://tunnelblick.net/e2" = "Tunnelblick se cerrará debido a que un componente crítico ha sido deshabilitado o no existe.\n\nTunnelblick no puede ejecutar funciones tales como conectarse a una VPN a menos que el componente esté habilitado.\n\nPor favor vuelva a habilitar el componente en Configuración del Sistema >> General >> Ítems de inicio.\n\nEl componente está listado en la sección 'Ejecutar en segundo plano', se denomina 'Tunnelblick', y está rotulado 'afecta a todos los usuarios'.\n\nSe recomienda que habilite también el otro componente de Tunnelblick listado, si el mismo está deshabilitado.\n\nNota: Si el componente está habilitado y Tunnelblick aún muestra este mensaje, por favor reinstale Tunnelblick.\n\nPara más información, vaya a https://tunnelblick.net/e2";
 
 /* Window text */
 "Unable to Establish Communication" = "Incapaz de Establecer Comunicación";
@@ -2254,7 +2257,7 @@
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Cuando se selecciona</strong>, IPv6 será habilitado.</p>\n<p><strong>Cuando no se selecciona</strong>, IPv6 no será habilitado.</p>\n<p>A menudo se recomienda deshabilitar IPv6 debido a que muchas configuraciones de VPN no protegen contra el filtrado de información a causa del uso de IPv6. La mayoría de los accesos a Internet funcionan bien sin IPv6.</p>\n<p><strong>Este checkbox es deshabilitado</strong> para configuraciones Tun.</p>";
 
 /* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Cuando se selecciona</strong>, OpenVPN modificará los DNS y otros ajustes después de especificar las rutas para la VPN en vez de hacerlo antes.</p>\n<p><strong>Cuando no se selecciona</strong>, OpenVPN modificará los DNS y otros ajustes antes de especificar las rutas para la VPN, en vez de hacerlo después. Esto puede ocasionar fallas en el DNS ó demoras si las rutas toman mucho tiempo para ajustarse -- por ejemplo, si hay muchas rutas para establecer.</p>\n";
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n<p><strong>Warning</strong>: Tap interfaces often need additional configuration changes that are not compatible with this option.</p>" = "<p><strong>Cuando está seleccionado</strong>, OpenVPN modificará los DNS y otros ajustes DESPUÉS de establecer las rutas para la VPN, en vez de hacerlo ANTES.</p>\n<p><strong>Cuando no está seleccionado</strong>, OpenVPN modificará los DNS y otros ajustes ANTES de establecer las rutas para la VPN, en vez de hacerlo DESPUÉS. Esto puede provocar fallas o demoras de DNS si las rutas toman mucho tiempo para ajustarse -- por ejemplo, en el caso de que deba establecer muchas rutas.</p>\n<p><strong>Atención</strong>: Las interfaces TAP a menudo necesitan cambios adicionales de configuración que no son compatibles con esta opción.</p>";
 
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Cuando está marcado</strong>, OpenVPN ejecutará un test para determinar el tamaño máximo de MTU para la conexión. El test comienza cada vez que se establece una conexión y puede tomar varios minutos. Los resultados del test aparecen en el registro de Tunnelblick.</p>\n";
@@ -2293,7 +2296,13 @@
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Cuando esté marcada</strong>, la ventana del estado del VPN para todas las configuraciones 'activas' serán mostradas cuando el puntero esté por encima del ícono de Tunnelblick.</p><p>Las configuraciones 'activas' son aquellas configuraciones que ha intentado conectar desde que Tunnelblick se ejecutó.</p><p><strong>Ésta casilla de verificación se desactiva</strong> cuando 'Nunca Mostrar' sea seleccionado en la parte superior.</p>";
 
 /* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Cuando está seleccionado</strong>, se mostrará un indicador visual en el ícono de Tunnelblick cuando cualquier configuración sea conectada.</p><p><strong>Cuando no está seleccionado</strong>, no aparecerá el indicador.</p>";
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Cuando está seleccionado</strong>, se mostrará un indicador visual destacado en el ícono de Tunnelblick, si hay una configuración conectada.</p><p><strong>Cuando no está seleccionado</strong>, no se mostrará tal indicador.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Cuando está seleccionado</strong>, se mostrará un indicador visual destacado sobre el ícono de Tunnelblick, si hay una advertencia.</p><p><strong>Cuando no está seleccionado</strong>, no se mostrará tal indicador.</p>";
+
+/* HTML info for the 'Display connection timers' checkbox. */
+"<p><strong>When checked</strong>, a timer is displayed in the Tunnelblick menu and in the title of the VPN Details window:</p>\n<p>While a connection attempt is being made, the timer displays the time that has elapsed trying to make the connection. When a connection is made, the timer restarts and displays the time that has elapsed since the connection was made. While a disconnect attempt is being made, the timer restarts and displays the time that has elapsed trying to disconnect.</p>" = "<p><strong>Cuando está seleccionado</strong>, se muestra un timer en el menú de Tunnelblick y en el título de la ventana de Detalles de VPN:</p>\n<p>Mientras se realiza un intento de conexión, el timer muestra el tiempo transcurrido en el intento. Cuando la conexión se realiza, el timer se reinicia y muestra el tiempo transcurrido desde que la conexión se estableció. Cuando se efectúa un intento de desconexión, el timer se reinicia y muestra el tiempo transcurrido mientras se intenta desconectar.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Cuando está marcado</strong>, una ventana mostrará el progreso de Tunnelblick mientras se inicia.</p>";
@@ -2336,9 +2345,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Cuando se selecciona</strong>, el nombre de dominio especificado por la VPN será agregado al comienzo de la lista de búsqueda de dominios.</p>\n<p><strong>Cuando no se selecciona</strong>, la lista de búsqueda de dominios será reemplazada por el nombre de dominio especificado por la VPN.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Cuando está marcado</strong>, será mostrado el tiempo transcurrido desde que una conexión fue establecida, tanto en el menú de Tunnelblick, como en el título de la ventana de Detalles de la VPN.</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Cuando se selecciona</strong>, se le requerirá autenticarse antes de conectarse. Ud. puede autenticarse utilizando su contraseña o, si está disponible, TouchID o FaceID.</p>\n<p><strong>Cuando no se selecciona</strong>, no se requerirá autenticación antes de conectarse.</p>\n<p><strong>Este checkbox está deshabilitado</strong> si Ud. está utilizando una versión de macOS que no lo soporta.</p><p><strong>Nota: Se requiere la autorización de un administrador de la computadora para cambiar este ajuste.</strong></p>";

@@ -454,9 +454,6 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Отображать «подключить» и «отключить» с названиями конфигураций";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Отображать индикатор, когда подключена какая-либо конфигурация";
-
-/* Checkbox name */
 "Display connection submenus" = "Отображать подменю соединения";
 
 /* Checkbox name */
@@ -2253,9 +2250,6 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Когда отмечено</strong>, IPv6 будет выключен.</p>\n<p><strong>Когда не отмечено</strong>, IPv6 не будет выключен.</p>\n<p>Выключение IPv6 часто рекомендуется, так как многие конфигурации VPN не защищают от информационных утечек вызванных использованием IPv6. Большая часть Интернета доступна без IPv6.</p>\n<p><strong>Это поле недоступно</strong> для Tun конфигураций</p>";
 
-/* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Когда отмечено</strong>, OpenVPN будет менять DNS и другие настройки после того, как настроит маршруты для VPN, а не до настройки маршрутов.</p>\n<p><strong>Когда не отмечено</strong>, OpenVPN будет менять DNS и другие настройки до того как настроит маршруты для VPN, а не после настройки маршрутов. Это может быть причиной неполадок DNS, либо задержки, если настройка маршрутов займет много времени — например если нужно установить много маршрутов.</p>\n";
-
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Если отмечено</strong>, OpenVPN проведет тест для установления максимального размера MTU для подключения. Тест проводится при каждом подключении и может продлится несколько минут. Результаты теста вносятся в журнал Tunnelblick.</p>\n";
 
@@ -2291,9 +2285,6 @@
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Когда отмечено</strong>, при удерживании курсора мыши над иконкой Tunnelblick высвечиваются окна статуса VPN всех 'активных' конфигураций.</p><p>'Активными' являются конфигурации, к которым вы подключились с момента старта Tunnelblick.</p><p><strong>Это поле отключено</strong> если выше вы выбрали 'Никогда не показывать'.</p>";
-
-/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Если активно</strong>, будет отображаться визуальный индикатор у иконки Tunnelblick, когда какая-либо из конфигураций подключена.</p><p><strong>Если не активно</strong>, индикация не будет отображаться.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Когда отмечено</strong>, при запуске будет показано окно с прогрессом Tunnelblick.</p>";
@@ -2336,9 +2327,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Когда отмечено</strong>, VPN указанное доменное имя будет добавлено к началу списка поисковых доменов.</p>\n<p><strong>Когда не отмечено</strong>, список поисковых доменов будет заменен VPN указанным доменным именем.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Когда отмечено</strong>, в меню Tunnelblick и в заголовке окна деталей VPN указывается время, прошедшее с момента установления соединения.</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Когда отмечено</strong>, вам нужно будет аутентифицироваться перед подключением. Вы можете аутентифицироваться с помощью пароля или, если доступно, TouchID или FaceID.</p>\n<p><strong>Когда не отмечено</strong>, аутентификация перед подключением не нужна.</p>\n<p><strong>Флажок не доступен</strong> если вы используете версию macOS, которая это не поддерживает.</p><p><strong> Замечание: Требуется авторизация администратора компьютера, чтобы изменить эту настройку.</strong></p>";

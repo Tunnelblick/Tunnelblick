@@ -454,9 +454,6 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Vis 'Opret forbindelse' og 'Afbryd forbindelse' med konfigurationsnavne";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Vis en indikator, når en konfiguration er tilsluttet";
-
-/* Checkbox name */
 "Display connection submenus" = "Vis forbindelses undermenuer";
 
 /* Checkbox name */
@@ -2253,9 +2250,6 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Når markeret</strong>, vil IPv6 være aktiveret.</p>\n<p><strong>Når ikke markeret</strong>, vil IPv6 ikke være aktiveret.</p>\n<p>Det er ofte anbefalet at slå IPv6 fra, fordi mange VPN konfigurationer ikke beskytter imod information leaks forårsaget af IPv6. De fleste internet adgange virker fint uden IPv6.</p>\n<p><strong>Dette afkrydsningsfelt er deaktiveret</strong> for Tun konfigurationer.</p>";
 
-/* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Når markeret</strong>, vil OpenVPN ændre DNS og andre indstillinger efter routing er blevet opsat for VPN, i stedet for at opsætte det før opsætning af routing.</p>\n<p><strong>Når ikke markeret</strong>, vil OpenVPN ændre DNS og andre indstillinger før routing er blevet opsat for VPN, i stedet for at opsætte det efter opsætning af routing. Dette kan medvirke DNS fejl eller forsinkelser hvis routingen tager for lang tid at sætte op -- f. eks. hvis der er manger routes at opsætte.</p>\n";
-
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Når markeret</strong>, vil OpenVPN køre en test for at afgøre den størst mulige MTU størrelse for forbindelsen. Testen starter hver gangen forbindelse er oprettet og kan tage flere minutter. Test resultater fremgår i Tunnelblick loggen.</p>\n";
 
@@ -2291,9 +2285,6 @@
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Ved markering</strong>, så vil VPN-status vinduet for alle 'aktive' konfigurationer blive vist når markøren er over Tunnelblick ikonet</p><p>'Aktive' konfiguration er konfigurationer som du har forsøgt at forbinde til siden sidste start af Tunnelblick.</p><p><strong>Denne markering er deaktiveret</strong> når 'Vis aldrig' er valgt ovenover.</p>";
-
-/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Når markeret</strong>, vises en visuel indikator på Tunnelblick-ikonet, når en konfiguration er tilsluttet.</p><p><strong>Hvis ikke markeret</strong>, vises der ingen sådan indikator.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Ved markering</strong>, så vil Tunnelblick's statusvindue blive vist ved start.</p>";
@@ -2336,9 +2327,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Ved markering</strong> vil det VPN-specifikke domæne blive tilføjet til søg domæne listen</p>\n<p><strong>Ved ingen markering</strong>, vil det VPN-secifikke domæne erstattet af det nuværende.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Når markeret</strong>, vises tiden siden en forbindelse blev etableret i Tunnelblick menu og i titlen i VPN Details vinduet</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Når valgt</strong>, skal du godkende, inden der oprettes forbindelse. Du kan godkende med dit kodeord eller, hvis det er tilgængeligt, med TouchID eller FaceID.</p>\n<p><strong>Når det ikke er valgt</strong>, kræves der ikke godkendelse, inden der oprettes forbindelse.</p>\n<p><strong>Denne afkrydsningskasse er slået fra</strong>, hvis du bruger en udgave af macOS, der ikke understøtter det.</p><p><strong>Bemærk: en administrators godkendelse er nødvendig for at ændre denne indstilling.</strong></p>";

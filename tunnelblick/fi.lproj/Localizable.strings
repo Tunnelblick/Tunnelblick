@@ -454,7 +454,10 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Näytä 'Muodosta yhteys' ja 'Katkaise yhteys' määritysten nimien yhteydessä";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Näytä ilmaisin, kun jokin määritys on yhdistettynä";
+"Display a prominent indicator when any configuration is connected" = "Näytä ilmaisin, kun jokin määritys on yhdistettynä";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "Näytä ilmaisin, kun varoituksia on saatavilla";
 
 /* Checkbox name */
 "Display connection submenus" = "Näytä yhteyden alivalikot";
@@ -2214,6 +2217,12 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Lisätietoa</a> [tunnelblick.net]</p>";
 
 /* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>TURVALLISUUSPÄIVITYS</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\">\n<big><strong>TÄMÄ PÄIVITYS VOI KESTÄÄ 60 - 90 SEKUNTIA!<strong></big><br>&nbsp;<br>\nSe voi myös vaatia lisävaltuutuksen tietokoneen pääkäyttäjältä <em>välittömästi</em> päivityksen jälkeen.</font></p>";
+
+/* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Tietokoneen järjestelmänvalvojan valtuutus vaaditaan tämän päivityksen asentamiseksi.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
@@ -2248,7 +2257,7 @@
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Kun valittu</strong>, IPv6 otetaan käyttöön.</p>\n<p><strong>Kun ei valittu</strong>, IPv6:ta ei oteta käyttöön.</p>\n<p>IPv6:n ottaminen pois käytöstä on usein suositeltavaa, koska monet VPN-konfiguraatiot eivät suojaa IPv6:n käytön aiheuttamilta informaatiovuodoilta. Useimmat Internet-yhteydet toimivat hyvin ilman IPv6:ta.</p>\n<p><strong>Tämä valinta on pois käytöstä</strong> Tun-konfiguraatioilla.</p>";
 
 /* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Kun valittu</strong>, OpenVPN muokkaa DNS- ja muita asetuksia sen jälkeen, kun se on asettanut reitityksen VPN:lle sen sijaan, että tekisi sen ennen reitityksen asettamista.</p>\n<p><strong>Kun ei valittu</strong>, OpenVPN muokkaa DNS- ja muita asetuksia ennen kuin se asettaa reitityksen VPN:lle, sen sijaan, että tekisi sen reitityksen asettamisen jälkeen. Tämä voi aiheuttaa DNS-vikoja tai viipeitä, jos reittien asettaminen vie kauan aikaa -- esimerkiksi, jos on monia reittiä asetettavana.</p>\n";
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n<p><strong>Warning</strong>: Tap interfaces often need additional configuration changes that are not compatible with this option.</p>" = "<p><strong>Kun valittu</strong>, OpenVPN muokkaa DNS- ja muita asetuksia sen jälkeen, kun se on asettanut reitityksen VPN:lle sen sijaan, että tekisi sen ennen reitityksen asettamista.</p>\n<p><strong>Kun ei valittu</strong>, OpenVPN muokkaa DNS- ja muita asetuksia ennen kuin se asettaa reitityksen VPN:lle, sen sijaan, että tekisi sen reitityksen asettamisen jälkeen. Tämä voi aiheuttaa DNS-vikoja tai viipeitä, jos reittien asettaminen vie kauan aikaa -- esimerkiksi, jos on monia reittiä asetettavana.</p>\n<p><strong>Varoitus</strong>: Tap-rajapinnat tarvitsevat usein lisäkonfiguraatiomuutoksia, jotka eivät ole yhteensopivia tämän valinnan kanssa.</p>";
 
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Kun valittu</strong>, OpenVPN suorittaa yhteyden MTU:n maksimikoon tarkistuksen. Testi suoritetaan jokaisen uuden yhteyden alkaessa. Se voi kestää useita minuutteja. Testin tulokset ilmestyvät Tunnelblickin lokiin.</p>\n";
@@ -2287,7 +2296,13 @@
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Kun valittu</strong>, VPN tilanne ikkuna kaikille 'aktiivisille' asetuksille näytetään, kun hiiren osoitin viedään Tunnelblick kuvakkeen päälle.</p><p>'Aktiiviset' asetukset ovat niitä joihin olet yrittänyt yhdistää Tunnelblick:in käynnistymisen jälkeen.</p><p><strong>Tämä valinta on estetty,</strong> kun 'Älä Näytä Koskaan' on valittuna ylempänä.</p>";
 
 /* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Kun valittuna</strong>, Tunnelblick -kuvakkeessa näytetään visuaalinen ilmaisin aina, kun jokin määritys on yhdistettynä.</p><p><strong>Kun ei valittuna</strong>, ilmaisinta ei näytetä.</p>";
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Kun valittuna</strong>, Tunnelblick -kuvakkeessa näytetään visuaalinen ilmaisin, kun jokin määritys on yhdistettynä.</p><p><strong>Kun ei valittuna</strong>, ilmaisinta ei näytetä.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Kun valittuna</strong>, Tunnelblick -kuvakkeessa näytetään visuaalinen ilmaisin, kun varoituksia on saatavilla.</p><p><strong>Kun ei valittuna</strong>, ilmaisinta ei näytetä.</p>";
+
+/* HTML info for the 'Display connection timers' checkbox. */
+"<p><strong>When checked</strong>, a timer is displayed in the Tunnelblick menu and in the title of the VPN Details window:</p>\n<p>While a connection attempt is being made, the timer displays the time that has elapsed trying to make the connection. When a connection is made, the timer restarts and displays the time that has elapsed since the connection was made. While a disconnect attempt is being made, the timer restarts and displays the time that has elapsed trying to disconnect.</p>" = "<p><strong>Kun valittu</strong>, ajastin näytetään Tunnelblick-menussa ja VPN -tietojen ikkunan otsikossa:</p>\n<p>Niin kauan kuin yhteydenmuodostusta yritetään, ajastin näyttää ajan, joka on kulunut yhteydenmuodostusta yritettäessä. Kun yhteys on luotu, ajastin käynnistyy uudelleen ja näyttää ajan, joka on kulunut yhteydenmuodostuksesta lähtien. Kun yhteydenkatkaisua yritetään, ajastin käynnistyy uudelleen ja näyttää ajan, joka on kulunut yhteydenkatkaisua yritettäessä.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Kun valittu</strong>, ikkuna näyttää Tunnelblick:in edistymisen käynnistyessä.</p>\n ";
@@ -2330,9 +2345,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Kun valittu</strong>, VPN: n määrittämä domain-nimi lisätään haettavien domainien listan alkuun.</p>\n<p><strong>Kun ei valittu</strong>, hakudomainlista korvataan VPN: n määrittämällä domainnimellä.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Kun valittu</strong>, yhteyden keston aika näytetään Tunnelblick:in valikossa ja VPN tietoikkunan otsikossa.</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kun valittu</strong>, sinun täytyy todentaa käyttöoikeutesi ennen yhdistämistä. Voit todentaa itsesi salasanaa tai, jos mahdollista, TouchID: tä tai FaceID: tä käyttämällä.</p><p><strong>Kun kohtaa ei olla valittu</strong>, mitään käyttöoikeuden todennusta ei tarvita ennen yhdistämistä.</p><p><strong>Tämä kohta on pois käytöstä</strong>, jos käyttämäsi macOS-versio ei tue sitä.</p><p><strong>Huomio: Tietokoneen ylläpitäjän lupa vaaditaan tämän asetuksen muuttamiseen.</strong></p>";
@@ -2393,6 +2405,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Katso <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun- and Tap-VPN:ien tulevaisuus on macOS:ssä</a> [tunnelblick.net] lisätietojen saamiseksi.</p>\n";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Katso lisätietoja <a href=\"https://tunnelblick.net/cRlsNotes.html\">julkaisutiedoista</a>.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Määrittelee Tunnelblickin ja OpenVPN loggauksen tason.</p>";

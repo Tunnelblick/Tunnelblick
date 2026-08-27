@@ -8,7 +8,7 @@
 "Disconnect All (%@)" = "Odpojiť všetko (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) IP: %@" = "Odpojiť všetko (%d spoj.)";
+"Disconnect All (%d Connections) IP: %@" = "Odpojiť všetky (%1$d pripojenia) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Odpojiť všetko (%d spoj.)";
@@ -258,7 +258,7 @@
 "Standard icon" = "Štandardná ikona";
 
 /* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
-"Stop" = "Zastaviť";
+"Stop" = "Zrušiť";
 
 /* Button */
 "Terminate All OpenVPN processes" = "Vynútiť ukončenie všetkých procesov OpenVPN";
@@ -304,13 +304,13 @@
 "A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "Tunnelblick aktualizácia je k dispozícii (%1.2f%% stiahnutých)…";
 
 /* Menu item */
-"A Tunnelblick Update is Available and Downloaded..." = "Tunnelblick aktualizácia je k dispozícii a stiahnutá…";
+"A Tunnelblick Update is Available and Downloaded..." = "K dispozícii je aktualizácia Tunnelblick a je stiahnutá…";
 
 /* Menu item */
-"A Tunnelblick Update is Available..." = "Tunnelblick aktualizácia je k dispozícii…";
+"A Tunnelblick Update is Available..." = "Je k dispozícii aktualizácia Tunnelblick…";
 
 /* Menu item */
-"A VPN Configuration Update is Available..." = "Aktualizácia VPN konfigurácie je k dispozícii…";
+"A VPN Configuration Update is Available..." = "Je k dispozícii aktualizácia VPN konfigurácie…";
 
 /* Menu item */
 "Add a VPN..." = "Pridať VPN…";
@@ -454,7 +454,10 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Zobraziť 'Pripojiť' a 'Odpojiť' s názvami konfigurácií";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Zobraziť indikátor, ak je pripojená akákoľvek konfigurácia";
+"Display a prominent indicator when any configuration is connected" = "Zobraziť indikátor, ak je pripojená akákoľvek konfigurácia";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "Zobraziť indikátor, ak sú prítomné akékoľvek upozornenia";
 
 /* Checkbox name */
 "Display connection submenus" = "Zobraziť voľby pripojenia";
@@ -2214,6 +2217,12 @@
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Viac informacií</a>[tunnelblick.net]</p>";
 
 /* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>BEZPEČNOSTNÁ AKTUALIZÁCIA</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\"><big><strong>TÁTO AKTUALIZÁCIA MÔŽE TRVAŤ 60 AŽ 90 SEKÚND!<strong></big><br>&nbsp;<br>Môže taktiež <em>bezprostredne po aktualizácii</em> vyžadovať dodatočnú autorizáciu administrátora.</font></p>";
+
+/* HTML window text */
 "<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Na inštaláciu tejto aktualizácie sa vyžaduje autorizácia administrátora počítača.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
@@ -2246,9 +2255,6 @@
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Ak je zaškrtnuté</strong>, IPv6 bude povolené.</p>\n<p><strong>Ak nie je zaškrtnuté</strong>, IPv6 nebude povolené.</p>\n<p>Zakázanie IPv6 sa bežne odporúča, pretože mnohé konfigurácie VPN nechránia voči úniku informácií spôsobenému použitím IPv6. Prístup k internetu vo väčšine prípadov správne funguje aj bez IPv6.</p>\n<p><strong>Tento výber je zakázaný</strong> pre konfigurácie používajúce pripojenie 'tun'.</p>";
-
-/* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Ak je začiarknuté</strong>, OpenVPN zmení DNS adresu a ďalšie nastavenia až potom ako nastaví smerovanie pre VPN (namiesto toho, aby to urobil pred nastavenim smerovania).</p> \n<p><strong>Ak nie je začiarknuté</strong>, OpenVPN zmení DNS adresu a ďalšie nastavenia predtým ako nastaví smerovanie pre VPN (namiesto toho, aby to urobil po nastaveni smerovania). Toto može spôsobiť chyby DNS alebo oneskorenia ak nastavenie ciest (routes) trvá príliš dlho -- napríklad, ak je potrebné nastaviť veľa ciest (routes).</p>\n";
 
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Ak je zaškrtnuté</strong>, OpenVPN spustí test, ktorý určí maximálnu možnú MTU hodnotu pripojenia. Test sa spustí pri každom vytvorení pripojenia a môže trvať niekoľko minút. Výsledky testu sa zobrazia v zázname konzoly aplikácie.</p>\n";
@@ -2287,7 +2293,10 @@
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Pokiaľ zaškrtnuté</strong>, bude pri prejdení ikony Tunnelblicku zobrazené okna stavu VPN pre všetky 'aktívne' konfigurácie. </p><p>'Aktívne' konfigurácie sú tie, ktoré ste sa pokúšali pripojiť od spustenia Tunnelblicku.</p><p><strong>Táto voľba je nedostupná</strong> v prípade, že je vybrané vyššie uvedené 'Nikdy nezobrazovať'.</p>";
 
 /* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Pri zaškrtnutí</strong> bude behom pripojenia k akejkoľvek konfigurácii na ikone Tunnelblicku zobrazený vizuálny indikátor.</p><p><strong>Pri nezaškrtnutí</strong> sa indikátor nezobrazí.</p>";
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Pri zaškrtnutí</strong> bude behom pripojenia k akejkoľvek konfigurácii na ikone Tunnelblicku zobrazený vizuálny indikátor.</p><p><strong>Pri nezaškrtnutí</strong> sa indikátor nezobrazí.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Pri zaškrtnutí</strong> bude na ikone Tunnelblicku zobrazený vizuálny indikátor ak sú prítomné akékoľvek upozornenia.</p><p><strong>Pri nezaškrtnutí</strong> sa indikátor nezobrazí.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Ak Je zaškrtnuté</strong>, bude počas spustenia Tunnelblicku zobrazené okno s priebehom spúšťania.</p>";
@@ -2330,9 +2339,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Pokiaľ zaškrtnuté</strong>, doménové meno špecifikované vo VPN bude pridané na začiatok zoznamu vyhľadávaných domén.</p>\n<p><strong>Pokiaľ nie je zaškrtnuté</strong>, zoznam vyhľadávaných domén bude nahradený doménovým menom špecifikovanými vo VPN.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Ak Je zaškrtnuté,</strong>, bude v ponuke Tunnelblicku a v názve okna Detailu VPN zobrazený čas od okamihu vytvorenia spojenia.</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Ak zaškrtnuté</strong>, budete povinný sa autentifikovať pred spojením. Môžete sa autentifikovať použitím hesla alebo, ak možné, použitím TouchID alebo FaceID.</p>\n<p><strong>Ak nezaškrtnuté</strong>, žiadna autentifikácia nie je potrebná pred spojením.</p>\n<p><strong>Toto políčko je neaktívne</strong>, ak používate verziu macOS, ktorá to nepodporuje.</p><p><strong>Ponzámka: Je potrebná autorizácia administrátora počítača na zmenu tohoto nastavenia.</strong></p>";
@@ -2393,6 +2399,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Klikni na <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] pre ďalšie informácie.</p>\n";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>Pre detaily viď <a href=\"https://tunnelblick.net/cRlsNotes.html\">Poznámky k verzii</a>.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Nastaviť množstvo výstupu (textu) v protokolovacích (log) súboroch Tunnelblick a OpenVPN.</p>\n ";
@@ -2587,7 +2596,7 @@
 "LANGUAGE_TRANSLATION" = "Preklad do slovenčiny";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Matej Bačík";
+"LEAD_TRANSLATORS" = "Matej Bačík a Vlado Varga";
 
 /* Credit description */
 "Latvian translation" = "Lotyšský preklad";

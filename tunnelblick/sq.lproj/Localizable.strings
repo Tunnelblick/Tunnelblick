@@ -454,9 +454,6 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Shfaq ‘Lidhu’ dhe ‘Shkëputu’ me emrat e konfigurimeve";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Shfaq një tregues kur çfarëdo konfigurimi është i lidhur";
-
-/* Checkbox name */
 "Display connection submenus" = "Shfaq nënmenutë e lidhjeve";
 
 /* Checkbox name */
@@ -2247,9 +2244,6 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Kur është shënuar</strong>, IPv6 do të aktivizohet.</p>\n<p><strong>Kur nuk është shënuar</strong>, IPv6 nuk do të aktivizohet.</p>\n<p>Çaktivizimi i IPv6 shpesh rekomandohet sepse shumë konfigurime VPN nuk mbrojnë kundër rrjedhjes së informacionit që shkaktohet nga përdorimi i IPv6. Shumica e aksesit në Internet funksionon mirë pa IPv6.</p>\n<p><strong>Kjo kuti kontrolli është e çaktivizuar</strong> për konfigurimet Tun.</p>";
 
-/* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Kur është shënuar</strong>, OpenVPN do të modifikojë cilësimet e DNS dhe të tjera pasi të vendosë rrugëtimin për VPN-në, në vend që ta bëjë para vendosjes së rrugëtimit.</p>\n<p><strong>Kur nuk është shënuar</strong>, OpenVPN do të modifikojë cilësimet e DNS dhe të tjera para vendosjes së rrugëtimit për VPN-në, në vend që ta bëjë pas vendosjes së rrugëtimit. Kjo mund të shkaktojë dështime ose vonesa në DNS nëse rrugët marrin shumë kohë për t’u vendosur — për shembull, nëse ka shumë rrugë për t’u vendosur.</p>\n";
-
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Kur është shënuar</strong>, OpenVPN do të ekzekutojë një test për të përcaktuar madhësinë maksimale MTU për lidhjen. Testi fillon sa herë bëhet një lidhje dhe mund të zgjasë disa minuta. Rezultatet e testit shfaqen në regjistrin e Tunnelblick.</p>\n";
 
@@ -2285,9 +2279,6 @@
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Kur aktivizohet</strong>, dritaret e statusit të VPN-së për të gjitha konfigurimet 'aktive' shfaqen kur kursori i miut kalon sipër ikonës së Tunnelblick.</p><p>Konfigurimet 'aktive' janë konfigurimet që keni provuar t'i lidhni që kur është hapur Tunnelblick.</p><p><strong>Kjo kutizë kontrolli çaktivizohet</strong> kur 'Asnjëherë mos e shfaq' është zgjedhur më lart.</p>";
-
-/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Kur është i shënuar</strong>, një tregues vizual do të shfaqet mbi ikonën e Tunnelblick kur cilado konfigurim të jetë i lidhur.</p><p><strong>. Kur nuk është i shënuar</strong> asnjë tregues nuk do te shfaqet.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Kur aktivizohet</strong>, një dritare do të shfaqë ecurinë e Tunnelblick gjatë hapjes.</p>";
@@ -2330,9 +2321,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Kur aktivizohet</strong>, emri i domainit i specifikuar nga VPN do të shtohet në fillim të listës së domaineve të kërkimit.</p><p><strong>Kur nuk aktivizohet</strong>, lista e domaineve të kërkimit do të zëvendësohet me emrin e domainit të specifikuar nga VPN.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Kur aktivizohet</strong>, koha që ka kaluar që nga krijimi i një lidhjeje shfaqet në menunë e Tunnelblick dhe në titullin e dritares së detajeve të VPN-së.</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kur aktivizohet</strong>, do t'ju kërkohet të autentikoheni para se të lidheni. Ju mund të autentifikoheni duke përdorur fjalëkalimin tuaj ose, nëse është i disponueshëm, TouchID ose FaceID.</p><p><strong>Kur nuk aktivizohet</strong>, nuk do të kërkohet asnjë autentifikim para lidhjes.</p><p><strong>Kjo kutizë kontrolli çaktivizohet</strong> nëse jeni duke përdorur një version të macOS që nuk e mbështet këtë funksion.</p><p><strong>Shënim: Kërkohet autorizimi i një administratori kompjuteri për të ndryshuar këtë cilësim.</strong></p>";

@@ -454,7 +454,10 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "'Bağlan' ve 'Bağlantıyı kes'i yapılandırma isimleriyle göster";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Herhangi bir yapılandırma bağlandığında bir gösterge göster";
+"Display a prominent indicator when any configuration is connected" = "Herhangi bir yapılandırma bağlandığında fark edilir bir işaret göster";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "Herhangi bir uyarı oluştuğunda fark edilir bir işaret göster";
 
 /* Checkbox name */
 "Display connection submenus" = "Bağlantı altmenülerini göster";
@@ -2253,9 +2256,6 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>İşaretlenirse</strong>, IPv6 etkisiz hale getirilecek.</p>\n<p><strong>İşaretlenmediğinde</strong>, IPv6 kapatılmaz.</p>\n<p>IPv6'yı etkisizleştirmek genellikle tavsiye edilir çünkü bir çok VPN yapılandırması IPv6 kullanımının neden olduğu bilgi sızıntılarına karşı korumasızdır. Çoğu Internet erişimi IPv6 olmadan da düzgün çalışır.</p>\n<p>Bu kutucuk Tun yapılandırmalarında <strong>etkisizleştirilmiştir.</strong></p>";
 
-/* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>İşaretlendiğinde</strong>, OpenVPN, DNS ve diğer ayarları VPN için rotaları ayarlamadan önce degil ayarladıktan sonra yapacaktır.</p>\n<p><strong>İşaretlenmediğinde</strong>, OpenVPN, DNS ve diğer ayarları VPN için rotaları ayarladıktan sonra degil ayarlamadan önce yapacaktır. Eğer rotaları ayarlamak uzun sure alırsa -- ornegin, eğer ayarlanması gereken çok rota varsa -- bu, DNS hatalarına veya gecikmelerine sebep olabilir.</p>\n";
-
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>, </strong> seçildiğinde, OpenVPN bağlantı için maksimum MTU boyutuna karar vermek için bir test uygular. Test her bağlantı yapıldığında başlar ve bir kaç dakika sürebilir. Test sonuçları Tunnelblick log.</p> 'de gösterilir\n";
 
@@ -2293,7 +2293,10 @@
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Seçildiğinde</strong>, fare imleci Tunnelblick ikonu üzerine geldiğinde 'aktif' olan tüm Tunnelblick bağlantıları için durum penceresi gösterilir.</p><p>'Aktif' bağlantılar, Tunnelblick çalışmaya başladıktan sonra bağlanmayı denediğiniz tüm bağlantılardır.</p><p>Üstteki 'Asla gösterme' seçeneği seçiliyse <strong>bu kutu seçilemez</strong>.</p>";
 
 /* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>İşaretlendiğinde</strong>, herhangi bir yapılandırma bağlandığında Tunnelblick simgesi üzerinde bir gösterge gösterilir.</p><p><strong>İşaretlenmediğinde</strong>, böyle bir gösterge gösterilmez.</p>";
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>İşaretliyken</strong>, herhangi bir yapılandırma bağlandığında Tunnelblick simgesi üzerinde fark edilir bir görsel işaret gösterilecektir.</p><p><strong>İşaretli değilken</strong>, böyle bir işaret çıkmayacaktır.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>İşaretliyken</strong>, herhangi bir uyarı oluştuğunda Tunnelblick simgesi üzerinde fark edilir bir görsel işaret gösterilecektir.</p><p><strong>İşaretli değilken</strong>, böyle bir işaret çıkmayacaktır.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>İşaretlendiğinde</strong>, bir pencerede Tunnelblick'in ilerleme durumunu gösterilecektir.</p>";
@@ -2336,9 +2339,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>İşaretlendiğinde</strong>, VPN-verili alan adı aranan alan adları listesinin başına eklenecektir.</p>\n<p><strong>İşaretlenmediğinde</strong>, aranan alan adları listesi VPN-verili alan adı ile değiştirilecektir.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>İşaretlendiğinde</strong>, bağlantı başlatıldığından beri geçen süre Tunnelblick menü içerisinde ve VPN Detayları penceresinin başlığında gösterilecektir.</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Seçildiğinde</strong>, bağlantı öncesinde kendinizi tanıtmanız gerekecektir. Kendinizi şifre, veya varsa, TouchID yada FaceID kullanarak tanıtabilirsiniz.</p>\n<p><strong>Seçilmediğinde,</strong>, bağlantı öncesinde tanıtım istenmeyecektir.</p>\n<p>Bu yapılandırmayı desteklemeyen macOS sürümlerinde bu seçenek<strong>etkin değildir</strong>.</p><p><strong>Not: Bu ayarı değiştirmek için bilgisayar yöneticisinin onay gereklidir.</strong></p>";
