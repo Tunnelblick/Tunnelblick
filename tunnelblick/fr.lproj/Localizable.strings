@@ -454,7 +454,10 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Afficher \"Connecter\" et \"Déconnecter\" avec les noms des configurations";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Afficher un indicateur lorsqu'une configuration est connectée";
+"Display a prominent indicator when any configuration is connected" = "Afficher un indicateur voyant lorsqu'une configuration est connectée";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "Afficher un indicateur voyant lorsque des avertissements sont présents";
 
 /* Checkbox name */
 "Display connection submenus" = "Afficher les sous-menus de connexion";
@@ -2253,9 +2256,6 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Si cette option est cochée</strong>, IPv6 sera activé.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, IPv6 ne sera pas activé.</p>\n<p>Désactiver IPv6 est souvent recommandé parce que de nombreuses configurations VPN ne protègent pas contre les fuites d'informations causées par l'utilisation d'IPv6. La plupart des connexions à internet fonctionnent parfaitement sans IPv6.</p>\n<p><strong>Cette option est indisponible</strong> pour les configurations Tun.</p>";
 
-/* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Si cette option est cochée</strong>, OpenVPN modifiera les DNS et d'autres réglages après avoir configuré le routage pour le VPN au lieu de le faire avant.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, OpenVPN modifiera les DNS et d'autres réglages avant avoir configuré le routage pour le VPN au lieu de le faire après. Ceci peut provoquer des problèmes de résolution DNS ou des délais si les routes mettent longtemps à s'établir -- par exemple, s'il y a beaucoup de routes à régler.</p>\n";
-
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Si cette option est cochée</strong>, OpenVPN lancera un test pour déterminer le MTU maximum pour la connexion. Le test est lancé à chaque connexion et peut prendre plusieurs minutes. Les résultats apparaissent dans le fichier journal de Tunnelblick.</p>\n";
 
@@ -2293,7 +2293,10 @@
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Si cette option est cochée</strong>, la fenêtre du statut VPN s'affiche pour l'ensemble des connexions 'actives' lorsque vous passer votre curseur sur l'icône Tunnelblick.</p><p>Les configurations 'actives' signifient l'ensemble des tentatives de connexions réalisées depuis le lancement initial de l'application Tunnelblick.</p><p><strong>Cette option est n'est pas disponible</strong> lorsque l'option 'Ne jamais afficher' est cochée ci-dessus.</p>";
 
 /* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Si cette option est cochée</strong>, un indicateur visuel sera affiché sur l'icône Tunnelblick lorsqu'une configuration est connectée.</p><p><strong>Si cette option n'est pas cochée</strong>, l'indicateur n'apparaîtra pas.</p>";
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Si cette option est cochée</strong>, un indicateur visuel fort sera affiché sur l'icône Tunnelblick lorsqu'une configuration est connectée.</p><p><strong>Si cette option n'est pas cochée</strong>, l'indicateur n'apparaîtra pas.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Si cette option est cochée</strong>, un indicateur visuel fort sera affiché sur l'icône Tunnelblick lorsque des avertissements sont présents.</p><p><strong>Si cette option n'est pas cochée</strong>, l'indicateur n'apparaîtra pas.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Si cette option est cochée</strong>, une fenêtre affichera la progression lors du démarrage de Tunnelblick.</p>";
@@ -2336,9 +2339,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Si cette option est cochée</strong>, le nom de domaine spécifié par le VPN sera ajouté en tête de la liste des domaines de recherche.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, la liste des domaines de recherche sera remplacée par le nom de domaine spécifié par le VPN.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Si cette option est cochée</strong>, le temps de connexion est affiché dans le menu Tunnelblick et le titre de la fenêtre des détails VPN.</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Si cette option est cochée</strong>, vous devrez vous identifier avant la connexion. Vous pouvez vous identifier à l'aide d'un mot de passe ou, si ces méthodes sont disponibles, ToucheID ou FaceID</p>\n<p><strong>Lorsque cette option n'est pas cochée</strong>, aucune identification ne sera demandée avant la connexion. </p>\n<p><strong>Cette option est indisponible</strong> si vous utilisez une version de macOS qui ne la supporte pas.</p>\n<p><strong>Note: L'autorisation d'un administrateur est requise pour modifier ce réglage.</strong></p>";

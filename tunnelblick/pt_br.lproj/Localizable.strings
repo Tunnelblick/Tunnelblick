@@ -454,7 +454,10 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Exibir 'Conectar' e 'Desconectar' com o nome das configurações";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Exibir um indicador quando qualquer configuração estiver conectada";
+"Display a prominent indicator when any configuration is connected" = "Exibir um indicador quando qualquer configuração estiver conectada";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "Exibir um indicador quando houver avisos disponíveis";
 
 /* Checkbox name */
 "Display connection submenus" = "Exibir submenus de conexão";
@@ -2247,9 +2250,6 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Quando marcada</strong>, IPv6 será desativado.</p>\n<p><strong>Quando não marcada</strong>, IPv6 não será desativado.</p>\n<p>Desativar IPv6 é normalmente recomendado porque muitas configurações de VPN não protegem contra vazamento de informações causado pelo uso do IPv6. A maioria do acesso à Internet funciona bem sem IPv6.</p>\n<p><strong>Esta caixa de seleção está desativada</strong> para configurações Tun.</p>";
 
-/* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Quando marcada</strong>, o OpenVPN modificará o DNS e outras definições após configurar o roteamento para a VPN ao invés de antes de configurar o roteamento.</p>\n<p><strong>Quando não marcada</strong>, o OpenVPN modificará o DNS e outras definições antes de configurar o roteamento para a VPN, ao invés de após de configurar o roteamento. Isto pode causar falhas de DNS ou atrasos se as rotas levarem muito tempo para serem configuradas -- por exemplo, se existirem muitas rotas a serem configuradas.</p>\n";
-
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Quando marcada</strong>, o OpenVPN irá executar um teste para determinar o tamanho máximo do MTU para a conexão. O teste começa cada vez que uma conexão é realizada e poderá levar muitos minutos. O resultado dos testes irá aparecer nos logs do Tunneblick.</p>\n";
 
@@ -2285,9 +2285,6 @@
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Quando marcada</strong>, as janelas de estado da VPN para todas as configurações 'ativas' serão exibidas quando o cursor estiver sobre o ícone do Tunnelblick.</p><p>Configurações 'ativas' são configurações que você tentou conectar desde que o Tunnelblick foi iniciado.</p><p><strong>Esta seleção é desativada</strong> quando 'Nunca Exibir' estiver marcada acima.</p>";
-
-/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Quando marcado</strong>, um indicador visual será exibido no ícone do Tunnelblick quando qualquer configuração estiver conectada.</p><p><strong>Quando não estiver marcado</strong>, nenhum indicador irá aparecer.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Quando marcada</strong>, uma janela mostrará o progresso do Tunnelblick enquanto inicializa.</p>";
@@ -2330,9 +2327,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Quando marcada</strong>, o nome de domínio especificado pela VPN será adicionado no começo da lista de domínios de pesquisa.</p>\n<p><strong>Quando não marcada</strong>, a lista de domínio de pesquisa será substituída pelo nome de domínio especificado pela VPN.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Quando marcada</strong>, o tempo desde que a conexão foi estabelecida é exibida no menu do Tunnelblick e no título da janela Detalhes da VPN.</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Quando selecionado</strong>, você precisará se autenticar antes de conectar. Você pode se autenticar usando sua senha ou, se disponível, TouchID ou FaceID.</p>\n<p><strong>Quando não selecionado</strong>, nenhuma autenticação será necessária antes da conexão.</p>\n<p><strong>Este checkbox esta desabilitado</strong> se você estiver usando uma versão do macOS que não dê suporte a este recurso.</p><p><strong>Nota: É necessária uma autorização do administrador do computador para alterar esta configuração.</strong></p>";

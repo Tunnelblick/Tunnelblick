@@ -454,9 +454,6 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Tampilkan 'Sambung' dan 'Putus' dengan nama konfigurasi";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Tampilkan suatu indikator ketika sebarang konfigurasi tersambung";
-
-/* Checkbox name */
 "Display connection submenus" = "Tampilkan sub menu koneksi";
 
 /* Checkbox name */
@@ -2253,9 +2250,6 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Ketika dicentang</strong>, IPv6 akan difungsikan.</p>\n<p><strong>Ketika tidak dicentang</strong>, IPv6 tidak akan difungsikan.</p>\n<p>Mematikan IPv6 sering disarankan karena banyak konfigurasi VPN tidak menjaga atas kebocoran informasi yang disebabkan oleh penggunaan IPv6. Kebanyakan akses internet bekerja baik tanpa IPv6.</p>\n<p><strong>Kotak centang ini dimatikan</strong> untuk konfigurasi Tun.</p>";
 
-/* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Ketika dicentang</strong>, OpenVPN akan mengubah DNS dan pengaturan lain setelah mengatur routing bagi VPN, bukan sebelum menatanya.</p>\n<p><strong>Ketika tidak dicentang</strong>, OpenVPN akan mengubah DNS dan pengaturan lain sebelum menata routing bagi VPN, bukan setelah mengatur routing. Ini dapat menyebabkan kegagalan atau tundaan DNS bila route memerlukan waktu lama untuk menatanya -- sebagai contoh, bila ada banyak route yang mesti ditata.</p>\n";
-
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Ketika dicentang</strong>, OpenVPN akan menjalankan pengujian untuk menentukan ukuran MTU maksimum bagi koneksi. Pengujian dimulai setiap kali suatu koneksi dibuat, dan bisa makan waktu beberapa menit. Hasil pengujian muncul dalam log Tunnelblick.</p>\n";
 
@@ -2291,9 +2285,6 @@
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Ketika dicentang</strong>, jendela status VPN bagi semua konfigurasi 'aktif' ditampilkan ketika kursor berada di atas ikon Tunnelblick.</p><p>Konfigurasi 'aktif' adalah konfigurasi yang telah Anda coba sambungkan semenjak Tunnelblick diluncurkan.</p><p><strong>Kotak centang ini dinonaktifkan</strong> ketika 'Jangan Pernah Tampilkan' dipilih di atas.</p>";
-
-/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Saat dicentang</strong>, suatu indikator visual akan ditampilkan pada ikon Tunnelblick ketika sebarang konfigurasi tersambung.</p><p><strong>Ketika tidak dicentang</strong>, tidak ada indikator yang muncul.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Ketika dicentang</strong>, suatu jendela akan menampilkan kemajuan Tunnelblick ketika memulai.</p>";
@@ -2336,9 +2327,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Ketika dicentang</strong>, nama domain yang dinyatakan oleh VPN akan ditambahkan ke awal daftar pencarian domain.</p>\n<p><strong>Ketika tidak dicentang</strong>, daftar pencarian domain akan digantikan oleh nama domain yang dinyatakan oleh VPN.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Ketika dicentang</strong>, waktu semenjak suatu koneksi terjalin ditampilkan dalam menu Tunnelblick dan dalam judul jendela Rincian VPN.</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Ketika dicentang</strong>, Anda akan diminta untuk otentikasi diri Anda sebelum menyambung. Anda dapat otentikasi diri Anda dengan menggunakan kata sandi Anda atau, jika tersedia, TouchID atau FaceID.</p>\n<p><strong>Ketika tidak dicentang</strong>, otentikasi tidak diperlukan sebelum menyambung.</p>\n<p><strong>Kotak centang ini dimatikan</strong> jika Anda menggunakan versi macOS yang tidak mendukungnya.</p><p><strong>Catatan: Otorisasi administrator komputer diperlukan untuk mengubah pengaturan ini.</strong></p>";

@@ -358,7 +358,7 @@
 "Move Configurations into a New Folder..." = "將設定檔移動到新的資料夾...";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "不記錄 OpenVPN 或 Tunnelblick VPN 的日誌";
+"No OpenVPN or Tunnelblick VPN logging" = "不保留 OpenVPN 或 Tunnelblick VPN 的記錄";
 
 /* Menu item */
 "No VPN Configurations Available" = "沒有可用的 VPN 設定檔";
@@ -454,7 +454,10 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "使用設定檔名稱顯示「連線」或「斷開連線」";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "當有設定檔連線時顯示指示器";
+"Display a prominent indicator when any configuration is connected" = "當有設定檔連線時顯示醒目的圖示";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "當有警告時顯示醒目的圖示";
 
 /* Checkbox name */
 "Display connection submenus" = "顯示連線子選單";
@@ -2254,7 +2257,7 @@
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>若勾選</strong>，將會啟用 IPv6。</p>\n<p><strong>若未勾選</strong>，將不會啟用 IPv6。</p>\n<p>通常不建議啟用 IPv6，因為許多的 VPN 設定不會防止使用 IPv6 造成的資訊洩露，而且不使用 IPv6 大部分還是能正常連線網路。</p>\n<p>對於 Tap 設定會<strong>停用這個核取方塊</strong></p>";
 
 /* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>若勾選</strong>，OpenVPN 將會在設定好 VPN 路由之後，修改 DNS</p>\n<p><strong>若未勾選</strong>，OpenVPN 將會在設定好 VPN 路由之前，就修改 DNS。如果，花了較長的時間設定好路由，像是有許多路由需要設定，這就會造成 DNS 失敗。</p>\n";
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n<p><strong>Warning</strong>: Tap interfaces often need additional configuration changes that are not compatible with this option.</p>" = "<p><strong>若勾選</strong>，OpenVPN 將會在設定 VPN 路由之後，才修改 DNS</p>\n<p><strong>若未勾選</strong>，OpenVPN 將會在設定 VPN 路由之前，就修改 DNS。如果路由花了較長的時間才設定好，這會造成 DNS 失敗或延遲。例如：有許多路由需要設定。</p>\n<p><strong>警告</strong>：TAP 介面通常需要對設定檔做額外修改，這些修改不相容這個選項。</p>";
 
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>若勾選</strong>，OpenVPN 將運行測試以確認連接最大 MTU 大小。測試將於每次設立連接時運行，並可能持續幾分鐘。測試結果將於 Tunnnelblock 日誌上顯示。</p>\n";
@@ -2293,7 +2296,13 @@
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>若勾選</strong>，</p>VPN 狀態視窗會在滑鼠移到 Tunnelblick 圖示上時，顯示目前所有「活躍」的連線<p></p>「活躍」是指你在啟動 Tunnelblick 後，所有嘗試過的連線。<p>若上述選取了「永不顯示」，<strong>此勾選框會自動停用</strong>。</p>";
 
 /* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>當勾選時</strong>，如果有任何設定檔連線，Tunnelblick 圖示上會有一個指示器。</p><p><strong>當未勾選時</strong>，不會有指示器。</p>";
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>當勾選時</strong>，如果有任何設定檔連線，Tunnelblick 圖示上會有醒目的指示。</p><p><strong>當未勾選時</strong>，不會有指示。</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>當勾選時</strong>，如果有任何警告，Tunnelblick 圖示上會有醒目的指示。</p><p><strong>當未勾選時</strong>，不會有指示。</p>";
+
+/* HTML info for the 'Display connection timers' checkbox. */
+"<p><strong>When checked</strong>, a timer is displayed in the Tunnelblick menu and in the title of the VPN Details window:</p>\n<p>While a connection attempt is being made, the timer displays the time that has elapsed trying to make the connection. When a connection is made, the timer restarts and displays the time that has elapsed since the connection was made. While a disconnect attempt is being made, the timer restarts and displays the time that has elapsed trying to disconnect.</p>" = "<p><strong>若勾選</strong>, 會在 Tunnelblick 選單及 VPN 詳情視窗顯示計時器：</p>\n<p>當嘗試連線時，計時器會顯示嘗試的時間。當已連線時，計時器會重新計時並顯示已連線的時間。當嘗試中斷連線時，計時器會重新計時並顯示嘗試中斷的時間。</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>若勾選</strong>，視窗將在啟動時顯示 Tunnelblick 的進度。</p>";
@@ -2336,9 +2345,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>若勾選</strong>，VPN 指定的網域名稱會被加入到搜尋域名清單中的開頭中。</p>\n<p><strong>若未勾選</strong>，搜尋域名將會被 VPN 指定的域名替代</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>若勾選</strong>，從鏈接創建開始的時間將被顯示在Tunnelblick選單和VPN詳細信息窗口的標題上。</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>當勾選時</strong>，你需要在連線前進行身份驗證。你可以使用你的密碼、 TouchID 或 FaceID (如果支援的話) 進行驗證。</p>\n<p><strong>當未勾選時</strong>，連線前不需進行身份驗證。</p>\n<p>如果你使用的 macOS 版本不支援時，<strong>此選項將被禁用</strong>。</p><p><strong>注意：變更此項設定需要系統管理者權限。</strong></p>";

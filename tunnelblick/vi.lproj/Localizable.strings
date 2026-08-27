@@ -454,7 +454,10 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Hiển thị 'Kết nối' và 'Ngắt kết nối' kèm theo tên cấu hình";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Hiển thị chỉ báo khi có bất kỳ cấu hình nào đang được kết nối";
+"Display a prominent indicator when any configuration is connected" = "Hiển thị chỉ báo khi có bất kỳ cấu hình nào đang được kết nối";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "Hiển thị một chỉ báo nổi bật khi có bất kỳ cảnh báo nào";
 
 /* Checkbox name */
 "Display connection submenus" = "Hiển thị kết nối trong menu con";
@@ -2253,9 +2256,6 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Khi được chọn</strong>, IPv6 sẽ được bật.</p>\n<p><strong>Khi không được chọn</strong>, IPv6 sẽ không được kích hoạt.</p>\n<p>Việc vô hiệu hóa IPv6 thường được khuyến nghị vì nhiều cấu hình VPN không bảo vệ chống rò rỉ thông tin do sử dụng IPv6. Hầu hết truy cập Internet hoạt động tốt mà không cần IPv6.</p>\n<p><strong>Khi checkbox này đã được tắt</strong> cho cấu hình Tun.</p>\n";
 
-/* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Khi được chọn</strong>, OpenVPN sẽ sửa đổi DNS và các cài đặt khác sau khi thiết lập định tuyến cho VPN thay vì trước khi thiết lập định tuyến.</p>\n<p><strong>Khi không được chọn</strong>, OpenVPN sẽ sửa đổi DNS và các cài đặt khác trước khi thiết lập định tuyến cho VPN, thay vì sau khi thiết lập định tuyến. Điều này có thể gây ra lỗi hoặc chậm trễ DNS nếu các tuyến mất nhiều thời gian để thiết lập - ví dụ: nếu có nhiều tuyến để thiết lập.</p>";
-
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Khi được chọn</strong>, OpenVPN sẽ chạy thử nghiệm để xác định kích thước MTU tối đa cho kết nối. Quá trình kiểm tra bắt đầu mỗi khi kết nối được thực hiện và có thể mất vài phút. Kết quả kiểm tra xuất hiện trong nhật ký Tunnelblick.</p>";
 
@@ -2293,7 +2293,10 @@
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Khi được chọn</strong>, Cửa sổ trạng thái VPN cho tất cả các cấu hình 'hoạt động' được hiển thị khi con trỏ ở trên biểu tượng Tunnelblick.</p><p>'Kích hoạt' cấu hình là cấu hình mà bạn đã cố gắng kết nối kể từ khi Tunnelblick được khởi chạy.</p><p><strong>Khi checkbox này bị tắt</strong> khi 'Không bao giờ hiển thị' được chọn ở phía trên.</p>";
 
 /* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Khi được chọn</strong>, một chỉ báo trực quan sẽ được hiển thị trên biểu tượng Tunnelblick khi có bất kỳ cấu hình nào đang được kết nối.</p><p><strong>Khi không được chọn</strong>, sẽ không hiển thị chỉ báo này.</p>";
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Khi được chọn</strong>, một chỉ báo trực quan nổi bật sẽ được hiển thị trên biểu tượng Tunnelblick khi có bất kỳ cấu hình nào đang được kết nối.</p><p><strong>Khi không được chọn</strong>, sẽ không hiển thị chỉ báo này.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Khi được chọn</strong>, một chỉ báo trực quan nổi bật sẽ được hiển thị trên biểu tượng Tunnelblick khi có bất kỳ cảnh báo nào.</p><p><strong>Khi không được chọn</strong>, sẽ không hiển thị chỉ báo này.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Khi được chọn</strong>, một cửa sổ sẽ hiển thị tiến trình của Tunnelblick trong khi khởi động.</p>";
@@ -2336,9 +2339,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Khi được chọn</strong>, tên miền do VPN chỉ định sẽ được thêm vào đầu danh sách miền tìm kiếm.</p>\n<p><strong>Khi không được chọn</strong>, danh sách miền tìm kiếm sẽ được thay thế bằng tên miền do VPN chỉ định.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Khi được chọn</strong>, thời gian kể từ khi kết nối được thiết lập được hiển thị trong menu Tunnelblick và trong tiêu đề của cửa sổ Chi tiết VPN.</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Khi được chọn</strong>, bạn sẽ được yêu cầu xác thực bản thân trước khi kết nối. Bạn có thể tự xác thực bằng mật khẩu của mình hoặc TouchID hoặc FaceID nếu có.</p>\n<p><strong>Khi không được chọn</strong>, không cần xác thực trước khi kết nối.</p>\n<p><strong>Checkbox này bị tắt</strong> nếu bạn đang sử dụng phiên bản macOS không hỗ trợ nó.</p><p><strong>Lưu ý: Cần có ủy quyền của quản trị viên máy tính để thay đổi cài đặt này.</strong></p>";

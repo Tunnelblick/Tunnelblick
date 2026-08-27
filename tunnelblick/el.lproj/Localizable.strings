@@ -454,7 +454,10 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Εμφάνιση «Σύνδεση» και «Αποσύνδεση» με τα ονόματα διαμόρφωσης";
 
 /* Checkbox name */
-"Display an indicator when any configuration is connected" = "Εμφάνιση δείκτη όταν οποιαδήποτε διαμόρφωση είναι συνδεδεμένη";
+"Display a prominent indicator when any configuration is connected" = "Εμφάνιση εμφανούς ένδειξης όταν είναι συνδεδεμένη οποιαδήποτε διαμόρφωση";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "Εμφάνιση εμφανούς ένδειξης όταν υπάρχουν διαθέσιμες προειδοποιήσεις";
 
 /* Checkbox name */
 "Display connection submenus" = "Εμφάνισε υπομενού σύνδεσης";
@@ -2253,9 +2256,6 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το IPv6 θα ενεργοποιηθεί.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το IPv6 θα απενεργοποιηθεί.</p>\n<p>Η απενεργοποιήση του IPv6 συχνά προτείνεται διότι πολλές ρυθμίσεις VPΝ δεν προστατεύουν ενάντια σε διαρροές πληροφοριών οι οποίες έχουν προκληθεί από τη χρήση του IPv6. Η πρόσβαση στο Διαδίκτυο συνήθως λειτουργεί κανονικά και χωρίς IPv6.</p>\n\n<p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> για ρυθμίσεις Tun.</p>";
 
-/* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το OpenVPN θα τροποποιήσει πρώτα τις διαδρομές για το VPN και μετα τις ρυθμίσεις του DNS καθώς και αλλες ρυθμίσεις.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το OpenVPN θα τροποποιήσει πρώτα τις ρυθμίσεις του DNS καθως και άλλες ρυθμίσεις και μετά θα ορίσει τις διαδρομές για το VPN. Αυτό μπορεί να προκαλέσει λάθη στον DNS ή καθυστερήσεις εάν οι διαδρομές χρειάζονται πολύ χρόνο για να οριστούν -- για παράδειγμα, εάν πρέπει να οριστούν πολλές διαδρομές.</p>\n";
-
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το OpenVPN θα πραγματοποιήσει ένα τεστ για να καθορίσει το μέγιστο μέγεθος MTU για την σύνδεση. Το τεστ θα ξεκινήσει κάθε φορά που πραγματοποιείται μια σύνδεση, και μπορεί να διαρκέσει αρκετά λεπτά. Τα αποτελέσματα του τεστ θα εμφανιστούν στο αρχείο καταγραφής (log) του Tunnelblick.</p>\n";
 
@@ -2293,7 +2293,10 @@
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>ελέγχεται</strong>, VPN καθεστώς των windows για όλους \"ενεργό\" συνθέσεις εμφανίζονται όταν ο δείκτης του ποντικιού είναι πάνω από το εικονίδιο του Tunnelblick.</p><p> \"Ενεργό\" συνθέσεις είναι διαμορφώσεις που προσπαθήσατε να συνδεθείτε από το Tunnelblick ξεκίνησε.</p><p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong>, όταν \"Ποτέ Εκπομπή\" επιλέγεται παραπάνω.</p>";
 
 /* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
-"<p><strong>When checked</strong>, a visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, θα εμφανίζεται ένας οπτικός δείκτης στο εικονίδιο του Tunnelblick όταν οποιαδήποτε διαμόρφωση είναι συνδεδεμένη.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, δε θα εμφανίζεται τέτοιος δείκτης.</p>";
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, θα εμφανίζεται μια εμφανής οπτική ένδειξη στο εικονίδιο Tunnelblick όταν συνδέεται οποιαδήποτε διαμόρφωση.</p><p><strong>Όταν δεν είναι επιλεγμένο</strong>, δεν θα εμφανίζεται καμία τέτοια ένδειξη.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, θα εμφανίζεται μια εμφανής οπτική ένδειξη στο εικονίδιο Tunnelblick όταν υπάρχουν διαθέσιμες προειδοποιήσεις.</p><p><strong>Όταν δεν είναι επιλεγμένο</strong>, δεν θα εμφανίζεται καμία τέτοια ένδειξη.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Όταν είναι επιλεγμένο </strong>, ένα παράθυρο θα εμφανίσει την πρόοδο του Tunnelblick κατά την εκκίνηση.</p>";
@@ -2336,9 +2339,6 @@
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Όταν είναι ενεργοποιημένο</strong>, το όνομα domain καθορισμένο απο το VPN θα προστεθεί στην αρχή της αναζήτησης του search domain.</p>\n<p><strong>Όταν είναι απενεργοποιημένο</strong>, η λίστα search domain θα αντικατασταθεί από το καθορισμένο απο το VPN όνομα domain.</p>";
-
-/* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, ο χρόνος από την πραγματοποίηση μιας σύνδεσης εμφανίζεται στο μενού του Tunnelblick και στον τίτλο του παραθύρου Λεπτομερειών VPN.</p>";
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Όταν έχει επιλεχεθει</strong>, θα απαιτείται αυθεντικοποίηση πριν την σύνδεση. Η αυθεντικοποίηση μπορεί να γίνει με την χρήση κωδικού ή, εαν είναι διαθέσιμο, TouchID ή FaceID.</p>\n<p><strong>Όταν δεν έχει επιλεχεθει</strong>, δεν θα απαιτείται αυθεντικοποίηση πριν την σύνδεση.</p>\n<p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> όταν χρησιμοποιείται έκδοση του macOS που δεν το υποστηρίζει.</p><p><strong>Σημέιωση: Απαιτείται η εξουσιοδότηση του διαχειρηστή του ηλεκτρονικού υπολογιστή για την αλλαγή αυτής της ρύθμισης.</strong></p>";
