@@ -184,7 +184,8 @@ static pid_t waitUntilNoProcessWithProcessID(pid_t pid, NSString * name, BOOL se
     // If sendSIGTERM, sends SIGTERM to process with ID pid
     // Waits for that process ID to terminate (kill(pid, 0)), not the first process with the name.
     // Returns process ID of the next process with the specified name (or 0 if no such process).
-    // Returns (pid_t)-1 if sendSIGTERM is NO and the process is still running after 60 seconds.
+    // If the process is still running after 60 seconds, logs and calls errorExit().
+    // Does not SIGKILL (a reused pid could belong to an unrelated process).
 
     if (  pid == 0  ) {
         appendLog([NSString stringWithFormat: @"process %u ('%@') is not running", pid, name]);
@@ -201,27 +202,10 @@ static pid_t waitUntilNoProcessWithProcessID(pid_t pid, NSString * name, BOOL se
     NSDate * deadline = [NSDate dateWithTimeIntervalSinceNow: 60.0];
     while (  0 == kill(pid, 0)  ) {
         if (  [[NSDate date] compare: deadline] != NSOrderedAscending  ) {
-            if (  sendSIGTERM  ) {
-                kill(pid, SIGKILL);
-                appendLog([NSString stringWithFormat: @"Timed out waiting for process %u ('%@'); sent SIGKILL", pid, name]);
-            } else {
-                appendLog([NSString stringWithFormat: @"Timed out waiting for process %u ('%@') to finish", pid, name]);
-                return (pid_t) -1;
-            }
-            break;
+            appendLog([NSString stringWithFormat: @"Timed out waiting for process %u ('%@') to finish", pid, name]);
+            errorExit();
         }
         usleep(2 * ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
-    }
-
-    if (  sendSIGTERM  ) {
-        NSDate * killDeadline = [NSDate dateWithTimeIntervalSinceNow: 2.0];
-        while (  0 == kill(pid, 0)  ) {
-            if (  [[NSDate date] compare: killDeadline] != NSOrderedAscending  ) {
-                appendLog([NSString stringWithFormat: @"process %u ('%@') is still running after SIGKILL", pid, name]);
-                break;
-            }
-            usleep(2 * ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
-        }
     }
 
     appendLog([NSString stringWithFormat: @"process %u ('%@') has finished", pid, name]);
@@ -397,10 +381,7 @@ int main(int argc, const char * argv[]) {
 
         // Wait for the Tunnelblick process which started the update process to quit.
         // (Don't SIGTERM it because we want it to complete everything before we update.)
-        if (  (pid_t) -1 == waitUntilNoProcessWithProcessID(pid, @"Tunnelblick", NO)  ) {
-            appendLog(@"Initiating Tunnelblick process did not quit; not replacing the application");
-            errorExit();
-        }
+        waitUntilNoProcessWithProcessID(pid, @"Tunnelblick", NO);
 
         // SIGTERM any other Tunnelblick proceses (e.g. other logged-in users) and
         // wait for them to finish.
