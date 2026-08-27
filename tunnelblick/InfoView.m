@@ -394,6 +394,7 @@ extern TunnelblickInfo * gTbInfo;
                             @[@"Caglar Ulkuderner",             NSLocalizedString(@"Turkish translation",                  @"Credit description")],
 							@[@"Levi Ustinov",                  NSLocalizedString(@"Russian translation",                  @"Credit description")],
                             @[@"François Varas",                NSLocalizedString(@"French translation",                   @"Credit description")],
+                            @[@"Vlado Varga",                   NSLocalizedString(@"Slovak translation",                   @"Credit description")],
                             @[@"Jorge Daniel Sampayo Vargas",   NSLocalizedString(@"Spanish translation",                  @"Credit description")],
                             @[@"Cristiano Verondini",           NSLocalizedString(@"Italian translation",                  @"Credit description")],
                             @[@"Zoltan Lanyi Webmegoldasok",    NSLocalizedString(@"Hungarian translation",                @"Credit description")],
