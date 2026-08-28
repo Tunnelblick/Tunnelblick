@@ -1057,6 +1057,52 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     return @"script";
 }
 
+-(NSArray *) unknownOptionsToIgnoreInTokens: (NSMutableArray  *) tokens {
+
+    //
+    // Scans "tokens" and returns an array with all parameters of all 'ignore-unknown-option' lines
+    //
+    // Logs a warning about parameters that are not in OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY.
+
+    NSMutableArray * optionsToIgnore = [NSMutableArray array];
+
+    unsigned tokenIx = 0;
+    while (  tokenIx < [tokens count]  ) {
+
+        ConfigurationToken * firstToken = [tokens objectAtIndex: tokenIx++];
+
+        if (  ! [firstToken isLinefeed]  ) {
+            if (  [[firstToken  stringValue] isEqualToString: @"ignore-unknown-option"]  ) {
+                ConfigurationToken * token;
+                while (  tokenIx < [tokens count]  ) {
+                    token = tokens[tokenIx++];
+                    if (  [token isLinefeed]  ) {
+                        break;
+                    }
+                    NSString * optionString = [token stringValue];
+                    [optionsToIgnore addObject: optionString];
+                    if (  ! [OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY containsObject: optionString]  ) {
+                        Log(@"An 'ignore-unknown-option' option includes '%@', which Tunnelblick"
+                            @" does not list as not implemented on macOS. It will be ignored anyway."
+                            @ "If it is not implemented on macOS, please inform the Tunnelblick developers.",
+                            optionString);
+                    }
+                }
+            } else {
+                // Skip to the next LineFeed
+                while (  tokenIx < [tokens count]  ) {
+                    ConfigurationToken * token = tokens[tokenIx++];
+                    if (  [token isLinefeed]  ) {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    return [NSArray arrayWithArray: optionsToIgnore];
+}
+
 -(NSString *) convertConfigPath: (NSString *) theConfigPath
 					 outputPath: (NSString *) theOutputPath
               replacingTblkPath: (NSString *) theReplacingTblkPath
@@ -1131,7 +1177,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		return [self logMessage: nil
                       localized: [NSString stringWithFormat: NSLocalizedString(@"One or more problems were detected:\n\n%@", @"Window text"), [self localizedLogString]]];
 	}
-	
+
+    NSArray * unknownOptionsToIgnore = [self unknownOptionsToIgnoreInTokens: tokens];
+
     tokensToReplace    = [[NSMutableArray alloc] initWithCapacity: 8];
 	replacementStrings = [[NSMutableArray alloc] initWithCapacity: 8];
 	linesToCommentOut  = [[NSMutableArray alloc] initWithCapacity: 8];
@@ -1251,12 +1299,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 				return [self logMessage: [NSString stringWithFormat: @"The '%@' OpenVPN option is not allowed when using Tunnelblick.", [firstToken stringValue]]
                               localized: [NSString stringWithFormat: NSLocalizedString(@"The '%@' OpenVPN option is not allowed when using Tunnelblick.", @"Window text"), [firstToken stringValue]]];
 			}
-            
-            if (  [optionsThatAreNotAllowedOnOSX containsObject: [firstToken stringValue]]  ) {
-				return [self logMessage: [NSString stringWithFormat: @"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option.", [firstToken stringValue]]
-                              localized: [NSString stringWithFormat: NSLocalizedString(@"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option.", @"Window text"), [firstToken stringValue]]];
-			}
-            
+
+            if (  ! [unknownOptionsToIgnore containsObject: [firstToken stringValue]]  ) {
+                if (  [optionsThatAreNotAllowedOnOSX containsObject: [firstToken stringValue]]  ) {
+                    return [self logMessage: [NSString stringWithFormat: @"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option.", [firstToken stringValue]]
+                                  localized: [NSString stringWithFormat: NSLocalizedString(@"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option.", @"Window text"), [firstToken stringValue]]];
+                }
+            }
+
             if (  [optionsWithPath containsObject: [firstToken stringValue]]  ) {
                 if (  secondToken  ) {
 					BOOL isDh = [[firstToken stringValue] isEqualToString: @"dh"];
