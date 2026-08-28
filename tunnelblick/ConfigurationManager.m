@@ -873,22 +873,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
     }
 
-    if (  allowInteraction  ) {
-        NSArray * windowsOnlyOptions = OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY;
-        e = [windowsOnlyOptions objectEnumerator];
-        while (  (option = [e nextObject])  ) {
-            NSString * optionValue = [ConfigurationManager parseString: cfgContents forOption: option];
-            if (  optionValue  ) {
-                NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS.", [connection displayName], option);
-                NSString * msg = [NSString stringWithFormat:
-                                  NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS.", @"Window text"),
-                                  [connection localizedName], option];
-                TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
-                                  msg);
-            }
-        }
-    }
-
     // If there is a "dev-node" entry, return that device type (tun, utun, tap)
     NSString * devNodeOption = [ConfigurationManager parseString: cfgContents forOption: @"dev-node"];
     if (  devNodeOption  ) {
