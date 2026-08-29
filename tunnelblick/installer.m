@@ -1038,6 +1038,9 @@ void removeTunnelblickScriptLinesFromOvpnFileAtPath(NSString * path) {
 
     if (  contentsWereModified  ) {
         writeOutOpenVPNScriptToPath(contents, path);
+        if (  [logLines hasSuffix: @"\n"]  ) {
+            [logLines deleteCharactersInRange: NSMakeRange(logLines.length-1, 1)];
+        }
         Log(@"%@", logLines);
     }
 }
