@@ -50,14 +50,15 @@
 #import "UtilitiesView.h"
 #import "VPNConnection.h"
 
-extern NSArray        * gConfigurationPreferences;
-extern NSString       * gDeployPath;
-extern NSFileManager  * gFileMgr;
-extern unsigned         gMaximumLogSize;
-extern MenuController * gMC;
-extern NSString       * gPrivatePath;
-extern NSArray        * gProgramPreferences;
-extern TBUserDefaults * gTbDefaults;
+extern NSArray         * gConfigurationPreferences;
+extern NSString        * gDeployPath;
+extern NSFileManager   * gFileMgr;
+extern unsigned          gMaximumLogSize;
+extern MenuController  * gMC;
+extern NSString        * gPrivatePath;
+extern NSArray         * gProgramPreferences;
+extern NSString        * gShadowPath;
+extern TBUserDefaults  * gTbDefaults;
 extern TunnelblickInfo * gTbInfo;
 
 @interface MyPrefsWindowController()
@@ -1881,10 +1882,17 @@ static BOOL firstTimeShowingWindow = TRUE;
                           NSLocalizedString(@"You may not duplicate a Deployed configuration.", @"Window text"));
         return;
     }
-    
+
     // Get a target path like the finder: "xxx copy.ext", "xxx copy 2.ext", "xxx copy 3.ext", etc.
     NSString * targetPath = pathWithNumberSuffixIfItemExistsAtPath(sourcePath, YES);
     if (  targetPath  ) {
+
+        // If a private path, duplicate the shadow copy, not the private copy
+        if (  [sourcePath hasPrefix: gPrivatePath]  ) {
+            sourcePath = [gShadowPath stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
+            targetPath = [gShadowPath stringByAppendingPathComponent: lastPartOfPath(targetPath)];
+        }
+
         [ConfigurationManager duplicateConfigurationInNewThreadPath: sourcePath toPath: targetPath];
     }
 }

@@ -3247,8 +3247,6 @@ in: (NSString *) sharedOrPrivate {
     VPNConnection * connection = [gMC connectionForDisplayName: displayName];
     if (  connection  ) {
         [connection invalidateConfigurationParse];
-    } else {
-        NSLog(@"Internal error: revertOneConfigurationToShadowWithDisplayName: no connection for '%@'", displayName);
     }
 
     return (! errorFound);
@@ -3563,34 +3561,60 @@ in: (NSString *) sharedOrPrivate {
     }
 }
 
-+(void) duplicateConfigurationFromPath: (NSString *)         sourcePath
-                                toPath: (NSString *)         targetPath {
++(void) duplicateConfigurationFromPath: (NSString *) sourcePath
+                                toPath: (NSString *) targetPath {
 
     NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
     NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
 
+    if (  ! (   [sourcePath hasPrefix: L_AS_T]
+             && [targetPath hasPrefix: L_AS_T] )  ) {
+        Log(@"Internal error: duplicateConfigurationFromPath:toPath: not secure paths: '%@' and '%@'; stack trace:\n%@", sourcePath, targetPath, NSThread.callStackSymbols);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          [NSString stringWithFormat:
+                           NSLocalizedString(@"Tunnelblick could not copy the '%@' configuration. See the Console Log for details.", @"Window text"),
+                           sourceDisplayName]);
+        return;
+    }
+
+    //
+    // Copy the secure configuration
+    //
     NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to duplicate the '%@' configuration.", @"Window text"), sourceDisplayName];
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
     if (   ! auth  ) {
         return;
     }
 
-    if (  [ConfigurationManager copyConfigPath: sourcePath
-                                        toPath: targetPath
-                               usingSystemAuth: auth
-                                    warnDialog: YES
-                                   moveNotCopy: NO
-                                       noAdmin: NO]  ) {
-
-        if (  ! [gTbDefaults copyPreferencesFrom: sourceDisplayName to: targetDisplayName]  ) {
-            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                              NSLocalizedString(@"Warning: One or more settings could not be duplicated. See the Console Log for details.", @"Window text"));
-        }
-
-        copyCredentials(sourceDisplayName, targetDisplayName);
+    BOOL ok = [ConfigurationManager copyConfigPath: sourcePath
+                                            toPath: targetPath
+                                   usingSystemAuth: auth
+                                        warnDialog: YES
+                                       moveNotCopy: NO
+                                           noAdmin: NO];
+    [auth release];
+    if (  ! ok  ) {
+        return;
     }
 
-    [auth release];
+    //
+    // If it was the shadow copy, also "revert" the shadow copy to the private copy
+    //
+    if (  [sourcePath hasPrefix: L_AS_T_USERS]  ) {
+        if (  ! [ConfigurationManager revertOneConfigurationToShadowWithDisplayName: targetDisplayName]  ) {
+            return;
+        }
+    }
+
+    //
+    // Copy the preferences and credentials to the duplicate
+    //
+    if (  ! [gTbDefaults copyPreferencesFrom: sourceDisplayName to: targetDisplayName]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"Warning: One or more settings could not be duplicated. See the Console Log for details.", @"Window text"));
+    }
+
+    copyCredentials(sourceDisplayName, targetDisplayName);
 }
 
 +(NSString *) pathToUseIfItemAtPathExists: (NSString *) path stopNotCancel: (BOOL) stopNotCancel {
