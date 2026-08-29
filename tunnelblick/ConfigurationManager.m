@@ -122,6 +122,19 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [super dealloc];
 }
 
++(NSString *) makeSecureCopyOfUserItemAtPath: (NSString *) path {
+
+    NSString * stdOutString = nil;
+    OSStatus status = runOpenvpnstart(@[@"copyUserItemToNewSecureItem", path], &stdOutString, nil);
+    if (  status !=  EXIT_SUCCESS  ) {
+        Log(@"Error creating a secure item from '%@': %@", path, stdOutString);
+        return nil;
+    }
+
+    Log(@"Created secure copy of '%@'", path);
+    return stdOutString;
+}
+
 +(NSString *) checkForSampleConfigurationAtPath: (NSString *) cfgPath {
 
     // Returns nil or a localized error message
@@ -2440,15 +2453,10 @@ in: (NSString *) sharedOrPrivate {
         NSUInteger i;
         for (  i=0; i<sources.count; i++  ) {
 
-            NSString * path = sources[i];
-            NSString * stdOutString = nil;
-            OSStatus status = runOpenvpnstart(@[@"copyUserItemToNewSecureItem", path], &stdOutString, nil);
-            if (  status !=  EXIT_SUCCESS  ) {
-                Log(@"Error creating a secure item from '%@': %@", path, stdOutString);
+            sources[i] = [ConfigurationManager makeSecureCopyOfUserItemAtPath: sources[i]];
+            if (  ! sources[i]  ) {
                 return NO;
             }
-            Log(@"Created secure copy of\n'%@' at\n'%@'", path, stdOutString);
-            sources[i] = stdOutString;
         }
     }
 
@@ -4301,13 +4309,10 @@ err:
         Log(@"Error for allFilesAreReasonableIn('%@'): %@", cfgPath, errorMessage);
         return NO;
     }
-    NSString * stdOutString = nil;
-    OSStatus result = runOpenvpnstart(@[@"copyUserItemToNewSecureItem", cfgPath], &stdOutString, nil);
-    if (  result != EXIT_SUCCESS  ) {
-        NSLog(@"createShadowCopyWithDisplayName: Could not create a secure copy of '%@'; error was %@", cfgPath, stdOutString);
+    NSString * secureCopyPath = [ConfigurationManager makeSecureCopyOfUserItemAtPath: cfgPath];
+    if (  ! secureCopyPath  ) {
         return NO;
     }
-    NSString * secureCopyPath = stdOutString;
 
     //
 	// Get admin approval because it isn't a "safe" update
