@@ -1003,8 +1003,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return FALSE;
     }
 
-    NSLog(@"Deleted '%@'", targetPath);
-
     return TRUE;
 }
 
