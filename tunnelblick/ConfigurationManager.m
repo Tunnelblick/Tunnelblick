@@ -3004,8 +3004,9 @@ in: (NSString *) sharedOrPrivate {
         // Delete the all copies of the folder or .tblk
         //
 
-        // "stringByAppendingPathComponent" removes trailing slashes,
-        // but we need one if the item is a folder so we append it as a string
+        // "stringByAppendingPathComponent" removes trailing slashes, but we
+        // need one if the item is a folder, so we append it as a string as a
+        // separate operation after appending the path suffix as a path component
         NSString * slashSuffix = @"/";
         NSString * pathSuffix = displayName;
         BOOL isFolder = [displayName hasSuffix: @"/"];
@@ -3046,7 +3047,7 @@ in: (NSString *) sharedOrPrivate {
             }
         }
 
-        // Delete private copy as user
+        // Delete private copy
         path = [[[[NSHomeDirectory()
                    stringByAppendingPathComponent: L_AS_T]
                   stringByAppendingPathComponent: @"Configurations"]
