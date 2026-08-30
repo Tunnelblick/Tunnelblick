@@ -298,62 +298,6 @@ static BOOL isPathPrivate(NSString * path) {
     return isPrivate;
 }
 
-static void resolveSymlinksInPath(NSString * targetPath) {
-
-    // There are symlinks in a .tblk for files which are not readable by the user but should be propagated from one configuration to another when installing an updated configuration.
-    // These symlinks need to be replaced by the files to which they point.
-    //
-    // This is safe to do as root because only Tunnelblick or an admin can invoke the installer as root, and Tunnelblick allows only its own symlinks.
-    // (Tunnelblick resolves symlinks provided by the user while running as the user.)
-    //
-    // Because the target is a temporary copy, we replace the symlinks with the file contents in a file owned by root:wheel with permissions 0700, so the file cannot be read except by root.
-    // The final, possibly less restrictive, ownership and permissions will be set later.
-
-    if (  ! [targetPath hasSuffix: @".tblk"] ) {
-        return;
-    }
-
-    NSString * file;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: targetPath];
-    while (  (file = [dirEnum nextObject])  ) {
-        NSString * fullPath = [targetPath stringByAppendingPathComponent: file];
-        NSDictionary * fullPathAttributes = [gFileMgr tbFileAttributesAtPath: fullPath traverseLink: NO];
-        if (  [fullPathAttributes fileType] == NSFileTypeSymbolicLink  ) {
-
-            NSString * resolvedPath = [gFileMgr tbPathContentOfSymbolicLinkAtPath: fullPath];
-            if (  ! (   [resolvedPath hasPrefix: L_AS_T_SHARED]
-                     || [resolvedPath hasPrefix: L_AS_T_USERS]
-                     || [resolvedPath hasPrefix: gDeployPath]
-                     )  ) {
-                Log(@"Symlink '%@' is not to an allowed path: '%@'; targetPath was '%@'", fullPath, resolvedPath, targetPath);
-                errorExit();
-            }
-
-            NSData * data = [gFileMgr contentsAtPath: resolvedPath];
-
-            if (  ! data  ) {
-                Log(@"Could not get contents of %@", resolvedPath);
-                errorExit();
-            }
-
-            securelyDeleteItem(fullPath);
-
-            NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                         @0,    NSFileOwnerAccountID,
-                                         @0,    NSFileGroupOwnerAccountID,
-                                         [NSNumber numberWithInt: 0700], NSFilePosixPermissions,
-                                         nil];
-
-            if (  [gFileMgr createFileAtPath: fullPath contents: data attributes: attributes]  ) {
-                Log(@"Replaced symlink at %@\n with copy of %@", fullPath, resolvedPath);
-            } else {
-                Log(@"Could not replace symlink at %@\n     with a copy of %@", fullPath, resolvedPath);
-                errorExit();
-            }
-        }
-    }
-}
-
 NSString * lastPartOfPath(NSString * path) {
 
     NSString * secureCopyPrefix = [L_AS_T_TEMP stringByAppendingString: @"/SecureCopy-"];
