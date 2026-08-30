@@ -3959,9 +3959,9 @@ err:
                    moveNotCopy: YES
                        noAdmin: NO]  ) {
 
-        NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
-        NSString * targetName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-        [self moveOrCopyCredentialsAndSettingsFrom: sourceName to: targetName moveNotCopy: YES];
+        NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+        NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+        [self moveOrCopyCredentialsAndSettingsFrom: sourceDisplayName to: targetDisplayName moveNotCopy: YES];
 
     } else {
 		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
@@ -5252,8 +5252,8 @@ err:
         goto done;
     }
 
-    NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
-    if (  ! [self verifyCanDoMoveOrRenameFromPath: sourcePath name: sourceName]  ) {
+    NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+    if (  ! [self verifyCanDoMoveOrRenameFromPath: sourcePath name: sourceDisplayName]  ) {
         goto done;
     }
 
@@ -5265,7 +5265,7 @@ err:
         goto done;
     }
 
-    if (   [self isSafeConfigurationForDisplayName: sourceName]
+    if (   [self isSafeConfigurationForDisplayName: sourceDisplayName]
         && [gTbDefaults isTrueReadOnlyForKey: @"allowNonAdminSafeConfigurationReplacement"]  ) {
 
         NSDictionary * dict2 = @{@"sourcePath" : sourcePath,
@@ -5275,7 +5275,8 @@ err:
         goto done;
     }
 
-    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename configuration '%@' to '%@'.", @"Window text"), sourceName, targetPath.lastPathComponent.stringByDeletingPathExtension];
+    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename configuration '%@' to '%@'.", @"Window text"),
+                         sourceDisplayName, targetPath.lastPathComponent.stringByDeletingPathExtension];
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
     if (  auth ) {
         NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:
