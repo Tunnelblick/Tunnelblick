@@ -3440,7 +3440,8 @@ in: (NSString *) sharedOrPrivate {
         }
     }
 
-    if (  [self allAreSafeConfigurationsForDisplayNames: displayNames]  ) {
+    if (   [gTbDefaults isTrueReadOnlyForKey: @"allowNonAdminSafeConfigurationReplacement"]
+        && [self allAreSafeConfigurationsForDisplayNames: displayNames]  ) {
 
         [ConfigurationManager removeSafeConfigurationsForDisplayNames: displayNames];
 
