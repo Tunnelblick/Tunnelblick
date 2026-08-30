@@ -304,7 +304,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
     NSString * path = [myConfigDictionary objectForKey: displayName];
     if (  ! path  ) {
-        NSLog(@"localizedNameForDisplayName: '%@' is not a known displayName; stack trace: %@", displayName, callStack());
+        NSLog(@"localizedNameForDisplayName: '%@' is not a known configuration (yet)", displayName);
         return displayName;
     }
 
