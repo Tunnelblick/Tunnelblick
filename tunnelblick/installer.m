@@ -1017,7 +1017,7 @@ static void writeOutOpenVPNScriptToPath(NSString * contents, NSString * path) {
     }
 }
 
-void removeTunnelblickScriptLinesFromOvpnFileAtPath(NSString * path) {
+static void removeTunnelblickScriptLinesFromOvpnFileAtPath(NSString * path) {
 
     // Removes all lines at the start of the file at path that start with TUNNELBLICK_SCRIPT_LINE_PREFIX
 
@@ -1063,9 +1063,14 @@ void removeTunnelblickScriptLinesFromOvpnFileAtPath(NSString * path) {
     }
 }
 
-static void addLineToConfiguration(NSString * line, NSString * configPath) {
+static void setScriptLineInTblk(NSString * line, NSString * tblkPath) {
 
     NSError * err;
+
+    NSString * configPath = [[[tblkPath
+                               stringByAppendingPathComponent: @"Contents"]
+                              stringByAppendingPathComponent: @"Resources"]
+                             stringByAppendingPathComponent: @"config.ovpn"];
 
     NSMutableString * contents = [[[NSMutableString alloc]
                                    initWithContentsOfFile: configPath
@@ -1074,15 +1079,31 @@ static void addLineToConfiguration(NSString * line, NSString * configPath) {
                                   autorelease];
 
     if (  ! contents  ) {
-        Log(@"Could not read OpenVPN configuration file at '%@'; error was %@", configPath, err);
+        Log(@"Could not read OpenVPN configuration file in '%@'; error was %@", tblkPath, err);
         errorExit();
     }
 
-    [contents insertString: [line stringByAppendingString: @"\n"]
-                   atIndex: 0];
+    NSString * lineWithNewline = [line stringByAppendingString: @"\n"];
 
+    if (  [contents hasPrefix: lineWithNewline]  ) {
+        Log(@"OpenVPN configuration file in '%@' already starts with '%@'", tblkPath, line);
+        return;
+    }
+
+    if (  [contents hasPrefix: TUNNELBLICK_SCRIPT_LINE_PREFIX]  ) {
+        NSRange r = [contents rangeOfString: @"\n"];
+        if (  r.location == NSNotFound  ) {
+            r.location = contents.length;
+        }
+        NSString * removedLine = [contents substringToIndex: r.location];
+        Log(@"Removed  line '%@' into OpenVPN configuration file in '%@'", removedLine, tblkPath);
+        [contents deleteCharactersInRange: NSMakeRange(0, r.location + 1)];
+    }
+
+    [contents insertString: lineWithNewline atIndex: 0];
     writeOutOpenVPNScriptToPath(contents, configPath);
-    Log(@"Inserted line '%@' into OpenVPN configuration file at '%@'", line, configPath);
+
+    Log(@"Inserted line '%@' into OpenVPN configuration file in '%@'", line, tblkPath);
 }
 
 static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
@@ -2448,15 +2469,15 @@ static void setTunnelblickScriptLinesInTblkAtPath(NSString * tblkPath) {
 
     if (  hasTunnelblickUserScripts  ) {
         if (  hasRootScripts  ) {
-            addLineToConfiguration(TUNNELBLICK_SCRIPT_LINE_USER_ROOT, configPath);
+            setScriptLineInTblk(TUNNELBLICK_SCRIPT_LINE_USER_ROOT, tblkPath);
         } else {
-            addLineToConfiguration(TUNNELBLICK_SCRIPT_LINE_USER, configPath);
+            setScriptLineInTblk(TUNNELBLICK_SCRIPT_LINE_USER, tblkPath);
         }
     } else {
         if (  hasRootScripts  ) {
-            addLineToConfiguration(TUNNELBLICK_SCRIPT_LINE_ROOT, configPath);
+            setScriptLineInTblk(TUNNELBLICK_SCRIPT_LINE_ROOT, tblkPath);
         } else {
-            addLineToConfiguration(TUNNELBLICK_SCRIPT_LINE_NONE, configPath);
+            setScriptLineInTblk(TUNNELBLICK_SCRIPT_LINE_NONE, tblkPath);
         }
     }
 }
@@ -2468,15 +2489,11 @@ static void setScriptsOK(NSString * displayName) {
     NSString * folder;
     NSEnumerator * e = [folders objectEnumerator];
     while (  (folder = [e nextObject])  ) {
-        NSString * path = [[[[[folder
-                               stringByAppendingPathComponent: displayName]
-                              stringByAppendingPathExtension: @"tblk"]
-                             stringByAppendingPathComponent: @"Contents"]
-                            stringByAppendingPathComponent: @"Resources"]
-                           stringByAppendingPathComponent: @"config.ovpn"];
+        NSString * path = [[folder
+                            stringByAppendingPathComponent: displayName]
+                           stringByAppendingPathExtension: @"tblk"];
         if (  [gFileMgr fileExistsAtPath: path]  ) {
-            removeTunnelblickScriptLinesFromOvpnFileAtPath(path);
-            addLineToConfiguration(TUNNELBLICK_SCRIPT_LINE_OK, path);
+            setScriptLineInTblk(TUNNELBLICK_SCRIPT_LINE_OK, path);
         }
     }
 }
