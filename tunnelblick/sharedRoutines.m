@@ -1330,7 +1330,7 @@ OSStatus runToolExtended(NSString     * launchPath,
     NSString * tempDir    = [newTemporaryDirectoryPath() autorelease];
     if (  ! tempDir  ) {
         Log(@"Catastrophic error: Could not create a temporary directory");
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
 
     NSString * stdOutPath = [tempDir stringByAppendingPathComponent: @"stdout.txt"];
@@ -1338,28 +1338,28 @@ OSStatus runToolExtended(NSString     * launchPath,
 
     if (  ! [NSFileManager.defaultManager createFileAtPath: stdOutPath contents: [NSData data] attributes: nil]  ) {
         Log(@"Catastrophic error: Could not get create %@", stdOutPath);
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
     if (  ! [NSFileManager.defaultManager createFileAtPath: stdErrPath contents: [NSData data] attributes: nil]  ) {
         Log(@"Catastrophic error: Could not get create %@", stdErrPath);
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
 
     NSFileHandle * outFile = [NSFileHandle fileHandleForWritingAtPath: stdOutPath];
     if (  ! outFile  ) {
         Log(@"Catastrophic error: Could not get file handle for stdout.txt");
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
     NSFileHandle * errFile = [NSFileHandle fileHandleForWritingAtPath: stdErrPath];
     if (  ! errFile  ) {
         Log(@"Catastrophic error: Could not get file handle for stderr.txt");
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
 
     NSTask * task = [[[NSTask alloc] init] autorelease];
     if (  ! task  ) {
         Log(@"Catastrophic error: Could not create NSTask instance");
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
 
     [task setLaunchPath: launchPath];
