@@ -3952,6 +3952,15 @@ err:
     NSString   * targetPath = [dict objectForKey: @"targetPath"];
     SystemAuth * auth       = [dict objectForKey: @"auth"];
 
+    //
+    // If renaming a private path, have installer rename to shadow path (installer will also rename private path)
+    //
+    if (   [sourcePath hasPrefix: gPrivatePath]
+        && [targetPath hasPrefix: gPrivatePath]  ) {
+        sourcePath = [gShadowPath stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
+        targetPath = [gShadowPath stringByAppendingPathComponent: lastPartOfPath(targetPath)];
+    }
+
     if (  [self copyConfigPath: sourcePath
                         toPath: targetPath
                usingSystemAuth: auth

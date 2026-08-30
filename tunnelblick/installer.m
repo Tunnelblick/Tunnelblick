@@ -1115,9 +1115,6 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     // Copies a file, or a folder and its contents, making sure the copy has the same permissions and dates as the original but is owned by root:wheel.
     //
     // Uses an intermediate file or folder and then renames it, so no partial copy has been done if an error occurs.
-    //
-    // Any lines at the start of the OpenVPN configuration file that begin with TUNNELBLICK_SCRIPT_LINE_PREFIX
-    // will be removed if "sourcePath" is not an already-secured path.
 
     errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
     errorExitIfAnySymlinkOrDotDotInPath(targetPath);
@@ -1144,14 +1141,45 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     securelyRename(tempPath, targetPath);
 }
 
-static void securelyMove(NSString * sourcePath, NSString * targetPath) {
+static void securelyMoveIncludingShadowToPrivate(NSString * sourcePath, NSString * targetPath) {
 
     errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
     errorExitIfAnySymlinkOrDotDotInPath(targetPath);
 
-    securelyCopy(sourcePath, targetPath);
+    //
+    // If this is a move within the same folder (configurations, for example), do it via rename
+    //
 
+    NSString * sourceContainer = sourcePath.stringByDeletingLastPathComponent;
+    NSString * targetContainer = targetPath.stringByDeletingLastPathComponent;
+
+    if (  [sourceContainer isEqualToString: targetContainer]  ) {
+
+        securelyRename(sourcePath, targetPath);
+
+        // If moved to Shadow, make a copy in the user's Configurations folder and secure it.
+        if (  [sourcePath hasPrefix: userShadowPath()]  ) {
+            NSString * sourcePrivatePath = [gPrivatePath stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
+            NSString * targetPrivatePath = [gPrivatePath stringByAppendingPathComponent: lastPartOfPath(targetPath)];
+            securelyRename(sourcePrivatePath, targetPrivatePath);
+        }
+
+        return;
+    }
+
+    securelyCopy(sourcePath, targetPath);
     securelyDeleteItem(sourcePath);
+
+    // If moved to Shadow, make a copy in the user's Configurations folder and secure it.
+    if (  [targetPath hasPrefix: userShadowPath()]  ) {
+        NSString * sourcePrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
+        NSString * targetPrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(targetPath)];
+        securelyCopy(sourcePrivatePath, targetPrivatePath);
+        secureOneFolderMaintainOwnership(targetPrivatePath, YES, userUID(), NO);
+        securelyDeleteItem(sourcePrivatePath);
+    }
+
+    Log(@"Deleted %@", sourcePath);
 }
 
 static BOOL testRenamex_np(NSString * folder) {
@@ -2587,7 +2615,7 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 	}
 	
     if (  moveNotCopy  ) {
-        securelyMove(sourcePath, targetPath);
+        securelyMoveIncludingShadowToPrivate(sourcePath, targetPath);
     } else {
         securelyCopy(sourcePath, targetPath);
     }
@@ -2600,9 +2628,11 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 
     //
     // If copying to Shadow, make a copy in the user's Configurations folder and secure it.
+    // (If we moved, the private copy was already moved by securelyMoveIncludingShadowToPrivate)
     //
 
-    if (  [targetPath hasPrefix: L_AS_T_USERS]  ) {
+    if (   ( ! moveNotCopy)
+        && [targetPath hasPrefix: L_AS_T_USERS]  ) {
         NSString * lastPart = lastPartOfPath(targetPath);
         NSString * privatePath = [userPrivatePath() stringByAppendingPathComponent:lastPart];
         securelyCopy(targetPath, privatePath);
