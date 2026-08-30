@@ -1100,8 +1100,8 @@ static void setScriptLineInTblk(NSString * line, NSString * tblkPath) {
             r.location = contents.length;
         }
         NSString * removedLine = [contents substringToIndex: r.location];
-        Log(@"Removed  line '%@' into OpenVPN configuration file in '%@'", removedLine, tblkPath);
         [contents deleteCharactersInRange: NSMakeRange(0, r.location + 1)];
+        Log(@"Removed  line '%@' into OpenVPN configuration file in '%@'", removedLine, tblkPath);
     }
 
     [contents insertString: lineWithNewline atIndex: 0];
@@ -1141,7 +1141,12 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     securelyRename(tempPath, targetPath);
 }
 
-static void securelyMoveIncludingShadowToPrivate(NSString * sourcePath, NSString * targetPath) {
+static void securelyMoveTblkIncludingPrivate(NSString * sourcePath, NSString * targetPath) {
+
+    // Renames or moves one .tblk to another.
+    // If renaming, renames the .tblk, and, if it was a shadow copy, then renames the private copy.
+    // If moving from shared to shadow, copies the shadow to the private copy.
+    // If moving from shadow to shared, deletes the private copy.
 
     errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
     errorExitIfAnySymlinkOrDotDotInPath(targetPath);
@@ -1157,7 +1162,7 @@ static void securelyMoveIncludingShadowToPrivate(NSString * sourcePath, NSString
 
         securelyRename(sourcePath, targetPath);
 
-        // If moved to Shadow, make a copy in the user's Configurations folder and secure it.
+        // If renamed shadow, rename the private copy, too
         if (  [sourcePath hasPrefix: userShadowPath()]  ) {
             NSString * sourcePrivatePath = [gPrivatePath stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
             NSString * targetPrivatePath = [gPrivatePath stringByAppendingPathComponent: lastPartOfPath(targetPath)];
@@ -1168,16 +1173,24 @@ static void securelyMoveIncludingShadowToPrivate(NSString * sourcePath, NSString
     }
 
     securelyCopy(sourcePath, targetPath);
-    securelyDeleteItem(sourcePath);
 
-    // If moved to Shadow, make a copy in the user's Configurations folder and secure it.
-    if (  [targetPath hasPrefix: userShadowPath()]  ) {
-        NSString * sourcePrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
+    // If moved shared to shadow, make a copy in the user's Configurations folder and secure it.
+    if (   [sourcePath hasPrefix: L_AS_T_SHARED]
+        && [targetPath hasPrefix: userShadowPath()]  ) {
         NSString * targetPrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(targetPath)];
-        securelyCopy(sourcePrivatePath, targetPrivatePath);
+        securelyCopy(sourcePath, targetPrivatePath);
         secureOneFolderMaintainOwnership(targetPrivatePath, YES, userUID(), NO);
-        securelyDeleteItem(sourcePrivatePath);
     }
+
+    // If moved shadow to shared, delete the copy in the user's Configurations folder.
+   if (   [sourcePath hasPrefix: userShadowPath()]
+        && [targetPath hasPrefix: L_AS_T_SHARED]  ) {
+       NSString * sourcePrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
+       securelyDeleteItem(sourcePrivatePath);
+       Log(@"Deleted %@", sourcePrivatePath);
+    }
+
+    securelyDeleteItem(sourcePath);
 
     Log(@"Deleted %@", sourcePath);
 }
@@ -2615,7 +2628,7 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 	}
 	
     if (  moveNotCopy  ) {
-        securelyMoveIncludingShadowToPrivate(sourcePath, targetPath);
+        securelyMoveTblkIncludingPrivate(sourcePath, targetPath);
     } else {
         securelyCopy(sourcePath, targetPath);
     }
@@ -2628,7 +2641,7 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 
     //
     // If copying to Shadow, make a copy in the user's Configurations folder and secure it.
-    // (If we moved, the private copy was already moved by securelyMoveIncludingShadowToPrivate)
+    // (If we moved, the private copy was already moved by securelyMoveTblkIncludingPrivate)
     //
 
     if (   ( ! moveNotCopy)
