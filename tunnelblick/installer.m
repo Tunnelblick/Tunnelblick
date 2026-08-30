@@ -1131,7 +1131,11 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     Log(@"Copied %@ to %@", sourcePath, tempPath);
 
     NSString * configPath = openvpnConfigPathFromPath(tempPath);
-    removeTunnelblickScriptLinesFromOvpnFileAtPath(configPath);
+
+    if (  ! (   [sourcePath hasPrefix: L_AS_T_USERS]
+             || [sourcePath hasPrefix: L_AS_T_SHARED] )  ) {
+        removeTunnelblickScriptLinesFromOvpnFileAtPath(configPath);
+    }
 
     securelyRename(tempPath, targetPath);
 }
