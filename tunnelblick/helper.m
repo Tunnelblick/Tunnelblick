@@ -56,6 +56,7 @@ extern NSString       * gDeployPath;
 extern NSFileManager  * gFileMgr;
 extern MenuController * gMC;
 extern NSString       * gPrivatePath;
+extern NSString       * gShadowPath;
 extern BOOL             gShuttingDownTunnelblick;
 extern TBUserDefaults * gTbDefaults;
 extern TunnelblickInfo * gTbInfo;
@@ -542,9 +543,40 @@ NSString * firstPartOfPath(NSString * thePath)
 // The name of the configuration file, but prefixed by any folders it is contained in after /Deploy or /Configurations
 //      = configPath less the Deploy or Configurations folder prefix (but including the extension)
 // Used for constructing path to shadow copy of the configuration and as an argument to openvpnstart
-NSString * lastPartOfPath(NSString * thePath)
-{
-    return [thePath substringFromIndex: [firstPartOfPath(thePath) length]+1];
+NSString * lastPartOfPath(NSString * path) {
+
+    NSString * secureCopyPrefix = [L_AS_T_TEMP stringByAppendingString: @"/SecureCopy-"];
+    NSArray * paths = @[gDeployPath,
+                        L_AS_T_SHARED,
+                        secureCopyPrefix,
+                        gPrivatePath,
+                        gShadowPath];
+    NSEnumerator * arrayEnum = [paths objectEnumerator];
+    NSString * configFolder;
+    while (  (configFolder = [arrayEnum nextObject])  ) {
+        if (  [path hasPrefix: configFolder]  ) {
+            if (  [path length] > [configFolder length]  ) {
+                if (  [path hasPrefix: secureCopyPrefix] ) {
+                    // A secure copy of a configuration in L_AS_T_TEMP/SecureCopy-UUID--.
+                    // Remove everything up to and including "--/"
+                    NSRange r = [path rangeOfString: @"--/"];
+                    if (  r.location != NSNotFound  ) {
+                        path = [path substringFromIndex: r.location + 3];
+                        return path;
+                    } else {
+                        Log(@"helper|lastPartOfPath(): bad path '%@'", path);
+                        [gMC terminateBecause: terminatingBecauseOfFatalError];
+                    }
+                } else if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
+                    return [path substringFromIndex: [configFolder length]+1];
+                }
+            } else {
+                Log(@"No display name in path '%@'", path);
+                return @"X";
+            }
+        }
+    }
+    return nil;
 }
 
 // Returns the first component of a path
