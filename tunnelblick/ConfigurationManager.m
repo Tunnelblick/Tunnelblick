@@ -2570,6 +2570,7 @@ in: (NSString *) sharedOrPrivate {
 
         NSString * source = [[self installSources] objectAtIndex: ix];
         NSString * target = [[self installTargets] objectAtIndex: ix];
+
         if (  ! [ConfigurationManager copyConfigPath: source
                                               toPath: target
                                      usingSystemAuth: auth
@@ -3119,12 +3120,12 @@ in: (NSString *) sharedOrPrivate {
     NSString * displayName = [rawName stringByDeletingPathExtension];
     NSString * targetPath;
 
-    if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-        targetPath = [L_AS_T_SHARED stringByAppendingPathComponent: rawName];
-    } else if (  [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-        targetPath = [gPrivatePath stringByAppendingPathComponent: rawName];
+    if (  [path hasPrefix: L_AS_T_SHARED]  ) {
+        targetPath = [gShadowPath stringByAppendingPathComponent: rawName];
+    } else if (  [path hasPrefix: gShadowPath]  ) {
+            targetPath = [L_AS_T_SHARED stringByAppendingPathComponent: rawName];
     } else {
-        NSLog(@"changeToSharedFromPath: Internal error: path is not private or shared at %@", path);
+        NSLog(@"changeToSharedFromPath: Internal error: path is not a path to a secure copy at '%@'", path);
         return;
     }
 
@@ -3180,7 +3181,17 @@ in: (NSString *) sharedOrPrivate {
             }
         } else if (  [path hasPrefix: [gPrivatePath stringByAppendingPathComponent: @"/"]]  ) {
             if (  shared  ) {
-                [pathsToModify addObject: path];
+                path = [[gShadowPath
+                         stringByAppendingPathComponent: displayName]
+                        stringByAppendingPathExtension: @"tblk"];
+                if (  path  ) {
+                    [pathsToModify addObject: path];
+                } else {
+                    TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                      [NSString  stringWithFormat: NSLocalizedString(@"Unable to make the '%@' configuration shared. See the console log for details.", @"Window text"), localName]);
+
+                    return;
+                }
             }
         }
     }
