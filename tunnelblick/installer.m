@@ -178,17 +178,21 @@ static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path);
 
 static const char * fileSystemRepresentationFromPath(NSString * path);
 
+static NSString * privatePathFromUsername(NSString * username);
+
+static void securelyDeleteItem(NSString * path);
+
+static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T);
+
+static void setTunnelblickScriptLinesInTblkAtPath(NSString * tblkPath);
+
+static NSString * usernameFromPossiblePrivatePath(NSString * path);
+
 static NSString * userPrivatePath(void);
 
 static NSString * userShadowPath(void);
 
-static void securelyDeleteItem(NSString * path);
-
-static NSString * usernameFromPossiblePrivatePath(NSString * path);
-
-static NSString * privatePathFromUsername(NSString * username);
-
-static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T);
+static uid_t userUID(void);
 
 static NSString * userUsername(void);
 
