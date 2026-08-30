@@ -270,8 +270,31 @@ EOF
     else
         logMessage "NOTE: No DHCP release by ${OUR_NAME} is needed because this TAP connection does not use DHCP via the TAP device."
 	fi
+
+    # Release IPV6 addresses
+            # shellcheck disable=2154
+    if [ -z "$dev" ]; then
+        # If $dev is not defined, then use TunnelDevice, which was set from $dev by client.up.tunnelblick.sh
+        # ($dev is not defined when this script is called from MenuController to clean up when OpenVPN has crashed)
+        if [ -n "${sTunnelDevice}" ]; then
+            logMessage "ERROR: \$dev not defined; using TunnelDevice: ${sTunnelDevice}"
+            set +e
+                                    ipconfig set "${sTunnelDevice}" NONE-V6 2>/dev/null
+            set -e
+            logMessage "Released IPv6 addresses via ipconfig set \"${sTunnelDevice}\" NONE."
+        else
+            logMessage "WARNING: Cannot release IPv6 addresses without \$dev or State:/Network/OpenVPN/TunnelDevice being defined. Device may not have disconnected properly."
+        fi
+    else
+        set +e
+                            ipconfig set "$dev" NONE-V6 2>/dev/null
+        set -e
+        logMessage "Released IPv6 addresses via ipconfig set \"$dev\" NONE-V6."
+    fi
+
 else
-    logMessage "No DHCP release by ${OUR_NAME} is needed because this is not a TAP connection."
+    logMessage "No DHCP and IPV6 addresses release by ${OUR_NAME} is needed because this is not a TAP connection."
+
 fi
 
 disableNetworkAccess $ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING $ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING_UNEXPECTED
