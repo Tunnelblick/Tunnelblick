@@ -168,6 +168,9 @@ extern TunnelblickInfo * gTbInfo;
 
         // Create a temporary folder, and a folder within that to hold the crash files
         NSString * temporaryDirectoryPath = [newTemporaryDirectoryPath() autorelease];
+        if (  ! temporaryDirectoryPath  ) {
+            return;
+        }
         NSString * tunnelblickErrorDataFolderPath = [temporaryDirectoryPath stringByAppendingPathComponent: @"Tunnelblick Error Data"];
         if (  ! [gFileMgr createDirectoryAtPath: tunnelblickErrorDataFolderPath withIntermediateDirectories: NO attributes: nil error: nil] ) {
             NSLog(@"Unable to create folder to contain crash reports at %@", tunnelblickErrorDataFolderPath);

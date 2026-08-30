@@ -997,11 +997,6 @@ static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NS
 
         // Send stdout and stderr to temporary files, and read the files after the task completes
         NSString * dirPath = newTemporaryDirectoryPathInTunnelblickHelper();
-        if (  ! dirPath  ) {
-            Log(@"runAsRoot: Failed to create temporary directory");
-            stopBeingRoot();
-            return -1;
-        }
 
         NSString * stdPath = [dirPath stringByAppendingPathComponent: @"runAsRootStdOut"];
         if (  [gFileMgr fileExistsAtPath: stdPath]  ) {

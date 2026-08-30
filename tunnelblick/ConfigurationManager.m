@@ -2815,6 +2815,10 @@ in: (NSString *) sharedOrPrivate {
     [self setMultipleConfigurations: [self multipleInstallableConfigurations: filePaths]];
 
     NSString * path = [newTemporaryDirectoryPath() autorelease];
+    if (  ! path  ) {
+        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
+        return;
+    }
     if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
         NSLog(@"Unable to delete %@", path);
         [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
@@ -4146,8 +4150,13 @@ err:
 	}
 
 	// Store the update data in a temporary .zip file
-	NSString * zipPath = [newTemporaryDirectoryPath()
-						  stringByAppendingPathComponent: @"configuration-update.zip"];
+    NSString * zipPath = [newTemporaryDirectoryPath() autorelease];
+    if (  ! zipPath  ) {
+        return nil;
+    }
+    zipPath = [zipPath
+               stringByAppendingPathComponent: @"configuration-update.zip"];
+
 	if (  ! [gFileMgr createFileAtPath: zipPath contents: zipData attributes: nil]  ) {
 		NSLog(@"Unable to create %lu bytes of data at %@", [zipData length], zipPath);
 		return nil;
@@ -4159,9 +4168,13 @@ err:
 	// that does, so rather than add a dependancy just to expand the file, we accept the performance
 	// degradation of calling an external program to do the expansion.
 	
-	NSString * targetFolderPath = [[newTemporaryDirectoryPath()
-									stringByAppendingPathComponent: displayName]
-								   stringByAppendingPathExtension: @"tblk"];
+    NSString * targetFolderPath = [newTemporaryDirectoryPath() autorelease];
+    if (  ! targetFolderPath  ) {
+        return nil;
+    }
+    targetFolderPath = [[targetFolderPath
+                         stringByAppendingPathComponent: displayName]
+                        stringByAppendingPathExtension: @"tblk"];
 	if (  ! [gFileMgr tbCreateDirectoryAtPath: targetFolderPath withIntermediateDirectories: YES attributes: nil]  ) {
 		[gFileMgr tbRemoveFileAtPath: [zipPath          stringByDeletingLastPathComponent] handler: nil];
 		[gFileMgr tbRemoveFileAtPath: [targetFolderPath stringByDeletingLastPathComponent] handler: nil];

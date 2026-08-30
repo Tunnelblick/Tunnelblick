@@ -2888,8 +2888,11 @@ static void exportToPath(NSString * exportPath) {
     securelyDeleteItemIfItExists(tarPath);
 
 	// Create a temporary folder
-	NSString * tempFolderPath = newTemporaryDirectoryPath();
-	
+	NSString * tempFolderPath = [newTemporaryDirectoryPath() autorelease];
+    if (  ! tempFolderPath  ) {
+        errorExit();
+    }
+
 	NSString * archiveName = [[exportPath lastPathComponent] stringByAppendingPathExtension: @"tblkSetup"];
 	
 	// Create a subfolder that we will create a .tar.gz of
