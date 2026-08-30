@@ -1853,7 +1853,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
             areConnecting = FALSE;
             completelyDisconnected = TRUE;
             return;
-        } else if (  status == OPENVPNSTART_NEED_USER_ROOT_SCRIPT_AUTH  ) {
+        } else if (  status == OPENVPNSTART_NEED_BOTH_USER_ROOT_SCRIPT_AUTH  ) {
             [self processUserScriptAuthorization: YES];
             areConnecting = FALSE;
             completelyDisconnected = TRUE;
