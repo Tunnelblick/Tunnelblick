@@ -2905,19 +2905,19 @@ static void exitIfUnapprovedScripts(NSString * configurationPath) {
     NSString * firstLine = [configurationString substringWithRange: r];
     Log(@"OpenVPN configuration file starts with '%@'", [configurationString substringWithRange: r]);
 
-    if (   [configurationString hasPrefix: TUNNELBLICK_SCRIPT_LINE_NONE]
-        || [configurationString hasPrefix: TUNNELBLICK_SCRIPT_LINE_OK]) {
+    if (   [configurationString hasPrefix: TUNNELBLICK_LINE_SCRIPTS_NONE]
+        || [configurationString hasPrefix: TUNNELBLICK_LINE_SCRIPTS_OK]) {
         return;
     }
 
-    if        (  [firstLine hasPrefix: TUNNELBLICK_SCRIPT_LINE_ROOT]  ) {
+    if        (  [firstLine hasPrefix: TUNNELBLICK_LINE_SCRIPTS_ROOT]  ) {
         exitOpenvpnstart(OPENVPNSTART_NEED_ROOT_SCRIPT_AUTH);
 
-    } else if (  [firstLine hasPrefix: TUNNELBLICK_SCRIPT_LINE_USER]  ) {
+    } else if (  [firstLine hasPrefix: TUNNELBLICK_LINE_SCRIPTS_USER]  ) {
         exitOpenvpnstart(OPENVPNSTART_NEED_USER_SCRIPT_AUTH);
 
-    } else if (  [firstLine hasPrefix: TUNNELBLICK_SCRIPT_LINE_USER_ROOT]  ) {
-        exitOpenvpnstart(OPENVPNSTART_NEED_USER_ROOT_SCRIPT_AUTH);
+    } else if (  [firstLine hasPrefix: TUNNELBLICK_LINE_SCRIPTS_BOTH_USER_ROOT]  ) {
+        exitOpenvpnstart(OPENVPNSTART_NEED_BOTH_USER_ROOT_SCRIPT_AUTH);
 
     } else {
         Log(@"Assuming scripts are OK because legacy configuration does not have script information in the first line at '%@'", configurationPath);

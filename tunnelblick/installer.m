@@ -1023,7 +1023,7 @@ static void writeOutOpenVPNScriptToPath(NSString * contents, NSString * path) {
 
 static void removeTunnelblickScriptLinesFromOvpnFileAtPath(NSString * path) {
 
-    // Removes all lines at the start of the file at path that start with TUNNELBLICK_SCRIPT_LINE_PREFIX
+    // Removes all lines at the start of the file at path that start with TUNNELBLICK_LINE_PREFIX
 
     NSError * err;
 
@@ -1042,7 +1042,7 @@ static void removeTunnelblickScriptLinesFromOvpnFileAtPath(NSString * path) {
 
     NSMutableString * logLines = [NSMutableString string];
 
-    while (  [contents hasPrefix: TUNNELBLICK_SCRIPT_LINE_PREFIX]  ) {
+    while (  [contents hasPrefix: TUNNELBLICK_LINE_PREFIX]  ) {
         NSRange rLog = [contents rangeOfString: @"\n"];
         NSRange rRemove;
         if (  rLog.location == NSNotFound  ) {
@@ -1094,7 +1094,7 @@ static void setScriptLineInTblk(NSString * line, NSString * tblkPath) {
         return;
     }
 
-    if (  [contents hasPrefix: TUNNELBLICK_SCRIPT_LINE_PREFIX]  ) {
+    while (  [contents hasPrefix: TUNNELBLICK_LINE_PREFIX]  ) {
         NSRange r = [contents rangeOfString: @"\n"];
         if (  r.location == NSNotFound  ) {
             r.location = contents.length;
@@ -2505,15 +2505,15 @@ static void setTunnelblickScriptLinesInTblkAtPath(NSString * tblkPath) {
 
     if (  hasTunnelblickUserScripts  ) {
         if (  hasRootScripts  ) {
-            setScriptLineInTblk(TUNNELBLICK_SCRIPT_LINE_USER_ROOT, tblkPath);
+            setScriptLineInTblk(TUNNELBLICK_LINE_SCRIPTS_BOTH_USER_ROOT, tblkPath);
         } else {
-            setScriptLineInTblk(TUNNELBLICK_SCRIPT_LINE_USER, tblkPath);
+            setScriptLineInTblk(TUNNELBLICK_LINE_SCRIPTS_USER, tblkPath);
         }
     } else {
         if (  hasRootScripts  ) {
-            setScriptLineInTblk(TUNNELBLICK_SCRIPT_LINE_ROOT, tblkPath);
+            setScriptLineInTblk(TUNNELBLICK_LINE_SCRIPTS_ROOT, tblkPath);
         } else {
-            setScriptLineInTblk(TUNNELBLICK_SCRIPT_LINE_NONE, tblkPath);
+            setScriptLineInTblk(TUNNELBLICK_LINE_SCRIPTS_NONE, tblkPath);
         }
     }
 }
@@ -2529,7 +2529,7 @@ static void setScriptsOK(NSString * displayName) {
                             stringByAppendingPathComponent: displayName]
                            stringByAppendingPathExtension: @"tblk"];
         if (  [gFileMgr fileExistsAtPath: path]  ) {
-            setScriptLineInTblk(TUNNELBLICK_SCRIPT_LINE_OK, path);
+            setScriptLineInTblk(TUNNELBLICK_LINE_SCRIPTS_OK, path);
         }
     }
 }

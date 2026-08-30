@@ -155,25 +155,25 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 #define WHITESPACE_CHARACTERS_IN_OPENVPN_CONFIGURATION_FILE @"\t\n\r "
 
 // String containing the prefix of a line in an OpenVPN configuration file used by Tunnelblick.
-#define TUNNELBLICK_LINE_PREFIX      @"# net.tunnelblick.tunnelblick "
-// String containing the prefix of a line in an OpenVPN configuration file used by
-// Tunnelblick to contain information about scripts that could be invoked by the configuration.
-#define TUNNELBLICK_SCRIPT_LINE_PREFIX      @"# net.tunnelblick.tunnelblick scripts "
+#define TUNNELBLICK_LINE_PREFIX                @"# net.tunnelblick.tunnelblick "
+
+// String containing the prefix of a version 1 line in an OpenVPN configuration file.
+#define TUNNELBLICK_LINE_PREFIX_V1             @"# net.tunnelblick.tunnelblick v1 "
 
 // Line at start of script indicating configuration does not invoke scripts
-#define TUNNELBLICK_SCRIPT_LINE_NONE        @"# net.tunnelblick.tunnelblick scripts none"
+#define TUNNELBLICK_LINE_SCRIPTS_NONE           @"# net.tunnelblick.tunnelblick v1 scriptsNone"
 
 // Line at start of script indicating configuration invokes scripts that have been okayed by a computer admin
-#define TUNNELBLICK_SCRIPT_LINE_OK          @"# net.tunnelblick.tunnelblick scripts ok"
+#define TUNNELBLICK_LINE_SCRIPTS_OK             @"# net.tunnelblick.tunnelblick v1 scriptsOk"
 
 // Line at start of script indicating configuration invokes user scripts
-#define TUNNELBLICK_SCRIPT_LINE_USER        @"# net.tunnelblick.tunnelblick scripts user"
+#define TUNNELBLICK_LINE_SCRIPTS_USER           @"# net.tunnelblick.tunnelblick v1 scriptsUser"
 
 // Line at start of script indicating configuration invokes root scripts
-#define TUNNELBLICK_SCRIPT_LINE_ROOT        @"# net.tunnelblick.tunnelblick scripts root"
+#define TUNNELBLICK_LINE_SCRIPTS_ROOT           @"# net.tunnelblick.tunnelblick v1 scriptsRoot"
 
 // Line at start of script indicating configuration invokes both user scripts and root scripts
-#define TUNNELBLICK_SCRIPT_LINE_USER_ROOT   @"# net.tunnelblick.tunnelblick scripts both"
+#define TUNNELBLICK_LINE_SCRIPTS_BOTH_USER_ROOT @"# net.tunnelblick.tunnelblick v1 scriptsBothUserRoot"
 
 //*************************************************************************************************
 // Paths:
@@ -774,7 +774,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 // (argument: a UTF-8-encoded XML string (an NSDictionary serialized as XML) containing forced preferences)
 #define INSTALLER_INSTALL_FORCED_PREFERENCES_XML 0xA000u
 
-// Replace first line of Openvpn configuration file with TUNNELBLICK_SCRIPT_LINE_OK
+// Replace first line of Openvpn configuration file with TUNNELBLICK_LINE_SCRIPTS_OK
 // (argument: displayName)
 #define INSTALLER_SET_SCRIPTS_OK             0xB000u
 
