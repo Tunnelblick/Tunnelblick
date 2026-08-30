@@ -904,34 +904,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
 -(BOOL) setUpUserDefaults {
 
-    // If this is the first time we are using the new CFBundleIdentifier
-    //    Rename the old preferences so we can access them with the new CFBundleIdentifier
-    //    And create a link to the new preferences from the old preferences (make the link read-only)
-    if (  [[[NSBundle mainBundle] bundleIdentifier] isEqualToString: @"net.tunnelblick.tunnelblick"]  ) {
-        NSString * oldPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/com.openvpn.tunnelblick.plist"];
-        NSString * newPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/net.tunnelblick.tunnelblick.plist"];
-        if (  ! [gFileMgr fileExistsAtPath: newPreferencesPath]  ) {
-            if (  [gFileMgr fileExistsAtPath: oldPreferencesPath]  ) {
-                if (  [gFileMgr tbMovePath: oldPreferencesPath toPath: newPreferencesPath handler: nil]  ) {
-                    NSLog(@"Renamed existing preferences from %@ to %@", [oldPreferencesPath lastPathComponent], [newPreferencesPath lastPathComponent]);
-                    if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldPreferencesPath
-                                                   pathContent: newPreferencesPath]  ) {
-                        NSLog(@"Created a symbolic link from old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
-                        if (  lchmod([oldPreferencesPath fileSystemRepresentation], S_IRUSR+S_IRGRP+S_IROTH) == EXIT_SUCCESS  ) {
-                            NSLog(@"Made the symbolic link read-only at %@", oldPreferencesPath);
-                        } else {
-                            NSLog(@"Warning: Unable to make the symbolic link read-only at %@", oldPreferencesPath);
-                        }
-                    } else {
-                        NSLog(@"Warning: Unable to create a symbolic link from the old preferences at %@ to the new preferences %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
-                    }
-                } else {
-                    NSLog(@"Warning: Unable to rename old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
-                }
-            }
-        }
-    }
-
     // Check that the preferences are OK or don't exist
     [self checkPlist: @"/Library/Preferences/net.tunnelblick.tunnelblick.plist"
       mustBeWritable: NO
