@@ -314,7 +314,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 #define OPENVPN_OPTIONS_THAT_ARE_UNSAFE @[ \
 @"auth-user-pass-verify", @"client-connect", @"client-crresponse", @"client-disconnect", \
 @"config", @"dns-script", @"down", @"ipchange", @"iproute", @"learn-address", \
-@"plugin", @"route-pre-down", @"route-up", @"tls-verify", @"up" \
+@"plugin", @"route-pre-down", @"route-up", @"tls-verify", @"tls-crypt-v2-verify", @"up" \
 ]
 
 //*************************************************************************************************
