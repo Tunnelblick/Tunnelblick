@@ -323,7 +323,7 @@ extern TBUserDefaults * gTbDefaults;
     // This method is invoked on the main thread by TBShowAlertWindow() when it is called but is not running on the main thread
     
     if (  ! [NSThread isMainThread]  ) {
-        NSLog(@"[UIHelper showAlertWindow] was invoked but not on the main thread; stack trace: %@", callStack());
+        NSLog(@"[UIHelper showAlertWindow] was invoked but not on the main thread; stack trace: %@", NSThread.callStackSymbols);
         [self performSelectorOnMainThread: @selector(showAlertWindow:)  withObject: dict waitUntilDone: NO];
         return;
     }

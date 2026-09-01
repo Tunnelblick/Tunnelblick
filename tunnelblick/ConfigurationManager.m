@@ -2083,6 +2083,7 @@ in: (NSString *) sharedOrPrivate {
         NSString * outTblkPath = [[self tempDirPath] stringByAppendingPathComponent: displayNameWithTblkExtension];
 
         // Do the conversion
+Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
         NSString * result = [self convertOvpnOrConfAtPath: path
                                              toTblkAtPath: outTblkPath
                                         replacingTblkPath: nil
@@ -5900,7 +5901,7 @@ done:
 
 +(void) terminateAllOpenVPNInNewThread {
     
-	TBLog(@"DB-TO", @"terminateAllOpenVPNInNewThread invoked; stack trace: %@", callStack());
+	TBLog(@"DB-TO", @"terminateAllOpenVPNInNewThread invoked; stack trace: %@", NSThread.callStackSymbols);
 	
     [TBOperationQueue addToQueueSelector: @selector(terminateAllOpenVPNOperation)
                                   target: [ConfigurationManager class]
@@ -5910,7 +5911,7 @@ done:
 
 +(void) terminateOpenVPNWithProcessIdInNewThread: (NSNumber *) processIdAsNumber {
 	
-	TBLog(@"DB-TO", @"terminateOpenVPNWithProcessIdInNewThread: %@ invoked; stack trace: %@", processIdAsNumber, callStack());
+	TBLog(@"DB-TO", @"terminateOpenVPNWithProcessIdInNewThread: %@ invoked; stack trace: %@", processIdAsNumber, NSThread.callStackSymbols);
 	
 	[TBOperationQueue addToQueueSelector: @selector(terminateOpenVPNWithProcessIdOperation:)
 								  target: [ConfigurationManager class]
@@ -5921,7 +5922,7 @@ done:
 
 +(void) terminateOpenVPNWithManagmentSocketInNewThread: (VPNConnection *) connection {
 	
-	TBLog(@"DB-TO", @"terminateOpenVPNWithManagmentSocketInNewThread '%@' invoked; stack trace: %@", [connection displayName], callStack());
+	TBLog(@"DB-TO", @"terminateOpenVPNWithManagmentSocketInNewThread '%@' invoked; stack trace: %@", [connection displayName], NSThread.callStackSymbols);
 	
 	[TBOperationQueue addToQueueSelector: @selector(terminateOpenVPNWithManagmentSocketInNewThreadOperation:)
 								  target: [ConfigurationManager class]

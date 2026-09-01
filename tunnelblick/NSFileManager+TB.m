@@ -43,7 +43,7 @@ void appendLog(NSString * errMsg);
     if (  ! [self setAttributes: attributes ofItemAtPath: path error: &err]  ) {
         NSString * errMsg = [NSString stringWithFormat:
                              @"Error returned from setAttributes: %@ ofItemAtPath: '%@'; Error was %@; stack trace: %@",
-                             attributes, path, err, [NSThread callStackSymbols]];
+                             attributes, path, err, NSThread.callStackSymbols];
         appendLog(errMsg);
         return NO;
     }
@@ -59,7 +59,7 @@ void appendLog(NSString * errMsg);
     if (  ! [self createDirectoryAtPath: path withIntermediateDirectories: withIntermediateDirectories attributes: attributes error: &err]  ) {
         NSString * errMsg = [NSString stringWithFormat:
                              @"Error returned from createDirectoryAtPath: '%@' withIntermediateDirectories: %s attributes: %@; Error was %@; stack trace: %@",
-                             path, ( withIntermediateDirectories ? "YES" : "NO" ), attributes, err, [NSThread callStackSymbols]];
+                             path, ( withIntermediateDirectories ? "YES" : "NO" ), attributes, err, NSThread.callStackSymbols];
         appendLog(errMsg);
         return NO;
     }
@@ -74,7 +74,7 @@ void appendLog(NSString * errMsg);
     if (  ! [self createSymbolicLinkAtPath: path withDestinationPath: otherPath error: &err]  ) {
         NSString * errMsg = [NSString stringWithFormat:
                              @"Error returned from createSymbolicLinkAtPath: '%@' withDestinationPath: '%@'; Error was %@; stack trace: %@",
-                             path, otherPath, err, [NSThread callStackSymbols]];
+                             path, otherPath, err, NSThread.callStackSymbols];
         appendLog(errMsg);
         return NO;
     }
@@ -89,7 +89,7 @@ void appendLog(NSString * errMsg);
     if (  ! answer  ) {
         NSString * errMsg = [NSString stringWithFormat: 
                              @"Error returned from contentsOfDirectoryAtPath: '%@'; Error was %@; stack trace: %@",
-                             path, err, [NSThread callStackSymbols]];
+                             path, err, NSThread.callStackSymbols];
         appendLog(errMsg);
     }
 
@@ -104,7 +104,7 @@ void appendLog(NSString * errMsg);
     if (  ! attributes  ) {
         NSString * errMsg = [NSString stringWithFormat:
                              @"Error returned from attributesOfItemAtPath: '%@';\nError was %@; stack trace: %@",
-                             path, err, [NSThread callStackSymbols]];
+                             path, err, NSThread.callStackSymbols];
         appendLog(errMsg);
         return nil;
     }
@@ -126,7 +126,7 @@ void appendLog(NSString * errMsg);
         if (  ! attributes  ) {
             NSString * errMsg = [NSString stringWithFormat:
                                  @"Error returned from attributesOfItemAtPath: '%@';\nOriginal path was' %@'\nLatest path = '%@';\nError was %@; stack trace: %@",
-                                 realPath, path, newPath, err, [NSThread callStackSymbols]];
+                                 realPath, path, newPath, err, NSThread.callStackSymbols];
             appendLog(errMsg);
             return nil;
         }
@@ -137,7 +137,7 @@ void appendLog(NSString * errMsg);
     if (  counter >= 10  ) {
         NSString * errMsg = [NSString stringWithFormat:
                              @"tbFileAttributesAtPath detected a symlink loop.\nOriginal path was '%@'\nLast \"Real\" path was '%@', attributes = %@; stack trace: %@",
-                             path, realPath, attributes, [NSThread callStackSymbols]];
+                             path, realPath, attributes, NSThread.callStackSymbols];
         appendLog(errMsg);
     }
 
@@ -154,7 +154,7 @@ void appendLog(NSString * errMsg);
     if (  ! [self moveItemAtPath: source toPath: destination error: &err]  ) {
         NSString * errMsg = [NSString stringWithFormat:
                              @"Error returned from moveItemAtPath: '%@' toPath: '%@'; Error was %@; stack trace: %@",
-                             source, destination, err, [NSThread callStackSymbols]];
+                             source, destination, err, NSThread.callStackSymbols];
         appendLog(errMsg);
         return NO;
     }
@@ -172,7 +172,7 @@ void appendLog(NSString * errMsg);
     if (  ! [self copyItemAtPath:source toPath:destination error: &err]  ) {
         NSString * errMsg = [NSString stringWithFormat:
                              @"Error returned from copyItemAtPath: '%@' toPath: '%@'; Error was %@; stack trace: %@",
-                             source, destination, err, [NSThread callStackSymbols]];
+                             source, destination, err, NSThread.callStackSymbols];
         appendLog(errMsg);
         return NO;
     }
@@ -190,17 +190,17 @@ void appendLog(NSString * errMsg);
         if (  errno == ENOENT  ) {
             return YES;
         }
-        appendLog([NSString stringWithFormat: @"lstat() failed with error %d ('%s') for %@; stack trace: %@", errno, strerror(errno), path, [NSThread callStackSymbols]]);
+        appendLog([NSString stringWithFormat: @"lstat() failed with error %d ('%s') for %@; stack trace: %@", errno, strerror(errno), path, NSThread.callStackSymbols]);
         return NO;
     }
 
     if (  status.st_nlink != 1  ) {
-        appendLog([NSString stringWithFormat: @"Multiple (%u) hard links for %@; stack trace: %@", status.st_nlink, path, [NSThread callStackSymbols]]);
+        appendLog([NSString stringWithFormat: @"Multiple (%u) hard links for %@; stack trace: %@", status.st_nlink, path, NSThread.callStackSymbols]);
         return NO;
     }
 
     if (  0 != unlink(pathC)  ) {
-        appendLog([NSString stringWithFormat: @"unlink() failed with error %d ('%s') for path %@; stack trace: %@", errno, strerror(errno), path, [NSThread callStackSymbols]]);
+        appendLog([NSString stringWithFormat: @"unlink() failed with error %d ('%s') for path %@; stack trace: %@", errno, strerror(errno), path, NSThread.callStackSymbols]);
         return NO;
     }
 
@@ -217,18 +217,18 @@ void appendLog(NSString * errMsg);
         if (  errno == ENOENT  ) {
             return YES;
         }
-        appendLog([NSString stringWithFormat: @"lstat() failed with error %d ('%s') for %@; stack trace: %@", errno, strerror(errno), path, [NSThread callStackSymbols]]);
+        appendLog([NSString stringWithFormat: @"lstat() failed with error %d ('%s') for %@; stack trace: %@", errno, strerror(errno), path, NSThread.callStackSymbols]);
         return NO;
     }
 
     if (  (status.st_mode & S_IFMT) !=  S_IFREG  ) {
-        appendLog([NSString stringWithFormat: @"Not a regular file: %@; stack trace: %@", path, [NSThread callStackSymbols]]);
+        appendLog([NSString stringWithFormat: @"Not a regular file: %@; stack trace: %@", path, NSThread.callStackSymbols]);
         return NO;
     }
 
     if (   (status.st_uid != 0)
         || (status.st_gid != 0)  ) {
-        appendLog([NSString stringWithFormat: @"Owned by %u:%u, not root:wheel: %@; stack trace: %@", status.st_uid, status.st_gid, path, [NSThread callStackSymbols]]);
+        appendLog([NSString stringWithFormat: @"Owned by %u:%u, not root:wheel: %@; stack trace: %@", status.st_uid, status.st_gid, path, NSThread.callStackSymbols]);
         return NO;
     }
 
@@ -409,7 +409,7 @@ void appendLog(NSString * errMsg);
     if (  ! [self removeItemAtPath:path error: &err]  ) {
         NSString * errMsg = [NSString stringWithFormat: 
                              @"Error returned from removeItemAtPath: '%@'; Error was %@; stack trace: %@",
-                             path, err, [NSThread callStackSymbols]];
+                             path, err, NSThread.callStackSymbols];
         appendLog(errMsg);
         return NO;
     }
@@ -424,7 +424,7 @@ void appendLog(NSString * errMsg);
         if (  ! [self removeItemAtPath: path error: &err]  ) {
             NSString * errMsg = [NSString stringWithFormat:
                                  @"remove '%@' failed; error was '%@'; stack trace: %@",
-                                 path, err, [NSThread callStackSymbols]];
+                                 path, err, NSThread.callStackSymbols];
             appendLog(errMsg);
             return NO;
         }
@@ -444,7 +444,7 @@ void appendLog(NSString * errMsg);
     if (  status != 0  ) {
         NSString * errMsg = [NSString stringWithFormat:
                              @"rename('%@','%@') failed; status = %ld; errno = %ld; error was '%s'; stack trace: %@",
-                             sourcePath, targetPath, (long)status, (long)errno, strerror(errno), [NSThread callStackSymbols]];
+                             sourcePath, targetPath, (long)status, (long)errno, strerror(errno), NSThread.callStackSymbols];
         appendLog(errMsg);
         return NO;
     }
@@ -469,7 +469,7 @@ void appendLog(NSString * errMsg);
     if (  ! answer  ) {
         NSString * errMsg = [NSString stringWithFormat:
                              @"Error returned from destinationOfSymbolicLinkAtPath: '%@'; Error was %@; stack trace: %@",
-                             path, err, [NSThread callStackSymbols]];
+                             path, err, NSThread.callStackSymbols];
         appendLog(errMsg);
     }
 

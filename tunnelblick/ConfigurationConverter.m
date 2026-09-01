@@ -1029,7 +1029,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     if (  ! path  ) {
         NSString * errorMessage = [NSString stringWithFormat:
                                    @"Internal error: commandTypeForString: nil; stack trace = %@",
-                                   callStack()];
+                                   NSThread.callStackSymbols];
         return errorMessage;
     }
 

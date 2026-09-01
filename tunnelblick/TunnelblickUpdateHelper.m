@@ -127,7 +127,7 @@ static void openLog(void) {
 
 static void errorExit(void) {
 
-    appendLog([NSString stringWithFormat: @"errorExit(): Stack trace: %@", [NSThread callStackSymbols]]);
+    appendLog([NSString stringWithFormat: @"errorExit(): Stack trace: %@", NSThread.callStackSymbols]);
     exit(EXIT_FAILURE);
 }
 

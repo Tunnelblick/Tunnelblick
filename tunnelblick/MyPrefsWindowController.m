@@ -156,7 +156,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
     // Invoked when the window closes or authorization for lock times out
     
     if (  ! [NSThread isMainThread]  ) {
-        NSLog(@"lockTheLockIcon invoked but not on main thread; stack trace = %@", callStack());
+        NSLog(@"lockTheLockIcon invoked but not on main thread; stack trace = %@", NSThread.callStackSymbols);
         [gMC terminateBecause: terminatingBecauseOfError];
         return;
     }
@@ -213,7 +213,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
     // Invoked when the user has given (sa != nil) or cancelled (sa == nil) an authorization
     
     if (  ! [NSThread isMainThread]  ) {
-        NSLog(@"enableLockIcon invoked but not on main thread; stack trace = %@", callStack());
+        NSLog(@"enableLockIcon invoked but not on main thread; stack trace = %@", NSThread.callStackSymbols);
         [gMC terminateBecause: terminatingBecauseOfError];
         return;
     }
@@ -3621,7 +3621,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 			//	   * Release memory (otherwise it accumlates because of the use of pIdsForOpenVPNProcessesOnlyMain)
 			
 			if (  (i % 10)  == 0  ) {
-				TBLog(@"DB-TO", @"terminateAllOpenvpnProcessesThread: will run 'openvpnstart killall'; stack trace: %@", callStack());
+				TBLog(@"DB-TO", @"terminateAllOpenvpnProcessesThread: will run 'openvpnstart killall'; stack trace: %@", NSThread.callStackSymbols);
 				runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
 				
 				[pool drain];

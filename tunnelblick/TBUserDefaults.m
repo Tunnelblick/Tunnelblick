@@ -474,7 +474,7 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryPreferencesCache, setPrimaryPrefe
 
 	if (   ( ! value )
 		|| ( ! key)  ) {
-		NSLog(@"Ignoring [gTBDefaults set object: %@ for key: %@]; stack trace = %@", value, key, callStack());
+		NSLog(@"Ignoring [gTBDefaults set object: %@ for key: %@]; stack trace = %@", value, key, NSThread.callStackSymbols);
 		return;
 	}
 

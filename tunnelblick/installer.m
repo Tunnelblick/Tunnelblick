@@ -247,7 +247,7 @@ void appendLog(NSString * s) {
 static void errorExit(void) {
 
 #ifdef TBDebug
-    Log(@"errorExit(): Stack trace: %@", callStack());
+    Log(@"errorExit(): Stack trace: %@", NSThread.callStackSymbols);
 #else
     Log(@"Tunnelblick installer failed");
 #endif

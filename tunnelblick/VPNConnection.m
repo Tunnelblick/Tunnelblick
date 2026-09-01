@@ -3739,7 +3739,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                             encoding: (NSStringEncoding) encoding {
 
 	if (  ! string  ) {
-		NSLog(@"sendStringToManagementSocket: invoked with string = nil; stack trace = %@", callStack());
+		NSLog(@"sendStringToManagementSocket: invoked with string = nil; stack trace = %@", NSThread.callStackSymbols);
 		return;
 	}
 
@@ -4092,14 +4092,14 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		@try {
 			NSArray* parameters = [line componentsSeparatedByString: @"="];
 			if (  [parameters count] == 0  ) {
-				NSLog(@"setPIDFromLine: Error parsing parameters; ignoring line '%@'; stack trace = %@", line, callStack());
+				NSLog(@"setPIDFromLine: Error parsing parameters; ignoring line '%@'; stack trace = %@", line, NSThread.callStackSymbols);
 				pid = 0;
 				return;
 			}
 			NSString *pidString = [parameters lastObject];
 			pid = atoi([pidString UTF8String]);
 		} @catch(NSException *exception) {
-			NSLog(@"setPIDFromLine: Exception %@ occurred; setting pid to 0; line '%@'; stack trace = %@", exception, line, callStack());
+			NSLog(@"setPIDFromLine: Exception %@ occurred; setting pid to 0; line '%@'; stack trace = %@", exception, line, NSThread.callStackSymbols);
 			pid = 0;
 		}
 	}
@@ -4124,14 +4124,14 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             }
         }
     } @catch(NSException *exception) {
-		NSLog(@"setStateFromLine: Exception %@ occurred; ignoring line '%@'; stack trace = %@", exception, line, callStack());
+		NSLog(@"setStateFromLine: Exception %@ occurred; ignoring line '%@'; stack trace = %@", exception, line, NSThread.callStackSymbols);
     }
 }
 
 -(void) processState: (NSString *) newState dated: (NSString *) dateTime {
 
 	if (  ! newState  ) {
-		NSLog(@"processState: newState = '%@'; dateTime = '%@'; stack trace = %@", newState, dateTime, callStack());
+		NSLog(@"processState: newState = '%@'; dateTime = '%@'; stack trace = %@", newState, dateTime, NSThread.callStackSymbols);
 		return;
 	}
 
@@ -4512,7 +4512,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     NSArray* parameters = [parameterString componentsSeparatedByString: @","];
     if (  [parameters count] < 2  ) {
-        NSLog(@"processStateLine: Error parsing parameters; ignoring line '%@'; stack trace = %@", line, callStack());
+        NSLog(@"processStateLine: Error parsing parameters; ignoring line '%@'; stack trace = %@", line, NSThread.callStackSymbols);
         return;
     }
     NSString* state = [parameters objectAtIndex: 1];

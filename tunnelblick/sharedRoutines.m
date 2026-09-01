@@ -232,7 +232,7 @@ NSString * sha256HexStringForData (NSData * data) {
     if (  data  ) {
         unsigned len = UINT_MAX;    // If too much data, just use the first bit. Shouldn't happen, but…
         if (  data.length > UINT_MAX  ) {
-            Log(@"data.length (%lu) too large; : Stack trace: %@", (unsigned long)data.length, callStack());
+            Log(@"data.length (%lu) too large; : Stack trace: %@", (unsigned long)data.length, NSThread.callStackSymbols);
         } else {
             len = (unsigned)data.length;
         }
@@ -354,13 +354,6 @@ unsigned cvt_atou(const char * s, NSString * description)
     }
     u = (unsigned) i;
     return u;
-}
-
-id callStack(void) {
-
-    return (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-            ? (id) [NSThread callStackSymbols]
-            : (id) @"not available");
 }
 
 BOOL isSanitizedOpenvpnVersion(NSString * s) {
@@ -1218,7 +1211,7 @@ NSString * configFolderPathFromConfigNameAndLocCode(NSString * configName, unsig
             break;
 
         default:
-            Log(@"Invalid configLocCode %u; stack trace = %@", configLocCode, callStack());
+            Log(@"Invalid configLocCode %u; stack trace = %@", configLocCode, NSThread.callStackSymbols);
             return nil;
             break;
     }
@@ -1289,7 +1282,7 @@ NSString * newTemporaryDirectoryPath(void)
     char * dirPath = mkdtemp(tempDirectoryNameCString);
     if (  ! dirPath  ) {
         Log(@"Unable to create a temporary directory at '%s': error %d (%s); stack trace = %@",
-            tempDirectoryNameCString, errno, strerror(errno), callStack());
+            tempDirectoryNameCString, errno, strerror(errno), NSThread.callStackSymbols);
         exit(-1);
     }
 

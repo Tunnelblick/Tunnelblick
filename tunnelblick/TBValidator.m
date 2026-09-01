@@ -23,8 +23,6 @@
 
 #import "UpdateSigning.h"
 
-NSString * callStack(void);
-
 
 @implementation TBValidator
 

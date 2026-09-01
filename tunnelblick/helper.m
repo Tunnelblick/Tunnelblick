@@ -929,7 +929,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
        displayMessage = attributedStringFromHTML(ms);
 
     } else {
-        NSLog(@"TBShowAlertWindow invoked with invalid message type %@; stack trace: %@", [msg className], callStack());
+        NSLog(@"TBShowAlertWindow invoked with invalid message type %@; stack trace: %@", [msg className], NSThread.callStackSymbols);
         displayMessage = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Program error, please see the Console log.", @"Window text")] autorelease];
     }
 
@@ -1129,7 +1129,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
     if (  (shouldCancelTarget && shouldCancelSelector)  ) {
         if (  ! [shouldCancelTarget respondsToSelector: shouldCancelSelector]  ) {
             NSLog(@"TBRunAlertPanelExtendedPlus: '%@' does not respond to '%@'; call stack = %@",
-                  [shouldCancelTarget class], NSStringFromSelector(shouldCancelSelector), callStack());
+                  [shouldCancelTarget class], NSStringFromSelector(shouldCancelSelector), NSThread.callStackSymbols);
         }
     }
 

@@ -193,7 +193,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
 								  : [self messageAS]);
 	if (  ! msgAS  ) {
 		msgAS = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Program error, please see the Console log.", @"Window text")] autorelease];
-		NSLog(@"AlertWindowController: no message or messageAS; stack trace: %@", callStack());
+		NSLog(@"AlertWindowController: no message or messageAS; stack trace: %@", NSThread.callStackSymbols);
 	}
 
     // Remove trailing linefeeds

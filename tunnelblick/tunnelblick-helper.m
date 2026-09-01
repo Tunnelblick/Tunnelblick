@@ -354,7 +354,7 @@ static void verifyRunningAsUser(void) {
     }
 
     Log(@"Must be running as user: getuid() = %d; geteuid() = %d; gUidOfUser = %d\nStack trace=\n%@",
-        uidBefore, euidBefore, gUidOfUser, callStack());
+        uidBefore, euidBefore, gUidOfUser, NSThread.callStackSymbols);
     exitOpenvpnstart(204);
 }
 
@@ -946,7 +946,7 @@ static NSString * newTemporaryDirectoryPathInTunnelblickHelper(void) {
         int result = mkdir(tempPath.fileSystemRepresentation, PERMS_SECURED_FOLDER);
         if (  result != 0  ) {
             Log(@"Unable to create a temporary directory at '%@': error %d (%s); stack trace = %@",
-                tempPath, errno, strerror(errno), callStack());
+                tempPath, errno, strerror(errno), NSThread.callStackSymbols);
             stopBeingRootToAccessPath(tempPath);
             exit(141);
         }

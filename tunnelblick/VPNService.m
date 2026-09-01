@@ -541,7 +541,7 @@ extern TBUserDefaults * gTbDefaults;
                                                           length: strlen(bytes) encoding: NSUTF8StringEncoding]
                                  autorelease];
 	if (  ! responseString  ) {
-		NSLog(@"VPNService getResponseFrom: could not initWithBytes: url = %@; stack trace = %@", url, callStack());
+		NSLog(@"VPNService getResponseFrom: could not initWithBytes: url = %@; stack trace = %@", url, NSThread.callStackSymbols);
 		responseString = @"";
 	}
 	
@@ -576,7 +576,7 @@ extern TBUserDefaults * gTbDefaults;
 -(NSString *) encode:(NSString *)s
 {
 	if (  ! s  ) {
-		NSLog(@"VPNService encode: argument is nil; stack trace = %@", callStack());
+		NSLog(@"VPNService encode: argument is nil; stack trace = %@", NSThread.callStackSymbols);
 		return @"";
 	}
     NSString *result = (NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,

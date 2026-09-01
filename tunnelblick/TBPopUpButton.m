@@ -59,7 +59,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 		disabled: (BOOL)                 disabled {
 	
 	if (  infoTitle == nil  ) {
-		NSLog(@"setTitle:%@ infoTitle:nil; call stack = %@", label, callStack());
+		NSLog(@"setTitle:%@ infoTitle:nil; call stack = %@", label, NSThread.callStackSymbols);
 	}
 	
 	BOOL rtl = [UIHelper languageAtLaunchWasRTL];

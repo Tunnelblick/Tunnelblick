@@ -215,7 +215,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     
     self = [super init];
     if (  ! self  ) {
-        NSLog(@"SystemAuth|initWithPrompt: [super init] returned nil; stack trace = %@", callStack());
+        NSLog(@"SystemAuth|initWithPrompt: [super init] returned nil; stack trace = %@", NSThread.callStackSymbols);
         return nil;
     }
     
@@ -283,7 +283,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     // Returns nil if the user cancelled
     
     if (  [NSThread isMainThread]  ) {
-        TBLog(@"DB-AA", @"SystemAuth|newAuthWithPrompt: Warning: Running on main thread; stack trace = %@", callStack());
+        TBLog(@"DB-AA", @"SystemAuth|newAuthWithPrompt: Warning: Running on main thread; stack trace = %@", NSThread.callStackSymbols);
     }
     
     SystemAuth * sa = [[SystemAuth alloc] initWithPrompt: prompt reactivateOk: YES];
@@ -302,7 +302,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     // Returns nil if the user cancelled
     
     if (  [NSThread isMainThread]  ) {
-        TBLog(@"DB-AA", @"SystemAuth|newAuthWithPrompt: Warning: Running on main thread; stack trace = %@", callStack());
+        TBLog(@"DB-AA", @"SystemAuth|newAuthWithPrompt: Warning: Running on main thread; stack trace = %@", NSThread.callStackSymbols);
     }
     
     SystemAuth * sa = [[SystemAuth alloc] initWithPrompt: prompt reactivateOk: NO];
@@ -384,7 +384,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
 +(void) setLockSystemAuth: (SystemAuth *) newAuth {
     
     if (  ! [NSThread isMainThread]  ) {
-        NSLog(@"SystemAuth|setLockSystemAuth: Not running on main thread; stack trace = %@", callStack());
+        NSLog(@"SystemAuth|setLockSystemAuth: Not running on main thread; stack trace = %@", NSThread.callStackSymbols);
         [gMC terminateBecause: terminatingBecauseOfError];
         return;
     }
@@ -398,7 +398,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     
     if (  newAuth  ) {
         if (  lockSystemAuth  ) {
-            NSLog(@"SystemAuth|setLockSystemAuth: but lockAuth is already set; stack trace = %@", callStack());
+            NSLog(@"SystemAuth|setLockSystemAuth: but lockAuth is already set; stack trace = %@", NSThread.callStackSymbols);
             ok = FALSE;
         } else {
             lockSystemAuth = [newAuth retain];
@@ -410,7 +410,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
             TBLog(@"DB-AA", @"SystemAuth|setLockSystemAuth: nil, so released lockSystemAuth");
             lockSystemAuth = nil;
         } else {
-            TBLog(@"DB-AA", @"SystemAuth|setLockSystemAuth: nil, but lockSystemAuth is already nil; stack trace = %@", callStack());
+            TBLog(@"DB-AA", @"SystemAuth|setLockSystemAuth: nil, but lockSystemAuth is already nil; stack trace = %@", NSThread.callStackSymbols);
         }
     }
     

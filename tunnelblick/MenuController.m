@@ -242,7 +242,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         return [[key copy] autorelease];
     }
 
-    NSLog(@"MenuController:localizedString: key is nil; stack trace: %@", callStack());
+    NSLog(@"MenuController:localizedString: key is nil; stack trace: %@", NSThread.callStackSymbols);
     return @"";
 }
 
@@ -3066,7 +3066,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 
             if (  timeout != 0.0  ) {
                 if (  [[NSDate date] timeIntervalSinceDate: startDateTime] > timeout  ) {
-                    TBLog(@"DB-SD", @"Timed out waiting for all disconnections to complete; stack trace = \n%@", callStack());
+                    TBLog(@"DB-SD", @"Timed out waiting for all disconnections to complete; stack trace = \n%@", NSThread.callStackSymbols);
                     return;
                 }
             }
@@ -3740,7 +3740,7 @@ static volatile int terminationRequested = 0;
     if (  OSAtomicCompareAndSwapIntBarrier(1,
                                            0,
                                            &terminationRequested)  ) {
-        NSLog(@"A termination request is already pending; stack trace: %@", callStack());
+        NSLog(@"A termination request is already pending; stack trace: %@", NSThread.callStackSymbols);
         return;
     }
 
@@ -3759,7 +3759,7 @@ static volatile int terminationRequested = 0;
     gShuttingDownTunnelblick = TRUE;
 
     if (  reason == terminatingBecauseOfError  ) {
-        NSLog(@"Terminating because of error; stack trace: %@", callStack());
+        NSLog(@"Terminating because of error; stack trace: %@", NSThread.callStackSymbols);
     }
 
     [NSApp terminate: self];
@@ -3791,7 +3791,7 @@ int runUnrecoverableErrorPanel(BOOL attachFile)
     exit(2);
 }
 
-NSString * fatalErrorData(const char * siglist, int signalNumber, NSString * stackInfo) {
+NSString * fatalErrorData(const char * siglist, int signalNumber, NSArray<NSString *> * stackInfo) {
 
     NSString * dateMsg = [[NSDate date] tunnelblickUserLogRepresentation];
 
@@ -3844,7 +3844,7 @@ static void signal_handler(int signalNumber)
                             ? sys_siglist[signalNumber]
                             : "");
 
-    NSString * msg = fatalErrorData(siglist, signalNumber, callStack());
+    NSString * msg = fatalErrorData(siglist, signalNumber, NSThread.callStackSymbols);
     NSLog(@"%@", msg);
 
     if ( reasonForTermination == terminatingBecauseOfFatalError ) {

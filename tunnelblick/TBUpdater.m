@@ -953,7 +953,7 @@ doneReturnErr:
     if (  self.currentlyUpdating  ) {
         [self appendUpdaterLog: [NSString stringWithFormat:
                                  @"internalOfferUpdateAndInstallIfUserAgrees invoked but currentlyUpdating is TRUE; stack trace = %@",
-                                 callStack()]];
+                                 NSThread.callStackSymbols]];
         return;
     } 
 
@@ -1184,7 +1184,7 @@ doneReturnErr:
     if (  self.updateDownloader ) {
         [self appendUpdaterLog: [NSString stringWithFormat:
                                  @"startDownloadingUpdate invoked but self.updateDownloader exists; stack trace = %@",
-                                 callStack()]];
+                                 NSThread.callStackSymbols]];
         return;
     }
 
@@ -1559,7 +1559,7 @@ returnNO:
         [self performSelectorOnMainThread: @selector(updateCheckTimerTick:) withObject: nil waitUntilDone: NO];
         [self appendUpdaterLog: [NSString stringWithFormat:
                                  @"updateCheckTimerTick: Not on main thread; stack trace = %@",
-                                 callStack()]];
+                                 NSThread.callStackSymbols]];
         return;
     }
 
