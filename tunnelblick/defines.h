@@ -690,11 +690,11 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 // to /Library/Application Support/Tunnelblick/Tunnelblick.app
 #define INSTALLER_COPY_APP_TO_L_AS_T         0x0020u
 
-// UNUSED
-//                                           0x0040u
+// Set to allow root scripts in a configuration being installed from L_AS_T_TEMP
+#define INSTALLER_ALLOW_ROOT_SCRIPTS         0x0040u
 
-// UNUSED
-//                                           0x0080u
+// Set to allow root scripts in a configuration being installed from L_AS_T_TEMP
+#define INSTALLER_ALLOW_USER_SCRIPTS         0x0080u
 
 // Set to replace tunnelblickd
 #define INSTALLER_REPLACE_DAEMON             0x0100u
