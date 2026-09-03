@@ -156,6 +156,9 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
             "               The full path of the copy will be output to stdout.\n\n"
             "               NOTE: Copies the resolved targets of symlinks, not the links themselves.\n\n"
 
+            "./openvpnstart scriptStatusForTblk     path\n"
+            "               returns the status of any scripts in the configuration file in the .tblk at 'path'.\n\n"
+
             "./openvpnstart pruneSecureTemporaryFolder\n"
             "               to remove items in Tunnelblick's secure temporary folder (L_AS_T_TEMP) that were created more than 24 hours ago.\n\n"
 
@@ -2842,6 +2845,63 @@ static void copyUserItemToNewSecureItem(NSString * insecurePath) {
     appendLogWithoutTrailingLF(result);
 }
 
+static void scriptStatusForTblk(NSString * tblkPath) {
+
+    if (  ! [tblkPath hasPrefix: L_AS_T_TEMP]  ) {
+        Log(@"Not in %@: '%@'", L_AS_T_TEMP, tblkPath);
+        exitOpenvpnstart(OPENVPNSTART_NEED_USER_ROOT_SCRIPT_ERROR);
+    }
+
+    ConfigurationParser * parser;
+
+    BOOL hasRootScripts = YES;
+    BOOL hasUserScripts = YES;
+
+    becomeRoot(@"Scan for scripts in a configuration");
+    {
+
+        NSString * configPath =configPathFromTblkPath(tblkPath);
+
+        parser = [ConfigurationParser parsedConfigurationAtPath: configPath];
+        if ( ! parser  ) {
+            stopBeingRoot();
+            NSLog(@"Could not create a ConfigurationParser for %@", tblkPath);
+            exitOpenvpnstart(OPENVPNSTART_NEED_USER_ROOT_SCRIPT_ERROR);
+        }
+
+        hasRootScripts = ! [parser doesNotContainAnyUnsafeOptions];
+
+        hasUserScripts = NO;
+        NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tblkPath];
+        if (  dirE == nil) {
+            stopBeingRoot();
+            NSLog(@"Could not obtain a directory enumerator for %@", tblkPath);
+            exitOpenvpnstart(OPENVPNSTART_NEED_USER_ROOT_SCRIPT_ERROR);
+        }
+
+        NSString * subPath;
+        while (  (subPath = [dirE nextObject])  ) {
+            if (  [subPath hasSuffix: @".user.sh"]  ) {
+                hasUserScripts = YES;
+                break;
+            }
+        }
+    }
+    stopBeingRoot();
+
+    if (  hasRootScripts  ) {
+        if (  hasUserScripts  ) {
+            exitOpenvpnstart(OPENVPNSTART_NEED_BOTH_USER_ROOT_SCRIPT_AUTH);
+        } else {
+            exitOpenvpnstart(OPENVPNSTART_NEED_ROOT_SCRIPT_AUTH);
+        }
+    } else if (  hasUserScripts  ) {
+        exitOpenvpnstart(OPENVPNSTART_NEED_USER_SCRIPT_AUTH);
+    }
+
+    exitOpenvpnstart(OPENVPNSTART_DO_NOT_NEED_SCRIPT_AUTH);
+}
+
 static void pruneSecureTemporaryFolder(void) {
 
     // Removes items in Tunnelblick's secure temporary folder (L_AS_T_TEMP)
@@ -3974,7 +4034,7 @@ int main(int argc, char * argv[]) {
 
         } else if ( strcmp(command, "copyUserItemToNewSecureItem") == 0 ) {
             if (argc == 3  ) {
-                NSString* filePath = [NSString stringWithUTF8String:argv[2]];
+                NSString * filePath = [NSString stringWithUTF8String:argv[2]];
                 // copyUserItemToNewSecureItem() does its own validation of the path
                 copyUserItemToNewSecureItem(filePath);
                 syntaxError = FALSE;
@@ -4162,6 +4222,15 @@ int main(int argc, char * argv[]) {
                 safeUpdate(fileName, NO);
                 // safeUpdateTest() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+            }
+
+        } else if (  strcmp(command, "scriptStatusForTblk") == 0  ) {
+            if (  argc == 3  ) {
+                NSString * filePath = [NSString stringWithUTF8String:argv[2]];
+                scriptStatusForTblk(filePath);
+                // scriptStatusForTblk() should never return (it does exitOpenvpnstart() with its own exit codes)
+                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+                syntaxError = FALSE;
             }
 
         } else if (  strcmp(command, "shuttingDownComputer") == 0  ) {
