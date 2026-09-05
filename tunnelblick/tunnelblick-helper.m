@@ -2935,51 +2935,6 @@ static void pruneSecureTemporaryFolder(void) {
     stopBeingRootToAccessPath(L_AS_T_TEMP);
 }
 
-static void exitIfUnapprovedScripts(NSString * configurationPath) {
-
-    NSError * err = nil;
-    becomeRootToAccessPath(configurationPath, @"Check Tunnelblick script lines");
-    
-        NSString * configurationString = [NSString stringWithContentsOfFile: configurationPath
-                                                                   encoding: NSUTF8StringEncoding
-                                                                      error: &err];
-    stopBeingRootToAccessPath(configurationPath);
-
-    if (  configurationString == nil  ) {
-        Log(@"Could not read OpenVPN configuration file at '%@'; error was %@", configurationPath, err);
-        exitOpenvpnstart(OPENVPNSTART_NEED_USER_ROOT_SCRIPT_ERROR);
-    }
-
-    NSRange r = [configurationString rangeOfString: @"\n"];
-    if (  r.location == NSNotFound  ) {
-        r.length = configurationString.length;
-    } else {
-        r.length = r.location;
-    }
-    r.location = 0;
-    NSString * firstLine = [configurationString substringWithRange: r];
-    Log(@"OpenVPN configuration file starts with '%@'", [configurationString substringWithRange: r]);
-
-    if (   [configurationString hasPrefix: TUNNELBLICK_LINE_SCRIPTS_NONE]
-        || [configurationString hasPrefix: TUNNELBLICK_LINE_SCRIPTS_OK]) {
-        return;
-    }
-
-    if        (  [firstLine hasPrefix: TUNNELBLICK_LINE_SCRIPTS_ROOT]  ) {
-        exitOpenvpnstart(OPENVPNSTART_NEED_ROOT_SCRIPT_AUTH);
-
-    } else if (  [firstLine hasPrefix: TUNNELBLICK_LINE_SCRIPTS_USER]  ) {
-        exitOpenvpnstart(OPENVPNSTART_NEED_USER_SCRIPT_AUTH);
-
-    } else if (  [firstLine hasPrefix: TUNNELBLICK_LINE_SCRIPTS_BOTH_USER_ROOT]  ) {
-        exitOpenvpnstart(OPENVPNSTART_NEED_BOTH_USER_ROOT_SCRIPT_AUTH);
-
-    } else {
-        Log(@"Assuming scripts are OK because legacy configuration does not have script information in the first line at '%@'", configurationPath);
-        return;
-    }
-}
-
 //**************************************************************************************************************************
 
 static int startVPN(NSString * configFile,
@@ -3084,7 +3039,6 @@ static int startVPN(NSString * configFile,
         }
         cdFolderPath = [gConfigPath stringByAppendingPathComponent: @"Contents/Resources"];
         gConfigPath = [cfg copy];
-        exitIfUnapprovedScripts(cfg);
     } else {
         exitIfOvpnNeedsRepair();
         if (  ! [gConfigPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) { // Not a .tblk, so check that it is Deployed

@@ -62,6 +62,9 @@ extern TBUserDefaults       * gTbDefaults;
 
 extern NSString * lastPartOfPath(NSString * thePath);
 
+static BOOL gUserAllowedRootScripts = NO;
+static BOOL gUserAllowedUserScripts = NO;
+
 enum state_t {                      // These are the "states" of the guideState state machine
     entryNoConfigurations,
     entryAddConfiguration,
@@ -1182,7 +1185,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 // Configuration installation methods
 
 -(NSString *) confirmReplace: (NSString *) localizedName
-in: (NSString *) sharedOrPrivate {
+                          in: (NSString *) sharedOrPrivate {
 
     // Returns "skip" if user want to skip this one configuration
     // Returns "cancel" if user cancelled
@@ -2258,12 +2261,23 @@ Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
     unsigned firstArg = (moveInstead
                          ? INSTALLER_MOVE
                          : INSTALLER_COPY);
+    if (  gUserAllowedRootScripts) {
+        firstArg = firstArg | INSTALLER_ALLOW_ROOT_SCRIPTS;
+    }
+    if (  gUserAllowedUserScripts) {
+        firstArg = firstArg | INSTALLER_ALLOW_USER_SCRIPTS;
+    }
+
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, sourcePath, nil];
 
     NSInteger installerResult = [gMC runInstaller: firstArg
                                    extraArguments: arguments
                                   usingSystemAuth: auth
                                      installTblks: nil];
+
+    gUserAllowedRootScripts = NO;
+    gUserAllowedUserScripts = NO;
+
     if (  installerResult == 0  ) {
         return TRUE;
     }
@@ -2462,6 +2476,129 @@ Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
     return YES;
 }
 
+-(BOOL) checkIfConfigurationsAtPaths: (NSArray *) paths
+                     haveUserScripts: (BOOL *)    haveUserScripts
+                     haveRootScripts: (BOOL *)    haveRootscripts {
+
+    BOOL rootScripts = FALSE;
+    BOOL userScripts = FALSE;
+
+    NSEnumerator * e = [paths objectEnumerator];
+    NSString * path;
+    while (  (path = [e nextObject])  ) {
+
+        OSStatus result = runOpenvpnstart(@[@"scriptStatusForTblk", path], nil, nil);
+
+        switch (result) {
+            case 0:
+                break;
+
+            case OPENVPNSTART_NEED_USER_SCRIPT_AUTH:
+                userScripts = TRUE;
+                break;
+
+            case OPENVPNSTART_NEED_ROOT_SCRIPT_AUTH:
+                rootScripts = TRUE;
+                break;
+
+            case OPENVPNSTART_NEED_BOTH_USER_ROOT_SCRIPT_AUTH:
+                userScripts = TRUE;
+                rootScripts = TRUE;
+                break;
+
+            default:
+                Log(@"openvpnstart 'scriptStatusForTblk' returned unrecognized result %d for '%@'", result, path);
+                return NO;
+                break;
+        }
+
+        if (   userScripts
+            && rootScripts  ) {
+            break;
+        }
+    }
+
+    *haveRootscripts = rootScripts;
+    *haveUserScripts = userScripts;
+    return YES;
+}
+
+-(BOOL) processUserScriptAuthorization: (BOOL) rootAuthorizationAlsoRequired {
+
+    int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                             NSLocalizedString(@"This VPN configuration includes one or more programs which will run as"
+                                                               @" you when you connect to a VPN. The program(s) are part of the"
+                                                               @" configuration and are not part of the Tunnelblick application.\n\n"
+                                                               @"You should connect this configuration only if you trust it's author.\n\n"
+                                                               @"Do you trust the author of the configuration and wish to allow the program(s) to run?\n\n",
+                                                               @"Window text"),
+                                             NSLocalizedString(@"Cancel",       @"Button"), // Default
+                                             NSLocalizedString(@"Always Allow", @"Button"), // Alternate
+                                             nil,                                           // Other
+                                             @"skipWarningAboutInstallsWithUserCommands",
+                                             NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                             nil,
+                                             NSAlertAlternateReturn);
+    switch (  userAction  ) {
+
+        case NSAlertDefaultReturn: // Cancel
+            return NO;
+
+        case NSAlertAlternateReturn: // Always Allow
+            if (  ! rootAuthorizationAlsoRequired  ) {
+                return YES;
+            }
+            return [self processRootScriptAuthorization];
+
+        default:
+            return NO; // Error; already logged
+    }
+}
+
+-(BOOL) processRootScriptAuthorization {
+
+    int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                             NSLocalizedString(@"This VPN configuration includes one or more programs which will run as"
+                                                               @" root when you connect to a VPN. The program(s) are part of the"
+                                                               @" configuration and are not part of the Tunnelblick application.\n\n"
+                                                               @"They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
+                                                               @"YOU SHOULD NOT CONNECT THIS CONFIGURATION UNLESS YOU TRUST IT'S AUTHOR.\n\n"
+                                                               @"Do you trust the author of the configuration and wish to allow the program(s) to run?\n\n",
+                                                               @"Window text"),
+                                             NSLocalizedString(@"Cancel",       @"Button"), // Default
+                                             NSLocalizedString(@"Always Allow", @"Button"), // Alternate
+                                             nil,                                           // Other
+                                             @"skipWarningAboutConnectionsWithRootCommands",
+                                             NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                             nil,
+                                             NSAlertAlternateReturn);
+
+    switch (  userAction  ) {
+
+        case NSAlertDefaultReturn:   // Cancel
+            return NO;
+
+        case NSAlertAlternateReturn: // Always Allow
+            userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                         NSLocalizedString(@"Are you sure you wish to connect this configuration, which includes"
+                                                           @" programs which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
+                                                           @"Window text"),
+                                         NSLocalizedString(@"Cancel",       @"Button"), // Default
+                                         NSLocalizedString(@"Always Allow", @"Button"), // Alternate
+                                         nil);                                          // Other
+            if (  userAction == NSAlertDefaultReturn  ) {           //  Cancel
+                return NO;
+            } else if (  userAction == NSAlertAlternateReturn  ) {  // Always Allow
+                return YES;
+            } else {
+                return NO;                                             // Error
+            }
+
+        default:
+            return NO;                  // Error; already logged
+    }
+}
+
 -(NSApplicationDelegateReply) doUninstallslReplacementsInstallsSkipConfirmMsg: (BOOL) skipConfirmMsg
                                                                 skipResultMsg: (BOOL) skipResultMsg {
 
@@ -2486,6 +2623,35 @@ Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
     if (  (nToUninstall + nToInstall + nToReplace + nSafe) == 0  ) {
         return NSApplicationDelegateReplyCancel;
     }
+
+    //
+    // Examine the secure copies of the configuration files for script references and
+    // get user's permisssion to proceed if there were any scripts.
+    //
+    
+    BOOL haveUserScripts = YES;
+    BOOL haveRootScripts = YES;
+    NSArray * allSources = [[self installSources]
+                            arrayByAddingObjectsFromArray: [self replaceSources]];
+    if (  ! [self checkIfConfigurationsAtPaths: allSources
+                               haveUserScripts: &haveUserScripts
+                               haveRootScripts: &haveRootScripts]) {
+        return NSApplicationDelegateReplyFailure;
+    }
+
+    if (  haveUserScripts  ) {
+        if (  ! [self processUserScriptAuthorization: haveRootScripts]  ) {
+            return NSApplicationDelegateReplyCancel;
+        }
+    } else if (  haveRootScripts  ) {
+        if (  ! [self processRootScriptAuthorization]  ) {
+            return NSApplicationDelegateReplyCancel;
+        }
+    }
+
+    //
+    // Get authorization by a computer admin if we don't already have it
+    //
 
     NSString * uninstallMsg = (  (nToUninstall == 0)
                                ? @""
@@ -2535,6 +2701,29 @@ Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
             }
         }
     }
+
+    // If any configuration contains scripts that run as root, warn about that (again)
+    if (  haveRootScripts  ) {
+
+
+
+
+
+        
+        int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                     NSLocalizedString(@"JKB: ONE OR MORE CONFIGURATIONS INCLUDE ROOT SCRIPTS!!!", @"Window title"),
+                                     NSLocalizedString(@"OK",      @"Button"),   // Default button
+                                     NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
+                                     nil);                                       // Other button
+        if (  result != NSAlertDefaultReturn  ) {
+            [auth release];
+            return NSApplicationDelegateReplyCancel;
+        }
+    }
+    // Set up for the installer to allow scripts as directed by the user
+
+    gUserAllowedRootScripts = haveRootScripts;
+    gUserAllowedUserScripts = haveUserScripts;
 
     // Disconnect any configurations that are being replaced or uninstalled
     [self disconnect: connectedTargetDisplayNames];
@@ -2612,6 +2801,9 @@ Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
     }
+
+    gUserAllowedRootScripts = NO;
+    gUserAllowedUserScripts = NO;
 
     // Do "safe" installs/updates from .tblks in 'noAdminSources' to 'noAdminTargets'
     for (  ix=0; ix<[[self noAdminSources] count]; ix++  ) {
@@ -4756,7 +4948,6 @@ err:
 
 	return [NSString stringWithFormat: @"Model: %@\n", model];
 }
-
 
 +(void) putDiagnosticInfoOnClipboardWithDisplayName: (NSString *) displayName log: (NSString *) logContents {
 	

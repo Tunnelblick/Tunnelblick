@@ -184,8 +184,6 @@ static void securelyDeleteItem(NSString * path);
 
 static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T);
 
-static void setTunnelblickScriptLinesInTblkAtPath(NSString * tblkPath);
-
 static NSString * usernameFromPossiblePrivatePath(NSString * path);
 
 static NSString * userPrivatePath(void);
@@ -965,95 +963,6 @@ static void writeOutOpenVPNScriptToPath(NSString * contents, NSString * path) {
     }
 }
 
-static void removeTunnelblickScriptLinesFromOvpnFileAtPath(NSString * path) {
-
-    // Removes all lines at the start of the file at path that start with TUNNELBLICK_LINE_PREFIX
-
-    NSError * err;
-
-    NSMutableString * contents = [[[NSMutableString alloc]
-                                   initWithContentsOfFile: path
-                                                 encoding: NSUTF8StringEncoding
-                                                    error: &err]
-                                  autorelease];
-
-    if (  ! contents  ) {
-        Log(@"Could not read OpenVPN configuration file at '%@'; error was %@", path, err);
-        errorExit();
-    }
-
-    BOOL contentsWereModified = FALSE;
-
-    NSMutableString * logLines = [NSMutableString string];
-
-    while (  [contents hasPrefix: TUNNELBLICK_LINE_PREFIX]  ) {
-        NSRange rLog = [contents rangeOfString: @"\n"];
-        NSRange rRemove;
-        if (  rLog.location == NSNotFound  ) {
-            rLog = NSMakeRange(0, contents.length);     // No LF, so log and delete contents
-            rRemove = rLog;
-        } else {
-            rLog = NSMakeRange(0, rLog.location);       // Log to, but not including LF
-            rRemove = NSMakeRange(0, rLog.length + 1);// Remove to and including LF
-        }
-
-        [logLines appendFormat: @"Removed line from OpenVPN configuration file: '%@'\n", [contents substringWithRange: rLog]];
-        [contents deleteCharactersInRange: rRemove];
-        contentsWereModified = TRUE;
-    }
-
-    if (  contentsWereModified  ) {
-        writeOutOpenVPNScriptToPath(contents, path);
-        if (  [logLines hasSuffix: @"\n"]  ) {
-            [logLines deleteCharactersInRange: NSMakeRange(logLines.length-1, 1)];
-        }
-        Log(@"%@", logLines);
-    }
-}
-
-static void setScriptLineInTblk(NSString * line, NSString * tblkPath) {
-
-    NSError * err;
-
-    NSString * configPath = [[[tblkPath
-                               stringByAppendingPathComponent: @"Contents"]
-                              stringByAppendingPathComponent: @"Resources"]
-                             stringByAppendingPathComponent: @"config.ovpn"];
-
-    NSMutableString * contents = [[[NSMutableString alloc]
-                                   initWithContentsOfFile: configPath
-                                                 encoding: NSUTF8StringEncoding
-                                                    error: &err]
-                                  autorelease];
-
-    if (  ! contents  ) {
-        Log(@"Could not read OpenVPN configuration file in '%@'; error was %@", tblkPath, err);
-        errorExit();
-    }
-
-    NSString * lineWithNewline = [line stringByAppendingString: @"\n"];
-
-    if (  [contents hasPrefix: lineWithNewline]  ) {
-        Log(@"OpenVPN configuration file in '%@' already starts with '%@'", tblkPath, line);
-        return;
-    }
-
-    while (  [contents hasPrefix: TUNNELBLICK_LINE_PREFIX]  ) {
-        NSRange r = [contents rangeOfString: @"\n"];
-        if (  r.location == NSNotFound  ) {
-            r.location = contents.length;
-        }
-        NSString * removedLine = [contents substringToIndex: r.location];
-        [contents deleteCharactersInRange: NSMakeRange(0, r.location + 1)];
-        Log(@"Removed  line '%@' into OpenVPN configuration file in '%@'", removedLine, tblkPath);
-    }
-
-    [contents insertString: lineWithNewline atIndex: 0];
-    writeOutOpenVPNScriptToPath(contents, configPath);
-
-    Log(@"Inserted line '%@' into OpenVPN configuration file in '%@'", line, tblkPath);
-}
-
 static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
 
     // Copies a file, or a folder and its contents, making sure the copy has the same permissions and dates as the original but is owned by root:wheel.
@@ -1075,11 +984,9 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     securelyCopyDirectly(sourcePath, tempPath);
     Log(@"Copied %@ to %@", sourcePath, tempPath);
 
-    NSString * configPath = openvpnConfigPathFromPath(tempPath);
 
     if (  ! (   [sourcePath hasPrefix: L_AS_T_USERS]
              || [sourcePath hasPrefix: L_AS_T_SHARED] )  ) {
-        removeTunnelblickScriptLinesFromOvpnFileAtPath(configPath);
     }
 
     securelyRename(tempPath, targetPath);
@@ -2436,61 +2343,6 @@ static BOOL containsTunnelblickUserScripts(NSString * tblkPath) {
     return NO;
 }
 
-static void setTunnelblickScriptLinesInTblkAtPath(NSString * tblkPath) {
-
-    //
-    // Parse the configuration file
-    //
-    NSString * configPath = [[[tblkPath
-                               stringByAppendingPathComponent: @"Contents"]
-                              stringByAppendingPathComponent: @"Resources"]
-                             stringByAppendingPathComponent: @"config.ovpn"];
-    ConfigurationParser * parser = [ConfigurationParser parsedConfigurationAtPath: configPath];
-    if ( ! parser  ) {
-        Log(@"Could not create a ConfigurationParser for %@", configPath);
-        errorExit();
-    }
-
-    BOOL hasOpenVPNRootScripts = ! [parser doesNotContainAnyUnsafeOptions];
-
-    BOOL hasTunnelblickRootScripts = containsTunnelblickRootScripts(tblkPath);
-
-    BOOL hasTunnelblickUserScripts = containsTunnelblickUserScripts(tblkPath);
-
-    BOOL hasRootScripts = (   hasOpenVPNRootScripts
-                           || hasTunnelblickRootScripts);
-
-    if (  hasTunnelblickUserScripts  ) {
-        if (  hasRootScripts  ) {
-            setScriptLineInTblk(TUNNELBLICK_LINE_SCRIPTS_BOTH_USER_ROOT, tblkPath);
-        } else {
-            setScriptLineInTblk(TUNNELBLICK_LINE_SCRIPTS_USER, tblkPath);
-        }
-    } else {
-        if (  hasRootScripts  ) {
-            setScriptLineInTblk(TUNNELBLICK_LINE_SCRIPTS_ROOT, tblkPath);
-        } else {
-            setScriptLineInTblk(TUNNELBLICK_LINE_SCRIPTS_NONE, tblkPath);
-        }
-    }
-}
-
-static void setScriptsOK(NSString * displayName) {
-
-    NSArray * folders = @[L_AS_T_SHARED, userShadowPath(), userPrivatePath()];
-
-    NSString * folder;
-    NSEnumerator * e = [folders objectEnumerator];
-    while (  (folder = [e nextObject])  ) {
-        NSString * path = [[folder
-                            stringByAppendingPathComponent: displayName]
-                           stringByAppendingPathExtension: @"tblk"];
-        if (  [gFileMgr fileExistsAtPath: path]  ) {
-            setScriptLineInTblk(TUNNELBLICK_LINE_SCRIPTS_OK, path);
-        }
-    }
-}
-
 static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPath, BOOL moveNotCopy) {
 
 	if (   ( ! sourcePath )
@@ -2579,7 +2431,6 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 
     structureTblkProperly(targetPath);
 
-    setTunnelblickScriptLinesInTblkAtPath(targetPath);
 
     secureOneFolderMaintainOwnership(targetPath, NO, 0, YES);
 
@@ -2593,7 +2444,6 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
         NSString * lastPart = lastPartOfPath(targetPath);
         NSString * privatePath = [userPrivatePath() stringByAppendingPathComponent:lastPart];
         securelyCopy(targetPath, privatePath);
-        setTunnelblickScriptLinesInTblkAtPath(privatePath);
         secureOneFolderMaintainOwnership(privatePath, YES, userUID(), NO);
     }
 }
@@ -3683,20 +3533,6 @@ int main(int argc, char *argv[]) {
             copyOrMoveOneFolderOrTblk(sourcePath, targetPath, false); // false = not move (i.e., copy)
         } else {
             Log(@"Wrong number of arguments for INSTALLER_INSTALL_SHARED_CONFIG");
-            errorExit();
-        }
-    }
-
-    if (  operation == INSTALLER_SET_SCRIPTS_OK  ) {
-        if (   secondArg
-            && (argc == 3)
-            ) {
-
-            NSString * displayName = secondArg;
-            setScriptsOK(displayName);
-
-        } else {
-            Log(@"Wrong number of arguments for INSTALLER_SET_SCRIPTS_OK");
             errorExit();
         }
     }
