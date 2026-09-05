@@ -46,6 +46,7 @@
 #import "StatusWindowController.h"
 #import "SystemAuth.h"
 #import "TunnelblickInfo.h"
+#import "TBKeychainIdentity.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
@@ -86,6 +87,8 @@ extern NSArray          * gTotalUnits;
 
 -(BOOL)             hasLaunchDaemon;
 
+-(void)             keychainIdentityFailure:    (NSString *)        message;
+
 -(void)             killProcess;    // Kills the OpenVPN process associated with this connection, if any
 
 -(NSString * )      leasewatchOptionsFromPreferences;
@@ -96,11 +99,18 @@ extern NSArray          * gTotalUnits;
 
 -(void)             processLine:                (NSString *)        line;
 
+-(void)             processNeedCertificateWithParameterString: (NSString *) parameterString;
+
+-(void)             processPkSignWithParameterString: (NSString *)   parameterString
+                                             command: (NSString *)   command;
+
 -(void)             processState:               (NSString *)        newState
                            dated:               (NSString *)        dateTime;
 
 -(void)             provideCredentials:         (NSString *)        parameterString
                                   line:         (NSString *)        line;
+
+-(void)             releaseKeychainIdentity;
 
 -(void)             runScriptNamed:             (NSString *)        scriptName
                openvpnstartCommand:             (NSString *)        command;
@@ -121,6 +131,8 @@ extern NSArray          * gTotalUnits;
                               key:              (NSString *)        key;
 
 -(NSString *)       timeString;
+
+-(BOOL)             usesManagementExternalKey;
 
 TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,        setMessagesIfConnectionFails)
 
@@ -345,6 +357,28 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     }
 
     return NO;
+}
+
+-(BOOL) usesManagementExternalKey {
+
+    // Returns TRUE iff the configuration uses OpenVPN's 'management-external-key' option, which means that
+    // Tunnelblick must supply the certificate and/or create signatures via the management interface.
+
+    NSString * cfgContents = [self condensedSanitizedConfigurationFileContents];
+    if (  cfgContents  ) {
+        return (nil != [ConfigurationManager parseString: cfgContents forOption: @"management-external-key"]);
+    }
+
+    NSLog(@"Unable to obtain configuration file for %@", [self displayName]);
+    return NO;
+}
+
+-(void) releaseKeychainIdentity {
+
+    if (  keychainIdentity != NULL  ) {
+        CFRelease(keychainIdentity);
+        keychainIdentity = NULL;
+    }
 }
 
 -(void) tryToHookup: (NSDictionary *) dict {
@@ -997,6 +1031,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [dynamicChallengeFlags            release]; dynamicChallengeFlags            = nil;
     [authRetryParameter				  release]; authRetryParameter               = nil;
     [managementPassword               release]; managementPassword               = nil;
+
+	[self releaseKeychainIdentity];
 
     [super dealloc];
 }
@@ -3207,6 +3243,9 @@ ifConnectionPreference: (NSString *)     keySuffix
         [managementSocket release];
         managementSocket = nil;
     }
+
+	// Do not hold on to the Keychain identity (and thus to the private key) after the connection ends
+	[self releaseKeychainIdentity];
 }
 
 -(void) cancelDisplayOfSlowDisconnectionDialog {
@@ -3646,8 +3685,21 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 									   ? @"auth-retry interact\r\n"
 									   : nil);
 
+		// If OpenVPN will ask us to create signatures, tell it that we understand version 3 of the management
+		// interface, so that its '>PK_SIGN' messages include the signature algorithm. (Without that, OpenVPN
+		// sends the obsolete '>RSA_SIGN' message, which cannot be used with TLS 1.3.)
+		//
+		// Do this only for such configurations: versions higher than 3 change how OpenVPN asks for usernames
+		// and passwords, and version 3 is the highest version that does not change any of that.
+		NSString * versionCommand = (  [self usesManagementExternalKey]
+									 ? @"version 3\r\n"
+									 : nil);
+
 		NS_DURING {
 			[managementSocket writeString: [password stringByAppendingString: @"\r\n"] encoding: NSASCIIStringEncoding];
+			if (  versionCommand  ) {
+				[managementSocket writeString: versionCommand			encoding: NSASCIIStringEncoding];
+			}
 			[managementSocket writeString: @"pid\r\n"					encoding: NSASCIIStringEncoding];
 			if (  authRetryCommand  ) {
 				[managementSocket writeString: authRetryCommand			encoding: NSASCIIStringEncoding];
@@ -4512,6 +4564,135 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(void) keychainIdentityFailure: (NSString *) message {
+
+	// Called when we cannot do what OpenVPN asked us to do with the Keychain identity. OpenVPN is waiting for
+	// a response that we cannot provide, so tell the user what happened and disconnect.
+
+	NSLog(@"%@: %@", [self displayName], message);
+	[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: %@", message]];
+	[self addMessageToDisplayIfConnectionFails: message];
+
+	TBShowAlertWindow([NSString stringWithFormat: @"%@: %@",
+					   [self localizedName],
+					   NSLocalizedString(@"Tunnelblick Error", @"Window title")],
+					  message);
+
+	[self sendSigtermToManagementSocket];
+}
+
+-(void) processNeedCertificateWithParameterString: (NSString *) parameterString {
+
+	// OpenVPN's 'management-external-cert' option is being used, and OpenVPN wants the certificate. The
+	// parameter string is the option's argument, which specifies which Keychain identity to use.
+	//
+	// The response is the certificate as PEM, which OpenVPN parses as if it had been included inline in the
+	// configuration file.
+
+	[self releaseKeychainIdentity];
+
+	NSString * errMsg = nil;
+	SecIdentityRef identity = [TBKeychainIdentity copyIdentityMatchingSelector: parameterString errorMessage: &errMsg];
+	if (  identity == NULL  ) {
+		[self keychainIdentityFailure:
+		 [NSString stringWithFormat:
+		  NSLocalizedString(@"Could not get a certificate from the Keychain: %@", @"Window text; the '%@' is replaced by a description of an error"),
+		  errMsg]];
+		return;
+	}
+
+	NSString * pem = [TBKeychainIdentity pemForIdentity: identity errorMessage: &errMsg];
+	if (  pem == nil  ) {
+		CFRelease(identity);
+		[self keychainIdentityFailure:
+		 [NSString stringWithFormat:
+		  NSLocalizedString(@"Could not get a certificate from the Keychain: %@", @"Window text; the '%@' is replaced by a description of an error"),
+		  errMsg]];
+		return;
+	}
+
+	keychainIdentity = identity;
+
+	[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Using the certificate from the Keychain: %@",
+					 [TBKeychainIdentity descriptionForIdentity: identity]]];
+
+	[self sendStringToManagementSocket: [NSString stringWithFormat: @"certificate\r\n%@\r\nEND\r\n",
+										[pem stringByReplacingOccurrencesOfString: @"\n" withString: @"\r\n"]]
+							 encoding: NSASCIIStringEncoding];
+}
+
+-(void) processPkSignWithParameterString: (NSString *) parameterString
+								 command: (NSString *) command {
+
+	// OpenVPN's 'management-external-key' option is being used, and OpenVPN wants us to sign data with the
+	// private key of the Keychain identity that we supplied the certificate for.
+	//
+	// The parameter string is the base64-encoded data to sign, optionally followed by a comma and the
+	// signature algorithm to use. (The obsolete 'RSA_SIGN' command never includes an algorithm.)
+
+	NSString * base64Data = parameterString;
+	NSString * algorithm  = nil;
+	NSRange commaRange = [parameterString rangeOfString: @","];
+	if (  commaRange.length != 0  ) {
+		base64Data = [parameterString substringToIndex: commaRange.location];
+		algorithm  = [parameterString substringFromIndex: commaRange.location + 1];
+	}
+
+	NSData * data = [[[NSData alloc] initWithBase64EncodedString: base64Data
+														 options: NSDataBase64DecodingIgnoreUnknownCharacters] autorelease];
+	if (  [data length] == 0  ) {
+		[self keychainIdentityFailure:
+		 NSLocalizedString(@"OpenVPN asked Tunnelblick to create a signature but did not provide valid data to sign.", @"Window text")];
+		return;
+	}
+
+	if (  keychainIdentity == NULL  ) {
+		[self keychainIdentityFailure:
+		 NSLocalizedString(@"OpenVPN asked Tunnelblick to create a signature, but no Keychain certificate is being used for this connection.", @"Window text")];
+		return;
+	}
+
+	// Signing may require the user to allow access to the private key, which can take an arbitrary amount of
+	// time, so do it on another thread and send the response back on the main thread.
+	SecIdentityRef identity = (SecIdentityRef)CFRetain(keychainIdentity);
+	NSString * responseCommand = (  [command isEqualToString: @"RSA_SIGN"]
+								  ? @"rsa-sig"
+								  : @"pk-sig");
+
+	dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+
+		@autoreleasepool {
+
+			NSString * signErrMsg = nil;
+			NSData * signature = [TBKeychainIdentity signData: data
+												 withIdentity: identity
+													algorithm: algorithm
+												 errorMessage: &signErrMsg];
+			CFRelease(identity);
+
+			// OpenVPN reads the response one line at a time into a 1024-byte buffer, which is large enough
+			// for the base64 of a signature made with a key of up to 6144 bits, so send it as a single line
+			NSString * base64Signature = (  signature
+										  ? [signature base64EncodedStringWithOptions: 0]
+										  : nil);
+
+			dispatch_async(dispatch_get_main_queue(), ^{
+
+				if (  base64Signature == nil  ) {
+					[self keychainIdentityFailure:
+					 [NSString stringWithFormat:
+					  NSLocalizedString(@"Could not create a signature using the private key in the Keychain: %@", @"Window text; the '%@' is replaced by a description of an error"),
+					  signErrMsg]];
+					return;
+				}
+
+				[self sendStringToManagementSocket: [NSString stringWithFormat: @"%@\r\n%@\r\nEND\r\n", responseCommand, base64Signature]
+										  encoding: NSASCIIStringEncoding];
+			});
+		}
+	});
+}
+
 -(void) processNeedOkWithLine: (NSString *) line parameterString: (NSString *) parameterString {
 
     // NEED-OK: MSG:Please insert TOKEN
@@ -4692,6 +4873,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     } else if (  [command isEqualToString: @"NEED-OK"]) {
         [self processNeedOkWithLine: line parameterString: parameterString];
+
+    } else if (  [command isEqualToString: @"NEED-CERTIFICATE"]  ) {
+        [self processNeedCertificateWithParameterString: parameterString];
+
+    } else if (   [command isEqualToString: @"PK_SIGN"]
+			   || [command isEqualToString: @"RSA_SIGN"]  ) {
+        [self processPkSignWithParameterString: parameterString command: command];
 
     } else if (  [command isEqualToString: @"INFO"]) {
         [self addToLog: line];

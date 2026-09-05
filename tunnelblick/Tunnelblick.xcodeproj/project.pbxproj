@@ -199,6 +199,7 @@
 		63C79A292ECB5B9100B7BDCA /* UpdateSigning.m in Sources */ = {isa = PBXBuildFile; fileRef = 63372B082EC79472004E5014 /* UpdateSigning.m */; };
 		63C79A2A2ECB5B9F00B7BDCA /* UpdateSigning.m in Sources */ = {isa = PBXBuildFile; fileRef = 63372B082EC79472004E5014 /* UpdateSigning.m */; };
 		63C79A2B2ECB5BB200B7BDCA /* UpdateSigning.m in Sources */ = {isa = PBXBuildFile; fileRef = 63372B082EC79472004E5014 /* UpdateSigning.m */; };
+		63C7A1122F1A000100AA0003 /* TBKeychainIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C7A1112F1A000100AA0002 /* TBKeychainIdentity.m */; };
 		63C98A732913D6A700DB78F2 /* KK.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63C98A722913D6A700DB78F2 /* KK.lproj */; };
 		63CC72F91928C5CB00F81220 /* TBUIUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.m */; };
 		63D2658829940ACC00E1C3FF /* HI.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63D2658729940ACC00E1C3FF /* HI.lproj */; };
@@ -634,6 +635,8 @@
 		63C374391A4510AA00D51E81 /* tunnelblick-helper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "tunnelblick-helper"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C375781A4510F600D51E81 /* tunnelblick-helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "tunnelblick-helper.m"; sourceTree = "<group>"; };
 		63C504281178E21100340D13 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		63C7A1102F1A000100AA0001 /* TBKeychainIdentity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBKeychainIdentity.h; sourceTree = "<group>"; };
+		63C7A1112F1A000100AA0002 /* TBKeychainIdentity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBKeychainIdentity.m; sourceTree = "<group>"; };
 		63C98A722913D6A700DB78F2 /* KK.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KK.lproj; sourceTree = "<group>"; };
 		63CC72F71928C5CB00F81220 /* TBUIUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUIUpdater.h; sourceTree = "<group>"; };
 		63CC72F81928C5CB00F81220 /* TBUIUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUIUpdater.m; sourceTree = "<group>"; };
@@ -889,6 +892,8 @@
 				61BC4B6A0E2F9EBC00F24255 /* MenuController.m */,
 				61BC4B6B0E2F9EBC00F24255 /* NetSocket.h */,
 				61BC4B6C0E2F9EBC00F24255 /* NetSocket.m */,
+				63C7A1102F1A000100AA0001 /* TBKeychainIdentity.h */,
+				63C7A1112F1A000100AA0002 /* TBKeychainIdentity.m */,
 				61BC4B650E2F9EBC00F24255 /* VPNConnection.h */,
 				61BC4B660E2F9EBC00F24255 /* VPNConnection.m */,
 			);
@@ -2165,6 +2170,7 @@
 				63FFD6581D0E9D9400D4FFD9 /* SystemAuth.m in Sources */,
 				6395C2321E37B90000E3C176 /* TBButton.m in Sources */,
 				639DF6112BDD4DE80099921A /* TBDownloader.m in Sources */,
+				63C7A1122F1A000100AA0003 /* TBKeychainIdentity.m in Sources */,
 				6372CDCA1BFCCBC500FC04DC /* TBOperationQueue.m in Sources */,
 				B82DF4D8182704D800A121DE /* TBPerformer.m in Sources */,
 				631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */,
