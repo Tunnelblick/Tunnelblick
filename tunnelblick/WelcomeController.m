@@ -142,13 +142,15 @@ decidePolicyForNavigationAction: (NSDictionary *) actionInformation
                decisionListener: (id < WebPolicyDecisionListener >)listener
 {
     (void) actionInformation;
-    (void) request;
     (void) frame;
-    (void) listener;
-    
+
     if (  wv == welcomeWV  ) {
         [[NSWorkspace sharedWorkspace] openURL:[request URL]];
+        [listener ignore];
+        return;
     }
+
+    [listener use];
 }
 
 - (void) dealloc {

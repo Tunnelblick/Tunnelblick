@@ -2615,7 +2615,7 @@ in: (NSString *) sharedOrPrivate {
 
     // Construct and display a window with the results of the uninstalls/replacements/installs
 
-    NSUInteger nTotalErrors = nUninstallErrors + nInstallErrors + nReplaceErrors + nUpdateErrors;
+    NSUInteger nTotalErrors = nUninstallErrors + nInstallErrors + nReplaceErrors + nUpdateErrors + nSafeErrors;
 
     if (   (nTotalErrors != 0)
         || ( ! skipResultMsg )  ) {
