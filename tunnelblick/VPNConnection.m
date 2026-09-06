@@ -2923,8 +2923,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         bitMask = bitMask | OPENVPNSTART_EXTRA_LOGGING;
     }
 
-    bitMask = bitMask | OPENVPNSTART_ON_BIG_SUR_OR_NEWER;
-
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
 
     NSString * leasewatchOptionsKey = [displayName stringByAppendingString: @"-leasewatchOptions"];

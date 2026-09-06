@@ -2038,11 +2038,9 @@ static void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgL
 
 //**************************************************************************************************************************
 
-static void loadOneKext(NSString * tunOrTap, BOOL onBigSurOrNewer) {
+static void loadOneKext(NSString * tunOrTap) {
 
-    NSString * path = (  onBigSurOrNewer
-                       ? [NSString stringWithFormat: @"/Library/Extensions/tunnelblick-%@.kext",tunOrTap]
-                       : [gResourcesPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@-notarized.kext", tunOrTap]]);
+    NSString * path =[NSString stringWithFormat: @"/Library/Extensions/tunnelblick-%@.kext",tunOrTap];
 
     NSURL * url = [NSURL fileURLWithPath: path];
     if (  ! url  ) {
@@ -2082,16 +2080,16 @@ static void loadOneKext(NSString * tunOrTap, BOOL onBigSurOrNewer) {
     exitOpenvpnstart(OPENVPNSTART_COULD_NOT_LOAD_KEXT);
 }
 
-static void loadKexts(unsigned int bitMask, BOOL onBigSurOrNewer) {
+static void loadKexts(unsigned int bitMask) {
 
 	//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
 
     if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
-        loadOneKext(@"tap", onBigSurOrNewer);
+        loadOneKext(@"tap");
     }
 
     if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
-        loadOneKext(@"tun", onBigSurOrNewer);
+        loadOneKext(@"tun");
     }
 }
 
@@ -3516,8 +3514,7 @@ static int startVPN(NSString * configFile,
         loadMask = loadMask & ( ~ OPENVPNSTART_OUR_TUN_KEXT );
     }
     if (  loadMask != 0  ) {
-        BOOL onBigSurOrNewer = ((bitMask & OPENVPNSTART_ON_BIG_SUR_OR_NEWER) != 0);
-        loadKexts(loadMask, onBigSurOrNewer);
+        loadKexts(loadMask);
     }
 
     if (  tblkPath  ) {
@@ -4061,13 +4058,12 @@ int main(int argc, char * argv[]) {
         } else if (  strcmp(command, "loadKexts") == 0  ) {
             if (  argc == 3  ) {
                 unsigned int bitMask = cvt_atou(argv[2], @"bitMask");
-                BOOL onBigSurOrNewer = ((bitMask & OPENVPNSTART_ON_BIG_SUR_OR_NEWER) != 0);
                 unsigned int kextMask = bitMask & ( ~ OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT);
                 if (  kextMask <= OPENVPNSTART_KEXTS_MASK_LOAD_MAX  ) {
                     if (  kextMask == 0  ) {
                         kextMask = OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT;
                     }
-                    loadKexts(kextMask, onBigSurOrNewer);
+                    loadKexts(kextMask);
                     syntaxError = FALSE;
                 }
             }
