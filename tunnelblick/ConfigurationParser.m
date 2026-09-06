@@ -313,14 +313,15 @@
 
     NSArray * entries = [self entriesWithOptionName: @"dns-updown"];
     NSEnumerator * e = entries.objectEnumerator;
-    NSString * name;
-    while (  (name = [e nextObject])  ) {
-        if (   [name isNotEqualTo: @"force"]
-            && [name isNotEqualTo: @"disable"]  ) {
-            return TRUE;
+    NSArray * entry;
+    while (  (entry = [e nextObject])  ) {
+        if (  entry.count > 1  ) {
+            if (   [entry[1] isNotEqualTo: @"disable"]
+                && [entry[1] isNotEqualTo: @"force"]  ) {
+                return TRUE;
+            }
         }
     }
-
     return FALSE;
 }
 
