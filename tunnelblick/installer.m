@@ -141,11 +141,11 @@
 // When finished (or if an error occurs), the file at AUTHORIZED_DONE_PATH is written to indicate the program has finished
 
 // The following globals are not modified after they are initialized:
-static FILE          * gLogFile;					  // FILE for log
+static FILE   * gLogFile;					  // FILE for log
 NSFileManager * gFileMgr;                     // NSFileManager.defaultManager
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
 static BOOL     renamex_npWorks = NO;         // renamex_np() works as needed for /Applications and L_AS_T, and home folder if it is available
-
+static BOOL     gLogFileActions = YES;        // Log all actions on files
 
 // The following variables contain info about the user. They may be zero or nil if not needed.
 // If invoked by Tunnelblick, they will be set up using the uid from getuid().
@@ -172,6 +172,8 @@ void appendLog(NSString * s);
 
 static void copyAppToL_AS_T(NSString * sourcePath);
 
+static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPath, BOOL moveNotCopy);
+
 static void errorExit(void);
 
 static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path);
@@ -179,6 +181,8 @@ static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path);
 static const char * fileSystemRepresentationFromPath(NSString * path);
 
 static NSString * privatePathFromUsername(NSString * username);
+
+static void securelyCreateFolderAndParents(NSString * path);
 
 static void securelyDeleteItem(NSString * path);
 
@@ -576,6 +580,16 @@ void removeExtendedAttributes(NSString * tunnelblickAppPath) {
 //**************************************************************************************************************************
 // SECURELY* ROUTINES
 
+static void securelySetUserOwnershipAndPermissionsOnFolderAndContents(NSString * targetPath) {
+
+    secureOneFolderMaintainOwnership(targetPath, YES, userUID(), NO);
+}
+
+static void securelyKeepRootOwnershipAndSetPermissionsOnFolderAndContents(NSString * targetPath) {
+
+    secureOneFolderMaintainOwnership(targetPath, NO, userUID(), YES);
+}
+
 static void securelyDeleteFolder(NSString * path) {
 
     errorExitIfAnySymlinkOrDotDotInPath(path);
@@ -594,6 +608,8 @@ static void securelyDeleteFolder(NSString * path) {
     if (  0 != rmdir(fileSystemRepresentationFromPath(path))  ) {
         Log(@"rmdir() failed with error %d ('%s') for path %@", errno, strerror(errno), path);
         errorExit();
+    } else if (  gLogFileActions  ) {
+        Log(@"FileAction: rmdir()for path '%@'", path);
     }
 }
 
@@ -617,6 +633,8 @@ static void securelyDeleteItem(NSString * path) {
         if (  0 != unlink(pathC)  ) {
             Log(@"unlink() failed with error %d ('%s') for path %@", errno, strerror(errno), path);
             errorExit();
+        } else if (  gLogFileActions  ) {
+            Log(@"FileAction: unlink()for path '%@'", path);
         }
     }
 }
@@ -634,11 +652,21 @@ static void securelyDeleteItemIfItExists(NSString * path) {
 
 static void securelyRename(NSString * sourcePath, NSString * targetPath) {
 
+    // Securely renames a file or folder, and sets permissions properly if it is in L_AS_T
+    //
+    // Creates intermediate directories to enclose targetPath if necessary.
+
     errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
     errorExitIfAnySymlinkOrDotDotInPath(targetPath);
 
     if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
         securelyDeleteItem(targetPath);
+    } else {
+        // Create intermediate folders if they don't exist
+        NSString * container = [targetPath stringByDeletingLastPathComponent];
+        if (  ! [gFileMgr fileExistsAtPath: container]  ) {
+            securelyCreateFolderAndParents(container);
+        }
     }
 
     if (  renamex_npWorks  ) {
@@ -654,18 +682,26 @@ static void securelyRename(NSString * sourcePath, NSString * targetPath) {
                 Log(@"NSFileManager error moving %@ to %@: %@", sourcePath, targetPath, err);
                 errorExit();
             }
+        } else if (  gLogFileActions  ) {
+            Log(@"FileAction: renamex_np()for path '%@' to '%@'", sourcePath, targetPath);
         }
     } else {
         if (  0 != rename(fileSystemRepresentationFromPath(sourcePath), fileSystemRepresentationFromPath(targetPath))  ){
             Log(@"rename() failed with error %d ('%s') trying to rename %@ to %@",
-                       errno, strerror(errno), sourcePath, targetPath);
+                errno, strerror(errno), sourcePath, targetPath);
             errorExit();
-        } else {
-            Log(@"rename() succeeded renaming %@ to %@", sourcePath, targetPath);
+        } else if (  gLogFileActions  ) {
+            Log(@"FileAction: rename()for path '%@' to '%@'", sourcePath, targetPath);
         }
     }
 
-    Log(@"Renamed %@ to %@", sourcePath, targetPath);
+    if (  [targetPath hasPrefix: L_AS_T]  ) {
+        securelyKeepRootOwnershipAndSetPermissionsOnFolderAndContents(targetPath);
+    }
+
+    if (  ! gLogFileActions  ) {
+        Log(@"Renamed %@ to %@", sourcePath, targetPath);
+    }
 }
 
 static void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * path) {
@@ -675,18 +711,24 @@ static void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * path) {
     errorExitIfAnySymlinkOrDotDotInPath(path);
 
     if (  isDir  ) {
-        umask(0077);
+        mode_t old_umask = umask(0077);
         int result = mkdir(fileSystemRepresentationFromPath(path), 0700);
-        umask(S_IWGRP | S_IWOTH);
+        umask(old_umask);
         if (  result != 0  ) {
             Log(@"mkdir() returned error %d ('%s') for path %@", errno, strerror(errno), path);
             errorExit();
+        } else if (  gLogFileActions  ) {
+            Log(@"FileAction: mkdir()for path'%@'", path);
         }
     } else {
+        mode_t old_umask = umask(0077);
         int result = open(fileSystemRepresentationFromPath(path), (O_CREAT | O_EXCL | O_APPEND | O_NOFOLLOW_ANY), 0700);
+        umask(old_umask);
         if (  result < 0  ) {
             Log(@"open() returned error %d ('%s') for path %@", errno, strerror(errno), path);
             errorExit();
+        } else if (  gLogFileActions  ) {
+            Log(@"FileAction: open(perms=0700)for path'%@'", path);
         }
         close(result); // Ignore errors
     }
@@ -759,6 +801,8 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     if (  result != 0  ) {
         Log(@"fchown() returned error %d ('%s') for path %s", errno, strerror(errno), targetPathC);
         errorExit();
+    } else if (  gLogFileActions  ) {
+        Log(@"FileAction: fchown(0:0)for path'%@'", targetPath);
     }
 
     // Change permissions
@@ -769,6 +813,8 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     if (  result != 0  ) {
         Log(@"fchmod() returned error %d ('%s') for path %s", errno, strerror(errno), targetPathC);
         errorExit();
+    } else if (  gLogFileActions  ) {
+        Log(@"FileAction: fchmod(0%o) for path'%@'", mode, targetPath);
     }
 
     // Verify ownership, permissions, no hard links, and either a directory or a regular file
@@ -811,6 +857,8 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     if (  result != 0  ) {
         Log(@"lutimes() #1 failed for %s", targetPathC);
         errorExit();
+    } else if (  gLogFileActions  ) {
+        Log(@"FileAction: set creating date with futimes() for path'%@'", targetPath);
     }
 
     // Convert modified date format and set modified date
@@ -822,6 +870,8 @@ static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSStrin
     if (  result != 0  ) {
         Log(@"lutimes() #1 failed for %s", targetPathC);
         errorExit();
+    } else if (  gLogFileActions  ) {
+        Log(@"FileAction: set modified date with futimes() for path'%@'", targetPath);
     }
 
     close(fd);
@@ -868,15 +918,20 @@ static void securelyCopyFileOrFolderContents(BOOL isDir, NSString * sourcePath, 
             Log(@"Could not write data (%@) to %@", exception, targetPath);
             [fh release];
             errorExit();
+        }@finally {
+            if (  gLogFileActions  ) {
+                Log(@"FileAction: wrote data with NSFilehandle|writeData: for path'%@'", targetPath);
+            }
         }
+
     }
 }
 
 static void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
 
-    // Copies a file, or a folder and its contents making sure the copy has the same permissions and dates as the original but is owned by root:wheel.
+    // Copies a file, or a folder and its contents, making sure the copy is owned by root:wheel with 0700 permissions.
     //
-    // DO NOT USE THIS FUNCTION: Use securelyCopy() instead.
+    // DO NOT USE THIS FUNCTION DIRECTLY: Use securelyCopy() instead.
     //
     // This routine is called only by securelyCopy() and securelyCopyFileOrFolderContents().
 
@@ -892,10 +947,12 @@ static void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
 
     securelyDeleteItemIfItExists(targetPath);
 
-    securelyCreateFileOrDirectoryEntry(isDir, targetPath);
+    NSString * container = [targetPath stringByDeletingLastPathComponent];
+    if (  ! [gFileMgr fileExistsAtPath: container]  ) {
+        securelyCreateFolderAndParents( container);
+    }
 
-    // Set final permissions and dates
-    securelySetItemAttributes(isDir, sourcePath, targetPath);
+    securelyCreateFileOrDirectoryEntry(isDir, targetPath);
 
     securelyCopyFileOrFolderContents(isDir, sourcePath, targetPath);
 }
@@ -921,51 +978,9 @@ static NSString * openvpnConfigPathFromPath(NSString * path) {
     return configPath;
 }
 
-static void writeOutOpenVPNScriptToPath(NSString * contents, NSString * path) {
-
-    //
-    // Preserve ownership and permissions
-    //
-
-    NSError * err = nil;
-    NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: path
-                                                           error: &err];
-    if (  attributes == nil  ) {
-        Log(@"Could not get attributes of file at '%@'; error was %@", path, err);
-        errorExit();
-    }
-
-    NSNumber * owner = attributes.fileOwnerAccountID;
-    NSNumber * group = attributes.fileGroupOwnerAccountID;
-    NSUInteger permissions = attributes.filePosixPermissions;
-
-    attributes = @{ NSFileOwnerAccountID      : owner,
-                    NSFileGroupOwnerAccountID : group,
-                    NSFilePosixPermissions    : [NSNumber numberWithUnsignedInt: permissions]};
-
-    //
-    // Delete the file, then re-create it
-    //
-
-    NSData * data = [contents dataUsingEncoding: NSUTF8StringEncoding];
-
-    if (  ! [gFileMgr removeItemAtPath: path
-                                 error: &err]  ) {
-        Log(@"Could not delete OpenVPN configuration file before writing it at '%@'; error was %@", path, err);
-        errorExit();
-    }
-
-    if (  ! [gFileMgr createFileAtPath: path
-                              contents: data
-                            attributes: attributes]  ) {
-        Log(@"Could  not write to OpenVPN configuration file at '%@'", path);
-        errorExit();
-    }
-}
-
 static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
 
-    // Copies a file, or a folder and its contents, making sure the copy has the same permissions and dates as the original but is owned by root:wheel.
+    // Copies a file, or a folder and its contents, making sure the copy is owned by root:wheel with 0700 permissions.
     //
     // Uses an intermediate file or folder and then renames it, so no partial copy has been done if an error occurs.
 
@@ -982,12 +997,8 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     NSString * tempPath = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
 
     securelyCopyDirectly(sourcePath, tempPath);
-    Log(@"Copied %@ to %@", sourcePath, tempPath);
 
-
-    if (  ! (   [sourcePath hasPrefix: L_AS_T_USERS]
-             || [sourcePath hasPrefix: L_AS_T_SHARED] )  ) {
-    }
+    securelyCreateFolderAndParents([targetPath stringByDeletingLastPathComponent]);
 
     securelyRename(tempPath, targetPath);
 }
@@ -996,59 +1007,111 @@ static void securelyMoveTblkIncludingPrivate(NSString * sourcePath, NSString * t
 
     // Renames or moves one .tblk to another.
     // If renaming, renames the .tblk, and, if it was a shadow copy, then renames the private copy.
-    // If moving from shared to shadow, copies the shadow to the private copy.
-    // If moving from shadow to shared, deletes the private copy.
+    // If moving to shadow, copies the shadow to the private copy.
+    // If moving to shared, deletes the private copy.
 
     errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
     errorExitIfAnySymlinkOrDotDotInPath(targetPath);
 
     //
-    // If this is a move within the same folder (configurations, for example), do it via rename
+    // SHADOW TO SHADOW OR SHARED TO SHARED
     //
+    // Simple rename, perhaps creating enclosing folders
 
-    NSString * sourceContainer = sourcePath.stringByDeletingLastPathComponent;
-    NSString * targetContainer = targetPath.stringByDeletingLastPathComponent;
+    if (   (   [sourcePath hasPrefix: L_AS_T_SHARED]
+            && [targetPath hasPrefix: L_AS_T_SHARED] )
+        || (   [sourcePath hasPrefix: userShadowPath()]
+            && [targetPath hasPrefix: userShadowPath()] )  ) {
 
-    if (  [sourceContainer isEqualToString: targetContainer]  ) {
+        Log(@"MOVE SHADOW TO SHADOW OR SHARED TO SHARED '%@' to '%@'", sourcePath, targetPath);
 
+        // Rename the Shared or Shadow copy
         securelyRename(sourcePath, targetPath);
-
-        // If renamed shadow, rename the private copy, too
         if (  [sourcePath hasPrefix: userShadowPath()]  ) {
-            NSString * sourcePrivatePath = [gPrivatePath stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
-            NSString * targetPrivatePath = [gPrivatePath stringByAppendingPathComponent: lastPartOfPath(targetPath)];
-            securelyRename(sourcePrivatePath, targetPrivatePath);
+            securelyKeepRootOwnershipAndSetPermissionsOnFolderAndContents(targetPath);
+        } else {
+            ; // Ownership & permissions are unchanged.
         }
 
+        // If source and target are Shadow copy, rename the Private copy
+        if (  [sourcePath hasPrefix: userShadowPath()]  ) {
+            NSString * sourcePrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
+            NSString * targetPrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(targetPath)];
+            securelyRename(sourcePrivatePath, targetPrivatePath);
+            // Ownership & permissions are unchanged.
+        }
         return;
     }
 
-    securelyCopy(sourcePath, targetPath);
+    //
+    // SHADOW TO SHARED
+    //
 
-    // If moved shared to shadow, make a copy in the user's Configurations folder and secure it.
-    if (   [sourcePath hasPrefix: L_AS_T_SHARED]
-        && [targetPath hasPrefix: userShadowPath()]  ) {
-        NSString * targetPrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(targetPath)];
-        securelyCopy(sourcePath, targetPrivatePath);
-        secureOneFolderMaintainOwnership(targetPrivatePath, YES, userUID(), NO);
-    }
-
-    // If moved shadow to shared, delete the copy in the user's Configurations folder.
-   if (   [sourcePath hasPrefix: userShadowPath()]
+    if (   [sourcePath hasPrefix: userShadowPath()]
         && [targetPath hasPrefix: L_AS_T_SHARED]  ) {
-       NSString * sourcePrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
-       securelyDeleteItem(sourcePrivatePath);
-       Log(@"Deleted %@", sourcePrivatePath);
+
+        Log(@"MOVE SHADOW TO SHARED '%@' to '%@'", sourcePath, targetPath);
+
+        // Rename the Shadow copy to Shared
+        securelyRename(sourcePath, targetPath);
+        securelyKeepRootOwnershipAndSetPermissionsOnFolderAndContents(targetPath);
+
+        // Delete the Private copy
+        NSString * sourcePrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
+        if (  [gFileMgr fileExistsAtPath: sourcePrivatePath]  ) {
+            securelyDeleteItem(sourcePrivatePath);
+       }
+        return;
     }
 
-    securelyDeleteItem(sourcePath);
+    //
+    // SHARED TO SHADOW
+    //
+    if (   [sourcePath hasPrefix: L_AS_T_SHARED]
+        && [targetPath hasPrefix:  userShadowPath()]  ) {
 
-    Log(@"Deleted %@", sourcePath);
+        Log(@"MOVE SHARED TO SHADOW '%@' to '%@'", sourcePath, targetPath);
+
+        // Rename the Shared copy to Shadow
+        securelyRename(sourcePath, targetPath);
+        securelyKeepRootOwnershipAndSetPermissionsOnFolderAndContents(targetPath);
+
+        // Copy the (new) Shadow copy to the Private copy
+        NSString * targetPrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(targetPath)];
+        securelyCopy(targetPath, targetPrivatePath);
+        securelySetUserOwnershipAndPermissionsOnFolderAndContents(targetPrivatePath);
+        return;
+    }
+
+    //
+    // TEMP_COPY TO PRIVATE
+    //
+
+    if (   [sourcePath hasPrefix: L_AS_T_TEMP]
+        && [targetPath hasPrefix: userShadowPath()]  ) {
+
+        Log(@"MOVE TEMP COPY TO PRIVATE '%@' to '%@'", sourcePath, targetPath);
+
+        // Rename the copy of the Shadow to the Private copy
+        securelyRename(sourcePath, targetPath);
+        securelyKeepRootOwnershipAndSetPermissionsOnFolderAndContents(targetPath);
+
+        // Set ownership and permissions on the private copy
+        NSString * targetPrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(targetPath)];
+        securelySetUserOwnershipAndPermissionsOnFolderAndContents(targetPrivatePath);
+       return;
+    }
+
+    Log(@"UNEXPECTED SOURCE AND TARGET COMBINATION FOR MOVE OF\n'%@' to\n'%@'", sourcePath, targetPath);
+    errorExit();
 }
 
 static BOOL testRenamex_np(NSString * folder) {
 
     errorExitIfAnySymlinkOrDotDotInPath(folder);
+
+    BOOL oldLogFileActions = gLogFileActions;
+    gLogFileActions = NO;
 
     // Touch two files (delete them first if they exist)
     NSString * test1Path = [folder stringByAppendingPathComponent: @"renamex_np-test-target-1"];
@@ -1068,6 +1131,7 @@ static BOOL testRenamex_np(NSString * folder) {
         Log(@"renamex_np() test #1 failed for %@", folder);
         securelyDeleteItemIfItExists(test1Path);
         securelyDeleteItemIfItExists(test2Path);
+        gLogFileActions = oldLogFileActions;
         return FALSE;
     }
 
@@ -1079,11 +1143,13 @@ static BOOL testRenamex_np(NSString * folder) {
         Log(@"renamex_np() test #2 failed for %@", folder);
         securelyDeleteItemIfItExists(test1Path);
         securelyDeleteItemIfItExists(test2Path);
+        gLogFileActions = oldLogFileActions;
         return FALSE;
     }
 
     securelyDeleteItemIfItExists(test2Path);    // test1 was succcesfully renamed to test2, so delete test2
 
+    gLogFileActions = oldLogFileActions;
     return TRUE;
  }
 
@@ -1723,7 +1789,14 @@ static void createSecuredConfigurationsSubfolder(NSString * path) {
 
     errorExitIfAnySymlinkOrDotDotInPath(path);
 
-    if (  ! createDirWithPermissionAndOwnership(path, PERMS_SECURED_FOLDER, 0, 0)  ) {
+    // For anything enclosed by either L_AS_T_TEMP or L_AS_T_USERS/username/, use PERMS_SECURED_OTHER
+    mode_t perms = (  (   [path hasPrefix: L_AS_T_TEMP]
+                       || (   [path hasPrefix: L_AS_T_USERS]
+                           && [path componentsSeparatedByString: @"/"].count > 6   )  )
+                    ? PERMS_SECURED_OTHER
+                    : PERMS_SECURED_FOLDER);
+
+    if (  ! createDirWithPermissionAndOwnership(path, perms, 0, 0)  ) {
         errorExit();
     }
 }
@@ -1867,25 +1940,13 @@ static void copyTheApp(void) {
     } else {
         if (  [gFileMgr fileExistsAtPath: APPLICATIONS_TB_APP]  ) {
             if (  [gFileMgr fileExistsAtPath: L_AS_T_TB_OLD]  ) {
-                if (  [gFileMgr tbRemoveFileAtPath: L_AS_T_TB_OLD handler: nil]  ) {
-                    Log(@"Deleted %@", L_AS_T_TB_OLD);
-                } else {
-                    errorExit();
-                }
+                securelyDeleteItem(L_AS_T_TB_OLD);
             }
-            if (  [gFileMgr tbMovePath: APPLICATIONS_TB_APP toPath: L_AS_T_TB_OLD handler: nil]  ) {
-                Log(@"Moved %@ to %@", APPLICATIONS_TB_APP, L_AS_T_TB_OLD);
-            } else {
-                errorExit();
-            }
+            copyOrMoveOneFolderOrTblk(APPLICATIONS_TB_APP, L_AS_T_TB_OLD, NO);
         }
     }
 
-    if (  [gFileMgr tbCopyPath: sourcePath toPath: APPLICATIONS_TB_APP handler: nil]  ) {
-        Log(@"Copied %@ to %@", sourcePath, APPLICATIONS_TB_APP);
-    } else {
-        errorExit();
-    }
+    copyOrMoveOneFolderOrTblk(sourcePath, APPLICATIONS_TB_APP, NO);
 
     secureTheApp([[APPLICATIONS_TB_APP
                    stringByAppendingPathComponent: @"Contents"]
@@ -1940,7 +2001,7 @@ static void copyAppToL_AS_T(NSString * sourcePath) {
         errorExit();
     }
     if (  [gFileMgr tbCopyItemAtPath: sourcePath toBeOwnedByRootWheelAtPath: targetPath]) {
-        Log(@"Copied %@ to %@", sourcePath, targetPath);
+        Log(@"Copied (C) %@ to %@", sourcePath, targetPath);
         if (  updateFrom7  ) {
             secureTheApp([[targetPath stringByAppendingPathComponent: @"Contents"]
                           stringByAppendingPathComponent: @"Resources"], NO);
@@ -2205,7 +2266,7 @@ static void installForcedPreferences(NSString * firstPath, NSString * secondPath
 		}
 		
 		if (  [gFileMgr tbCopyPath: firstPath toPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH handler: nil]  ) {
-			Log(@"copied %@\n    to %@", firstPath, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+			Log(@"copied (D) %@\n    to %@", firstPath, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 			if (  checkSetOwnership(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, NO, 0, 0)  )  {
 				if (  ! checkSetPermissions(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, PERMS_SECURED_READABLE, YES)  )  {
 					Log(@"Unable to set permssions of %ld on %@", (long)PERMS_SECURED_READABLE, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
@@ -2431,7 +2492,6 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 
     structureTblkProperly(targetPath);
 
-
     secureOneFolderMaintainOwnership(targetPath, NO, 0, YES);
 
     //
@@ -2502,25 +2562,18 @@ static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
     // Delete the item
     //
 
-    if (  [gFileMgr fileExistsAtPath: path]  ) {
-        makeUnlockedAtPath(path);
-        NSError * err = nil;
-        if (  ! [gFileMgr removeItemAtPath: path
-                                     error: &err]  ) {
-            Log(@"Could not delete '%@', error was\n%@",
-                path, err);
-            errorExit();
-        }
-        Log(@"Deleted %@", path);
-    } else {
-        Log(@"No file to delete at %@", firstPath);
-        errorExit();
-    }
+    securelyDeleteItemIfItExists(path);
 
     //
-    // If the item is a .tblk, delete any forced preferences that refer to it
+    // If the item is a .tblk, delete any private copy and any forced preferences that refer to it
     //
     if (  [path hasSuffix: @".tblk"]  ) {
+
+        if (  [path hasPrefix: L_AS_T_USERS]  ) {
+            NSString * lastPart = lastPartOfPath(path);
+            NSString * privatePath = [userPrivatePath() stringByAppendingPathComponent: lastPart];
+            securelyDeleteItemIfItExists(privatePath);
+        }
 
         NSString * displayName = [[path
                                    substringToIndex: path.length - @".tblk".length]
@@ -2849,7 +2902,7 @@ static void safeCopyPathToPathAndSetUidAndGid(NSString * sourcePath, NSString * 
 	
 	NSString * verb = (  [gFileMgr fileExistsAtPath: targetPath]
 					   ? @"Overwrote"
-					   : @"Copied to");
+					   : @"Copied (E) to");
     securelyCopy(sourcePath, targetPath);
     if ( ! checkSetOwnership(targetPath, YES, newUid, newGid)  ) {
         errorExit();
@@ -3372,7 +3425,6 @@ int main(int argc, char *argv[]) {
     // A non-debug version of tunnelblickd can thus always find tunnelblick-helper in /Applications/Tunnelblick.app/Contents/Resources.
     if (  [gFileMgr fileExistsAtPath: L_AS_T_DEBUG_APP_RESOURCES_PATH]  ) {
         securelyDeleteItem(L_AS_T_DEBUG_APP_RESOURCES_PATH);
-        Log(@"Deleted %@", L_AS_T_DEBUG_APP_RESOURCES_PATH);
     }
 #endif
 
@@ -3557,6 +3609,8 @@ int main(int argc, char *argv[]) {
             errorExit();
         }
     }
+
+    ; // STOP HERE IF DEBUGGING INSTALLER ITSELF TO AVOID ERROR SETTING UP tunnelblickd
 
     //**************************************************************************************************************************
     // (11) Set up tunnelblickd to load when the computer starts

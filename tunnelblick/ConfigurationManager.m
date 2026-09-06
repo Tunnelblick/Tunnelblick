@@ -2086,7 +2086,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * outTblkPath = [[self tempDirPath] stringByAppendingPathComponent: displayNameWithTblkExtension];
 
         // Do the conversion
-Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
         NSString * result = [self convertOvpnOrConfAtPath: path
                                              toTblkAtPath: outTblkPath
                                         replacingTblkPath: nil
@@ -2626,7 +2625,7 @@ Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
 
     //
     // Examine the secure copies of the configuration files for script references and
-    // get user's permisssion to proceed if there were any scripts.
+    // get user's permission to proceed if there were any scripts.
     //
     
     BOOL haveUserScripts = YES;
@@ -2702,24 +2701,6 @@ Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
         }
     }
 
-    // If any configuration contains scripts that run as root, warn about that (again)
-    if (  haveRootScripts  ) {
-
-
-
-
-
-        
-        int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                     NSLocalizedString(@"JKB: ONE OR MORE CONFIGURATIONS INCLUDE ROOT SCRIPTS!!!", @"Window title"),
-                                     NSLocalizedString(@"OK",      @"Button"),   // Default button
-                                     NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
-                                     nil);                                       // Other button
-        if (  result != NSAlertDefaultReturn  ) {
-            [auth release];
-            return NSApplicationDelegateReplyCancel;
-        }
-    }
     // Set up for the installer to allow scripts as directed by the user
 
     gUserAllowedRootScripts = haveRootScripts;
@@ -3219,7 +3200,7 @@ Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
             slashSuffix = @"";
         }
 
-        // Delete shared and shadow copies with installer
+        // Delete shared and shadow copies with installer. Deleting shadow copy will delete private copy.
         BOOL isDir = NO;
         NSString * path = [[L_AS_T_SHARED
                             stringByAppendingPathComponent: pathSuffix]
@@ -3248,28 +3229,6 @@ Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
                                                           usingSystemAuth: auth
                                                                warnDialog: YES]
                       && ok);
-            }
-        }
-
-        // Delete private copy
-        path = [[[[NSHomeDirectory()
-                   stringByAppendingPathComponent: L_AS_T]
-                  stringByAppendingPathComponent: @"Configurations"]
-                 stringByAppendingPathComponent: pathSuffix]
-                stringByAppendingString: slashSuffix];
-        if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]  ) {
-            if (  ! isDir  ) {
-                Log(@"Not a folder: '%@'", path);
-                ok = NO;
-            } else {
-                NSError * err = nil;
-                if (  [gFileMgr removeItemAtPath: path
-                                           error: &err]  ) {
-                    Log(@"Deleted '%@'", path);
-                } else {
-                    Log(@"Could not delete '%@'; error was\n%@", path, err);
-                    ok = NO;
-                }
             }
         }
 
@@ -3983,6 +3942,13 @@ Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
         return;
     }
 
+    // If private, get path to the shadow
+    if (  [firstSourcePath hasPrefix: @"/Users/"] ) {
+        firstSourcePath = [[L_AS_T_USERS
+                            stringByAppendingPathComponent: NSUserName()]
+                           stringByAppendingPathComponent: lastPartOfPath(firstSourcePath)];
+    }
+
     NSString * untitledFolderName = NSLocalizedString(@"untitled folder", @"File name of a newly-created folder");
     NSString * newPath = [[firstSourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: untitledFolderName];
     NSString * targetFolderPath = pathWithNumberSuffixIfItemExistsAtPath(newPath, NO);
@@ -4001,6 +3967,13 @@ Log(@"JKB: path = \n%@\nJKB: outTblkPath =\n%@", path, outTblkPath);
     while (  (sourceName = [e nextObject]  )  ) {
 
         NSString * sourcePath = [pathsDictionary objectForKey: sourceName];
+        // If private, get path to the shadow
+        if (  [sourcePath hasPrefix: @"/Users/"] ) {
+            sourcePath = [[L_AS_T_USERS
+                           stringByAppendingPathComponent: NSUserName()]
+                          stringByAppendingPathComponent: lastPartOfPath(firstSourcePath)];
+        }
+
         if (  ! firstDisplayName  ) {
             NSLog(@"copyOrMoveConfigurationsIntoNewFolder: no configPath for %@", sourceName);
             return;
