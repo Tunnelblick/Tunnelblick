@@ -220,6 +220,9 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                         lipo ../openvpn_tblk_* -create -output                      "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-executable"; \
                         lipo ../openvpn-plugin-down-root.so_tblk_* -create -output "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so"; \
                     fi ; \
+                    if [ -f "distro/dns-scripts/macos-dns-updown.sh" ] ; then \
+                        cp -af "distro/dns-scripts/macos-dns-updown.sh"  "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/dns_updown_script.sh"; \
+                    fi ; \
                     \
                     missing_a_component="false" ; \
                     if [   ! -e "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-executable" ] ; then \
