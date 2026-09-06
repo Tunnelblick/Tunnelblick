@@ -283,7 +283,9 @@ CreateOpenvpnDirectoryStructure() {
     # Create the openvpn directory structure:
     # ...Contents/Resources/openvpn contains a folder for each version of OpenVPN.
     # The folder for each vesion of OpenVPN is named "openvpn-x.x.x".
-    # Each "openvpn-x.x.x"folder contains the openvpn binary and the openvpn-down-root.so binary
+    # Each "openvpn-x.x.x" folder contains the openvpn binary and the openvpn-down-root.so binary.
+    # If the OpenVPN version includes it (OpenVPN 2.7+), each "openvpn-x.x.x" folder
+    # will also contain Openvpn's "dns_updown_script.sh".
 
     local default_openvpn
     local last_openvpn
@@ -312,6 +314,9 @@ CreateOpenvpnDirectoryStructure() {
 #          because 2.5 is no longer being supported by OpenVPN.
 #        if [ "$d" == "$t" ] || [ "${CONFIGURATION}" = "Debug" ] || [ "$u" != "$VERSION_STRING" ] ; then
             mkdir -p "${APP_PATH}/Contents/Resources/openvpn/${d}"
+            if [ -f "../third_party/products/openvpn/${d}/dns_updown_script.sh" ] ; then
+                cp "../third_party/products/openvpn/${d}/dns_updown_script.sh" "${APP_PATH}/Contents/Resources/openvpn/${d}/dns_updown_script.sh"
+            fi        
             cp "../third_party/products/openvpn/${d}/openvpn-executable" "${APP_PATH}/Contents/Resources/openvpn/${d}/openvpn"
             cp "../third_party/products/openvpn/${d}/openvpn-down-root.so" "${APP_PATH}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
             chmod 744 "${APP_PATH}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
