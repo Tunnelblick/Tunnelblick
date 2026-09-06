@@ -283,13 +283,16 @@ extern TBUserDefaults * gTbDefaults;
     if (  [self containsDnsUpdownCommand]  ) {
         return NO;
     }
+    if (  [self containsDnsUpdownForce]  ) {
+        return NO;
+    }
 
     return YES;
 }
 
 -(BOOL) containsDnsScript {
 
-    // Returns TRUE iff the OpenVPN configuration file includes the dns-updown force option
+    // Returns TRUE iff the OpenVPN configuration file includes the dns-script force option
 
     NSArray * arr = [self entriesWithOptionName: @"dns-script"];
     return (arr.count != 0);

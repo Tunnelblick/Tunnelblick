@@ -1625,6 +1625,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 					NSLog(@"Unknown option '%@' found in %@", option, path);
 					haveUnknown = TRUE;
 				}
+
+                if (  [option isEqualToString: @"dns-updown"]  ) {
+                    NSString * firstArgument = [[tokens objectAtIndex: tokenIx] stringValue];
+                    if (  ! [firstArgument isEqualToString: @"disable"]  ) {
+                        NSLog(@"Option '%@' can execute code; found in %@", option, path);
+                        [self releaseTokens];
+                        return CommandOptionsYes;
+                    }
+                }
 			}
 			
             // Skip to end of line

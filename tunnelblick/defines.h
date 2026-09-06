@@ -306,10 +306,8 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 //
 // NOTE: dns-updown MAY OR MAY NOT BE SAFE AND IS NOT IN THIS LIST !!!
 //
-//       dns-updown force
-//   and dns-updown disable ARE SAFE
-//
-//       dns-updown <command> IS NOT SAFE!
+//       dns-updown disable IS SAFE
+//   but dns-updown force and dns-updown <command> ARE NOT SAFE
 
 #define OPENVPN_OPTIONS_THAT_ARE_UNSAFE @[ \
 @"auth-user-pass-verify", @"client-connect", @"client-crresponse", @"client-disconnect", \
