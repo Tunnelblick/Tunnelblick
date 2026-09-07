@@ -984,9 +984,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 }
 
 -(void) dealWithCRsInConfiguration {
-    
-    // Returns YES if any CR characters were dealt with; otherwise returns NO
-	
 	if (  [self removeOrReplaceCRs: configString]  ) {
 		unsigned savedInputLineNumber = inputLineNumber;
 		inputLineNumber = 0;
