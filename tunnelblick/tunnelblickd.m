@@ -191,7 +191,7 @@ static BOOL becomeTheClient(uid_t      client_euid,
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeTheClient: seteuid(%lu) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
                 (unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
         if (  setegid(0)  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeTheClient: setegid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
+            asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeTheClient: setegid(0) failed to restore egid; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
                     (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
         }
         return FALSE;
@@ -349,7 +349,7 @@ static OSStatus runTool(uid_t      client_euid,
     NSString * stdErrString = getContentsThenDeleteFileAtPath(TUNNELBLICKD_STDERR_PATH, asl, log_msg);
 
     NSString * message = nil;
-    
+
     if (  stdOutStringPtr  ) {
         *stdOutStringPtr = [[stdOutString retain] autorelease];
     } else if (   (status != EXIT_SUCCESS)
