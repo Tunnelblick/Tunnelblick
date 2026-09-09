@@ -85,7 +85,7 @@
 #define MAX_HOTKEY_IX 12
 
 // Socket buffer size for tunnelblickd. password + prefix + command must fit in this
-#define SOCKET_BUF_SIZE 2048
+#define SOCKET_BUF_SIZE (1024*128)
 
 // Limited because we create a popup button which lists all of them
 #define MAX_NUMBER_OF_TARGET_USERNAMES_FOR_IMPORT_WINDOW 64
