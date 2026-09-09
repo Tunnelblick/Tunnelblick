@@ -209,6 +209,7 @@ static void becomeRoot(aslclient  asl,
     } else if (  seteuid(0)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeRoot: seteuid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
                 (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+        goto done;
     }
     if (   getegid() == 0  ) {
         asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeRoot: setegid(0) unnecessary; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
@@ -216,7 +217,17 @@ static void becomeRoot(aslclient  asl,
     } else if (  setegid(0)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeRoot: setegid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
                 (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+        goto done;
     }
+
+    return;
+
+done:
+    if (  asl != NULL ) {
+        asl_close(asl);
+    }
+
+    exit(OPENVPNSTART_TUNNELBLICKD_ERROR);
 }
 
 static NSFileHandle *  getStdOutOrStdErrFileHandle(NSString * path,
