@@ -145,7 +145,12 @@ static FILE   * gLogFile;					  // FILE for log
 NSFileManager * gFileMgr;                     // NSFileManager.defaultManager
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
 static BOOL     renamex_npWorks = NO;         // renamex_np() works as needed for /Applications and L_AS_T, and home folder if it is available
+
+#ifdef TBDebug
 static BOOL     gLogFileActions = YES;        // Log all actions on files
+#else
+static BOOL     gLogFileActions = NO;         // Do not all actions on files
+#endif
 
 // The following variables contain info about the user. They may be zero or nil if not needed.
 // If invoked by Tunnelblick, they will be set up using the uid from getuid().
