@@ -95,7 +95,7 @@ static const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 static void exitOpenvpnstart(OSStatus returnValue) {
 
-    // returnValue: have used 141-242, plus the values in define.h (243-254)
+    // returnValue: have used 138-241, plus the values in define.h (242-254)
 
 	if (  gTemporaryDirectory  ) {
 		[gFileMgr tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
@@ -153,6 +153,11 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
 
             "./openvpnstart copyUserItemToNewSecureItem     path\n"
             "               to create a new, unique, secure copy of the filesystem item (file or directory) at 'path'.\n"
+            "               The full path of the copy will be output to stdout.\n\n"
+            "               NOTE: Copies the resolved targets of symlinks, not the links themselves.\n\n"
+
+            "./openvpnstart pathOfNewSecureItemFromXML     xml\n"
+            "               to create a new, unique, secure copy of the filesystem item (file or directory) encoded as XML in 'xml'.\n"
             "               The full path of the copy will be output to stdout.\n\n"
             "               NOTE: Copies the resolved targets of symlinks, not the links themselves.\n\n"
 
@@ -2843,6 +2848,57 @@ static void copyUserItemToNewSecureItem(NSString * insecurePath) {
     appendLogWithoutTrailingLF(result);
 }
 
+
+static NSString * pathForNewSecureItemFromXML(NSString * xml) {
+
+    NSString * xmlUnescaped = [xml stringByReplacingOccurrencesOfString: @"\\Q" withString: @"\""];
+    
+    NSData * data = [xmlUnescaped dataUsingEncoding: NSUTF8StringEncoding];
+    if (  ! data  ) {
+        Log(@"Could not decode XML");
+        exitOpenvpnstart(138);
+        return nil;
+    }
+
+    NSPropertyListFormat format = NSPropertyListXMLFormat_v1_0;
+    NSError * parseError = nil;
+    id propertyList = [NSPropertyListSerialization propertyListWithData: data
+                                                                options: NSPropertyListImmutable
+                                                                 format: &format
+                                                                  error: &parseError];
+    if (  ! propertyList  ) {
+        Log(@"Invalid property-list data: %@", parseError);
+        exitOpenvpnstart(139);
+        return nil;
+    }
+    if (  ! [propertyList isKindOfClass:[NSDictionary class]]  ) {
+        Log(@"Expected a dictionary at the property-list root");
+        exitOpenvpnstart(140);
+        return nil;
+    }
+
+    NSDictionary * dict = propertyList;
+
+    //
+    // Output the dictionary's contents to a new, unique, secure path and return the path of the copy
+    //
+    NSString * itemName = [[@"SecureCopy-"
+                            stringByAppendingString: NSUUID.UUID.UUIDString]
+                           stringByAppendingString: @"--"];
+    NSString * outputPath = [L_AS_T_TEMP stringByAppendingPathComponent: itemName];
+
+    outputToPathFromDictionary(outputPath, dict);
+
+    return outputPath;
+}
+
+static void pathOfNewSecureItemFromXML(NSString * xml) {
+
+    NSString * path = pathForNewSecureItemFromXML(xml);
+
+    appendLogWithoutTrailingLF(path);
+}
+
 static void scriptStatusForTblk(NSString * tblkPath) {
 
     if (  ! [tblkPath hasPrefix: L_AS_T_TEMP]  ) {
@@ -3988,6 +4044,13 @@ int main(int argc, char * argv[]) {
                 NSString * filePath = [NSString stringWithUTF8String:argv[2]];
                 // copyUserItemToNewSecureItem() does its own validation of the path
                 copyUserItemToNewSecureItem(filePath);
+                syntaxError = FALSE;
+            }
+
+        } else if ( strcmp(command, "pathOfNewSecureItemFromXML") == 0 ) {
+            if (argc == 3  ) {
+                NSString * xml = [NSString stringWithUTF8String:argv[2]];
+                pathOfNewSecureItemFromXML(xml);
                 syntaxError = FALSE;
             }
 
