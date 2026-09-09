@@ -129,6 +129,9 @@
 		636F48B72BBA4406001C9EFE /* TunnelblickUpdateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 636F48B62BBA4406001C9EFE /* TunnelblickUpdateHelper.m */; };
 		636F48BD2BBA5B2B001C9EFE /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
 		636F48BE2BBA5B4E001C9EFE /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
+		63705538304ED23F00833C46 /* TBFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63705537304ED23F00833C46 /* TBFileManager.m */; };
+		63705539304ED23F00833C46 /* TBFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63705537304ED23F00833C46 /* TBFileManager.m */; };
+		6370553A304ED23F00833C46 /* TBFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63705537304ED23F00833C46 /* TBFileManager.m */; };
 		6372CDCA1BFCCBC500FC04DC /* TBOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6372CDC91BFCCBC500FC04DC /* TBOperationQueue.m */; };
 		6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6375C6561A4EDF11007A42E8 /* FreePublicDnsServersList.txt */; };
 		6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */; };
@@ -565,6 +568,8 @@
 		636A16711B0242490005DD0A /* lv.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lv.lproj; sourceTree = "<group>"; };
 		636F48B42BBA4406001C9EFE /* TunnelblickUpdateHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TunnelblickUpdateHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		636F48B62BBA4406001C9EFE /* TunnelblickUpdateHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TunnelblickUpdateHelper.m; sourceTree = "<group>"; };
+		63705536304ED23F00833C46 /* TBFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBFileManager.h; sourceTree = "<group>"; };
+		63705537304ED23F00833C46 /* TBFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBFileManager.m; sourceTree = "<group>"; };
 		6372CDC81BFCCBC500FC04DC /* TBOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBOperationQueue.h; sourceTree = "<group>"; };
 		6372CDC91BFCCBC500FC04DC /* TBOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBOperationQueue.m; sourceTree = "<group>"; };
 		6375C6561A4EDF11007A42E8 /* FreePublicDnsServersList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FreePublicDnsServersList.txt; sourceTree = "<group>"; };
@@ -1329,6 +1334,8 @@
 				6185E73F0E76045D0009C2FD /* helper.m */,
 				B8045A07161EF26700609C98 /* sharedRoutines.h */,
 				B8045A08161EF26700609C98 /* sharedRoutines.m */,
+				63705536304ED23F00833C46 /* TBFileManager.h */,
+				63705537304ED23F00833C46 /* TBFileManager.m */,
 				6372CDC81BFCCBC500FC04DC /* TBOperationQueue.h */,
 				6372CDC91BFCCBC500FC04DC /* TBOperationQueue.m */,
 				638E695F1097725500587933 /* TBUserDefaults.h */,
@@ -2018,6 +2025,7 @@
 			files = (
 				61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */,
 				B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */,
+				63705539304ED23F00833C46 /* TBFileManager.m in Sources */,
 				63282227303447BA00435B82 /* ConfigurationParser.m in Sources */,
 				B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
 				63097CE222340EF8005F94CF /* NSDate+TB.m in Sources */,
@@ -2097,6 +2105,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63705538304ED23F00833C46 /* TBFileManager.m in Sources */,
 				63C79A282ECB5B7F00B7BDCA /* UpdateSigning.m in Sources */,
 				63C375791A4510F600D51E81 /* tunnelblick-helper.m in Sources */,
 				63097CE022340EA8005F94CF /* NSDate+TB.m in Sources */,
@@ -2133,6 +2142,7 @@
 				635ECCF51378885600F67F8D /* DBPrefsWindowController.m in Sources */,
 				63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */,
 				B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */,
+				6370553A304ED23F00833C46 /* TBFileManager.m in Sources */,
 				635ECE601378EA1F00F67F8D /* GeneralView.m in Sources */,
 				6185E7400E76045D0009C2FD /* helper.m in Sources */,
 				61BC4B800E2F9EBC00F24255 /* KeyChain.m in Sources */,
