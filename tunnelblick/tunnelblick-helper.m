@@ -2792,7 +2792,7 @@ static NSString * pathOfNewSecureCopyOfUserItem(NSString * insecurePath) {
     // user-provided data.
     //
     // The dictionary is hierarchical:
-    //     * keys are paths to a file relative to the initial path as an NSString), and
+    //     * keys are paths to a file (relative to the initial path as an NSString), and
     //     * values are contents of the corresponding file as an NSData object).
     //
     // NOTE: The contents of the targets of symlinks is copied, not the symlinks themselves.
@@ -2823,7 +2823,7 @@ static NSString * pathOfNewSecureCopyOfUserItem(NSString * insecurePath) {
     }
 
     //
-    // Output the dictionary's contents to a new, unique, secure path and output the path of the copy
+    // Output the dictionary's contents to a new, unique, secure path and return the path of the copy
     //
     NSString * itemName = [[@"SecureCopy-"
                             stringByAppendingString: NSUUID.UUID.UUIDString]
