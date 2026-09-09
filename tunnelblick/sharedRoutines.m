@@ -1750,6 +1750,12 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     // Send our request to the socket
     const char * buf_ptr = requestToServer;
     size_t bytes_to_write = strlen(requestToServer);
+    if (  bytes_to_write > SOCKET_BUF_SIZE  ) {
+        Log(@"runTunnelblickd: Request is %lu bytes long but the maximum is %u",
+            bytes_to_write, SOCKET_BUF_SIZE);
+        goto error1;
+    }
+
     while (  bytes_to_write != 0  ) {
         n = write(sockfd, buf_ptr, bytes_to_write);
         if (  n < 0  ) {
