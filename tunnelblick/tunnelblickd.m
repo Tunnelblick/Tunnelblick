@@ -1030,17 +1030,7 @@ int main(void) {
         }
 
         //
-        // Remember if this is a "start" command that includes the password
-        //
-
-        NSArray * rawArguments = [rawCommand componentsSeparatedByString: @"\t"];
-        BOOL isStartCommand =  [rawArguments.firstObject isEqualToString: @"start"];
-        BOOL isStartCommandWithManagementPassword = (   isStartCommand
-                                                     && (rawArguments.count == OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX + 1)
-                                                     );
-
-        //
-        // Preprocess the command. If this was a "start" command with a password, log the password as "<management-password>".
+        // Preprocess the command if necessary
         //
 
         NSString * command = preprocessCommandsInRawCommand(rawCommand, &stdoutString, asl, log_msg);
@@ -1064,10 +1054,11 @@ int main(void) {
 
             NSArray * arguments = [command componentsSeparatedByString: @"\t"];
 
-            NSMutableString * commandToDisplay = [NSMutableString stringWithString: command];
-            [commandToDisplay replaceOccurrencesOfString: @"\t" withString: @" " options: 0 range: NSMakeRange(0, [commandToDisplay length])];
-            if (isStartCommandWithManagementPassword  ) {
-                [commandToDisplay appendString: @"\t<management-password>"];
+            NSString * commandToDisplay = [[command copy] autorelease];
+            NSRange r = [commandToDisplay rangeOfString: @"\t"];
+            if (  r.location != NSNotFound  ) {
+                commandToDisplay = [NSString stringWithFormat: @"%@ ...",
+                                    [commandToDisplay substringToIndex: r.location]];
             }
 
             //
