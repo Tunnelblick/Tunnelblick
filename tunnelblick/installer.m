@@ -2456,6 +2456,21 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 	}
 
     if (  ! sourceIsTblk  ) { // And, by the above, the target is not a .tblk either
+        if (   (   [sourcePath isEqualToString: @"/Applications/Tunnelblick.app"]
+                && [targetPath isEqualToString: @"/Library/Application Support/Tunnelblick/Tunnelblick-old.app"] )
+            || [targetPath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
+            if (  ! [gFileMgr tbRemovePathIfItExists: targetPath] ) {
+                Log(@"Error deleting '%@' before copying to it", targetPath);
+                errorExit();
+            }
+            NSError * err = nil;
+            if (  ! [gFileMgr copyItemAtPath: sourcePath toPath: targetPath error: &err] ) {
+                Log(@"Error copying '%@' to '%@': %@", sourcePath, targetPath, err);
+                errorExit();
+            }
+
+            return;
+        }
         if (  ! moveNotCopy  ) {
             Log(@"Can only move, not **copy**, a folder: %@ to %@", sourcePath, targetPath);
             errorExit();
