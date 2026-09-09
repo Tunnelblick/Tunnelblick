@@ -2291,7 +2291,7 @@ static void installForcedPreferences(NSString * firstPath, NSString * secondPath
 	}
 }
 
-static void installForcedPreferencesXML(NSString * xmlString) {
+static NSDictionary * dictionaryFromXML(NSString * xmlString) {
 
     NSData * data = [xmlString dataUsingEncoding: NSUTF8StringEncoding];
     if (  data == nil  ) {
@@ -2315,6 +2315,13 @@ static void installForcedPreferencesXML(NSString * xmlString) {
         Log(@"INSTALLER_INSTALL_FORCED_PREFERENCES_XML: deserialized input is not a dictionary");
         errorExit();
     }
+
+    return (NSDictionary *)propertyList;
+}
+
+static void installForcedPreferencesXML(NSString * xmlString) {
+
+    NSDictionary * propertyList = dictionaryFromXML(xmlString);
 
     NSString * tempPath = L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH ".tmp";
 
