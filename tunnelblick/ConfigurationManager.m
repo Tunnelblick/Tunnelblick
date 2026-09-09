@@ -42,6 +42,7 @@
 #import "NSString+TB.h"
 #import "SettingsSheetWindowController.h"
 #import "SystemAuth.h"
+#import "TBFileManager.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "TunnelblickInfo.h"
@@ -137,6 +138,119 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     Log(@"Created secure copy of '%@'", path);
     return stdOutString;
 }
+
++(NSDictionary *) dictionaryWithContentsOfItemAtTBFileManagerPath: (NSString *) path {
+
+    // This is a modified version of tunnelblick-helper's "dictionaryWithContentsOfItemAtPath" routine.
+    //
+    // If the item at path begins with a period ("."), returns nil.
+    //
+    // If the item at "path" is a directory with no files in it or in anyof its subdirectories, returns nil.
+    //
+    // If the item at "path" or any item in a subdirectory of the item is a symlink, returns nil.
+    //
+    // If the item at "path" is a file, returns a dictionary with one entry:
+    //        {name of the item : data with the contents of the item}
+    //
+    // If the item at "path" is a directory, returns a dictionary with one entry:
+    //        {name of the item with a slash appended to it : dictionary with one or more entries}
+    //
+    // Otherwise returns nil (for example, if an error occurs).
+
+    NSString * name = path.lastPathComponent;
+    if (  [name hasPrefix: @"."]  ) {
+        return nil;
+    }
+
+    TBFileManager * fm = TBFileManager.defaultManager;
+
+    BOOL isDir;
+    if (  ! [fm entryExistsAtPath: path isDirectory: &isDir]  ) {
+        Log(@"No item exists at TBFileManager path '%@'", path);
+        return nil;
+    }
+
+    if (  ! isDir  ) {
+        // Regular file
+        NSData * contents = [fm readDataAtPath: path];
+        if (  ! contents  ) {
+            Log(@"dictionaryWithContentsOfItemAtPath: Contents not available at '%@'", path);
+            return nil;
+        }
+
+        return @{name : contents};
+    }
+
+    // Directory. Create a dictionary with one entry per item in the directory
+
+    NSMutableDictionary * dict = [[NSMutableDictionary.alloc initWithCapacity:10] autorelease];
+
+    NSString * relativePath;
+    TBFMEnumerator * dirE = [fm lazyEnumeratorAtPath: path];
+    if (  ! dirE  ) {
+        Log(@"dictionaryWithContentsOfItemAtPath: Could not get enumerator at '%@'", path);
+        return nil;
+    }
+
+    while (  (relativePath = dirE.nextObject)) {
+
+        [dirE skipDescendants];
+
+        if (  [relativePath.lastPathComponent hasPrefix: @"."]  ) {
+            continue;
+        }
+
+        NSString * fullPath = [path stringByAppendingPathComponent: relativePath];
+        NSDictionary * contents = [self dictionaryWithContentsOfItemAtTBFileManagerPath: fullPath];
+        if (  contents  ) {
+            [dict setObject: contents.allValues.firstObject forKey: contents.allKeys.firstObject];
+        }
+    }
+
+    if (  dict.count == 0  ) {
+        return nil;
+    }
+
+    name = [name stringByAppendingString: @"/"];    // Indicate it is a directory, not a file
+
+    return @{name : [NSDictionary dictionaryWithDictionary: dict]};
+}
+
++(NSString *) makeSecureCopyOfUserItemUsingTBFileManagerAtPath: (NSString *) path {
+
+    // Create a dictionary with the item (file or directory), similar to tunnelblick-helper's
+    // "dictionaryWithContentsOfItemAtPath" routine.
+    NSDictionary * dict = [self dictionaryWithContentsOfItemAtTBFileManagerPath: path];
+    NSError * err;
+    NSData * data = [NSPropertyListSerialization dataWithPropertyList: dict
+                                                               format: NSPropertyListXMLFormat_v1_0
+                                                              options: 0
+                                                                error: &err];
+    if (  ! data  ) {
+        Log(@"Could not serialize the property list to XML: %@", err);
+        return nil;
+    }
+
+    // Remove \t because arguments to openvpnstart can't have them, remove \n to save space,
+    // and escape double-quotes because it interferes with command line use (such as debugging in Xcode).
+    NSMutableString * escapedXml = [[[[[NSMutableString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease]
+                              mutableCopy] autorelease];
+    [escapedXml replaceOccurrencesOfString: @"\t" withString: @""    options: 0 range: NSMakeRange(0, escapedXml.length)];
+    [escapedXml replaceOccurrencesOfString: @"\n" withString: @""    options: 0 range: NSMakeRange(0, escapedXml.length)];
+    [escapedXml replaceOccurrencesOfString: @"\"" withString: @"\\Q" options: 0 range: NSMakeRange(0, escapedXml.length)];
+
+    NSString * stdOutString = nil;
+    OSStatus status = runOpenvpnstart(@[@"pathOfNewSecureItemFromXML", escapedXml], &stdOutString, nil);
+    if (  status !=  EXIT_SUCCESS  ) {
+        Log(@"Error creating a secure item from dictionary at TBFileManager '%@': %@", path, stdOutString);
+        return nil;
+    }
+
+    Log(@"Created secure copy of item from dictionary at TBFileManager '%@'", path);
+    return [stdOutString stringByAppendingPathComponent: path.lastPathComponent];
+}
+
+
 
 +(NSString *) checkForSampleConfigurationAtPath: (NSString *) cfgPath {
 
@@ -1616,7 +1730,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                      nameForErrorMessages: nameForErrorMessages
                                          useExistingFiles: useExistingFiles
                                                   logFile: NULL
-                                                 fromTblk: fromTblk];
+                                                 fromTblk: fromTblk
+                                       outPathIsATbfmPath: YES];
+
         [converter release];
 
         return result2;
@@ -2464,11 +2580,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     while (  (sources = e.nextObject)  ) {
         NSUInteger i;
         for (  i=0; i<sources.count; i++  ) {
-
-            sources[i] = [ConfigurationManager makeSecureCopyOfUserItemAtPath: sources[i]];
-            if (  ! sources[i]  ) {
+            NSString * source = [ConfigurationManager makeSecureCopyOfUserItemUsingTBFileManagerAtPath: sources[i]];
+            if (  ! source  ) {
                 return NO;
             }
+            sources[i] = source;
         }
     }
 
@@ -2635,7 +2751,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  ! [self checkIfConfigurationsAtPaths: allSources
                                haveUserScripts: &haveUserScripts
                                haveRootScripts: &haveRootScripts]) {
-        return NSApplicationDelegateReplyFailure;
+        return NSApplicationDelegateReplyFailure;       // JKB: DOESN'T NOTIFY USER !!!
     }
 
     if (  haveUserScripts  ) {

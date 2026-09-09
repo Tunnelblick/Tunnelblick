@@ -23,6 +23,7 @@
 
 #import "helper.h"
 #import "sharedRoutines.h"
+#import "TBFileManager.h"
 
 #import "ConfigurationToken.h"
 #import "NSFileManager+TB.h"
@@ -60,7 +61,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     [displayName          release]; displayName          = nil;
     [nameForErrorMessages release]; nameForErrorMessages = nil;
     [useExistingFiles     release]; useExistingFiles     = nil;
-    
+    [outFileMgr           release]; outFileMgr           = nil;
+
     [logString            release]; logString            = nil;
     [localizedLogString   release]; localizedLogString   = nil;
     [configString         release]; configString         = nil;
@@ -558,7 +560,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		NSMutableString * contents = [[[NSMutableString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
 		if (  contents  ) {
             if (  [self removeOrReplaceCRs: contents]  ) {
-                if (  [contents writeToFile: target atomically: YES encoding: NSUTF8StringEncoding error: NULL]  ) {
+                BOOL ok;
+                if (  outFileMgr  ) {
+                    NSData * data2 = [contents dataUsingEncoding: NSUTF8StringEncoding];
+                    ok = [outFileMgr writeData: data2 toEntryAtPath: target replace: YES error: nil];
+                } else {
+                    ok = [contents writeToFile: target atomically: YES encoding: NSUTF8StringEncoding error: NULL];
+                }
+                if (  ok  ) {
                     [self logMessage: [NSString stringWithFormat: @"Copied %@, removing CR characters", [target lastPathComponent]]
                            localized: [NSString stringWithFormat: NSLocalizedString(@"Copied %@, removing CR characters", @"Window text"), [target lastPathComponent]]];
                     return nil;
@@ -567,7 +576,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                                   localized: [NSString stringWithFormat: NSLocalizedString(@"Failed to copy %@ to %@", @"Window text"), source, target]];
                 }
             } else {
-                if (  [contents writeToFile: target atomically: YES encoding: NSUTF8StringEncoding error: NULL]  ) {
+                BOOL ok;
+                if (  outFileMgr  ) {
+                    ok = [outFileMgr writeData: data toEntryAtPath: target replace: YES error: nil];
+                } else {
+                    ok = [contents writeToFile: target atomically: YES encoding: NSUTF8StringEncoding error: NULL];
+                }
+                if (  ok  ) {
                     [self logMessage: [NSString stringWithFormat: @"Copied %@", [target lastPathComponent]]
                            localized: [NSString stringWithFormat: NSLocalizedString(@"Copied %@", @"Window text"), [target lastPathComponent]]];
                     return nil;
@@ -580,7 +595,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		[self logMessage: [NSString stringWithFormat: @"Unable to load contents of %@ as UTF-8", source]
                localized: [NSString stringWithFormat: NSLocalizedString(@"Unable to load contents of %@ as UTF-8", @"Window text"), source]];
 	}
-	if (  [gFileMgr tbCopyPath: source toPath: target handler: nil]  ) {
+
+    NSData * data = [gFileMgr contentsAtPath: source];
+    BOOL ok;
+    if (  outFileMgr  ) {
+        NSData * data = [gFileMgr contentsAtPath: source];
+        ok = [outFileMgr writeData: data toEntryAtPath: target replace: YES error: nil];
+    } else {
+        ok = [data writeToFile: target atomically: YES];
+    }
+    if (  ok  ) {
 		[self logMessage: [NSString stringWithFormat: @"Copied %@", [target lastPathComponent]]
 			   localized: [NSString stringWithFormat: NSLocalizedString(@"Copied %@", @"Window text"), [target lastPathComponent]]];
 		return nil;
@@ -621,6 +645,21 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
         }
     }
     
+    return NO;
+}
+
+-(BOOL) contentsEqualAtInPath: (NSString *) inPath andOutPath: (NSString *) outPath {
+
+    NSData * inData = [NSData dataWithContentsOfFile: inPath];
+    if (  inData  ) {
+        NSData * outData = [outFileMgr readDataAtPath: outPath];
+        if (  outData  ) {
+            if (  [inData isEqualToData: outData]  ) {
+                return YES;
+            }
+        }
+    }
+
     return NO;
 }
 
@@ -776,12 +815,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                           localized: [NSString stringWithFormat: NSLocalizedString(@"Symbolic links nested too deeply. Gave up at %@", @"Window text"), inPath]];
 		}
 
-		if (  ! [gFileMgr fileExistsAtPath: outPath]  ) {
+        if (  ! (  outFileMgr
+                 ? [outFileMgr entryExistsAtPath: outPath isDirectory: nil]
+                 : [gFileMgr fileExistsAtPath: outPath] )  ) {
 			NSString * result = [self duplicateFileFrom: inPath toPath: outPath];
 			if (  result  ) {
 				return result;
 			}
-		} else if (  [gFileMgr contentsEqualAtPath: inPath andPath: outPath ]) {
+		} else if (  [self contentsEqualAtInPath: inPath andOutPath: outPath]) {
 			NSString * name = [outPath lastPathComponent];
 			[self logMessage: [NSString stringWithFormat: @"Skipped copying '%@' because a file with that name and contents has already been copied.", inPath]
                    localized: [NSString stringWithFormat: NSLocalizedString(@"Skipped copying %@ because a file with that name and contents has already been copied.", @"Window text"), name]];
@@ -904,8 +945,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	// Then copy the one from Resources into the .tblk
 	if (  infoPlistPath  ) {
 		NSString * target = [[resourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
-		if (   [filesAlreadyInTblk containsObject: @"Info.plist"]
-			|| [gFileMgr fileExistsAtPath: target]
+        BOOL exists = (  outFileMgr
+                       ? [outFileMgr entryExistsAtPath: target isDirectory: nil]
+                       : [gFileMgr   fileExistsAtPath: target] );
+        if (   [filesAlreadyInTblk containsObject: @"Info.plist"]
+            || exists
 			) {
 			NSLog(@"Ignoring Info.plist in %@ because we have already copied the Info.plist in Resources", [[target stringByDeletingLastPathComponent] lastPathComponent]);
 		} else {
@@ -984,6 +1028,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 }
 
 -(void) dealWithCRsInConfiguration {
+
 	if (  [self removeOrReplaceCRs: configString]  ) {
 		unsigned savedInputLineNumber = inputLineNumber;
 		inputLineNumber = 0;
@@ -1107,8 +1152,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		   nameForErrorMessages: (NSString *) theNameForErrorMessages
                useExistingFiles: (NSArray *)  theUseExistingFiles
 						logFile: (FILE *)     theLogFile
-					   fromTblk: (BOOL)       theFromTblk {
-    
+					   fromTblk: (BOOL)       theFromTblk
+             outPathIsATbfmPath: (BOOL)       theOutPathIsATbfmPath
+{
+
     // Converts a configuration file for use in a .tblk by removing all path information from ca, cert, etc. options.
     //
 	// If outputPath is specified, it is created as a .tblk and the configuration file and keys and certificates are copied into it.
@@ -1139,9 +1186,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     displayName          = [theDisplayName          copy];
     nameForErrorMessages = [theNameForErrorMessages copy];
     useExistingFiles     = [theUseExistingFiles     copy];
-    logFile    = theLogFile;
-	fromTblk = theFromTblk;
-    
+    logFile              = theLogFile;
+	fromTblk             = theFromTblk;
+
+    // If outputting to TBFileManager, set outFileMgr to a TBFileManager.defaultManager, otherwise leave it as nil
+    if (  theOutPathIsATbfmPath  ) {
+        outFileMgr = [TBFileManager.defaultManager retain];
+    }
+
     logString          = [[NSMutableString alloc] init];
     localizedLogString = [[NSMutableString alloc] init];
     
@@ -1268,8 +1320,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     if (  outputPath  ) {
 		NSString * tblkResourcesPath = [[outputPath stringByAppendingPathComponent: @"Contents"]
                                         stringByAppendingPathComponent: @"Resources"];
-        mode_t permissions = privateFolderPermissions(tblkResourcesPath);
-        if (  createDir(tblkResourcesPath, permissions) == -1  ) {
+        mode_t permissions = (  outFileMgr
+                              ? 0
+                              : privateFolderPermissions(tblkResourcesPath));
+        BOOL ok = (  outFileMgr
+                   ? [outFileMgr createDirectoryAtPath: tblkResourcesPath error: nil]
+                   : (createDir(tblkResourcesPath, permissions) == -1)  );
+        if (  ! ok  ) {
             return [self logMessage: [NSString stringWithFormat: @"Unable to create %@ owned by %ld:%ld with %lo permissions",
                                       tblkResourcesPath, (long) getuid(), (long) getgid(), (long) permissions]
                           localized: [NSString stringWithFormat: NSLocalizedString(@"Unable to create %@ owned by %ld:%ld with %lo permissions", @"Window text"),
@@ -1445,74 +1502,80 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 
 	// Write out the (possibly modified) configuration file
     if (  outputPath  ) {
+        BOOL ok;
+
         NSString * outputConfigPath= [[[outputPath stringByAppendingPathComponent: @"Contents"]
                                        stringByAppendingPathComponent: @"Resources"]
                                       stringByAppendingPathComponent: @"config.ovpn"];
-        unsigned long permissions;
-        unsigned long group;
-        if (  isOnRemoteVolume(outputConfigPath)  ) {
-            permissions = PERMS_PRIVATE_REMOTE_OTHER;
-            group       = STAFF_GROUP_ID;
+        if (  outFileMgr  ) {
+            NSData * data = [configString dataUsingEncoding: NSUTF8StringEncoding];
+            ok = [outFileMgr writeData: data toEntryAtPath: outputConfigPath replace: YES error: nil];
         } else {
-            permissions = PERMS_PRIVATE_OTHER;
-            group       = ADMIN_GROUP_ID;
-        }
-        NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     [NSNumber numberWithUnsignedLong: (unsigned long) getuid()], NSFileOwnerAccountID,
-                                     [NSNumber numberWithUnsignedLong: group],                    NSFileGroupOwnerAccountID,
-                                     [NSNumber numberWithUnsignedLong: permissions],              NSFilePosixPermissions,
-                                     nil];
-        const char * bytes = [configString UTF8String];
-		if (  bytes == NULL) {
-			return [self logMessage: @"Unable to parse configuration file as UTF-8 (#1)"
-						  localized: NSLocalizedString(@"Unable to parse configuration file as UTF-8", @"Window text")];
-		}
+            unsigned long permissions;
+            unsigned long group;
+            if (  isOnRemoteVolume(outputConfigPath)  ) {
+                permissions = PERMS_PRIVATE_REMOTE_OTHER;
+                group       = STAFF_GROUP_ID;
+            } else {
+                permissions = PERMS_PRIVATE_OTHER;
+                group       = ADMIN_GROUP_ID;
+            }
+            NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                         [NSNumber numberWithUnsignedLong: (unsigned long) getuid()], NSFileOwnerAccountID,
+                                         [NSNumber numberWithUnsignedLong: group],                    NSFileGroupOwnerAccountID,
+                                         [NSNumber numberWithUnsignedLong: permissions],              NSFilePosixPermissions,
+                                         nil];
+            const char * bytes = [configString UTF8String];
+            if (  bytes == NULL) {
+                return [self logMessage: @"Unable to parse configuration file as UTF-8 (#1)"
+                              localized: NSLocalizedString(@"Unable to parse configuration file as UTF-8", @"Window text")];
+            }
 
-        if (  [gFileMgr createFileAtPath: outputConfigPath
-                                contents: [NSData dataWithBytes: bytes
-                                                         length: strlen(bytes)]
-                              attributes: attributes]  ) {
+            ok = [gFileMgr createFileAtPath: outputConfigPath
+                                   contents: [NSData dataWithBytes: bytes length: strlen(bytes)]
+                                 attributes: attributes];
+        }
+        if (  ok  ) {
             [self logMessage: @"Converted OpenVPN configuration"
                    localized: NSLocalizedString(@"Converted OpenVPN configuration", @"Window text")];
         } else {
             return [self logMessage: @"Unable to convert OpenVPN configuration"
                           localized: NSLocalizedString(@"Unable to convert OpenVPN configuration", @"Window text")];
         }
-    } else if (  [tokensToReplace count] != 0  ) {
-        const char * bytes = [configString UTF8String];
-        if (  bytes == NULL) {
-            return [self logMessage: @"Unable to parse configuration file as UTF-8 (#2)"
-                          localized: NSLocalizedString(@"Unable to parse configuration file as UTF-8", @"Window text")];
-        }
-        NSDictionary * existingAttributes = [gFileMgr tbFileAttributesAtPath: configPath traverseLink: NO];
-        if (  [configString writeToFile: configPath atomically: YES encoding: NSUTF8StringEncoding error: NULL]  ) {
-            id owner = [existingAttributes objectForKey: NSFileOwnerAccountID];
-            id group = [existingAttributes objectForKey: NSFileGroupOwnerAccountID];
-            id perms = [existingAttributes objectForKey: NSFilePosixPermissions];
-            if (   owner
-                && group
-                && perms  ) {
-                NSDictionary * restoreAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                    owner, NSFileOwnerAccountID,
-                                                    group, NSFileGroupOwnerAccountID,
-                                                    perms, NSFilePosixPermissions,
-                                                    nil];
-                if (  ! [gFileMgr tbChangeFileAttributes: restoreAttributes atPath: configPath]  ) {
-                    return [self logMessage: @"Unable to restore permissions on configuration file after modification"
-                                  localized: NSLocalizedString(@"Unable to restore permissions on configuration file after modification", @"Window text")];
+
+        if (  ! outFileMgr  ) {
+            if (  [configString writeToFile: configPath atomically: YES encoding: NSUTF8StringEncoding error: NULL]  ) {
+                NSDictionary * existingAttributes = [gFileMgr tbFileAttributesAtPath: configPath traverseLink: NO];
+                id owner = [existingAttributes objectForKey: NSFileOwnerAccountID];
+                id group = [existingAttributes objectForKey: NSFileGroupOwnerAccountID];
+                id perms = [existingAttributes objectForKey: NSFilePosixPermissions];
+                if (   owner
+                    && group
+                    && perms  ) {
+                    NSDictionary * restoreAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                        owner, NSFileOwnerAccountID,
+                                                        group, NSFileGroupOwnerAccountID,
+                                                        perms, NSFilePosixPermissions,
+                                                        nil];
+                    if (  ! [gFileMgr tbChangeFileAttributes: restoreAttributes atPath: configPath]  ) {
+                        return [self logMessage: @"Unable to restore permissions on configuration file after modification"
+                                      localized: NSLocalizedString(@"Unable to restore permissions on configuration file after modification", @"Window text")];
+                    }
                 }
+            } else {
+                return [self logMessage: @"Unable to write to configuration file for modification"
+                              localized: NSLocalizedString(@"Unable to write to configuration file for modification", @"Window text")];
             }
-			[self logMessage: @"Modified configuration file to remove path information"
-                   localized: NSLocalizedString(@"Modified configuration file to remove path information", @"Window text")];
-		} else {
-            return [self logMessage: @"Unable to write to configuration file for modification"
-                          localized: NSLocalizedString(@"Unable to write to configuration file for modification", @"Window text")];
-		}
-	} else {
+        }
+
+        [self logMessage: @"Modified configuration file to remove path information"
+               localized: NSLocalizedString(@"Modified configuration file to remove path information", @"Window text")];
+
+    } else {
 		[self logMessage: @"Did not need to modify configuration file; no path information to remove"
                localized: NSLocalizedString(@"Did not need to modify configuration file; no path information to remove", @"Window text")];
 	}
-	
+
 	return nil;
 }
 

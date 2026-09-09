@@ -29,6 +29,8 @@
 
 #import "ConfigurationManager.h"
 
+@class TBFileManager;
+
 @interface ConfigurationConverter : NSObject {
 
 	NSString        * outputPath;           // Path to output .tblk to be created or nil to not create a .tblk or copy files
@@ -39,7 +41,8 @@
     NSArray *         useExistingFiles;     // If a file is missing and this install is replacing a configuration and the filename is on this list, use the file from the old configuration
     FILE            * logFile;              // Log FILE
 	BOOL              fromTblk;				// Include sibling files and files in sibling folders (i.e., config path is in a .tblk
-    
+
+    TBFileManager   * outFileMgr;           // nil, or TBFileManager.defaultManager if we are outputting to NSDictionary-based file storage
 
 	NSMutableString * logString;			// Contains a copy of log entries
 	NSMutableString * localizedLogString;	// Contains a copy of log entries that have been localized
@@ -65,7 +68,8 @@
 		   nameForErrorMessages: (NSString *) theNameForErrorMessages
                useExistingFiles: (NSArray *)  theUseExistingFiles
 						logFile: (FILE *)     theLogFile
-					   fromTblk: (BOOL)       theFromTblk;
+					   fromTblk: (BOOL)       theFromTblk
+             outPathIsATbfmPath: (BOOL)       theOutPathIsATbfmPath;
 
 
 -(CommandOptionsStatus) commandOptionsStatusForOpenvpnConfigurationAtPath: (NSString *) path
