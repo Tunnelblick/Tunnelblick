@@ -1310,7 +1310,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
         [[configurationsPrefsView removeConfigurationButton] setEnabled: [self oneOrMoreConfigurationsAreSelected]];
 		
-		[[configurationsPrefsView workOnConfigurationPopUpButton] setEnabled: ( ! [gTbDefaults boolForKey: @"disableWorkOnConfigurationButton"] )];
+		[[configurationsPrefsView workOnConfigurationPopUpButton] setEnabled: (   [self oneOrMoreConfigurationsAreSelected]
+                                                                               && ( ! [gTbDefaults boolForKey: @"disableWorkOnConfigurationButton"] )  )];
 		[[configurationsPrefsView workOnConfigurationPopUpButton] setAutoenablesItems: YES];
         
         NSString * configurationPath = [connection configPath];
@@ -1349,11 +1350,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // There is not a connection selected or it should have its UI controls disabled. Don't let the user do anything except add a configuration or disconnect one.
 
-        BOOL enableRemoveButton = (   [self oneOrMoreConfigurationsAreSelected]
-                                   && [TBOperationQueue shouldUIBeEnabledForDisplayName: nil]);
-
 		[[configurationsPrefsView addConfigurationButton]           setEnabled: YES];
-        [[configurationsPrefsView removeConfigurationButton]        setEnabled: enableRemoveButton];
+        [[configurationsPrefsView removeConfigurationButton]        setEnabled: NO];
         [[configurationsPrefsView workOnConfigurationPopUpButton]   setEnabled: NO];
         
         // The "Log" and "Settings" items can't be selected because tabView:shouldSelectTabViewItem: will return NO if there is no selected connection
