@@ -3343,6 +3343,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             }
         }
 
+        // Delete the private copy
+        path = [[gPrivatePath
+                 stringByAppendingPathComponent: pathSuffix]
+                stringByAppendingString: slashSuffix];
+        if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]  ) {
+            if (  ! isDir  ) {
+                Log(@"Not a folder: '%@'", path);
+                ok = NO;
+            } else {
+                ok = (   [gFileMgr tbRemovePathIfItExists: path]
+                && ok);
+            }
+        }
+
         //
         // Remove preferences that refer to the item or its contents
         //
