@@ -3258,22 +3258,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return YES;
     }
 
-    NSString * dirPath = configPathFromDisplayName(displayName);
-    if (  ! [@"" isEqualToString: dirPath]  ) {
-        NSLog(@"Display name '%@' is not a folder or it doesn't exist in the shared, private, or secured folders", displayName);
-        return NO; // It doesn't exist in shared or private, or it's not a folder
-    }
-
     // It's a folder. If it has no configurations inside it, or inside it's subfolders, we can delete it.
 
     // Because it is a folder, it could exist in the shared, private and/or secured folders, so we need to look in all three
 
     BOOL haveConfigurations = FALSE;
-    NSArray * folders = [NSArray arrayWithObjects: gPrivatePath, L_AS_T_SHARED, [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()], nil];
+    NSArray * folders = @[gPrivatePath, L_AS_T_SHARED, [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]];
     NSEnumerator * e  = [folders objectEnumerator];
-    NSString * path;
-    while (  (path = [e nextObject])  ) {
-        NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
+    NSString * folder;
+    while (  (folder = [e nextObject])  ) {
+        NSString * fullPath = [folder stringByAppendingPathComponent: displayName];
+        NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: fullPath];
         NSString * file;
         while (  (file = [dirE nextObject])  ) {
             if (   [file hasPrefix: displayName]
