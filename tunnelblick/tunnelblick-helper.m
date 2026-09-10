@@ -105,6 +105,28 @@ static void exitOpenvpnstart(OSStatus returnValue) {
     exit(returnValue);
 }
 
+static NSString * userName(void) {
+
+    if (  gUserName  ) {
+        return gUserName;
+    }
+
+    Log(@"Cannot run command without a non-root user");
+    exitOpenvpnstart(010101);
+    return nil;
+}
+
+static NSString * userHome(void) {
+
+    if (  gUserHome  ) {
+        return gUserHome;
+    }
+
+    Log(@"Cannot run command without a non-root user");
+    exitOpenvpnstart(010101);
+    return nil;
+}
+
 static void printUsageMessageAndExitOpenvpnstart(void) {
     const char * killStringC;
     if (  ALLOW_OPENVPNSTART_KILL  ) {
@@ -917,7 +939,7 @@ static void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
             )
         && (   (   (gUidOfUser != 0)    // Allow shadow to run as root only if have a non-root username
                 && [path hasPrefix: [[L_AS_T_USERS
-                                      stringByAppendingPathComponent: gUserName]
+                                      stringByAppendingPathComponent: userName()]
                                      stringByAppendingString: @"/"] ])
             || [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]
             || [path hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
@@ -1233,7 +1255,7 @@ static int runScript(NSString * scriptName, int argc, char * argv[]) {
 				Log(@"Invalid cfgLocCode (alternate configuration not allowed when running as root)");
 				exitOpenvpnstart(195);
 			}
-            configPrefix = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
+            configPrefix = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
             break;
 
         case CFG_LOC_DEPLOY:
@@ -1584,7 +1606,7 @@ static NSString * constructLogBase(NSString * configurationFile, unsigned cfgLoc
 				exitOpenvpnstart(194);
 			}
 			// THIS IS NOT USED AS A PATHNAME. SEE NOTE ABOVE.
-            configPrefix = [NSString stringWithFormat: @"/Users/%@/Library/Application Support/Tunnelblick/Configurations", gUserName];
+            configPrefix = [NSString stringWithFormat: @"/Users/%@/Library/Application Support/Tunnelblick/Configurations", userName()];
             break;
         case CFG_LOC_DEPLOY:
             configPrefix = [[gDeployPath copy] autorelease];
@@ -1866,8 +1888,8 @@ static void compareShadowCopy (NSString * fileName) {
 		exitOpenvpnstart(193);
 	}
 
-    NSString * privatePrefix = [gUserHome stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
-    NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
+    NSString * privatePrefix = [userHome() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
+    NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
 
     NSString * privatePath = [[privatePrefix stringByAppendingPathComponent: fileName] stringByAppendingPathExtension: @"tblk"];
     NSString * shadowPath  = [[shadowPrefix  stringByAppendingPathComponent: fileName] stringByAppendingPathExtension: @"tblk"];
@@ -1918,10 +1940,10 @@ static void revertToShadow (NSString * fileName) {
         exitOpenvpnstart(188);
     }
 
-    NSString * privatePrefix = [gUserHome     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
+    NSString * privatePrefix = [userHome()     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
     NSString * privatePath   = [privatePrefix stringByAppendingPathComponent: fileName];
 
-    NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
+    NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
     NSString * shadowPath    = [shadowPrefix stringByAppendingPathComponent: fileName];
 
     NSString * tempCopyPath  = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
@@ -1985,7 +2007,7 @@ static void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgL
 				exitOpenvpnstart(205);
 			}
 
-            configPrefix = [[[[gUserHome stringByAppendingPathComponent: @"Library"]
+            configPrefix = [[[[userHome() stringByAppendingPathComponent: @"Library"]
                               stringByAppendingPathComponent: @"Application Support"]
                              stringByAppendingPathComponent: @"Tunnelblick"]
                             stringByAppendingPathComponent: @"Configurations"];
@@ -2371,10 +2393,10 @@ static void safeUpdate(NSString * displayName, BOOL doUpdate) {
 
     verifySafeChangesAuthorized();
 
-    NSString * sourcePrefix = [gUserHome     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
+    NSString * sourcePrefix = [userHome()     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
     NSString * sourcePath   = [[sourcePrefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
 
-    NSString * targetPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
+    NSString * targetPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
     NSString * targetPath    = [[targetPrefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
 
     if (  doUpdate  ) {
@@ -2515,7 +2537,7 @@ static void safeDelete(NSString * displayName) {
 
     verifySafeChangesAuthorized();
 
-    NSString * prefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
+    NSString * prefix  = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
     NSString * path;
     if (  [displayName hasSuffix: @"/"]  ) {
         path = [prefix stringByAppendingPathComponent: displayName];
@@ -2538,7 +2560,7 @@ static void safeRename(NSString * oldDisplayName, NSString * newDisplayName) {
 
     verifySafeChangesAuthorized();
 
-    NSString * prefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
+    NSString * prefix  = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
     NSString * oldPath = [[prefix stringByAppendingPathComponent: oldDisplayName] stringByAppendingPathExtension: @"tblk"];
     NSString * newPath = [[prefix stringByAppendingPathComponent: newDisplayName] stringByAppendingPathExtension: @"tblk"];
 
@@ -3061,7 +3083,7 @@ static int startVPN(NSString * configFile,
                 exitOpenvpnstart(189);
             }
 
-            cdFolderPath = [NSString stringWithFormat:@"%@/%@", L_AS_T_USERS, gUserName];  // Will be set below BECAUSE this is a .tblk.
+            cdFolderPath = [NSString stringWithFormat:@"%@/%@", L_AS_T_USERS, userName()];  // Will be set below BECAUSE this is a .tblk.
             gConfigPath  = [[cdFolderPath stringByAppendingPathComponent: configFile] copy];
             break;
 
@@ -3959,8 +3981,6 @@ int main(int argc, char * argv[]) {
     gid_t originalGid  = getgid();
     uid_t originalEuid = geteuid();
     gid_t originalEgid = getegid();
-	gUserName = [NSUserName() copy];
-	gUserHome = [NSHomeDirectory() copy];
 
     if (  originalUid == 0  ) {
         // Started by tunnelblickd or 'sudo'
@@ -3972,6 +3992,11 @@ int main(int argc, char * argv[]) {
     } else {
         Log(@"uid is not 0 and euid is not 0 --Tunnelblick has probably not been secured. Secure it by launching Tunnelblick.");
         exitOpenvpnstart(174);
+    }
+
+    if (  originalEuid != 0  ) {
+        gUserName = [NSUserName() copy];
+        gUserHome = [NSHomeDirectory() copy];
     }
 
     gPendingRootCounter = 1;    // Set up as root initially
