@@ -2516,11 +2516,16 @@ static void safeDelete(NSString * displayName) {
     verifySafeChangesAuthorized();
 
     NSString * prefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
-    NSString * path    = [[prefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
+    NSString * path;
+    if (  [displayName hasSuffix: @"/"]  ) {
+        path = [prefix stringByAppendingPathComponent: displayName];
+    } else {
+        path = [[prefix stringByAppendingPathComponent: displayName]
+                stringByAppendingPathExtension: @"tblk"];
+        verifyConfigurationIsSafe(path);
+    }
 
-    verifyConfigurationIsSafe(path);
-
-    becomeRoot(@"Delete a safe configuration");
+    becomeRoot(@"Delete a safe configuration or folder");
     BOOL ok = [gFileMgr tbRemoveFileAtPath: path handler: nil];
     stopBeingRoot();
 
