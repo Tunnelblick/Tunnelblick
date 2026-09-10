@@ -3271,13 +3271,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: fullPath];
         NSString * file;
         while (  (file = [dirE nextObject])  ) {
-            if (   [file hasPrefix: displayName]
-                && [file hasSuffix: @".tblk"]  ) {
+            if (  [file hasSuffix: @".tblk"]  ) {
                 haveConfigurations = TRUE;
-                break;
+                goto done;
             }
         }
     }
+
+done:
 
     if (  haveConfigurations  ) {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
@@ -3601,6 +3602,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(BOOL) isSafeConfigurationForDisplayName: (NSString *) displayName {
 
+    if (  [displayName hasSuffix: @"/"]  ) {
+        return YES; // It's a folder, so it's always safe
+    }
+
     NSString * path = [[gMC myConfigDictionary] objectForKey: displayName];
     if (  ! path  ) {
         NSLog(@"No configuration for '%@'", displayName);
@@ -3644,21 +3649,34 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return YES;
 }
 
-+(BOOL) removeSafeConfigurationForDisplayName: (NSString *) displayName {
++(BOOL) removeSafeConfigurationOrFolderForDisplayName: (NSString *) displayName {
 
-    // Delete the credentials
-    [self removeCredentialsWithDisplayNames: @[displayName] interact: NO];
+    NSString * path;
+    if (  [displayName hasSuffix: @"/"]  ) {
 
-    // Delete the settings
-    [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: displayName with: nil];
+        // Folder
+        path = [[[[NSHomeDirectory()
+                    stringByAppendingPathComponent: L_AS_T]
+                   stringByAppendingPathComponent: @"Configurations"]
+                 stringByAppendingString: @"/"]         // Need slash between "Configurations" and displayName
+                 stringByAppendingString: displayName]; // Must keep trailing "/" so use ...String, not ...PathComponent
+    } else {
+        // Delete the credentials
+        [self removeCredentialsWithDisplayNames: @[displayName] interact: NO];
+
+        // Delete the settings
+        [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: displayName with: nil];
+
+        path = [[[[NSHomeDirectory()
+                   stringByAppendingPathComponent: L_AS_T]
+                  stringByAppendingPathComponent: @"Configurations"]
+                 stringByAppendingPathComponent: displayName]
+                stringByAppendingPathExtension: @"tblk"];
+
+    }
 
     // Delete the private copy
-    NSString * path = [[[[NSHomeDirectory()
-                          stringByAppendingPathComponent: L_AS_T]
-                         stringByAppendingPathComponent: @"Configurations"]
-                        stringByAppendingPathComponent: displayName]
-                       stringByAppendingPathExtension: @"tblk"];
-    if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
+    if (  ! [gFileMgr tbRemovePathIfItExists: path]  ) {
         return NO;
     }
 
@@ -3668,10 +3686,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return (status == 0);
 }
 
-+(void) removeSafeConfigurationsForDisplayNames: (NSArray *) displayNames {
++(void) removeSafeConfigurationsOrFoldersForDisplayNames: (NSArray *) displayNames {
 
 
-    NSString * message = NSLocalizedString(@"Do you wish to remove one or more configurations?\n\n"
+    NSString * message = NSLocalizedString(@"Do you wish to remove one or more configurations or folders?\n\n"
                                            @"Removal is permanent and cannot be undone.\n\n"
                                            @"Settings for removed configurations will also be removed permanently.", @"Window text");
 
@@ -3704,7 +3722,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSEnumerator * e = displayNames.objectEnumerator;
     NSString * displayName;
     while (  (displayName = e.nextObject)  ) {
-        if (  ! [self removeSafeConfigurationForDisplayName: displayName]  ) {
+        if (  ! [self removeSafeConfigurationOrFolderForDisplayName: displayName]  ) {
             return;
         }
     }
@@ -3723,9 +3741,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     if (   [gTbDefaults isTrueReadOnlyForKey: @"allowNonAdminSafeConfigurationReplacement"]
         && [self allAreSafeConfigurationsForDisplayNames: displayNames]  ) {
-
-        [ConfigurationManager removeSafeConfigurationsForDisplayNames: displayNames];
-
+        [ConfigurationManager removeSafeConfigurationsOrFoldersForDisplayNames: displayNames];
     } else {
         NSString * prompt = NSLocalizedString(@"Tunnelblick needs authorization to remove one or more configurations"
                                               @" or folders.\n\n Removal is permanent and cannot be undone."
@@ -3737,9 +3753,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
         [ConfigurationManager removeConfigurationsOrFoldersWithDisplayNamesWorker: displayNames                                                                  usingSystemAuth: auth];
         [auth release];
-
-        [gTbDefaults clearPrimaryForcedPreferencesCache]; // The deletion could have changed the primary forced preferences
     }
+
+    [gTbDefaults clearPrimaryForcedPreferencesCache]; // The deletion could have changed the primary forced preferences
 }
 
 +(void) removeCredentialsWithDisplayNames: (NSArray *) displayNames interact: (BOOL) interact {
