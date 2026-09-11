@@ -215,11 +215,13 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart compareShadowCopy      displayName\n"
             "               to compare a private .ovpn, .conf, or .tblk with its secure (shadow) copy\n\n"
 
-            "./openvpnstart safeUpdate      displayName\n"
-            "               to do a safe update of a secure (shadow) copy of a .tblk from the private copy\n\n"
+            "./openvpnstart safeUpdate      source-path     shadow-path\n"
+            "               to do a safe update of a .tblk from source-path to shadow-path\n"
+            "               source-path must be in L_AS_T_TEMP.\n\n"
 
-            "./openvpnstart safeUpdateTest      displayName     path\n"
-            "               tests if a 'safeUpdate' of a secure (shadow) copy of a .tblk from the private copy can be done using the configuration\n\n"
+            "./openvpnstart safeUpdateTest      source-path     shadow-path\n"
+            "               tests if a 'safeUpdate' of a .tblk from source-path can be done to shadow-path\n"
+            "               source-path must be in L_AS_T_TEMP.\n\n"
 
             "./openvpnstart safeDelete      displayName\n"
             "               to delete the secure (shadow) copy of a .tblk from a safe private configuration\n\n"
@@ -532,6 +534,30 @@ static NSString * stringFromUTF8CString(const char * arg) {
     }
 
     return s;
+}
+
+static void errorExitIfDotDotOrSymlinkInPath(NSString * path) {
+
+    if (  [path containsString: @".."]) {
+        Log(@"Apparent attack detected: '..' found in '%@'",path);
+        exitOpenvpnstart(-1);
+    }
+
+    NSString * curPath = path;
+    while (   (curPath.length != 0)
+           && ! [curPath isEqualToString: @"/"]  ) {
+        if (  [gFileMgr fileExistsAtPath: curPath]  ) {
+            NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
+            if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+                if (  ! [curPath hasSuffix: @"/Tunnelblick.app/Contents/Resources/openvpn/default"]  ) {
+                    Log(@"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path);
+                    exitOpenvpnstart(-1);
+                }
+            }
+        }
+
+        curPath = [curPath stringByDeletingLastPathComponent];
+    }
 }
 
 static const char * fileSystemRepresentation(NSString * path) {
@@ -1912,16 +1938,11 @@ static void compareShadowCopy (NSString * fileName) {
 	exitOpenvpnstart(OPENVPNSTART_COMPARE_CONFIG_DIFFERENT);
 }
 
-static void revertToShadow (NSString * fileName) {
+static BOOL revertToShadowWorker (NSString * fileName) {
 
     // Reverts the specified private configuration .tblk to its shadow copy.
     //
     // fileName is the display name of the configuration, plus the .tblk extension
-    //
-    // Returns the results as one of the following result codes:
-    //      OPENVPNSTART_REVERT_CONFIG_OK
-    //      OPENVPNSTART_REVERT_CONFIG_MISSING
-    //      a different integer, indicating an unexpected error.
     //
     // To do this safely:
     //
@@ -1937,22 +1958,30 @@ static void revertToShadow (NSString * fileName) {
 
     if (  gUidOfUser == 0  ) {
         Log(@"Invalid cfgLocCode (revertToShadow not allowed when running as root)");
-        exitOpenvpnstart(188);
+        exitOpenvpnstart(-1);
     }
 
-    NSString * privatePrefix = [userHome()     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
-    NSString * privatePath   = [privatePrefix stringByAppendingPathComponent: fileName];
+    if (  ! [fileName hasSuffix: @".tblk"]  ) {
+        Log(@"Not a .tblk: %@", fileName);
+        exitOpenvpnstart(-1);
+    }
 
     NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
     NSString * shadowPath    = [shadowPrefix stringByAppendingPathComponent: fileName];
 
+    if (   ! folderExistsForRootAtPath(shadowPath)  ) {
+        Log(@"No secured (shadow) copy of a .tblk at %@", shadowPath);
+        exitOpenvpnstart(-1);
+    }
+
+    NSString * privatePrefix = [userHome()    stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
+    NSString * privatePath   = [privatePrefix stringByAppendingPathComponent: fileName];
+
     NSString * tempCopyPath  = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
 
-    if (   folderExistsForRootAtPath(shadowPath)  ) {
+    becomeRoot(@"revert to use shadow configuration");
+    {
 
-        becomeRoot(@"revert to use shadow configuration");
-
-        [gFileMgr tbRemovePathIfItExists: tempCopyPath];
         BOOL result = [gFileMgr tbCopyPath: shadowPath toPath: tempCopyPath handler: nil];
         if (  ! result  ) {
             exitOpenvpnstart(156);
@@ -1983,16 +2012,29 @@ static void revertToShadow (NSString * fileName) {
             [gFileMgr tbRemovePathIfItExists: privatePath];
             exitOpenvpnstart(145);
         }
-
-        stopBeingRoot();
-
-        Log(@"Created or replaced %@ from %@", privatePath, shadowPath);
-        exitOpenvpnstart(OPENVPNSTART_REVERT_CONFIG_OK);
-
-    } else {
-        Log(@"No secured (shadow) copy of a .tblk at %@", shadowPath);
-        exitOpenvpnstart(OPENVPNSTART_REVERT_CONFIG_MISSING);
     }
+    stopBeingRoot();
+
+    Log(@"Created or replaced %@ from %@", privatePath, shadowPath);
+    return YES;
+}
+
+static BOOL revertToShadow (NSString * fileName) {
+    // Reverts the specified private configuration .tblk to its shadow copy.
+    //
+    // fileName is the display name of the configuration, plus the .tblk extension
+    //
+    // Returns the results as one of the following result codes:
+    //      OPENVPNSTART_REVERT_CONFIG_OK
+    //      OPENVPNSTART_REVERT_CONFIG_MISSING
+    //      a different integer, indicating an unexpected error.
+    //
+
+    BOOL ok = revertToShadowWorker(fileName);
+
+    return (  ok
+            ? OPENVPNSTART_REVERT_CONFIG_OK
+            : OPENVPNSTART_REVERT_CONFIG_MISSING);
 }
 
 static void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode) {
@@ -2256,7 +2298,28 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
     // A "safe" configuration can contain only certificate and key files and/or Info.plist and/or a config.ovpn which does not have
     // options that invoke scripts and/or files that are identical to files in the existing configuration.
     //
-    // "Safe" installs/replacements can only be done to a private configuration (source = user's copy, target = secured shadow copy).
+    // "Safe" installs/replacements can only be done to a private configuration (source in L_AS_T_TEMP, target = secured shadow copy).
+    //
+    // *** MUST BE CALLED AS ROOT ***
+
+    errorExitIfDotDotOrSymlinkInPath(sourcePath);
+    errorExitIfDotDotOrSymlinkInPath(targetPath);
+
+    NSString * shadowPrefix = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
+
+    if (  ! (   [sourcePath hasPrefix: L_AS_T_TEMP]
+             && [targetPath hasPrefix: shadowPrefix] )  ) {
+        Log(@"Source path must be in %@ and target path must be in %@", L_AS_T_TEMP, shadowPrefix);
+        exitOpenvpnstart(-1);
+    }
+
+    // Copy target to temp, modify temp, then rename temp to target
+    NSString * tempPath = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
+    NSError * err;
+    if (  ! [gFileMgr copyItemAtPath:targetPath toPath: tempPath error: &err]  ) {
+        Log(@"Error trying to copy '%@' to '%@': %@", targetPath, tempPath, err);
+        exitOpenvpnstart(-1);
+    }
 
     NSArray * extensionsForKeysAndCerts = KEY_AND_CRT_EXTENSIONS;
 
@@ -2265,7 +2328,7 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
     while (  (name = [dirE nextObject])  ) {
 
 		NSString * sourceFullPath = [sourcePath stringByAppendingPathComponent: name];
-		NSString * targetFullPath = [targetPath stringByAppendingPathComponent: name];
+		NSString * tempFullPath = [tempPath stringByAppendingPathComponent: name];
 
 		BOOL isDir = NO;
 		if (  ! [gFileMgr fileExistsAtPath: sourceFullPath isDirectory: &isDir]  ) {
@@ -2298,9 +2361,9 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
 		}
 
         // Any files that are identical to existing files are OK; update if requested (change timestamps)
-        if (  [gFileMgr contentsEqualAtPath: sourceFullPath andPath: targetFullPath]  ) {
+        if (  [gFileMgr contentsEqualAtPath: sourceFullPath andPath: tempFullPath]  ) {
 			if (  doUpdate  ) {
-                if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
+                if (  ! forceCopyFileAsRoot(sourceFullPath, tempFullPath)  ) {
                     return FALSE;
                 }
             }
@@ -2326,7 +2389,7 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
 
 			) {
             if (  doUpdate  ) {
-                if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
+                if (  ! forceCopyFileAsRoot(sourceFullPath, tempFullPath)  ) {
                     return FALSE;
                 }
             }
@@ -2341,32 +2404,26 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
                 return FALSE;
             }
             if (  doUpdate  ) {
-                if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
+                if (  ! forceCopyFileAsRoot(sourceFullPath, tempFullPath)  ) {
                     return FALSE;
                 }
             }
 
             continue;
         }
+    }
 
-        // No other files are allowed
-        Log(@"'%@' does not exist in the old configuration or is not identical to the same file in the old configuration", name);
-        return FALSE;
+    if (  doUpdate  ) {
+        if ( ! [gFileMgr tbForceRenamePath: tempPath toPath: targetPath]  ) {
+            Log(@"Error trying to rename '%@' to '%@': %@", targetPath, tempPath, err);
+            exitOpenvpnstart(-1);
+        }
+
+        // Revert so private copy is identical to shadow copy
+        return revertToShadowWorker(targetPath);
     }
 
     return TRUE;
-}
-
-static void restoreUserFolderSecurity(NSString * privateFolderPath) {
-
-    // Restore normal security on the user's private configuration
-    becomeRoot(@"normalize security on the user's private configuration");
-    BOOL ok = secureOneFolder(privateFolderPath, YES, gUidOfUser);
-    stopBeingRoot();
-    if (  ! ok  ) {
-        Log(@"Unable to restore normal security on folder %@", privateFolderPath);
-        exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
-    }
 }
 
 static void verifySafeChangesAuthorized(void) {
@@ -2386,71 +2443,22 @@ static void verifySafeChangesAuthorized(void) {
 
 }
 
-static void safeUpdate(NSString * displayName, BOOL doUpdate) {
+static void safeUpdate(NSString * sourcePath, NSString * targetPath, BOOL doUpdate) {
 
-    // If doUpdate is TRUE:  Secures the private configuration, tests that a non-admin-authorized update may be done from it, and does the update
-    // If doUpdate is FALSE: Tests that a non-admin-authorized update of a configuration may be done
+    // If doUpdate is TRUE:  Tests that a non-admin-authorized update may be done from sourcePath to targetPath, and does the update
+    // If doUpdate is FALSE: Tests that a non-admin-authorized update may be done from sourcePath to targetPath
 
-    verifySafeChangesAuthorized();
+    BOOL ok = TRUE;
 
-    NSString * sourcePrefix = [userHome()     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
-    NSString * sourcePath   = [[sourcePrefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
+    becomeRoot(@"do safeUpdate");
+    {
+        ok = safeUpdateWorker(sourcePath, targetPath, doUpdate);
+    }
+    stopBeingRoot();
 
-    NSString * targetPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
-    NSString * targetPath    = [[targetPrefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
-
-    if (  doUpdate  ) {
-
-        // Secure the private copy by making it owned by root:wheel and writable only by the owner
-        // (So we know that the source can't be modified between testing and updating)
-        becomeRoot(@"secure private folder before safeUpdate");
-        BOOL ok = secureOneFolder(sourcePath, NO, 0);
-        stopBeingRoot();
-        if (  ! ok  ) {
-            Log(@"Unable to secure privatefolder %@", sourcePath);
-            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
-        }
-
-        // Make sure it is OK to update
-        becomeRoot(@"do safeUpdateTest before safeUpdate");
-        ok = safeUpdateWorker(sourcePath, targetPath, NO);
-        stopBeingRoot();
-        if (  ! ok  ) {
-            restoreUserFolderSecurity(sourcePath);
-            Log(@"SafeUpdate test failed; source = %@; target = %@", sourcePath, targetPath );
-            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
-        }
-
-        // Do the actual update
-        becomeRoot(@"do safeUpdate");
-        ok = safeUpdateWorker(sourcePath, targetPath, YES);
-        stopBeingRoot();
-        if (  ! ok  ) {
-            restoreUserFolderSecurity(sourcePath);
-            Log(@"SafeUpdate failed; source = %@; target = %@", sourcePath, targetPath);
-            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
-        }
-
-        becomeRoot(@"Secure shadow copy after safeUpdate");
-        ok = secureOneFolder(targetPath, NO, 0);
-        stopBeingRoot();
-
-        restoreUserFolderSecurity(sourcePath);
-
-        if (  ! ok  ) {
-            Log(@"SafeUpdate failed; could not secure the shadow copy. source = %@; target = %@", sourcePath, targetPath);
-            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
-        }
-
-    } else {
-        // Test if it is OK to update
-        becomeRoot(@"do safeUpdateTest");
-        BOOL ok = safeUpdateWorker(sourcePath, targetPath, NO);
-        stopBeingRoot();
-        if (  ! ok  ) {
-            Log(@"SafeUpdateTest failed; source = %@; target = %@", sourcePath, targetPath);
-            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
-        }
+    if (  ! ok  ) {
+        Log(@"SafeUpdate failed; source = %@; target = %@", sourcePath, targetPath);
+        exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_NOT_OK);
     }
 
     exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_OK);
@@ -2542,14 +2550,45 @@ static void safeDelete(NSString * displayName) {
     if (  [displayName hasSuffix: @"/"]  ) {
         path = [prefix stringByAppendingPathComponent: displayName];
     } else {
-        path = [[prefix stringByAppendingPathComponent: displayName]
+        path = [[prefix
+                 stringByAppendingPathComponent: displayName]
                 stringByAppendingPathExtension: @"tblk"];
-        verifyConfigurationIsSafe(path);
     }
 
+    errorExitIfDotDotOrSymlinkInPath(path);
+
+    verifyConfigurationIsSafe(path);
+
+    //
+    // Delete the shadow copy
+    //
+
+    BOOL ok;
+
     becomeRoot(@"Delete a safe configuration or folder");
-    BOOL ok = [gFileMgr tbRemoveFileAtPath: path handler: nil];
+    {
+        ok = [gFileMgr tbRemoveFileAtPath: path handler: nil];
+    }
     stopBeingRoot();
+
+    if (  ! ok  ) {
+        exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_NOT_OK);
+    }
+
+    //
+    // Delete the private copy
+    //
+    prefix = [[userHome()
+               stringByAppendingPathComponent: L_AS_T]
+              stringByAppendingPathComponent: displayName];
+    if (  [displayName hasSuffix: @"/"]  ) {
+        path = [prefix stringByAppendingPathComponent: displayName];
+    } else {
+        path = [[prefix stringByAppendingPathComponent: displayName]
+                stringByAppendingPathExtension: @"tblk"];
+    }
+
+    ok = [gFileMgr tbRemoveFileAtPath: path handler: nil];
 
     exitOpenvpnstart(  ok
                      ? OPENVPNSTART_UPDATE_SAFE_OK
@@ -2565,14 +2604,20 @@ static void safeRename(NSString * oldDisplayName, NSString * newDisplayName) {
     NSString * newPath = [[prefix stringByAppendingPathComponent: newDisplayName] stringByAppendingPathExtension: @"tblk"];
 
     verifyConfigurationIsSafe(oldPath);
+    errorExitIfDotDotOrSymlinkInPath(oldPath);
+    errorExitIfDotDotOrSymlinkInPath(newPath);
 
     if (  [gFileMgr fileExistsAtPath: newPath]  ) {
         Log(@"safeRename failed; newPath exists: newPath = %@; oldPath = %@", oldPath, newPath);
         exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
     }
 
+    BOOL ok;
+
     becomeRoot(@"Rename a safe configuration");
-    BOOL ok = [gFileMgr tbForceRenamePath: oldPath toPath: newPath];
+    {
+        ok = [gFileMgr tbForceRenamePath: oldPath toPath: newPath];
+    }
     stopBeingRoot();
 
     exitOpenvpnstart(  ok
@@ -4250,20 +4295,20 @@ int main(int argc, char * argv[]) {
             }
 
         } else if ( strcmp(command, "safeUpdate") == 0 ) {
-            if (argc == 3  ) {
-                NSString* fileName = [NSString stringWithUTF8String:argv[2]];
-                validateConfigName(fileName);
-                safeUpdate(fileName, YES);
+            if (argc == 4  ) {
+                NSString* sourcePath = [NSString stringWithUTF8String:argv[2]];
+                NSString* targetPath = [NSString stringWithUTF8String:argv[3]];
+                safeUpdate(sourcePath, targetPath, YES);
                 // safeUpdate() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
 
         } else if ( strcmp(command, "safeUpdateTest") == 0 ) {
-            if (argc == 3  ) {
-                NSString* fileName = [NSString stringWithUTF8String:argv[2]];
-                validateConfigName(fileName);
-                safeUpdate(fileName, NO);
-                // safeUpdateTest() should never return (it does exitOpenvpnstart() with its own exit codes)
+            if (argc == 4  ) {
+                NSString* sourcePath = [NSString stringWithUTF8String:argv[2]];
+                NSString* targetPath = [NSString stringWithUTF8String:argv[3]];
+                safeUpdate(sourcePath, targetPath, NO);
+                // safeUpdate() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
 
