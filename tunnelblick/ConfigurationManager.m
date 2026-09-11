@@ -250,8 +250,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return [stdOutString stringByAppendingPathComponent: path.lastPathComponent];
 }
 
-
-
 +(NSString *) checkForSampleConfigurationAtPath: (NSString *) cfgPath {
 
     // Returns nil or a localized error message
@@ -2318,44 +2316,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         && okToUpdateConfigurationsWithoutAdminApproval()
         && [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
 
-        BOOL privateTargetExists = [gFileMgr fileExistsAtPath: targetPath];
-
-        // Back up the user's private copy of the configuration if it exists
-        NSString * backupOfTargetPath  = [targetPath stringByAppendingPathExtension: @"backup"];
-        if (  privateTargetExists  ) {
-            if (  ! [gFileMgr tbForceRenamePath: targetPath toPath: backupOfTargetPath]  ) {
-                return FALSE;
-            }
-        }
-
-        // Copy the replacement to the private copy for the safeUpdate
-        if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
-            // Restore old private copy if there was one, or delete the one we created
-            if (  privateTargetExists  ) {
-                [gFileMgr tbForceRenamePath: backupOfTargetPath toPath: sourcePath];
-            } else {
-                [gFileMgr tbRemovePathIfItExists: targetPath];
-            }
-            return FALSE;
-        }
-
         // Do the safeUpdate
         NSArray * arguments = [NSArray arrayWithObjects:
                                @"safeUpdate",
                                displayNameFromPath(targetPath),
                                nil];
         OSStatus status = runOpenvpnstart(arguments, nil, nil);
-        if (  status == OPENVPNSTART_UPDATE_SAFE_OK  ) {
+        if (  status == OPENVPNSTART_SAFE_OPERATION_OK  ) {
             // safeUpdate was done so don't need to inform user if can't remove .old file (that will be logged)
-            [gFileMgr tbRemovePathIfItExists: backupOfTargetPath];
             return TRUE;
-        }
-
-        // Couldn't do safeUpdate, so restore old private copy if there was one, or delete the one we created
-        if (  privateTargetExists  ) {
-            [gFileMgr tbForceRenamePath: backupOfTargetPath toPath: sourcePath];
-        } else {
-            [gFileMgr tbRemovePathIfItExists: targetPath];
         }
 
         NSLog(@"Could not do 'safeUpdate' of configuration file %@ to %@", sourcePath, targetPath);
@@ -2513,46 +2482,16 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * sourcePath   = [sources objectAtIndex: ix];
         NSString * targetPath   = [targets objectAtIndex: ix];
 
-        // Only do this for private configs
-        if (  ! [targetPath hasPrefix: [gPrivatePath stringByAppendingPathComponent: @"/"]]  ) {
+        // Only check for safe update for private configs
+        if (  ! [targetPath hasPrefix: [gShadowPath stringByAppendingPathComponent: @"/"]]  ) {
             continue;
         }
-
-        // Rename the private config, replace it with the new config, see if a safeUpdate will work, then restore the original private config
-        BOOL targetExisted = [gFileMgr fileExistsAtPath: targetPath];
-        NSString * targetBackup = [targetPath stringByAppendingPathExtension: @"old"];
-        if (  targetExisted  ) {
-            if (  ! [gFileMgr tbForceRenamePath: targetPath toPath: targetBackup]  ) {
-                continue;
-            }
-        }
-
-        if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
-            if (  targetExisted  ) {
-                [gFileMgr tbForceRenamePath: targetBackup toPath: targetPath];
-            }
-            continue;
-        }
-
-        NSString * displayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-        NSArray * arguments = [NSArray arrayWithObjects:
-                               @"safeUpdateTest",
-                               displayName,
-                               nil];
-        OSStatus status = runOpenvpnstart(arguments, nil, nil);
-        if (  status == OPENVPNSTART_UPDATE_SAFE_OK  ) {
+        OSStatus status = runOpenvpnstart(@[@"safeUpdateTest", sourcePath, targetPath], nil, nil);
+        if (  status == OPENVPNSTART_SAFE_OPERATION_OK  ) {
             [noAdminSources addObject: sourcePath];
             [noAdminTargets addObject: targetPath];
             [sources removeObject: sourcePath];
             [targets removeObject: targetPath];
-        }
-
-        if (  targetExisted  ) {
-            if (  [gFileMgr fileExistsAtPath: targetBackup]  ) {
-                [gFileMgr tbForceRenamePath: targetBackup toPath: targetPath];
-            }
-        } else {
-            [gFileMgr tbRemovePathIfItExists: targetPath];
         }
     }
 }
@@ -2721,11 +2660,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     //
     // Returns the value that the delegate should use as an argument to '[gMC myReplyToOpenOrPrint:]' (whether or not it will be needed)
 
-    [self setupNonAdminReplacements];
-
     if (  ! [self copySourcesToSecureLocationAndModifyInstallSources]  ) {
         return NSApplicationDelegateReplyFailure;
     }
+
+    [self setupNonAdminReplacements];
 
     NSUInteger nToUninstall = [[self deletions]      count];
     NSUInteger nToInstall   = [[self installSources] count];
@@ -2751,7 +2690,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  ! [self checkIfConfigurationsAtPaths: allSources
                                haveUserScripts: &haveUserScripts
                                haveRootScripts: &haveRootScripts]) {
-        return NSApplicationDelegateReplyFailure;       // JKB: DOESN'T NOTIFY USER !!!
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"An error occurred while trying to install or replace one or more configurations.", @"Window text"));
+        return NSApplicationDelegateReplyFailure;
+    }
+
+    if (   ( ! haveUserScripts)
+        && ( ! haveRootScripts)
+        && [gTbDefaults isTrueReadOnlyForKey: @"allowNonAdminSafeConfigurationReplacement"]  ) {
+        Log(@"????? Could do a safeUpdate, why wasn't this detected earlier ???");
     }
 
     if (  haveUserScripts  ) {
@@ -3204,8 +3151,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 -(void) installConfigurations: (NSArray *) filePaths
                  skipMessages: (BOOL)      skipMessages
                notifyDelegate: (BOOL)      notifyDelegate
-             disallowCommands: (BOOL)      disallowCommands
-{
+             disallowCommands: (BOOL)      disallowCommands {
+
     [[ConfigurationManager manager] installConfigurations: filePaths
                                   skipConfirmationMessage: skipMessages
                                         skipResultMessage: skipMessages
@@ -4635,20 +4582,31 @@ err:
 }
 
 +(BOOL) createShadowCopyWithDisplayName: (NSString *) displayName {
-    
-	// Try without admin approval first
-	if (  okToUpdateConfigurationsWithoutAdminApproval()  ) {
 
-		NSArray * arguments = [NSArray arrayWithObjects: @"safeUpdate", displayName, nil];
-		OSStatus status = runOpenvpnstart(arguments, nil, nil);
+    //
+	// Try without admin approval first
+	//
+    if (  okToUpdateConfigurationsWithoutAdminApproval()  ) {
+
+        NSString * privatePath = [gPrivatePath stringByAppendingPathComponent: displayName];
+        NSString * sourcePath;
+        OSStatus status = runOpenvpnstart(@[@"copyUserItemToNewSecureItem", privatePath], &sourcePath, nil);
+        if (  status != EXIT_SUCCESS  ) {
+            NSLog(@"createShadowCopyWithDisplayName: No configuration path for '%@'", displayName);
+            return NO;
+        }
+
+        NSString * targetPath = [L_AS_T_USERS stringByAppendingPathComponent: displayName];
+
+		status = runOpenvpnstart(@[@"safeUpdate", sourcePath, targetPath], nil, nil);
 
 		switch (  status  ) {
 
-			case OPENVPNSTART_UPDATE_SAFE_OK:
+			case OPENVPNSTART_SAFE_OPERATION_OK:
 				return YES;
 				break;
 
-			case OPENVPNSTART_UPDATE_SAFE_NOT_OK:
+			case OPENVPNSTART_SAFE_OPERATION_NOT_OK:
 				// Fall through to do admin-authorized copy
 				break;
 
