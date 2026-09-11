@@ -596,7 +596,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 // Error return codes for openvpnstart
 #define OPENVPNSTART_COMPARE_CONFIG_SAME             0
 #define OPENVPNSTART_REVERT_CONFIG_OK				 0
-#define OPENVPNSTART_UPDATE_SAFE_OK                  0
+#define OPENVPNSTART_SAFE_OPERATION_OK               0
 #define OPENVPNSTART_DO_NOT_NEED_SCRIPT_AUTH         0
 #define OPENVPNSTART_TUNNELBLICKD_ERROR              242
 #define OPENVPNSTART_NEED_USER_SCRIPT_AUTH           243
@@ -605,7 +605,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 #define OPENVPNSTART_NEED_USER_ROOT_SCRIPT_ERROR     246
 #define OPENVPNSTART_COULD_NOT_LOAD_KEXT             247
 #define OPENVPNSTART_NO_SUCH_OPENVPN_PROCESS         248
-#define OPENVPNSTART_UPDATE_SAFE_NOT_OK              249
+#define OPENVPNSTART_SAFE_OPERATION_NOT_OK           249
 #define OPENVPNSTART_REVERT_CONFIG_MISSING			 250
 #define OPENVPNSTART_COULD_NOT_START_OPENVPN         251
 #define OPENVPNSTART_COMPARE_CONFIG_DIFFERENT        252

@@ -2426,7 +2426,7 @@ static void verifySafeChangesAuthorized(void) {
 
     if (  gUidOfUser == 0  ) {
         Log(@"safe operations not allowed when running as root");
-        exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_NOT_OK);
     }
 
     // Make sure an admin has authorized safe updates
@@ -2434,7 +2434,7 @@ static void verifySafeChangesAuthorized(void) {
     if (  ! (   [obj respondsToSelector: @selector(boolValue)]
              && [obj boolValue])  ) {
         Log(@"safe operations have not been approved by an administrator");
-        exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_NOT_OK);
     }
 
 }
@@ -2457,7 +2457,7 @@ static void safeUpdate(NSString * sourcePath, NSString * targetPath, BOOL doUpda
         exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_NOT_OK);
     }
 
-    exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_OK);
+    exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_OK);
 }
 
 static void verifyConfigurationIsSafe(NSString * path) {
@@ -2473,7 +2473,7 @@ static void verifyConfigurationIsSafe(NSString * path) {
         BOOL isDir = NO;
         if (  ! [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]  ) {
             Log(@"Disappeared! %@", fullPath);
-            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+            exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_NOT_OK);
         }
 
         // Ignore Contents folder and Contents/Resources folder and Contents/Resources/*.lproj but process the _contents_ of the folders
@@ -2490,7 +2490,7 @@ static void verifyConfigurationIsSafe(NSString * path) {
             }
 
             Log(@"Unknown folder %@", fullPath);
-            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+            exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_NOT_OK);
         }
 
         // Not a folder, must be a file
@@ -2525,7 +2525,7 @@ static void verifyConfigurationIsSafe(NSString * path) {
         if (  [fullPath hasSuffix: @".tblk/Contents/Resources/config.ovpn"]  ) {
             if ( ! isSafeConfigFileForInstallOrUpdate(fullPath)  ) {
                 Log(@"config.ovpn in the new configuration at %@ is not safe", path);
-                exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+                exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_NOT_OK);
             }
 
             continue;
@@ -2533,7 +2533,7 @@ static void verifyConfigurationIsSafe(NSString * path) {
 
         // No other files are allowed
         Log(@"'%@' is not allowed in a safe configuration", name);
-        exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_NOT_OK);
     }
 }
 
@@ -2587,8 +2587,8 @@ static void safeDelete(NSString * displayName) {
     ok = [gFileMgr tbRemoveFileAtPath: path handler: nil];
 
     exitOpenvpnstart(  ok
-                     ? OPENVPNSTART_UPDATE_SAFE_OK
-                     : OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+                     ? OPENVPNSTART_SAFE_OPERATION_OK
+                     : OPENVPNSTART_SAFE_OPERATION_NOT_OK);
 }
 
 static void safeRename(NSString * oldDisplayName, NSString * newDisplayName) {
@@ -2617,8 +2617,8 @@ static void safeRename(NSString * oldDisplayName, NSString * newDisplayName) {
     stopBeingRoot();
 
     exitOpenvpnstart(  ok
-                     ? OPENVPNSTART_UPDATE_SAFE_OK
-                     : OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+                     ? OPENVPNSTART_SAFE_OPERATION_OK
+                     : OPENVPNSTART_SAFE_OPERATION_NOT_OK);
 }
 
 //**************************************************************************************************************************
