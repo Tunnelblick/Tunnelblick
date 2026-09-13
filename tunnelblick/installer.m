@@ -1879,7 +1879,7 @@ static void setupLibrary_Application_Support_Tunnelblick(void) {
 	}
 	
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_TEMP,
-                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
+                                                PERMS_SECURED_OTHER, 0, 0)  ) {
         errorExit();
     }
 
