@@ -696,7 +696,7 @@ static NSString * preprocessStartCommandWithPassword(NSString * rawCommand,
     //
     // Validate and get arguments
     //
-    if (  arguments.count != OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX + 1  ) {
+    if (  arguments.count <= OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Wrong number of arguments");
         *stdoutStringPtr = [*stdoutStringPtr stringByAppendingString: @"Wrong number of arguments\n"];
         return nil;
@@ -813,7 +813,7 @@ static NSString * preprocessCommandsInRawCommand(NSString * rawCommand,
 
     BOOL isStartCommand =  [arguments.firstObject isEqualToString: @"start"];
     BOOL isStartCommandWithManagementPassword = (   isStartCommand
-                                                 && (arguments.count == OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX + 1)
+                                                 && (arguments.count > OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX)
                                                  );
 
     if ( isStartCommandWithManagementPassword  ) {
