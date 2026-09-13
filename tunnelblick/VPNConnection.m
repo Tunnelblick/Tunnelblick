@@ -27,6 +27,7 @@
 
 #import "helper.h"
 #import "defines.h"
+#import "mipFile.h"
 #import "sharedRoutines.h"
 
 #import "AlertWindowController.h"
@@ -705,6 +706,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
     NSDictionary * dict;
     NSMutableArray * openvpnstartArgs;
+    NSString * mipPath = nil;
 
     if (  ! startIt  ) {
         if (  ! [gFileMgr fileExistsAtPath: plistPath]  ) {
@@ -722,6 +724,16 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
             return NO;
         }
 
+        mipPath = managementPasswordFilePathInDirectory(L_AS_T_MIPS, lastPartOfPath(configPath));
+
+        if (  [[self managementPassword] length] == 0  ) {
+            [self createAndStoreManagementPassword];
+            if (  [[self managementPassword] length] == 0  ) {
+                NSLog(@"Unable to create management interface password for '%@' before connect-when-computer-starts", [self displayName]);
+                return NO;
+            }
+        }
+
         if (  ! [self makeDictionary: &dict withLabel: daemonLabel openvpnstartArgs: &openvpnstartArgs]  ) {
             if (  [gFileMgr fileExistsAtPath: plistPath]  ) {
                 // Want to connect at system start and a .plist exists, but user cancelled, so fall through to remove the .plist
@@ -734,8 +746,11 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
         } else if (  [gFileMgr fileExistsAtPath: plistPath]  ) {
             // Want to connect at system start and a .plist exists. If it is the same as the .plist we need, we're done
-            if (  [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]]  ) {
-                return YES; // .plist contents are the same, so we needn't do anything, but indicate it will start at system start
+            // unless the .mip is still missing (checkbox was set without a connect).
+            if (  connectOnSystemStartSetupIsComplete(
+                      [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]],
+                      [gFileMgr fileExistsAtPath: mipPath])  ) {
+                return YES; // .plist contents are the same and .mip exists
             }
         }
     }
@@ -782,7 +797,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                 usleep(sleepTime);
 
                 if (  startIt) {
-                    if (  [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]]  ) {
+                    if (  connectOnSystemStartSetupIsComplete(
+                              [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]],
+                              [gFileMgr fileExistsAtPath: mipPath])  ) {
                         okNow = TRUE;
                         break;
                     }
@@ -808,7 +825,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
     if (  startIt) {
         if (   okNow
-            || [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]]  ) {
+            || connectOnSystemStartSetupIsComplete(
+                   [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]],
+                   [gFileMgr fileExistsAtPath: mipPath])  ) {
             NSLog(@"%@ will be connected when the computer starts", [self displayName]);
             return YES;
         } else {
