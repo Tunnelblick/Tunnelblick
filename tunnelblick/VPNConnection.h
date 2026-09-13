@@ -28,6 +28,7 @@
 @class LogDisplay;
 @class NetSocket;
 @class StatusWindowController;
+@class SystemAuth;
 
 typedef enum
 {
@@ -174,7 +175,8 @@ struct Statistics {
 
 -(BOOL)             authFailed;
 
--(BOOL)             checkConnectOnSystemStart:  (BOOL)              startIt;
+-(BOOL)             checkConnectOnSystemStart: (BOOL)               startIt
+                                systemAuthPtr: (SystemAuth **)      authPtr;
 
 -(void)             clearLog;
 
@@ -287,6 +289,8 @@ struct Statistics {
 -(NSString*)        state;
 
 -(void)             stopTryingToHookup;
+
+-(void)             storeMipIfItDoesNotExistUsingSystemAuth: (SystemAuth *) systemAuth;
 
 -(IBAction)         toggle:                     (id)            sender;
 

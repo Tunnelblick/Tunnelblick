@@ -685,16 +685,18 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     return [gFileMgr fileExistsAtPath: plistPath];
 }
 
--(BOOL) checkConnectOnSystemStart: (BOOL) startIt {
+-(BOOL) checkConnectOnSystemStart: (BOOL) startIt systemAuthPtr: (SystemAuth **) systemAuthPtr {
 
     // User wants to connect, or not connect, the configuration when the system starts.
-    // Returns TRUE if can and will connect, FALSE otherwise
     //
-    // Needs and asks for computer administrator's authorization to make a change if a change is necessary and authRef is nil.
-    // (authRef is non-nil only when Tunnelblick is in the process of launching, and only when it was used for something else.)
+    // Sets *systemAuthPtr to a SystemAuth if startIt was TRUE and a change using a SystemAuth was necessary and was made.
+    //
+    // Returns TRUE if can and will connect, FALSE otherwise.
+    //
+    // Needs and asks for computer administrator's authorization to make a change if a change is necessary.
     //
     // A change is necessary if changing connect/not connect status, or if preference changes would change
-    // the .plist file used to connect when the system starts
+    // the .plist file used to connect when the system starts.
 
     // Encode slashes and periods in the displayName so the result can act as a single component in a file name
     NSMutableString * daemonNameWithoutSlashes = encodeSlashesAndPeriods([self displayName]);
@@ -705,6 +707,19 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
     NSDictionary * dict;
     NSMutableArray * openvpnstartArgs;
+
+    if (  systemAuthPtr  ) {
+        if (  ! startIt  ) {
+            Log(@"checkConnectOnSystemStart:systemAuthPtr: invoked with startIt = NO but systemAuthPtr is not nil");
+            [gMC terminateBecause: terminatingBecauseOfError];
+        }
+        *systemAuthPtr = nil;
+    } else {
+        if (  startIt  ) {
+            Log(@"checkConnectOnSystemStart:systemAuthPtr: invoked with startIt = YES but systemAuthPtr is nil");
+            [gMC terminateBecause: terminatingBecauseOfError];
+        }
+    }
 
     if (  ! startIt  ) {
         if (  ! [gFileMgr fileExistsAtPath: plistPath]  ) {
@@ -804,18 +819,22 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         }
     }
 
-    [sysAuth release];
-
     if (  startIt) {
         if (   okNow
             || [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]]  ) {
             NSLog(@"%@ will be connected when the computer starts", [self displayName]);
+            if (  systemAuthPtr  ) {
+                *systemAuthPtr = [[sysAuth copy] autorelease];
+            }
+            [sysAuth release];
             return YES;
         } else {
             NSLog(@"Failed to set up to connect '%@' when computer starts", [self displayName]);
+            [sysAuth release];
             return NO;
         }
     } else {
+        [sysAuth release];
         if (   okNow
             || ( ! [gFileMgr fileExistsAtPath: plistPath] )  ) {
             NSLog(@"%@ will NOT be connected when the computer starts", [self displayName]);
@@ -837,6 +856,13 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO userKnows: NO] mutableCopy] autorelease];
     if (  ! (*openvpnstartArgs)  ) {
         return NO;
+    }
+
+    // Remove management password from start arguments because we don't create a new password
+    // for each connection if connecting when the computer starts.
+    if (   ((*openvpnstartArgs).count > OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX)
+        && [(*openvpnstartArgs).firstObject isEqualToString: @"start"]  ) {
+        [(*openvpnstartArgs) removeObjectAtIndex: OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX];
     }
 
     [*openvpnstartArgs insertObject: openvpnstartPath atIndex: 0];
@@ -5903,6 +5929,61 @@ NSString * getStringOf64RandomCharacters(void) {
     [kc deletePassword];
     [kc setPassword: password];
     [kc release];
+}
+
+-(void) storeMipIfItDoesNotExistUsingSystemAuth: (SystemAuth *) systemAuth {
+
+    // If no .mip file exists, create and store a new management password in it.
+    //
+    // If a .mip file already exists, do nothing.
+    //
+
+    NSString * name = [[self.displayName
+                        stringByAppendingPathExtension: @"mip"]
+                       stringByReplacingOccurrencesOfString: @"/" withString: @"-S"];
+    NSString * mipPath = [L_AS_T_MIPS stringByAppendingPathComponent: name];
+    if (  [gFileMgr fileExistsAtPath: mipPath]  ) {
+        return;
+    }
+
+    // Generate a new management password and store it in the Keychain.
+    [self createAndStoreManagementPassword];
+
+    //
+    // Store the new management password in the .mip.
+    //
+
+    //
+    // Create a file containing the password which is readable only by root.
+    //
+
+    NSString * stdoutString = nil;
+    OSStatus status = runOpenvpnstart(@[@"pathOfNewSecureItemContainingString", self.managementPassword], &stdoutString, nil);
+    if (   (status != EXIT_SUCCESS)
+        || ( ! [stdoutString hasPrefix: @"/"])  ) {
+        goto error;
+    }
+
+    //
+    // Rename the file to be the .mip for this configuration.
+    //
+
+    NSString * tempPath = stdoutString;
+    status = [gMC runInstaller: INSTALLER_RENAME_MIP_FILE
+                extraArguments: @[tempPath, mipPath]
+               usingSystemAuth: systemAuth
+                  installTblks: nil];
+    if (  status == EXIT_SUCCESS  ) {
+        return;
+    }
+
+error:
+
+    TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                      [NSString stringWithFormat:
+                       NSLocalizedString(@"Tunnelblick failed to store a management password for '%@'.", @"Window text"),
+                       [gMC localizedNameForDisplayName: displayName]]);
+    return;
 }
 
 -(NSString *) managementPassword {

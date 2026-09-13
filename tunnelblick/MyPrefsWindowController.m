@@ -2474,15 +2474,20 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     //Keep track of what we've done for an alert to the user
     BOOL failedToFixPreferences = FALSE;
-    
+    SystemAuth * systemAuth = nil;
+
     if (  autoConnect && onSystemStart  ) {
         if (  enableWhenComputerStarts  ) {
             if (  launchdPlistWillConnectOnSystemStart  ) {
                 // All is OK -- prefs say to connect when system starts and launchd .plist agrees and it isn't a private configuration and has no credentials
             } else {
                 // No launchd .plist -- try to create one
-                if (  [connection checkConnectOnSystemStart: TRUE]  ) {
-                    // Made it connect when computer starts
+                if (  [connection checkConnectOnSystemStart: TRUE systemAuthPtr: &systemAuth]  ) {
+                    // It will connect when computer starts
+                    // If that just changed, store a .mip for the configuration
+                    if (  systemAuth  ) {
+                        [connection storeMipIfItDoesNotExistUsingSystemAuth: systemAuth];
+                    }
                 } else {
                     // User cancelled attempt to make it connect when computer starts
                     NSLog(@"Preferences for '%@' say it should connect when the computer starts but it does not have a launchd .plist and the user did not authorize creating a .plist. Attempting to repair preferences...", displayName);
@@ -2523,7 +2528,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                 }
             } else {
                 // Prefs and launchd says connect on user start but private configuration, so can't. Try to remove the launchd .plist
-                if (  [connection checkConnectOnSystemStart: FALSE]  ) {
+                if (  [connection checkConnectOnSystemStart: FALSE systemAuthPtr: nil]  ) {
                     // User cancelled attempt to make it NOT connect when computer starts
                     NSLog(@"Preferences for '%@' say it should connect when the computer starts and a launchd .plist exists for that, but it is a private configuration or has credentials. User cancelled attempt to repair.", displayName);
                 } else {
@@ -2549,7 +2554,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         // Manual or when Tunnelblick is launched
         if (  launchdPlistWillConnectOnSystemStart  ) {
             // launchd .plist exists but prefs are not connect when computer starts. Attempt to remove .plist
-            if (  [connection checkConnectOnSystemStart: FALSE]  ) {
+            if (  [connection checkConnectOnSystemStart: FALSE systemAuthPtr: nil]  ) {
                 // User cancelled attempt to make it NOT connect when computer starts
                 NSLog(@"Preferences for '%@' say it should NOT connect when the computer starts but a launchd .plist exists for that and the user cancelled an attempt to remove the .plist. Attempting to repair preferences.", displayName);
                 if (  ! [gTbDefaults boolForKey: autoConnectKey]  ) {
