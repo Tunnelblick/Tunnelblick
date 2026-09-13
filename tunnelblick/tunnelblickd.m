@@ -664,6 +664,27 @@ static BOOL storeMip(NSString *  cfgName,
     return YES;
 }
 
+static BOOL createFileAtPath(NSString * path,
+                             NSData   * contents,
+                             aslclient  asl,
+                             aslmsg     log_msg) {
+
+    // Create a file readable only by root with the specified contents. The file's parent folder must exist.
+
+    NSDictionary * attributes = @{NSFileOwnerAccountID      : @0,
+                                  NSFileGroupOwnerAccountID : @0,
+                                  NSFilePosixPermissions    : @0700};
+
+    if (  ! [ NSFileManager.defaultManager createFileAtPath: path
+                                                   contents: contents
+                                                 attributes: attributes]  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error creating file at '%s'", path.UTF8String);
+        return NO;
+    }
+
+    return YES;
+}
+
 static NSString * preprocessStartCommandWithPassword(NSString * rawCommand,
                                                      NSArray  * arguments,
                                                      NSString ** stdoutStringPtr,
@@ -718,6 +739,55 @@ static NSString * preprocessStartCommandWithPassword(NSString * rawCommand,
     return commandWithoutPassword;
 }
 
+static NSString * preprocessPathOfNewSecureItemContainingString(NSArray   * arguments,
+                                                                NSString ** stdoutStringPtr,
+                                                                aslclient   asl,
+                                                                aslmsg      log_msg) {
+
+    // Sets *stdoutStringPtr with error messages, if any, or the absolute path
+    // of a newly-created, readable-only-by-root file containing string.
+
+    //
+    // Get arguments and validate them
+    //
+    if (  arguments.count != 2  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Wrong number of arguments");
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingString: @"Wrong number of arguments\n"];
+        return nil;
+    }
+
+    NSString * stringToStore  = arguments[1];
+
+    if (  stringToStore.length   != LENGTH_OF_MANAGMENT_PASSWORD) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Empty argument(s)");
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingString: @"Empty argument(s)\n"];
+        return nil;
+    }
+
+    //
+    // Store the string in a new file
+    //
+    // If success, store path to file in *stdoutString
+    // If failure, store error message in *stdoutString
+
+    NSString * path = [L_AS_T_TEMP
+                       stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
+
+    NSData * data = [stringToStore dataUsingEncoding: NSUTF8StringEncoding];
+
+    if (  createFileAtPath(path, data, asl, log_msg)  ) {
+        *stdoutStringPtr = path;
+    } else {
+        *stdoutStringPtr = @"Error: could not store the string";
+    }
+
+    //
+    // Return nil to indicate there are no more commands to be executed
+    //
+
+    return nil;
+}
+
 static NSString * preprocessCommandsInRawCommand(NSString * rawCommand,
                                                  NSString ** stdoutStringPtr,
                                                  aslclient  asl,
@@ -726,16 +796,20 @@ static NSString * preprocessCommandsInRawCommand(NSString * rawCommand,
     // Appends to *stdoutStringPtr with error messages, if any
 
     //
-    // We do preprocessing:
+    // Do preprocessing::
     //
     //      If the password argument to the "start" command is given, the password is removed (not logged
     //      or sent to tunnelblick-helper) and a .mip file containing the password is created or overwritten.
     //
+    //      If the command is "pathOfNewSecureItemContainingString".
+    //
     // A string with the command to be executed is returned, or nil if there is no command to do.
 
-    // If "start" command with a management password option, then no preprocessing is done.
-
     NSArray  * arguments = [rawCommand componentsSeparatedByString: @"\t"];
+
+    //
+    // Preprocess "start" command with a management password option.
+    //
 
     BOOL isStartCommand =  [arguments.firstObject isEqualToString: @"start"];
     BOOL isStartCommandWithManagementPassword = (   isStartCommand
@@ -745,6 +819,19 @@ static NSString * preprocessCommandsInRawCommand(NSString * rawCommand,
     if ( isStartCommandWithManagementPassword  ) {
         return preprocessStartCommandWithPassword(rawCommand, arguments, stdoutStringPtr, asl, log_msg);
     }
+
+    //
+    // Preprocess "pathOfNewSecureItemContainingString" command.
+    //
+
+    BOOL PathOfNewSecureItemContainingString =  [arguments.firstObject isEqualToString: @"pathOfNewSecureItemContainingString"];
+    if ( PathOfNewSecureItemContainingString  ) {
+        return preprocessPathOfNewSecureItemContainingString(arguments, stdoutStringPtr, asl, log_msg);
+    }
+
+    //
+    // No preprocessing to be done, have tunnelblick-helper process the command.
+    //
 
     return rawCommand;
 }
@@ -1016,8 +1103,12 @@ int main(void) {
         // Preprocess the raw command if it's a "start" command with a management password
         // and set "command" to a command for tunnelblick-helper, or nil to skip further processing.
         //
-        // If stdoutString isn't empty after the preprocessing, it is an error message that will be passed on
+        // Preprocess the raw command if it's a "pathOfNewSecureItemContainingString" command.
+        //
+        // If stdoutString isn't empty after the preprocessing and does not start with a "/", it is an error message that will be passed on
         // to the program that invoked tunnelblickd. (The error message has already been logged by tunnelblickd.)
+        //
+        // A stdoutString that starts with a "/"; is an absolute path output by
 
         NSString * stdoutString = @"";
         NSString * stderrString = @"";
@@ -1036,7 +1127,10 @@ int main(void) {
         NSString * command = preprocessCommandsInRawCommand(rawCommand, &stdoutString, asl, log_msg);
 
         if (  ! command  ) {
-            if (  stdoutString.length != 0  ) {
+            // Preprocessing was done and there is no command to be sent to tunnelblick-helper.
+            // If stdoutString isn't empty and doesn't start with a "/", it is an error message; output it, set status of -1, and finish
+            if (   (stdoutString.length != 0)
+                && ( ! [stdoutString hasPrefix: @"/"] )  ) {
                 NSUInteger len = 15;
                 if (  len > rawCommand.length  ) {
                     len = rawCommand.length;

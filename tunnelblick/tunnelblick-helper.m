@@ -172,14 +172,18 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
 			"               to run Tunnelblick's re-enable-network-services.sh script\n\n"
 
             "./openvpnstart copyUserItemToNewSecureItem     path\n"
-            "               to create a new, unique, secure copy of the filesystem item (file or directory) at 'path'.\n"
+            "               to create a new, unique, temporary copy of the filesystem item (file or directory) at 'path'.\n"
             "               The full path of the copy will be output to stdout.\n\n"
             "               NOTE: Copies the resolved targets of symlinks, not the links themselves.\n\n"
 
             "./openvpnstart pathOfNewSecureItemFromXML     xml\n"
-            "               to create a new, unique, secure copy of the filesystem item (file or directory) encoded as XML in 'xml'.\n"
+            "               to create a new, unique, temporary copy of the filesystem item (file or directory) encoded as XML in 'xml'.\n"
             "               The full path of the copy will be output to stdout.\n\n"
-            "               NOTE: Copies the resolved targets of symlinks, not the links themselves.\n\n"
+
+            "./openvpnstart pathOfNewSecureItemContainingString     string\n"
+            "               to store 'string' into a new, unique, temporary file readable only by root.\n\n"
+            "               The full path of the copy will be output to stdout.\n\n"
+            "               NOTE: This command is executed by tunnelblickd, not tunnelblick-helper.\n\n"
 
             "./openvpnstart scriptStatusForTblk     path\n"
             "               returns the status of any scripts in the configuration file in the .tblk at 'path'.\n\n"
