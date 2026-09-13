@@ -757,6 +757,11 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 // (argument: a UTF-8-encoded XML string (an NSDictionary serialized as XML) containing forced preferences)
 #define INSTALLER_INSTALL_FORCED_PREFERENCES_XML 0xA000u
 
+// Rename management password at path to .mip, replacing any existing .mip.
+// (arguments: path to a file with the management password,
+//             path to the .mip)
+#define INSTALLER_RENAME_MIP_FILE            0xB000u
+
 //*************************************************************************************************
 // Size to use to minimize the left navigation area when it is inactive
 #define LEFT_NAV_AREA_MINIMAL_SIZE 8.0

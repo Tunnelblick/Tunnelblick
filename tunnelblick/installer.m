@@ -128,15 +128,18 @@
 //             sets the forced preference named in second_arg to <true> if value in third_arg is "1", or or deletes it if value in third_arg is "0"
 //             (May delete the forced preference file if there are no forced preferences.)
 //
-//     (11) If not installing a configuration, sets up tunnelblickd
+//     (11) If the operation is INSTALLER_RENAME_MIP_FILE and both arguments are present,
+//             renames the first path (which must be a file in L_AS_T_TEMP) to the second path (which must be a a file in L_AS_T_MIPS).
 //
-//	   (12) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
+//     (12) If not installing a configuration, sets up tunnelblickd
 //
-//	   (13) If requested, import settings from the .tblkSetup at targetPath
+//	   (13) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
 //
-//     (14) If requested, install or uninstall kexts
+//	   (14) If requested, import settings from the .tblkSetup at targetPath
 //
-//     (15) If requested, update Tunnelblick
+//     (15) If requested, install or uninstall kexts
+//
+//     (16) If requested, update Tunnelblick
 
 // When finished (or if an error occurs), the file at AUTHORIZED_DONE_PATH is written to indicate the program has finished
 
@@ -2731,6 +2734,42 @@ static BOOL setOrDeleteForcedPreference(NSString * name, NSString * value) {
     return TRUE;
 }
 
+static BOOL renameTempFileToMipFile(NSString * sourcePath, NSString * targetPath) {
+
+    // Renames the file at sourcePath to targetPath if source is directly in L_AS_T_TEMP and
+    // target is directly in L_AS_T_MIPS.
+    //
+    // Returns FALSE if there is an argument error.
+
+    //
+    // Check arguments
+    //
+
+    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
+
+    if (   ( ! [sourcePath hasPrefix: [L_AS_T_TEMP stringByAppendingString: @"/"]])
+        || ( ! [targetPath hasPrefix: [L_AS_T_MIPS stringByAppendingString: @"/"]])  ) {
+        return FALSE;
+    }
+
+    // Make sure only a filename, no subfolders
+    NSString * sourceFilename = [sourcePath substringFromIndex: L_AS_T_TEMP.length + 1];
+    NSString * targetFilename = [targetPath substringFromIndex: L_AS_T_MIPS.length + 1];
+    if (   [sourceFilename containsString: @"/"]
+        || [targetFilename containsString: @"/"]  ) {
+        return FALSE;
+    }
+
+    //
+    // Do the rename
+    //
+
+    securelyRename(sourcePath, targetPath);
+
+    return TRUE;
+}
+
 //**************************************************************************************************************************
 // EXPORT SETUP
 
@@ -3637,10 +3676,22 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    //**************************************************************************************************************************
+    // (11) If the operation is INSTALLER_RENAME_MIP_FILE and both arguments are present,
+    //         renames the first path (which must be a file in L_AS_T_TEMP) to the second path (which must be a a file in L_AS_T_MIPS).
+
+    if (  operation == INSTALLER_RENAME_MIP_FILE  ) {
+        if (   fourthArg
+            || ( ! renameTempFileToMipFile(secondArg, thirdArg)  )  ) {
+            Log(@"Invalid arguments to 'set forced preference'");
+            errorExit();
+        }
+    }
+
     ; // STOP HERE IF DEBUGGING INSTALLER ITSELF TO AVOID ERROR SETTING UP tunnelblickd
 
     //**************************************************************************************************************************
-    // (11) Set up tunnelblickd to load when the computer starts
+    // (12) Set up tunnelblickd to load when the computer starts
 
     BOOL installingAConfiguration = (  (argc == 4) || (argc == 5)  ); // (Installing or importing configurations)
 
@@ -3665,7 +3716,7 @@ int main(int argc, char *argv[]) {
     }
 	
 	//**************************************************************************************************************************
-	// (12) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
+	// (13) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
 
 	if (   secondArg
 		&& ( ! thirdArg   )
@@ -3674,7 +3725,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 	//**************************************************************************************************************************
-	// (13) If requested, import settings from the .tblkSetup at secondArg using username mapping in the string in "thirdArg"
+	// (14) If requested, import settings from the .tblkSetup at secondArg using username mapping in the string in "thirdArg"
 	//
 	//		NOTE: "thirdArg" is a string that specifies the username mapping to use when importing.
 
@@ -3685,7 +3736,7 @@ int main(int argc, char *argv[]) {
 	}
 	
     //**************************************************************************************************************************
-    // (14) If requested, uninstall, install kexts, otherwise update them if they are installed
+    // (15) If requested, uninstall, install kexts, otherwise update them if they are installed
 
     if (   doUninstallKexts  ) {
         uninstallKexts();
@@ -3696,7 +3747,7 @@ int main(int argc, char *argv[]) {
     }
     
     //**************************************************************************************************************************
-    // (15) If requested, update Tunnelblick
+    // (16) If requested, update Tunnelblick
     //
 
     if (  operation == INSTALLER_UPDATE_TUNNELBLICK  ) {
