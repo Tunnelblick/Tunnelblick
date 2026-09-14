@@ -1133,7 +1133,7 @@ int main(void) {
         NSString * command = preprocessCommandsInRawCommand(rawCommand, &stdoutString, asl, log_msg);
 
         if (  ! command  ) {
-            // Preprocessing was done and there is no command to be sent to tunnelblick-helper.
+            // Preprocessing was done or failed and there is no command to be sent to tunnelblick-helper.
             // If stdoutString isn't empty and doesn't start with a "/", it is an error message; output it, set status of -1, and finish
             if (   (stdoutString.length != 0)
                 && ( ! [stdoutString hasPrefix: @"/"] )  ) {
@@ -1210,8 +1210,8 @@ int main(void) {
 
 		// Send the status, stdout, and stderr to the client as a UTF-8-encoded string which is terminated by a \0.
 		//
-		// The header of the string consists of the signed status, the unsigned length of the stdout string,
-		// the unsigned length of the stderr string, and a newline. (The numbers are each separated by one space.)
+		// The header of the string consists of the signed status, the unsigned length of the stdout NSString,
+		// the unsigned length of the stderr NSString, and a newline. (The numbers are each separated by one space.)
 		//
 		// The stdout string follows the header, the stderr string follows the stdout string, and a \0 follows that.
 		
