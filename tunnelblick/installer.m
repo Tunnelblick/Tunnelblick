@@ -1683,7 +1683,7 @@ static void createSecuredConfigurationsSubfolder(NSString * path) {
     // For anything enclosed by either L_AS_T_TEMP or L_AS_T_USERS/username/, use PERMS_SECURED_OTHER
     mode_t perms = (  (   [path hasPrefix: L_AS_T_TEMP]
                        || (   [path hasPrefix: L_AS_T_USERS]
-                           && [path componentsSeparatedByString: @"/"].count > 6   )  )
+                           && [path pathComponents].count > 6   )  )
                     ? PERMS_SECURED_OTHER
                     : PERMS_SECURED_FOLDER);
 
