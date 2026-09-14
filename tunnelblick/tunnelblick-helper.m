@@ -217,6 +217,9 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart compareShadowCopy      displayName\n"
             "               to compare a private .ovpn, .conf, or .tblk with its secure (shadow) copy\n\n"
 
+            "./openvpnstart revertToShadow      displayName\n"
+            "               to revert a private .ovpn, .conf, or .tblk to its secure (shadow) copy\n\n"
+
             "./openvpnstart safeUpdate      source-path     shadow-path\n"
             "               to do a safe update of a .tblk from source-path to shadow-path\n"
             "               source-path must be in L_AS_T_TEMP.\n\n"
@@ -1938,7 +1941,7 @@ static void compareShadowCopy (NSString * fileName) {
 	exitOpenvpnstart(OPENVPNSTART_COMPARE_CONFIG_DIFFERENT);
 }
 
-static BOOL revertToShadowWorker (NSString * fileName) {
+static BOOL revertToShadowWorker (NSString * displayName) {
 
     // Reverts the specified private configuration .tblk to its shadow copy.
     //
@@ -1957,14 +1960,11 @@ static BOOL revertToShadowWorker (NSString * fileName) {
     //    4. Set ownership of the copy to the user and user's group
 
     if (  gUidOfUser == 0  ) {
-        Log(@"Invalid cfgLocCode (revertToShadow not allowed when running as root)");
+        Log(@"RevertToShadow not allowed when running as root");
         exitOpenvpnstart(-1);
     }
 
-    if (  ! [fileName hasSuffix: @".tblk"]  ) {
-        Log(@"Not a .tblk: %@", fileName);
-        exitOpenvpnstart(-1);
-    }
+    NSString * fileName = [displayName stringByAppendingPathExtension: @"tblk"];
 
     NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
     NSString * shadowPath    = [shadowPrefix stringByAppendingPathComponent: fileName];
@@ -2420,7 +2420,10 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
         }
 
         // Revert so private copy is identical to shadow copy
-        return revertToShadowWorker(targetPath);
+        NSString * displayName = [[targetPath
+                                   substringFromIndex: shadowPrefix.length + 1]
+                                  stringByDeletingPathExtension];
+        return revertToShadowWorker(displayName);
     }
 
     return TRUE;

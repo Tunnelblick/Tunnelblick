@@ -3461,8 +3461,7 @@ done:
 +(BOOL) revertOneConfigurationToShadowWithDisplayName: (NSString *) displayName {
 
     BOOL errorFound = FALSE;
-    NSString * fileName = [displayName stringByAppendingPathExtension: @"tblk"];
-    NSArray  * arguments = [NSArray arrayWithObjects: @"revertToShadow", fileName, nil];
+    NSArray  * arguments = [NSArray arrayWithObjects: @"revertToShadow", displayName, nil];
     OSStatus result = runOpenvpnstart(arguments, nil, nil);
     switch (  result  ) {
 
@@ -3849,15 +3848,6 @@ done:
     [auth release];
     if (  ! ok  ) {
         return;
-    }
-
-    //
-    // If it was the shadow copy, also "revert" the shadow copy to the private copy
-    //
-    if (  [sourcePath hasPrefix: L_AS_T_USERS]  ) {
-        if (  ! [ConfigurationManager revertOneConfigurationToShadowWithDisplayName: targetDisplayName]  ) {
-            return;
-        }
     }
 
     //
