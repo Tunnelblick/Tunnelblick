@@ -309,31 +309,34 @@ static BOOL isPathPrivate(NSString * path) {
 
 NSString * lastPartOfPath(NSString * path) {
 
+    //
+    // Special case: /L_AS_T_TEMP/SecureCopy-<anything>--/
+    //
     NSString * secureCopyPrefix = [L_AS_T_TEMP stringByAppendingString: @"/SecureCopy-"];
+
+    if (  [path hasPrefix: secureCopyPrefix] ) {
+        // A secure copy of a configuration in L_AS_T_TEMP/SecureCopy-UUID--.
+        // Remove everything up to and including "--/"
+        NSRange r = [path rangeOfString: @"--/"];
+        if (  r.location != NSNotFound  ) {
+            path = [path substringFromIndex: r.location + 3];
+            return path;
+        } else {
+            Log(@"lastPartOfPath(): bad path '%@'", path);
+            errorExit();
+        }
+    }
+
     NSArray * paths = @[gDeployPath,
                         L_AS_T_SHARED,
-                        secureCopyPrefix,
                         userPrivatePath(),
                         userShadowPath()];
     NSEnumerator * arrayEnum = [paths objectEnumerator];
     NSString * configFolder;
     while (  (configFolder = [arrayEnum nextObject])  ) {
         if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
-            if (  [path length] > [configFolder length]  ) {
-                if (  [path hasPrefix: secureCopyPrefix] ) {
-                    // A secure copy of a configuration in L_AS_T_TEMP/SecureCopy-UUID--.
-                    // Remove everything up to and including "--/"
-                    NSRange r = [path rangeOfString: @"--/"];
-                    if (  r.location != NSNotFound  ) {
-                        path = [path substringFromIndex: r.location + 3];
-                        return path;
-                    } else {
-                        Log(@"helper|lastPartOfPath(): bad path '%@'", path);
-                        errorExit();
-                    }
-                } else if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
-                    return [path substringFromIndex: [configFolder length]+1];
-                }
+            if (  path.length > configFolder.length + 1  ) {
+                return [path substringFromIndex: [configFolder length]+1];
             } else {
                 Log(@"No display name in path '%@'", path);
                 return @"X";
