@@ -621,6 +621,11 @@ static BOOL storeMip(NSString *  cfgName,
     const char * pathC = [path fileSystemRepresentation];
 
     const char * passwordC = [password cStringUsingEncoding: NSASCIIStringEncoding];
+    if (  passwordC == NULL  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Management password must be ASCII");
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingString: @"Password is not ASCII"];
+        return NO;
+    }
 
     //
     // Open the .mip file, write out the password, set its final permissions, close the file, and log the results
