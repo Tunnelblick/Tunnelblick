@@ -62,7 +62,6 @@
 #import "defines.h"
 
 #pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 static volatile sig_atomic_t sigtermReceived = 0;
 
@@ -90,6 +89,8 @@ BOOL tunnelblickNotInApplications(aslclient __unused asl,
 
     return TRUE;
 }
+
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 static BOOL sanityChecks(aslclient  asl,
                          aslmsg     log_msg) {
