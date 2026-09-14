@@ -318,7 +318,7 @@ NSString * lastPartOfPath(NSString * path) {
     NSEnumerator * arrayEnum = [paths objectEnumerator];
     NSString * configFolder;
     while (  (configFolder = [arrayEnum nextObject])  ) {
-        if (  [path hasPrefix: configFolder]  ) {
+        if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
             if (  [path length] > [configFolder length]  ) {
                 if (  [path hasPrefix: secureCopyPrefix] ) {
                     // A secure copy of a configuration in L_AS_T_TEMP/SecureCopy-UUID--.
@@ -425,7 +425,7 @@ static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path) {
 
 static BOOL pathWritableByUser(NSString * path) {
 
-    return ( ! [path hasPrefix: L_AS_T] );
+    return ( ! [path hasPrefix: [L_AS_T stringByAppendingString: @"/"]] );
 }
 
 static void errorExitIfWritableByUserInPath(NSString * path) {
@@ -695,7 +695,7 @@ static void securelyRename(NSString * sourcePath, NSString * targetPath) {
         }
     }
 
-    if (  [targetPath hasPrefix: L_AS_T]  ) {
+    if (  [targetPath hasPrefix: [L_AS_T stringByAppendingString: @"/"]]  ) {
         securelyKeepRootOwnershipAndSetPermissionsOnFolderAndContents(targetPath);
     }
 
@@ -909,23 +909,23 @@ static void securelyMoveTblkIncludingPrivate(NSString * sourcePath, NSString * t
     //
     // Simple rename, perhaps creating enclosing folders
 
-    if (   (   [sourcePath hasPrefix: L_AS_T_SHARED]
-            && [targetPath hasPrefix: L_AS_T_SHARED] )
-        || (   [sourcePath hasPrefix: userShadowPath()]
-            && [targetPath hasPrefix: userShadowPath()] )  ) {
+    if (   (   [sourcePath hasPrefix: [L_AS_T_SHARED    stringByAppendingString: @"/"]]
+            && [targetPath hasPrefix: [L_AS_T_SHARED    stringByAppendingString: @"/"]] )
+        || (   [sourcePath hasPrefix: [userShadowPath() stringByAppendingString: @"/"]]
+            && [targetPath hasPrefix: [userShadowPath() stringByAppendingString: @"/"]] )  ) {
 
         Log(@"MOVE SHADOW TO SHADOW OR SHARED TO SHARED '%@' to '%@'", sourcePath, targetPath);
 
         // Rename the Shared or Shadow copy
         securelyRename(sourcePath, targetPath);
-        if (  [sourcePath hasPrefix: userShadowPath()]  ) {
+        if (  [sourcePath hasPrefix: [userShadowPath() stringByAppendingString: @"/"]]  ) {
             securelyKeepRootOwnershipAndSetPermissionsOnFolderAndContents(targetPath);
         } else {
             ; // Ownership & permissions are unchanged.
         }
 
         // If source and target are Shadow copy, rename the Private copy
-        if (  [sourcePath hasPrefix: userShadowPath()]  ) {
+        if (  [sourcePath hasPrefix: [userShadowPath() stringByAppendingString: @"/"]]  ) {
             NSString * sourcePrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
             NSString * targetPrivatePath = [userPrivatePath() stringByAppendingPathComponent: lastPartOfPath(targetPath)];
             securelyRename(sourcePrivatePath, targetPrivatePath);
@@ -938,8 +938,8 @@ static void securelyMoveTblkIncludingPrivate(NSString * sourcePath, NSString * t
     // SHADOW TO SHARED
     //
 
-    if (   [sourcePath hasPrefix: userShadowPath()]
-        && [targetPath hasPrefix: L_AS_T_SHARED]  ) {
+    if (   [sourcePath hasPrefix: [userShadowPath() stringByAppendingString: @"/"]]
+        && [targetPath hasPrefix: [L_AS_T_SHARED    stringByAppendingString: @"/"]]  ) {
 
         Log(@"MOVE SHADOW TO SHARED '%@' to '%@'", sourcePath, targetPath);
 
@@ -958,8 +958,8 @@ static void securelyMoveTblkIncludingPrivate(NSString * sourcePath, NSString * t
     //
     // SHARED TO SHADOW
     //
-    if (   [sourcePath hasPrefix: L_AS_T_SHARED]
-        && [targetPath hasPrefix:  userShadowPath()]  ) {
+    if (   [sourcePath hasPrefix: [L_AS_T_SHARED    stringByAppendingString: @"/"]]
+        && [targetPath hasPrefix: [userShadowPath() stringByAppendingString: @"/"]]  ) {
 
         Log(@"MOVE SHARED TO SHADOW '%@' to '%@'", sourcePath, targetPath);
 
@@ -978,8 +978,8 @@ static void securelyMoveTblkIncludingPrivate(NSString * sourcePath, NSString * t
     // TEMP_COPY TO PRIVATE
     //
 
-    if (   [sourcePath hasPrefix: L_AS_T_TEMP]
-        && [targetPath hasPrefix: userShadowPath()]  ) {
+    if (   [sourcePath hasPrefix: [L_AS_T_TEMP      stringByAppendingString: @"/"]]
+        && [targetPath hasPrefix: [userShadowPath() stringByAppendingString: @"/"]]  ) {
 
         Log(@"MOVE TEMP COPY TO PRIVATE '%@' to '%@'", sourcePath, targetPath);
 
@@ -1681,8 +1681,8 @@ static void createSecuredConfigurationsSubfolder(NSString * path) {
     errorExitIfAnySymlinkOrDotDotInPath(path);
 
     // For anything enclosed by either L_AS_T_TEMP or L_AS_T_USERS/username/, use PERMS_SECURED_OTHER
-    mode_t perms = (  (   [path hasPrefix: L_AS_T_TEMP]
-                       || (   [path hasPrefix: L_AS_T_USERS]
+    mode_t perms = (  (   [path hasPrefix: [L_AS_T_TEMP stringByAppendingString: @"/"]]
+                       || (   [path hasPrefix: [L_AS_T_USERS stringByAppendingString: @"/"]]
                            && [path pathComponents].count > 6   )  )
                     ? PERMS_SECURED_OTHER
                     : PERMS_SECURED_FOLDER);
@@ -2413,7 +2413,7 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
     //
 
     if (   ( ! moveNotCopy)
-        && [targetPath hasPrefix: L_AS_T_USERS]  ) {
+        && [targetPath hasPrefix: [L_AS_T_USERS stringByAppendingString: @"/"]]  ) {
         NSString * lastPart = lastPartOfPath(targetPath);
         NSString * privatePath = [userPrivatePath() stringByAppendingPathComponent:lastPart];
         securelyCopy(targetPath, privatePath);
@@ -2444,11 +2444,11 @@ static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
     NSString * shadowPath = [[L_AS_T_USERS
                               stringByAppendingPathComponent: userUsername()]
                              stringByAppendingPathComponent: @"/"];
-    BOOL isShadow = (   [path hasPrefix: shadowPath]
+    BOOL isShadow = (   [path hasPrefix: [shadowPath stringByAppendingString: @"/"]]
                      && (path.length > shadowPath.length)  );
     NSString * sharedPath = [L_AS_T_SHARED
                              stringByAppendingPathComponent: @"/"];
-    BOOL isShared = (   [path hasPrefix: sharedPath]
+    BOOL isShared = (   [path hasPrefix: [sharedPath stringByAppendingString: @"/"]]
                      && (path.length > sharedPath.length)  );
 
     if (   ( ! isShadow )
@@ -2482,7 +2482,7 @@ static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
     //
     if (  [path hasSuffix: @".tblk"]  ) {
 
-        if (  [path hasPrefix: L_AS_T_USERS]  ) {
+        if (  [path hasPrefix: [L_AS_T_USERS stringByAppendingString: @"/"]]  ) {
             NSString * lastPart = lastPartOfPath(path);
             NSString * privatePath = [userPrivatePath() stringByAppendingPathComponent: lastPart];
             securelyDeleteItemIfItExists(privatePath);
