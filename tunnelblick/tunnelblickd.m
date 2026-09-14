@@ -64,7 +64,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-static BOOL sigtermReceived = FALSE;
+static volatile sig_atomic_t sigtermReceived = 0;
 
 BOOL tunnelblickNotInApplications(aslclient __unused asl,
                                   aslmsg    __unused log_msg) {
@@ -145,7 +145,7 @@ static BOOL sanityChecks(aslclient  asl,
 static void signal_handler(int signalNumber) {
 	
 	if (  signalNumber == SIGTERM  ) {
-		sigtermReceived = TRUE;
+		sigtermReceived = 1;
 	}
 }
 
@@ -1005,7 +1005,7 @@ int main(void) {
 		
         // Get the next event from the kernel event queue.
         if (  -1 == (filedesc = kevent(kq, NULL, 0, &kev_listener, 1, &timeout))  ) {
-			if (   sigtermReceived
+			if (   (sigtermReceived != 0)
 				&& (errno == EINTR)  ) {
 				asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "SIGTERM received; exiting");
 				retval = EXIT_SUCCESS;
