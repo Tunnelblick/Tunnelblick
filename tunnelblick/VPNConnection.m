@@ -5004,9 +5004,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         if(  myPassphrase != nil  ){
             const char * tokenNameC  = [escaped(tokenName)    UTF8String];
             const char * passphraseC = [escaped(myPassphrase) UTF8String];
-             if (  ( strlen(tokenNameC)  > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )
-                || ( strlen(passphraseC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )  ) {
-                [self addToLog: [NSString stringWithFormat: @"Disconnecting; token name is %ld bytes long; passphrase is %ld bytes long; each is limited to %ld bytes", (long)strlen(tokenNameC), (long)strlen(passphraseC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
+             if (  ( strlen(tokenNameC)  > MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER )
+                || ( strlen(passphraseC) > MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER )  ) {
+                [self addToLog: [NSString stringWithFormat: @"Disconnecting; token name is %ld bytes long; passphrase is %ld bytes long; each is limited to %ld bytes", (long)strlen(tokenNameC), (long)strlen(passphraseC), (long)MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER]];
                 [self startDisconnectingUserKnows: @NO];
             } else {
                 [self sendStringToManagementSocket: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", escaped(tokenName), escaped(myPassphrase)] encoding:NSUTF8StringEncoding];
@@ -5050,9 +5050,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             }
             const char * usernameC  = [escaped(myUsername) UTF8String];
             const char * passwordC  = [escaped(myPassword) UTF8String];
-            if (   ( strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )
-                || ( strlen(passwordC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )  ) {
-                [self addToLog: [NSString stringWithFormat: @"Disconnecting; after escaping, username is %ld bytes long and password is %ld bytes long; each is limited to %ld bytes", (long)strlen(usernameC), (long)strlen(passwordC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
+            if (   ( strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER )
+                || ( strlen(passwordC) > MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER )  ) {
+                [self addToLog: [NSString stringWithFormat: @"Disconnecting; after escaping, username is %ld bytes long and password is %ld bytes long; each is limited to %ld bytes", (long)strlen(usernameC), (long)strlen(passwordC), (long)MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER]];
                 [self startDisconnectingUserKnows: @NO];
             } else {
                 NSString * response = nil;

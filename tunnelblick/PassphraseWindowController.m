@@ -155,7 +155,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,     eyeRedSlash)
 
     const char * passphraseC = [escaped(  [[self passphrase] stringValue]  ) UTF8String];
     if (   (strlen(passphraseC) == 0)
-        || (strlen(passphraseC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)  ) {
+        || (strlen(passphraseC) > MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER)  ) {
         [UIHelper shakeWindow: self.window];
         return;
     }

@@ -98,10 +98,10 @@
 #define DEFAULT_LOG_SIZE_BYTES 102400
 
 // Maximum length in bytes of a parameter to the OpenVPN management interface (e.g., username, password, passphrase)
-#define MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER   255
+#define MAX_LENGTH_OF_MANAGEMENT_INTERFACE_PARAMETER   255
 
 // This maximum is four bytes less, to account for enclosing the parameter in escaped double-quotes (  \"username\" is sent)
-#define MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER   (MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER - 4)
+#define MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER   (MAX_LENGTH_OF_MANAGEMENT_INTERFACE_PARAMETER - 4)
 
 #define MAX_LENGTH_OF_CREDENTIALS_NAME 200
 #define MAX_LENGTH_OF_DISPLAY_NAME     400

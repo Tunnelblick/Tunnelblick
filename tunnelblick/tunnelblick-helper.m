@@ -3264,7 +3264,7 @@ static int startVPN(NSString * configFile,
     [arguments addObject: @"--cd"];
     [arguments addObject: cdFolderPath];
 
-    // Specify the --mangement option and the rest of the options after the config file, so they override any correspondng options in it
+    // Specify the --management option and the rest of the options after the config file, so they override any correspondng options in it
     [arguments addObject: @"--management"];
     [arguments addObject: @"127.0.0.1"];
     [arguments addObject: [NSString stringWithFormat:@"%u", port]];

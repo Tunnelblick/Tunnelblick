@@ -253,8 +253,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSView *, securityTokenView)
                                    : "" );
 
     if (   (strlen(usernameC) == 0)
-        || (strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)
-        || ((strlen(passwordC) + strlen(securityTokenC)) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)  ) {
+        || (strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER)
+        || ((strlen(passwordC) + strlen(securityTokenC)) > MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER)  ) {
         [UIHelper shakeWindow: self.window];
         return;
     }
