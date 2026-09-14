@@ -2396,11 +2396,16 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 			errorExit();
 		}
 	}
-	
+
+    NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+    NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+
     if (  moveNotCopy  ) {
         securelyMoveTblkIncludingPrivate(sourcePath, targetPath);
+        renameForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
     } else {
         securelyCopy(sourcePath, targetPath);
+        copyForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
     }
 
     structureTblkProperly(targetPath);
