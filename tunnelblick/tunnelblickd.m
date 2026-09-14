@@ -654,8 +654,8 @@ static BOOL storeMip(NSString *  cfgName,
 
     if (  fchmod(fileno(file), PERMS_SECURED_ROOT_RO) != 0  ) {
         fclose(file);
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Unable to chmod '%s' to %o", pathC, PERMS_SECURED_OTHER);
-        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingFormat: @"Unable to chmod '%s' to 0%3o", pathC, PERMS_SECURED_OTHER];
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Unable to chmod '%s' to %o", pathC, PERMS_SECURED_ROOT_RO);
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingFormat: @"Unable to chmod '%s' to 0%3o", pathC, PERMS_SECURED_ROOT_RO];
         return NO;
     }
 
