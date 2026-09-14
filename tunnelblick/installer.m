@@ -302,8 +302,7 @@ static BOOL isPathPrivate(NSString * path) {
 
     NSString * absolutePath = makePathAbsolute(path);
 
-    BOOL isPrivate = (   [absolutePath hasPrefix: @"/Users/"]
-                      && [absolutePath hasPrefix: [[userPrivatePath() stringByDeletingLastPathComponent] stringByAppendingString: @"/"]]
+    BOOL isPrivate = (  [absolutePath hasPrefix: [[userPrivatePath() stringByDeletingLastPathComponent] stringByAppendingString: @"/"]]
                       );
     return isPrivate;
 }
