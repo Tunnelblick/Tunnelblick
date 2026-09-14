@@ -423,14 +423,6 @@ static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path) {
     }
 }
 
-static void errorExitIfAnyDotDotInPath(NSString * path) {
-
-    if (  [path containsString: @".."]) {
-        Log(@"Apparent attack detected: '..' in path '%@'", path);
-        errorExit();
-    }
-}
-
 static BOOL pathWritableByUser(NSString * path) {
 
     return ( ! [path hasPrefix: L_AS_T] );
@@ -774,115 +766,6 @@ static void securelyCreateFolderAndParents(NSString * path) {
     Log(@"Created %@ with owner %@:%@ (%@:%@) and permissions 0%lo", path,
                [attributes fileOwnerAccountName], [attributes fileGroupOwnerAccountName],
                [attributes fileOwnerAccountID],   [attributes fileGroupOwnerAccountID],   [attributes filePosixPermissions]);
-}
-
-static void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
-
-    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
-    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
-
-    const char * sourcePathC = fileSystemRepresentationFromPath(sourcePath);
-    const char * targetPathC = fileSystemRepresentationFromPath(targetPath);
-
-    // Open the item as READ-ONLY (we're not changing it now)
-    int fd = open(targetPathC, (O_RDONLY | O_NOFOLLOW_ANY));
-    if (  fd == -1  ) {
-        Log(@"Could not open %s", targetPathC);
-        errorExit();
-    }
-
-    struct stat status;
-
-    int result = fstat(fd, &status);
-    if (   (result != 0)
-        || (status.st_uid != 0)
-        || (status.st_nlink != (isDir ? 2 : 1))
-        || (status.st_mode  != (isDir ? S_IFDIR | 0700 : S_IFREG | 0700))  ) {
-        Log(@"Item has been modified after being created at path %@\nowner = %u; group = %u; nlink = %u; mode = 0%o",
-                   targetPath, status.st_uid, status.st_gid, status.st_nlink, status.st_mode);
-        errorExit();
-    }
-
-    // Change owner group (owner is already 0)
-    // Note: using fchown() is secure because it won't follow symlinks because the fd was created above using open() with O_NOFOLLOW_ANY
-    result = fchown(fd, 0, 0);
-    if (  result != 0  ) {
-        Log(@"fchown() returned error %d ('%s') for path %s", errno, strerror(errno), targetPathC);
-        errorExit();
-    } else if (  gLogFileActions  ) {
-        Log(@"FileAction: fchown(0:0)for path'%@'", targetPath);
-    }
-
-    // Change permissions
-    // Note: using fchmod() is secure because it won't follow symlinks because the fd was created above using open() with O_NOFOLLOW_ANY
-    NSDictionary * sourceAttributes = [gFileMgr tbFileAttributesAtPath: sourcePath traverseLink: NO];
-    mode_t mode = [[sourceAttributes objectForKey: NSFilePosixPermissions] unsignedIntValue];
-    result = fchmod(fd, mode);
-    if (  result != 0  ) {
-        Log(@"fchmod() returned error %d ('%s') for path %s", errno, strerror(errno), targetPathC);
-        errorExit();
-    } else if (  gLogFileActions  ) {
-        Log(@"FileAction: fchmod(0%o) for path'%@'", mode, targetPath);
-    }
-
-    // Verify ownership, permissions, no hard links, and either a directory or a regular file
-    mode = mode | (  isDir
-                   ? S_IFDIR
-                   : S_IFREG);
-
-    result = lstat(targetPathC, &status);
-    if (   (result != 0)
-        || (status.st_uid != 0)
-        || (status.st_gid != 0)
-        || (status.st_nlink != (isDir ? 2 : 1))
-        || (status.st_mode  != mode)  ) {
-        Log(@"Failed to modify group and/or permissions at path %@\nowner = %u; group = %u; nlink = %u; mode = 0%o",
-                   targetPath, status.st_uid, status.st_gid, status.st_nlink, status.st_mode);
-        errorExit();
-    }
-
-    // Copy dates
-    // (1) Must convert between timespec returned from stat() and timeval needed by lutimes().
-    // (2) Must first uses futimes() with the creation date, which will set the creation date and the modified date
-    //     to the supplied date because it is earlier than than the creation date.
-    //     Must then use lutimes() to set the modified date.
-
-    // Get creation and modified dates
-    result = lstat(sourcePathC, &status);
-    if (  result != 0  ) {
-        Log(@"lstat() failed for path %s", sourcePathC);
-        errorExit();
-    }
-    struct timespec createdTS  = status.st_birthtimespec;
-    struct timespec modifiedTS = status.st_mtimespec;
-
-    // Convert creation date format and set creation date
-    struct timeval createdTV;
-    createdTV.tv_sec  = createdTS.tv_sec;
-    createdTV.tv_usec = createdTS.tv_nsec / 1000;
-    struct timeval createdTimevals[2] = {createdTV, createdTV};
-    result = futimes(fd, createdTimevals);
-    if (  result != 0  ) {
-        Log(@"lutimes() #1 failed for %s", targetPathC);
-        errorExit();
-    } else if (  gLogFileActions  ) {
-        Log(@"FileAction: set creating date with futimes() for path'%@'", targetPath);
-    }
-
-    // Convert modified date format and set modified date
-    struct timeval modifiedTV;
-    modifiedTV.tv_sec  = modifiedTS.tv_sec;
-    modifiedTV.tv_usec = modifiedTS.tv_nsec / 1000;
-    struct timeval modifiedTimevals[2] = {modifiedTV, modifiedTV};
-    result = futimes(fd, modifiedTimevals);
-    if (  result != 0  ) {
-        Log(@"lutimes() #1 failed for %s", targetPathC);
-        errorExit();
-    } else if (  gLogFileActions  ) {
-        Log(@"FileAction: set modified date with futimes() for path'%@'", targetPath);
-    }
-
-    close(fd);
 }
 
 static void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath);
