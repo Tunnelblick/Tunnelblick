@@ -543,8 +543,9 @@ static NSString * stringFromUTF8CString(const char * arg) {
 
 static void errorExitIfDotDotOrSymlinkInPath(NSString * path) {
 
-    if (  [path containsString: @".."]) {
-        Log(@"Apparent attack detected: '..' found in '%@'",path);
+    NSArray * components = [path pathComponents];
+    if (  [components containsObject: @".."]  ) {
+        Log(@"Apparent attack detected: '..' component found in '%@'",path);
         exitOpenvpnstart(-1);
     }
 
