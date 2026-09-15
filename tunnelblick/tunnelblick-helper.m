@@ -1898,7 +1898,7 @@ static void printTunnelblickKextPolicy(void) {
 
 //**************************************************************************************************************************
 
-static void compareShadowCopy (NSString * fileName) {
+static void compareShadowCopy (NSString * displayName) {
 	// Compares the specified private configuration .tblk with its shadow copy.
 	// Returns the results as one of the following result codes:
     //      OPENVPNSTART_COMPARE_CONFIG_SAME
@@ -1912,8 +1912,8 @@ static void compareShadowCopy (NSString * fileName) {
     NSString * privatePrefix = [userHome() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
     NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
 
-    NSString * privatePath = [[privatePrefix stringByAppendingPathComponent: fileName] stringByAppendingPathExtension: @"tblk"];
-    NSString * shadowPath  = [[shadowPrefix  stringByAppendingPathComponent: fileName] stringByAppendingPathExtension: @"tblk"];
+    NSString * privatePath = [[privatePrefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
+    NSString * shadowPath  = [[shadowPrefix  stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
 
     if (  folderExistsForRootAtPath(privatePath)  ) {
         if (  folderExistsForRootAtPath(shadowPath)  ) {
@@ -4097,9 +4097,9 @@ int main(int argc, char * argv[]) {
 
         } else if ( strcmp(command, "compareShadowCopy") == 0 ) {
             if (argc == 3  ) {
-                NSString* fileName = [NSString stringWithUTF8String:argv[2]];
-                validateConfigName(fileName);
-                compareShadowCopy(fileName);
+                NSString* displayName = [NSString stringWithUTF8String:argv[2]];
+                validateConfigName(displayName);
+                compareShadowCopy(displayName);
                 // compareShadowCopy() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
