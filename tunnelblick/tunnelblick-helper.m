@@ -1623,7 +1623,7 @@ static NSString * constructLogBase(NSString * configurationFile, unsigned cfgLoc
         case CFG_LOC_PRIVATE:
         case CFG_LOC_ALTERNATE:
 			if (  gUidOfUser == 0  ) {
-				Log(@"Invalid cfgLocCode (private or alternate configuration  but no user ID is avalable)");
+				Log(@"Invalid cfgLocCode (private or alternate configuration  but no user ID is available)");
 				exitOpenvpnstart(-1);
 			}
 			// THIS IS NOT USED AS A PATHNAME. SEE NOTE ABOVE.
