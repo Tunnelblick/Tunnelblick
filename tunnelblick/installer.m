@@ -298,15 +298,6 @@ static NSString * thisAppResourcesPath(void) {
     return resourcesPath;
 }
 
-static BOOL isPathPrivate(NSString * path) {
-
-    NSString * absolutePath = makePathAbsolute(path);
-
-    BOOL isPrivate = (  [absolutePath hasPrefix: [[userPrivatePath() stringByDeletingLastPathComponent] stringByAppendingString: @"/"]]
-                      );
-    return isPrivate;
-}
-
 NSString * lastPartOfPath(NSString * path) {
 
     //
@@ -2128,7 +2119,7 @@ static void secureAllTblks(void) {
 	unsigned i;
 	for (i=0; i < [foldersToSecure count]; i++) {
 		NSString * folderPath = [foldersToSecure objectAtIndex: i];
-		BOOL isPrivate = isPathPrivate(folderPath);
+        BOOL isPrivate = [folderPath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]];
 		okSoFar = okSoFar && secureOneFolder(folderPath, isPrivate, userUID());
 	}
 	
@@ -2901,7 +2892,7 @@ static void mergeConfigurations(NSString * sourcePath, NSString * targetPath, ui
                 // Copy the .tblk or .TBMenuIcons
                 safeCopyPathToPathAndSetUidAndGid(sourceFullPath, targetFullPath, uid, gid);
                 // Secure the .tblk or .TBMenuIcons
-                BOOL isPrivate = isPathPrivate(targetFullPath);
+                BOOL isPrivate = [targetFullPath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]];
                 if (  ! secureOneFolder(targetFullPath, isPrivate, uid)  ) {
                     Log(@"Failed: secureOneFolder('%@', %s, %d)",
                                targetFullPath, CSTRING_FROM_BOOL(isPrivate), uid);
