@@ -184,7 +184,7 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 
 static void errorExit(void);
 
-static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path);
+static void errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(NSString * path);
 
 static const char * fileSystemRepresentationFromPath(NSString * path);
 
@@ -401,7 +401,12 @@ static void structureTblkProperly(NSString * path) {
     }
 }
 
-static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path) {
+static void errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(NSString * path) {
+
+    if (  ! [path hasPrefix: @"/"]  ) {
+        Log(@"Apparent attack detected: not an absolute path '%@'",path);
+        errorExit();
+    }
 
     NSArray * components = [path pathComponents];
     if (  [components containsObject: @".."]  ) {
@@ -442,7 +447,7 @@ static void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * pa
 
     if (   [gFileMgr fileExistsAtPath: path]
         && [gFileMgr isReadableFileAtPath: path]  ) {
-        errorExitIfAnySymlinkOrDotDotInPath(path);
+        errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(path);
         return;
     }
 
@@ -592,7 +597,7 @@ static void securelyKeepRootOwnershipAndSetPermissionsOnFolderAndContents(NSStri
 
 static void securelyDeleteFolder(NSString * path) {
 
-    errorExitIfAnySymlinkOrDotDotInPath(path);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(path);
 
     // Can only rmdir() an empty folder, so empty this folder
 
@@ -615,7 +620,7 @@ static void securelyDeleteFolder(NSString * path) {
 
 static void securelyDeleteItem(NSString * path) {
 
-    errorExitIfAnySymlinkOrDotDotInPath(path.stringByDeletingLastPathComponent);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(path.stringByDeletingLastPathComponent);
 
     const char * pathC = fileSystemRepresentationFromPath(path);
 
@@ -641,7 +646,7 @@ static void securelyDeleteItem(NSString * path) {
 
 static void securelyDeleteItemIfItExists(NSString * path) {
 
-    errorExitIfAnySymlinkOrDotDotInPath(path);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(path);
 
     if (  ! [gFileMgr fileExistsAtPath: path]  ) {
         return;
@@ -656,8 +661,8 @@ static void securelyRename(NSString * sourcePath, NSString * targetPath) {
     //
     // Creates intermediate directories to enclose targetPath if necessary.
 
-    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
-    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetPath);
 
     if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
         securelyDeleteItem(targetPath);
@@ -708,7 +713,7 @@ static void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * path) {
 
     // Create a file or a directory owned by root with 0700 permissions (permissions will be changed to the correct values later)
 
-    errorExitIfAnySymlinkOrDotDotInPath(path);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(path);
 
     if (  isDir  ) {
         mode_t old_umask = umask(0077);
@@ -736,7 +741,7 @@ static void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * path) {
 
 static void securelyCreateFolderAndParents(NSString * path) {
 
-    errorExitIfAnySymlinkOrDotDotInPath(path);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(path);
 
     if (  [gFileMgr fileExistsAtPath: path]  ) {
         return;
@@ -772,8 +777,8 @@ static void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath);
 
 static void securelyCopyFileOrFolderContents(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
 
-    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
-    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetPath);
 
     // Copy the folder contents or the file contents
     if (  isDir  ) {
@@ -826,8 +831,8 @@ static void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
     //
     // This routine is called only by securelyCopy() and securelyCopyFileOrFolderContents().
 
-    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
-    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetPath);
 
     BOOL isDir;
 
@@ -875,8 +880,8 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     //
     // Uses an intermediate file or folder and then renames it, so no partial copy has been done if an error occurs.
 
-    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
-    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetPath);
 
     BOOL isDir;
 
@@ -901,8 +906,8 @@ static void securelyMoveTblkIncludingPrivate(NSString * sourcePath, NSString * t
     // If moving to shadow, copies the shadow to the private copy.
     // If moving to shared, deletes the private copy.
 
-    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
-    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetPath);
 
     //
     // SHADOW TO SHADOW OR SHARED TO SHARED
@@ -999,7 +1004,7 @@ static void securelyMoveTblkIncludingPrivate(NSString * sourcePath, NSString * t
 
 static BOOL testRenamex_np(NSString * folder) {
 
-    errorExitIfAnySymlinkOrDotDotInPath(folder);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(folder);
 
     BOOL oldLogFileActions = gLogFileActions;
     gLogFileActions = NO;
@@ -1679,7 +1684,7 @@ static void createSecuredConfigurationsSubfolder(NSString * path) {
 
     // Use to create and secure an empty configurations subfolder (either Shared or a shadow folder).
 
-    errorExitIfAnySymlinkOrDotDotInPath(path);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(path);
 
     // For anything enclosed by either L_AS_T_TEMP or L_AS_T_USERS/username/, use PERMS_SECURED_OTHER
     mode_t perms = (  (   [path hasPrefix: [L_AS_T_TEMP stringByAppendingString: @"/"]]
@@ -1768,7 +1773,7 @@ static void setupLibrary_Application_Support_Tunnelblick(void) {
     }
 
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
-		errorExitIfAnySymlinkOrDotDotInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+		errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 		if (   ( ! checkSetOwnership(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, NO, 0, 0))
 			|| ( ! checkSetPermissions(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, PERMS_SECURED_READABLE, NO))  ) {
 			errorExit();
@@ -1825,7 +1830,7 @@ static void copyTheApp(void) {
 
     NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
 
-    errorExitIfAnySymlinkOrDotDotInPath(@"/Applications");
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(@"/Applications");
 
     if (  [sourcePath isEqualToString: APPLICATIONS_TB_APP]  ) {
         Log(@"Not copying app because this copy is already where it should be copied");
@@ -2150,11 +2155,11 @@ static void installForcedPreferences(NSString * firstPath, NSString * secondPath
 		}
 		
 		if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
-			errorExitIfAnySymlinkOrDotDotInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+			errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 			makeUnlockedAtPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
             securelyDeleteItem(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 		} else {
-			errorExitIfAnySymlinkOrDotDotInPath([L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH stringByDeletingLastPathComponent]);
+			errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath([L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH stringByDeletingLastPathComponent]);
 		}
 		
 		if (  [gFileMgr tbCopyPath: firstPath toPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH handler: nil]  ) {
@@ -2442,7 +2447,7 @@ static void deleteOneFolderOrTblk(NSString * firstPath, NSString * secondPath) {
 
     NSString * path = firstPath;
 
-    errorExitIfAnySymlinkOrDotDotInPath(path);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(path);
 
     NSString * shadowPath = [[L_AS_T_USERS
                               stringByAppendingPathComponent: userUsername()]
@@ -2631,8 +2636,8 @@ static BOOL renameTempFileToMipFile(NSString * sourcePath, NSString * targetPath
     // Check arguments
     //
 
-    errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
-    errorExitIfAnySymlinkOrDotDotInPath(targetPath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
+    errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetPath);
 
     if (   ( ! [sourcePath hasPrefix: [L_AS_T_TEMP stringByAppendingString: @"/"]])
         || ( ! [targetPath hasPrefix: [L_AS_T_MIPS stringByAppendingString: @"/"]])  ) {
@@ -3125,10 +3130,10 @@ static void mergeForcedPreferences(NSString * sourcePath) {
 		
 		if (  modifiedExistingPreferences  ) {
 			if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-                errorExitIfAnySymlinkOrDotDotInPath(targetPath);
+                errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetPath);
 				makeUnlockedAtPath(targetPath);
 			} else {
-                errorExitIfAnySymlinkOrDotDotInPath([targetPath stringByDeletingLastPathComponent]);
+                errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath([targetPath stringByDeletingLastPathComponent]);
 			}
 			if (  ! [existingPreferences writeToFile: targetPath atomically: YES]  ) {
 				Log(@"Error: could not write %@", targetPath);
@@ -3357,18 +3362,10 @@ int main(int argc, char *argv[]) {
     NSString * secondArg = nil;
     if (  argc > 2  ) {
         secondArg = [gFileMgr stringWithFileSystemRepresentation: argv[2] length: strlen(argv[2])];
-        if (   ( gPrivatePath == nil  )
-            || ( ! [secondArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfAnySymlinkOrDotDotInPath(secondArg);
-        }
     }
     NSString * thirdArg = nil;
     if (  argc > 3  ) {
         thirdArg = [gFileMgr stringWithFileSystemRepresentation: argv[3] length: strlen(argv[3])];
-        if (   ( gPrivatePath == nil  )
-            || ( ! [thirdArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfAnySymlinkOrDotDotInPath(thirdArg);
-        }
     }
     
     NSString * fourthArg = nil;
@@ -3376,7 +3373,7 @@ int main(int argc, char *argv[]) {
         fourthArg = [gFileMgr stringWithFileSystemRepresentation: argv[4] length: strlen(argv[4])];
         if (   ( gPrivatePath == nil  )
             || ( ! [fourthArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfAnySymlinkOrDotDotInPath(fourthArg);
+            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(fourthArg);
         }
     }
 
@@ -3385,7 +3382,7 @@ int main(int argc, char *argv[]) {
         fifthArg = [gFileMgr stringWithFileSystemRepresentation: argv[5] length: strlen(argv[5])];
         if (   ( gPrivatePath == nil  )
             || ( ! [fifthArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfAnySymlinkOrDotDotInPath(fifthArg);
+            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(fifthArg);
         }
     }
 
@@ -3463,6 +3460,7 @@ int main(int argc, char *argv[]) {
     //     NO LONGER USED BY TUNNELBLICK; KEPT AVAILABLE FOR SCRIPTS BY DEPLOYERS
 
     if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES  ) {
+        errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(secondArg);
 		installForcedPreferences(secondArg, thirdArg);
     }
     
@@ -3495,6 +3493,9 @@ int main(int argc, char *argv[]) {
         && (argc < 5)
         ) {
 
+        errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(secondArg);
+        errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(thirdArg);
+
         //
         // INSTALLER_COPY
         // INSTALLER_MOVE
@@ -3522,6 +3523,8 @@ int main(int argc, char *argv[]) {
             && (argc < 6)
             ) {
 
+            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(secondArg);
+
             //
             // INSTALLER_INSTALL_PRIVATE_CONFIG
             //      secondArg = username (i.e., short username)
@@ -3532,9 +3535,9 @@ int main(int argc, char *argv[]) {
             NSString * sourcePath = thirdArg;
             NSString * subfolder  = fourthArg;
 
-            errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
             if (  subfolder  ) {
-                errorExitIfAnySymlinkOrDotDotInPath(subfolder);
+                errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(subfolder);
             }
 
             NSString * targetFolder = (  subfolder
@@ -3554,6 +3557,8 @@ int main(int argc, char *argv[]) {
             && (argc < 5)
             ) {
 
+            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(secondArg);
+
             //
             // INSTALLER_INSTALL_SHARED_CONFIG
             //      secondArg = source
@@ -3563,9 +3568,9 @@ int main(int argc, char *argv[]) {
             NSString * sourcePath = secondArg;
             NSString * subfolder  = thirdArg;
 
-            errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
             if (  subfolder  ) {
-                errorExitIfAnySymlinkOrDotDotInPath(subfolder);
+                errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(subfolder);
             }
 
             NSString * targetFolder = (  subfolder
@@ -3586,6 +3591,7 @@ int main(int argc, char *argv[]) {
     // If requested, delete a single folder or .tblk package (must be the shared or shadow copy)
 
     if (  operation == INSTALLER_DELETE  ) {
+        errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(secondArg);
 		deleteOneFolderOrTblk(secondArg, thirdArg);
     }
     
@@ -3607,8 +3613,12 @@ int main(int argc, char *argv[]) {
     //         renames the first path (which must be a file in L_AS_T_TEMP) to the second path (which must be a a file in L_AS_T_MIPS).
 
     if (  operation == INSTALLER_RENAME_MIP_FILE  ) {
-        if (   fourthArg
-            || ( ! renameTempFileToMipFile(secondArg, thirdArg)  )  ) {
+        if (  fourthArg ) {
+            Log(@"Invalid arguments to 'set forced preference'");
+            errorExit();
+        }
+
+        if ( ! renameTempFileToMipFile(secondArg, thirdArg)  ) {
             Log(@"Invalid arguments to 'set forced preference'");
             errorExit();
         }
@@ -3647,6 +3657,7 @@ int main(int argc, char *argv[]) {
 	if (   secondArg
 		&& ( ! thirdArg   )
 		&& (  operation == INSTALLER_EXPORT_ALL)  ) {
+        errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(secondArg);
 		exportToPath(secondArg);
 	}
 	
@@ -3658,6 +3669,7 @@ int main(int argc, char *argv[]) {
 	if (   (operation == INSTALLER_IMPORT)
 		&& secondArg
 		&& thirdArg  ) {
+        errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(secondArg);
 		importSetup(secondArg, thirdArg);
 	}
 	
