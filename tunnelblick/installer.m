@@ -3172,7 +3172,7 @@ static void importSetup(NSString * tblkSetupPath, NSString * usernameMap) {
 	mergeForcedPreferences(globalForcedPath);
 	
 	// Merge Shared configurations, overwriting old ones individually
-	mergeConfigurations(globalSharedPath, [L_AS_T stringByAppendingPathComponent: @"Shared"], 0, 0, YES);
+	mergeConfigurations(globalSharedPath, L_AS_T_SHARED, 0, 0, YES);
 	
 	// Merge into L_AS_T/Users, user-by-user, overwriting old configurations individually
 	mergeGlobalUsersFolder(tblkSetupPath, nameMap);
