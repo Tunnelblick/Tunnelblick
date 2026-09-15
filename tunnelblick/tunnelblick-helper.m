@@ -2540,14 +2540,14 @@ static void safeDelete(NSString * displayName) {
 
     verifySafeChangesAuthorized();
 
-    NSString * prefix  = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
+    NSString * prefix  = [[L_AS_T_USERS
+                           stringByAppendingPathComponent: userName()]
+                          stringByAppendingPathComponent: displayName];  // removes trailing "/"
     NSString * path;
     if (  [displayName hasSuffix: @"/"]  ) {
-        path = [prefix stringByAppendingPathComponent: displayName];
+        path = prefix;
     } else {
-        path = [[prefix
-                 stringByAppendingPathComponent: displayName]
-                stringByAppendingPathExtension: @"tblk"];
+        path = [prefix stringByAppendingPathExtension: @"tblk"];
     }
 
     errorExitIfDotDotOrSymlinkInPath(path);
@@ -2562,28 +2562,24 @@ static void safeDelete(NSString * displayName) {
 
     becomeRoot(@"Delete a safe configuration or folder");
     {
+        // Delete the shadow copy
         ok = [gFileMgr tbRemoveFileAtPath: path handler: nil];
+
+        //
+        // Delete the private copy
+        //
+        path = [[[userHome()
+                  stringByAppendingPathComponent: L_AS_T]
+                 stringByAppendingPathComponent: @"Configurations"]
+                stringByAppendingPathComponent: displayName];
+        if (  ! [displayName hasSuffix: @"/"]  ) {
+            path = [path stringByAppendingPathExtension: @"tblk"];
+        }
+
+        ok = [gFileMgr tbRemoveFileAtPath: path handler: nil] && ok;
+
     }
     stopBeingRoot();
-
-    if (  ! ok  ) {
-        exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_NOT_OK);
-    }
-
-    //
-    // Delete the private copy
-    //
-    prefix = [[userHome()
-               stringByAppendingPathComponent: L_AS_T]
-              stringByAppendingPathComponent: displayName];
-    if (  [displayName hasSuffix: @"/"]  ) {
-        path = [prefix stringByAppendingPathComponent: displayName];
-    } else {
-        path = [[prefix stringByAppendingPathComponent: displayName]
-                stringByAppendingPathExtension: @"tblk"];
-    }
-
-    ok = [gFileMgr tbRemoveFileAtPath: path handler: nil];
 
     exitOpenvpnstart(  ok
                      ? OPENVPNSTART_SAFE_OPERATION_OK
