@@ -269,17 +269,6 @@ static void errorExit(void) {
 //**************************************************************************************************************************
 // UTILITY ROUTINES
 
-static NSString * makePathAbsolute(NSString * path) {
-
-    NSString * standardizedPath = [path stringByStandardizingPath];
-    NSURL * url = [NSURL fileURLWithPath: standardizedPath];
-    url = [url absoluteURL];
-    const char * pathC = url.fileSystemRepresentation;
-    NSString * absolutePath = [NSString stringWithCString: pathC encoding: NSUTF8StringEncoding];
-
-    return absolutePath;
-}
-
 static const char * fileSystemRepresentationFromPath(NSString * path) {
 
     const char * pathC = path.fileSystemRepresentation;
@@ -1194,8 +1183,10 @@ static BOOL usernameIsValid(NSString * username) {
 
 static NSString * usernameFromPossiblePrivatePath(NSString * path) {
 
-    NSString * absolutePath = makePathAbsolute(path);
-
+    NSString * standardizedPath = [[path
+                                    stringByExpandingTildeInPath]
+                                   stringByStandardizingPath];
+    NSString * absolutePath = standardizedPath.stringByResolvingSymlinksInPath;
     if (  ! [absolutePath hasPrefix: @"/Users/"]  ) {
         return nil;
     }
