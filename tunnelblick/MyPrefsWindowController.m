@@ -1351,7 +1351,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         // There is not a connection selected or it should have its UI controls disabled. Don't let the user do anything except add a configuration or disconnect one.
 
 		[[configurationsPrefsView addConfigurationButton]           setEnabled: YES];
-        [[configurationsPrefsView removeConfigurationButton]        setEnabled: NO];
+        [[configurationsPrefsView removeConfigurationButton]        setEnabled: [self oneOrMoreConfigurationsAreSelected]];
         [[configurationsPrefsView workOnConfigurationPopUpButton]   setEnabled: NO];
         
         // The "Log" and "Settings" items can't be selected because tabView:shouldSelectTabViewItem: will return NO if there is no selected connection
