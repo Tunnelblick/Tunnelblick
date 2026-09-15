@@ -1256,18 +1256,9 @@ static int runAsRootReturnOutput(NSString * thePath, NSArray * theArguments, mod
 static void validateConfigName(NSString * name);
 static void validateCfgLocCode(unsigned cfgLocCode);
 
-static int runScript(NSString * scriptName, int argc, char * argv[]) {
+static int runScript(NSString * scriptName, NSString * configName, unsigned   cfgLocCode) {
 	// Runs one of the following scripts: connected.sh, reconnecting.sh, or post-disconnect.sh
 	// Exits on error; otherwise returns the exit code from the script
-
-    if (  argc != 4  ) {
-        printUsageMessageAndExitOpenvpnstart();
-    }
-
-    NSString * configName = [NSString stringWithUTF8String: argv[2]];
-    unsigned   cfgLocCode =  cvt_atou(argv[3], @"cfgLogCode");
-	validateConfigName(configName);
-	validateCfgLocCode(cfgLocCode);
 
     if (  ! [configName hasSuffix: @".tblk"]  ) {
         Log(@"Only a Tunnelblick VPN Configurations may run the %@ script", scriptName);
@@ -4114,9 +4105,14 @@ int main(int argc, char * argv[]) {
             }
 
         } else if ( strcmp(command, "connected") == 0) {
-            // runScript validates its own arguments
-            retCode = runScript(@"connected.sh", argc, argv);
-            syntaxError = FALSE;
+            if (argc == 4  ) {
+                NSString * configName = [NSString stringWithUTF8String: argv[2]];
+                unsigned   cfgLocCode =  cvt_atou(argv[3], @"cfgLogCode");
+                validateConfigName(configName);
+                validateCfgLocCode(cfgLocCode);
+                retCode = runScript(@"connected.sh", configName, cfgLocCode);
+                syntaxError = FALSE;
+            }
 
         } else if ( strcmp(command, "copyUserItemToNewSecureItem") == 0 ) {
             if (argc == 3  ) {
@@ -4211,14 +4207,24 @@ int main(int argc, char * argv[]) {
             }
 
         } else if ( strcmp(command, "postDisconnect") == 0) {
-            // runScript validates its own arguments
-            retCode = runScript(@"post-disconnect.sh", argc, argv);
-            syntaxError = FALSE;
+            if (argc == 4  ) {
+                NSString * configName = [NSString stringWithUTF8String: argv[2]];
+                unsigned   cfgLocCode =  cvt_atou(argv[3], @"cfgLogCode");
+                validateConfigName(configName);
+                validateCfgLocCode(cfgLocCode);
+                retCode = runScript(@"post-disconnect.sh", configName, cfgLocCode);
+                syntaxError = FALSE;
+            }
 
         } else if ( strcmp(command, "preDisconnect") == 0) {
-            // runScript validates its own arguments
-            retCode = runScript(@"pre-disconnect.sh", argc, argv);
-            syntaxError = FALSE;
+            if (argc == 4  ) {
+                NSString * configName = [NSString stringWithUTF8String: argv[2]];
+                unsigned   cfgLocCode =  cvt_atou(argv[3], @"cfgLogCode");
+                validateConfigName(configName);
+                validateCfgLocCode(cfgLocCode);
+                retCode = runScript(@"pre-disconnect.sh", configName, cfgLocCode);
+                syntaxError = FALSE;
+            }
 
         } else if ( strcmp(command, "printSanitizedConfigurationFile") == 0 ) {
             if (argc == 4) {
@@ -4247,9 +4253,14 @@ int main(int argc, char * argv[]) {
             }
 
         } else if ( strcmp(command, "reconnecting") == 0) {
-            // runScript validates its own arguments
-            retCode = runScript(@"reconnecting.sh", argc, argv);
-            syntaxError = FALSE;
+            if (argc == 4  ) {
+                NSString * configName = [NSString stringWithUTF8String: argv[2]];
+                unsigned   cfgLocCode =  cvt_atou(argv[3], @"cfgLogCode");
+                validateConfigName(configName);
+                validateCfgLocCode(cfgLocCode);
+                retCode = runScript(@"reconnecting.sh", configName, cfgLocCode);
+                syntaxError = FALSE;
+            }
 
         } else if ( strcmp(command, "revertToShadow") == 0 ) {
             if (argc == 3  ) {
