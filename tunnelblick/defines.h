@@ -762,6 +762,8 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 //             path to the .mip)
 #define INSTALLER_RENAME_MIP_FILE            0xB000u
 
+#define INSTALLER_MAX_IMPLEMENTED_OPERATION  0xB000u
+
 //*************************************************************************************************
 // Size to use to minimize the left navigation area when it is inactive
 #define LEFT_NAV_AREA_MINIMAL_SIZE 8.0

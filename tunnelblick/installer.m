@@ -3205,21 +3205,58 @@ int main(int argc, char *argv[]) {
         errorExit();
 	}
 
-    // Set up booleans that describe what operations are to be done
+    // Set up opsAndFlags and booleans that describe what operations are to be done
 
-    unsigned opsAndFlags = (unsigned) strtol(argv[1], NULL, 0);
+    errno = 0;
+    char * end = NULL;
+    unsigned long parsed = strtoul(argv[1], &end, 0);
+
+    if (   (errno != 0)
+        || (end == argv[1])
+        || (*end != '\0')
+        || (parsed > UINT_MAX)  ) {
+        Log(@"Invalid installer bitmask: %s", argv[1]);
+        errorExit();
+    }
+    unsigned opsAndFlags = (unsigned)parsed;
+
+    const unsigned allowedFlags = (  INSTALLER_CLEAR_LOG
+                                   | INSTALLER_COPY_APP
+                                   | INSTALLER_SECURE_APP
+                                   | INSTALLER_SECURE_TBLKS
+                                   | INSTALLER_COPY_APP_TO_L_AS_T
+                                   | INSTALLER_ALLOW_ROOT_SCRIPTS
+                                   | INSTALLER_ALLOW_USER_SCRIPTS
+                                   | INSTALLER_REPLACE_DAEMON
+                                   | INSTALLER_INSTALL_KEXTS
+                                   | INSTALLER_UNINSTALL_KEXTS
+                                   | INSTALLER_OPERATION_MASK
+                                   );
+
+    unsigned operation = (opsAndFlags & INSTALLER_OPERATION_MASK);
+    if (   (operation > INSTALLER_MAX_IMPLEMENTED_OPERATION)
+        || ((opsAndFlags & ~allowedFlags) != 0)  ) {
+        Log(@"Installer bitmask contains unsupported bits: 0x%08x", opsAndFlags);
+        errorExit();
+    }
 
     BOOL doClearLog              = (opsAndFlags & INSTALLER_CLEAR_LOG)          != 0;
     BOOL doCopyApp               = (opsAndFlags & INSTALLER_COPY_APP)           != 0;
     BOOL doSecureApp             = (opsAndFlags & INSTALLER_SECURE_APP)         != 0;
-    BOOL doForceLoadLaunchDaemon = (opsAndFlags & INSTALLER_REPLACE_DAEMON)     != 0;
-    BOOL doUninstallKexts        = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS)    != 0;
     BOOL doSecureTblks           = (opsAndFlags & INSTALLER_SECURE_TBLKS)       != 0;
     BOOL doCopyAppToL_AS_T       = (opsAndFlags & INSTALLER_COPY_APP_TO_L_AS_T) != 0;
+    BOOL doAllowRootScripts      = (opsAndFlags & INSTALLER_ALLOW_ROOT_SCRIPTS) != 0;
+    BOOL doAllowUserScripts      = (opsAndFlags & INSTALLER_ALLOW_USER_SCRIPTS) != 0;
+    BOOL doForceLoadLaunchDaemon = (opsAndFlags & INSTALLER_REPLACE_DAEMON)     != 0;
+    BOOL doInstallKexts          = (opsAndFlags & INSTALLER_INSTALL_KEXTS)      != 0;
+    BOOL doUninstallKexts        = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS)    != 0;
 
-    // Uninstall kexts overrides install kexts
-    BOOL doInstallKexts          = (   ( ! doUninstallKexts )
-                                    && ( (opsAndFlags & INSTALLER_INSTALL_KEXTS) != 0 )  );
+    BOOL ignoringInstallKexts = FALSE;
+    if (   doInstallKexts
+        && doUninstallKexts  ) {
+        doInstallKexts = FALSE;
+        ignoringInstallKexts = TRUE;
+    }
 
     // Log the arguments installer was started with
 
@@ -3230,19 +3267,20 @@ int main(int argc, char *argv[]) {
 
     NSMutableString * bitMaskDescription = [[[NSMutableString alloc] initWithCapacity: 100] autorelease];
 
-    if (  doClearLog              ) { [bitMaskDescription appendString: @" ClearLog"];        }
-    if (  doCopyApp               ) { [bitMaskDescription appendString: @" CopyApp"];         }
-    if (  doSecureApp             ) { [bitMaskDescription appendString: @" SecureApp"];       }
-    if (  doForceLoadLaunchDaemon ) { [bitMaskDescription appendString: @" ReplaceDaemon"];   }
-    if (  doInstallKexts          ) { [bitMaskDescription appendString: @" InstallKexts"];    }
-    if (  doUninstallKexts        ) { [bitMaskDescription appendString: @" UninstallKexts"];  }
-    if (  doSecureTblks           ) { [bitMaskDescription appendString: @" SecureTblks"];     }
-    if (  doCopyAppToL_AS_T       ) { [bitMaskDescription appendString: @" CopyAppToL_AS_T"]; }
+    if (  doClearLog              ) { [bitMaskDescription appendString: @" ClearLog"             ]; }
+    if (  doCopyApp               ) { [bitMaskDescription appendString: @" CopyApp"              ]; }
+    if (  doSecureApp             ) { [bitMaskDescription appendString: @" SecureApp"            ]; }
+    if (  doSecureTblks           ) { [bitMaskDescription appendString: @" SecureTblks"          ]; }
+    if (  doCopyAppToL_AS_T       ) { [bitMaskDescription appendString: @" CopyAppToL_AS_T"      ]; }
+    if (  doAllowRootScripts      ) { [bitMaskDescription appendString: @" AllowRootScripts"     ]; }
+    if (  doAllowUserScripts      ) { [bitMaskDescription appendString: @" AllowUserScripts"     ]; }
+    if (  doForceLoadLaunchDaemon ) { [bitMaskDescription appendString: @" LoadLaunchDaemon"     ]; }
+    if (  doInstallKexts          ) { [bitMaskDescription appendString: @" InstallKexts"         ]; }
+    if (  doUninstallKexts        ) { [bitMaskDescription appendString: @" UninstallKexts"       ]; }
 
-    unsigned operation = (opsAndFlags & INSTALLER_OPERATION_MASK);
+    if (  ignoringInstallKexts    ) { [bitMaskDescription appendString: @" IgnoringInstallKexts" ]; }
 
-    if (   (operation == INSTALLER_COPY)
-        && (argc > 3)                                           ) { [bitMaskDescription appendString: @" CopyConfig"            ]; }
+    if ( (operation == INSTALLER_COPY) && (argc == 4)           ) { [bitMaskDescription appendString: @" CopyConfig"            ]; }
     if (  operation == INSTALLER_MOVE                           ) { [bitMaskDescription appendString: @" MoveConfig"            ]; }
     if (  operation == INSTALLER_DELETE                         ) { [bitMaskDescription appendString: @" Delete"                ]; }
     if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES     ) { [bitMaskDescription appendString: @" InstallForcedPrefs"    ]; }
@@ -3253,11 +3291,13 @@ int main(int argc, char *argv[]) {
     if (  operation == INSTALLER_UPDATE_TUNNELBLICK             ) { [bitMaskDescription appendString: @" UpdateTunnelblick"     ]; }
     if (  operation == INSTALLER_SET_FORCED_PREFERENCE          ) { [bitMaskDescription appendString: @" SetForcedPreference"   ]; }
     if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES_XML ) { [bitMaskDescription appendString: @" InstallForcedPrefsXML" ]; }
+    if (  operation == INSTALLER_RENAME_MIP_FILE                ) { [bitMaskDescription appendString: @" RenameMipFile"         ]; }
 
     // Remove leading space
     [bitMaskDescription deleteCharactersInRange: NSMakeRange(0, 1)];
 
-    NSMutableString * logString = [NSMutableString stringWithFormat: @"Tunnelblick installer (build %s) getuid() = %d; geteuid() = %d; getgid() = %d; getegid() = %d\ncurrentDirectoryPath = '%@'; %d arguments:\n",
+    NSMutableString * logString = [NSMutableString stringWithFormat:
+                                   @"Tunnelblick installer (build %s) getuid() = %d; geteuid() = %d; getgid() = %d; getegid() = %d\ncurrentDirectoryPath = '%@'; %d arguments:\n",
                                    build.UTF8String, getuid(), geteuid(), getgid(), getegid(), [gFileMgr currentDirectoryPath], argc - 1];
     [logString appendFormat: @"     0x%04x (%@)", opsAndFlags, bitMaskDescription];
     int i;
