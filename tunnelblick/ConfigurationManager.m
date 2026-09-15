@@ -3549,7 +3549,7 @@ done:
 +(BOOL) isSafeConfigurationForDisplayName: (NSString *) displayName {
 
     if (  [displayName hasSuffix: @"/"]  ) {
-        return YES; // It's a folder, so it's always safe
+        return ( ! [self displayNameIsInShared: displayName] );
     }
 
     NSString * path = [[gMC myConfigDictionary] objectForKey: displayName];
@@ -3582,11 +3582,36 @@ done:
     return safe;
 }
 
++(BOOL) displayNameIsInShared: (NSString *) displayName {
+
+    NSString * path = [[gMC myConfigDictionary] objectForKey: displayName];
+    if (  path  ) {
+        return [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]];
+    }
+
+    if (  [displayName hasSuffix: @"/"]  ) {
+        NSString * sharedFolderPath = [L_AS_T_SHARED stringByAppendingPathComponent: displayName];
+        if (  [gFileMgr fileExistsAtPath: sharedFolderPath]  ) {
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
 +(BOOL) allAreSafeConfigurationsForDisplayNames: (NSArray *) displayNames {
 
     NSEnumerator * e = displayNames.objectEnumerator;
     NSString * displayName;
     while (  (displayName = e.nextObject)  ) {
+
+        NSString * path = [[gMC myConfigDictionary] objectForKey: displayName];
+
+        if (   [path hasPrefix: L_AS_T_SHARED]
+            || [self displayNameIsInShared: displayName]  ) {
+            return NO;
+        }
+
         if (  ! [self isSafeConfigurationForDisplayName: displayName]  ) {
             return NO;
         }
@@ -3597,36 +3622,22 @@ done:
 
 +(BOOL) removeSafeConfigurationOrFolderForDisplayName: (NSString *) displayName {
 
-    NSString * path;
-    if (  [displayName hasSuffix: @"/"]  ) {
+    NSString * path = [[gMC myConfigDictionary] objectForKey: displayName];
+    if (  [path hasPrefix: L_AS_T_SHARED]  ) {
+        NSLog(@"A shared configuration or folder cannot be deleted using 'safeDelete'");
+        return NO;
+    }
 
-        // Folder
-        path = [[[[NSHomeDirectory()
-                    stringByAppendingPathComponent: L_AS_T]
-                   stringByAppendingPathComponent: @"Configurations"]
-                 stringByAppendingString: @"/"]         // Need slash between "Configurations" and displayName
-                 stringByAppendingString: displayName]; // Must keep trailing "/" so use ...String, not ...PathComponent
-    } else {
+    if (  ! [displayName hasSuffix: @"/"]  ) {
+
         // Delete the credentials
         [self removeCredentialsWithDisplayNames: @[displayName] interact: NO];
 
         // Delete the settings
         [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: displayName with: nil];
-
-        path = [[[[NSHomeDirectory()
-                   stringByAppendingPathComponent: L_AS_T]
-                  stringByAppendingPathComponent: @"Configurations"]
-                 stringByAppendingPathComponent: displayName]
-                stringByAppendingPathExtension: @"tblk"];
-
     }
 
-    // Delete the private copy
-    if (  ! [gFileMgr tbRemovePathIfItExists: path]  ) {
-        return NO;
-    }
-
-    // Delete the secure (shadow) copy
+    // Delete the shadow copy and the private copy
     NSArray * arguments = @[@"safeDelete", displayName];
     int status = runOpenvpnstart(arguments, nil, nil);
     return (status == 0);
