@@ -2087,16 +2087,14 @@ static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T) {
 
 static void secureAllTblks(void) {
 	
-	NSString * altPath = [L_AS_T_USERS stringByAppendingPathComponent: userUsername()];
-	
-	// First, copy any .tblks that are in private to alt (unless they are already there)
+	// First, copy any .tblks that are in private to shadow (unless they are already there)
 	NSString * file;
 	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: userPrivatePath()];
 	while (  (file = [dirEnum nextObject])  ) {
 		if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
 			[dirEnum skipDescendents];
 			NSString * privateTblkPath = [userPrivatePath() stringByAppendingPathComponent: file];
-			NSString * altTblkPath     = [altPath stringByAppendingPathComponent: file];
+			NSString * altTblkPath     = [userShadowPath()  stringByAppendingPathComponent: file];
 			if (  ! [gFileMgr fileExistsAtPath: altTblkPath]  ) {
 				if (  ! createDirWithPermissionAndOwnership([altTblkPath stringByDeletingLastPathComponent], PERMS_SECURED_FOLDER, 0, 0)  ) {
 					errorExit();
@@ -2113,8 +2111,8 @@ static void secureAllTblks(void) {
 	
 	// Now secure shared tblks, private tblks, and shadow copies of private tblks
 	
-	NSArray * foldersToSecure = [NSArray arrayWithObjects: L_AS_T_SHARED, userPrivatePath(), altPath, nil];
-	
+	NSArray * foldersToSecure = [NSArray arrayWithObjects: L_AS_T_SHARED, userPrivatePath(), userShadowPath(), nil];
+
 	BOOL okSoFar = YES;
 	unsigned i;
 	for (i=0; i < [foldersToSecure count]; i++) {
