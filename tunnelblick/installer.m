@@ -1134,7 +1134,8 @@ static void getUidAndGidFromUsername(NSString * username, uid_t * uid_ptr, gid_t
         errorExit();
     }
 
-    size_t buffer_len = sysconf(_SC_GETPW_R_SIZE_MAX) * sizeof(char);
+    long n = sysconf(_SC_GETPW_R_SIZE_MAX);
+    size_t buffer_len = ( (n > 0) ? (size_t)n : 32768 ) * sizeof(char);
     char *buffer = malloc(buffer_len);
     if(  buffer == NULL  ) {
         Log(@"Failed to allocate buffer for getpwnam_r.");
