@@ -428,18 +428,13 @@ static void errorExitIfAnySymlinkOrDotDotInPath(NSString * path) {
     }
 }
 
-static BOOL pathWritableByUser(NSString * path) {
+static void errorExitIfNotInL_AS_T(NSString * path) {
 
-    return ( ! [path hasPrefix: [L_AS_T stringByAppendingString: @"/"]] );
-}
-
-static void errorExitIfWritableByUserInPath(NSString * path) {
-
-    if (  ! pathWritableByUser(path)  ) {
+    if (  [path hasPrefix: [L_AS_T stringByAppendingString: @"/"]]  ) {
         return;
     }
 
-    Log(@"Apparent attack detected: Path is directly writable by user: %@", path);
+    Log(@"Apparent attack detected: Path '%@' is not in '%@'", path, L_AS_T);
     errorExit();
 }
 
@@ -2387,10 +2382,7 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 
     // Should not move or copy to a user-writable path
 
-    if (  pathWritableByUser(targetPath)  ) {
-        Log(@"Should not be moving to user-writable path '%@'", targetPath);
-        errorExit();
-    }
+    errorExitIfNotInL_AS_T(targetPath);
 
 	// Create the enclosing folder(s) if necessary. Owned by root unless if in userPrivatePath(), in which case it is owned by the user
 	NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
@@ -3514,12 +3506,12 @@ int main(int argc, char *argv[]) {
         NSString * sourcePath = thirdArg;
 
         if (  ! [sourcePath isEqualToString: @""]  ) {
-            errorExitIfWritableByUserInPath(sourcePath);
-            errorExitIfAnySymlinkOrDotDotInPath(sourcePath);
+            errorExitIfNotInL_AS_T(sourcePath);
+            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
         }
 
-        errorExitIfWritableByUserInPath(targetPath);
-        errorExitIfAnySymlinkOrDotDotInPath(targetPath);
+        errorExitIfNotInL_AS_T(targetPath);
+        errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetPath);
 
         copyOrMoveOneFolderOrTblk(sourcePath, targetPath, (operation == INSTALLER_MOVE));
     }
