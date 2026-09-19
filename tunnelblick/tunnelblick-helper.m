@@ -147,78 +147,88 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
     fprintf(stderr,
             "\n\nopenvpnstart usage:\n\n"
 
-            // killStringC is inserted here:
-            "%s"
+            "./openvpnstart checkSignature\n"
+            "               to verify the application's signature using codesign\n\n"
 
-            // killAllStringC is inserted here:
-            "%s"
+            "./openvpnstart compareShadowCopy      displayName\n"
+            "               to compare a private .ovpn, .conf, or .tblk with its secure (shadow) copy\n\n"
 
-            "./openvpnstart test\n"
-            "               always returns success\n\n"
-
-			"./openvpnstart shuttingDownComputer\n"
-			"               * Creates a file at /Library/Application Support/Tunnelblick/shutting-down-computer.txt\n"
-			"               * Creates a file at /Library/Application Support/Tunnelblick/expect-disconnect/ALL\n\n"
-
-            "./openvpnstart printTunnelblickKextPolicy\n"
-            "               Prints to stdout the output from the following command run as root:\n"
-			"                      /usr/bin/sqlite3 -separator \"|\" -list /private/var/db/SystemPolicyConfiguration/KextPolicy \\\n"
-			"                      \"select bundle_id, team_id, developer_name, allowed, flags from kext_policy where bundle_id like 'net.tunnelblick."
-
-			// A '%' character is inserted here"
-			"%c' ;\"\n\n"
-
-            "./openvpnstart re-enable-network-services\n"
-			"               to run Tunnelblick's re-enable-network-services.sh script\n\n"
+            "./openvpnstart connected  configName  cfgLocCode\n\n"
+            "               to run the connected.sh script inside a .tblk.\n\n"
 
             "./openvpnstart copyUserItemToNewSecureItem     path\n"
             "               to create a new, unique, temporary copy of the filesystem item (file or directory) at 'path'.\n"
             "               The full path of the copy will be output to stdout.\n\n"
             "               NOTE: Copies the resolved targets of symlinks, not the links themselves.\n\n"
 
-            "./openvpnstart pathOfNewSecureItemFromXML     xml\n"
-            "               to create a new, unique, temporary copy of the filesystem item (file or directory) encoded as XML in 'xml'.\n"
-            "               The full path of the copy will be output to stdout.\n\n"
+            "./openvpnstart deleteLog   configName   cfgLocCode\n"
+            "               to delete all log files associated with the configuration\n\n"
+
+            "./openvpnstart deleteLogs\n"
+            "               to delete all log files that have the OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS bit set in the bitmask encoded in their filenames.\n\n"
+
+            "./openvpnstart down  configName  cfgLocCode  scriptNumber\n"
+            "               to run Tunnelblick's scriptNumber down script\n\n"
+
+            "./openvpnstart expectDisconnect flag filename\n"
+            "               creates (flag = 1) or removes (flag = 0) file at /Library/Application Support/Tunnelblick/expect-disconnect/FILENAME\n\n"
+
+            // killStringC is inserted here:
+            "%s"
+            
+            // killAllStringC is inserted here:
+            "%s"
+            
+            "./openvpnstart loadKexts     bitMask\n"
+            "               to load .tun and .tap kexts\n\n"
 
             "./openvpnstart pathOfNewSecureItemContainingString     string\n"
             "               to store 'string' into a new, unique, temporary file readable only by root.\n\n"
             "               The full path of the copy will be output to stdout.\n\n"
             "               NOTE: This command is executed by tunnelblickd, not tunnelblick-helper.\n\n"
 
-            "./openvpnstart scriptStatusForTblk     path\n"
-            "               returns the status of any scripts in the configuration file in the .tblk at 'path'.\n\n"
+            "./openvpnstart pathOfNewSecureItemFromXML     xml\n"
+            "               to create a new, unique, temporary copy of the filesystem item (file or directory) encoded as XML in 'xml'.\n"
+            "               The full path of the copy will be output to stdout.\n\n"
+
+            "./openvpnstart postDisconnect  configName  cfgLocCode\n\n"
+            "               to run the post-disconnect.sh script inside a .tblk.\n\n"
+
+            "./openvpnstart preDisconnect  configName  cfgLocCode\n\n"
+            "               to run the pre-disconnect.sh script inside a .tblk.\n\n"
+
+            "./openvpnstart printSanitizedConfigurationFile   configName   cfgLocCode\n"
+            "               to print a configuration file with inline data (such as the data within <cert>...</cert>) removed.\n\n"
+
+            "./openvpnstart printTunnelblickKextPolicy\n"
+            "               Prints to stdout the output from the following command run as root:\n"
+            "                      /usr/bin/sqlite3 -separator \"|\" -list /private/var/db/SystemPolicyConfiguration/KextPolicy \\\n"
+            "                      \"select bundle_id, team_id, developer_name, allowed, flags from kext_policy where bundle_id like 'net.tunnelblick."
+            // A '%' character is inserted here, as the ending to the printTunnelblickKextPolicy command
+            "%c' ;\"\n\n"
 
             "./openvpnstart pruneSecureTemporaryFolder\n"
             "               to remove items in Tunnelblick's secure temporary folder (L_AS_T_TEMP) that were created more than 24 hours ago.\n\n"
 
-            "./openvpnstart route-pre-down  flags configName  cfgLocCode\n"
-            "               to run Tunnelblick's client.route-pre-down.tunnelblick script.\n\n"
-			"               If bit 0 of flags is 1, the '-k'  option is used to disable the network for expected disconnections.\n\n"
-			"               If bit 1 of flags is 1, the '-ku' option is used to disable the network for expected disconnections.\n\n"
-
-            "./openvpnstart checkSignature\n"
-            "               to verify the application's signature using codesign\n\n"
-
-            "./openvpnstart deleteLogs\n"
-            "               to delete all log files that have the OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS bit set in the bitmask encoded in their filenames.\n\n"
-
-			"./openvpnstart expectDisconnect flag filename\n"
-			"               creates (flag = 1) or removes (flag = 0) file at /Library/Application Support/Tunnelblick/expect-disconnect/FILENAME\n\n"
-
-            "./openvpnstart loadKexts     bitMask\n"
-            "               to load .tun and .tap kexts\n\n"
-
-            "./openvpnstart unloadKexts   [bitMask]\n"
-            "               to unload the .tun and .tap kexts\n\n"
-
-            "./openvpnstart down  configName  cfgLocCode  scriptNumber\n"
-            "               to run Tunnelblick's scriptNumber down script\n\n"
-
-            "./openvpnstart compareShadowCopy      displayName\n"
-            "               to compare a private .ovpn, .conf, or .tblk with its secure (shadow) copy\n\n"
+            "./openvpnstart re-enable-network-services\n"
+            "               to run Tunnelblick's re-enable-network-services.sh script\n\n"
 
             "./openvpnstart revertToShadow      displayName\n"
             "               to revert a private .ovpn, .conf, or .tblk to its secure (shadow) copy\n\n"
+
+            "./openvpnstart safeRename      displayName     newDisplayName\n"
+            "               to rename the secure (shadow) copy of a .tblk from a safe private configuration\n\n"
+
+            "./openvpnstart reconnecting  configName  cfgLocCode\n\n"
+            "               to run the reconnecting.sh script inside a .tblk.\n\n"
+
+            "./openvpnstart route-pre-down  flags configName  cfgLocCode\n"
+            "               to run Tunnelblick's client.route-pre-down.tunnelblick script.\n\n"
+            "               If bit 0 of flags is 1, the '-k'  option is used to disable the network for expected disconnections.\n\n"
+            "               If bit 1 of flags is 1, the '-ku' option is used to disable the network for expected disconnections.\n\n"
+
+            "./openvpnstart safeDelete      displayName\n"
+            "               to delete the secure (shadow) copy of a .tblk from a safe private configuration\n\n"
 
             "./openvpnstart safeUpdate      source-path     shadow-path\n"
             "               to do a safe update of a .tblk from source-path to shadow-path\n"
@@ -228,29 +238,18 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
             "               tests if a 'safeUpdate' of a .tblk from source-path can be done to shadow-path\n"
             "               source-path must be in L_AS_T_TEMP.\n\n"
 
-            "./openvpnstart safeDelete      displayName\n"
-            "               to delete the secure (shadow) copy of a .tblk from a safe private configuration\n\n"
+            "./openvpnstart scriptStatusForTblk     path\n"
+            "               returns the status of any scripts in the configuration file in the .tblk at 'path'.\n\n"
 
-            "./openvpnstart safeRename      displayName     newDisplayName\n"
-            "               to rename the secure (shadow) copy of a .tblk from a safe private configuration\n\n"
+            "./openvpnstart shuttingDownComputer\n"
+            "               * Creates a file at /Library/Application Support/Tunnelblick/shutting-down-computer.txt\n"
+            "               * Creates a file at /Library/Application Support/Tunnelblick/expect-disconnect/ALL\n\n"
 
-            "./openvpnstart preDisconnect  configName  cfgLocCode\n\n"
-            "               to run the pre-disconnect.sh script inside a .tblk.\n\n"
+            "./openvpnstart test\n"
+            "               always returns success\n\n"
 
-            "./openvpnstart deleteLog   configName   cfgLocCode\n"
-            "               to delete all log files associated with the configuration\n\n"
-
-            "./openvpnstart printSanitizedConfigurationFile   configName   cfgLocCode\n"
-            "               to print a configuration file with inline data (such as the data within <cert>...</cert>) removed.\n\n"
-
-            "./openvpnstart postDisconnect  configName  cfgLocCode\n\n"
-            "               to run the post-disconnect.sh script inside a .tblk.\n\n"
-
-            "./openvpnstart connected  configName  cfgLocCode\n\n"
-            "               to run the connected.sh script inside a .tblk.\n\n"
-
-            "./openvpnstart reconnecting  configName  cfgLocCode\n\n"
-            "               to run the reconnecting.sh script inside a .tblk.\n\n"
+            "./openvpnstart unloadKexts   [bitMask]\n"
+            "               to unload the .tun and .tap kexts\n\n"
 
             "./openvpnstart updateTunnelblick  updateSignature  username  versionAndBuildString  tunnelblickPidString\n\n"
             "               to update Tunnelblick from /Users/username/Library/Application Support/Tunnelblick/tunnelblick-update.zip.\n\n"
