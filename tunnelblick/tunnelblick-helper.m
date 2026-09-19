@@ -2272,14 +2272,20 @@ static BOOL forceCopyFileAsRoot(NSString * sourceFullPath, NSString * targetFull
 
 static BOOL isSafeConfigFileForInstallOrUpdate(NSString * sourcePath) {
 
-    ConfigurationParser * parser = [ConfigurationParser parsedConfigurationAtPath: sourcePath];
-    if ( ! parser  ) {
-        NSLog(@"Could not create a ConfigurationParser for %@", sourcePath);
-        return NO;
-    }
+    BOOL ok = TRUE;
+    becomeRoot(@"isSafeConfigFileForInstallOrUpdate");
+    {
+        ConfigurationParser * parser = [ConfigurationParser parsedConfigurationAtPath: sourcePath];
+        if ( ! parser  ) {
+            NSLog(@"Could not create a ConfigurationParser for %@", sourcePath);
+            ok = FALSE;
+        }
 
-    BOOL result = [parser doesNotContainAnyUnsafeOptions];
-    return result;
+        ok = [parser doesNotContainAnyUnsafeOptions] && ok;
+    }
+    stopBeingRoot();
+
+    return ok;
 }
 
 //**************************************************************************************************************************
@@ -2305,10 +2311,11 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
         exitOpenvpnstart(-1);
     }
 
-    // Copy target to temp, modify temp, then rename temp to target
+    // Copy source to temp, modify temp, then rename temp to target
     NSString * tempPath = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
     NSError * err;
-    if (  ! [gFileMgr copyItemAtPath:targetPath toPath: tempPath error: &err]  ) {
+
+    if (  ! [gFileMgr copyItemAtPath: sourcePath toPath: tempPath error: &err]  ) {
         Log(@"Error trying to copy '%@' to '%@': %@", targetPath, tempPath, err);
         exitOpenvpnstart(-1);
     }
@@ -2552,16 +2559,12 @@ static void safeDelete(NSString * displayName) {
 
     errorExitIfDotDotOrSymlinkInPath(path);
 
-    verifyConfigurationIsSafe(path);
-
-    //
-    // Delete the shadow copy
-    //
-
     BOOL ok;
 
     becomeRoot(@"Delete a safe configuration or folder");
     {
+        verifyConfigurationIsSafe(path);
+
         // Delete the shadow copy
         ok = [gFileMgr tbRemoveFileAtPath: path handler: nil];
 
@@ -2598,16 +2601,16 @@ static void safeRename(NSString * oldDisplayName, NSString * newDisplayName) {
     errorExitIfDotDotOrSymlinkInPath(oldPath);
     errorExitIfDotDotOrSymlinkInPath(newPath);
 
-    if (  [gFileMgr fileExistsAtPath: newPath]  ) {
-        Log(@"safeRename failed; newPath exists: newPath = %@; oldPath = %@", oldPath, newPath);
-        exitOpenvpnstart(OPENVPNSTART_SAFE_OPERATION_NOT_OK);
-    }
-
-    BOOL ok;
+    BOOL ok = TRUE;
 
     becomeRoot(@"Rename a safe configuration");
     {
-        ok = [gFileMgr tbForceRenamePath: oldPath toPath: newPath];
+        if (  [gFileMgr fileExistsAtPath: newPath]  ) {
+            Log(@"safeRename failed; newPath exists: newPath = %@; oldPath = %@", oldPath, newPath);
+            ok = FALSE;
+        }
+
+        ok = ok && [gFileMgr tbForceRenamePath: oldPath toPath: newPath];
     }
     stopBeingRoot();
 
