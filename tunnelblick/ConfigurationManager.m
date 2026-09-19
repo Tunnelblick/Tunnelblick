@@ -2314,13 +2314,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (   noAdmin
         && ( ! moveInstead)
         && okToUpdateConfigurationsWithoutAdminApproval()
-        && [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+        && [targetPath hasPrefix: [gShadowPath stringByAppendingString: @"/"]]  ) {
 
         // Do the safeUpdate
-        NSArray * arguments = [NSArray arrayWithObjects:
-                               @"safeUpdate",
-                               displayNameFromPath(targetPath),
-                               nil];
+        NSArray * arguments = @[@"safeUpdate",
+                               sourcePath,
+                               targetPath];
         OSStatus status = runOpenvpnstart(arguments, nil, nil);
         if (  status == OPENVPNSTART_SAFE_OPERATION_OK  ) {
             // safeUpdate was done so don't need to inform user if can't remove .old file (that will be logged)
@@ -2685,8 +2684,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     BOOL haveUserScripts = YES;
     BOOL haveRootScripts = YES;
-    NSArray * allSources = [[self installSources]
-                            arrayByAddingObjectsFromArray: [self replaceSources]];
+    NSArray * allSources = [[[self installSources]
+                             arrayByAddingObjectsFromArray: [self replaceSources]]
+                            arrayByAddingObjectsFromArray: [self noAdminSources]];
     if (  ! [self checkIfConfigurationsAtPaths: allSources
                                haveUserScripts: &haveUserScripts
                                haveRootScripts: &haveRootScripts]) {
@@ -2711,56 +2711,88 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
     }
 
-    //
-    // Get authorization by a computer admin if we don't already have it
-    //
+    BOOL requireAuth = ( 0 != ( nToUninstall + nToReplace + nToInstall ) );
+    SystemAuth * auth = nil;
 
-    NSString * uninstallMsg = (  (nToUninstall == 0)
-                               ? @""
-                               : (  (nToUninstall == 1)
-                                  ? NSLocalizedString(@"    • Uninstall one configuration\n", @"Window text: 'Tunnelblick needs to: *'")
-                                  : [NSString stringWithFormat: NSLocalizedString(@"    • Uninstall %lu configurations\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nToUninstall]));
-    NSString * replaceMsg   = (  (nToReplace == 0)
-                               ? @""
-                               : (  (nToReplace == 1)
-                                  ? NSLocalizedString(@"    • Replace one configuration\n", @"Window text: 'Tunnelblick needs to: *'")
-                                  : [NSString stringWithFormat: NSLocalizedString(@"    • Replace %lu configurations\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nToReplace]));
-    NSString * safeMsg     = (  (nSafe == 0)
-                              ? @""
-                              : (  (nSafe == 1)
-                                 ? NSLocalizedString(@"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n", @"Window text: 'Tunnelblick needs to: *'")
-                                 : [NSString stringWithFormat: NSLocalizedString(@"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nSafe]));
-    NSString * installMsg   = (  (nToInstall == 0)
-                               ? @""
-                               : (  (nToInstall == 1)
-                                  ? NSLocalizedString(@"    • Install one configuration\n", @"Window text: 'Tunnelblick needs to: *'")
-                                  : [NSString stringWithFormat: NSLocalizedString(@"    • Install %lu configurations\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nToInstall]));
-    NSString * disconnectMsg = (  ([connectedTargetDisplayNames count] == 0)
-                                ? @""
-                                :  NSLocalizedString(@"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n", @"Window text"));
+    if (  requireAuth  ) {
 
-    NSString * authMsg = [NSString stringWithFormat: @"%@\n%@%@%@%@%@", NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text"), uninstallMsg, replaceMsg, installMsg, safeMsg, disconnectMsg];
+        //
+        // Get authorization by a computer admin if we don't already have it
+        //
 
-    // Get a SystemAuth WITH A RETAIN COUNT OF 1, from MenuController's startupInstallAuth, the lock, or from a user interaction
-    SystemAuth * auth = [[gMC startupInstallAuth] retain];
-    if (   ( (nToUninstall + nToInstall + nToReplace) != 0)
-        && ( ! auth )  ) {
-        auth = [SystemAuth newAuthWithPrompt: authMsg];
-        if (   ! auth  ) {
-            return NSApplicationDelegateReplyCancel;
+        NSString * uninstallMsg = (  (nToUninstall == 0)
+                                   ? @""
+                                   : (  (nToUninstall == 1)
+                                      ? NSLocalizedString(@"    • Uninstall one configuration\n", @"Window text: 'Tunnelblick needs to: *'")
+                                      : [NSString stringWithFormat: NSLocalizedString(@"    • Uninstall %lu configurations\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nToUninstall]));
+        NSString * replaceMsg   = (  (nToReplace == 0)
+                                   ? @""
+                                   : (  (nToReplace == 1)
+                                      ? NSLocalizedString(@"    • Replace one configuration\n", @"Window text: 'Tunnelblick needs to: *'")
+                                      : [NSString stringWithFormat: NSLocalizedString(@"    • Replace %lu configurations\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nToReplace]));
+        NSString * safeMsg     = (  (nSafe == 0)
+                                  ? @""
+                                  : (  (nSafe == 1)
+                                     ? NSLocalizedString(@"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n", @"Window text: 'Tunnelblick needs to: *'")
+                                     : [NSString stringWithFormat: NSLocalizedString(@"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nSafe]));
+        NSString * installMsg   = (  (nToInstall == 0)
+                                   ? @""
+                                   : (  (nToInstall == 1)
+                                      ? NSLocalizedString(@"    • Install one configuration\n", @"Window text: 'Tunnelblick needs to: *'")
+                                      : [NSString stringWithFormat: NSLocalizedString(@"    • Install %lu configurations\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nToInstall]));
+        NSString * disconnectMsg = (  ([connectedTargetDisplayNames count] == 0)
+                                    ? @""
+                                    :  NSLocalizedString(@"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n", @"Window text"));
+
+        NSString * authMsg = [NSString stringWithFormat: @"%@\n%@%@%@%@%@", NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text"), uninstallMsg, replaceMsg, installMsg, safeMsg, disconnectMsg];
+
+        // Get a SystemAuth WITH A RETAIN COUNT OF 1, from MenuController's startupInstallAuth, the lock, or from a user interaction
+        auth = [[gMC startupInstallAuth] retain];
+        if (   ( (nToUninstall + nToInstall + nToReplace) != 0)
+            && ( ! auth )  ) {
+            auth = [SystemAuth newAuthWithPrompt: authMsg];
+            if (   ! auth  ) {
+                return NSApplicationDelegateReplyCancel;
+            }
+        } else {
+
+            if (  ! skipConfirmMsg  ) {
+                int result = TBRunAlertPanel(NSLocalizedString(@"VPN Configuration Installation", @"Window title"),
+                                             authMsg,
+                                             NSLocalizedString(@"OK",      @"Button"),   // Default button
+                                             NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
+                                             nil);                                       // Other button
+                if (  result != NSAlertDefaultReturn  ) {
+                    [auth release];
+                    return NSApplicationDelegateReplyCancel;
+                }
+            }
         }
     } else {
 
-        if (  ! skipConfirmMsg  ) {
-            int result = TBRunAlertPanel(NSLocalizedString(@"VPN Configuration Installation", @"Window title"),
-                                         authMsg,
-                                         NSLocalizedString(@"OK",      @"Button"),   // Default button
-                                         NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
-                                         nil);                                       // Other button
-            if (  result != NSAlertDefaultReturn  ) {
-                [auth release];
+        NSString * message = (  (nSafe == 1)
+                              ? NSLocalizedString(@"Do you wish to install or replace one configuration?", @"Window text")
+                              : [NSString stringWithFormat: NSLocalizedString(@"Do you wish to install or replace %lu configurations?", @"Window text"), nSafe]);
+
+        int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                     message,
+                                     NSLocalizedString(@"OK",     @"Button"), // Default button
+                                     NSLocalizedString(@"Cancel", @"Button"), // Alternate button
+                                     nil);
+        switch (  result  ) {
+
+            case NSAlertDefaultReturn:
+                break;
+
+            case NSAlertAlternateReturn:
                 return NSApplicationDelegateReplyCancel;
-            }
+                break;
+
+            case NSAlertOtherReturn:
+                return NSApplicationDelegateReplyFailure;
+
+            default: // Error; already logged
+                return NSApplicationDelegateReplyFailure;
         }
     }
 
@@ -2784,66 +2816,73 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     NSUInteger ix;
 
-    // Un-install .tblks in 'deletions'
-    for (  ix=0; ix<[[self deletions] count]; ix++  ) {
+    if (  requireAuth  ) {
 
-        NSString * target = [[self deletions] objectAtIndex: ix];
+        // Un-install .tblks in 'deletions'
+        for (  ix=0; ix<[[self deletions] count]; ix++  ) {
 
-        if (  ! [ConfigurationManager deleteConfigOrFolderAtPath: target
-                                                 usingSystemAuth: auth
-                                                      warnDialog: NO]  ) {
-            nUninstallErrors++;
-            NSString * targetDisplayName   = [lastPartOfPath(target) stringByDeletingPathExtension];
-            NSString * targetLocalizedName = [gMC localizedNameforDisplayName: targetDisplayName tblkPath: target];
-            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to uninstall the '%@' configuration\n", @"Window text"), targetLocalizedName]];
-        }
-    }
+            NSString * target = [[self deletions] objectAtIndex: ix];
 
-    // Install .tblks in 'installSources' to 'installTargets'
-    for (  ix=0; ix<[[self installSources] count]; ix++  ) {
-
-        NSString * source = [[self installSources] objectAtIndex: ix];
-        NSString * target = [[self installTargets] objectAtIndex: ix];
-
-        if (  ! [ConfigurationManager copyConfigPath: source
-                                              toPath: target
-                                     usingSystemAuth: auth
-                                          warnDialog: ! skipResultMsg
-                                         moveNotCopy: NO
-                                             noAdmin: NO]  ) {
-            nInstallErrors++;
-            NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
-            NSString * targetLocalizedName = [gMC localizedNameforDisplayName: targetDisplayName tblkPath: target];
-            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to install the '%@' configuration\n", @"Window text"), targetLocalizedName]];
-        }
-    }
-
-    // Install .tblks in 'replaceSources' to 'replaceTargets'
-    for (  ix=0; ix<[[self replaceSources] count]; ix++  ) {
-
-        NSString * source = [[self replaceSources] objectAtIndex: ix];
-        NSString * target = [[self replaceTargets] objectAtIndex: ix];
-        NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
-
-        if (  [ConfigurationManager copyConfigPath: source
-                                            toPath: target
-                                   usingSystemAuth: auth
-                                        warnDialog: ! skipResultMsg
-                                       moveNotCopy: NO
-                                           noAdmin: NO]  ) {
-
-            VPNConnection * connection = [gMC connectionForDisplayName: targetDisplayName];
-            if (  connection  ) {
-                // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
-                [connection reloadPreferencesFromTblk];
-                [[gMC logScreen] performSelectorOnMainThread: @selector(update) withObject: nil waitUntilDone: NO];
+            if (  ! [ConfigurationManager deleteConfigOrFolderAtPath: target
+                                                     usingSystemAuth: auth
+                                                          warnDialog: NO]  ) {
+                nUninstallErrors++;
+                NSString * targetDisplayName   = [lastPartOfPath(target) stringByDeletingPathExtension];
+                NSString * targetLocalizedName = [gMC localizedNameforDisplayName: targetDisplayName tblkPath: target];
+                [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to uninstall the '%@' configuration\n", @"Window text"), targetLocalizedName]];
             }
-
-        } else {
-            nReplaceErrors++;
-            NSString * targetLocalizedName = [gMC localizedNameforDisplayName: targetDisplayName tblkPath: target];
-            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
+
+        // Install .tblks in 'installSources' to 'installTargets'
+        for (  ix=0; ix<[[self installSources] count]; ix++  ) {
+
+            NSString * source = [[self installSources] objectAtIndex: ix];
+            NSString * target = [[self installTargets] objectAtIndex: ix];
+
+            if (  ! [ConfigurationManager copyConfigPath: source
+                                                  toPath: target
+                                         usingSystemAuth: auth
+                                              warnDialog: ! skipResultMsg
+                                             moveNotCopy: NO
+                                                 noAdmin: NO]  ) {
+                nInstallErrors++;
+                NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
+                NSString * targetLocalizedName = [gMC localizedNameforDisplayName: targetDisplayName tblkPath: target];
+                [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to install the '%@' configuration\n", @"Window text"), targetLocalizedName]];
+            }
+        }
+
+        // Install .tblks in 'replaceSources' to 'replaceTargets'
+        for (  ix=0; ix<[[self replaceSources] count]; ix++  ) {
+
+            NSString * source = [[self replaceSources] objectAtIndex: ix];
+            NSString * target = [[self replaceTargets] objectAtIndex: ix];
+            NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
+
+            if (  [ConfigurationManager copyConfigPath: source
+                                                toPath: target
+                                       usingSystemAuth: auth
+                                            warnDialog: ! skipResultMsg
+                                           moveNotCopy: NO
+                                               noAdmin: NO]  ) {
+
+                VPNConnection * connection = [gMC connectionForDisplayName: targetDisplayName];
+                if (  connection  ) {
+                    // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
+                    [connection reloadPreferencesFromTblk];
+                    [[gMC logScreen] performSelectorOnMainThread: @selector(update) withObject: nil waitUntilDone: NO];
+                }
+
+            } else {
+                nReplaceErrors++;
+                NSString * targetLocalizedName = [gMC localizedNameforDisplayName: targetDisplayName tblkPath: target];
+                [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
+            }
+        }
+
+        // Release the authorization we have been using
+        [auth release];
+        auth = nil;
     }
 
     gUserAllowedRootScripts = NO;
@@ -2877,10 +2916,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
     }
 
-    // Release the authorization we have been using
-
-    [auth release];
-
     if (  [connectedTargetDisplayNames count] != 0  ) {
         [self performSelectorOnMainThread: @selector(reconnect:) withObject: connectedTargetDisplayNames waitUntilDone: NO];
     }
@@ -2899,26 +2934,26 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSUInteger nNetReplacements = nToReplace   - nReplaceErrors;
         NSUInteger nNetSafes        = nSafe        - nSafeErrors;
 
-        uninstallMsg = (  (nNetUninstalls == 0)
-                        ? @""
-                        : (  (nNetUninstalls == 1)
-                           ? NSLocalizedString(@"     • Uninstalled one configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
-                           : [NSString stringWithFormat: NSLocalizedString(@"     • Uninstalled %lu configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetUninstalls]));
-        replaceMsg   = (  (nNetReplacements == 0)
-                        ? @""
-                        : (  (nNetReplacements == 1)
-                           ? NSLocalizedString(@"     • Replaced one configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
-                           : [NSString stringWithFormat: NSLocalizedString(@"     • Replaced %lu configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetReplacements]));
-        safeMsg      = (  (nNetSafes == 0)
-                        ? @""
-                        : (  (nNetSafes == 1)
-                           ? NSLocalizedString(@"     • Installed or replaced one \"safe\" configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
-                           : [NSString stringWithFormat: NSLocalizedString(@"     • Installed or replaced %lu \"safe\" configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetSafes]));
-        installMsg   = (  (nNetInstalls == 0)
-                        ? @""
-                        : (  (nNetInstalls == 1)
-                           ? NSLocalizedString(@"     • Installed one configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
-                           : [NSString stringWithFormat: NSLocalizedString(@"     • Installed %lu configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetInstalls]));
+        NSString * uninstallMsg = (  (nNetUninstalls == 0)
+                                   ? @""
+                                   : (  (nNetUninstalls == 1)
+                                      ? NSLocalizedString(@"     • Uninstalled one configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
+                                      : [NSString stringWithFormat: NSLocalizedString(@"     • Uninstalled %lu configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetUninstalls]));
+        NSString * replaceMsg   = (  (nNetReplacements == 0)
+                                   ? @""
+                                   : (  (nNetReplacements == 1)
+                                      ? NSLocalizedString(@"     • Replaced one configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
+                                      : [NSString stringWithFormat: NSLocalizedString(@"     • Replaced %lu configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetReplacements]));
+        NSString * safeMsg      = (  (nNetSafes == 0)
+                                   ? @""
+                                   : (  (nNetSafes == 1)
+                                      ? NSLocalizedString(@"     • Installed or replaced one \"safe\" configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
+                                      : [NSString stringWithFormat: NSLocalizedString(@"     • Installed or replaced %lu \"safe\" configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetSafes]));
+        NSString * installMsg   = (  (nNetInstalls == 0)
+                                   ? @""
+                                   : (  (nNetInstalls == 1)
+                                      ? NSLocalizedString(@"     • Installed one configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
+                                      : [NSString stringWithFormat: NSLocalizedString(@"     • Installed %lu configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetInstalls]));
 
         NSString * headerMsg  = (  ([uninstallMsg length] + [replaceMsg length] + [installMsg length]) == 0
                                  ? @""
