@@ -3329,7 +3329,7 @@ static int startVPN(NSString * configFile,
     if (  [[gConfigPath pathExtension] isEqualToString: @"tblk"]) {
 
         // A .tblk package: check that it is secured, override any code above that sets directoryPath, and set the actual configuration path
-        exitIfTblkNeedsRepair();
+        exitIfTblkNeedsRepair();    // No TOCTOU vulnerability because the .tblk cannot be written to by the user.
 
         tblkPath = [[gConfigPath copy] autorelease];
         NSString * cfg = configPathFromTblkPath(gConfigPath);
@@ -4302,8 +4302,7 @@ int main(int argc, char * argv[]) {
                 NSString* displayName = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(displayName);
                 compareShadowCopy(displayName);
-                // compareShadowCopy() should never return (it does exitOpenvpnstart() with its own exit codes)
-                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+                Log(@"Program error: compareShadowCopy() should not return! A syntax error is being forced.");
             }
 
         } else if ( strcmp(command, "connected") == 0) {
@@ -4438,8 +4437,7 @@ int main(int argc, char * argv[]) {
                 }
                 validateCfgLocCode(cfgLocCode);
                 printSanitizedConfigurationFile(configFile, cfgLocCode);
-                // printSanitizedConfigurationFile() should never return (it does exitOpenvpnstart() with its own exit codes)
-                // but just in case, we force an error by NOT setting syntaxError FALSE
+                Log(@"Program error: printSanitizedConfigurationFile() should not return! A syntax error is being forced.");
             }
 
         } else if (  strcmp(command, "printTunnelblickKextPolicy") == 0  ) {
@@ -4469,8 +4467,7 @@ int main(int argc, char * argv[]) {
                 NSString* fileName = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(fileName);
                 revertToShadow(fileName);
-                // revertToShadow() should never return (it does exitOpenvpnstart() with its own exit codes)
-                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+                Log(@"Program error: revertToShadow() should not return! A syntax error is being forced.");
             }
 
         } else if (  strcmp(command, "route-pre-down") == 0  ) {
@@ -4496,8 +4493,7 @@ int main(int argc, char * argv[]) {
                 NSString* name = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(name);
                 safeDelete(name);
-                // safeDelete() should never return (it does exitOpenvpnstart() with its own exit codes)
-                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+                Log(@"Program error: safeDelete() should not return! A syntax error is being forced.");
             }
 
         } else if ( strcmp(command, "safeRename") == 0 ) {
@@ -4507,8 +4503,7 @@ int main(int argc, char * argv[]) {
                 validateConfigName(oldName);
                 validateConfigName(newName);
                 safeRename(oldName, newName);
-                // safeRename() should never return (it does exitOpenvpnstart() with its own exit codes)
-                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+                Log(@"Program error: safeRename() should not return! A syntax error is being forced.");
             }
 
         } else if ( strcmp(command, "safeUpdate") == 0 ) {
@@ -4516,8 +4511,7 @@ int main(int argc, char * argv[]) {
                 NSString* sourcePath = [NSString stringWithUTF8String:argv[2]];
                 NSString* targetPath = [NSString stringWithUTF8String:argv[3]];
                 safeUpdate(sourcePath, targetPath, YES);
-                // safeUpdate() should never return (it does exitOpenvpnstart() with its own exit codes)
-                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+                Log(@"Program error: safeUpdate() should not return! A syntax error is being forced.");
             }
 
         } else if ( strcmp(command, "safeUpdateTest") == 0 ) {
@@ -4525,8 +4519,7 @@ int main(int argc, char * argv[]) {
                 NSString* sourcePath = [NSString stringWithUTF8String:argv[2]];
                 NSString* targetPath = [NSString stringWithUTF8String:argv[3]];
                 safeUpdate(sourcePath, targetPath, NO);
-                // safeUpdate() should never return (it does exitOpenvpnstart() with its own exit codes)
-                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+                Log(@"Program error: safeUpdateTest() should not return! A syntax error is being forced.");
             }
 
         } else if (  strcmp(command, "scriptStatusForTblk") == 0  ) {
