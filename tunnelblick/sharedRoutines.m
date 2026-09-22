@@ -367,18 +367,6 @@ BOOL cvt_atou_safe(const char *str, NSString * description, unsigned * out) {
     return TRUE;  // Success
 }
 
-unsigned cvt_atou(const char * s, NSString * description)
-{
-    int i;
-    unsigned u;
-    i = atoi(s);
-    if (  i < 0  ) {
-        Log(@"Negative values are not allowed for %@", description);
-    }
-    u = (unsigned) i;
-    return u;
-}
-
 BOOL isSanitizedOpenvpnVersion(NSString * s) {
 
     return (   [s containsOnlyCharactersInString: ALLOWED_OPENVPN_VERSION_CHARACTERS]
