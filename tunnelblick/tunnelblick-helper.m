@@ -279,9 +279,11 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
 
             "configName is the name of the configuration file (a .conf or .ovpn file, or .tblk package)\n\n"
 
-            "mgtPort    is the port number (1-65535) to use for managing the connection if bitMask bit 14 is 1 (i.e., from the GUI)\n"
-            "           or 0 to use a free port (starting the search at port 1337) and create a log file encoding the configuration path and port number\n"
-            "           or the port number (1-65535) to use a free port (starting the search at the specified port number) and create a log file encoding the configuration path and port number\n\n"
+            "mgtPort    if bitMask bit 14 is 1 (i.e., from the GUI)\n"
+            "              then mgtPort is the port number (1-65535) to use for managing the connection\n"
+            "                   or 0 to use a free port (starting the search at port 1337).\n"
+            "              else it is the port number (1-65535) to to start a search for a free port from.\n"
+            "           The log file name includes an encoding of the configuration path and port number\n\n"
 
             "useScripts has four fields (weird, but backward compatible):\n"
             "           bit 0 is 0 to not run scripts when the tunnel goes up or down (scripts may still be used in the configuration file)\n"
@@ -340,7 +342,6 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
 			"                            bit 22 is 1 to indicate that network access should be disabled after disconnecting\n"
 			"                            bit 23 is 1 to indicate that the primary network service should be reset after disconnecting unexpectedly\n"
 			"                            bit 24 is 1 to indicate that network access should be disabled after disconnecting unexpectedly\n"
-            "                            bit 24 is 1 to indicate that the program is running on macOS Big Sur or newer\n"
             "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
 
             "leasewatchOptions is a string containing characters indicating options for leasewatch.\n\n"
@@ -1861,7 +1862,7 @@ static NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCo
 
 static void deleteAllLogFiles(void) {
 
-	// Deletes all log files associated with OpenVPN log files that have the OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS bit set in the bitmask encoded in their filenames
+	// Deletes all log files associated with OpenVPN log files that have the OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS bit set in the bitmask encoded in their filenames.
     // Also deletes all log files that have a "last modified" date earlier than one week ago
 
 	// Make a list of filename prefixes for files that can be deleted
@@ -3013,7 +3014,7 @@ static void exitIfContentsAreNotReasonable(NSString * path) {
                 Log(@"%@", errMsg);
                 exitOpenvpnstart(-1);
             }
-            
+
         }
         stopBeingRootToAccessPath(path);
 
