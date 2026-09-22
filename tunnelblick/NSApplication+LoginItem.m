@@ -319,8 +319,12 @@ extern TBUserDefaults * gTbDefaults;
         if (  [line length] > PS_CHARACTERS_BEFORE_COMMAND  ) {
             NSString * command = [line substringFromIndex: PS_CHARACTERS_BEFORE_COMMAND];
             if (  [command hasPrefix: prefix]  ) {
-                unsigned pid = cvt_atou([line UTF8String], @"Process ID");
-                [list addObject: [NSNumber numberWithUnsignedInt: pid]];
+                unsigned pid;
+                if (  cvt_atou_safe([line UTF8String], @"Process ID", &pid)  ) {
+                    [list addObject: [NSNumber numberWithUnsignedInt: pid]];
+                } else {
+                    Log(@"Ignoring invalid process ID '%@' which cannot be converted to an unsigned int", line);
+                }
             }
         }
     }

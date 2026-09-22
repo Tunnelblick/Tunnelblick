@@ -344,6 +344,29 @@ BOOL needToReplaceLaunchDaemon(void) {
     return FALSE;
 }
 
+BOOL cvt_atou_safe(const char *str, NSString * description, unsigned * out) {
+
+    if (  str == NULL  ) {
+        Log(@"Invalid %@ value. String pointer is NULL, probably could not covert from UTF-8", description);
+        return FALSE;  // Error indicator
+    }
+
+    char *endptr;
+    errno = 0;
+    unsigned long val = strtoul(str, &endptr, 10);
+
+    // Check for conversion errors
+    if (   (errno == ERANGE)
+        || (val > UINT_MAX)
+        || (*endptr != '\0')  ) {
+        Log(@"Invalid %@ value: '%s'", description, str);
+        return FALSE;  // Error indicator
+    }
+
+    *out = (unsigned)val;
+    return TRUE;  // Success
+}
+
 unsigned cvt_atou(const char * s, NSString * description)
 {
     int i;

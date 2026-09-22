@@ -187,7 +187,9 @@ NSString * getWorkingDirectory(int argc, char* argv[])
     
     unsigned  cfgLocCode = 0;
     if (  argc > ARG_CFG_LOC  ) {
-        cfgLocCode = cvt_atou(argv[ARG_CFG_LOC], @"cfgLocCode");
+        if (  ! cvt_atou_safe(argv[ARG_CFG_LOC], @"cfgLocCode", &cfgLocCode)  ) {
+             errorExit();
+        }
     }
     
     if (  cfgLocCode == CFG_LOC_DEPLOY  ) {
