@@ -3509,6 +3509,8 @@ done:
             errorFound = TRUE;
             break;
 
+        case OPENVPNSTART_REVERT_ERROR:
+            ; // Fall through to show a general error message
         default:
             TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
                               NSLocalizedString(@"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n", @"Window text"));

@@ -1951,8 +1951,8 @@ static BOOL revertToShadowWorker (NSString * displayName) {
     //    4. Set ownership of the copy to the user and user's group
 
     if (  gUidOfUser == 0  ) {
-        Log(@"RevertToShadow not allowed when running as root");
-        exitOpenvpnstart(-1);
+        Log(@"Revert to secure configuration is not allowed when running as root");
+        return NO;
     }
 
     NSString * fileName = [displayName stringByAppendingPathExtension: @"tblk"];
@@ -1962,7 +1962,7 @@ static BOOL revertToShadowWorker (NSString * displayName) {
 
     if (   ! folderExistsForRootAtPath(shadowPath)  ) {
         Log(@"No secured (shadow) copy of a .tblk at %@", shadowPath);
-        exitOpenvpnstart(-1);
+        return NO;
     }
 
     NSString * privatePrefix = [userHome()    stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
@@ -1973,36 +1973,41 @@ static BOOL revertToShadowWorker (NSString * displayName) {
     becomeRoot(@"revert to use shadow configuration");
     {
 
+        // Make a temporary copy
         BOOL result = [gFileMgr tbCopyPath: shadowPath toPath: tempCopyPath handler: nil];
         if (  ! result  ) {
-            exitOpenvpnstart(-1);
+            stopBeingRoot();
+            return NO;
         }
 
-        result = secureOneFolderMaintainOwnership(tempCopyPath, YES, gUidOfUser, YES);
+        // Set ownership and permissions on the temporary copy as if it were the user's copy
+        result = secureOneFolderMaintainOwnership(tempCopyPath, YES, gUidOfUser, NO);
         if (  ! result  ) {
             [gFileMgr tbRemovePathIfItExists: tempCopyPath];
-            exitOpenvpnstart(-1);
+            stopBeingRoot();
+            return NO;
         }
 
-        result = [gFileMgr tbForceMovePath: tempCopyPath toPath: privatePath];
-        if (  ! result  ) {
+        // Swap the temporary copy and the user's private copy
+        errno = 0;
+        int status = renamex_np(tempCopyPath.fileSystemRepresentation,
+                                privatePath.fileSystemRepresentation,
+                                RENAME_SWAP | RENAME_NOFOLLOW_ANY);
+        if (  status != 0  ) {
+            Log(@"Error from renamex_np(): errno = %d ('%s')", errno, strerror(errno));
             [gFileMgr tbRemovePathIfItExists: tempCopyPath];
-            exitOpenvpnstart(-1);
+            stopBeingRoot();
+            return NO;
         }
 
-        // Set user:admin ownership of everything inside the .tblk
-        result = checkSetOwnership(privatePath, YES, gUidOfUser, ADMIN_GROUP_ID);
-        if (  ! result  ) {
-            [gFileMgr tbRemovePathIfItExists: privatePath];
-            exitOpenvpnstart(-1);
+        // Remove the user's original private copy (which was swapped to be in L_AS_T_TEMP)
+        NSError * err = nil;
+        if (  ! [gFileMgr removeItemAtPath: tempCopyPath error: &err]  ) {
+            Log(@"revertToShadowWorker: Error deleting temporary file: %@", err);
+            stopBeingRoot();
+            return NO;
         }
-
-        // Set user:staff ownership of the .tblk itself
-        result = checkSetOwnership(privatePath, NO, gUidOfUser, STAFF_GROUP_ID);
-        if (  ! result  ) {
-            [gFileMgr tbRemovePathIfItExists: privatePath];
-            exitOpenvpnstart(-1);
-        }
+        
     }
     stopBeingRoot();
 
@@ -2010,22 +2015,16 @@ static BOOL revertToShadowWorker (NSString * displayName) {
     return YES;
 }
 
-static BOOL revertToShadow (NSString * fileName) {
+static void revertToShadow (NSString * fileName) {
     // Reverts the specified private configuration .tblk to its shadow copy.
     //
     // fileName is the display name of the configuration, plus the .tblk extension
-    //
-    // Returns the results as one of the following result codes:
-    //      OPENVPNSTART_REVERT_CONFIG_OK
-    //      OPENVPNSTART_REVERT_CONFIG_MISSING
-    //      a different integer, indicating an unexpected error.
-    //
 
     BOOL ok = revertToShadowWorker(fileName);
 
-    return (  ok
-            ? OPENVPNSTART_REVERT_CONFIG_OK
-            : OPENVPNSTART_REVERT_CONFIG_MISSING);
+    exitOpenvpnstart(  ok
+                     ? OPENVPNSTART_REVERT_CONFIG_OK
+                     : OPENVPNSTART_REVERT_ERROR);
 }
 
 static void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode) {
