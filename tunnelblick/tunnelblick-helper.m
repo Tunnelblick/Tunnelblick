@@ -602,10 +602,8 @@ static void errorExitIfDotDotOrSymlinkInPath(NSString * path) {
         if (  [gFileMgr fileExistsAtPath: curPath]  ) {
             NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
             if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                if (  ! [curPath hasSuffix: @"/Tunnelblick.app/Contents/Resources/openvpn/default"]  ) {
-                    Log(@"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path);
-                    exitOpenvpnstart(-1);
-                }
+                Log(@"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path);
+                exitOpenvpnstart(-1);
             }
         }
 
