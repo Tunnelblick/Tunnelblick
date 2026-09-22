@@ -2004,28 +2004,27 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [statusMenuItem setTarget: self];
     [statusMenuItem setAction: @selector(disconnectAllMenuItemWasClicked:)];
 
-    [myVPNMenu release];
-    myVPNMenu = [[NSMenu alloc] init];
+    NSMenu * newMenu = [[NSMenu alloc] init];
     [myVPNMenu setDelegate:self];
 
-    [myVPNMenu addItem:statusMenuItem];
+    [newMenu addItem:statusMenuItem];
 
     if (  [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]  ) {
-        [myVPNMenu addItem: reenableInternetItem];
+        [newMenu addItem: reenableInternetItem];
     }
 
-    [myVPNMenu addItem:[NSMenuItem separatorItem]];
+    [newMenu addItem:[NSMenuItem separatorItem]];
 
-    [myVPNMenu addItem: tbUpdateAvailableItem];
-    [myVPNMenu addItem: configUpdateAvailableItem];
-    [myVPNMenu addItem: warningsItem];
-    [myVPNMenu addItem: [NSMenuItem separatorItem]];
+    [newMenu addItem: tbUpdateAvailableItem];
+    [newMenu addItem: configUpdateAvailableItem];
+    [newMenu addItem: warningsItem];
+    [newMenu addItem: [NSMenuItem separatorItem]];
 
     BOOL showVpnDetailsAtTop = (   ( ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"] )
                                 && ( ! [gTbDefaults boolForKey:@"putVpnDetailsAtBottom"] ) );
     if (  showVpnDetailsAtTop  ) {
-        [myVPNMenu addItem: vpnDetailsItem];
-        [myVPNMenu addItem: [NSMenuItem separatorItem]];
+        [newMenu addItem: vpnDetailsItem];
+        [newMenu addItem: [NSMenuItem separatorItem]];
     }
 
     // Add each connection to the menu
@@ -2033,7 +2032,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     NSArray *keyArray = [[[self myConfigDictionary] allKeys]
                          sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
     NSEnumerator * e = [keyArray objectEnumerator];
-    NSUInteger itemsBeforeInsertingConfigurations = [myVPNMenu numberOfItems];
+    NSUInteger itemsBeforeInsertingConfigurations = [newMenu numberOfItems];
     TBLog(@"DB-MC", @"itemsBeforeInsertingConfigurations = %lu", (unsigned long)itemsBeforeInsertingConfigurations);
 
     if (  cachedMenuItems  ) {
@@ -2041,7 +2040,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
         NSUInteger ix;
         for (  ix=0; ix<[cachedMenuItems count]; ix++  ) {
             NSMenuItem * item = [[[cachedMenuItems objectAtIndex: ix] copy] autorelease];
-            [myVPNMenu addItem: item];
+            [newMenu addItem: item];
         }
     } else {
         TBLog(@"DB-MC", @"Creating menu items for configurations");
@@ -2057,49 +2056,49 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
                 [connectionItem setAction:@selector(toggle:)];
 
                 NSString * menuItemName = [myConnection localizedName];
-                [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: itemsBeforeInsertingConfigurations withName: menuItemName];
+                [self insertConnectionMenuItem: connectionItem IntoMenu: newMenu afterIndex: itemsBeforeInsertingConfigurations withName: menuItemName];
 
                 [myConnection setMenuItem: connectionItem];
             }
         }
     }
 
-    NSUInteger itemsAfterInsertingConfigurations = [myVPNMenu numberOfItems];
+    NSUInteger itemsAfterInsertingConfigurations = [newMenu numberOfItems];
     TBLog(@"DB-MC", @"itemsAfterInsertingConfigurations = %lu", (unsigned long)itemsAfterInsertingConfigurations);
 
     if (  [[self myConfigDictionary] count] == 0  ) {
-        [myVPNMenu addItem: noConfigurationsItem];
+        [newMenu addItem: noConfigurationsItem];
         if (  ! [gTbDefaults boolForKey:@"doNotShowAddConfigurationMenuItem"]  ) {
-            [myVPNMenu addItem: addConfigurationItem];
+            [newMenu addItem: addConfigurationItem];
         }
     }
 
-    [myVPNMenu addItem: [NSMenuItem separatorItem]];
+    [newMenu addItem: [NSMenuItem separatorItem]];
 
 #ifdef INCLUDE_VPNSERVICE
     if (  registerForTunnelblickItem  ) {
-        [myVPNMenu addItem: registerForTunnelblickItem];
-        [myVPNMenu addItem: [NSMenuItem separatorItem]];
+        [newMenu addItem: registerForTunnelblickItem];
+        [newMenu addItem: [NSMenuItem separatorItem]];
     }
 #endif
 
     [self addCustomMenuItems];
 
     if (  contactTunnelblickItem  ) {
-        [myVPNMenu addItem: contactTunnelblickItem];
-        [myVPNMenu addItem: [NSMenuItem separatorItem]];
+        [newMenu addItem: contactTunnelblickItem];
+        [newMenu addItem: [NSMenuItem separatorItem]];
     }
 
     if (   ( ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"] )
         && [gTbDefaults boolForKey:@"putVpnDetailsAtBottom"]  ) {
-        [myVPNMenu addItem: vpnDetailsItem];
-        [myVPNMenu addItem: [NSMenuItem separatorItem]];
+        [newMenu addItem: vpnDetailsItem];
+        [newMenu addItem: [NSMenuItem separatorItem]];
     }
 
-    [myVPNMenu addItem: quitItem];
+    [newMenu addItem: quitItem];
 
-    [statusItem setMenu: myVPNMenu];
-    TBLog(@"DB-SI", @"set statusItem.menu to myVPNMenu");
+    [statusItem setMenu: newMenu];
+    TBLog(@"DB-SI", @"set statusItem.menu to newMenu");
 
     // If appropriate, create a cache of the menu items that are configurations and/or folders of configurations.
     // This is done after the creation of all menu items because the menu may be reordered as items are inserted.
@@ -2112,7 +2111,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
           (unsigned long)maxConfigurationsForUncachedMenu, (unsigned long)maxConfigurationsForUncachedMenu, cachedMenuItems);
     if (   (! cachedMenuItems)
         && ([myConfigDictionary count] > maxConfigurationsForUncachedMenu)  ) {
-        NSArray * menuItems = [myVPNMenu itemArray];
+        NSArray * menuItems = [newMenu itemArray];
         TBLog(@"DB-MC", @"Creating cachedMenuItems; %lu items in menuItems", (unsigned long)[menuItems count]);
         NSMutableArray * list = [[[NSMutableArray alloc] initWithCapacity: [menuItems count]] autorelease];
         NSUInteger ix;
@@ -2124,6 +2123,9 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
         [self setCachedMenuItems: [NSArray arrayWithArray: list]];
         TBLog(@"DB-MC", @"Created cachedMenuItems with %lu items", (unsigned long)[list count]);
     }
+
+    [myVPNMenu autorelease];
+    myVPNMenu = newMenu;
 
     status = pthread_mutex_unlock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
