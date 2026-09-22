@@ -600,6 +600,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 #define OPENVPNSTART_REVERT_CONFIG_OK				 0
 #define OPENVPNSTART_SAFE_OPERATION_OK               0
 #define OPENVPNSTART_DO_NOT_NEED_SCRIPT_AUTH         0
+#define OPENVPNSTART_REVERT_ERROR                    241
 #define OPENVPNSTART_TUNNELBLICKD_ERROR              242
 #define OPENVPNSTART_NEED_USER_SCRIPT_AUTH           243
 #define OPENVPNSTART_NEED_ROOT_SCRIPT_AUTH           244
