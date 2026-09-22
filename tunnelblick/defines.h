@@ -619,7 +619,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 // Indices of arguments that are included in the in 'openvpnstartArgs' part of the name of OpenVPN log files
 // The arguments are all positive integers and are separated by '_' characters for easy parsing via componentsSeparatedByString
 #define OPENVPNSTART_LOGNAME_ARG_USE_SCRIPTS_IX  0
-#define OPENVPNSTART_LOGNAME_ARG_SkIP_SCR_SEC_IX 1
+#define OPENVPNSTART_LOGNAME_ARG_SKIP_SCR_SEC_IX 1
 #define OPENVPNSTART_LOGNAME_ARG_CFG_LOC_CODE_IX 2
 #define OPENVPNSTART_LOGNAME_ARG_NO_MONITOR_IX   3
 #define OPENVPNSTART_LOGNAME_ARG_BITMASK_IX      4
@@ -631,7 +631,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 #define OPENVPNSTART_ARG_CONFIG_FILE_IX         1
 #define OPENVPNSTART_ARG_PORT_IX                2
 #define OPENVPNSTART_ARG_USE_SCRIPTS_IX         3
-#define OPENVPNSTART_ARG_SkIP_SCR_SEC_IX        4
+#define OPENVPNSTART_ARG_SKIP_SCR_SEC_IX        4
 #define OPENVPNSTART_ARG_CFG_LOC_CODE_IX        5
 #define OPENVPNSTART_ARG_NO_MONITOR_IX          6
 #define OPENVPNSTART_ARG_BITMASK_IX             7
