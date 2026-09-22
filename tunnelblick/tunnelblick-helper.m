@@ -4185,6 +4185,23 @@ static void validateFilename(NSString * name) {
 	}
 }
 
+static unsigned tunnelblick_helper_cvt_atou(const char *str, NSString * description) {
+
+    char *endptr;
+    errno = 0;
+    unsigned long val = strtoul(str, &endptr, 10);
+
+    // Check for conversion errors
+    if (   (errno == ERANGE)
+        || (val > UINT_MAX)
+        || (*endptr != '\0')  ) {
+        Log(@"Invalid %@ value: '%s'", description, str);
+        exitOpenvpnstart(-1);
+    }
+
+    return (unsigned)val;
+}
+
 //**************************************************************************************************************************
 int main(int argc, char * argv[]) {
     pool = [[NSAutoreleasePool alloc] init];
@@ -4294,7 +4311,7 @@ int main(int argc, char * argv[]) {
         } else if ( strcmp(command, "connected") == 0) {
             if (argc == 4  ) {
                 NSString * configName = [NSString stringWithUTF8String: argv[2]];
-                unsigned   cfgLocCode =  cvt_atou(argv[3], @"cfgLogCode");
+                unsigned   cfgLocCode =  tunnelblick_helper_cvt_atou(argv[3], @"cfgLogCode");
                 validateConfigName(configName);
                 validateCfgLocCode(cfgLocCode);
                 retCode = runScript(@"connected.sh", configName, cfgLocCode);
@@ -4325,7 +4342,7 @@ int main(int argc, char * argv[]) {
         } else if ( strcmp(command, "deleteLog") == 0 ) {
             if (argc == 4) {
                 NSString* configFile = [NSString stringWithUTF8String:argv[2]];
-                unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
+                unsigned cfgLocCode = tunnelblick_helper_cvt_atou(argv[3], @"cfgLocCode");
                 validateConfigName(configFile);
                 if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
                     cfgLocCode = CFG_LOC_ALTERNATE;
@@ -4344,7 +4361,7 @@ int main(int argc, char * argv[]) {
         } else if (  strcmp(command, "down") == 0  ) {
             if (  argc == 5  ) {
                 NSString* configName = [NSString stringWithUTF8String:argv[3]];
-                unsigned cfgLocCode = cvt_atou(argv[4], @"cfgLocCode");
+                unsigned cfgLocCode = tunnelblick_helper_cvt_atou(argv[4], @"cfgLocCode");
                 validateConfigName(configName);
                 if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
                     cfgLocCode = CFG_LOC_ALTERNATE;
@@ -4357,7 +4374,7 @@ int main(int argc, char * argv[]) {
 
         } else if (  strcmp(command, "expectDisconnect") == 0  ) {
             if (  argc == 4  ) {
-                unsigned int flag = cvt_atou(argv[2], @"flag");
+                unsigned int flag = tunnelblick_helper_cvt_atou(argv[2], @"flag");
                 if (   (flag == 0)
                     || (flag == 1)  ) {
                     NSString * filename = [NSString stringWithUTF8String:argv[3]];
@@ -4382,7 +4399,7 @@ int main(int argc, char * argv[]) {
 
         } else if (  strcmp(command, "loadKexts") == 0  ) {
             if (  argc == 3  ) {
-                unsigned int bitMask = cvt_atou(argv[2], @"bitMask");
+                unsigned int bitMask = tunnelblick_helper_cvt_atou(argv[2], @"bitMask");
                 unsigned int kextMask = bitMask & ( ~ OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT);
                 if (  kextMask <= OPENVPNSTART_KEXTS_MASK_LOAD_MAX  ) {
                     if (  kextMask == 0  ) {
@@ -4396,7 +4413,7 @@ int main(int argc, char * argv[]) {
         } else if ( strcmp(command, "postDisconnect") == 0) {
             if (argc == 4  ) {
                 NSString * configName = [NSString stringWithUTF8String: argv[2]];
-                unsigned   cfgLocCode =  cvt_atou(argv[3], @"cfgLogCode");
+                unsigned   cfgLocCode =  tunnelblick_helper_cvt_atou(argv[3], @"cfgLogCode");
                 validateConfigName(configName);
                 validateCfgLocCode(cfgLocCode);
                 retCode = runScript(@"post-disconnect.sh", configName, cfgLocCode);
@@ -4406,7 +4423,7 @@ int main(int argc, char * argv[]) {
         } else if ( strcmp(command, "preDisconnect") == 0) {
             if (argc == 4  ) {
                 NSString * configName = [NSString stringWithUTF8String: argv[2]];
-                unsigned   cfgLocCode =  cvt_atou(argv[3], @"cfgLogCode");
+                unsigned   cfgLocCode =  tunnelblick_helper_cvt_atou(argv[3], @"cfgLogCode");
                 validateConfigName(configName);
                 validateCfgLocCode(cfgLocCode);
                 retCode = runScript(@"pre-disconnect.sh", configName, cfgLocCode);
@@ -4416,7 +4433,7 @@ int main(int argc, char * argv[]) {
         } else if ( strcmp(command, "printSanitizedConfigurationFile") == 0 ) {
             if (argc == 4) {
                 NSString* configFile = [NSString stringWithUTF8String:argv[2]];
-                unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
+                unsigned cfgLocCode = tunnelblick_helper_cvt_atou(argv[3], @"cfgLocCode");
                 validateConfigName(configFile);
                 if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
                     cfgLocCode = CFG_LOC_ALTERNATE;
@@ -4442,7 +4459,7 @@ int main(int argc, char * argv[]) {
         } else if ( strcmp(command, "reconnecting") == 0) {
             if (argc == 4  ) {
                 NSString * configName = [NSString stringWithUTF8String: argv[2]];
-                unsigned   cfgLocCode =  cvt_atou(argv[3], @"cfgLogCode");
+                unsigned   cfgLocCode =  tunnelblick_helper_cvt_atou(argv[3], @"cfgLogCode");
                 validateConfigName(configName);
                 validateCfgLocCode(cfgLocCode);
                 retCode = runScript(@"reconnecting.sh", configName, cfgLocCode);
@@ -4460,12 +4477,12 @@ int main(int argc, char * argv[]) {
 
         } else if (  strcmp(command, "route-pre-down") == 0  ) {
             if (  argc == 5 ) {
-                unsigned flags = cvt_atou(argv[2], @"flags");
+                unsigned flags = tunnelblick_helper_cvt_atou(argv[2], @"flags");
                 if (  flags < 4  ) {
                     BOOL kOption  = (flags & 1) != 0;
                     BOOL kuOption = (flags & 2) != 0;
                     NSString* configName = [NSString stringWithUTF8String:argv[3]];
-                    unsigned cfgLocCode = cvt_atou(argv[4], @"cfgLocCode");
+                    unsigned cfgLocCode = tunnelblick_helper_cvt_atou(argv[4], @"cfgLocCode");
                     validateConfigName(configName);
                     if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
                         cfgLocCode = CFG_LOC_ALTERNATE;
@@ -4539,7 +4556,7 @@ int main(int argc, char * argv[]) {
                 unloadKexts(OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT);
 				syntaxError = FALSE;
             } else if (  argc == 3  ) {
-                unsigned int kextMask = cvt_atou(argv[2], @"kext mask");
+                unsigned int kextMask = tunnelblick_helper_cvt_atou(argv[2], @"kext mask");
                 if (  kextMask < OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX  ) {
                     if (  kextMask == 0  ) {
                         kextMask = OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT;
@@ -4570,12 +4587,12 @@ int main(int argc, char * argv[]) {
 			if (  (argc > 3) && (argc <= OPENVPNSTART_MAX_ARGC)  ) {
 
                 configFile = stringFromUTF8CString(argv[2]);
-                if (                 (strlen(argv[ 3]) <  6)                          ) port = cvt_atou(argv[3], @"port");
-                if (  (argc >  4) && (strlen(argv[ 4]) <  6)                          ) useScripts = cvt_atou(argv[4], @"useScripts");
+                if (                 (strlen(argv[ 3]) <  6)                          ) port = tunnelblick_helper_cvt_atou(argv[3], @"port");
+                if (  (argc >  4) && (strlen(argv[ 4]) <  6)                          ) useScripts = tunnelblick_helper_cvt_atou(argv[4], @"useScripts");
                 if (  (argc >  5) && (strlen(argv[ 5]) <  6) && (atoi(argv[5]) == 1)  ) skipScrSec = TRUE;
-                if (  (argc >  6) && (strlen(argv[ 6]) <  6)                          ) cfgLocCode = cvt_atou(argv[6], @"cfgLocCode");
+                if (  (argc >  6) && (strlen(argv[ 6]) <  6)                          ) cfgLocCode = tunnelblick_helper_cvt_atou(argv[6], @"cfgLocCode");
                 if (  (argc >  7) && (strlen(argv[ 7]) <  6) && (atoi(argv[7]) == 1)  ) noMonitor  = TRUE;
-                if (  (argc >  8) && (strlen(argv[ 8]) < 10)                          ) bitMask = cvt_atou(argv[8], @"bitMask");
+                if (  (argc >  8) && (strlen(argv[ 8]) < 10)                          ) bitMask = tunnelblick_helper_cvt_atou(argv[8], @"bitMask");
                 if (  (argc >  9) && (strlen(argv[ 9]) < 16)                          ) leasewatchOptions  = stringFromUTF8CString(argv[9]);
                 if (  (argc > 10) && (strlen(argv[10]) < 128)                         ) openvpnVersion     = stringFromUTF8CString(argv[10]);
                 if (  (argc > 11) && (strlen(argv[11]) < 128)                         ) managementPassword = stringFromUTF8CString(argv[11]);
