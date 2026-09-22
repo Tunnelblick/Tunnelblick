@@ -860,9 +860,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
     // Remove management password from start arguments because we don't create a new password
     // for each connection if connecting when the computer starts.
-    if (   ((*openvpnstartArgs).count > OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX)
+    if (   ((*openvpnstartArgs).count > OPENVPNSTART_ARG_MANAGEMENT_PASSWORD_IX)
         && [(*openvpnstartArgs).firstObject isEqualToString: @"start"]  ) {
-        [(*openvpnstartArgs) removeObjectAtIndex: OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX];
+        [(*openvpnstartArgs) removeObjectAtIndex: OPENVPNSTART_ARG_MANAGEMENT_PASSWORD_IX];
     }
 
     [*openvpnstartArgs insertObject: openvpnstartPath atIndex: 0];

@@ -935,7 +935,7 @@ unsigned int getFreePort(void)
     int result = 0;
 
     // Try many times to get a port to have a good chance of finding a free port even if most are in use.
-    unsigned tries_to_do = 2 * (MAX_MANAGMENT_INTERFACE_PORT_NUMBER - MIN_MANAGMENT_INTERFACE_PORT_NUMBER);
+    unsigned tries_to_do = 2 * (MAX_MANAGEMENT_INTERFACE_PORT_NUMBER - MIN_MANAGEMENT_INTERFACE_PORT_NUMBER);
     unsigned tries_left = tries_to_do;
 
     do {
@@ -948,7 +948,7 @@ unsigned int getFreePort(void)
         }
 
         // Try a random port in the range for the managment port
-        resultPort = arc4random_uniform(MAX_MANAGMENT_INTERFACE_PORT_NUMBER - MIN_MANAGMENT_INTERFACE_PORT_NUMBER) + MIN_MANAGMENT_INTERFACE_PORT_NUMBER;
+        resultPort = arc4random_uniform(MAX_MANAGEMENT_INTERFACE_PORT_NUMBER - MIN_MANAGEMENT_INTERFACE_PORT_NUMBER) + MIN_MANAGEMENT_INTERFACE_PORT_NUMBER;
 
         address.sin_len = (unsigned char)len;
         address.sin_family = AF_INET;
@@ -967,7 +967,7 @@ unsigned int getFreePort(void)
 
     if (  result != 0  ) {
         Log(@"getFreePort: could not get a free port (in %u through %u) in %u tries",
-            MIN_MANAGMENT_INTERFACE_PORT_NUMBER, MAX_MANAGMENT_INTERFACE_PORT_NUMBER, tries_to_do);
+            MIN_MANAGEMENT_INTERFACE_PORT_NUMBER, MAX_MANAGEMENT_INTERFACE_PORT_NUMBER, tries_to_do);
         resultPort = 0;
     }
 

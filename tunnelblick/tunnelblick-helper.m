@@ -3354,10 +3354,10 @@ static int startVPN(NSString * configFile,
     if (   (port == 0)
         || ( (bitMask & OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS) == 0 )  ) {
         port = getFreePort();
-    } else if (   (port < MIN_MANAGMENT_INTERFACE_PORT_NUMBER)
-               || (port > MAX_MANAGMENT_INTERFACE_PORT_NUMBER)  ) {
+    } else if (   (port < MIN_MANAGEMENT_INTERFACE_PORT_NUMBER)
+               || (port > MAX_MANAGEMENT_INTERFACE_PORT_NUMBER)  ) {
         Log(@"Warning: specified port %u for OpenVPN management interface is not between %u and %u, inclusive",
-                port, MIN_MANAGMENT_INTERFACE_PORT_NUMBER, MAX_MANAGMENT_INTERFACE_PORT_NUMBER);
+                port, MIN_MANAGEMENT_INTERFACE_PORT_NUMBER, MAX_MANAGEMENT_INTERFACE_PORT_NUMBER);
     }
     if (  port == 0  ) {
         Log(@"Unable to find a free port to connect to the management interface");

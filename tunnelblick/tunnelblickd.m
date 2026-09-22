@@ -702,14 +702,14 @@ static NSString * preprocessStartCommandWithPassword(NSString * rawCommand,
     //
     // Validate and get arguments
     //
-    if (  arguments.count <= OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX  ) {
+    if (  arguments.count <= OPENVPNSTART_ARG_MANAGEMENT_PASSWORD_IX  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Wrong number of arguments");
         *stdoutStringPtr = [*stdoutStringPtr stringByAppendingString: @"Wrong number of arguments\n"];
         return nil;
     }
 
     NSString * cfgName  = arguments[1];
-    NSString * password = arguments[OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX];
+    NSString * password = arguments[OPENVPNSTART_ARG_MANAGEMENT_PASSWORD_IX];
 
     if (   (password.length == 0)
         || (cfgName.length  == 0)  ) {
@@ -764,7 +764,7 @@ static NSString * preprocessPathOfNewSecureItemContainingString(NSArray   * argu
 
     NSString * stringToStore  = arguments[1];
 
-    if (  stringToStore.length   != LENGTH_OF_MANAGMENT_PASSWORD) {
+    if (  stringToStore.length   != LENGTH_OF_MANAGEMENT_PASSWORD) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Empty argument(s)");
         *stdoutStringPtr = [*stdoutStringPtr stringByAppendingString: @"Empty argument(s)\n"];
         return nil;
@@ -819,7 +819,7 @@ static NSString * preprocessCommandsInRawCommand(NSString * rawCommand,
 
     BOOL isStartCommand =  [arguments.firstObject isEqualToString: @"start"];
     BOOL isStartCommandWithManagementPassword = (   isStartCommand
-                                                 && (arguments.count > OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX)
+                                                 && (arguments.count > OPENVPNSTART_ARG_MANAGEMENT_PASSWORD_IX)
                                                  );
 
     if ( isStartCommandWithManagementPassword  ) {

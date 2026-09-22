@@ -42,8 +42,8 @@
 // Range of ports to be used to connect to the OpenVPN management interface.
 // We chose one dynamic/private/ephemeral port per connection at random within this range.
 // (See https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
-#define MIN_MANAGMENT_INTERFACE_PORT_NUMBER 49152
-#define MAX_MANAGMENT_INTERFACE_PORT_NUMBER 65535
+#define MIN_MANAGEMENT_INTERFACE_PORT_NUMBER 49152
+#define MAX_MANAGEMENT_INTERFACE_PORT_NUMBER 65535
 
 // Maximum length of a response from https://tunnelblick.net/ipinfo
 // Will be IP,port#,IP. An IPv6 addresses takes up to 39 bytes, port# up to five, and two commas separating the three items, so 78 + 5 + 2 = 85 bytes.
@@ -69,7 +69,7 @@
 
 #define LENGTH_OF_YYYY_MM_DD ( 4 + 1 + 2 + 1 + 2 )
 
-#define LENGTH_OF_MANAGMENT_PASSWORD 16
+#define LENGTH_OF_MANAGEMENT_PASSWORD 16
 
 // Number of characters/columns taken up by the date & time in the Tunnelblick log
 //    If == 19, microseconds are not included (e.g., "2019-03-08 09:30:15")
@@ -637,7 +637,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 #define OPENVPNSTART_ARG_BITMASK_IX             7
 #define OPENVPNSTART_ARG_LEASEWATCH_IX          8
 #define OPENVPNSTART_ARG_OPENVPN_VERSION_IX     9
-#define OPENVPNSTART_ARG_MANAGMENT_PASSWORD_IX 10
+#define OPENVPNSTART_ARG_MANAGEMENT_PASSWORD_IX 10
 
 
 //*************************************************************************************************
