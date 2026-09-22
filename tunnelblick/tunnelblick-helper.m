@@ -73,6 +73,12 @@ NSFileManager * gFileMgr;                       // NSFileManager.defaultManager
 
 //**************************************************************************************************************************
 
+static void becomeRootToAccessPath(NSString * path, NSString * reason);
+
+static void stopBeingRootToAccessPath(NSString * path);
+
+//**************************************************************************************************************************
+
 void appendLogWithoutTrailingLF(NSString * msg) {
 
     fprintf(stdout, "%s", msg.UTF8String);
@@ -491,7 +497,11 @@ static void becomeRootToAccessPath(NSString * path, NSString * reason) {
     if (  [path hasPrefix: L_AS_T] ) {
         becomeRoot(reason);
     } else {
+#ifdef TBDebug
         Log(@"Will not become root to access '%@'", path);
+#else
+        ;
+#endif
     }
 }
 
@@ -499,7 +509,11 @@ static void stopBeingRootToAccessPath(NSString * path) {
     if (  [path hasPrefix: L_AS_T] ) {
         stopBeingRoot();
     } else {
+#ifdef TBDebug
         Log(@"Will not stop being root to access '%@'", path);
+#else
+        ;
+#endif
     }
 }
 
