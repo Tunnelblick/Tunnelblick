@@ -63,7 +63,7 @@ NSString            * gUserHome      = nil;
 int                   gPendingRootCounter = 0;  // Number of becomeRoot requests that are pending
 //                                              //        incremented by becomeRoot, decremented by stopBeingRoot
 //                                              //        when increments to one, become root
-//                                              //        when decements to zero, become non-root
+//                                              //        when decrements to zero, become non-root
 
 NSString * gTemporaryDirectory = nil;			// Path to a temporary directory if one was created for this process, otherwise nil.
 												// If not nil, the TMPDIR environment variable was set to this value and
@@ -101,13 +101,13 @@ static const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 static void exitOpenvpnstart(OSStatus returnValue) {
 
-	if (  gTemporaryDirectory  ) {
+    if (  gTemporaryDirectory  ) {
         becomeRootToAccessPath(gTemporaryDirectory, @"clean up temp directory");
         {
             [gFileMgr tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
         }
         stopBeingRootToAccessPath( gTemporaryDirectory);
-	}
+    }
 
     [pool drain];
     exit(returnValue);
@@ -405,12 +405,18 @@ static void verifyRunningAsUser(void) {
 }
 
 static void becomeRoot(NSString * reason) {
-	// Returns as root; complains and exits if can't become root
+
+    // Returns as root; complains and exits if can't become root
+    //
     // Nests properly, so after "becomeRoot, becomeRoot, stopBeingRoot" are still root until stopBeingRoot is called again
+    //
+    // Calls exit() instead of exitOpenvpnstart() because exitOpenvpnstart() calls becomeRoot() and we don't want to blow
+    // up the stack with endless recursing. That means the temporary file will not be removed if becomeRoot() fails.
 
-	uid_t uidBefore  = getuid();
-	uid_t euidBefore = geteuid();
+    uid_t uidBefore  = getuid();
+    uid_t euidBefore = geteuid();
 
+    // Assume we succeed. Errors that call exit() need not decrement because they exit the program, making the counter irrelevant
     gPendingRootCounter++;
 
 	if (   (uidBefore  == 0)
@@ -425,7 +431,7 @@ static void becomeRoot(NSString * reason) {
         || (euidBefore != gUidOfUser)  ) {
         Log(@"becomeRoot (%@) Not root and not non-root: getuid() = %d; geteuid() = %d; gUidOfUser = %d",
             reason, uidBefore, euidBefore, gUidOfUser);
-        exitOpenvpnstart(-1);
+        exit(-1);
     }
 
     int result = seteuid(0);
@@ -433,29 +439,35 @@ static void becomeRoot(NSString * reason) {
     if (  result != 0  ) {
         Log(@"Unable to becomeRoot (%@): seteuid(0) returned %d. getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d; gUidOfUser = %d",
             reason, result, getuid(), geteuid(), uidBefore, euidBefore, gUidOfUser);
-        exitOpenvpnstart(-1);
+        exit(-1);
     }
 
+    // Verify successful privilege change
     if (   (getuid()  != 0)
         || (geteuid() != 0)  ) {
         Log(@"Unable to becomeRoot (%@): seteuid(0) returned %d but getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d; gUidOfUser = %d",
             reason, result, getuid(), geteuid(), uidBefore, euidBefore, gUidOfUser);
-        exitOpenvpnstart(-1);
+        exit(-1);
     }
 }
 
 static void stopBeingRoot(void) {
-	// Returns as the original user; complains and exits if can't
 
-	uid_t uidBefore  = getuid();
-	uid_t euidBefore = geteuid();
+    // Returns as the original user; complains and exits if can't
+    //
+    // Calls exit() instead of exitOpenvpnstart() because exitOpenvpnstart() call stopBeingRoot() and we don't want to blow
+    // up the stack with endless recursing. That means the temporary file will not be removed if stopBeingRoot() fails.
+
+    uid_t uidBefore  = getuid();
+    uid_t euidBefore = geteuid();
 
     if (  gPendingRootCounter < 1  ) {
         Log(@"Unable to stopBeingRoot because gPendingRootCounter = %d. getuid() = %d; geteuid() = %d; gUidOfUser = %d",
                 gPendingRootCounter, uidBefore, euidBefore, gUidOfUser);
-        exitOpenvpnstart(-1);
+        exit(-1);
     }
 
+    // Assume we succeed. Errors that call exit() need not increment because they exit the program, making the lock irrelevant.
     gPendingRootCounter--;
 
 	if (   (uidBefore == 0)
@@ -472,28 +484,26 @@ static void stopBeingRoot(void) {
 		if (  result < 0  ) {
 			Log(@"Unable to stopBeingRoot: setuid(0) returned %d; getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d; gUidOfUser = %d",
 					result, getuid(), geteuid(), uidBefore, euidBefore, gUidOfUser);
-			exitOpenvpnstart(-1);
+			exit(-1);
 		}
 
 		result = seteuid(gUidOfUser);
 		if (  result < 0  ) {
 			Log(@"Unable to stopBeingRoot: seteuid(%d) returned %d; getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d",
-					gUidOfUser, result, getuid(), geteuid(), uidBefore, euidBefore);
-			exitOpenvpnstart(-1);
+                gUidOfUser, result, getuid(), geteuid(), uidBefore, euidBefore);
+			exit(-1);
 		}
 
         if (   (getuid()  != 0)
             || (geteuid() != gUidOfUser)  ) {
             Log(@"Unable to stopBeingRoot: after setuid(0) then seteuid(%d): getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d",
-                    gUidOfUser, getuid(), geteuid(), uidBefore, euidBefore);
-            exitOpenvpnstart(-1);
+                gUidOfUser, getuid(), geteuid(), uidBefore, euidBefore);
+            exit(-1);
         }
     } else {
-
-        // Are not root
         Log(@"Unable to stopBeingRoot because already are not root: getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d; gUidOfUser = %d",
-                getuid(), geteuid(), uidBefore, euidBefore, gUidOfUser);
-        exitOpenvpnstart(-1);
+            getuid(), geteuid(), uidBefore, euidBefore, gUidOfUser);
+        exit(-1);
     }
 }
 
