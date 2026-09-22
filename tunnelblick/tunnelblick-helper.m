@@ -102,7 +102,11 @@ static const char * fileSystemRepresentationOrNULL(NSString * s) {
 static void exitOpenvpnstart(OSStatus returnValue) {
 
 	if (  gTemporaryDirectory  ) {
-		[gFileMgr tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
+        becomeRootToAccessPath(gTemporaryDirectory, @"clean up temp directory");
+        {
+            [gFileMgr tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
+        }
+        stopBeingRootToAccessPath( gTemporaryDirectory);
 	}
 
     [pool drain];
