@@ -66,6 +66,10 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 	[UIHelper setTitle: label ofControl: self frameHolder: self shift: rtl narrow: YES enable: YES];
 	
 	NSMutableAttributedString * infoTitleAS = [[infoTitle mutableCopy] autorelease];
+	useSystemFontInAttributedString(infoTitleAS);
+	while (  [[infoTitleAS string] hasSuffix: @"\n"]  ) {
+		[infoTitleAS deleteCharactersInRange: NSMakeRange([infoTitleAS length] - 1, 1)];
+	}
 	[infoTitleAS addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: NSMakeRange(0, [infoTitleAS length])];
 	[infoTitleAS addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: NSMakeRange(0, [infoTitleAS length])];
 	
@@ -183,9 +187,14 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
                                                     maxWidth: originalWindowFrame.size.width
                                                    maxHeight: originalWindowFrame.size.height];
     
-    // Create a textview that contains the content and add it to the window
-    NSRect tvFrame = NSMakeRect(0.0, 0.0, newSize.width, newSize.height * 1.10); // Add to height of textview so it doesn't need to be scrolled
+    // Create a textview that contains the content and add it to the window.
+    // Lay out the text the same way heightForAttributedString:width: measured it (no line fragment padding),
+    // and add an inset around it so the text doesn't touch the edges of the window.
+    NSSize inset = NSMakeSize(5.0, 4.0);
+    NSRect tvFrame = NSMakeRect(0.0, 0.0, newSize.width + 2.0 * inset.width, ceil(newSize.height) + 2.0 * inset.height);
     NSTextView * tv = [[[NSTextView alloc] initWithFrame: tvFrame] autorelease];
+    [[tv textContainer] setLineFragmentPadding: 0.0];
+    [tv setTextContainerInset: inset];
     [tv setSelectable: YES];
     [tv setEditable:   NO];
     [tv setAutomaticQuoteSubstitutionEnabled: YES];
@@ -194,14 +203,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     [ts setAttributedString: content];
     
     // Create a scrollview in a frame sized to contain the textview
-    NSRect svFrame = NSMakeRect(0.0, 0.0, 0.0, 0.0);
-    svFrame.size = [NSScrollView contentSizeForFrameSize: tvFrame.size
-                                   hasHorizontalScroller: YES
-                                     hasVerticalScroller: YES
-                                              borderType: NSNoBorder];
-    
-    // Adjust the scrollview width (contentSizeForFrameSize should take it into account but doesn't)
-    svFrame.size.width += [NSScroller scrollerWidth];
+    NSRect svFrame = tvFrame;
     
     NSScrollView * sv = [[[NSScrollView alloc] initWithFrame: svFrame] autorelease];
     [sv setBorderType:NSNoBorder];

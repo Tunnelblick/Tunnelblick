@@ -499,6 +499,35 @@ NSAttributedString * attributedStringFromHTML(NSString * html) {
     return as;
 }
 
+void useSystemFontInAttributedString(NSMutableAttributedString * mas) {
+
+    // Replaces the fonts in an attributed string (e.g. the default serif font used by attributedStringFromHTML)
+    // with the system font, keeping each font's size, bold, and italic traits. Fixed-pitch fonts are not changed.
+
+    NSFontManager * fm = [NSFontManager sharedFontManager];
+    [mas beginEditing];
+    [mas enumerateAttribute: NSFontAttributeName
+                    inRange: NSMakeRange(0, [mas length])
+                    options: 0
+                 usingBlock: ^(id value, NSRange range, BOOL * stop) {
+        (void) stop;
+        NSFont * font = (NSFont *) value;
+        if (   ( ! font )
+            || [font isFixedPitch]  ) {
+            return;
+        }
+        NSFontTraitMask traits = [fm traitsOfFont: font];
+        NSFont * newFont = (  (traits & NSBoldFontMask)
+                            ? [NSFont boldSystemFontOfSize: [font pointSize]]
+                            : [NSFont systemFontOfSize:     [font pointSize]]);
+        if (  traits & NSItalicFontMask  ) {
+            newFont = [fm convertFont: newFont toHaveTrait: NSItalicFontMask];
+        }
+        [mas addAttribute: NSFontAttributeName value: newFont range: range];
+    }];
+    [mas endEditing];
+}
+
 NSAttributedString * attributedLightDarkStringFromHTML(NSString * html) {
 
     NSString * withSpan = [NSString stringWithFormat:
