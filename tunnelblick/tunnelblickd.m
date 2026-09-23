@@ -304,7 +304,7 @@ static OSStatus runTool(uid_t      client_euid,
     if (   (client_euid != 0)
         || (client_egid != 0)  ) {
         if (  ! becomeTheClient(client_euid, client_egid, asl, log_msg)  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_WARNING, "'Could not become client %d:%d",
+            asl_log(asl, log_msg, ASL_LEVEL_WARNING, "Could not become client %d:%d",
                     client_euid, client_egid);
             becameTheClient = FALSE;
         }
