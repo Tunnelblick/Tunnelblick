@@ -1145,7 +1145,7 @@ name = newValue;                                    \
 @"updateAutomatically",	\
 @"updateSendProfileInfo",	\
 @"updateSigned",	\
-@"updateUnsigned"	\
+@"updateUnsigned",	\
 @"userAgreementVersionAgreedTo",	\
 @"useShadowConfigurationFiles",	\
 ]
