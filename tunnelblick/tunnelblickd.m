@@ -52,6 +52,7 @@
 #import <sys/event.h>
 #import <sys/socket.h>
 #import <sys/stat.h>
+#import <sys/sysctl.h>
 #import <sys/time.h>
 #import <sys/types.h>
 #import <sys/ucred.h>
@@ -62,6 +63,8 @@
 #import "defines.h"
 
 #pragma clang diagnostic push
+
+#define BOOT_INFO_FILE_PATH   [L_AS_T stringByAppendingPathComponent: @"last-reboot-info.txt"]
 
 static volatile sig_atomic_t sigtermReceived = 0;
 
@@ -372,78 +375,123 @@ static OSStatus runTool(uid_t      client_euid,
     return status;
 }
 
-static void updateApproximateLastBootInfo(BOOL                infoFileExists,
-                                          NSTimeInterval   approximateMostRecentReboot,
-                                          NSString       * approximateLastRebootInfoPath,
-                                          aslclient        asl,
-                                          aslmsg           log_msg) {
+static NSTimeInterval systemBootSecondsSinceEpoch(NSError ** error) {
 
-    if (  infoFileExists  ) {
-        NSError * error;
-        if (  ! [NSFileManager.defaultManager removeItemAtPath: approximateLastRebootInfoPath error: &error]  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not delete %s; error = %s",
-                    [approximateLastRebootInfoPath UTF8String], [[error description] UTF8String]);
-        } else {
-            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Deleted %s", [approximateLastRebootInfoPath UTF8String]);
+    struct timeval bootTime = {0};
+    size_t size = sizeof(bootTime);
+
+    if (  sysctlbyname("kern.boottime", &bootTime, &size, NULL, 0) != 0  ) {
+        if (  error != NULL  ) {
+            *error = [NSError errorWithDomain: NSPOSIXErrorDomain
+                                         code: errno
+                                     userInfo: @{
+                NSLocalizedDescriptionKey :
+                    [NSString stringWithFormat:@"Could not read kern.boottime: %s",
+                     strerror(errno)]
+            }];
+        }
+        return 0.0;
+    }
+
+    if (  size != sizeof(bootTime)  ) {
+        if (  error != NULL  ) {
+            *error = [NSError errorWithDomain:@"BootTimeError"
+                                         code:1
+                                     userInfo: @{
+                NSLocalizedDescriptionKey :
+                    @"kern.boottime returned an unexpected data size."
+            }];
+        }
+        return 0.0;
+    }
+
+    NSTimeInterval secondsSinceEpoch = ((NSTimeInterval)bootTime.tv_sec +
+                                        (NSTimeInterval)bootTime.tv_usec / 1000000.0);
+
+    return secondsSinceEpoch;
+}
+
+static void updateLastBootInfo(NSTimeInterval   mostRecentBoot,
+                               aslclient        asl,
+                               aslmsg           log_msg) {
+
+    NSError * error;
+    if (  ! [NSFileManager.defaultManager removeItemAtPath: BOOT_INFO_FILE_PATH error: &error]  ) {
+        if ( ! (   [error.domain isEqualToString:NSCocoaErrorDomain]
+                && (error.code == NSFileNoSuchFileError) )  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error trying to delete '%s': %s",
+                    [BOOT_INFO_FILE_PATH UTF8String], [[error description] UTF8String]);
         }
     }
 
-    const char * approximateMostRecentRebootStringC = [[NSString stringWithFormat: @"%f", approximateMostRecentReboot] UTF8String];
-    if (  !  [NSFileManager.defaultManager createFileAtPath: approximateLastRebootInfoPath
-                                                   contents: [NSData dataWithBytes: approximateMostRecentRebootStringC
-                                                                            length: strlen(approximateMostRecentRebootStringC)]
+    const char * mostRecentBootStringC = [[NSString stringWithFormat: @"%f", mostRecentBoot] UTF8String];
+
+    if (  !  [NSFileManager.defaultManager createFileAtPath: BOOT_INFO_FILE_PATH
+                                                   contents: [NSData dataWithBytes: mostRecentBootStringC
+                                                                            length: strlen(mostRecentBootStringC)]
                                                  attributes: nil]  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not create %s", [approximateLastRebootInfoPath UTF8String]);
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not create %s", [BOOT_INFO_FILE_PATH UTF8String]);
     } else {
-        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Wrote %s", [approximateLastRebootInfoPath UTF8String]);
+        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Wrote %s", [BOOT_INFO_FILE_PATH UTF8String]);
     }
 }
 
-static BOOL isFirstRunAfterBoot(aslclient  asl,
-                                aslmsg     log_msg) {
+
+static BOOL isFirstRunAfterBoot(aslclient asl,
+                                aslmsg    log_msg) {
 
     // Consider this to be the first run after boot if
     //
     //    (A) L_AS_T/last-reboot-info.txt does not exist;
-    //  or
-    //    (B) The time-since-1970 in that file is approximately the same as the time-since-1970 of the most recent boot.
-
-    // This is only an __approximation__ of the time-since-1970 of the reboot
-    // because [NSDate date] and systemUptime are not accessed simultaneously
-    NSTimeInterval approximateMostRecentReboot = [[[NSDate date]
-                                                   dateByAddingTimeInterval: ( - [[NSProcessInfo processInfo] systemUptime] )]
-                                                  timeIntervalSince1970];
+    //     or
+    //    (B) The time-since-1970 in that file is the same as the time-since-1970 of the most recent boot.
 
     BOOL firstRunAfterBoot = FALSE;
-    BOOL infoFileExists;
-    NSError * error;
-    NSString * approximateLastRebootInfoPath = [L_AS_T stringByAppendingPathComponent: @"last-reboot-info.txt"];
+    NSError * error = nil;
 
-    if (  (infoFileExists = [NSFileManager.defaultManager fileExistsAtPath: approximateLastRebootInfoPath])  ) {
-        NSTimeInterval approximateLastKnownReboot = (NSTimeInterval)[[NSString stringWithContentsOfFile: approximateLastRebootInfoPath
-                                                                                               encoding: NSUTF8StringEncoding
-                                                                                                  error: &error] doubleValue];
+    NSTimeInterval mostRecentBoot = systemBootSecondsSinceEpoch(&error);
+    if (  mostRecentBoot == 0.0  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ALERT, ("Could not obtain system boot time. Error was %s\n"
+                                                "Considering this to not be the first run after boot"),
+                error.description.UTF8String);
+        return FALSE;
+    }
 
-        NSTimeInterval timeDifference = fabs( approximateLastKnownReboot - approximateMostRecentReboot );
+    NSString * infoFileContents = [NSString stringWithContentsOfFile: BOOT_INFO_FILE_PATH
+                                                            encoding: NSUTF8StringEncoding
+                                                               error: &error];
+    if (  infoFileContents  ) {
 
-        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "approximateLastKnownReboot = %f; approximateMostRecentReboot = %f; difference = %f",
-                approximateLastKnownReboot, approximateMostRecentReboot, timeDifference);
+        NSTimeInterval lastKnownBoot = (NSTimeInterval)[infoFileContents doubleValue];
 
-        // Assuming the time between [NSDate date] and systemUpTime is less than five seconds
-        //      and the time between reboots is more than five seconds.
-        if (  timeDifference < 5.0 ) {
-            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "This reboot time is approximately the same as the last reboot time; not first run after rebooting");
+        // Consider it the same boot if the times are less than five seconds apart. That is similar to the
+        // old way of determining if this is the first run after a boot, and will work if the computer
+        // has not been sleeping. If it has been sleeping more than a few seconds, the old way would
+        // have reported, incorrectly, that it was the first run after a boot. This should handle the
+        // transition from the old way of determining a first run after boot to the new way.
+
+        if (  fabs(lastKnownBoot - mostRecentBoot) < 5.0  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_INFO, "This boot time is about the same as the last known boot time; this is not first run after boot");
         } else {
-            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "This reboot time is very different from the last reboot time; first run after rebooting");
+            asl_log(asl, log_msg, ASL_LEVEL_INFO, "This boot time (%f) is different from the last boot time (%f); this is the first run after boot",
+                    mostRecentBoot, lastKnownBoot);
             firstRunAfterBoot = TRUE;
         }
     } else {
-        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "last-reboot-info.txt doesn't exist; this is the first run");
-        firstRunAfterBoot = TRUE; // Because file doesn't exist
+        if (   [error.domain isEqualToString:NSCocoaErrorDomain]
+            && (error.code == NSFileNoSuchFileError)  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_INFO, "%s doesn't exist; this is the first run after boot",
+                    BOOT_INFO_FILE_PATH.description.UTF8String);
+            firstRunAfterBoot = TRUE;
+        } else {
+            asl_log(asl, log_msg, ASL_LEVEL_ALERT, ("Error reading '%s': %s\n"
+                                                    "Considering this to not be the first run after boot"),
+                    BOOT_INFO_FILE_PATH.description.UTF8String, error.description.UTF8String);
+        }
     }
 
     if (  firstRunAfterBoot  ) {
-        updateApproximateLastBootInfo(infoFileExists, approximateMostRecentReboot, approximateLastRebootInfoPath, asl, log_msg);
+        updateLastBootInfo(mostRecentBoot, asl, log_msg);
     }
 
     return firstRunAfterBoot;
@@ -1242,3 +1290,4 @@ done:
     return retval;
 }
 #pragma clang diagnostic pop
+
