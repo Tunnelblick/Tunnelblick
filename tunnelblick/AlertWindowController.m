@@ -167,10 +167,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     scrollView.hasVerticalScroller = NO;
     [scrollView setContentInsets: NSEdgeInsetsZero];
 
+    // Make the sizing text view as wide as the displayed one (which may have been widened) so the text wraps the same way.
+    [scrollView tile];
+    [sizingTV setFrameSize: NSMakeSize(textView.frame.size.width, sizingTV.frame.size.height)];
+
     // Put the attributed string in a hidden NSTextView which isn't in the window
     // (so it doesn't change the window size) and whose height isn't constrained.
     // Then calculate the height change when the text view is sized to fit.
-    CGFloat oldTvHeight = sizingTV.frame.size.height;
+    CGFloat oldTvHeight = scrollView.contentSize.height;
     [sizingTV.textStorage setAttributedString: attrString];
     [sizingTV.layoutManager ensureLayoutForTextContainer: sizingTV.textContainer];
     [sizingTV sizeToFit];
@@ -207,19 +211,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     NSWindow * w = self.window;
     NSScrollView * sv = self.messageSV;
     NSTextView * tv = self.messageTV;
-    CGFloat oldWindowHeight = w.frame.size.height;
     [self resizeWindow: w scrollView: sv textView: tv forAttributedString: msgAS];
-    CGFloat newWindowHeight = w.frame.size.height;
-    CGFloat heightChange = oldWindowHeight - newWindowHeight;
 
     // Scroll to the top of the view
     [tv scrollPoint: NSMakePoint(0.0, 0.0)];
 
-    // Set up the checkbox (if any) and move it within the window to adjust for the change in the window's height
-	[self setupCheckboxWithHeightChange: - heightChange];
+    // Set up the checkbox (if any). Its autoresizing mask keeps it in place as the window grows.
+	[self setupCheckbox];
 }
 
--(void) setupCheckboxWithHeightChange: (CGFloat) heightChange {
+-(void) setupCheckbox {
 
 	if (   (   (! preferenceToSetTrue)
             || [preferenceToSetTrue hasSuffix: @"-NotAnActualPreference"]
@@ -229,10 +230,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
 		[doNotWarnAgainCheckbox setHidden: TRUE];
 		return;
 	}
-	
-	NSRect frame = [doNotWarnAgainCheckbox frame];
-	frame.origin.y -= heightChange;
-	[doNotWarnAgainCheckbox setFrame: frame];
 	
 	NSAttributedString * infoTitle = (  checkboxInfoTitle
 									  ? checkboxInfoTitle
