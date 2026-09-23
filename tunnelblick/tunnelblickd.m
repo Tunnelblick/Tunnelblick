@@ -1087,6 +1087,7 @@ int main(void) {
         //        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Received file descriptor %d", filedesc);
 
         // Accept an incoming connection.
+        slen = sizeof(ss); // can be modified by accept(), so reset each time it is used
         if (  -1 == (filedesc = accept(kev_listener.ident, (struct sockaddr *)&ss, &slen))  ) {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error from accept(): %m");
             continue; /* this isn't fatal */
