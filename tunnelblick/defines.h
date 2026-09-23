@@ -273,7 +273,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 #define ALLOWED_OPENVPN_VERSION_CHARACTERS @"._-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
 //*************************************************************************************************
-// Extensions that (for private configurations) require 640 permissions and ownership by Admin group
+// Extensions that (for private configurations) require 740 permissions and ownership by Admin group
 // (Shared, Deploy, and alternate configurations are 0:0/600)
 #define KEY_AND_CRT_EXTENSIONS @[@"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"unknown"]
 
@@ -315,7 +315,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
 ]
 
 //*************************************************************************************************
-// OpenVPN options that can appear in a "safe" configuration
+// OpenVPN options that can appear in a "safe" configuration. They may not work with Tunnelblick, but they are safe.
 #define OPENVPN_OPTIONS_THAT_ARE_SAFE @[ \
 @"allow-compression", @"allow-nonadmin", @"allow-pull-fqdn", @"allow-recursive-routing", @"askpass", \
 @"auth-gen-token",@"auth-nocache",@"auth-retry",@"auth-token",@"auth-token-user",@"auth-user-pass-optional", \
