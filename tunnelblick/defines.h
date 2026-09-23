@@ -443,7 +443,7 @@ NSLocalizedString(@"Set nameserver (OpenVPN)",     @"PopUpButton")  \
                         @[@"2.4", \
                              @"auth-gen-token", @"compat-names", @"compress", @"ecdh-curve", @"http-proxy-user-pass", @"ip-remote-hint", \
                              @"keying-material-exporter", @"machine-readable-output", @"management-external-cert", @"msg-channel", \
-                             @"ncp-ciphers", @"ncp-disable", @"preresolve", @"pull-filter", @"push-remove", @"show-curves", @"tls-crypt", \
+                             @"ncp-ciphers", @"ncp-disable", @"preresolve", @"pull-filter", @"push-remove", @"show-curves", \
                              @"tls-cert-profile", @"tls-ciphersuites", @"tls-crypt", \
                              @"verify-client-cert"], \
 \
