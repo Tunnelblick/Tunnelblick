@@ -813,8 +813,8 @@ static NSString * preprocessPathOfNewSecureItemContainingString(NSArray   * argu
     NSString * stringToStore  = arguments[1];
 
     if (  stringToStore.length   != LENGTH_OF_MANAGEMENT_PASSWORD) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Empty argument(s)");
-        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingString: @"Empty argument(s)\n"];
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Management password is not the correct length");
+        *stdoutStringPtr = [*stdoutStringPtr stringByAppendingString: @"Management password is not the correct length\n"];
         return nil;
     }
 
