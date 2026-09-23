@@ -923,7 +923,7 @@ int main(void) {
     }
     log_msg = asl_new(ASL_TYPE_MSG);
     if (  log_msg == NULL  ) {
-        goto done;;
+        goto done;
     }
     if (  asl_set(log_msg, ASL_KEY_SENDER, "tunnelblickd") != 0  ) {
         goto done;
