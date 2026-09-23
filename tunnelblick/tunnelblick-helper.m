@@ -3952,7 +3952,7 @@ static void validateConfigName(NSString * name) {
         Log(@"Configuration name is empty");
         exitOpenvpnstart(-1);
     }
-    if (  [name length] > DISPLAY_NAME_LENGTH_MAX  ) {
+    if (  [name length] > MAX_LENGTH_OF_DISPLAY_NAME  ) {
         Log(@"Configuration name is too long");
         exitOpenvpnstart(-1);
     }

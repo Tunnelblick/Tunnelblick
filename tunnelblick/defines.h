@@ -26,9 +26,6 @@
 #define ALLOW_OPENVPNSTART_KILL    TRUE
 #define ALLOW_OPENVPNSTART_KILLALL TRUE
 
-// The maximum length of a display name for openvpnstart
-#define DISPLAY_NAME_LENGTH_MAX 512
-
 // The maximum 'argc' for openvpnstart
 #define OPENVPNSTART_MAX_ARGC 12
 
@@ -104,7 +101,7 @@
 #define MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER   (MAX_LENGTH_OF_MANAGEMENT_INTERFACE_PARAMETER - 4)
 
 #define MAX_LENGTH_OF_CREDENTIALS_NAME 200
-#define MAX_LENGTH_OF_DISPLAY_NAME     400
+#define MAX_LENGTH_OF_DISPLAY_NAME     512
 
 // Maximum number of entries to keep in the TunnelblickVersionsHistory preference
 #define MAX_VERSIONS_IN_HISTORY 10
