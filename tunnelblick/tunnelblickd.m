@@ -1172,6 +1172,7 @@ int main(void) {
         if (  rawCommand.length == 0) {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "Nothing to do!");
             close(filedesc);  // This isn't fatal
+            continue;
         }
 
         //
