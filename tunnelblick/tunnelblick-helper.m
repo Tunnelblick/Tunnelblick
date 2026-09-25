@@ -1109,7 +1109,7 @@ static NSString * managementPasswordFilePath(NSString * configName) {
 
 //**************************************************************************************************************************
 
-static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NSString  * thePath,
+static int runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(NSString  * thePath,
                                                                               NSArray   * theArguments,
                                                                               mode_t      permissions,
                                                                               NSString  * configName,
@@ -1139,7 +1139,7 @@ static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NS
 
     int terminationStatus = 0;
 
-    becomeRoot(@"working in runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput");
+    becomeRoot(@"working in runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput");
     {
 
         if (  managementPassword.length != 0  ) {
@@ -1226,20 +1226,20 @@ static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NS
 //**************************************************************************************************************************
 static int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode) {
 
-    return runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(thePath, theArguments, permissions, configName, configLocCode, nil, nil, nil);
+    return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, configName, configLocCode, nil, nil, nil);
 
 }
 
 //**************************************************************************************************************************
 
 static int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
-	return runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(thePath, theArguments, permissions, nil, 0, nil, nil, nil);
+	return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, nil, 0, nil, nil, nil);
 }
 
 //**************************************************************************************************************************
 
 static int runAsRootReturnOutput(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString ** stdOut, NSString ** stdErr) {
-    return runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(thePath, theArguments, permissions, nil, 0, nil, stdOut, stdErr);
+    return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, nil, 0, nil, stdOut, stdErr);
 }
 
 //**************************************************************************************************************************
@@ -3808,7 +3808,7 @@ static int startVPN(NSString * configFile,
         }
     }
 
-    status = runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(openvpnPath, arguments, 0755, configFile, 0, managementPassword, nil, nil);
+    status = runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(openvpnPath, arguments, 0755, configFile, 0, managementPassword, nil, nil);
 
     NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@", openvpnPath];
     unsigned i;
