@@ -310,6 +310,9 @@
 "A Tunnelblick Update is Available..." = "متاح تحديث Tunnelblick";
 
 /* Menu item */
+"A VPN Configuration Update is Available..." = "يتوفر تحديث لإعداد VPN…";
+
+/* Menu item */
 "Add a VPN..." = "أضف شبكة VPN جديدة…";
 
 /* Menu item */
@@ -405,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "أظهر على واجهة تُنلـبليك";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "استخدام إصدار مختلف من OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "تفاصيل شبكة VPN...";
 
@@ -430,6 +436,9 @@
 "Check if the apparent public IP address changed after connecting" = "تحقق ما اذا تغير عنوان الاي بي العام بعد الاتصال";
 
 /* Checkbox name */
+"Check only when connected to a VPN" = "التحقق فقط عند الاتصال بـ VPN";
+
+/* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "تعطيل بروتوكول IPv6 الا اذا امكن الوصول ل OpenVPN عن طريق عنوان IPv6";
 
 /* Checkbox name */
@@ -440,6 +449,15 @@
 
 /* Checkbox name */
 "Disconnect when user switches out" = "قطع الاتصال عند تسجيل خروج المستخدم";
+
+/* Checkbox name */
+"Display 'Connect' and 'Disconnect' with configuration names" = "عرض \"اتصال\" و\"قطع الاتصال\" مع أسماء التكوين";
+
+/* Checkbox name */
+"Display a prominent indicator when any configuration is connected" = "اعرض مؤشراً بارزاً عند توصيل أي إعدادات";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "اعرض مؤشراً بارزاً عند توفر أي تحذيرات";
 
 /* Checkbox name */
 "Display connection submenus" = "عرض قوائم الاتصال الفرعية";
@@ -472,6 +490,9 @@
 "Do not warn about this again" = "لا تحذر حول هذا مرة أخرى";
 
 /* Checkbox name */
+"Download updates when found" = "تنزيل التحديثات عند العثور عليها";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "تفعيل IPV6 (فقط تاب)";
 
 /* Checkbox name */
@@ -497,6 +518,9 @@
 
 /* Checkbox name */
 "Require administrator authorization to install all configurations" = "يتطلب صلاحيات إدارية لتثبيت جميع الإعدادات";
+
+/* Checkbox name */
+"Require administrator authorization to update" = "يتطلب إذن المسؤول للتحديث";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "تحويل حركة سير المعلومات عبر الشبكة الخاصة الافتراضية VPN";
@@ -527,6 +551,9 @@
 
 /* PopUpButton */
 "Set nameserver (3.1)" = "ضبط النيم سيرفر (3.1)";
+
+/* PopUpButton */
+"Set nameserver (OpenVPN)" = "تعيين خادم الأسماء (OpenVPN)";
 
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "ضبط النيم سيرفر (بديل 1)";
@@ -616,6 +643,9 @@
 "'%@' has been disconnected" = "'%@'  قد فصل";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "يتوفر إصدار جديد من Tunnelblick";
+
+/* Window title */
 "Active connection" = "اتصال نشط";
 
 /* Window title */
@@ -659,6 +689,12 @@
 
 /* Window title */
 "Do you wish to connect?" = "هل ترغب بالإتصال ؟";
+
+/* Window title */
+"Error getting Tunnelblick update..." = "خطأ في الحصول على تحديث Tunnelblick…";
+
+/* WIndow title */
+"Error getting VPN update..." = "خطأ في الحصول على تحديث VPN…";
 
 /* Window title */
 "File not found" = "الملف غير موجود";
@@ -861,8 +897,14 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "        •حذف إعداد واحد";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • أن يتم تثبيته\n";
+
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • غير ملكية وتصاريح البرنامج لحمايته\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Complete the installation\n" = "  • إكمال التثبيت\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • إنهاء التحديث\n";
@@ -883,13 +925,19 @@
 "  • Remove a configuration\n" = "  • حذف تكوين";
 
 /* Window text */
-"  • Secure configurations\n" = "  • تأمين الاعدادات";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ هو برنامج مجاني: بامكانكم اعادة توزيع البرنامج او/و تغييره وفقا لاحكام %2$@ كما نشرت من طرف %3$@.\n%4$@ هو علامة تجارية مسجلة لشركة اوبن في بي ان تكنولوجيز.";
+
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " هل ترغب في تثبيت %1$@%2$@؟\n\n";
+
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " هل ترغب في استبدال\n    %1$@\n بـ\n%2$@%3$@؟\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " الاختيارات الاجبارية سيتم تثبيتها او تغييرها.\n\n";
+
+/* Window text */
+" Tunnelblick must be installed.\n\n" = " يجب تثبيت Tunnelblick.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " تونلبليك يحتاج الى صلاحية المشرف للتمكن من الاتصال ب %@ تلقائبا عند بدء التشغيل.";
@@ -899,6 +947,9 @@
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " تحذير: لقد تم  التلاعب فى هذه النسخة من  تُنلـبليك";
+
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (imported)" = "%@ (مستورد)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@  موجود ولكنه ليس مجلد";
@@ -962,6 +1013,9 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>لم تتم إستعادة إعدادات الشبكة بشكل صحيح بعد قطع الاتصال ب %@.</p><p>تحدث هذه المشكلة عادةً عند استخدام خيارات OpenVPN 'user nobody' و / أو 'group nobody'.</p><p>لإعادة إعدادات الشبكة, يجب عليك إعادة تشغيل الكمبيوتر.</p><p>لمنع هذا الخطأ في المستقبل, قم بحذف أسطر 'user nobody' و 'group nobody' من ملف إعدادات OpenVPN.</p>\n<p>أنظر<a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">مستخدم و مجموعة خيارات OpenVPN</a>[tunnelblick.net] للمزيد من المعلومات.</p></font>\n\n";
+
+/* Window text\nThe two %@ are descriptions of configuration versions (e.g. '1.2.3' */
+"<p><strong>VPN Configuration %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>إعداد VPN %1$@ متوفر الآن – لديك %2$@.</strong></p>\n\n";
 
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>لقد واجه التطبيق مؤخراً خطأً هاماً أو أكثر.</p>\n\n<p>يرجى إرسال رسالة بالبريد الالكتروني %1$@ وإرفاق ملف الـ<br>\n%2$@ الذي تم حفظه على سطح المكتب الخاص بك.</p>\n\n<p>يحتوي الملف على معلومات سوف تساعدنا على تطوير وإصلاح المشاكل التي تسبب أخطاء كهذه. وهي لا تحتوي على معلومات شخصية عنك أو معلومات عن خدمات الـ VPN الخاصة بك.</p>\n\n<p>إذا كان بإمكانك، يرجى أيضاً إخبارنا عمّا كان يقوم به التطبيق عندما حصل الخطأ.</p>\n\n<p>مساعدتك هنا سوف تعود بالنفع على كافة مستخدمي التطبيق.</p>";
@@ -1038,14 +1092,20 @@
 /* Window text */
 "An error occurred getting the list of loaded system extensions." = "حدث خطأ في الحصول على قائمة ملحقات النظام المحملة.";
 
+/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "حدث خطأ أثناء محاولة تنزيل التحديث.\n\nلمزيد من المعلومات، راجع السجل في\n\n%@";
+
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "حدث خطأ أثناء محاولة الحصول على معلومات حول التحديثات.\n\n%1$@لمزيد من المعلومات، راجع السجل في\n\n%2$@";
+
+/* Window text */
+"An error occurred while trying to launch Tunnelblick." = "حدث خطأ أثناء محاولة تشغيل Tunnelblick.";
+
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "حدث خطأ أثناء محاولة العودة إلى المضمون (نسخة الظل) . اطلع على وحدة التحكم للحصول على المزيد من التفاصيل.\n\n";
 
 /* Window text */
 "An error occurred. Please try again." = "حدث خطأ، حاول مرة أخرى";
-
-/* Window text */
-"An error occurred. See the Console Log for details." = "حدث خطا.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "حدث خطأ داخلي في تطبيق تُنلـبليك %1$@%2$@";
@@ -1076,12 +1136,6 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "هل أنت متأكد أنك تريد حذف الوثائق الثبوتية (المفتاح الخاص و/أو اسم المستخدم وكلمة المرور) المحفوظة في سلسلة المفاتيح للوثائق الثبوتية '%@'؟";
-
-/* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "هل أنت متأكد أنك ترغب في تثبيت الخصاءص التي بامكانها التحكم في جهازك بصفة كلية ؟\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "هل انت واثق من الرغبة في تثبيت التكوينات اللتي ربما تكون قادرة على التحكم الكلي في جهازكم؟\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "في السطر %1$lu الموجود في ملف الاعدادات %2$@";
@@ -1141,9 +1195,6 @@
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "الاعدادات تثبت من الملفات المرسلة اليك من قبل مدير الشبكة او مقدم خدمة VPN.\n\nملفات الاعدادات لها النهايات .tblk \\ .ovpn \\ .conf.\n\n( ربما وجدت ملفات اخرى مع ملفات الاعدادات بنهايات اخرى ، لا تعر انتباهاً لها )\n\nلتثبيت ملف اعدادات ، اسحبه الى ايكونة البرنامج فى شريط القوائم، او قائمة الاعدادات فى شاشة الاعدادات بالبرنامج.\n\nلتثبيت اكثر من ملف اعدادات فى نفس الوقت ، اسحبهم جميعاً.";
 
 /* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "الاعدادات التى لا تتعلق بالبرنامج سيتم اعدادها بعد تثبيت البرنامج.\n\n";
-
-/* Window text */
 "Connect:" = "اتصل:";
 
 /* Window text */
@@ -1163,6 +1214,9 @@
 
 /* Window text */
 "Copied %@, removing CR characters" = "تم نسخ %@, يتم الان مسح أحرف 'الإعادة الى السطر'";
+
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "حقوق النشر © 2004-%@ Angelo Laub وJonathan Bullard وآخرون. جميع الحقوق محفوظة.";
 
 /* Window text */
 "Could not copy %@ to %@" = "لايمكن نسخ %1$@ إلى %2$@";
@@ -1420,21 +1474,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "هناك واحدة او اكثر من عمليات OpenVPN تعمل الآن ، ولكنها غير مرتبطة ب Tunnelblick. اذا كنت لا تستخدم OpenVPN دون استخدام Tunnelblick فهذا يعنى وجود نسخة قديمة من البرنامج لم يتم اغلاقها بعد ، ويجب اغلاقها لكي تعمل النسخة الجديدة.\n\nيمكن اغلاق هذه العمليات عن طريق منظم العمليات Activity Monitor.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "هناك واحد أو أكثر من إعدادات الـVPN التي يتم تثبيتها تتضمن إعدادات OpenVPN غير معرفة للبرنامج، ويمكن ان تسبب بعض المشاكل او تقوم بتشغيل بعض البرامج بصلاحيات متقدمة عند الاتصال.\n\nلا تقم بالتثبيت الا اذا كنت تثق فى مقدم تلك الاعدادات.\n\nهل تثق بمقدم تلك الاعدادات وتريد تثبيتها ؟\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "واحد أو أكثر من إعدادات VPN التي بتم تثبيتها تتضمن برامج لها صلاحية Root عندما تتصل إلى VPN. هذه البرامج هي جزء من الإعدادات وليست جزء من برنامج تُنلـبليك. لديهم الإستطاعة على السيطرة الكاملة على جهاز الكمبيوتر الخاص بك.\n\nيجب عليك أن لا تقم بتنصيب هذه الإعدادات إلا إذا كنت تثق بمن قام بكتابتها.\n\nهل تثق بمن قام بكتابة هذه الإعدادات اللتي تريد تنصيبها؟\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "واحد أو أكثر من إعدادات VPN التي بتم تثبيتها تتضمن برامج سوف يتم تشغيلها عندما تتصل إلى VPN. هذه البرامج هي جزء من الإعدادات وليست جزء من برنامج تُنلـبليك.\n\nيجب عليك تنصيب هذه الإعدادات فقط إذا كنت تثق بمن قام بكتابتها.\n\nهل تثق بمن قام بكتابة هذه الإعدادات اللتي تريد تنصيبها؟\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "واحد أو أكثر من إعدادات VPN التي بتم تحديثها تتضمن برامج لها صلاحية Root عندما تتصل إلى VPN. هذه البرامج هي جزء من الإعدادات وليست جزء من برنامج تُنلـبليك. لديهم الإستطاعة على السيطرة الكاملة على جهاز الكمبيوتر الخاص بك.\n\nيجب عليك أن لا تقم بتنصيب هذه الإعدادات إلا إذا كنت تثق بمن قام بكتابتها.\n\nهل تثق بمن قام بكتابة هذه الإعدادات اللتي تريد تنصيبها؟\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "واحد أو أكثر من إعدادات ال VPN اللتي يتم تحديثها تتضمن برامج سوف تعمل عندما تتصل ب VPN. هذه البرامج هي جزء من الإعدادات وليست جزء من برنامج تُنلـبليك.\n\nيجب عليك تنصيب هذه الإعدادات فقظ إذا كنت تثق بكاتبها.\n\nهل تثق بكاتب هذه الإعدادات و تتمنى أن تقوم بتنصيبهم؟\n\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "هناك اتصال VPN جار الآن. برجاء اغلاق جميع اتصالات VPN واغلاق البرنامج قبل المواصلة.";
 
 /* Window text */
@@ -1569,9 +1608,6 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "خيار ‘namedCredentialsNames‘ يجب أن يتكون من مجموعة من الكلمات";
 
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "ملف اعدادات اتصال OpenVPN %1$@ يحتوي على الاعداد %2$@، هذا الإعداد خاص بنظام التشغيل Windows ولا يمكن استخدامه في نظام التشغيل macOS.";
-
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "يحتوي سجل OpenVPN على الرسالة التالية:\n\n%1$@.%2$@";
 
@@ -1670,6 +1706,9 @@
 
 /* Window text */
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "هناك مشاكل في استيراد إعدادات Tunnelblick.\n\n تفقد سجل وحدة التحكم للحصول على تفاصيل.";
+
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "لا يمكن تشغيل أو تثبيت هذا الإصدار 'Deployed' من Tunnelblick لأنه لم يُعَد تسميته تجاريًا، أو أن CFBundleIdentifier مفقود أو يحتوي على 'net.tunnelblick'.\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "نسخة تُنلـبليك المستخدمة لا يمكن اقلاعها أو تثبيتها لأنها تفتقد ملف Info.plist.\n\n";
@@ -1783,6 +1822,12 @@
 "Tunnelblick is ready." = "Tunnelblick جاهز";
 
 /* Window text */
+"Tunnelblick is up to date" = "Tunnelblick محدّث";
+
+/* Window text */
+"Tunnelblick needs a computer administrator's authorization to update.\n\nTunnelblick will be relaunched after the update." = "يحتاج Tunnelblick إلى إذن مسؤول الكمبيوتر لإجراء التحديث.\n\nسيتم إعادة تشغيل Tunnelblick بعد التحديث.";
+
+/* Window text */
 "Tunnelblick needs authorization to copy folder '%@'." = "تُنلـبليك يحتاج الى صلاحية لنسخ المجلد '%@'.";
 
 /* Window text */
@@ -1846,6 +1891,9 @@
 "Tunnelblick successfully:\n\n" = "نجح Tunnelblick في العمليات التالية:\n\n";
 
 /* Window text */
+"Tunnelblick updates:" = "تحديثات Tunnelblick:";
+
+/* Window text */
 "Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "لم يتمكن Tunnelblick من تحميل ملحقات النظام. يرجى إعادة تشغيل الحاسوب ومحاولة حذف ملحقات نظام Tunnelblick مرة أخرى.";
 
 /* Window text */
@@ -1867,6 +1915,9 @@
 "Tunnelblick was successfully replaced." = "تم استبدال Tunnelblick بنجاح.";
 
 /* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "لم يتمكن Tunnelblick من إنشاء اتصال مع عملية OpenVPN موجودة للإعداد '%@'. تم التخلي عن محاولة إنشاء الاتصال.";
+
+/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "تعذر عمل التغيير المطلوب. راجع السجل للتفاصيل.";
 
 /* Window text */
@@ -1877,6 +1928,9 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "تُنلـبليك سوف يتصل ب %@ ليتحقق من أن عنوان ال IP العام الظاهري لكمبيوترك يتغيّر في كل مرة تقوم بها بالإتصال ب VPN. إتصل بموزع هذه النسخة من تُنلـبليك للتفاصيل.\n\n";
+
+/* Window text */
+"Tunnelblick will quit because a critical component has been disabled or is missing.\n\nTunnelblick cannot perform functions such as connecting a VPN unless the component is enabled.\n\nPlease re-enable the component in System Settings >> General >> Login Items.\n\nThe component is listed in the 'Runs in the background' section, is named 'Tunnelblick', and is labelled 'affects all users'.\n\nIt is recommended that you also enable the other listed Tunnelblick component if it is also disabled.\n\nNote: If the component is enabled and Tunnelblick still shows this message, please reinstall Tunnelblick.\n\nFor more information, go to https://tunnelblick.net/e2" = "سيتوقف برنامج Tunnelblick عن العمل لأن أحد المكونات الأساسية معطّل أو مفقود.\n\nلا يمكن لبرنامج Tunnelblick أداء وظائف مثل الاتصال بشبكة VPN ما لم يتم تفعيل هذا المكون.\n\nيرجى إعادة تفعيل المكون من خلال: إعدادات النظام (System Settings) >> عام (General) >> عناصر تسجيل الدخول (Login Items).\n\nيظهر المكون في قسم \"يعمل في الخلفية\" (Runs in the background) باسم \"Tunnelblick\"، ويحمل التسمية \"يؤثر على جميع المستخدمين\" (affects all users).\n\nيُوصى أيضاً بتفعيل مكون Tunnelblick الآخر المدرج في القائمة إذا كان معطلاً هو الآخر.\n\nملاحظة: إذا كان المكون مفعلاً ومع ذلك استمر برنامج Tunnelblick في عرض هذه الرسالة، فيرجى إعادة تثبيت البرنامج.\n\nلمزيد من المعلومات، تفضل بزيارة الرابط: https://tunnelblick.net/e2";
 
 /* Window text */
 "Unable to Establish Communication" = "غير قادر على تأسيس الإتصال";
@@ -1898,9 +1952,6 @@
 
 /* Window text */
 "Unable to load contents of %@ as UTF-8" = "يستحيل تحميل محتويات %@ على شكل UTF-8";
-
-/* Window text */
-"Unable to open configuration file for modification" = "غير قادر على فتح ملف الإعدادات للتعديل";
 
 /* Window text */
 "Unable to parse configuration file as UTF-8" = "يستحيل تحليل ملف إعدادات على شكل UTF-8";
@@ -2106,8 +2157,19 @@
 /* Credit description */
 "64-bit enabling and testing" = "دعم 64‎-bit واختباره";
 
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p>\n<p>لمزيد من المعلومات، راجع\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">استخدام\n   إصدارات قديمة من OpenVPN أو OpenSSL</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>لتقوم بإستيراد إعدادات تُنلـبليك الى كمبيوتر يحتوي اكثر من %u حساب مستخدم, يجب عليم إنشاء ملف نصّي يحدد البيانات اللتي تريد استيرادها.</p>\n<p>لمزيد من المعلومات, أنظر <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML window text */
+"<hr><p><strong>One or more VPNs may be disconnected before the update.</strong></p>\n" = "<hr><p><strong>قد يتم قطع اتصال واحد أو أكثر من شبكات VPN قبل التحديث.</strong></p>\n";
+
+/* HTML window text */
+"<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>هل ترغب في التحديث إلى الإصدار الجديد الآن؟</strong></p>\n";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>Imported</strong>' versions of OpenVPN may be used but were not included in this copy of the Tunnelblick application. They were imported and installed by a computer administrator.</p>" = "<p>يمكن استخدام إصدارات '<strong>Imported</strong>' من OpenVPN ولكنها لم تُضمَّن في هذه النسخة من تطبيق Tunnelblick. فقد تم استيرادها وتثبيتها بواسطة مسؤول الكمبيوتر.</p>";
 
 /* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>قد يتطلب \"السماح\" بامتدادات النظام تغيير إعداد في أمن النظام. يمكن تغيير الإعداد فقط في وضع الاسترداد. قد تحتاج إلى إعادة التشغيل في وضع الاسترداد، إجراء التغيير، ثم إعادة التشغيل مرة أخرى بشكل طبيعي. يجب أن يوجهك macOS خلال هذه العملية.</p>";
@@ -2115,11 +2177,26 @@
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">للمزيد من المعلومات</a> [tunnelblick.net]</p>";
 
+/* HTML window text */
+"<p><font color='red'><big><strong>SECURITY UPDATE</strong></big></font></p>" = "<p><font color='red'><big><strong>تحديث أمني</strong></big></font></p>";
+
+/* HTML window text */
+"<p><font color=\"red\">\n<big><strong>THIS UPDATE MAY TAKE 60 TO 90 SECONDS!<strong></big><br>&nbsp;<br>\nIt may also require one additional authorization from a computer administrator <em>immediately after</em> the update.</font></p>" = "<p><font color=\"red\">\n<big><strong>قد يستغرق هذا التحديث من 60 إلى 90 ثانية!<strong></big><br>&nbsp;<br>\nقد يتطلب الأمر أيضاً تفويضاً إضافياً واحداً من مسؤول الكمبيوتر <em>مباشرةً بعد</em> التحديث.</font></p>";
+
+/* HTML window text */
+"<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>يلزم الحصول على إذن من مسؤول الكمبيوتر لتثبيت هذا التحديث.</strong></p>\n";
+
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>واحد أو أكثر من الإعدادات الخاصة بك لن تكون قادرة على الاتصال.</strong></p>\n<p>تتطلب الإعدادات امتدادًا للنظام، لكن هذا الإصدار من macOS لا يسمح لـ-Tunnelblick باستخدام امتدادات النظام الخاصة بها.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>واحد أو أكثر من الإعدادات الخاصة بك لن تكون قادرة على الاتصال</strong> في الإصدارات المستقبلية من macOS. </p>\n<p>تتطلب الإعدادات امتدادًا للنظام، لكن الإصدارات المستقبلية من macOS لن تسمح لـ-Tunnelblick باستخدام امتدادات النظام الخاصة بها.</p>";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>يحدد إصدار OpenVPN وبرنامج SSL الذي ينبغي استخدامه للاتصال بـ VPN.</strong><ul><li><strong>إعداد \"Default\"</strong> سيستخدم الإصدار الافتراضي من OpenVPN مع OpenSSL المُضمَّن في هذا الإصدار من Tunnelblick. قد يختلف الإعداد الافتراضي في إصدارات مختلفة من Tunnelblick.<br></li><li><strong>إعداد \"Latest\"</strong> سيستخدم أحدث إصدار من OpenVPN مع OpenSSL المُضمَّن في هذا الإصدار من Tunnelblick. قد يختلف أحدث إصدار في إصدارات مختلفة من Tunnelblick.<br></li><li><strong>أي إعداد آخر</strong> سيستخدم الإصدار المحدد من OpenVPN وبرنامج SSL إذا كانا متوفرين في هذا الإصدار من Tunnelblick. وإذا لم يكونا متوفرين، فسيُستخدم أقرب تطابق.<br></li></ul>";
+
+/* HTML info for the 'Set DNS/WINS' button. */
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 2)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (OpenVPN)</strong>: Tunnelblick uses OpenVPN's default script to handle DNS settings.<br></li></ul>" = "<p><strong>يحدد ما يفعله Tunnelblick (إن فعل شيئًا) لتعديل إعدادات DNS أثناء اتصال VPN.</strong> الخيارات هي:<ul><li><strong>عدم تعيين خادم الأسماء</strong>: لا يتم فعل أي شيء.<br></li><li><strong>تعيين خادم الأسماء</strong>: يستخدم Tunnelblick نصه البرمجي القياسي للتعامل مع إعدادات DNS وWINS. وهذا عادةً أفضل خيار. فهو يغيّر إعدادات DNS وWINS وفقًا للتعليمات التي يوفرها OpenVPN. لن يتم تغيير إعدادات DNS وWINS التي تم تعيينها يدويًا ما لم يتم تحديد \"السماح بالتغييرات في إعدادات الشبكة المعيّنة يدويًا\" في نافذة الإعدادات \"المتقدمة\"<br></li><li><strong>تعيين خادم الأسماء (3.1)</strong>: يستخدم Tunnelblick النص البرمجي من Tunnelblick 3.1 للتعامل مع إعدادات DNS وWINS.<br></li><li><strong>تعيين خادم الأسماء (3.0b10)</strong>: يستخدم Tunnelblick النص البرمجي من Tunnelblick 3.0b10 للتعامل مع إعدادات DNS وWINS.<br></li><li><strong>تعيين خادم الأسماء (بديل 1)</strong>: يستخدم Tunnelblick نصًا برمجيًا بديلًا للتعامل مع إعدادات DNS وWINS.<br></li><li><strong>تعيين خادم الأسماء (بديل 2)</strong>: يستخدم Tunnelblick نصًا برمجيًا بديلًا للتعامل مع إعدادات DNS وWINS.<br></li><li><strong>تعيين خادم الأسماء (OpenVPN)</strong>: يستخدم Tunnelblick النص البرمجي الافتراضي لـ OpenVPN للتعامل مع إعدادات DNS.<br></li></ul>";
 
 /* HTML info for the 'On unexpected disconnect' button. */
 "<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>يحدد ما يفعله Tunnelblick عند قطع اتصال VPN بشكل غير متوقع</strong> (على سبيل المثال ، إذا تعطل OpenVPN أو فقد اتصاله بالشبكة الظاهرية الخاصة ، وتم إعداده للتوقف عند حدوث ذلك). الخيارات هي:</p><ul><li><strong>لا تفعل شيئا</strong><br></li><li><strong>إعادة تعيين الواجهة الأساسية</strong>: يقوم Tunnelblick بإعادة تعيين واجهة الشبكة الأساسية من خلال إصدار 'ipconfig down؛ ipconfig up'. قد يكون ذلك مفيدًا عندما يفشل التكوين في استعادة إعدادات الشبكة بشكل صحيح بعد الانفصال.<br></li><li><strong>تعطيل الوصول إلى الشبكة (\"Kill Switch\")</strong>: يقطع Tunnelblick جميع الوصول إلى الشبكة (المحلي والإنترنت) عن طريق إيقاف تشغيل Wi-Fi وتعطيل جميع خدمات الشبكة الأخرى. يمكن أن يساعد هذا في ضمان عدم تسرب أي شيء من الكمبيوتر إلا عبر VPN. إذا قام Tunnelblick بتعطيل الوصول إلى الشبكة ، فسيكون أمر القائمة لإعادة تمكين كل الوصول الذي تم تعطيله متاحًا من رمز Tunnelblick في شريط القوائم. يمكنك أيضًا إعادة تمكين Wi-Fi من خلال تشغيله ، أو إعادة تمكين خدمات الشبكة الأخرى في System Preferences: Network.<strong>قد لا يعمل هذا الإعداد بشكل صحيح عند اتصال أكثر من VPN واحدة في نفس الوقت.</strong></li></ul>";
@@ -2130,6 +2207,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>حدد متى يجب أن يتصل Tunnelblick بشبكة VPN.</strong></p><p>\"عند بدء تشغيل الكمبيوتر\" لا يجوز استخدام إلا التكوينات \"المشتركة\" التي لا تحتوي على بيانات اعتماد (اسم المستخدم / كلمة السر / عبارة المرور) المخزنة في Keychain ولا تستخدم خيار \"auth-user-pass\" الخاص بـ-OpenVPN بدون وسيطة.</p>";
 
+/* HTML window text\nThe two %@ are descriptions of Tunnelblick versions (e.g. '4.0.1 (build 5971)' */
+"<p><strong>Tunnelblick %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>Tunnelblick %1$@ متوفر الآن – لديك %2$@.</strong></p>\n\n";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>عند التفعيل</strong>, سيتم تعطيل بروتوكول IPv6 الا اذا امكن الوصول ل OpenVPN عن طريق عنوان IPv6. </p>\n\n<p> يفضل تعطيل بروتوكول IPv6 لان كثير من اعدادات ال VPN لا تحمي من تسريب المعلومات الناتج من استخدام ال IPv6. معظم استخدام الانترنت سيعمل بشكل طبيعي من غير IPv6. </p>\n\n<p><strong>عند عدم التفعيل</strong>. لن يتم تعطيل بروتوكول IPv6.</p>\n<p><strong>غير قابل للتفعيل</strong> عند استخدام اتصال 'tap' ، لانه لا يمكن فرض تنفيذه علي اتصال 'tap'. </p>";
@@ -2137,14 +2217,26 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>عند التفعيل</strong>, سيتم تفعيل بروتوكول IPv6. </p>\n<p><strong>عند عدم التفعيل</strong>. لن يتم تفعيل بروتوكول IPv6.</p>\n<p> يفضل تعطيل بروتوكول IPv6 لان كثير من اعدادات ال VPN لا تحمي من تسريب المعلومات الناتج من استخدام ال IPv6. معظم استخدام الانترنت سيعمل بشكل طبيعي من غير IPv6. </p>\n<p><strong>غير قابل للتفعيل</strong> عند استخدام اعدادات 'tun'. </p>";
 
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n<p><strong>Warning</strong>: Tap interfaces often need additional configuration changes that are not compatible with this option.</p>" = "<p><strong>عند تحديده</strong>، سيعدّل OpenVPN إعدادات DNS والإعدادات الأخرى بعد إعداد التوجيه لـ VPN بدلًا من قبل إعداد التوجيه.</p>\n<p><strong>عند عدم تحديده</strong>، سيعدّل OpenVPN إعدادات DNS والإعدادات الأخرى قبل إعداد التوجيه لـ VPN، بدلًا من بعد إعداد التوجيه. قد يتسبب هذا في فشل DNS أو تأخيرات إذا استغرق إعداد المسارات وقتًا طويلًا -- على سبيل المثال، إذا كان هناك العديد من المسارات التي يجب إعدادها.</p>\n<p><strong>تحذير</strong>: غالبًا ما تحتاج واجهات Tap إلى تغييرات إضافية في الإعدادات غير متوافقة مع هذا الخيار.</p>";
+
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>عند فحص</strong> OpenVPN 191/5000\nسيتم تشغيل اختبار لتحديد الحد الأقصى لحجم MTU للاتصال. الاختبار يبدأ في كل مرة يتم إجراء اتصال، ويمكن أن يستغرق عدة دقائق. تظهر نتائج الاختبار في سجل Tunnelblick.</p>\n";
+
+/* HTML info for the 'Check only when connected to a VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates automatically only when connected to a VPN.</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>عند تحديده</strong>، سيتحقق Tunnelblick من التحديثات تلقائيًا فقط عند الاتصال بـ VPN.</p>\n<p><strong>يُعطَّل هذا المربع</strong> ويُلغى تحديده عند تحديد 'منع التحقق التلقائي من التحديثات ومن التحقق من عنوان IP'، وعندما لا يكون المستخدم مسؤول كمبيوتر ويُسمح لمسؤولي الكمبيوتر فقط بتثبيت التحديثات.</p>";
 
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>عند فحص</strong> OpenVPN 191/5000\nسيتم تشغيل اختبار لتحديد الحد الأقصى لحجم Mtu للاتصال. الاختبار يبدأ في كل مرة يتم إجراء اتصال، ويمكن أن يستغرق عدة دقائق. تظهر نتائج الاختبار في سجل Tunnelblick.</p>";
 
+/* HTML info for the 'Check for updates automatically' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>عند تحديده</strong>، سيتحقق Tunnelblick من التحديثات عند التشغيل ودوريًا بعد ذلك.</p><p><strong>يُعطَّل هذا المربع</strong> ويُلغى تحديده عند تحديد 'منع التحقق التلقائي من التحديثات ومن التحقق من عنوان IP'، وعندما لا يكون المستخدم مسؤول كمبيوتر ويُسمح لمسؤولي الكمبيوتر فقط بتثبيت التحديثات.</p>";
+
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>عند التفعيل</strong>, تُنلـبليك سيقوم بتحديد عنوان الكمبيوتر الظاهر (IP) قبل و بعد الاتصال بشبكة ال VPN و سيقوم بالتحذير اذا لم يتغير عنوان (IP)..</p>\n<p> سوف يتم الوصول لموقع tunnelblick.net لتنفيذ هذه العملية. الوصول للموقع يتم عادة باستخدام بروتكول https: و اسم النطاق tunnelblick.net ، اذا فشلت هذة الطريقة، ستتم المحاولة باستخدام بروتوكول http: و عنوان (IP) الموقع.</p>\n<p><strong>عند عدم التفعيل</strong>, تُنلـبليك لن يتحقق من تغير عنوان الكمبيوتر الظاهر (IP) و لن يحذر اذا لم يتغير العنوان بعد الاتصال بشبكة ال VPN (IP)..</p>\n";
+
+/* HTML info for the 'Download updates when found' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will download updates when they are detected (the user's permission will be required to install updates).</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>عند تحديده</strong>، سينزّل Tunnelblick التحديثات عند اكتشافها (ستلزم موافقة المستخدم لتثبيت التحديثات).</p>\n<p><strong>يُعطَّل هذا المربع</strong> ويُلغى تحديده عند تحديد 'منع التحقق التلقائي من التحديثات ومن التحقق من عنوان IP'، وعندما لا يكون المستخدم مسؤول كمبيوتر ويُسمح لمسؤولي الكمبيوتر فقط بتثبيت التحديثات.</p>";
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "في حالة التحقق من <p><strong> فان Tunnelblick سوف ترسل تعليمات الى OpenVPN لنقل كل IPv4 ترافيك خلال شبكة ال VPN.</p>\n";
@@ -2155,11 +2247,23 @@
 /* HTML info for the 'Require administrator authorization to install all configurations' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to install or replace all configurations.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to install or replace \"restricted\" configurations.</p><p>A \"restricted\" configuration is one which does not contain or change commands or scripts or references to commands or scripts. Configurations with commands or scripts can enable <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">vertical privilege escalation</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Details</a> [tunnelblick.net].</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>عند التفعيل</strong>, سوف يتطلب Tunnelblick إذنًا من مشرف الحاسوب لتثبيت أو استبدال جميع الإعدادات.</p>\n<p><strong>عند عدم التفعيل</strong>, سيسمح للمستخدم العادي بتثبيت أو استبدال الإعدادات \"المقيدة\".</p><p>الإعداد \"المقيد\" هو الإعداد الذي لا يحتوي أو يغير أوامر أو نصوص أو إشارات الأوامر أو نصوص. يمكن تمكين الإعدادات باستخدام الأوامر أو البرامج النصية <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">تصعيد الامتياز العمودي</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">تفاصيل</a> [tunnelblick.net].</p><p><strong>ملاحظة: مطلوب إذن مشرف الحاسوب لتغيير هذا الإعداد.</strong></p>";
 
+/* HTML info for the 'Require administrator authorization to update' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer adminstrator's authorization to update Tunnelblick.</p><p><strong>When not checked</strong>, a standard user will be allowed to update Tunnelblick.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>عند تحديده</strong>، سيتطلب Tunnelblick إذنًا من مسؤول الكمبيوتر لتحديث Tunnelblick.</p><p><strong>عند عدم تحديده</strong>، سيُسمح للمستخدم العادي بتحديث Tunnelblick.</p><p><strong>ملاحظة: يلزم الحصول على إذن من مسؤول الكمبيوتر لتغيير هذا الإعداد.</strong></p>";
+
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<P> على <strong> عندما فحص </ قوي>، Tunnelblick سوف يراقب عن والاستجابة للتغيرات في إعدادات الشبكة (على سبيل المثال، والتغيرات الناجمة عن تجديد DHCP أو تبديل وصلات الانترنت) في محاولة للحفاظ على VPN اتصال. الإجراءات الافتراضية Tunnelblick عند تغيير إعدادات الشبكة عادة تعمل بشكل جيد، ولكن يمكنك تحديد إجراءات مختلفة على علامة التبويب \"أثناء الاتصال\" من \"خيارات متقدمة\" نافذة الإعدادات. </ P>\n<P> على <strong> عندما لم يتم التحقق </ قوي>، سوف Tunnelblick تجاهل التغييرات الشبكة. </ P>\n<P> <strong> يتم تعطيل </ strong> عند \"تعيين DNS / WINS\" لم يتم تعيين خانة الاختيار هذه إلى 'خادم الأسماء تعيين' أو 'تعيين خادم الأسماء (3.1). </ P>";
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>عند تفعيل الخيار</strong>، يتم إظهار نافذة حالة ال VPN لكل الإعدادات \"المشغلة\" عندما يكون مؤشر الفارة على أيقونة برنامج تانلبليك.</p><p>الإعدادات \"المشغلة\" هي الإعدادات التي قمت بتوصيلها منذ بدء إقلاع برنامج تانلبليك.</p><p><strong>يتوقف تفعيل هذا الخيار</strong>عند اختيارك ل \"عدم الإظهار\" في الإعدادات السابقة.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>عند تحديده</strong>، سيظهر مؤشر مرئي بارز على أيقونة Tunnelblick عند اتصال أي إعداد.</p><p><strong>عند عدم تحديده</strong>، لن يظهر أي مؤشر من هذا القبيل.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>عند تحديده</strong>، سيظهر مؤشر مرئي بارز على أيقونة Tunnelblick عند توفر أي تحذيرات.</p><p><strong>عند عدم تحديده</strong>، لن يظهر أي مؤشر من هذا القبيل.</p>";
+
+/* HTML info for the 'Display connection timers' checkbox. */
+"<p><strong>When checked</strong>, a timer is displayed in the Tunnelblick menu and in the title of the VPN Details window:</p>\n<p>While a connection attempt is being made, the timer displays the time that has elapsed trying to make the connection. When a connection is made, the timer restarts and displays the time that has elapsed since the connection was made. While a disconnect attempt is being made, the timer restarts and displays the time that has elapsed trying to disconnect.</p>" = "<p><strong>عند تحديده</strong>، تُعرض مؤقت في قائمة Tunnelblick وفي عنوان نافذة تفاصيل VPN:</p>\n<p>أثناء محاولة الاتصال، يعرض المؤقت الوقت المنقضي في محاولة إجراء الاتصال. وعند إجراء الاتصال، يُعاد تشغيل المؤقت ويعرض الوقت المنقضي منذ إجراء الاتصال. وأثناء محاولة قطع الاتصال، يُعاد تشغيل المؤقت ويعرض الوقت المنقضي في محاولة قطع الاتصال.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>عند تفعيل هذا الخيار</strong>،ستظهر نافذة فيها حالة عمل برنامج تانلبليك عند إقلاعه.</p>";
@@ -2181,6 +2285,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>إذا انتقي هذا الخيار</strong>، لن يكون بالإمكان التحقق من التحديثات أو من العناوين IP مهما كانت الإعدادات الأخرى. ملحوظة: هذان الإجراءان يستوجبان الإتصال بموقع Tunnelblick.</p>\n<p><strong>إذا لم يكن مُؤَشّر عليْهِا</strong>، سيكون بالإمكان التحقق من التحديثات إذا كانت مُؤَشّر عليْهِا أسفله و التحقق من تغير العنوان IP ستفعل إذا احتاجت إعدادات الإتصال لذلك.</p><p>أنظر <a href=\"https://tunnelblick.net/cPrivacy.html\">الخصوصية والسلامة</a> [tunnelblick.net] للتفاصيل.</p><p>&nbsp;</p>u";
+
+/* HTML info for the 'Display 'Connect' and 'Disconnect' with configuration names' checkbox. */
+"<p><strong>When checked</strong>, the Tunnelblick menu will include the words 'Connect' and 'Disconnect' with configuration names.</p>\n<p><strong>When not checked</strong>, the Tunnelblick menu will not include the words 'Connect' and 'Disconnect' with configuration names, making it easier to use the keyboard to select configurations for connection and disconnection.</p>\n" = "<p><strong>عند تحديده</strong>، ستضم قائمة Tunnelblick الكلمتين 'Connect' و'Disconnect' مع أسماء الإعدادات.</p>\n<p><strong>عند عدم تحديده</strong>، لن تضم قائمة Tunnelblick الكلمتين 'Connect' و'Disconnect' مع أسماء الإعدادات، مما يسهّل استخدام لوحة المفاتيح لتحديد الإعدادات للاتصال وقطع الاتصال.</p>\n";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>عند الإختيار</strong>، سوف تظهر نافذة حال الإتصال بشبكات ال-VPN حتى في حل عدم الإتصال.</p><p><strong> علبة الإختيار غير مفعلة</strong> عند إختيار 'عدم الإظهار' سابقاً. </p>";
@@ -2212,6 +2319,9 @@
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>يلزم وجود برنامج تشغيل جهاز \"Tun\" لاتصالات Tun. عادةً ما يتم استخدام برنامج تشغيل Tun الخاص بالنظام، لكن Tunnelblick يتضمن أيضًا برنامج تشغيل Tun الخاص به. إذا قمت بتثبيت برنامج تشغيل Tun مختلف، فقد لا يتمكن Tunnelblick من تحميل برنامج التشغيل الخاص به.</p>\n<p>سيستخدم OpenVPN برنامج تشغيل النظام ما لم يتضمن إعداد OpenVPN خيار \"dev-type tun\".</p>\n<p>يمكنك اختيار ما إذا كان Tunnelblick يقوم بتحميل برنامج التشغيل الخاص به ومتى:</p>\n<p><strong>تحميل برنامج التشغيل Tun تلقائيا</strong>: يقوم Tunnelblick بتحميل برنامج التشغيل الخاص به إذا لزم الأمر ويقوم بإفراغه عند عدم الحاجة إليه. (لن يقوم Tunnelblick بتحميل برنامج التشغيل الخاص به إلا إذا كان تكوين OpenVPN يتضمن خيار \"dev-type tun\".)</p>\n<p><strong>قم دائمًا بتحميل برنامج التشغيل Tap</strong>: يقوم Tunnelblick بتحميل برنامج التشغيل الخاص به عندما توصل هذا الإعداد، وتفريغها عندما لا تكون هناك حاجة إليها.</p>\n<p><strong>لا تقم أبدًا بتحميل برنامج تشغيل Tun</strong>: Tunnelblick لن يقوم بتحميل برنامج التشغيل الخاص به.</p>\n<p><strong>غير قابل للتفعيل</strong> لإعدادات Tap وعلى إصدارات macOS التي لا تسمح لـ-Tunnelblick بتحميل برنامج التشغيل Tun الخاص به. لمزيد من المعلومات، راجع  <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun و Tap على شبكات VPN نظام macOS [tunnelblick.net]</a>.</p>";
 
+/* HTML window text */
+"<p>A Tunnelblick login item which runs in the background is disabled.</p>\n<p>If the login item is disabled, Tunnelblick will not launch when you log in, even if there are important reasons why it should be launched.</p><p>Please re-enable it in System Settings >> General >> Login Items.</p><p><a href=\"https://tunnelblick.net/cBackgroundPrograms.html\">More info.</a></p>" = "<p>عنصر تسجيل دخول خاص بـ Tunnelblick يعمل في الخلفية معطَّل.</p>\n<p>إذا كان عنصر تسجيل الدخول معطَّلًا، فلن يُشغَّل Tunnelblick عند تسجيل دخولك، حتى لو وُجدت أسباب مهمة تدعو إلى تشغيله.</p><p>يُرجى إعادة تفعيله من إعدادات النظام >> عام >> عناصر تسجيل الدخول.</p><p><a href=\"https://tunnelblick.net/cBackgroundPrograms.html\">مزيد من المعلومات.</a></p>";
+
 /* HTML Info for security code checkbox */
 "<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the keychain to secure the password.</p>\n" = "<p>يسمح بإدخال إضافي لرمز الحماية عند تحديده.</p>\n<p>يتم إلحاق هذا الرمز بكلمة المرور أثناء عملية المصادقة. يتيح ذلك الاستخدام المتزامن لأجهزة المصادقة مثل الدونجل مع سلسلة المفاتيح لتأمين كلمة المرور.</p>";
 
@@ -2220,6 +2330,9 @@
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "</p>إضغط لتثبيت أو حذف الجهاز الافتراضي \"tun and tap\" في تطبيق Tunnelblick.<p>\n\n<p> تصفح <a href=\"https://tunnelblick.net/cInstallKexts.html\">تثبيت الجهاز الافتراضي \"tun and tap\" في تطبيق Tunnelblick</a> [tunnelblick.net] للتفاصيل.</p><p><strong>غير مفعلة</strong> ما لم يكن Tunnelblick يعمل على macOS Big Sur أو إصدار أحدث.</p>";
+
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>انقر لإلغاء تثبيت Tunnelblick.</p>\n\n<p><strong>معطَّل</strong> إذا لم يكن Tunnelblick مثبَّتًا.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>نسخ المعلومات إلى الحافظة للمساعدة في تشخيص المشاكل.</p><p>تتضمن المعلومات إصدارات وإعدادات البرنامج ، وملف إعدادات OpenVPN ، و إعدادات الشبكة والمزيد.</p><p>لا يتم تضمين المعلومات الحساسة ، ولكن البيانات مثل عناوين IP وعناوين URL التي <em>قد</em> تكون سرية سوف تكون مدرجة. يجب عليك أن تفحص المعلومات و إزالة أي شيء تريد إبقاؤه سراً قبل إرساله في بريد إلكتروني أو نشره بشكل علني.</p>";
@@ -2232,6 +2345,12 @@
 
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>إذا كنت لا ترى زر سماح تحميل برنامج النظام للمطور \"Jonathan Bullard\"، حاول ربط هذا التكوين (واللذي سوف يفشل)، ثم تحقق مجدداً من فقرة \"عام\" الموجودة تحت \"الأمن والخصوصية\" في \"تفضيلات النظام\".</p>";
+
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>يستخدم إعداد VPN واحد أو أكثر OpenVPN مع OpenSSL 1.1.1، الذي يحتوي على\n   ثغرات أمنية معروفة لا تتوفر إصلاحات لها للعموم.</p>\n<p>نوصي بتحديث الإعداد (الإعدادات) التالية\n   لاستخدام OpenVPN مع إصدار أحدث من OpenSSL:</p>\n\n<p>\n";
+
+/* HTML window text */
+"<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>حدثت مشكلة واحدة أو أكثر أثناء محاولة الحصول على معلومات التحديث أو إجراء تحديث.</p><p>لمزيد من المعلومات، راجع السجل في</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>يقوم هذا الزر بفتح نافذة تحوي إعدادات إضافية.</p><p>أي تغييرات هنا سيتم تطبيقها على كل الإعدادات التي تم اختيارها في نافذة \"تفاصيل ال VPN \".</p>";
@@ -2247,6 +2366,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>تصفح <a href=\"https://tunnelblick.net/cTunTapConnections.html\">مستقبل شبكات Tun and Tap\" VPN\" على نظامmacOS </a> [tunnelblick.net] للمزيد من المعلومات.</p>\n";
+
+/* HTML window text */
+"<p>See the <a href=\"https://tunnelblick.net/cRlsNotes.html\">Release Notes</a> for details.</p>\n" = "<p>راجع <a href=\"https://tunnelblick.net/cRlsNotes.html\">ملاحظات الإصدار</a> للحصول على التفاصيل.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>يقوم بتحديد مقدار التسجيل الذي يتم بواسطة تُنلـبليك و OpenVPN.</p>";
@@ -2293,6 +2415,9 @@
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p> تُنلـبليك غير قادر على تحميل إضافة النظام الضرورية لربط الإتصال ب ٪@ </p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>يمكنك تعيين تفضيل Tunnelblick 'tryToLoadKextsOnThisVersionOfMacOS' ليحاول تحميل امتدادات نظامه.</p>\n";
+
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>تحتاج إلى تثبيت امتدادات نظام تُنلـبليك لاستخدام هذه الإعدادات.</p><p>يمكنك القيام بذلك من خلال لوحة \"خدمات\" في تُنلـبليك.</p><p>بعد تثبيت امتدادات النظام، سيرشدك نظام macOS على كيفية عملية \"السماح\" لهذا التمديد، والتي ستتضمن إعادة تشغيل جهاز الحاسوب الخاص بك.</p>";
 
@@ -2301,6 +2426,9 @@
 
 /* Credit description */
 "Afrikaans translation" = "الترجمة الأفريقانية";
+
+/* Credit description */
+"Albanian translation" = "الترجمة الألبانية";
 
 /* Credit description */
 "Animation and icon sets code" = "تحريك وبرمجة الايقونات";
@@ -2346,6 +2474,9 @@
 
 /* Credit description */
 "Contributed to early code" = "شارك في بدايات الكود";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "حقوق النشر © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub وJonathan Bullard وآخرون. جميع الحقوق محفوظة.";
 
 /* Credit description */
 "Croatian translation" = "الترجمة الكرواتية";
@@ -2415,6 +2546,9 @@
 
 /* Credit description */
 "Indonesian translation" = "الترجمة الاندونيسية";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "يتم استخدام إصدار غير آمن من OpenSSL…";
 
 /* Credit description */
 "Italian translation" = "الترجمة الايطالية";

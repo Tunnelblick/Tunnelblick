@@ -925,9 +925,6 @@
 "  • Remove a configuration\n" = "  • Xóa một cấu hình\n";
 
 /* Window text */
-"  • Secure configurations\n" = "• Cấu hình bảo mật";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ là phần mềm miễn phí: bạn có thể phân phối lại hoặc chỉnh sửa tuân theo các điều khoản của %2$@ được phát hành bởi %3$@.\n\n%4$@ là nhãn hiệu đã được đăng ký bản quyền của OpenVPN, Inc.";
 
 /* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
@@ -1111,9 +1108,6 @@
 "An error occurred. Please try again." = "Đã có lỗi xảy ra. Vui lòng thử lại.";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "Đã xảy ra lỗi. Xem Console Log để biết chi tiết hơn.";
-
-/* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Đã xảy ra lỗi của Tunnelblick%1$@%2$@";
 
 /* Window text */
@@ -1142,12 +1136,6 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Bạn có muốn xoá thông tin xác thực (khoá bí mật, tên đăng nhập và mật khẩu) được lưu trong Keychain cho thông tin xác thực của '%@'?";
-
-/* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Bạn có muốn cài đặt cấu hình mà có thể CHIẾM DỤNG HOÀN TOÀN QUYỀN ĐIỀU KHIỂN MÁY TÍNH CỦA BẠN?\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Bạn có muốn cài đặt cấu hình mà có khả năng CHIẾM DỤNG HOÀN TOÀN QUYỀN ĐIỀU KHIỂN MÁY TÍNH CỦA BẠN?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Tại dòng %1$lu của tập tin cấu hình OpenVPN: %2$@";
@@ -1205,9 +1193,6 @@
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Các cấu hình đã được cài đặt từ những tập tin mà được cung cấp cho bạn bởi nhà quán lý mạng hoặc nhà cung cấp dịch vụ VPN của bạn.\n\nCác tập tin cấu hình có phần mở rộng là .tblk, .ovpn, hoặc .conf.\n\n(Có khả năng các tập tin được gán với cấu hình mà có phần mở rộng khác; bỏ qua chúng.)\n\nĐể cài đặt tập tin cấu hình, kéo và thả nó vào biểu tượng Tunnelblick trong thanh trình đơn hay trên danh sách các cấu hình ở trong bảng 'Configurations' của cửa sổ 'VPN Details'.\n\nĐể cài đặt nhiều tập tin cấu hình cùng một lúc, chọn tất cả các tập tin và kéo thả tất cả chúng.";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Các cấu hình không thuộc về Tunnelblick đã được thiết lập là cài đặt khi bạn cài đặt Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Kết nối:";
@@ -1277,9 +1262,6 @@
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Bạn có muốn cài đặt lại '%1$@' phiên bản %2$@?";
-
-/* Window text */
-"Do you wish to remove one or more configurations?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "Bạn có muốn xóa một hoặc nhiều cấu hình không?\n\nViệc xóa là vĩnh viễn và không thể hoàn tác.\n\nCác thiết lập cho cấu hình đã xóa cũng sẽ bị xóa vĩnh viễn.";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Bạn có muốn thay thế '%1$@' phiên bản %2$@ bằng phiên bản %3$@?";
@@ -1492,21 +1474,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Một hoặc nhiều tiến trình OpenVPN đang chạy không được Tunnelblick biết đến. Nếu bạn không đang chạy OpenVPN riêng biệt với Tunnelblick, thì điều này có nghĩa là lần chạy trước của Tunnelblick đã không thể ngừng chúng hoàn toàn và bạn nên ngừng chúng. Chúng có vẻ đang can thiệp đến các tác vụ của Tunnelblick.\n\nChúng có thể bị kết thúc trong chương trình 'Activity Monitor'.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Một hoặc nhiều cấu hình VPN mà đang được cài đặt bao gồm các tuỳ chọn mà không được nhận ra bởi Tunnelblick. Đó có thể là một lỗi trong cấu hình hoặc là lỗi trong Tunnelblick, hoặc các cấu hình có bao gồm những chương trình sẽ chạy dưới quyền root khi bạn kết nối đến một mạng riêng ảo. Những chương trình như vậy sẽ có khả năng CHIẾM TOÀN QUYỀN ĐIỀU KHIỂN MÁY TÍNH CỦA BẠN.\n\nBẠN KHÔNG NÊN CÀI ĐẶT NHỮNG CẤU HÌNH NÀY TRỪ KHI BẠN TIN TƯỞNG CÁC TÁC GIẢ CỦA\n CHÚNG.\n\nBạn có tin tưởng tác giả của những cấu hình này và muốn cài đặt chúng?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Một hoặc nhiều cấu hình VPN đang được cài đặt bao gồm các chương trình sẽ chạy dưới dạng root khi bạn kết nối với VPN. Các chương trình này là một phần của cấu hình và không phải là một phần của ứng dụng Tunnelblick. Họ có thể KIỂM SOÁT HOÀN TOÀN MÁY TÍNH CỦA BẠN.\n\nBẠN KHÔNG NÊN CÀI CÁC CẤU HÌNH NÀY TRỪ KHI BẠN TIN TƯỞNG NHÀ PHÁT TRIỂN.\n\nBạn có tin tưởng nhà phát triển của các cấu hình và muốn cài chúng không?";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Một hoặc nhiều cấu hình VPN đang được cài bao gồm các chương trình sẽ chạy khi bạn kết nối với VPN. Các chương trình này là một phần của cấu hình và không phải là một phần của ứng dụng Tunnelblick.\n\nBạn chỉ nên cài các cấu hình này nếu bạn tin tưởng nhà phát triển chúng.\n\nBạn có tin tưởng nhà phát triển của các cấu hình này và muốn cài chúng không?";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "\nMột hoặc nhiều cấu hình VPN đang được cập nhật bao gồm các chương trình sẽ chạy dưới dạng root khi bạn kết nối với VPN. Các chương trình này là một phần của cấu hình và không phải là một phần của ứng dụng Tunnelblick. Họ có thể HOÀN TOÀN KIỂM SOÁT MÁY TÍNH CỦA BẠN.\n\nBẠN KHÔNG NÊN CÀI CÁC CẤU HÌNH NÀY TRỪ KHI BẠN TIN TƯỞNG NHÀ PHÁT HÀNH CỦA  CẤU HÌNH NÀY.\n\nBạn có tin tưởng nhà phát triển của các cấu hình này và muốn cài chúng không?";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Một hoặc nhiều cấu hình VPN đang được cập nhật bao gồm các chương trình sẽ chạy dưới dạng root khi bạn kết nối với VPN. Các chương trình này là một phần của cấu hình và không phải là một phần của ứng dụng Tunnelblick. \n\nBạn chỉ nên cài đặt các cấu hình này chỉ khi bạn tin tưởng nhà phát hành của các cấu hình này.\n\nBạn có tin tưởng nhà phát triển của các cấu hình này và muốn cài đặt chúng không?";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Một hoặc nhiều mạng VPN đang được kết nối. Vui lòng ngắt kết nối tất cả các mạng VPN và thoát Tunnelblick trước khi tiến hành.";
 
 /* Window text */
@@ -1640,9 +1607,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Tuỳ chỉnh 'namedCredentialsNames' phải là một danh sách các chuỗi ký tự";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "Tệp cấu hình OpenVPN trong %1$@ chứa tùy chọn '%2$@', là tùy chọn chỉ dành cho Windows. Nó không thể được sử dụng trên macOS.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Nhật ký của OpenVPN có chứa thông điệp sau: \n\n\"%1$@\".%2$@";
@@ -1988,9 +1952,6 @@
 
 /* Window text */
 "Unable to load contents of %@ as UTF-8" = "Không thể tải nội dung của %@ dưới dạng UTF-8";
-
-/* Window text */
-"Unable to open configuration file for modification" = "Không thể mở tệp cấu hình để sửa đổi";
 
 /* Window text */
 "Unable to parse configuration file as UTF-8" = "Không thể phân tích cú pháp tệp cấu hình thành UTF-8";

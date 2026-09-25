@@ -919,9 +919,6 @@
 "  • Remove a configuration\n" = "  • 删除一项配置";
 
 /* Window text */
-"  • Secure configurations\n" = "  • 保护配置\n";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ 是免费软件: 你可以在 %3$@ 发布的 %2$@ 的条例下重新分发和/或修改它\n\n%4$@ 是 OpenVPN 有限责任公司的注册商标.";
 
 /* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
@@ -1105,9 +1102,6 @@
 "An error occurred. Please try again." = "发生错误，请重试。";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "发生了一个错误。请从控制台日志中查看详情。";
-
-/* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Tunnelblick 内部错误：%1$@%2$@";
 
 /* Window text */
@@ -1136,12 +1130,6 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "您确定要删除已经存储至钥匙链的'%@' 配置组授权信息 (包括私钥和/或用户名密码) 吗？";
-
-/* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "您确定要安装这些可以完全控制您的电脑的配置文件吗？\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "您确定要安装这些配置文件吗？这些配置文件可能完全控制您的电脑。\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "在 OpenVPN 配置文件 %2$@ 第 %1$lu 行";
@@ -1199,9 +1187,6 @@
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "配置已从网络管理员或者VPN服务商提供的文件抽取并完成安装。\n配置文件的后缀可能为：.tblk, .ovpn 或者.conf。\n(当其它后缀被关联时，请忽略它。)\n将配置文件拖动至菜单栏的Tunnelblick 图标上或者拖动至 VPN 详情窗口的配置分页里的配置列单上以进行安装。\n选中多个配置文件并拖动它们可以一次性完成安装。";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "当你安装 Tunnelblick 时，设定配置文件不是安装程序的一部分。\n\n";
 
 /* Window text */
 "Connect:" = "连接:";
@@ -1271,9 +1256,6 @@
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "您要重新安装 ' %1$@' 版本 %2$@ 吗？";
-
-/* Window text */
-"Do you wish to remove one or more configurations?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "确定删除一个或多个配置吗?\n\n该操作是永久性且不可逆的. \n\n所有与之相关的设置也将被永久性删除。";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "您要用  ‘%1$@' 版本 %3$@ 替换 版本%2$@？";
@@ -1486,21 +1468,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "一个或多个不受 Tunnelblick 控制的 OpenVPN 进程已经在运行. 如果你没有在 Tunnelblick 之外运行 OpenVPN, 那么这通常是因为以前启动的 Tunnelblick 没有正常地退出, 你应该终止这些进程. 这些进程有可能干扰 Tunnelblick 的运行.\n\n你可以使用 '活动监视器' 去强制终止它们的运行 .\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "正在安装的一个或多个配置文件内包括Tunnelblick 不能识别的OpenVPN 选项。请检查配置文件是否存在错误。请特别注意，配置文件是否包含特权程序的行。这些程序将在你连接成功后以管理员的身份执行，并完全控制你的计算机。\n\n除非您绝对信任这些配置的发行者，否则您不应安装它。\n\n您是否信任配置文件发行者，并希望继续安装这些配置文件？\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "您正在安装的一个或多个 VPN 配置包含了一些当连接到 VPN 时必须由 root 运行的程序。这些程序是属于 VPN 配置的一部分，而不是 Tunnelblick 的一部分。它们可以完全地控制你的电脑。\n\n除非您绝对信任这些配置的发行者，否则您不应安装它们。\n\n您是否信任配置文件发行者，并希望继续安装这些配置文件？\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "您正在安装的一个或多个 VPN 配置包含了一些当连接到 VPN 时会运行的一些程序。这些程序是属于 VPN 配置的一部分，而不是 Tunnelblick 的一部分。\n\n仅当您信任这些配置的发行者时，您才应安装它们。\n\n您是否信任配置文件发行者，并希望继续安装这些配置文件？\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "您正在更新的一个或多个 VPN 配置包含了一些当连接到 VPN 时必须由 root 运行的程序。这些程序是属于 VPN 配置的一部分，而不是 Tunnelblick 的一部分。他们可以完全地控制你的电脑。\n\n除非您绝对信任这些配置的发行者，否则您不应安装它们。\n\n您是否信任配置文件发行者，并希望继续安装这些配置文件？\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "您正在更新的一个或多个 VPN 配置包含了一些当连接到 VPN 时会运行的一些程序。这些程序是属于 VPN 配置的一部分，而不是 Tunnelblick 的一部分。\n\n仅当您信任这些配置的发行者时，您才应安装它们。\n\n您是否信任配置文件发行者，并希望继续安装这些配置文件？\n\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "当前存在一个或多个VPN 连接, 请断开所有连接并退出Tunnelblick 以继续。";
 
 /* Window text */
@@ -1634,9 +1601,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = " 'namedCredentialsNames' 的偏好设置必须一个字符串的数组";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN配置文件 %1$@ 中包含 “%2$@” 选项，这是一个仅限Windows的选项，无法在MacOS中使用。";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN 日志包括以下信息：\n\n\"%1$@\".%2$@";
@@ -1982,9 +1946,6 @@
 
 /* Window text */
 "Unable to load contents of %@ as UTF-8" = "无法以 UTF-8 载入 %@ 的内容";
-
-/* Window text */
-"Unable to open configuration file for modification" = "无法打开配置文件进行修改";
 
 /* Window text */
 "Unable to parse configuration file as UTF-8" = "无法以 UTF-8 分析设置文件";

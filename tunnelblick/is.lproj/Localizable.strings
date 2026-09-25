@@ -823,9 +823,6 @@
 "  • Remove a configuration\n" = "  • Fjarlægja samskipan\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • Gera samskipanir öruggar\n";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ er opið forrit: þú mátt dreifa því víðar og/eða breyta því samkvæmt skilmálum %2$@ sem eru gefnar út af %3$@.\n\n%4$@ er skráð vörumerki OpenVPN Inc.";
 
 /* Window text */
@@ -949,12 +946,6 @@
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Ert þú viss um að þú viljir eyða auðkennisgögnum (einkalykli og/eða notandanafni og lykilorði) sem vistuð eru í Keychain fyrir auðkennisgögnin „%@“?";
 
 /* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Ert þú viss um að þú viljir setja upp samskipanir sem geta ALGJÖRLEGA YFIRTEKIÐ TÖLVUNA ÞÍNA?\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Ert þú viss um að þú viljir setja upp samskipanir sem gætu ALGJÖRLEGA YFIRTEKIÐ TÖLVUNA ÞÍNA?\n\n";
-
-/* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Á línu %1$lu í OpenVPN-auðkennsigagnaskránni: %2$@";
 
 /* Window text */
@@ -995,9 +986,6 @@
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Samskipanir eru uppsettar með skrám sem netstjórinn eða VPN-veitan þín sendir þér.\n\nSamskipanaskrár eru með endingunni .tblk, .opvn eða .conf.\n\n(Það eru stundum skrár með öðrum endingum sem fylgja með samskipaninni, þú mátt hunsa þær.)\n\nTil að setja samskipan upp, dragðu og slepptu henni á Tunnelblick-táknmyndina í valmyndastikunni eða á samskipanalistann undir flipanum „Samskipanir“ í glugganum „VPN-upplýsingar“.\n\nTil að setja upp fleiri samskipanir í einu, veldu allar skrárnar og dragðu og slepptu þeim.";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Samskipanir sem eru ekki hluti af Tunnelblick-forritinu fylgja með og verða settar upp þegar þú setur Tunnelblick upp.\n\n";
 
 /* Window text */
 "Connect:" = "Tengjast:";
@@ -1329,9 +1317,6 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Stillingin „ namedCredentialsNames“ verður að vera fylki strengja";
 
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN-skráin í %1$@ inniheldur stillinguna „%2$@“, sem er eingöngu til fyrir Windows. Hana er ekki hægt að nota á macOS.";
-
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN-atburðaskráin inniheldur eftirfarandi skilaboð: \n\n\"%1$@\".%2$@";
 
@@ -1496,9 +1481,6 @@
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "Tókst ekki að setja samskipanina „%@“ upp\n";
-
-/* Window text */
-"Unable to open configuration file for modification" = "Tókst ekki að opna samskipanarskrána til breytinga";
 
 /* Window text */
 "Unable to parse configuration file as UTF-8" = "Tókst ekki að þátta samskipanarskrána sem UTF-8-skrá";

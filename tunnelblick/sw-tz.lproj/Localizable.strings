@@ -855,9 +855,6 @@
 "  • Remove a configuration\n" = "  • Ondoa usanidi\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • Weka Salama usanidi\n";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ ni programu isiyolipishwa: unaweza kuisambaza upya na/au kuirekebisha chini ya sheria na masharti ya %2$@ kama ilivyochapishwa na %3$@.\n\n%4$@ ni chapa ya biashara iliyosajiliwa ya OpenVPN Inc.";
 
 /* Window text */
@@ -1017,9 +1014,6 @@
 "An error occurred. Please try again." = "Hitilafu imetokea. Tafadhali jaribu tena.";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "Hitilafu imetokea. Tazama Kumbukumbu ya Console kwa maelezo.";
-
-/* Window text */
 "Backslash at end of line %u is not allowed" = "Bakslashi mwishoni mwa mstari %u hairuhusiwi";
 
 /* Window text */
@@ -1066,9 +1060,6 @@
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Usanidi umewekwa kutoka kwa mafaili ambayo hutolewa kwako na Meneja wako wa Mtandao au mtoaji wa huduma wa VPN.\n\nFaili za usanidi zina viongezeo .tblk, .ovpn, au .conf.\n\n(Kunaweza kuwa na faili nyingine zinazohusiana na usanidi zenye viongezeo vingine; yapuuze.)\n\nKusasisha faili la usanidi , chagua na kisha dondosha kwenye ikoni ya Tunnelblick kwenye mtambaa wa menyu au kwenye orodha ya usanidi kwenye kichupo cha 'Usanidi' wa dirisha la 'Maelezo ya VPN'.\n\nKusasisha mafaili mengi ya usanidi  kwa wakati mmoja, chagua mafaili yote na kisha buruta na udondoshe yote.";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Mipangilio ambayo si sehemu ya Tunnelblick huwekwa ili kusakinishwa unaposakinisha Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Unganisha:";

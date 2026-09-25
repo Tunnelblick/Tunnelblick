@@ -919,9 +919,6 @@
 "  • Remove a configuration\n" = "  • Elimino një konfigurim\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • Konfigurimet e sigurta\n";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ është një program falas: ju mund ta shpërndani dhe/ose modifikoni sipas kushteve të %2$@, siç janë publikuar nga %3$@.\n\n%4$@ është një markë tregtare e regjistruar e OpenVPN Inc.";
 
 /* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
@@ -1105,9 +1102,6 @@
 "An error occurred. Please try again." = "Ndodhi një gabim. Ju lutem provoni përsëri.";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "Ndodhi një gabim. Shikoni regjistrin e Console për më shumë detaje.";
-
-/* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Ndodhi një gabim i brendshëm i Tunnelblick%1$@%2$@";
 
 /* Window text */
@@ -1136,12 +1130,6 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Jeni i sigurt që dëshironi të fshini kredencialet (çelësin privat dhe/ose emrin e përdoruesit dhe fjalëkalimin) të ruajtura në Keychain për kredencialet '%@'?";
-
-/* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Jeni i sigurt që dëshironi të instaloni konfigurime që MUND TË MARRIN KONTROLL TË PLOTË TË KOMPJUTERIT TUAJ\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Jeni i sigurt që dëshironi të instaloni konfigurime që mund të jenë në gjendje të MARRIN KONTROLL TË PLOTË TË KOMPJUTERIT TUAJ?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Në rreshtin %1$lu të skedarit të konfigurimit OpenVPN: %2$@";
@@ -1199,9 +1187,6 @@
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfigurimet instalohen nga skedarë që ju jepen nga menaxheri i rrjetit ose ofruesi i shërbimit VPN. \n\nSkedarët e konfigurimit kanë prapashtesat .tblk, .ovpn ose .conf.\n\n(Mund të ketë skedarë të tjerë të lidhur me konfigurimin që kanë prapashtesa të tjera; injorojini ato.)\n\nPër të instaluar një skedar konfigurimi, tërhiqeni dhe lëshojeni atë te ikona e Tunnelblick në shiritin e menysë ose në listën e konfigurimeve te skeda 'Konfigurimet' e dritares 'Detajet e VPN'.\n\nPër të instaluar disa skedarë konfigurimi në të njëjtën kohë, zgjidhni të gjithë skedarët dhe më pas tërhiqini dhe lëshojini të gjithë.";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfigurimet që nuk janë pjesë e Tunnelblick janë vendosur për t'u instaluar kur ju instaloni Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Lidhu:";
@@ -1271,9 +1256,6 @@
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Dëshironi të riinstaloni '%1$@' versionin %2$@?";
-
-/* Window text */
-"Do you wish to remove one or more configurations?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "Dëshironi të hiqni një ose më shumë konfigurime?\n\nHeqja është e përhershme dhe nuk mund të anulohet. \n\nCilësimet për konfigurimet e hequra gjithashtu do të hiqen përgjithmonë.";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Dëshironi ta zëvendësoni versionin %2$@ të '%1$@' me versionin %3$@?";
@@ -1486,21 +1468,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Një ose më shumë procese OpenVPN po funksionojnë, por nuk njihen nga Tunnelblick. Nëse nuk po e ekzekutoni OpenVPN-në veçmas nga Tunnelblick, kjo zakonisht do të thotë se një nisje e mëparshme e Tunnelblick-ut nuk arriti t'i mbyllte siç duhet dhe ju duhet t'i ndërprisni. Ato ka të ngjarë të ndërhyjnë në funksionimin e Tunnelblick-ut.\n\nAto mund të ndërpriten në aplikacionin 'Activity Monitor'.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Një ose më shumë konfigurime VPN që po instalohen përfshijnë opsione të OpenVPN që nuk njihen nga Tunnelblick. Kjo mund të jetë një gabim në konfigurim ose një gabim në Tunnelblick, ose konfigurimet mund të përfshijnë programe që do të ekzekutohen si \"root\" kur lidheni me një VPN. Programe të tilla do të ishin në gjendje të MARRIN KONTROLLIN E PLOTË TË KOMPJUTERIT TUAJ.\n\nNUK DUHET T'I INSTALONI KËTO KONFIGURIME NËSE NUK I BESONI AUTORIT TË TYRE.\n\nA i besoni autorit të konfigurimeve dhe dëshironi t'i instaloni ato?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Një ose më shumë konfigurime VPN që po instalohen përfshijnë programe që do të ekzekutohen si \"root\" kur ju lidheni me një VPN. Këto programe janë pjesë e konfigurimit dhe nuk janë pjesë e aplikacionit Tunnelblick. Ato mund të MARRIN KONTROLLIN E PLOTË TË KOMPJUTERIT TUAJ.\n\nNUK DUHET T'I INSTALONI KËTO KONFIGURIME NËSE NUK I BESONI AUTORIT TË TYRE.\n\nA i besoni autorit të konfigurimeve dhe dëshironi t'i instaloni ato?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Një ose më shumë konfigurime VPN që po instalohen përfshijnë programe që do të ekzekutohen kur lidheni me një VPN. Këto programe janë pjesë e konfigurimit dhe nuk janë pjesë e aplikacionit Tunnelblick.\n\nDuhet t'i instaloni këto konfigurime vetëm nëse i besoni autorit të tyre.\n\nA i besoni autorit të konfigurimeve dhe dëshironi t'i instaloni ato?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Një ose më shumë konfigurime VPN që po përditësohen përfshijnë programe që do të ekzekutohen si \"root\" kur lidheni me një VPN. Këto programe janë pjesë e konfigurimit dhe nuk janë pjesë e aplikacionit Tunnelblick. Ato mund të MARRIN KONTROLLIN E PLOTË TË KOMPJUTERIT TUAJ.\n\nNUK DUHET T'I INSTALONI KËTO KONFIGURIME NËSE NUK I BESONI AUTORIT TË TYRE.\n\nA i besoni autorit të konfigurimeve dhe dëshironi t'i instaloni ato?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Një ose më shumë konfigurime VPN që po përditësohen përfshijnë programe që do të ekzekutohen kur lidheni me një VPN. Këto programe janë pjesë e konfigurimit dhe nuk janë pjesë e aplikacionit Tunnelblick.\n\nDuhet t'i instaloni këto konfigurime vetëm nëse i besoni autorit të tyre.\n\nA i besoni autorit të konfigurimeve dhe dëshironi t'i instaloni ato?\n\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Një ose më shumë VPN janë aktualisht të lidhura. Ju lutemi shkëputni të gjitha VPN-të dhe dilni nga Tunnelblick para se të vazhdoni.";
 
 /* Window text */
@@ -1634,9 +1601,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Preferenca 'namedCredentialsNames' duhet të jetë një matricë stringash";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "Skedari i konfigurimit OpenVPN në %1$@ përmban një opsion '%2$@', i cili është një opsion vetëm për Windows. Ai nuk mund të përdoret në macOS.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Logu i OpenVPN përmban mesazhin e mëposhtëm:\n\n\"%1$@\".%2$@";
@@ -1982,9 +1946,6 @@
 
 /* Window text */
 "Unable to load contents of %@ as UTF-8" = "Nuk po mundësohet ngarkimi i përmbajtjes së %@ si UTF-8";
-
-/* Window text */
-"Unable to open configuration file for modification" = "Nuk po mundësohet hapja e skedarit të konfigurimit për modifikim";
 
 /* Window text */
 "Unable to parse configuration file as UTF-8" = "Nuk po mundësohet analizimi i skedarit të konfigurimit si UTF-8";

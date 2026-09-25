@@ -850,9 +850,6 @@
 "  • Remove a configuration\n" = "  • Ukloni konfiguraciju\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • Obezbedi konfiguracije\n";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ je besplatan softver: možete ga deliti i menjati pod uslovima %2$@ licence objavljenim od strane %3$@.\n\n%4$@ je registrovana marka OpenVPN Inc.";
 
 /* Window text */
@@ -1012,9 +1009,6 @@
 "An error occurred. Please try again." = "Došlo je do greške. Molimo vas da pokušate ponovo.";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "Došlo je do greške. Pogledajte Log konzole za detalje.";
-
-/* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Došlo je do interne greške u Tunnelblick-u %1$@%2$@";
 
 /* Window text */
@@ -1043,12 +1037,6 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Da li ste sigurni da želite da obrišete kredencijale (privatni ključ i/ili korisničko ime i lozinku) sačuvane u Keychain servisu za '%@' kredencijale?";
-
-/* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Da li ste sigurni da želite da instalirate konfiguracije koje mogu da PREUZMU POTPUNU KONTROLU NAD VAŠIM RAČUNAROM?\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Da li ste sigurni da želite da instalirate konfiguracije koje bi možda mogle da PREUZMU POTPUNU KONTROLU NAD VAŠIM RAČUNAROM?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Na liniji %1$lu OpenVPN konfiguracionog fajla: %2$@";
@@ -1106,9 +1094,6 @@
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfiguracije su instalirane iz fajlova koji su vam dostavljeni od strane vašeg mrežnog administratora ili dobavljača VPN usluga.\n\nKonfiguracioni fajlovi imaju ekstenzije .tblk, .ovpn, ili .conf.\n\n(Može biti i drugih fajlova vezanih za konfiguraciju sa drugačijim ekstenzijama - zanemarite ih.)\n\nDa bi instalirali konfiguracioni fajl, prevucite ga na Tunnelblick ikonicu ili u listu konfiguracija u okviru 'Konfiguracije' taba u 'VPN detalji' prozoru.\n\nDa bi instalirali više konfiguracija odjednom, odaberite sve fajlove i zajedno ih prevucite.";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfiguracije koje nisu deo Tunnelblick-a su podešene da se instaliraju nakon što instalirate Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Poveži:";
@@ -1387,21 +1372,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Jedan ili više OpenVPN procesa je pokrenuto ali ih Tunnelback ne prepoznaje. Ako ne koristite OpenVPN nezavisno od Tunnelblicka, ovo obično znači da ranije pokrenuti Tunnelblick nije uspeo da ih ugasi i trebalo bi da ih ubijete. Verovatno će smetati Tunnelblickovom radu. \n\nMožete ih ubiti kroz 'Activity Monitor' aplikaciju.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna ili više VPN konfiguracija koje instalirate sadrže OpenVPN opcije koje nisu prepoznate od strane Tunnelblick-a. Razlog za to može biti do greške u konfiguraciji, greške u Tunnelblick-u ili takve konfiguracije sadrže programe koji će biti pokrenuti pod root nalogom kada se povežete na VPN. Takvi programi bi onda mogli PREUZETI POTPUNU KONTROLU NAD VAŠIM RAČUNAROM.\n\nOVAKVE KONFIGURACIJE NEMOJTE INSTALIRATI SEM AKO NE VERUJETE NJENIM AUTORIMA.\n\nDa li verujete autoru ovih konfiguracija i želite da ih instalirate?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna ili više VPN konfiguracija koje instalirate sadrže OpenVPN opcije koje nisu prepoznate od strane Tunnelblick-a. Ovi programi su deo konfiguracije i nisu deo Tunnelblick-a. Takvi programi bi onda mogli PREUZETI POTPUNU KONTROLU NAD VAŠIM RAČUNAROM.\n\nOVAKVE KONFIGURACIJE NEMOJTE INSTALIRATI SEM AKO NE VERUJETE NJENIM AUTORIMA.\n\nDa li verujete autoru ovih konfiguracija i želite da ih instalirate?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna ili više VPN konfiguracija koje instalirate sadrže programe koji će biti pokrenuti pod root nalogom kada se povežete na VPN. Ovi programi su deo same konfiguracije i nisu deo Tunnelblick-a. \n\nOve konfiguracije možete instalirati samo ako zaista verujete njihovom autoru. \n\nDa li verujete autoru ovih konfiguracija i želite da ih instalirate?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna ili više VPN konfiguracija koje ažurirate sadrže OpenVPN opcije koje nisu prepoznate od strane Tunnelblick-a. Ovi programi su deo konfiguracije i nisu deo Tunnelblick-a. Takvi programi bi onda mogli PREUZETI POTPUNU KONTROLU NAD VAŠIM RAČUNAROM.\n\nOVAKVE KONFIGURACIJE NEMOJTE INSTALIRATI SEM AKO NE VERUJETE NJENIM AUTORIMA.\n\nDa li verujete autoru ovih konfiguracija i želite da ih instalirate?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna ili više VPN konfiguracija koje ažurirate sadrže OpenVPN uključuju programe koji će se pokrenuti nakon što ostvarite konekciju sa VPN-om. Ovi programi su deo konfiguracije i nisu deo Tunnelblick-a.\n\nOvakve konfiguracije možete instalirati samo ako verujete njihovim autorima.\n\nDa li verujete autoru ovih konfiguracija i želite da ih instalirate?\n\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Jedan ili više VPNova je trenutno povezano. Molim prekinite veze ka svim VPNovima i ugasite Tunnelblick pre nego nastavite.";
 
 /* Window text */
@@ -1535,9 +1505,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "'namedCredentialsNames' podešavanje mora da sadrži niz stringova";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN konfiguracioni fajl %1$@ sadrži opciju '%2$@', koja je dostupna samo na Windows operativnom sistemu i ne može se koristiti na macOS sistemu.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN log javlja sledeće:\n\n\"%1$@\".%2$@";
@@ -1862,9 +1829,6 @@
 
 /* Window text */
 "Unable to load contents of %@ as UTF-8" = "Nemoguće je učitati sadržaj %@ u UTF-8 formatu";
-
-/* Window text */
-"Unable to open configuration file for modification" = "Neuspešno otvaranje konfiguracionog fajla radi izmene";
 
 /* Window text */
 "Unable to parse configuration file as UTF-8" = "Nemoguće je razdvojiti konfiguracionu datoteku u UFT-8 formatu";

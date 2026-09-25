@@ -454,6 +454,12 @@
 "Display 'Connect' and 'Disconnect' with configuration names" = "Vis 'Opret forbindelse' og 'Afbryd forbindelse' med konfigurationsnavne";
 
 /* Checkbox name */
+"Display a prominent indicator when any configuration is connected" = "Vis en tydelig indikator, når en konfiguration er tilsluttet";
+
+/* Checkbox name */
+"Display a prominent indicator when any warnings are available" = "Vis en tydelig indikator, når der er advarsler tilgængelige";
+
+/* Checkbox name */
 "Display connection submenus" = "Vis forbindelses undermenuer";
 
 /* Checkbox name */
@@ -919,9 +925,6 @@
 "  • Remove a configuration\n" = "  • Slette en konfiguration\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • Sikre konfigurationer\n";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ er gratis software: du kan redistribuere det og/eller modificere det under vilkårene fra %2$@ som er publiceret af %3$@.\n\n%4$@ er et registeret varemærke af OpenVPN Inc.";
 
 /* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
@@ -1105,9 +1108,6 @@
 "An error occurred. Please try again." = "Der opstod en fejl, prøv igen.";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "Der opstod en fejl. Se konsol loggen for detaljer.";
-
-/* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Der opstod en intern Tunnelblick fejl%1$@%2$@";
 
 /* Window text */
@@ -1136,12 +1136,6 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Er du sikker på du vil slette legitimationsoplysninger (privat nøgle og/eller brugernavn og kodeord) delt i nøgleringen for '%@' legimitationsoplysninger?";
-
-/* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Er du sikker på, at du vil installere konfigurationer, som KAN TAGE FULD KONTROL OVER DIN COMPUTER?\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Er du sikker på, at du vil installere konfigurationer, som kan tage FULD KONTROL OVER DIN COMPUTER?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Ved linje %1$lu af OpenVPN konfigurationsfil: %2$@";
@@ -1199,9 +1193,6 @@
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfigurationerne er installeret fra filer, der er blevet leveret af din netværksadministrator eller VPN udbyder.\n\nKonfigurationsfiler slutter med .tblk, .ovpn, eller. conf. \n\n(Der kan være andre filer forbundet med konfigurationen, der har andre endelser; disse kan ignoreres.)\n\nFor at installere en konfigurationsfil skal filen trækkes og slippes over på Tunnelblick ikonet på menubjælken eller på listen af konfigurationer i \"Konfiguration\"-fanebladet i 'VPN Detailjer'-vinduet.\n\nFor at installere flere konfigurationsfiler samtidigt, vælges alle filerne hvorefter de alle trækkes og slippes på same vis.";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfigurationer som ikke er en del af Tunnelblick er sat til at blive installeret sammen med Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Tilslut:";
@@ -1271,9 +1262,6 @@
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Ønsker du at geninstallere '%1$@' version %2$@?";
-
-/* Window text */
-"Do you wish to remove one or more configurations?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "Ønsker du at fjerne en eller flere konfigurationer?\n\nFjernelsen er permanent og kan ikke fortrydes.\n\nIndstillinger for fjernede konfigurationer vil også blive fjernet permanent.";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Vil du erstatte '%1$@' version %2$@ med version %3$@?";
@@ -1486,21 +1474,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "En eller flere OpenVPN processer kører, men kan ikke genkendes af Tunnelblick. Hvis du ikke kører OpenVPN seperat fra Tunnelblick, kan det betyde at du kører at Tunnelblick ikke har kunne lukke ordentligt ned og at du skal afslutte dem. Der er stor chance for at de vil påvirke hvordan Tunnelblick kører.\n\nDe kan blive afsluttet ved hjælp af 'Aktivitetsovervågning' applikationen.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "En eller flere VPN-konfigurationer, der installeres, omfatter OpenVPN-indstillinger, der ikke blev genkendt af Tunnelblick. Det kan være en fejl i konfigurationen eller en fejl i Tunnelblick, eller konfigurationerne kan omfatte programmer, som vil køre som rod, når du opretter forbindelse til en VPN. Sådanne programmer vil kunne tage FULD KONTROL OVER DIN COMPUTER.\n\nDU BØR IKKE INSTALLERE DISSE KONFIGURATIONER MEDMINDRE DU STOLER PÅ KILDEN.\n\nStoler du på kilden til disse konfigurationer og ønsker du at installere dem?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "En eller flere VPN-konfigurationer, der installeres, omfatter programmer, der vil køre som rod, når du opretter forbindelse til en VPN. Disse programmer er en del af konfigurationen og er ikke en del af Tunnelblick-programmet. De kan tage FULD KONTROL OVER DIN COMPUTER.\n\nDU BØR IKKE INSTALLERE DISSE KONFIGURATIONER MEDMINDRE DU STOLER PÅ KILDEN.\n\nStoler du på kilden til disse konfigurationer og ønsker du at installere dem?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "En eller flere VPN-konfigurationer, der installeres, omfatter programmer, der kører, når du opretter forbindelse til en VPN. Disse programmer er en del af konfigurationen og er ikke en del af Tunnelblick-programmet.\n\nDu bør kun installere disse konfigurationer, hvis du stoler på kilden.\n\nStoler du på kilden til disse konfigurationer og ønsker du at installere dem?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "En eller flere VPN-konfigurationer, der opdateres, omfatter programmer, der vil køre som rod, når du opretter forbindelse til en VPN. Disse programmer er en del af konfigurationen og er ikke en del af Tunnelblick-programmet. De kan tage FULD KONTROL OVER DIN COMPUTER.\n\nDU BØR IKKE INSTALLERE DISSE KONFIGURATIONER MEDMINDRE DU STOLER PÅ KILDEN.\n\nStoler du på kilden til disse konfigurationer og ønsker du at installere dem?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "En eller flere VPN-konfigurationer, der opdateres, omfatter programmer, der kører, når du opretter forbindelse til en VPN. Disse programmer er en del af konfigurationen og er ikke en del af Tunnelblick-programmet.\n\nDu bør kun installere disse konfigurationer, hvis du stoler på kilden.\n\nStoler du på kilden til disse konfigurationer og ønsker du at installere dem?\n\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "En eller flere VPN'er er tilsluttet nu. Vær venlig at afslutte alle VPN'er og luk Tunnelblick før du fortsætter.";
 
 /* Window text */
@@ -1634,9 +1607,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "'namedCredentialsNames' præferencen skal være en tabel af strenge";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN konfigurations filen ved %1$@ indeholder en '%2$@' indstilling, som kun kan bruges til Windows. Den kan ikke bruges i macOS.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN loggen indeholder følgende besked: \n\n\"%1$@\".%2$@";
@@ -1984,9 +1954,6 @@
 "Unable to load contents of %@ as UTF-8" = "Det er ikke muligt at hente indholdet af %@ som UTF-8";
 
 /* Window text */
-"Unable to open configuration file for modification" = "Kan ikke åbne konfigurationsfilen for at ændre i den";
-
-/* Window text */
 "Unable to parse configuration file as UTF-8" = "Det er ikke muligt at parse konfigurationsfilen som UTF-8";
 
 /* Window text */
@@ -2250,6 +2217,9 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Når markeret</strong>, vil IPv6 være aktiveret.</p>\n<p><strong>Når ikke markeret</strong>, vil IPv6 ikke være aktiveret.</p>\n<p>Det er ofte anbefalet at slå IPv6 fra, fordi mange VPN konfigurationer ikke beskytter imod information leaks forårsaget af IPv6. De fleste internet adgange virker fint uden IPv6.</p>\n<p><strong>Dette afkrydsningsfelt er deaktiveret</strong> for Tun konfigurationer.</p>";
 
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n<p><strong>Warning</strong>: Tap interfaces often need additional configuration changes that are not compatible with this option.</p>" = "<p><strong>Når det er markeret</strong>, vil OpenVPN ændre DNS og andre indstillinger, efter routing for VPN'en er konfigureret, i stedet for før routing er konfigureret.</p>\n<p><strong>Når det ikke er markeret</strong>, vil OpenVPN ændre DNS og andre indstillinger, før routing for VPN'en er konfigureret, i stedet for efter routing er konfigureret. Dette kan forårsage DNS-fejl eller forsinkelser, hvis ruterne tager lang tid at konfigurere - for eksempel hvis der er mange ruter at konfigurere.</p>\n<p><strong>Advarsel</strong>: Tap-grænseflader kræver ofte yderligere konfigurationsændringer, der ikke er kompatible med denne indstilling.</p>";
+
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Når markeret</strong>, vil OpenVPN køre en test for at afgøre den størst mulige MTU størrelse for forbindelsen. Testen starter hver gangen forbindelse er oprettet og kan tage flere minutter. Test resultater fremgår i Tunnelblick loggen.</p>\n";
 
@@ -2285,6 +2255,15 @@
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Ved markering</strong>, så vil VPN-status vinduet for alle 'aktive' konfigurationer blive vist når markøren er over Tunnelblick ikonet</p><p>'Aktive' konfiguration er konfigurationer som du har forsøgt at forbinde til siden sidste start af Tunnelblick.</p><p><strong>Denne markering er deaktiveret</strong> når 'Vis aldrig' er valgt ovenover.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any configuration is connected' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any configuration is connected.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Når det er markeret</strong>, vises en tydelig visuel indikator på Tunnelblick-ikonet, når en konfiguration er tilsluttet.</p><p><strong>Hvis det ikke er markeret</strong>, vises der ingen sådan indikator.</p>";
+
+/* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
+"<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Når det er markeret</strong>, vises en tydelig visuel indikator på Tunnelblick-ikonet, når der er advarsler tilgængelige.</p><p><strong>Hvis det ikke er markeret</strong>, vises der ingen sådan indikator.</p>";
+
+/* HTML info for the 'Display connection timers' checkbox. */
+"<p><strong>When checked</strong>, a timer is displayed in the Tunnelblick menu and in the title of the VPN Details window:</p>\n<p>While a connection attempt is being made, the timer displays the time that has elapsed trying to make the connection. When a connection is made, the timer restarts and displays the time that has elapsed since the connection was made. While a disconnect attempt is being made, the timer restarts and displays the time that has elapsed trying to disconnect.</p>" = "<p><strong>Når det er markeret</strong>, vises en timer i Tunnelblick-menuen og i titlen på vinduet VPN-detaljer:</p>\n<p>Mens der forsøges at oprette forbindelse, viser timeren den tid, der er gået med at oprette forbindelse. Når der oprettes forbindelse, genstarter timeren og viser den tid, der er gået, siden forbindelsen blev oprettet. Mens der forsøges at afbryde forbindelsen, genstarter timeren og viser den tid, der er gået med at forsøge at afbryde forbindelsen.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Ved markering</strong>, så vil Tunnelblick's statusvindue blive vist ved start.</p>";

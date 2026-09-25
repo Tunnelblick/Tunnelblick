@@ -877,9 +877,6 @@
 "  • Remove a configuration\n" = "  • ลบคอนฟิกเกอเรชัน\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • การทำให้คอนฟิกเกอเรชันปลอดภัย\n";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ เป็นซอฟต์แวร์ฟรีสำหรับคุณ: คุณสามารถเผยแพร่ และ/หรือ แก้ไขภายไต้เงื่อนไขของ %2$@ เป็น การเผยแพร่โดย %3$@.\n\n%4$@ เป็นเครื่องหมายการค้าของบริษัท OpenVPN Inc.";
 
 /* Window text */
@@ -1039,9 +1036,6 @@
 "An error occurred. Please try again." = "เกิดข้อผิดพลาด โปรดลองอีกครั้ง";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "เกิดข้อผิดพลาดขึ้น ดูรายละเอียดได้ที่ Console Log";
-
-/* Window text */
 "An internal Tunnelblick error occurred%@%@" = "เกิดข้อผิดพลาดภายใน Tunnelblick %1$@%2$@";
 
 /* Window text */
@@ -1070,12 +1064,6 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "คุณแน่ใจหรือไม่ที่อยากจะลบข้อมูลยืนยันตัวตัน (กุญแจส่วนตัว และ/หรือ ชื่อผู้ใช้และรหัสผ่าน) ที่ถูกเก็บไว้ใน Keychain สำหรับข้อมูลยืนยันตัวตน '%@' ?";
-
-/* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "คุณแน่ใจหรือไม่ที่อยากจะติดตั้งคอนฟิกเกอเรชันซึ่ง !!สามารถควบคุมเครื่องคอมพิวเตอร์ของคุณได้อยากเบ็ดเสร็จ!! ?\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "คุณแน่ใจหรือไม่ที่อยากจะติดตั้งคอนฟิกเกอเรชันซึ่ง !!อาจจะสามารถควบคุมเครื่องคอมพิวเตอร์ของคุณได้อยากเบ็ดเสร็จ!! ?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "ที่บรรทัด %1$lu ของคอนฟิกเกอเรชัน OpenVPN: %2$@";
@@ -1133,9 +1121,6 @@
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "คอนฟิกเกอเรชันถูกติดตั้งจากไฟล์ส่งมาให้คุณจากผู้จัดการระบบเครือข่ายหรือผู้ให้บริการ VPN\n\nไฟล์คอนฟิกเกอเรชันมีนามสกุล .tblk, .ovpn หรือ .conf\n\n(อาจมีไฟล์อื่นที่เกี่ยวข้องกับคอนฟิกเกอเรชันแต่มีนามสกุลอื่นนอกเหนือจากนี้ ไม่ต้องสนใจ)\n\nเพื่อติดตั้งไฟล์คอนฟิกเกอเรชัน ให้ลากแล้วปล่อยไฟล์บนไอคอน Tunnelblick ที่แถบเมนูหรือบนรายการคอนฟิกเกอเรชันในแท็บ 'คอนฟิกเกอเรชัน' ของหน้าต่าง 'รายละเอียด VPN'\n\nเพื่อติดตั้งหลายคอนฟิกเกอเรชันในครั้งเดียว ให้เลือกทุกไฟล์และลากแล้วปล่อยพร้อมกันทั้งหมด";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "มีการเตรียมคอนฟิกเกอเรชันที่ไม่อยู่ใน Tunnelblick ไว้เพื่อจะติดตั้ง เมื่อคุณติดตั้ง Tunnelblick\n\n";
 
 /* Window text */
 "Connect:" = "เชื่อมต่อ:";
@@ -1414,21 +1399,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "อย่างน้อย 1 โพรเซสของ OpenVPN กำลังทำงานอยู่ แต่ Tunnelblick ไม่ทราบที่มา ถ้าคุณไม่ได้กำลังเปิด OpenVPN แยกต่างหากจาก Tunnelblick นั่นมักจะหมายความว่า Tunnelblick ก่อนหน้านี้ หยุดการทำงานได้ไม่เรียบร้อย คุณควรจะหยุดโพรเซสเหล่านั้นเพราะมันมักจะรบกวนการทำงานของ Tunnelblick ในปัจจุบัน\n\nสามารถหยุดโพรเซสเหล่านั้นได้ในแอพพลิเคชัน 'Activity Monitor'\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "คอนฟิกเกอเรชัน VPN อย่างน้อย 1 ชุดที่กำลังถูกติดตั้ง มีตัวเลือก OpenVPN หลายตัวซึ่ง Tunnelblick ไม่รู้จัก นั่นอาจหมายถึงข้อผิดพลาดในคอนฟิกเกอเรชันหรือข้อผิดพลาดของ Tunnelblick ก็เป็นได้ หรือคอนฟิกเกอเรชันอาจจะมีโปรแกรมที่จะทำงานในฐานะ root เมื่อคุณเชื่อมต่อ VPN ซึ่งโปรแกรมแบบนั้นอาจจะ !!สามารถควบคุมเครื่องคอมพิวเตอร์ของคุณได้อยากเบ็ดเสร็จ!! \n\n!! คุณไม่ควรจะติดตั้งคอนฟิกเกอเรชันเหล่านี้ เว้นแต่ว่าคุณเชื่อใจคนที่สร้างคอนฟิกเกอเรชัน !!\n\nคุณเชื่อใจคนที่สร้างคอนฟิกเกอเรชันเหล่านี้และอยากที่จะติดตั้งมันหรือไม่?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "คอนฟิกเกอเรชัน VPN อย่างน้อย 1 ชุดที่กำลังถูกติดตั้ง มีโปรแกรมที่จะทำงานในฐานะ root เมื่อคุณเชื่อมต่อ VPN ซึ่งโปรแกรมนี้เป็นส่วนหนึ่งในคอนฟิกเกอเรชันแต่ไม่ใช่ส่วนหนึ่งในแอพพลิเคชัน Tunnelblick โดยโปรแกรมนี้ !!สามารถควบคุมเครื่องคอมพิวเตอร์ของคุณได้อยากเบ็ดเสร็จ!! \n\n!! คุณไม่ควรจะติดตั้งคอนฟิกเกอเรชันเหล่านี้ เว้นแต่ว่าคุณเชื่อใจคนที่สร้างคอนฟิกเกอเรชัน !!\n\nคุณเชื่อใจคนที่สร้างคอนฟิกเกอเรชันเหล่านี้และอยากที่จะติดตั้งมันหรือไม่?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "คอนฟิกเกอเรชัน VPN อย่างน้อย 1 ชุดที่กำลังถูกติดตั้ง มีโปรแกรมที่จะทำงานเมื่อคุณเชื่อมต่อ VPN ซึ่งโปรแกรมนี้เป็นส่วนหนึ่งในคอนฟิกเกอเรชันแต่ไม่ใช่ส่วนหนึ่งในแอพพลิเคชัน Tunnelblick\n\nคุณควรจะติดตั้งคอนฟิกเกอเรชันเหล่านี้ ในกรณีที่คุณเชื่อใจคนที่สร้างคอนฟิกเกอเรชันเท่านั้น\n\nคุณเชื่อใจคนที่สร้างคอนฟิกเกอเรชันเหล่านี้และอยากที่จะติดตั้งมันหรือไม่?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "คอนฟิกเกอเรชัน VPN อย่างน้อย 1 ชุดที่กำลังถูกอัพเดท มีโปรแกรมที่จะทำงานในฐานะ root เมื่อคุณเชื่อมต่อ VPN ซึ่งโปรแกรมนี้เป็นส่วนหนึ่งในคอนฟิกเกอเรชันแต่ไม่ใช่ส่วนหนึ่งในแอพพลิเคชัน Tunnelblick โดยโปรแกรมนี้ !!สามารถควบคุมเครื่องคอมพิวเตอร์ของคุณได้อยากเบ็ดเสร็จ!! \n\n!! คุณไม่ควรจะติดตั้งคอนฟิกเกอเรชันเหล่านี้ เว้นแต่ว่าคุณเชื่อใจคนที่สร้างคอนฟิกเกอเรชัน !!\n\nคุณเชื่อใจคนที่สร้างคอนฟิกเกอเรชันเหล่านี้และอยากที่จะติดตั้งมันหรือไม่?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "คอนฟิกเกอเรชัน VPN อย่างน้อย 1 ชุดที่กำลังถูกอัพเดท มีโปรแกรมที่จะทำงานเมื่อคุณเชื่อมต่อ VPN ซึ่งโปรแกรมนี้เป็นส่วนหนึ่งในคอนฟิกเกอเรชันแต่ไม่ใช่ส่วนหนึ่งในแอพพลิเคชัน Tunnelblick\n\nคุณควรจะติดตั้งคอนฟิกเกอเรชันเหล่านี้ ในกรณีที่คุณเชื่อใจคนที่สร้างคอนฟิกเกอเรชันเท่านั้น\n\nคุณเชื่อใจคนที่สร้างคอนฟิกเกอเรชันเหล่านี้และอยากที่จะติดตั้งมันหรือไม่?\n\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "ยังเชื่อมต่อ VPN อยู่ในขณะนี้ โปรดตัดการเชื่อมต่อ VPN ทั้งหมดและปิด Tunnelblick ก่อนจะดำเนินการต่อไป";
 
 /* Window text */
@@ -1562,9 +1532,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "การตั้งค่า 'namedCredentialsNames' ต้องเป็น array ของข้อความ";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "ไฟล์คอนฟิกเกอเรชัน OpenVPN ใน %1$@ มีตัวเลือกชื่อ '%2$@' ซึ่งเป็นตัวเลือกสำหรับ Windows เท่านั้น ไม่สามารถใช้บน macOS ได้";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN log ประกอบด้วยข้อความ: \n\n\"%1$@\".%2$@";
@@ -1889,9 +1856,6 @@
 
 /* Window text */
 "Unable to load contents of %@ as UTF-8" = "ไม่สามารถโหลดเนื้อหา %@ ในรูปแบบ UTF-8 ได้";
-
-/* Window text */
-"Unable to open configuration file for modification" = "ไม่สามารถเปิดคอนฟิกเกอเรชันเพื่อแก้ไขได้";
 
 /* Window text */
 "Unable to parse configuration file as UTF-8" = "ไม่สามารถอ่านไฟล์คอนฟิกเกอเรชันในรูปแบบ UTF-8 ได้";

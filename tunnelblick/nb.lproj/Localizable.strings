@@ -925,9 +925,6 @@
 "  • Remove a configuration\n" = "  • Fjerne et oppsett\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • Sikre konfigurasjonene\n";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ er gratis programvare: Du kan redistribuere den og/eller endre den under vilkårene i %2$@ som publisert av %3$@.\n\n%4$@ er et registrert varemerke av OpenVPN Technologies, Inc.";
 
 /* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
@@ -1111,9 +1108,6 @@
 "An error occurred. Please try again." = "En feil oppsto. Vennligst prøv igjen.";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "En feil oppstod. Se konsolloggen for detaljer.";
-
-/* Window text */
 "An internal Tunnelblick error occurred%@%@" = "En intern Tunnelblick feil oppstod %1$@%2$@";
 
 /* Window text */
@@ -1142,12 +1136,6 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Er du sikker på at du ønsker å slette brukeropplysningene (privat nøkkel og/eller brukernavn og passord) lagret i nøkkelringen for '%@' brukeropplysninger?";
-
-/* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Er du sikker på at du vil installere konfigurasjoner som kan TA FULLSTENDIG KONTROLL OVER DATAMASKINEN DIN?\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Er du sikker på at du ønsker å installere konfigurasjoner som potensielt KAN TA FULL KONTROLL OVER DATAMASKINEN DIN?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "På linje %1$lu av OpenVPN konfigurasjonsfilen: %2$@";
@@ -1205,9 +1193,6 @@
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfigurasjoner er blitt installert fra filer som du får fra din nettverksadministrator eller VPN-tilbyder.\n\nKonfigurasjonsfilene har filendingene .tblk, .ovpn eller .conf.\n\n(Det kan være flere filer som er tilknyttet konfigurasjonen som har andre filendinger, ignorer disse.)\n\nFor å installere en konfigurasjonsfil, dra den og slipp på ikonet til Tunnelblick i oppgavelinjen.\n\nFor å installere flere konfigurasjoner på samme tid, velg alle filene og dra de til Tunnelblick-ikonet i oppgavelinjen.";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfigurasjoner som ikke er en del av Tunnelblick er satt opp til å bli installert når du installerer Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Koble til:";
@@ -1277,9 +1262,6 @@
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Ønsker du å reinstallere '%1$@' versjon %2$@?";
-
-/* Window text */
-"Do you wish to remove one or more configurations?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "Ønsker du å fjerne en eller flere innstillinger?\n\nFjerning er permanent, og kan ikke angres.\n\nInnstillinger for fjernede innstillinger vil også bli fjernet permanent.";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Vil du erstatte '%1$@' versjon %2$@ med versjon %3$@?";
@@ -1492,21 +1474,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "En eller flere OpenVPN prosesser som er igang er ukjent for Tunnelblick. Hvis du ikke har noe OpenVPN separat fra Tunnelblick, betyr dette vanligvis at en tidligere startet Tunnelblick ikke kunne avslutte de skikkelig, og de burde avsluttes. De vil sannsynligvis blande seg i Tunnelblick sin virksomhet.\n\nDe kan avsluttes i 'Aktivitetsmonitor' applikasjonen.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "En eller flere av VPN-konfigurasjonene du installerer inkluderer OpenVPN-opsjoner som ikke gjenkjennes av Tunnelblick. Det kan være en feil i konfigurasjonen eller en feil i Tunnelblick. Det kan også være at konfigurasjonene inneholder programmer som kjører som 'root' når du kobler til et VPN. Slike programmer vil kunne ta FULLSTENDIG KONTROLL OVER DIN DATAMASKIN.\n\nDU BURDE IKKE INSTALLERE DISSE KONFIGURASJONENE OM DU IKKE STOLER PÅ DEM.\n\nStoler du på denne konfigurasjonen eller den som har skrevet den, og ønsker du å installere den?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Én eller flere VPN-konfigurasjoner som holder på å installeres, inkluderer programmer som vil kjøre som root når man oppretter en VPN-forbindelse.\n\nDU BØR IKKE INSTALLERE DISSE KONFIGURASJONENE MED MINDRE DU STOLER PÅ DERES FORFATTER.\n\nStoler du på forfatteren av konfigurasjonene og ønsker å installere dem?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Én eller flere VPN-konfigurasjoner som holder på å installeres, inkluderer programmer som vil kjøre som root når man oppretter en VPN-forbindelse.\n\nDU BØR IKKE INSTALLERE DISSE KONFIGURASJONENE MED MINDRE DU STOLER PÅ DERES FORFATTER.\n\nStoler du på forfatteren av konfigurasjonene og ønsker å installere dem?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Én eller flere VPN-konfigurasjoner som holder på å oppdateres, inkluderer programmer som vil kjøre som root når man oppretter en VPN-forbindelse.\n\nDU BØR IKKE INSTALLERE DISSE KONFIGURASJONENE MED MINDRE DU STOLER PÅ DERES FORFATTER.\n\nStoler du på forfatteren av konfigurasjonene og ønsker å installere dem?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Én eller flere VPN-konfigurasjoner som holder på å oppdateres, inkluderer programmer som vil kjøre som root når man oppretter en VPN-forbindelse.\n\nDU BØR IKKE INSTALLERE DISSE KONFIGURASJONENE MED MINDRE DU STOLER PÅ DERES FORFATTER.\n\nStoler du på forfatteren av konfigurasjonene og ønsker å installere dem?\n\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "En eller flere VPN-er er tilkoblet. Vennligst koble fra alle VPN-er og avslutt Tunnelblick før du fortsetter.";
 
 /* Window text */
@@ -1640,9 +1607,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = " 'namedCredentialsNames' innstillingene må være en liste med strenger";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN-konfigurasjonsfilen i %1$@ inneholder en '%2$@'-opsjon som kun fungerer i Windows. Den kan ikke brukes i OS X.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN-loggen inneholder følgende melding: \n\n\"%1$@\".%2$@";
@@ -1988,9 +1952,6 @@
 
 /* Window text */
 "Unable to load contents of %@ as UTF-8" = "Kunne ikke laste innholdet i %@ som UTF-8";
-
-/* Window text */
-"Unable to open configuration file for modification" = "Kan ikke åpne konfigurasjonsfilen for modifikasjon";
 
 /* Window text */
 "Unable to parse configuration file as UTF-8" = "Kunne ikke parse konfigurasjonsfilen som UTF-8";

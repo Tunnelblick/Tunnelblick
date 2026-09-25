@@ -673,9 +673,6 @@
 "  • Install or update configuration(s)\n" = "  Installeeri või uuenda konfiguratsioone\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  Turvalised konfiguratsioonid\n";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Nõutud seadistused installeeritakse või asendatakse.\n\n";
 
 /* Window text; '%@' is the name of a configuration */

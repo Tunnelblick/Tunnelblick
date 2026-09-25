@@ -925,9 +925,6 @@
 "  • Remove a configuration\n" = "  Poista konfiguraatio\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • Suojaa konfiguraatiot\n";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ on ilmainen ohjelma: voit jakaa ja/tai muokata sitä %3$@: n julkaiseman %2$@: n ehtojen mukaisesti.\n\n%4$@ on OpenVPN Inc: n omistama rekisteröity tavaramerkki.";
 
 /* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
@@ -1111,9 +1108,6 @@
 "An error occurred. Please try again." = "Tapahtui virhe. Yritä uudelleen.";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "Tapahtui virhe. Katso lisätietoja konsoli logista.";
-
-/* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Sisäinen Tunnelblick-virhe tapahtui%1$@%2$@";
 
 /* Window text */
@@ -1142,12 +1136,6 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Oletko varma, että haluat poistaa Avainnipun käyttöön tallennetut käyttäjätunnukset (yksityinen avain ja/tai käyttäjätunnus ja salasana) kohteelta '%@'?";
-
-/* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Haluatko varmasti asentaa konfiguraatiot JOTKA VOIVAT OTTAA KONEESI KOKONAAN HALTUUNSA?\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Oletko varma, että haluat asentaa konfiguraation, joka voi OTTAA KONEESI TÄYTEEN HALLINTAAN?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Rivillä %1$lu OpenVPN-konfiguraatiotiedostossa: %2$@";
@@ -1205,9 +1193,6 @@
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfiguraatiot asennetaan tiedostoista jotka toimittaa sinulle verkon ylläpitäjä tai VPN palveluntarjoaja.\n\nKonfiguraatiotiedoston pääte on .tblk, .ovpn tai .conf.\n\n(Myös muunlaisia tiedostopäätteitä omaavat tiedostot saattavat liittyä konfiguraatioon, älä kuitenkaan välitä niistä.)\n\nAsentaaksesi konfiguraation, raahaa se Tunnelblick ikonin päälle valikkopalkkiin tai konfiguraatiot listaan konfiguraatiot välilehdellä 'VPN Details' ikkunaan.\n\nVoit myös asentaa useita konfiguraatioita kerralla valitsemalla ja raahaamalla kaikki kerralla.";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfiguraatiot, jotka eivät ole osa Tunnelblickiä, määritetään asennettavaksi, kun asennat Tunnelblickin.\n\n";
 
 /* Window text */
 "Connect:" = "Muodosta yhteys:";
@@ -1277,9 +1262,6 @@
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Haluatko asentaa uudelleen '%1$@', versio %2$@?";
-
-/* Window text */
-"Do you wish to remove one or more configurations?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "Haluatko poistaa yhden tai useamman konfiguraation?\n\nPoisto on pysyvä ja sitä ei voi perua.\n\nPoistettujen konfiguraatioiden asetukset poistetaan myös pysyvästi.";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Haluatko korvata kohteen '%1$@' version %2$@ versiolla %3$@?";
@@ -1492,21 +1474,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Yksi tai useampi OpenVPN-prosessi on käynnissä, mutta ne ovat tuntemattomia Tunnelblickille. Jos et suorita OpenVPN:ää erillään Tunnelblickistä, tämä yleensä tarkoittaa, että Tunnelblickin aiempi suoritus ei päättynyt kunnolla ja sinun pitäisi tuhota ne. Ne aiheuttavat todennäköisesti häiriöitä Tunnelblickin toiminnalle.\n\nNe voidaan tuhota 'Järjestelmän valvonta'-sovelluksessa.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Yksi tai useampia asennettavista VPN määrityksistä sisältää OpenVPN asetuksia joita Tunnelblick ei tunnista. Tämä voi olla virhe määrityksissä tai virhe Tunnelblick ohjelmassa tai määritykset saattavat sisältää ohjelmia, jotka suoritetaan pääkäyttäjän oikeuksilla VPN yhteyttä muodostettaessa. Tämän tyyppisillä ohjelmilla on MAHDOLLISUUS OTTAA TIEETOKONEESI TÄYSIN HALLINTAANSA.\n\nTÄLLAISIA YHTEYSMÄÄRITYKSIÄ EI TULE ASENTAA ELLEI VOI TÄYSIN LUOTTAA LÄHTEESEEN.\n\nLuotatko näiden lähteeseen ja haluat asentaa nämä?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Yksi tai useampia VPN yhteysmäärityksiä joita ollaan asentamassa, sisältää ohjelmia jotka suoritetaan pääkäyttäjän oikeuksilla, kun VPN yhteys muodostetaan. Nämä ohjelmat kuuluvat yhteysmäärityksiin, mutta eivät ole osa Tunnelblick sovellusta. Näillä on MAHDOLLISUUS OTTAA TIETOKONEESI TÄYSIN HALLINTAANSA.\n\nNÄITÄ YHTEYSMÄÄRITYKSIÄ EI TULE ASENTAA, ELLEI LÄHTEESEEN VOI TÄYSIN LUOTTAA.\n\nLuotatko määritysten lähteeseen ja haluat asentaa ne?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Yksi tai useampi VPN asetuksista joita olet asentamassa, sisältää ohjelmia jotka suoritetaan VPN yhteyden avaamisen yhteydessä. Nämä ohjelmat ovat osa asetuksia, mutta eivät ole osa Tunnelblick ohjelmistoa.\n\nAsenna nämä asetukset ainoastaan, jos luotat niiden lähteeseen.\n\nLuotatko asetuksiin sekä niiden lähteeseen ja haluat asentaa ne?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Yksi tai useampia VPN yhteysmäärityksiä joita ollaan päivittämässä, sisältää ohjelmia jotka suoritetaan pääkäyttäjän oikeuksilla, kun VPN yhteys muodostetaan. Nämä ohjelmat kuuluvat yhteysmäärityksiin, mutta eivät ole osa Tunnelblick sovellusta. Näillä on MAHDOLLISUUS OTTAA TIETOKONEESI TÄYSIN HALLINTAANSA.\n\nNÄITÄ YHTEYSMÄÄRITYKSIÄ EI TULE ASENTAA, ELLEI LÄHTEESEEN VOI TÄYSIN LUOTTAA.\n\nLuotatko määritysten lähteeseen ja haluat asentaa ne?\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Yksi tai useampi VPN asetuksista joita olet päivittämässä, sisältää ohjelmia jotka suoritetaan VPN yhteyden avaamisen yhteydessä. Nämä ohjelmat ovat osa asetuksia, mutta eivät ole osa Tunnelblick ohjelmistoa.\n\nAsenna nämä asetukset ainoastaan, jos luotat niiden lähteeseen.\n\nLuotatko asetuksiin sekä niiden lähteeseen ja haluat asentaa ne?\n\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Yksi tai useampia VPN:iä on tällä hetkellä kytkeytyneenä. Katkaise yhteys kaikkiin VPN:iin ja lopeta Tunnelblick ennen jatkamista.";
 
 /* Window text */
@@ -1640,9 +1607,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Asetus 'namedCredentialsNames' täytyy olla merkkijonotaulukko";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN-konfiguraatiotiedosto kohteessa %1$@ sisältää valinnan '%2$@', joka on vain Windowsia koskeva. Sitä ei voida käyttää macOS:ssa.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN lokissa on seuraava ilmoitus:\n\n\"%1$@\".%2$@";
@@ -1988,9 +1952,6 @@
 
 /* Window text */
 "Unable to load contents of %@ as UTF-8" = "Tiedoston %@ lukeminen UTF-8 formaatissa ei onnistu";
-
-/* Window text */
-"Unable to open configuration file for modification" = "Ei pystytty avaamaan konfiguraatiotiedostoa muokkausta varten";
 
 /* Window text */
 "Unable to parse configuration file as UTF-8" = "Konfiguraatiotiedoston lukeminen UTF-8 formaatissa ei onnistu";

@@ -895,9 +895,6 @@
 "  • Remove a configuration\n" = "  • Fjern eit oppsett\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • Sikra konfigurasjonane\n";
-
-/* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ er gratis programvare: Du kan redistribuere ho og/eller endra ho under vilkåra i %2$@ som publisert av %3$@.\n\n%4$@ er eit registrert varemerke av OpenVPN Technologies, Inc.";
 
 /* Window text */
@@ -1027,9 +1024,6 @@
 "An error occurred. Please try again." = "Ein feil oppstod. Ver vennleg og prøv igjen.";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "Ein feil oppstod. Sjå konsolloggen for detaljar.";
-
-/* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Ein intern Tunnelblick feil oppstod %1$@%2$@";
 
 /* Window text */
@@ -1055,12 +1049,6 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Er du sikker på at du ønskjer å sletta brukaropplysningane (privat nøkkel og/eller brukarnamn og passord) lagra i nøkkelringen for '%@' brukaropplysningar?";
-
-/* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Er du sikker på at du vil installera konfigurasjonar som kan TA FULLSTENDIG KONTROLL OVER DATAMASKINA DI?\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Er du sikker på at du ønskjer å installera konfigurasjonar som potensielt KAN TA FULL KONTROLL OVER DATAMASKINA DI?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "På linje %1$lu av OpenVPN konfigurasjonsfila: %2$@";
@@ -1112,9 +1100,6 @@
 
 /* Window text */
 "Configuration changes:" = "Konfigurasjonsendringar:";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfigurasjoner som ikkje er ein del av Tunnelblick er sett opp til å bli installert når du installerer Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Kopl til:";
@@ -1470,9 +1455,6 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = " 'namedCredentialsNames' innstillingane må vera ei liste med strenger";
 
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN-konfigurasjonsfila i %1$@ inneheld ein '%2$@'-opsjon som berre fungerer i Windows. Den kan ikkje brukast i OS X.";
-
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN-loggen inneheld følgjande melding: \n\n\"%1$@\".%2$@";
 
@@ -1775,9 +1757,6 @@
 
 /* Window text */
 "Unable to load contents of %@ as UTF-8" = "Kunne ikkje lasta innhaldet i %@ som UTF-8";
-
-/* Window text */
-"Unable to open configuration file for modification" = "Kan ikkje opna konfigurasjonsfila for modifikasjon";
 
 /* Window text */
 "Unable to parse configuration file as UTF-8" = "Kunne ikkje parse konfigurasjonsfila som UTF-8";

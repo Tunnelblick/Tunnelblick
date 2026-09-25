@@ -706,9 +706,6 @@
 "  • Install or update configuration(s)\n" = "  • Konfiqurasiya(ları) yeniləməli və ya quraşdırmalıdır\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  Konfiqurasiyanın təhlükəsizliyini təmin etməlidir\n";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Məcburi üstünlüklər də ya əlavə olunacaq ya da əvəz ediləcək.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
@@ -817,9 +814,6 @@
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Təhlükəsiz (kölgə) surətə döndermək cəhdi zamanı səhv baş verdi. Təfərrüatlar üçün parametr jurnalına baxın.\n\n";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "Səhv baş verdi. Təfərrüatlar üçün konsol jurnalına baxın.";
-
-/* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Daxili Tunnelblick səhvi baş verdi%1$@%2$@";
 
 /* Window text */
@@ -845,12 +839,6 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Siz əminsiniz ki, Açarlıqda '%@' etimadnamələri üçün saxlanan etimadnamələri (özəl açar və/və ya istifadəçi adı və şifrəsi) silmək istəyirsiniz?";
-
-/* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Siz əminsiniz ki, KOMPYUTERƏ TAM İDARƏ GÖTÜRƏN konfiqurasiyaları quraşdırmaq istəyirsiniz?\n\n";
-
-/* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Siz əminsiniz ki, bəlkə KOMPYUTERƏ TAM İDARƏ GÖTÜRƏ biləcək konfiqurasiyaları quraşdırmaq istəyirsiniz?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "OpenVPN konfiqurasiya faylının %1$lu xəttində: %2$@";
@@ -896,9 +884,6 @@
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Quraşdırılan konfiqurasiyaların faylları Sizə sizin şəbəkə administratoru və ya VPN servis provayderi tərəfindən təchiz olunmuşdur.\n\nKonfiqurasiya fayllarının sonluqları bunlardır: .tblk, .ovpn, və ya .conf.\n\n(Konfiqurasiya ilə bağlı başqa sonluqlu digər fayllar da vardır; onları nəzərə almayın.)\n\nKonfiqurasiya faylını quraşdırmaq üçün onu Menyuda olan Tunnelblick ikonasının üstünə və ya onu 'VPN Təfərrüatları' pəncərəsində 'Konfiqurasiyalar' altında olan konfiqurasiya siyahısına dartıb atın.\n\nBir neçə konfiqurasiya faylını eyni zamanda quraşdırmaq üçün bütün faylları seçin və dartıb atın.";
-
-/* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Tunnelblickə aid olmayan Konfiqurasiyalar Siz Tunnelblicki quraşdırdığınız zaman quraşdırılmaq üçün saxlanılıb.\n\n";
 
 /* Window text */
 "Connect:" = "Qoşulmaq:";
