@@ -946,9 +946,6 @@ int main(void) {
         clearExpectedDisconnectFolder(asl, log_msg);
 
         removeShutdownFlagFile(asl, log_msg);
-
-    } else {
-        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "tunnelblickd invoked but not first run after reboot");
     }
 
     // Create a new kernel event queue that we'll use for our notification.
