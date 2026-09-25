@@ -40,6 +40,7 @@
 #import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
+#import "NSTask+TB.h"
 
 
 //**************************************************************************************************************************
@@ -1108,7 +1109,14 @@ static NSString * managementPasswordFilePath(NSString * configName) {
 
 //**************************************************************************************************************************
 
-static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode, NSString * managementPassword, NSString ** stdOut, NSString ** stdErr) {
+static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NSString  * thePath,
+                                                                              NSArray   * theArguments,
+                                                                              mode_t      permissions,
+                                                                              NSString  * configName,
+                                                                              unsigned    configLocCode,
+                                                                              NSString  * managementPassword,
+                                                                              NSString ** stdOut,
+                                                                              NSString ** stdErr) {
 
 	// Runs a program as root
 	//
@@ -1125,61 +1133,14 @@ static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NS
     exitIfPathIsNotSecure(thePath, permissions, 210);
 
 	NSTask * task = [[[NSTask alloc] init] autorelease];
+
 	[task setLaunchPath:thePath];
 	[task setArguments:theArguments];
 
+    int terminationStatus = 0;
+
     becomeRoot(@"working in runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput");
     {
-
-        // Send stdout and stderr to temporary files, and read the files after the task completes
-        NSString * dirPath = newTemporaryDirectoryPathInTunnelblickHelper();
-
-        NSString * stdPath = [dirPath stringByAppendingPathComponent: @"runAsRootStdOut"];
-        if (  [gFileMgr fileExistsAtPath: stdPath]  ) {
-            Log(@"runAsRoot: File exists at %@", stdPath);
-            [dirPath release];
-            stopBeingRoot();
-            return -1;
-        }
-        if (  ! [gFileMgr createFileAtPath: stdPath contents: nil attributes: nil]  ) {
-            Log(@"runAsRoot: Unable to create %@", stdPath );
-            [dirPath release];
-            stopBeingRoot();
-            return -1;
-        }
-        NSFileHandle * stdFileHandle = [[NSFileHandle fileHandleForWritingAtPath: stdPath] retain];
-        if (  ! stdFileHandle  ) {
-            Log(@"runAsRoot: Unable to get NSFileHandle for %@", stdPath);
-            [dirPath release];
-            stopBeingRoot();
-            return -1;
-        }
-        [task setStandardOutput: stdFileHandle];
-
-        NSString * errPath = [dirPath stringByAppendingPathComponent: @"runAsRootErrOut"];
-        if (  [gFileMgr fileExistsAtPath: errPath]  ) {
-            Log(@"runAsRoot: File exists at %@", errPath );
-            [dirPath release];
-            [stdFileHandle release];
-            stopBeingRoot();
-            return -1;
-        }
-        if (  ! [gFileMgr createFileAtPath: errPath contents: nil attributes: nil]  ) {
-            Log(@"runAsRoot: Unable to create %@", errPath);
-            [dirPath release];
-            [stdFileHandle release];
-            stopBeingRoot();
-            return -1;
-        }
-        NSFileHandle * errFileHandle = [[NSFileHandle fileHandleForWritingAtPath: errPath] retain];
-        if (  ! errFileHandle  ) {
-            Log(@"runAsRoot: Unable to get NSFileHandle for %@", errPath);
-            [dirPath release];
-            [stdFileHandle release];
-            stopBeingRoot();
-            return -1;
-        }
-        [task setStandardError: errFileHandle];
 
         if (  managementPassword.length != 0  ) {
 
@@ -1197,9 +1158,6 @@ static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NS
                 umask(old_umask);
                 stopBeingRoot();
                 Log(@"runAsRoot: Unable to create %@", path);
-                [dirPath release];
-                [stdFileHandle release];
-                [errFileHandle release];
                 stopBeingRoot();
                 return -1;
             }
@@ -1213,9 +1171,6 @@ static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NS
             if (  written != len  ) {
                 stopBeingRoot();
                 Log(@"runAsRoot: Unable to write to %@", path);
-                [dirPath release];
-                [stdFileHandle release];
-                [errFileHandle release];
                 stopBeingRoot();
                 return -1;
             }
@@ -1223,87 +1178,49 @@ static int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NS
             if (  fclose(file) != 0  ) {
                 stopBeingRoot();
                 Log(@"runAsRoot: Unable to close %@", path);
-                [dirPath release];
-                [stdFileHandle release];
-                [errFileHandle release];
                 stopBeingRoot();
                 return -1;
             }
         }
 
+        NSPipe *stdoutPipe = [[NSPipe alloc] init];
+        NSPipe *stderrPipe = [[NSPipe alloc] init];
+        [task setStandardOutput: stdoutPipe];
+        [task setStandardError:  stderrPipe];
+
         [task setCurrentDirectoryPath: @"/private/tmp"];
 
         [task setEnvironment: getSafeEnvironment(configName, configLocCode, nil)];
 
-        [task launch];
-        // Same 60-second deadline as startTool in sharedRoutines.m
-        NSDate * startTime     = [NSDate date];
-        NSDate * warnTime      = [startTime dateByAddingTimeInterval: 10.0];
-        NSDate * terminateTime = [startTime dateByAddingTimeInterval: 60.0];
-        while (  [task isRunning]  ) {
-            usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
-            if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
-                warnTime = [warnTime dateByAddingTimeInterval: 10.0];
-                Log(@"Warning: program has not finished after %.0f seconds: %@",
-                    ([[NSDate date] timeIntervalSinceDate: startTime]), thePath);
-            }
-            if (   terminateTime
-                && ([terminateTime compare: [NSDate date]] == NSOrderedAscending)  ) {
-                Log(@"No response after 60 seconds; attempting to terminate program: %@", thePath);
-                [task terminate];
-                terminateTime = nil;
-            }
+        NSError * error = nil;
+        if (  ! [task tbLaunchAndWaitUntilDoneWithTerminationTimeout: 0
+                                                         killTimeout: 0
+                                                     pollingInterval: 0.1
+                                                               error: &error]) {
+            Log(@"Failed to launch '%@': %@", thePath, error);
+            terminationStatus = -1;
+        } else {
+            terminationStatus = [task terminationStatus];
         }
 
-        [stdFileHandle closeFile];
-        [stdFileHandle release];
-        [errFileHandle closeFile];
-        [errFileHandle release];
+        NSString * message = messageFromPipes(stdoutPipe,
+                                              stderrPipe,
+                                              terminationStatus,
+                                              stdOut,
+                                              stdErr);
 
-        NSFileHandle * file = [NSFileHandle fileHandleForReadingAtPath: stdPath];
-        NSData * stdData = [file readDataToEndOfFile];
-        [file closeFile];
-        file = [NSFileHandle fileHandleForReadingAtPath: errPath];
-        NSData *errData = [file readDataToEndOfFile];
-        [file closeFile];
+        [stdoutPipe release];
+        [stderrPipe release];
 
-        if (  ! [gFileMgr tbRemoveFileAtPath: dirPath handler: nil]  ) {
-            Log(@"Unable to remove temporary folder at %@", dirPath);
-        }
-        [dirPath release];
-
-        NSCharacterSet * trimCharacterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-
-        NSString * stdOutput = [[[NSString alloc] initWithData: stdData encoding: NSUTF8StringEncoding] autorelease];
-        if (  stdOutput == nil  ) {
-            stdOutput = @"Unable to interpret stdout as UTF-8";
-        }
-        stdOutput = [stdOutput stringByTrimmingCharactersInSet: trimCharacterSet];
-        if (  [stdOutput length] != 0  ) {
-            if (  stdOut  ) {
-                *stdOut = stdOutput;
-            } else {
-                Log(@"stdout from %@: %@", thePath.lastPathComponent, stdOutput);
-            }
-        }
-
-        NSString * errOutput = [[[NSString alloc] initWithData: errData encoding: NSUTF8StringEncoding] autorelease];
-        if (  errOutput == nil  ) {
-            errOutput = @"Unable to interpret stderr as UTF-8";
-        }
-        errOutput = [errOutput stringByTrimmingCharactersInSet: trimCharacterSet];
-        if (  [errOutput length] != 0  ) {
-            if (  stdErr  ) {
-                *stdErr = errOutput;
-            } else {
-                Log(@"stderr from %@: %@", thePath.lastPathComponent, errOutput);
-            }
+        if (   (stdOut == nil)
+            && (stdErr == nil)  ) {
+            Log(@"From %@ = '%@'", thePath.lastPathComponent, message);
         }
 
     }
     stopBeingRoot();
 
-    return [task terminationStatus];
+    return terminationStatus;
 }
 
 //**************************************************************************************************************************
