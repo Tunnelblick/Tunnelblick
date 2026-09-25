@@ -61,6 +61,7 @@
 #import <unistd.h>
 
 #import "defines.h"
+#import "NSTask+TB.h"
 
 #pragma clang diagnostic push
 
@@ -234,142 +235,128 @@ exitWithError:
     exit(OPENVPNSTART_TUNNELBLICKD_ERROR);
 }
 
-static NSFileHandle *  getStdOutOrStdErrFileHandle(NSString * path,
-                                                   aslclient  asl,
-                                                   aslmsg     log_msg) {
+static NSString * TBMessageFromPipes(NSPipe    * stdoutPipe,
+                                     NSPipe    * stderrPipe,
+                                     int         status,
+                                     NSString ** stdOutStringPtr,
+                                     NSString ** stdErrStringPtr) {
 
-    NSFileHandle * outFile = nil;
+    // Reads from the two pipes, sets *stdOutStringPtr and IstdErrStringPtr to the
+    // contents of the pipes if they are not nil, and constructs a message with
+    // any contents of stdoutPipe if status is nonzero, and any contents of stderrPipe.
+    // Returns nil if the message would be of zero length.
 
-    if (  [NSFileManager.defaultManager fileExistsAtPath: path]  ) {
-        if (  0 != unlink([path fileSystemRepresentation])  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [path UTF8String], (long)errno, strerror(errno));
-        }
+    NSData *stdoutData = [[stdoutPipe fileHandleForReading] readDataToEndOfFile];
+    NSString * stdoutString = nil;
+    if (  stdoutData  ) {
+        stdoutString = [[[NSString alloc] initWithData: stdoutData
+                                              encoding: NSUTF8StringEncoding]
+                        autorelease];
+    }
+    NSData *stderrData = [[stderrPipe fileHandleForReading] readDataToEndOfFile];
+    NSString * stderrString = nil;
+    if (  stderrData  ) {
+        stderrString = [[[NSString alloc] initWithData: stderrData
+                                              encoding: NSUTF8StringEncoding]
+                        autorelease];
     }
 
-    if (  ! [NSFileManager.defaultManager createFileAtPath: path contents: [NSData data] attributes: nil]  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not create %s", [path UTF8String]);
-    } else {
-        outFile = [NSFileHandle fileHandleForWritingAtPath: path];
-        if (  ! outFile  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not get file handle for %s", [path UTF8String]);
-        }
+    NSString * message = nil;
+
+    if (  stdOutStringPtr  ) {
+        *stdOutStringPtr = [[stdoutString retain] autorelease];
+    } else if (   (status != EXIT_SUCCESS)
+               && (0 != [stdoutString length])  )  {
+        message = [NSString stringWithFormat: @"stdout = '%@'\n", stdoutString];
     }
 
-    return outFile;
+    if (stdErrStringPtr != NULL) {
+        *stdErrStringPtr = stderrString;
+    } else if (   (status != EXIT_SUCCESS)
+               && (0 != [stderrString length])  )  {
+        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? message : @""), stderrString];
+    }
+
+    if (  message.length != 0  ) {
+        return message;
+    }
+
+    return nil;
 }
 
-static NSString * getContentsThenDeleteFileAtPath(NSString * path,
-                                                  aslclient  asl,
-                                                  aslmsg     log_msg) {
-
-    NSString * string = [NSString stringWithContentsOfFile: path encoding: NSUTF8StringEncoding error: nil];
-    if (  string == nil  ) {
-        string = [NSString stringWithFormat: @"Could not interpret as UTF-8 %@", path];
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret as UTF-8: %s", [path UTF8String]);
-    }
-
-    if (  0 != unlink([path fileSystemRepresentation])  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [path UTF8String], (long)errno, strerror(errno));
-    }
-
-    return string;
-}
-
-static OSStatus runTool(uid_t      client_euid,
-                        gid_t      client_egid,
-                        NSString * userName,
-                        NSString * userHome,
-                        NSString * launchPath,
-                        NSArray  * arguments,
+static OSStatus runTool(uid_t        client_euid,
+                        gid_t        client_egid,
+                        NSString *   userName,
+                        NSString *   userHome,
+                        NSString *   launchPath,
+                        NSArray  *   arguments,
                         NSString * * stdOutStringPtr,
                         NSString * * stdErrStringPtr,
-                        aslclient  asl,
-                        aslmsg     log_msg) {
+                        aslclient    asl,
+                        aslmsg       log_msg) {
 
     // Runs a command or script, returning the execution status of the command, stdout, and stderr
 
-    NSFileHandle * outFile = getStdOutOrStdErrFileHandle(TUNNELBLICKD_STDOUT_PATH, asl, log_msg);
-    NSFileHandle * errFile = getStdOutOrStdErrFileHandle(TUNNELBLICKD_STDERR_PATH, asl, log_msg);
-
     NSTask * task = [[[NSTask alloc] init] autorelease];
+
+    NSPipe *stdoutPipe = [[NSPipe alloc] init];
+    NSPipe *stderrPipe = [[NSPipe alloc] init];
+    [task setStandardOutput: stdoutPipe];
+    [task setStandardError:  stderrPipe];
 
     [task setLaunchPath:           launchPath];
     [task setArguments:            arguments];
     [task setCurrentDirectoryPath: @"/private/tmp"];
     [task setEnvironment:          getSafeEnvironment(userName, userHome)];
-    [task setStandardOutput:       outFile];
-    [task setStandardError:        errFile];
 
-    BOOL becameTheClient = TRUE;
+    BOOL becameTheClient;
+
     if (   (client_euid != 0)
         || (client_egid != 0)  ) {
-        if (  ! becomeTheClient(client_euid, client_egid, asl, log_msg)  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_WARNING, "Could not become client %d:%d",
-                    client_euid, client_egid);
-            becameTheClient = FALSE;
+        if (  becomeTheClient(client_euid, client_egid, asl, log_msg)  ) {
+            becameTheClient = TRUE;
+        } else {
+            asl_log(asl, log_msg, ASL_LEVEL_WARNING,
+                    "Could not become client %d:%d; getuid():getgid = %d:%d geteuid():getegid() = %d:%d",
+                    client_euid, client_egid, getuid(), getgid(), geteuid(), getegid());
+            exit(OPENVPNSTART_TUNNELBLICKD_ERROR);
         }
+    } else {
+        becameTheClient = FALSE;
     }
 
     OSStatus status = EXIT_FAILURE;
 
-    if (  becameTheClient  ) {
+    NSError * error = nil;
 
-        [task launch];
+    // Timeouts are purposefully generous. The termination timeout is less than the
+    // kill timeout to provide the tool time to gracefully exit before being killed.
+    // The polling interval is meant to be reasonably responsive but not overly CPU
+    // intensive.
 
-        // Same style of deadline as startTool in sharedRoutines.m (warn, then SIGTERM).
-        // Helper commands include app updates, so allow longer than startTool's 60 seconds.
-        NSDate * startTime     = [NSDate date];
-        NSDate * warnTime      = [startTime dateByAddingTimeInterval: 30.0];
-        NSDate * terminateTime = [startTime dateByAddingTimeInterval: 300.0];
-        while (  [task isRunning]  ) {
-            usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
-            if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
-                warnTime = [warnTime dateByAddingTimeInterval: 30.0];
-                asl_log(asl, log_msg, ASL_LEVEL_NOTICE,
-                        "Warning: tunnelblick-helper has not finished after %.0f seconds",
-                        [[NSDate date] timeIntervalSinceDate: startTime]);
-            }
-            if (   terminateTime
-                && ([terminateTime compare: [NSDate date]] == NSOrderedAscending)  ) {
-                asl_log(asl, log_msg, ASL_LEVEL_ERR,
-                        "No response after 300 seconds; attempting to terminate tunnelblick-helper");
-                [task terminate];
-                terminateTime = nil;
-            }
-        }
-
+    if (  ! [task tbLaunchAndWaitUntilDoneWithTerminationTimeout: 25.0
+                                                     killTimeout: 30.0
+                                                 pollingInterval: 0.1
+                                                           error: &error]  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Failed to launch '%s': %s",
+                launchPath.UTF8String, error.description.UTF8String);
+        status = -1;
+    } else {
         status = [task terminationStatus];
-
-        if (   (client_euid != 0)
-            || (client_egid != 0)  ) {
-            becomeRoot(asl, log_msg);
-        }
     }
 
-    [outFile closeFile];
-    [errFile closeFile];
-
-    NSString * stdOutString = getContentsThenDeleteFileAtPath(TUNNELBLICKD_STDOUT_PATH, asl, log_msg);
-    NSString * stdErrString = getContentsThenDeleteFileAtPath(TUNNELBLICKD_STDERR_PATH, asl, log_msg);
-
-    NSString * message = nil;
-
-    if (  stdOutStringPtr  ) {
-        *stdOutStringPtr = [[stdOutString retain] autorelease];
-    } else if (   (status != EXIT_SUCCESS)
-               && (0 != [stdOutString length])  )  {
-        message = [NSString stringWithFormat: @"stdout = '%@'\n", stdOutString];
+    if (  becameTheClient  ) {
+        becomeRoot(asl, log_msg);
     }
 
-    if (  stdErrStringPtr  ) {
-        *stdErrStringPtr = [[stdErrString retain] autorelease];
-    } else if (   (status != EXIT_SUCCESS)
-               && (0 != [stdErrString length])  )  {
-        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? message : @""), stdErrString];
-    }
+    NSString * message = TBMessageFromPipes(stdoutPipe, stderrPipe, status, stdOutStringPtr, stdErrStringPtr);
 
+    [stdoutPipe release];
+    [stderrPipe release];
+    
     if (  message  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_WARNING, "'%s' returned status = %ld\n%s", [[launchPath lastPathComponent] UTF8String], (long)status, [message UTF8String]);
+        asl_log(asl, log_msg, ASL_LEVEL_WARNING, "'%s' returned status = %ld\n%s",
+                [[launchPath lastPathComponent] UTF8String], (long)status, [message UTF8String]);
     }
 
     return status;
@@ -471,21 +458,25 @@ static BOOL isFirstRunAfterBoot(aslclient asl,
         // transition from the old way of determining a first run after boot to the new way.
 
         if (  fabs(lastKnownBoot - mostRecentBoot) < 5.0  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_INFO, "This boot time is about the same as the last known boot time; this is not first run after boot");
+            asl_log(asl, log_msg, ASL_LEVEL_INFO,
+                    "This boot time is about the same as the last known boot time; this is not first run after boot");
         } else {
-            asl_log(asl, log_msg, ASL_LEVEL_INFO, "This boot time (%f) is different from the last boot time (%f); this is the first run after boot",
+            asl_log(asl, log_msg, ASL_LEVEL_INFO,
+                    "This boot time (%f) is different from the last boot time (%f); this is the first run after boot",
                     mostRecentBoot, lastKnownBoot);
             firstRunAfterBoot = TRUE;
         }
     } else {
         if (   [error.domain isEqualToString:NSCocoaErrorDomain]
             && (error.code == NSFileNoSuchFileError)  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_INFO, "%s doesn't exist; this is the first run after boot",
+            asl_log(asl, log_msg, ASL_LEVEL_INFO,
+                    "%s doesn't exist; this is the first run after boot",
                     BOOT_INFO_FILE_PATH.description.UTF8String);
             firstRunAfterBoot = TRUE;
         } else {
-            asl_log(asl, log_msg, ASL_LEVEL_ALERT, ("Error reading '%s': %s\n"
-                                                    "Considering this to not be the first run after boot"),
+            asl_log(asl, log_msg, ASL_LEVEL_ALERT,
+                    ("Error reading '%s': %s\n"
+                     "Considering this to not be the first run after boot"),
                     BOOT_INFO_FILE_PATH.description.UTF8String, error.description.UTF8String);
         }
     }
