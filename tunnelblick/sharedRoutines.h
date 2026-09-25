@@ -96,6 +96,12 @@ uint64_t nowAbsoluteNanoseconds(void);
 
 void storeAuthorizedDoneFileAndExit(OSStatus status);
 
+NSString * messageFromPipes(NSPipe    * stdoutPipe,
+                            NSPipe    * stderrPipe,
+                            int         status,
+                            NSString ** stdOutStringPtr,
+                            NSString ** stdErrStringPtr);
+
 OSStatus runTool(NSString * launchPath,
                  NSArray  * arguments,
                  NSString * * stdOut,

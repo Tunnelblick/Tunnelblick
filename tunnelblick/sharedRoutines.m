@@ -1320,6 +1320,55 @@ NSString * newTemporaryDirectoryPath(void)
     return [tempFolder retain];
 }
 
+NSString * messageFromPipes(NSPipe    * stdoutPipe,
+                            NSPipe    * stderrPipe,
+                            int         status,
+                            NSString ** stdOutStringPtr,
+                            NSString ** stdErrStringPtr) {
+
+    // Reads from the two pipes, sets *stdOutStringPtr and IstdErrStringPtr to the
+    // contents of the pipes if they are not nil, and constructs a message with
+    // any contents of stdoutPipe if status is nonzero, and any contents of stderrPipe.
+    // Returns nil if the message would be of zero length.
+
+    NSData *stdoutData = [[stdoutPipe fileHandleForReading] readDataToEndOfFile];
+    NSString * stdoutString = nil;
+    if (  stdoutData  ) {
+        stdoutString = [[[NSString alloc] initWithData: stdoutData
+                                              encoding: NSUTF8StringEncoding]
+                        autorelease];
+    }
+    NSData *stderrData = [[stderrPipe fileHandleForReading] readDataToEndOfFile];
+    NSString * stderrString = nil;
+    if (  stderrData  ) {
+        stderrString = [[[NSString alloc] initWithData: stderrData
+                                              encoding: NSUTF8StringEncoding]
+                        autorelease];
+    }
+
+    NSString * message = nil;
+
+    if (  stdOutStringPtr  ) {
+        *stdOutStringPtr = [[stdoutString retain] autorelease];
+    } else if (   (status != EXIT_SUCCESS)
+               && (0 != [stdoutString length])  )  {
+        message = [NSString stringWithFormat: @"stdout = '%@'\n", stdoutString];
+    }
+
+    if (stdErrStringPtr != NULL) {
+        *stdErrStringPtr = stderrString;
+    } else if (   (status != EXIT_SUCCESS)
+               && (0 != [stderrString length])  )  {
+        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? message : @""), stderrString];
+    }
+
+    if (  message.length != 0  ) {
+        return message;
+    }
+
+    return nil;
+}
+
 
 OSStatus runToolExtended(NSString     * launchPath,
                          NSArray      * arguments,
