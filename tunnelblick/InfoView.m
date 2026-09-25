@@ -223,6 +223,7 @@ extern TunnelblickInfo * gTbInfo;
     NSArray * locCredits = @[
 							@[@"Sobhi Abufool",                 NSLocalizedString(@"Arabic translation",                   @"Credit description")],
                             @[@"Khalid Alhumud",                NSLocalizedString(@"Arabic translation",                   @"Credit description")],
+                            @[@"Ahmad Al Maaz (https://www.news47ell.com)", NSLocalizedString(@"Arabic translation",       @"Credit description")],
 							@[@"Ali#",							 NSLocalizedString(@"Persian translation",                 @"Credit description")],
 							@[@"Vittorio Anselmo",				 NSLocalizedString(@"Italian translation",                 @"Credit description")],
 							@[@"Felin Arch",					 NSLocalizedString(@"Hungarian translation",               @"Credit description")],
