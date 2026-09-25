@@ -40,6 +40,7 @@
 
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
+#import "NSTask+TB.h"
 #import "TBValidator.h"
 
 
@@ -1378,37 +1379,6 @@ OSStatus runToolExtended(NSString     * launchPath,
 
     // Runs a command or script, returning the execution status of the command, stdout, and stderr
 
-    // Send stdout and stderr to files in a temporary directory
-
-    NSString * tempDir    = [newTemporaryDirectoryPath() autorelease];
-    if (  ! tempDir  ) {
-        Log(@"Catastrophic error: Could not create a temporary directory");
-        return EXIT_FAILURE;
-    }
-
-    NSString * stdOutPath = [tempDir stringByAppendingPathComponent: @"stdout.txt"];
-    NSString * stdErrPath = [tempDir stringByAppendingPathComponent: @"stderr.txt"];
-
-    if (  ! [NSFileManager.defaultManager createFileAtPath: stdOutPath contents: [NSData data] attributes: nil]  ) {
-        Log(@"Catastrophic error: Could not get create %@", stdOutPath);
-        return EXIT_FAILURE;
-    }
-    if (  ! [NSFileManager.defaultManager createFileAtPath: stdErrPath contents: [NSData data] attributes: nil]  ) {
-        Log(@"Catastrophic error: Could not get create %@", stdErrPath);
-        return EXIT_FAILURE;
-    }
-
-    NSFileHandle * outFile = [NSFileHandle fileHandleForWritingAtPath: stdOutPath];
-    if (  ! outFile  ) {
-        Log(@"Catastrophic error: Could not get file handle for stdout.txt");
-        return EXIT_FAILURE;
-    }
-    NSFileHandle * errFile = [NSFileHandle fileHandleForWritingAtPath: stdErrPath];
-    if (  ! errFile  ) {
-        Log(@"Catastrophic error: Could not get file handle for stderr.txt");
-        return EXIT_FAILURE;
-    }
-
     NSTask * task = [[[NSTask alloc] init] autorelease];
     if (  ! task  ) {
         Log(@"Catastrophic error: Could not create NSTask instance");
@@ -1418,114 +1388,36 @@ OSStatus runToolExtended(NSString     * launchPath,
     [task setLaunchPath: launchPath];
     [task setArguments:  arguments];
     [task setCurrentDirectoryPath: @"/private/tmp"];
-    [task setStandardOutput: outFile];
-    [task setStandardError:  errFile];
+    
+    NSPipe * stdPipe = [[NSPipe alloc] init];
+    [task setStandardOutput: stdPipe];
+
+    NSPipe * errPipe = [[NSPipe alloc] init];
+    [task setStandardError: errPipe];
+
     [task setEnvironment: getSafeEnvironment(nil, 0, additionalEnvironmentEntries)];
 
-    // Have seen 'couldn't posix_spawn: Error 8' exceptions when a script starts with "#/bin/bash" instead of "#!/bin/bash". The default exception
-    // handler terminates the run-loop, so [task launch] never returns. Deal with exceptions by indicating the program failed.
-    @try {
-        [task launch];
-    } @catch (NSException * exception) {
-        NSString * errorMessage = [NSString stringWithFormat: @"Exception: '%@'; could not start program %@", exception, launchPath];
-        Log(@"%@", errorMessage);
-        if (  stdErrStringPtr  ) {
-            *stdErrStringPtr = [NSString stringWithString: errorMessage];
-        }
-        if (  stdOutStringPtr  ) {
-            *stdOutStringPtr = [NSString stringWithString: errorMessage];
-        }
-        return EXIT_FAILURE;
-    }
+    NSError * error = nil;
+    OSStatus status;
 
-    // If this is not an Applescript, show a warning every ten seconds if the tool has not terminated, and terminate it after 60 seconds.
-    BOOL requestedTermination = FALSE;
-    if (  [launchPath isEqualToString: TOOL_PATH_FOR_OSASCRIPT]  ) {
-        [task waitUntilExit];
+    if (  ! [task tbLaunchAndWaitUntilDoneWithTerminationTimeout: 50.0
+                                                     killTimeout: 60.0
+                                                 pollingInterval: 0.1
+                                                           error: &error]  ) {
+
+        Log(@"Failed to launch '%@': %@", launchPath, error);
+        status = -1;
     } else {
-        NSDate * startTime     = [NSDate date];
-        NSDate * warnTime      = [startTime dateByAddingTimeInterval: 10.0];
-        NSDate * terminateTime = [startTime dateByAddingTimeInterval: 60.0];
-
-        while(  [task isRunning]  ) {
-            usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
-
-            if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
-                warnTime = [warnTime dateByAddingTimeInterval: 10.00];
-                Log(@"Warning: program has not finished after %.0f seconds: %@",
-                           ([[NSDate date] timeIntervalSinceDate: startTime]), launchPath);
-            }
-
-            if (  [terminateTime compare: [NSDate date]] == NSOrderedAscending  ) {
-                // Try to terminate the task with SIGTERM
-                Log(@"No response after 60 seconds; attempting to terminate program: %@", launchPath);
-                [task terminate];
-                requestedTermination = TRUE;
-                terminateTime = nil; // Only terminate once
-            }
-        }
+        status = [task terminationStatus];
     }
 
-    NSTaskTerminationReason reason = [task terminationReason];
+    NSString * message = messageFromPipes(stdPipe, errPipe, status, stdOutStringPtr, stdErrStringPtr);
 
-    OSStatus status = [task terminationStatus];
-
-    [outFile closeFile];
-    [errFile closeFile];
-
-    NSString * stdOutString = [NSString stringWithContentsOfFile: stdOutPath encoding: NSUTF8StringEncoding error: nil];
-    if (  stdOutString == nil  ) {
-        stdOutString = @"Could not interpret stdout as UTF-8";
-    }
-    NSString * stdErrString = [NSString stringWithContentsOfFile: stdErrPath encoding: NSUTF8StringEncoding error: nil];
-    if (  stdErrString == nil  ) {
-        stdErrString = @"Could not interpret stderr as UTF-8";
-    }
-
-    [NSFileManager.defaultManager tbRemoveFileAtPath: tempDir handler: nil]; // Ignore errors; there is nothing we can do about them
-
-    NSString * message = nil;
-
-    if (  stdOutStringPtr  ) {
-        *stdOutStringPtr = [[stdOutString retain] autorelease];
-    } else if (   (status != EXIT_SUCCESS)
-               && (0 != [stdOutString length])  )  {
-        message = [NSString stringWithFormat: @"stdout = '%@'", stdOutString];
-    }
-
-    if (  stdErrStringPtr  ) {
-        *stdErrStringPtr = [[stdErrString retain] autorelease];
-    } else if (   (status != EXIT_SUCCESS)
-               && (0 != [stdErrString length])  )  {
-        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? @"\n" : @""), stdErrString];
-    }
-
-    if (  reason == NSTaskTerminationReasonUncaughtSignal  ) {
-        message = [NSString stringWithFormat: @"'%@' received an uncaught signal\n%@",
-                   [launchPath lastPathComponent], (message ? message : @"")];
-        if (  requestedTermination  ) {
-            message = [message stringByAppendingString: @"The uncaught signal was probably SIGTERM from terminating the program."];
-        }
-        if (   (0 == [stdOutString length])
-            && (0 == [stdErrString length])  ) {
-            if (  stdErrStringPtr  ) {
-                *stdErrStringPtr = [NSString stringWithString: message];
-            }
-        }
-    }
-
-    if (   requestedTermination
-        || message  ) {
-        if (  message  ) {
-            message = [@"\n" stringByAppendingString: message];
-        } else {
-            message = @"";
-        }
+    [stdPipe release];
+    [errPipe release];
+    
+    if (  message  ) {
         Log(@"'%@' returned status = %ld%@", [launchPath lastPathComponent], (long)status, message);
-        if (   (status == EXIT_SUCCESS)
-            && requestedTermination  ) {
-            status = EXIT_FAILURE;
-        }
     }
 
     return status;
