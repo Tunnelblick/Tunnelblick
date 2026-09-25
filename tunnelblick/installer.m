@@ -188,8 +188,6 @@ static void errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(NSString * pa
 
 static const char * fileSystemRepresentationFromPath(NSString * path);
 
-static NSString * privatePathFromUsername(NSString * username);
-
 static void securelyCreateFolderAndParents(NSString * path);
 
 static void securelyDeleteItem(NSString * path);
@@ -833,27 +831,6 @@ static void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
     securelyCopyFileOrFolderContents(isDir, sourcePath, targetPath);
 }
 
-static NSString * openvpnConfigPathFromPath(NSString * path) {
-
-    // Search path for all .ovpn files. Return path if one, nil if none, and errorExit if more than one
-
-    NSString * configPath = nil;
-
-    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
-    NSString * subPath;
-    while (  (subPath = [dirE nextObject])  ) {
-        if (  [subPath.lastPathComponent.pathExtension isEqualToString: @"ovpn"]  ) {
-            if (  configPath  ) {
-                Log(@"Too many .opvn files in '%@'", path);
-                errorExit();
-            }
-            configPath = [path stringByAppendingPathComponent: subPath];
-        }
-    }
-
-    return configPath;
-}
-
 static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
 
     // Copies a file, or a folder and its contents, making sure the copy is owned by root:wheel with 0700 permissions.
@@ -1203,17 +1180,6 @@ static NSString * usernameFromPossiblePrivatePath(NSString * path) {
     }
 
     return nil;
-}
-
-static NSString * privatePathFromUsername(NSString * username) {
-
-    NSString * privatePath = [[[[[@"/Users/"
-                                  stringByAppendingPathComponent: username]
-                                 stringByAppendingPathComponent: @"Library"]
-                                stringByAppendingPathComponent: @"Application Support"]
-                               stringByAppendingPathComponent: @"Tunnelblick"]
-                              stringByAppendingPathComponent: @"Configurations"];
-    return privatePath;
 }
 
 static void setupUserGlobalsFromGUsername(void) {
@@ -2258,34 +2224,6 @@ static void doFolderRename(NSString * sourcePath, NSString * targetPath) {
             securelyRename(secureSourcePath, secureTargetPath);
         }
     }
-}
-
-static BOOL containsTunnelblickRootScripts(NSString * tblkPath) {
-
-    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tblkPath];
-    NSString * subPath;
-    while (  (subPath = [dirE nextObject])  ) {
-        if (  ! [subPath hasSuffix: @".user.sh"]  ) {
-            if (  [subPath hasSuffix: @".sh"]  ) {
-                return YES;
-            }
-        }
-    }
-
-    return NO;
-}
-
-static BOOL containsTunnelblickUserScripts(NSString * tblkPath) {
-
-    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tblkPath];
-    NSString * subPath;
-    while (  (subPath = [dirE nextObject])  ) {
-        if (  [subPath hasSuffix: @".user.sh"]  ) {
-            return YES;
-        }
-    }
-
-    return NO;
 }
 
 static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPath, BOOL moveNotCopy) {
