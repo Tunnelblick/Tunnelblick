@@ -237,6 +237,10 @@
 		63E56EEC13848338007E39AB /* VPNServiceSorryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE213848338007E39AB /* VPNServiceSorryController.m */; };
 		63E56EED13848338007E39AB /* VPNServiceTermsOfServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE413848338007E39AB /* VPNServiceTermsOfServiceController.m */; };
 		63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE613848338007E39AB /* VPNServiceWelcomeController.m */; };
+		63E7B7BF3065923A0028E4DE /* NSTask+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E7B7BE3065923A0028E4DE /* NSTask+TB.m */; };
+		63E7B7C03065923A0028E4DE /* NSTask+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E7B7BE3065923A0028E4DE /* NSTask+TB.m */; };
+		63E7B7C13065923A0028E4DE /* NSTask+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E7B7BE3065923A0028E4DE /* NSTask+TB.m */; };
+		63E7B7C23065923A0028E4DE /* NSTask+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E7B7BE3065923A0028E4DE /* NSTask+TB.m */; };
 		63E7E6BE29F5B6D000AC76CD /* KA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63E7E6BD29F5B6D000AC76CD /* KA.lproj */; };
 		63E8EE032235F54D0030C7A6 /* sl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63E8EE022235F54D0030C7A6 /* sl.lproj */; };
 		63EA2CAA1C9EFCF0005F0872 /* fa.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63EA2CA71C9EFCF0005F0872 /* fa.lproj */; };
@@ -694,6 +698,8 @@
 		63E6A8A11D9FBBBF006F1211 /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; name = COPYING; path = ../COPYING; sourceTree = "<group>"; };
 		63E6A8A21D9FBBBF006F1211 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		63E6A8A31D9FBBDB006F1211 /* third_party */ = {isa = PBXFileReference; lastKnownFileType = folder; name = third_party; path = ../third_party; sourceTree = "<group>"; };
+		63E7B7BD3065923A0028E4DE /* NSTask+TB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTask+TB.h"; sourceTree = "<group>"; };
+		63E7B7BE3065923A0028E4DE /* NSTask+TB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTask+TB.m"; sourceTree = "<group>"; };
 		63E7E6BD29F5B6D000AC76CD /* KA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KA.lproj; sourceTree = "<group>"; };
 		63E8427A117A147500529DE2 /* ConfigurationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationManager.h; sourceTree = "<group>"; };
 		63E8EE022235F54D0030C7A6 /* sl.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sl.lproj; sourceTree = "<group>"; };
@@ -1380,6 +1386,8 @@
 				63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */,
 				63DEC28E13B890F70063CE11 /* NSString+TB.h */,
 				63DEC28F13B890F70063CE11 /* NSString+TB.m */,
+				63E7B7BD3065923A0028E4DE /* NSTask+TB.h */,
+				63E7B7BE3065923A0028E4DE /* NSTask+TB.m */,
 				B8D807011832EEC400A0B937 /* NSTimer+TB.h */,
 				B8D807021832EEC400A0B937 /* NSTimer+TB.m */,
 				B82DF4D6182704D800A121DE /* TBPerformer.h */,
@@ -2059,6 +2067,7 @@
 				63179444118D7EC20057ACAF /* atsystemstart.m in Sources */,
 				63F2AD9E12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
 				B8C7338C162219E400746C0D /* sharedRoutines.m in Sources */,
+				63E7B7C03065923A0028E4DE /* NSTask+TB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2096,6 +2105,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63E7B7C13065923A0028E4DE /* NSTask+TB.m in Sources */,
 				63AA8E5F1492C77700C791C9 /* process-network-changes.m in Sources */,
 				63097CE122340EC4005F94CF /* NSDate+TB.m in Sources */,
 			);
@@ -2123,6 +2133,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63F3C25A1A22A45C00CF0FFB /* tunnelblickd.m in Sources */,
+				63E7B7C23065923A0028E4DE /* NSTask+TB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2133,6 +2144,7 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */,
 				635ECE631378EA4000F67F8D /* AppearanceView.m in Sources */,
+				63E7B7BF3065923A0028E4DE /* NSTask+TB.m in Sources */,
 				635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */,
 				61BC4B810E2F9EBC00F24255 /* AuthAgent.m in Sources */,
 				B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */,
