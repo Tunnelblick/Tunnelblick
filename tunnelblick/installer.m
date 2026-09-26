@@ -3289,19 +3289,11 @@ int main(int argc, char *argv[]) {
     NSString * fourthArg = nil;
     if (  argc > 4  ) {
         fourthArg = [gFileMgr stringWithFileSystemRepresentation: argv[4] length: strlen(argv[4])];
-        if (   ( gPrivatePath == nil  )
-            || ( ! [fourthArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(fourthArg);
-        }
     }
 
     NSString * fifthArg = nil;
     if (  argc > 5  ) {
         fifthArg = [gFileMgr stringWithFileSystemRepresentation: argv[5] length: strlen(argv[5])];
-        if (   ( gPrivatePath == nil  )
-            || ( ! [fifthArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(fifthArg);
-        }
     }
 
     //**************************************************************************************************************************
@@ -3441,8 +3433,6 @@ int main(int argc, char *argv[]) {
             && (argc < 6)
             ) {
 
-            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(secondArg);
-
             //
             // INSTALLER_INSTALL_PRIVATE_CONFIG
             //      secondArg = username (i.e., short username)
@@ -3454,13 +3444,11 @@ int main(int argc, char *argv[]) {
             NSString * subfolder  = fourthArg;
 
             errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
-            if (  subfolder  ) {
-                errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(subfolder);
-            }
 
             NSString * targetFolder = (  subfolder
                                        ? [userShadowPath() stringByAppendingPathComponent: subfolder]
                                        : userShadowPath()  );
+            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetFolder);
             securelyCreateFolderAndParents(targetFolder);
             NSString * targetPath = [targetFolder stringByAppendingPathComponent: sourcePath.lastPathComponent];
 
@@ -3487,13 +3475,11 @@ int main(int argc, char *argv[]) {
             NSString * subfolder  = thirdArg;
 
             errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
-            if (  subfolder  ) {
-                errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(subfolder);
-            }
 
             NSString * targetFolder = (  subfolder
                                        ? [L_AS_T_SHARED stringByAppendingPathComponent: subfolder]
                                        : L_AS_T_SHARED  );
+            errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetFolder);
             securelyCreateFolderAndParents(targetFolder);
             NSString * targetPath = [targetFolder stringByAppendingPathComponent: sourcePath.lastPathComponent];
 
@@ -3518,6 +3504,8 @@ int main(int argc, char *argv[]) {
     //         sets the forced preference named in second_arg to <true> if value in third_arg is "1", or or deletes it if value in third_arg is "0"
     //         (May delete the forced preference file if there are no forced preferences.)
 
+    // setOrDeleteForcedPreference() validates its own arguments
+
     if (  operation == INSTALLER_SET_FORCED_PREFERENCE  ) {
         if (   fourthArg
             || ( ! setOrDeleteForcedPreference(secondArg, thirdArg)  )  ) {
@@ -3535,6 +3523,8 @@ int main(int argc, char *argv[]) {
             Log(@"Invalid arguments to 'set forced preference'");
             errorExit();
         }
+
+        // renameTempFileToMipFile() validates its own arguments
 
         if ( ! renameTempFileToMipFile(secondArg, thirdArg)  ) {
             Log(@"Invalid arguments to 'set forced preference'");
