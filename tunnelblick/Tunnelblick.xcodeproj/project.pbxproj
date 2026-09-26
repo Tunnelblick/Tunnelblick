@@ -92,6 +92,7 @@
 		63432577140D7F6F00015CE0 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
 		6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6345F20F120BB1DA009C6222 /* Carbon.framework */; };
 		634616871A9B85C60049C16C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634616861A9B85C60049C16C /* SystemConfiguration.framework */; };
+		63473E3130671A2B00397CB6 /* NSTask+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E7B7BE3065923A0028E4DE /* NSTask+TB.m */; };
 		634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */; };
 		634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */; };
 		634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */; };
@@ -2033,13 +2034,14 @@
 			files = (
 				61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */,
 				B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */,
-				63705539304ED23F00833C46 /* TBFileManager.m in Sources */,
 				63282227303447BA00435B82 /* ConfigurationParser.m in Sources */,
 				B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
 				63097CE222340EF8005F94CF /* NSDate+TB.m in Sources */,
 				63F2AD9D12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
 				63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */,
+				63473E3130671A2B00397CB6 /* NSTask+TB.m in Sources */,
 				B8045A0A161EF26700609C98 /* sharedRoutines.m in Sources */,
+				63705539304ED23F00833C46 /* TBFileManager.m in Sources */,
 				631D15B02BEBFCC400728E32 /* TBUpdaterShared.m in Sources */,
 				63FA9CB62BFCE4E700DB0AD1 /* TBValidator.m in Sources */,
 				63C79A2A2ECB5B9F00B7BDCA /* UpdateSigning.m in Sources */,
