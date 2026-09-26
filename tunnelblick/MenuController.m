@@ -1400,7 +1400,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [self removeStatusItem];
 
     // Create new status item
-    statusItem = [[NSStatusBar.systemStatusBar statusItemWithLength: 16] retain];
+    statusItem = [[NSStatusBar.systemStatusBar statusItemWithLength: NSSquareStatusItemLength] retain];
     if (  ! statusItem  ) {
         if (  ++deferred > 10  ) {
             appendLog(@"createStatusItem: Cannot create status item");
