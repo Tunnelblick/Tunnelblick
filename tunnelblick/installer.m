@@ -2228,12 +2228,12 @@ static void doFolderRename(NSString * sourcePath, NSString * targetPath) {
 
 static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPath, BOOL moveNotCopy) {
 
-	if (   ( ! sourcePath )
-		|| ( ! targetPath )  ){
-		Log(@"Operation is INSTALLER_COPY or INSTALLER_MOVE but targetPath and/or sourcePath are not set");
-		errorExit();
-	}
-	
+    if (   ( ! sourcePath )
+        || ( ! targetPath )  ){
+        Log(@"Operation is INSTALLER_COPY or INSTALLER_MOVE but targetPath and/or sourcePath are not set");
+        errorExit();
+    }
+
     // An empty source path means CREATE A FOLDER at the target path.
     if (  [sourcePath isEqualToString: @""]  ) {
         if (  [targetPath hasSuffix: @".tblk"]  ) {
@@ -2256,14 +2256,14 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
     BOOL sourceIsTblk = [[sourcePath pathExtension] isEqualToString: @"tblk"];
     BOOL targetIsTblk = [[targetPath pathExtension] isEqualToString: @"tblk"];
 
-	// Make sure we are dealing with two .tblks or two non-tblks
-	if (   (   sourceIsTblk
+    // Make sure we are dealing with two .tblks or two non-tblks
+    if (   (   sourceIsTblk
             && ( ! targetIsTblk ))
         || (   targetIsTblk
             && ( ! sourceIsTblk ) )  ) {
-		Log(@"Only two .tblks or two folders may be copied or moved: %@ to %@", sourcePath, targetPath);
-		errorExit();
-	}
+        Log(@"Only two .tblks or two folders may be copied or moved: %@ to %@", sourcePath, targetPath);
+        errorExit();
+    }
 
     if (  ! sourceIsTblk  ) { // And, by the above, the target is not a .tblk either
         if (   (   [sourcePath isEqualToString: @"/Applications/Tunnelblick.app"]
@@ -2307,26 +2307,36 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 
     errorExitIfNotInL_AS_T(targetPath);
 
-	// Create the enclosing folder(s) if necessary. Owned by root unless if in userPrivatePath(), in which case it is owned by the user
-	NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
+    // Create the enclosing folder(s) if necessary. Owned by root unless if in userPrivatePath(), in which case it is owned by the user
+    NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
     createSecuredConfigurationsSubfolder(enclosingFolder);
 
-	// Make sure we can delete the original if we are moving instead of copying
-	if (  moveNotCopy  ) {
-		if (  ! makeUnlockedAtPath(targetPath)  ) {
-			errorExit();
-		}
-	}
+    // Make sure we can delete the original if we are moving instead of copying
+    if (  moveNotCopy  ) {
+        if (  ! makeUnlockedAtPath(targetPath)  ) {
+            errorExit();
+        }
+    }
 
-    NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+    NSString * sourceDisplayName = nil;
+    if (   [sourcePath hasPrefix: [gPrivatePath stringByAppendingString:  @"/"]]
+        || [sourcePath hasPrefix: [gShadowPath stringByAppendingString:   @"/"]]
+        || [sourcePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+        sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+    }
+
     NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
 
     if (  moveNotCopy  ) {
         securelyMoveTblkIncludingPrivate(sourcePath, targetPath);
-        renameForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
+        if (  sourceDisplayName  ) {
+            renameForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
+        }
     } else {
         securelyCopy(sourcePath, targetPath);
-        copyForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
+        if (  sourceDisplayName  ) {
+            copyForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
+        }
     }
 
     structureTblkProperly(targetPath);
