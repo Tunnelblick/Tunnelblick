@@ -280,9 +280,34 @@ static const char * fileSystemRepresentationFromPath(NSString * path) {
 
 static NSString * thisAppResourcesPath(void) {
 
-    NSString * resourcesPath = [NSProcessInfo.processInfo.arguments[0]  // .app/Contents/Resources/installer
-                                stringByDeletingLastPathComponent];     // .app/Contents/Resources
-    return resourcesPath;
+    NSString * path = NSProcessInfo.processInfo.arguments[0];
+
+    if (  [path hasSuffix: @".app/Contents/Resources/installer"]  ) {
+        return [path stringByDeletingLastPathComponent];   // Remove '/installer'
+    }
+
+    // Debugging installer in Xcode: set resourcesPath to be in the app that was
+    // built along with installer, if there was one
+    if (  [path hasSuffix: @"/tunnelblick/build/Debug/installer"]  ) {
+
+        path = [[[[path
+                   stringByDeletingLastPathComponent]   // Remove '/installer'
+                  stringByAppendingPathComponent: @"Tunnelblick.app"]
+                 stringByAppendingPathComponent: @"Contents"]
+                stringByAppendingPathComponent: @"Resources"];
+
+        if (  [gFileMgr fileExistsAtPath: path]  ) {
+            return path;
+        }
+
+        Log(@"Tunnelblick.app has not been built or is not present at '%@'.\nNSProcessInfo.processInfo.arguments[0] was '%@'",
+            path, NSProcessInfo.processInfo.arguments[0]);
+        exit(-1);
+    }
+
+    Log(@"Cannot determine app's resources path. NSProcessInfo.processInfo.arguments[0] was '%@'",
+        NSProcessInfo.processInfo.arguments[0]);
+    exit(-1);
 }
 
 NSString * lastPartOfPath(NSString * path) {
@@ -3542,7 +3567,11 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    ; // STOP HERE IF DEBUGGING INSTALLER ITSELF TO AVOID ERROR SETTING UP tunnelblickd
+    //**************************************************************************************************************************
+    // STOP HERE IF DEBUGGING INSTALLER ITSELF TO AVOID ERROR SETTING UP tunnelblickd
+    if (  ! [ NSProcessInfo.processInfo.arguments[0] hasSuffix: @".app/Contents/Resources/installer"]  ) {
+        goto done;
+    }
 
     //**************************************************************************************************************************
     // (12) Set up tunnelblickd to load when the computer starts
@@ -3628,6 +3657,8 @@ int main(int argc, char *argv[]) {
 
     //**************************************************************************************************************************
     // DONE
+
+done:
 
     if (  gErrorOccurred  ) {
         Log(@"Tunnelblick installer finished with errors");
