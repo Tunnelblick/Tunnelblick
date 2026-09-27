@@ -1069,6 +1069,18 @@ int main(void) {
             ;
         }
 
+        // The idle kevent timeout does not apply to this accepted socket.
+        // Without a receive timeout, a local client that connects and sends nothing
+        // blocks this single-threaded daemon until the client closes.
+        struct timeval readTimeout;
+        readTimeout.tv_sec = timeout.tv_sec;
+        readTimeout.tv_usec = 0;
+        if (  0 != setsockopt(filedesc, SOL_SOCKET, SO_RCVTIMEO, &readTimeout, sizeof(readTimeout))  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR, "setsockopt(SO_RCVTIMEO) failed; error = %m");
+            close(filedesc); // this isn't fatal
+            continue;
+        }
+
         // Get the request from the client
         nbytes = read(filedesc, buffer, SOCKET_BUF_SIZE - 1);
         if (  0 == nbytes  ) {
