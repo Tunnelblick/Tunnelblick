@@ -1137,14 +1137,16 @@ static NSString * managementPasswordFilePath(NSString * configName) {
 
 //**************************************************************************************************************************
 
-static int runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(NSString  * thePath,
-                                                                              NSArray   * theArguments,
-                                                                              mode_t      permissions,
-                                                                              NSString  * configName,
-                                                                              unsigned    configLocCode,
-                                                                              NSString  * managementPassword,
-                                                                              NSString ** stdOutPtr,
-                                                                              NSString ** stdErrPtr) {
+static int runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(NSString      * thePath,
+                                                                              NSArray       * theArguments,
+                                                                              mode_t          permissions,
+                                                                              NSString      * configName,
+                                                                              unsigned        configLocCode,
+                                                                              NSString      * managementPassword,
+                                                                              NSString     ** stdOutPtr,
+                                                                              NSString     ** stdErrPtr,
+                                                                              NSTimeInterval  terminationTimeout,
+                                                                              NSTimeInterval  killTimeout) {
 
 	// Runs a program as root
 	//
@@ -1216,8 +1218,8 @@ static int runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(NS
         [task setEnvironment: getSafeEnvironment(configName, configLocCode, nil)];
 
         NSError * error = nil;
-        if (  ! [task tbLaunchAndWaitUntilDoneWithTerminationTimeout: 0
-                                                         killTimeout: 0
+        if (  ! [task tbLaunchAndWaitUntilDoneWithTerminationTimeout: terminationTimeout
+                                                         killTimeout: killTimeout
                                                      pollingInterval: 0.1
                                                               stdOut: stdOutPtr
                                                               stdErr: stdErrPtr
@@ -1242,20 +1244,33 @@ static int runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(NS
 //**************************************************************************************************************************
 static int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode) {
 
-    return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, configName, configLocCode, nil, nil, nil);
+    return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, configName, configLocCode, nil, nil, nil, 0.0, 0.0);
+
+}
+
+// tunnelblickd SIGTERMs this helper at 25s and SIGKILLs it at 30s. A script
+// deadline has to finish before that, or the script keeps the helper's
+// stdout pipe open and the daemon's drain never ends.
+static int runScriptAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode) {
+
+    return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, configName, configLocCode, nil, nil, nil, 15.0, 20.0);
 
 }
 
 //**************************************************************************************************************************
 
 static int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
-	return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, nil, 0, nil, nil, nil);
+	return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, nil, 0, nil, nil, nil, 0.0, 0.0);
+}
+
+static int runScriptAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
+	return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, nil, 0, nil, nil, nil, 15.0, 20.0);
 }
 
 //**************************************************************************************************************************
 
 static int runAsRootReturnOutput(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString ** stdOut, NSString ** stdErr) {
-    return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, nil, 0, nil, stdOut, stdErr);
+    return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, nil, 0, nil, stdOut, stdErr, 0.0, 0.0);
 }
 
 //**************************************************************************************************************************
@@ -1327,7 +1342,7 @@ static int runScript(NSString * scriptName, NSString * configName, unsigned   cf
 
     Log(@"Executing %@ in %@...", scriptPath.lastPathComponent, [scriptPath stringByDeletingLastPathComponent]);
 
-    returnValue = runAsRoot(scriptPath, [NSArray array], PERMS_SECURED_ROOT_SCRIPT);
+    returnValue = runScriptAsRoot(scriptPath, [NSArray array], PERMS_SECURED_ROOT_SCRIPT);
 
     Log(@"%@ returned with status %d", scriptPath.lastPathComponent, returnValue);
 
@@ -1359,7 +1374,7 @@ static int runDownScript(unsigned scriptNumber, NSString * configName, unsigned 
         exitIfNotRootWithPermissions(scriptPath, 0744);
 
         Log(@"Executing %@ in %@...", scriptPath.lastPathComponent, [scriptPath stringByDeletingLastPathComponent]);
-        returnValue = runAsRootWithConfigNameAndLocCode(scriptPath, [NSArray array], 0744, configName, cfgLocCode);
+        returnValue = runScriptAsRootWithConfigNameAndLocCode(scriptPath, [NSArray array], 0744, configName, cfgLocCode);
         Log(@"%@ returned with status %d", scriptPath.lastPathComponent, returnValue);
         exitOpenvpnstart(returnValue);
 
@@ -1393,7 +1408,7 @@ static int runReenableNetworkServices(void) {
 		exitIfNotRootWithPermissions(scriptPath, 0744);
 
 		Log(@"Executing %@ in %@...", scriptPath.lastPathComponent, [scriptPath stringByDeletingLastPathComponent]);
-		returnValue = runAsRoot(scriptPath, [NSArray array], 0744);
+		returnValue = runScriptAsRoot(scriptPath, [NSArray array], 0744);
 		Log(@"%@ returned with status %d", scriptPath.lastPathComponent, returnValue);
     	exitOpenvpnstart(returnValue);
 
@@ -1437,7 +1452,7 @@ static int runRoutePreDownScript(BOOL kOption, BOOL kuOption, NSString * configN
 							   : (  kuOption
 								  ? [NSArray arrayWithObject:  @"-ku"]
 								  : [NSArray array]));
-        returnValue = runAsRootWithConfigNameAndLocCode(scriptPath, arguments, 0744, configName, cfgLocCode);
+        returnValue = runScriptAsRootWithConfigNameAndLocCode(scriptPath, arguments, 0744, configName, cfgLocCode);
         Log(@"%@ returned with status %d", scriptPath.lastPathComponent, returnValue);
         exitOpenvpnstart(returnValue);
 
@@ -3709,7 +3724,7 @@ static int startVPN(NSString * configFile,
 
             Log(@"Executing pre-connect.sh in %@...", preConnectFolder);
 
-            int result = runAsRoot(preConnectPath, [NSArray array], PERMS_SECURED_ROOT_SCRIPT);
+            int result = runScriptAsRoot(preConnectPath, [NSArray array], PERMS_SECURED_ROOT_SCRIPT);
 
             Log(@"Status %d returned by pre-connect.sh in %@", result, preConnectFolder );
 
@@ -3767,7 +3782,7 @@ static int startVPN(NSString * configFile,
 
             Log(@"Executing post-tun-tap-load.sh in %@...", postTunTapFolder);
 
-            int result = runAsRoot(postTunTapPath, [NSArray array], PERMS_SECURED_ROOT_SCRIPT);
+            int result = runScriptAsRoot(postTunTapPath, [NSArray array], PERMS_SECURED_ROOT_SCRIPT);
 
             Log(@"Status %d returned by post-tun-tap-load.sh in %@", result, postTunTapFolder);
 
@@ -3824,7 +3839,7 @@ static int startVPN(NSString * configFile,
         }
     }
 
-    status = runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(openvpnPath, arguments, 0755, configFile, 0, managementPassword, nil, nil);
+    status = runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(openvpnPath, arguments, 0755, configFile, 0, managementPassword, nil, nil, 0.0, 0.0);
 
     NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@", openvpnPath];
     unsigned i;
