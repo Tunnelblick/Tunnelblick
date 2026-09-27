@@ -21,12 +21,6 @@
 
 #import "NSTask+TB.h"
 
-#import <errno.h>
-#import <math.h>
-#import <signal.h>
-#import <string.h>
-#import <time.h>
-#import <unistd.h>
 
 NSErrorDomain const TBTaskLaunchAndWaitErrorDomain = @"TunnelblickErrorDomain";
 
@@ -36,8 +30,8 @@ static uint64_t TBUptimeNanoseconds(void) {
 }
 
 static BOOL TBSleepForTimeInterval(NSTimeInterval                         interval,
-                                   NSError        * _Nullable * _Nullable error)
-{
+                                   NSError        * _Nullable * _Nullable error) {
+
     if (   ( ! isfinite(interval))
         || (interval < 0.0)  ) {
         if (  error != NULL  ) {
@@ -106,12 +100,217 @@ static uint64_t TBSecondsToNanoseconds(NSTimeInterval seconds) {
 
 }
 
+
+BOOL TBDrainPipe(NSPipe *pipe, NSMutableData *data, BOOL *eof, NSError **error) {
+
+    /*
+     * Reads at most 16 KiB from pipe's read end and appends whatever is available
+     * immediately to data.
+     *
+     * Return values:
+     *   YES: Data was appended, no data is presently available, or EOF was reached.
+     *   NO:  An error occurred and, if error != NULL, *error describes it.
+     *
+     * EOF behavior:
+     *   - On the first read() that returns 0, sets *eof = YES and returns YES.
+     *   - A later invocation with *eof already YES returns NO.
+     *
+     * Preconditions:
+     *   - pipe, data, and eof must be non-NULL.
+     *   - pipe must have an open readable fileHandleForReading.
+     *
+     * Important:
+     *   This function changes the read descriptor's status flags by adding
+     *   O_NONBLOCK, and leaves that flag enabled. File status flags belong to the
+     *   underlying open file description, so other users of the same descriptor
+     *   (or duplicated descriptors) observe the nonblocking setting as well.
+     */
+
+    enum { kDrainPipeMaximumBytes = 16 * 1024 };
+
+    if (error != NULL) {
+        *error = nil;
+    }
+
+#define DRAIN_PIPE_FAIL(_code_, _description_, _underlyingError_)   \
+do {                                                                \
+if (error != NULL) {                                                \
+NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];   \
+if ((_description_) != nil) {                                       \
+[userInfo setObject:(_description_)                                 \
+forKey:NSLocalizedDescriptionKey];                                  \
+}                                                                   \
+if ((_underlyingError_) != nil) {                                   \
+[userInfo setObject:(_underlyingError_)                             \
+forKey:NSUnderlyingErrorKey];                                       \
+}                                                                   \
+*error = [NSError errorWithDomain:TBTaskLaunchAndWaitErrorDomain    \
+code:(_code_)                                                       \
+userInfo:userInfo];                                                 \
+}                                                                   \
+return NO;                                                          \
+} while (0)
+
+    if (pipe == nil) {
+        DRAIN_PIPE_FAIL(TBTaskLaunchAndWaitErrorInvalidArgument,
+                        @"The pipe argument must not be nil.",
+                        nil);
+    }
+
+    if (data == nil) {
+        DRAIN_PIPE_FAIL(TBTaskLaunchAndWaitErrorInvalidArgument,
+                        @"The data argument must not be nil.",
+                        nil);
+    }
+
+    if (eof == NULL) {
+        DRAIN_PIPE_FAIL(TBTaskLaunchAndWaitErrorInvalidArgument,
+                        @"The eof argument must not be NULL.",
+                        nil);
+    }
+
+    /*
+     * eof is caller-maintained state. It distinguishes:
+     *
+     *   read() == 0 for the first time  -> successful EOF notification.
+     *   Later drainPipe() invocation    -> programmer/protocol error.
+     */
+    if (*eof) {
+        DRAIN_PIPE_FAIL(TBTaskLaunchAndWaitErrorAlreadyAtEOF,
+                        @"drainPipe was called after this pipe had already reached EOF.",
+                        nil);
+    }
+
+    NSFileHandle *readHandle = [pipe fileHandleForReading];
+    if (readHandle == nil) {
+        DRAIN_PIPE_FAIL(TBTaskLaunchAndWaitErrorInvalidFileDescriptor,
+                        @"The pipe does not provide a reading file handle.",
+                        nil);
+    }
+
+    /*
+     * NSFileHandle's -fileDescriptor can raise an Objective-C exception if
+     * its handle is closed. Avoid trying to recover from arbitrary exceptions;
+     * this catches only the descriptor lookup so this C-style API can report
+     * that specific failure via NSError.
+     */
+    int fd = -1;
+    @try {
+        fd = [readHandle fileDescriptor];
+    }
+    @catch (NSException *exception) {
+        NSDictionary *userInfo =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         @"The pipe's reading file handle is closed or invalid.",
+         NSLocalizedDescriptionKey,
+         [exception name], @"NSExceptionName",
+         [exception reason] ?: @"", @"NSExceptionReason",
+         nil];
+
+        if (error != NULL) {
+            *error = [NSError errorWithDomain:TBTaskLaunchAndWaitErrorDomain
+                                         code:TBTaskLaunchAndWaitErrorInvalidFileDescriptor
+                                     userInfo:userInfo];
+        }
+        return NO;
+    }
+
+    if (fd < 0) {
+        DRAIN_PIPE_FAIL(TBTaskLaunchAndWaitErrorInvalidFileDescriptor,
+                        @"The pipe has an invalid reading file descriptor.",
+                        nil);
+    }
+
+    /*
+     * read() on a normal pipe blocks if it is empty while a writer is still
+     * open. Set O_NONBLOCK once; F_GETFL/F_SETFL preserve all existing file
+     * status flags.
+     */
+    int flags;
+    do {
+        flags = fcntl(fd, F_GETFL);
+    } while (flags == -1 && errno == EINTR);
+
+    if (flags == -1) {
+        int savedErrno = errno;
+        NSError *underlyingError =
+        [NSError errorWithDomain:NSPOSIXErrorDomain
+                            code:savedErrno
+                        userInfo:nil];
+
+        DRAIN_PIPE_FAIL(TBTaskLaunchAndWaitErrorGetFlagsFailed,
+                        @"Could not retrieve the pipe read descriptor's status flags.",
+                        underlyingError);
+    }
+
+    if ((flags & O_NONBLOCK) == 0) {
+        int setFlagsResult;
+        do {
+            setFlagsResult = fcntl(fd, F_SETFL, flags | O_NONBLOCK);
+        } while (setFlagsResult == -1 && errno == EINTR);
+
+        if (setFlagsResult == -1) {
+            int savedErrno = errno;
+            NSError *underlyingError =
+            [NSError errorWithDomain:NSPOSIXErrorDomain
+                                code:savedErrno
+                            userInfo:nil];
+
+            DRAIN_PIPE_FAIL(TBTaskLaunchAndWaitErrorSetNonBlockingFailed,
+                            @"Could not make the pipe read descriptor nonblocking.",
+                            underlyingError);
+        }
+    }
+
+    uint8_t buffer[kDrainPipeMaximumBytes];
+    ssize_t byteCount;
+
+    /*
+     * Retry only if no bytes were transferred and read was interrupted.
+     * Since the descriptor is nonblocking, this loop cannot wait for input.
+     */
+    do {
+        byteCount = read(fd, buffer, sizeof(buffer));
+    } while (byteCount == -1 && errno == EINTR);
+
+    if (byteCount > 0) {
+        [data appendBytes:buffer length:(NSUInteger)byteCount];
+        return YES;
+    }
+
+    if (byteCount == 0) {
+        *eof = YES;
+        return YES;
+    }
+
+    /* EAGAIN/EWOULDBLOCK means the pipe is open but presently empty. */
+    if (errno == EAGAIN || errno == EWOULDBLOCK) {
+        return YES;
+    }
+
+    {
+        int savedErrno = errno;
+        NSError *underlyingError =
+        [NSError errorWithDomain:NSPOSIXErrorDomain
+                            code:savedErrno
+                        userInfo:nil];
+
+        DRAIN_PIPE_FAIL(TBTaskLaunchAndWaitErrorReadFailed,
+                        @"Could not read from the pipe.",
+                        underlyingError);
+    }
+
+#undef DRAIN_PIPE_FAIL
+}
+
 @implementation NSTask(TB)
 
 -(BOOL) tbLaunchAndWaitUntilDoneWithTerminationTimeout: (NSTimeInterval)                   terminationTimeout
                                            killTimeout: (NSTimeInterval)                   killTimeout
                                        pollingInterval: (NSTimeInterval)                   pollingInterval
-                                                 error:  (NSError * _Nullable * _Nullable) error {
+                                                stdOut: (NSString * _Nullable * _Nullable) stdOut
+                                                stdErr: (NSString * _Nullable * _Nullable) stdErr
+                                                 error: (NSError  * _Nullable * _Nullable) error {
 
     uint64_t startNS;
     uint64_t elapsedNS;
@@ -176,19 +375,72 @@ static uint64_t TBSecondsToNanoseconds(NSTimeInterval seconds) {
                      ? TBSecondsToNanoseconds(killTimeout)
                      : 0);
 
+    //
+    // Set up pipes for stdout and stderr, mutable data objects to hold output from them, and EOF indicators for them
+    //
+
+    NSPipe * stdoutPipe = nil;
+    NSMutableData * stdoutData = nil;
+    BOOL stdoutEOF = YES;
+    BOOL stdoutErrorOccurred = NO;
+    if (  stdout  ) {
+        stdoutPipe = [[[NSPipe alloc] init] autorelease];
+        [self setStandardOutput: stdoutPipe];
+        stdoutData = [[NSMutableData alloc] init];
+        stdoutEOF = NO;
+    }
+
+    NSPipe * stderrPipe = nil;
+    NSMutableData * stderrData = nil;
+    BOOL stderrEOF = YES;
+    BOOL stderrErrorOccurred = NO;
+    if (  stdOut  ) {
+        stderrPipe = [[[NSPipe alloc] init] autorelease];
+        [self setStandardError: stderrPipe];
+        stderrData = [[NSMutableData alloc] init];
+        stderrEOF = NO;
+    }
+
     if (  error != NULL  ) {
         *error = nil;
     }
 
     if (  ! [self launchAndReturnError: error]  ) {
+        [stdoutData release];
+        [stderrData release];
         return NO;
     }
 
     startNS = TBUptimeNanoseconds();
 
+    BOOL errorOccurred = NO;
+
     while (  self.isRunning  ) {
 
         elapsedNS = TBUptimeNanoseconds() - startNS;
+
+        //
+        // Read from pipes and append to stoutData and stdErrData
+        //
+
+        if (  stdoutPipe  ) {
+            stdoutErrorOccurred = ! TBDrainPipe(stdoutPipe, stdoutData, &stdoutEOF, error);
+            if (  stdoutErrorOccurred  ) {
+                errorOccurred = YES;
+                break;
+            }
+        }
+        if (  stderrPipe  ) {
+            stderrErrorOccurred = ! TBDrainPipe(stderrPipe, stderrData, &stderrEOF, error);
+            if (  stderrErrorOccurred  ) {
+                errorOccurred = YES;
+                break;
+            }
+        }
+
+        //
+        // Deal with timeouts
+        //
 
         if (   (terminationTimeoutNS != 0)
             && (elapsedNS >= terminationTimeoutNS)
@@ -212,7 +464,8 @@ static uint64_t TBSecondsToNanoseconds(NSTimeInterval seconds) {
                             @"Task does not have a valid process identifier so it cannot be killed."
                     }];
                 }
-                return NO;
+                errorOccurred = YES;
+                break;
             }
 
             // Minimize the time between checking if the task is still running and killing it to minimize the TOCTOU problem
@@ -233,7 +486,8 @@ static uint64_t TBSecondsToNanoseconds(NSTimeInterval seconds) {
                                      @"kill(%d) returned error %d ('%s')", processID, savedErrno, strerror(savedErrno)]
                             }];
                         }
-                        return NO;
+                        errorOccurred = YES;
+                        break;
                     } else {
                         if (  self.isRunning  ) {
                             if (  error != NULL  ) {
@@ -246,7 +500,8 @@ static uint64_t TBSecondsToNanoseconds(NSTimeInterval seconds) {
                                          processID, savedErrno, strerror(savedErrno)]
                                 }];
                             }
-                            return NO;
+                            errorOccurred = YES;
+                            break;
                         }
                         
                         // ESRCH and the task is no longer running: fall through.
@@ -257,10 +512,82 @@ static uint64_t TBSecondsToNanoseconds(NSTimeInterval seconds) {
 
         if (  self.isRunning  ) {
             if (  ! TBSleepForTimeInterval(pollingInterval, error)  ) {
-                return NO;
+                errorOccurred = YES;
+                break;
             }
         }
     }
+
+    if (   errorOccurred
+        && ( ! requestedTerm )  ) {
+        requestedTerm = YES;
+        [self terminate];
+    }
+
+    //
+    // Drain the pipes, and store and release the data
+    //
+    // Ignore errors draining the pipes if there has already been an error
+
+    NSError * savedError = nil;
+    if (   error  ) {
+        savedError = *error;
+    }
+
+    while (   (   stdoutPipe
+               && ( ! stdoutEOF )
+               && ( ! stdoutErrorOccurred)  )
+           || (   stderrPipe
+               && ( ! stderrEOF )
+               && ( ! stderrErrorOccurred )  )  ) {
+
+        while (   stdoutPipe
+               && ( ! stdoutEOF )
+               && ( ! stdoutErrorOccurred)  ) {
+            stdoutErrorOccurred = ! TBDrainPipe(stdoutPipe, stdoutData, &stdoutEOF, error);
+        }
+
+        while (   stderrPipe
+               && ( ! stderrEOF )
+               && ( ! stderrErrorOccurred )  ) {
+            stderrErrorOccurred = ! TBDrainPipe(stderrPipe, stderrData, &stderrEOF, error);
+        }
+    }
+
+    if (   error
+        && savedError  ) {
+        *error = [[savedError retain] autorelease];
+    }
+
+    if (   stdOut
+        && stdoutData) {
+        *stdOut = [[[NSString alloc] initWithData: stdoutData encoding: NSUTF8StringEncoding] autorelease];
+    }
+    if (  stdoutData) {
+        [stdoutData release];
+    }
+
+    if (   stdErr
+        && stderrData  ) {
+        *stdErr = [[[NSString alloc] initWithData: stderrData encoding: NSUTF8StringEncoding] autorelease];
+    }
+    if (  stderrData) {
+        [stderrData release];
+    }
+
+    //
+    // If an error occurred, return NO now
+    //
+
+    if (   errorOccurred
+        || stdoutErrorOccurred
+        || stderrErrorOccurred  ) {
+        return NO;
+    }
+
+    //
+    // Return YES or NO
+    //
 
     NSTaskTerminationReason reason = self.terminationReason;
     switch (  reason  ) {

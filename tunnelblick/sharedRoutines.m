@@ -1321,56 +1321,6 @@ NSString * newTemporaryDirectoryPath(void)
     return [tempFolder retain];
 }
 
-NSString * messageFromPipes(NSPipe    * stdoutPipe,
-                            NSPipe    * stderrPipe,
-                            int         status,
-                            NSString ** stdOutStringPtr,
-                            NSString ** stdErrStringPtr) {
-
-    // Reads from the two pipes, sets *stdOutStringPtr and IstdErrStringPtr to the
-    // contents of the pipes if they are not nil, and constructs a message with
-    // any contents of stdoutPipe if status is nonzero, and any contents of stderrPipe.
-    // Returns nil if the message would be of zero length.
-
-    NSData *stdoutData = [[stdoutPipe fileHandleForReading] readDataToEndOfFile];
-    NSString * stdoutString = nil;
-    if (  stdoutData  ) {
-        stdoutString = [[[NSString alloc] initWithData: stdoutData
-                                              encoding: NSUTF8StringEncoding]
-                        autorelease];
-    }
-    NSData *stderrData = [[stderrPipe fileHandleForReading] readDataToEndOfFile];
-    NSString * stderrString = nil;
-    if (  stderrData  ) {
-        stderrString = [[[NSString alloc] initWithData: stderrData
-                                              encoding: NSUTF8StringEncoding]
-                        autorelease];
-    }
-
-    NSString * message = nil;
-
-    if (  stdOutStringPtr  ) {
-        *stdOutStringPtr = [[stdoutString retain] autorelease];
-    } else if (   (status != EXIT_SUCCESS)
-               && (0 != [stdoutString length])  )  {
-        message = [NSString stringWithFormat: @"stdout = '%@'\n", stdoutString];
-    }
-
-    if (stdErrStringPtr != NULL) {
-        *stdErrStringPtr = stderrString;
-    } else if (   (status != EXIT_SUCCESS)
-               && (0 != [stderrString length])  )  {
-        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? message : @""), stderrString];
-    }
-
-    if (  message.length != 0  ) {
-        return message;
-    }
-
-    return nil;
-}
-
-
 OSStatus runToolExtended(NSString     * launchPath,
                          NSArray      * arguments,
                          NSString     * * stdOutStringPtr,
@@ -1388,12 +1338,6 @@ OSStatus runToolExtended(NSString     * launchPath,
     [task setLaunchPath: launchPath];
     [task setArguments:  arguments];
     [task setCurrentDirectoryPath: @"/private/tmp"];
-    
-    NSPipe * stdPipe = [[NSPipe alloc] init];
-    [task setStandardOutput: stdPipe];
-
-    NSPipe * errPipe = [[NSPipe alloc] init];
-    [task setStandardError: errPipe];
 
     [task setEnvironment: getSafeEnvironment(nil, 0, additionalEnvironmentEntries)];
 
@@ -1403,6 +1347,8 @@ OSStatus runToolExtended(NSString     * launchPath,
     if (  ! [task tbLaunchAndWaitUntilDoneWithTerminationTimeout: 50.0
                                                      killTimeout: 60.0
                                                  pollingInterval: 0.1
+                                                          stdOut: stdOutStringPtr
+                                                          stdErr: stdErrStringPtr
                                                            error: &error]  ) {
 
         Log(@"Failed to launch '%@': %@", launchPath, error);
@@ -1411,13 +1357,8 @@ OSStatus runToolExtended(NSString     * launchPath,
         status = [task terminationStatus];
     }
 
-    NSString * message = messageFromPipes(stdPipe, errPipe, status, stdOutStringPtr, stdErrStringPtr);
-
-    [stdPipe release];
-    [errPipe release];
-    
-    if (  message  ) {
-        Log(@"'%@' returned status = %ld%@", [launchPath lastPathComponent], (long)status, message);
+    if (  status != EXIT_SUCCESS  ) {
+        Log(@"Status %ld returned by '%@'", (long)status, [launchPath lastPathComponent]);
     }
 
     return status;

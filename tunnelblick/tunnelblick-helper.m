@@ -393,6 +393,34 @@ static void printUsageMessageAndExitOpenvpnstart(void) {
     exitOpenvpnstart(OPENVPNSTART_RETURN_SYNTAX_ERROR);      // This exit code is used in the VPNConnection connect: method to inhibit display of this long syntax error message because it means there is an internal Tunnelblick error
 }
 
+NSString * messageForLog(int         status,
+                         NSString ** stdOutPtr,
+                         NSString ** stdErrPtr) {
+
+    // Constructs a message for the log with any contents of stdOutStringPtr if status is nonzero,
+    // and any contents of stdOutStringPtr.
+    // Returns nil if the message would be of zero length.
+
+    NSString * message = nil;
+
+    if (   stdOutPtr
+        && (status != EXIT_SUCCESS)
+        && ([*stdOutPtr length] != 0)  )  {
+        message = [NSString stringWithFormat: @"stdout = '%@'\n", *stdOutPtr];
+    }
+
+    if (   stdErrPtr
+        && ([*stdErrPtr length] != 0)  ) {
+        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? message : @""), *stdErrPtr];
+    }
+
+    if (  message.length != 0  ) {
+        return message;
+    }
+
+    return nil;
+}
+
 static void verifyRunningAsUser(void) {
 
     uid_t uidBefore  = getuid();
@@ -1115,8 +1143,8 @@ static int runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(NS
                                                                               NSString  * configName,
                                                                               unsigned    configLocCode,
                                                                               NSString  * managementPassword,
-                                                                              NSString ** stdOut,
-                                                                              NSString ** stdErr) {
+                                                                              NSString ** stdOutPtr,
+                                                                              NSString ** stdErrPtr) {
 
 	// Runs a program as root
 	//
@@ -1183,11 +1211,6 @@ static int runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(NS
             }
         }
 
-        NSPipe *stdoutPipe = [[NSPipe alloc] init];
-        NSPipe *stderrPipe = [[NSPipe alloc] init];
-        [task setStandardOutput: stdoutPipe];
-        [task setStandardError:  stderrPipe];
-
         [task setCurrentDirectoryPath: @"/private/tmp"];
 
         [task setEnvironment: getSafeEnvironment(configName, configLocCode, nil)];
@@ -1196,6 +1219,8 @@ static int runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(NS
         if (  ! [task tbLaunchAndWaitUntilDoneWithTerminationTimeout: 0
                                                          killTimeout: 0
                                                      pollingInterval: 0.1
+                                                              stdOut: stdOutPtr
+                                                              stdErr: stdErrPtr
                                                                error: &error]) {
             Log(@"Failed to launch '%@': %@", thePath, error);
             terminationStatus = -1;
@@ -1203,18 +1228,9 @@ static int runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(NS
             terminationStatus = [task terminationStatus];
         }
 
-        NSString * message = messageFromPipes(stdoutPipe,
-                                              stderrPipe,
-                                              terminationStatus,
-                                              stdOut,
-                                              stdErr);
-
-        [stdoutPipe release];
-        [stderrPipe release];
-
-        if (   (stdOut == nil)
-            && (stdErr == nil)  ) {
-            Log(@"From %@ = '%@'", thePath.lastPathComponent, message);
+        NSString * message = messageForLog(terminationStatus, stdOutPtr, stdErrPtr);
+        if (  message  ) {
+            Log(@"Status from %@ was %d\n%@'", thePath.lastPathComponent,  terminationStatus, message);
         }
 
     }

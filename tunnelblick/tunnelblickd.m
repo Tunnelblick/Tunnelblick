@@ -235,46 +235,25 @@ exitWithError:
     exit(OPENVPNSTART_TUNNELBLICKD_ERROR);
 }
 
-static NSString * TBMessageFromPipes(NSPipe    * stdoutPipe,
-                                     NSPipe    * stderrPipe,
-                                     int         status,
-                                     NSString ** stdOutStringPtr,
-                                     NSString ** stdErrStringPtr) {
+static NSString * TBMessageForLog(int         status,
+                                  NSString ** stdOutStringPtr,
+                                  NSString ** stdErrStringPtr) {
 
-    // Reads from the two pipes, sets *stdOutStringPtr and IstdErrStringPtr to the
-    // contents of the pipes if they are not nil, and constructs a message with
-    // any contents of stdoutPipe if status is nonzero, and any contents of stderrPipe.
+    // Constructs a message for the log with any contents of stdOutStringPtr if status is nonzero,
+    // and any contents of stdOutStringPtr.
     // Returns nil if the message would be of zero length.
-
-    NSData *stdoutData = [[stdoutPipe fileHandleForReading] readDataToEndOfFile];
-    NSString * stdoutString = nil;
-    if (  stdoutData  ) {
-        stdoutString = [[[NSString alloc] initWithData: stdoutData
-                                              encoding: NSUTF8StringEncoding]
-                        autorelease];
-    }
-    NSData *stderrData = [[stderrPipe fileHandleForReading] readDataToEndOfFile];
-    NSString * stderrString = nil;
-    if (  stderrData  ) {
-        stderrString = [[[NSString alloc] initWithData: stderrData
-                                              encoding: NSUTF8StringEncoding]
-                        autorelease];
-    }
 
     NSString * message = nil;
 
-    if (  stdOutStringPtr  ) {
-        *stdOutStringPtr = [[stdoutString retain] autorelease];
-    } else if (   (status != EXIT_SUCCESS)
-               && (0 != [stdoutString length])  )  {
-        message = [NSString stringWithFormat: @"stdout = '%@'\n", stdoutString];
+    if (   (status != EXIT_SUCCESS)
+        && (stdOutStringPtr != NULL)
+        && ((*stdOutStringPtr).length != 0)  )  {
+        message = [NSString stringWithFormat: @"stdout = '%@'\n", *stdOutStringPtr];
     }
 
-    if (stdErrStringPtr != NULL) {
-        *stdErrStringPtr = stderrString;
-    } else if (   (status != EXIT_SUCCESS)
-               && (0 != [stderrString length])  )  {
-        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? message : @""), stderrString];
+    if (   (stdErrStringPtr != NULL)
+        && ((*stdErrStringPtr).length != 0)  ) {
+        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? message : @""), *stdErrStringPtr];
     }
 
     if (  message.length != 0  ) {
@@ -298,11 +277,6 @@ static OSStatus runTool(uid_t        client_euid,
     // Runs a command or script, returning the execution status of the command, stdout, and stderr
 
     NSTask * task = [[[NSTask alloc] init] autorelease];
-
-    NSPipe *stdoutPipe = [[NSPipe alloc] init];
-    NSPipe *stderrPipe = [[NSPipe alloc] init];
-    [task setStandardOutput: stdoutPipe];
-    [task setStandardError:  stderrPipe];
 
     [task setLaunchPath:           launchPath];
     [task setArguments:            arguments];
@@ -337,6 +311,8 @@ static OSStatus runTool(uid_t        client_euid,
     if (  ! [task tbLaunchAndWaitUntilDoneWithTerminationTimeout: 25.0
                                                      killTimeout: 30.0
                                                  pollingInterval: 0.1
+                                                          stdOut: stdOutStringPtr
+                                                          stdErr: stdErrStringPtr
                                                            error: &error]  ) {
         asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Failed to launch '%s': %s",
                 launchPath.UTF8String, error.description.UTF8String);
@@ -349,11 +325,8 @@ static OSStatus runTool(uid_t        client_euid,
         becomeRoot(asl, log_msg);
     }
 
-    NSString * message = TBMessageFromPipes(stdoutPipe, stderrPipe, status, stdOutStringPtr, stdErrStringPtr);
+    NSString * message = TBMessageForLog(status, stdOutStringPtr, stdErrStringPtr);
 
-    [stdoutPipe release];
-    [stderrPipe release];
-    
     if (  message  ) {
         asl_log(asl, log_msg, ASL_LEVEL_WARNING, "'%s' returned status = %ld\n%s",
                 [[launchPath lastPathComponent] UTF8String], (long)status, [message UTF8String]);
@@ -1148,10 +1121,11 @@ int main(void) {
         //
         // Preprocess the raw command if it's a "pathOfNewSecureItemContainingString" command.
         //
+        // A stdoutString that starts with a "/"; is an absolute path output by pathOfNewSecureItemContainingString, it is passed back as stdout output
+        // to the program that invoked tunnelblickd.
+        //
         // If stdoutString isn't empty after the preprocessing and does not start with a "/", it is an error message that will be passed on
         // to the program that invoked tunnelblickd. (The error message has already been logged by tunnelblickd.)
-        //
-        // A stdoutString that starts with a "/"; is an absolute path output by
 
         NSString * stdoutString = @"";
         NSString * stderrString = @"";

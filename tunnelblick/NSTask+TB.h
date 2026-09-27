@@ -43,17 +43,26 @@ typedef NS_ENUM(NSInteger, TBTaskLaunchAndWaitErrorCode) {
     TBTaskLaunchAndWaitErrorExternalSignal                          = 1006,
     TBTaskLaunchAndWaitErrorUnknownTerminationReason                = 1007,
     TBTaskLaunchAndWaitErrorInvalidInternalSleepInterval            = 1008,
+    TBTaskLaunchAndWaitErrorInvalidArgument                         = 1009,
+    TBTaskLaunchAndWaitErrorInvalidFileDescriptor                   = 1010,
+    TBTaskLaunchAndWaitErrorAlreadyAtEOF                            = 1011,
+    TBTaskLaunchAndWaitErrorGetFlagsFailed                          = 1012,
+    TBTaskLaunchAndWaitErrorSetNonBlockingFailed                    = 1013,
+    TBTaskLaunchAndWaitErrorReadFailed                              = 1014,
 };
 
 @interface NSTask(TB)
 
-// Launches task.
+// Launches task and returns the task's output in stdOut and stdErr.
+//
 // If terminationTimeout is greater than 0.0, a request will be made to terminate the task after terminationTimeout seconds.
+//
 // If killTimeout is greater than 0.0, SIGKILL will be sent to the task after killTimeout seconds.
+//
 // Polls the task status every pollingInterval seconds.
 //
-// Returns YES and sets *error to nil if error is not NULL only if the launch succeeded and then
-//             terminated with NSTaskTerminationReasonExit, regardless of the task's terminationStatus.
+// Returns YES and sets *error to nil if error is not NULL only if the launch succeeded and terminated with
+//             NSTaskTerminationReasonExit and no other error occurred, regardless of the task's terminationStatus.
 //
 // Returns NO otherwise, with an NSError * stored in *error if error is not NULL.
 //
@@ -83,11 +92,15 @@ typedef NS_ENUM(NSInteger, TBTaskLaunchAndWaitErrorCode) {
 //         with *error set to an NSError in the TBTaskLaunchAndWaitErrorDomain with a code of TBTaskLaunchAndWaitErrorKillFailedButTaskIsRunning.
 //     16. Timeout actions are checked once per polling interval and may occur later than their
 //         configured deadlines by approximately the polling interval plus scheduler latency.
+//     17. Errors from converting stdout and stderr to strings are not considered as errors but will cause *stdOut and/or *stdErr to be set
+//         to nil if stdOut and/or stdErr are not NULL.
 
--(BOOL) tbLaunchAndWaitUntilDoneWithTerminationTimeout: (NSTimeInterval)                  terminationTimeout
-                                           killTimeout: (NSTimeInterval)                  killTimeout
-                                       pollingInterval: (NSTimeInterval)                  pollingInterval
-                                                 error: (NSError * _Nullable * _Nullable) error;
+-(BOOL) tbLaunchAndWaitUntilDoneWithTerminationTimeout: (NSTimeInterval)                   terminationTimeout
+                                           killTimeout: (NSTimeInterval)                   killTimeout
+                                       pollingInterval: (NSTimeInterval)                   pollingInterval
+                                                stdOut: (NSString * _Nullable * _Nullable) stdOut
+                                                stdErr: (NSString * _Nullable * _Nullable) stdErr
+                                                 error: (NSError  * _Nullable * _Nullable) error;
 @end
 
 NS_ASSUME_NONNULL_END
