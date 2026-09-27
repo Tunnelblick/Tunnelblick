@@ -24,6 +24,8 @@ NSAttributedString * attributedLightDarkStringFromHTML(NSString * html);
 
 NSAttributedString * attributedStringFromHTML(NSString * html);
 
+void useSystemFontInAttributedString(NSMutableAttributedString * mas);
+
 void           openLog(void);
 void           appendLog				 (NSString * msg);
 
