@@ -2873,6 +2873,8 @@ static void createFileAtPath(NSString * path,
 
     // Create a file with the specified contents. Creates parent folders if they don't exist.
 
+    errorExitIfDotDotOrSymlinkInPath(path);
+
     NSError * err = nil;
 
     NSDictionary * attributes = @{NSFileOwnerAccountID      : @0,
@@ -2942,6 +2944,10 @@ static void outputToPathFromDictionary(NSString     * path,
 
             // File
             NSString * newPath = [path stringByAppendingPathComponent: key];
+            if (  [key hasPrefix: @"/"]) {
+                Log(@"Apparent attack detected: absolute paths are not allowed in dictionaries; key (path) was '%@'", key);
+                exitOpenvpnstart(-1);
+            }
             createFileAtPath(newPath, (NSData *)obj);
         }
     }
