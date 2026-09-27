@@ -383,7 +383,7 @@ return NO;                                                          \
     NSMutableData * stdoutData = nil;
     BOOL stdoutEOF = YES;
     BOOL stdoutErrorOccurred = NO;
-    if (  stdout  ) {
+    if (  stdOut != NULL  ) {
         stdoutPipe = [[[NSPipe alloc] init] autorelease];
         [self setStandardOutput: stdoutPipe];
         stdoutData = [[NSMutableData alloc] init];
@@ -394,7 +394,7 @@ return NO;                                                          \
     NSMutableData * stderrData = nil;
     BOOL stderrEOF = YES;
     BOOL stderrErrorOccurred = NO;
-    if (  stdOut  ) {
+    if (  stdErr != NULL  ) {
         stderrPipe = [[[NSPipe alloc] init] autorelease];
         [self setStandardError: stderrPipe];
         stderrData = [[NSMutableData alloc] init];
@@ -534,6 +534,11 @@ return NO;                                                          \
         savedError = *error;
     }
 
+    // After the task exits, a child that inherited the pipe can leave it
+    // open. TBDrainPipe returns success on EAGAIN, so this loop must sleep
+    // and give up instead of spinning.
+    uint64_t drainDeadlineNS = TBUptimeNanoseconds() + TBSecondsToNanoseconds(2.0);
+
     while (   (   stdoutPipe
                && ( ! stdoutEOF )
                && ( ! stdoutErrorOccurred)  )
@@ -541,16 +546,37 @@ return NO;                                                          \
                && ( ! stderrEOF )
                && ( ! stderrErrorOccurred )  )  ) {
 
-        while (   stdoutPipe
-               && ( ! stdoutEOF )
-               && ( ! stdoutErrorOccurred)  ) {
+        if (  TBUptimeNanoseconds() >= drainDeadlineNS  ) {
+            break;
+        }
+
+        NSUInteger stdoutBefore = (stdoutData ? [stdoutData length] : 0);
+        NSUInteger stderrBefore = (stderrData ? [stderrData length] : 0);
+        BOOL stdoutWasEOF = stdoutEOF;
+        BOOL stderrWasEOF = stderrEOF;
+
+        if (   stdoutPipe
+            && ( ! stdoutEOF )
+            && ( ! stdoutErrorOccurred)  ) {
             stdoutErrorOccurred = ! TBDrainPipe(stdoutPipe, stdoutData, &stdoutEOF, error);
         }
 
-        while (   stderrPipe
-               && ( ! stderrEOF )
-               && ( ! stderrErrorOccurred )  ) {
+        if (   stderrPipe
+            && ( ! stderrEOF )
+            && ( ! stderrErrorOccurred )  ) {
             stderrErrorOccurred = ! TBDrainPipe(stderrPipe, stderrData, &stderrEOF, error);
+        }
+
+        BOOL progressed = (   (stdoutEOF != stdoutWasEOF)
+                           || (stderrEOF != stderrWasEOF)
+                           || (stdoutData && ([stdoutData length] != stdoutBefore))
+                           || (stderrData && ([stderrData length] != stderrBefore))  );
+        if (   ( ! progressed )
+            && ( ! stdoutErrorOccurred )
+            && ( ! stderrErrorOccurred )  ) {
+            if (  ! TBSleepForTimeInterval(0.05, error)  ) {
+                break;
+            }
         }
     }
 
