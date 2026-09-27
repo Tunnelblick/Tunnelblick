@@ -460,6 +460,9 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     [titleAS release];
     
     [attachedWindow release];
+
+    [tracker release];
+    tracker = nil;
     
     [super dealloc];
 }
