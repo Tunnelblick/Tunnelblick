@@ -824,7 +824,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
             || [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]]  ) {
             NSLog(@"%@ will be connected when the computer starts", [self displayName]);
             if (  systemAuthPtr  ) {
-                *systemAuthPtr = [[sysAuth copy] autorelease];
+                *systemAuthPtr = [[sysAuth retain] autorelease];
             }
             [sysAuth release];
             return YES;
