@@ -44,6 +44,9 @@
 "All Users" = "Wszyscy użytkownicy";
 
 /* Button */
+"Always Allow" = "Zawsze zezwalaj";
+
+/* Button */
 "Always load Tap driver" = "Zawsze ładuj sterownik Tap";
 
 /* Button */
@@ -1035,6 +1038,9 @@
 /* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Konfiguracja wymagająca hasła (klucza prywatnego) bądź nazwy użytkownika wraz z hasłem nie może się łączyć podczas uruchamiania komputera.";
 
+/* Window text. */
+"A folder name cannot end in '.tblk'" = "Nazwa folderu nie może kończyć się na '.tblk'";
+
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Hasło jest wymagane do połączenia z\n  %1$@%2$@";
 
@@ -1099,6 +1105,9 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Wystąpił błąd podczas próby pobrania informacji o aktualizacjach.\n\n%1$@Więcej informacji znajdziesz w pliku log:\n\n%2$@";
 
 /* Window text */
+"An error occurred while trying to install or replace one or more configurations." = "Wystąpił błąd podczas próby zainstalowania lub zastąpienia jednej lub większej liczby konfiguracji.";
+
+/* Window text */
 "An error occurred while trying to launch Tunnelblick." = "Wystąpił błąd podczas uruchamiania Tunnelblick.";
 
 /* Window text */
@@ -1127,6 +1136,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Dostępna jest aktualizacja konfiguracji VPN o nazwie %@ \n\nCzy chcesz zaktualizować tę konfigurację?\n\n";
+
+/* Window text */
+"Are you sure you wish to connect this configuration, which includes programs which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Czy jesteś pewny, że chcesz połączyć się z tą konfiguracją, która zawiera programy, które mogą PRZEJĄĆ CAŁKOWITĄ KONTROLĘ NAD TWOIM KOMPUTEREM?\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Czy jesteś pewny, że chcesz usunąć poświadczenia (klucz prywatny i/lub nazwę użytkownika oraz hasło) dla konfiguracji %ld przechowywanych w Pęku Kluczy?";
@@ -1258,10 +1270,19 @@
 "Do you wish to delete the %@ credentials?" = "Czy chcesz usunąć następujące dane logowania : %@?";
 
 /* Window text */
+"Do you wish to install or replace %lu configurations?" = "Czy chce zainstalować albo zastąpić konfigurację %lu?";
+
+/* Window text */
+"Do you wish to install or replace one configuration?" = "Czy chcesz zainstalować albo zastąpić jedną konfigurację?";
+
+/* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Czy chcesz zainstalować konfigurację '%@', która będzie dostępna tylko dla ciebie, czy dla wszystkich użytkowników?\n\n";
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Czy chcesz ponownie zainstalować ' %1$@' w wersji %2$@?";
+
+/* Window text */
+"Do you wish to remove one or more configurations or folders?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "Czy chcesz usunąć jedną lub więcej konfiguracji albo folderów?\nUsunięcie jest trwałe i nie może być przywrócone.\nUstawienia usuwanych konfiguracji będą także trwałe usunięte.";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Czy chcesz zastąpić ' %1$@' w wersji %2$@ wersją %3$@?";
@@ -1717,6 +1738,12 @@
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Tego połączenia VPN nie można nawiązać.\n\nPlik konfiguracyjny OpenVPN '%1$@' zawiera następujące opcje:\n\n%2$@\nŻadna z wersji OpenVPN zawartych w tym wydaniu Tunnelblicka nie zawiera powyższych opcji.\n\nNależy uaktualnić plik konfiguracyjny, aby był zgodny z nowymi wersjami OpenVPN.";
 
 /* Window text */
+"This VPN configuration includes one or more programs which will run as root when you connect to a VPN. The program(s) are part of the configuration and are not part of the Tunnelblick application.\n\nThey are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT CONNECT THIS CONFIGURATION UNLESS YOU TRUST IT'S AUTHOR.\n\nDo you trust the author of the configuration and wish to allow the program(s) to run?\n\n" = "This VPN configuration includes one or more programs which will run as root when you connect to a VPN. The program(s) are part of the configuration and are not part of the Tunnelblick application.\n\nThey are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT CONNECT THIS CONFIGURATION UNLESS YOU TRUST IT'S AUTHOR.\n\nDo you trust the author of the configuration and wish to allow the program(s) to run?\n\nTa konfiguracja VPN zawiera jedno lub więcej programów które będą działały z uprawnieniami root kiedy łączysz się do VPN. Program(y) są częścią konfiguracji, a nie częścią programu Tunellblick.\nTe programy są w stanie PRZEJĄĆ CAŁKOWITĄ OONTROLĘ NAD TWOIM KOMPUTEREM.\nNIE POWINIENEŚ ŁĄCZYĆ SIĘ Z TĄ KONFIGURACJĄ, CHYBA ŻE CAŁKOWICIE UFASZ JEJ AUTOROWI.\nCzy ufasz autorowi konfiguracji i chcesz pozwolić programowi(om) działać?\n\n";
+
+/* Window text */
+"This VPN configuration includes one or more programs which will run as you when you connect to a VPN. The program(s) are part of the configuration and are not part of the Tunnelblick application.\n\nYou should connect this configuration only if you trust it's author.\n\nDo you trust the author of the configuration and wish to allow the program(s) to run?\n\n" = "Ta konfiguracja VPN zawiera jeden lub więcej programów, które będą uruchomione z Twojego konta użytkownika podczas nawiązywania połączenia z siecią VPN. Programy te stanowią część konfiguracji i nie wchodzą w skład aplikacji Tunnelblick.\n\nPołącz się z tą konfiguracją tylko wtedy, gdy ufasz jej autorowi.\n\nCzy ufasz autorowi konfiguracji i chcesz zezwolić na uruchomienie tych programów?\n\n";
+
+/* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "To połączenie VPN wymaga od użytkownika odpowiedzi na pytanie, jednak nie zostało ono zadane przez serwer.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
@@ -1805,6 +1832,9 @@
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick nie może naprawić problemu preferencji dla '%@'. Szczegóły są dostępne w dzienniku konsoli";
+
+/* Window text */
+"Tunnelblick failed to store a management password for '%@'." = "Programowi Tunnelblick nie udało się zapisać hasła zarządzania dla '%@'.";
 
 /* Window text */
 "Tunnelblick has been secured." = "Tunnelblick został zabezpieczony.";
@@ -1954,10 +1984,16 @@
 "Unable to load contents of %@ as UTF-8" = "Nie można załadować zawartości %@ jako UTF-8";
 
 /* Window text */
+"Unable to make the '%@' configuration shared. See the console log for details." = "Nie można udostępnić konfiguracji '%@'. Szczegóły znajdują się w dzienniku konsoli.";
+
+/* Window text */
 "Unable to parse configuration file as UTF-8" = "Nie można sparsować pliku konfiguracyjnego jako UTF-8";
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "Nie można zastąpić konfiguracji '%@'\n";
+
+/* Window text */
+"Unable to restore permissions on configuration file after modification" = "Nie można przywrócić uprawnień do pliku konfiguracyjnego po jego modyfikacji";
 
 /* Window text */
 "Unable to secure %@ because it is owned by %@" = "Nie można zabezpieczyć %1$@, ponieważ jest własnością %2$@";

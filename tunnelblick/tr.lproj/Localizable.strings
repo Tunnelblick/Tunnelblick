@@ -44,6 +44,9 @@
 "All Users" = "Tüm Kullanıcılar";
 
 /* Button */
+"Always Allow" = "Daima izin ver";
+
+/* Button */
 "Always load Tap driver" = "Her zaman Tap sürücüsünü yükle";
 
 /* Button */
@@ -1035,6 +1038,9 @@
 /* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Bilgisayar başlatıldığında parola (private key) veya kullanıcı adı ve parola gerektiren bir yapılandırma bağlanamaz.";
 
+/* Window text. */
+"A folder name cannot end in '.tblk'" = "Bir klasör adı '.tblk' ile bitemez";
+
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Bu hedefe bağlanmak için bir parola gerekiyor\n  %1$@%2$@";
 
@@ -1099,6 +1105,9 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Güncellemeler hakkında bilgi edinmeye çalışırken bir hata oluştu.\n\n%1$@Daha fazla bilgi için şuradaki günlüğe bakın:\n\n%2$@";
 
 /* Window text */
+"An error occurred while trying to install or replace one or more configurations." = "Bir veya daha fazla yapılandırmayı yüklemeye veya üzerine yazmaya çalışırken bir hata oluştu.";
+
+/* Window text */
 "An error occurred while trying to launch Tunnelblick." = "Tunnelblick'i başlatmaya çalışırken bir hata oluştu.";
 
 /* Window text */
@@ -1127,6 +1136,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "%@ VPN konfigurasyonuna ait bir güncelleme var.\nKonfigürasyonu şimdi güncellemek istiyormusunuz?\n\n";
+
+/* Window text */
+"Are you sure you wish to connect this configuration, which includes programs which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "BİLGİSAYARINIZIN TAM KONTOLÜNÜ ELE GEÇİREBİLECEK programlar içeren bu yapılandırmaya bağlanmak istediğinizden emin misiniz?\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Keychain içerisinde saklanan %ld yapılandırmaları için kimlik bilgilerini (özel anahtar ve/veya kullanıcı adı ve parola) silmek istediğinize emin misiniz?";
@@ -1258,10 +1270,19 @@
 "Do you wish to delete the %@ credentials?" = "%@ kimlik bilgilerini silmek istiyor musunuz?";
 
 /* Window text */
+"Do you wish to install or replace %lu configurations?" = "%lu yapılandırmayı yüklemek veya üzerine yazmak istiyor musunuz?";
+
+/* Window text */
+"Do you wish to install or replace one configuration?" = "Bir yapılandırmayı yüklemek veya üzerine yazmak istiyor musunuz?";
+
+/* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "'%@' yapılandırmasını tüm kullanıcıların kullanımı için yoksa sadece kendin kullanımın için mi yüklemek istiyorsun?\n\n";
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "'%1$@' versiyon %2$@ yapılandırmasını yeniden yüklemek istiyor musunuz?";
+
+/* Window text */
+"Do you wish to remove one or more configurations or folders?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "Bir veya daha fazla yapılandırma veya klasörü kaldırmak istiyor musunuz?\n\nKaldırma işlemi kalıcıdır ve geri alınamaz.\n\nKaldırılan yapılandırılmar için olan ayarlar da kalıcı olarak kaldırılacaktır.";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "'%1$@' sürüm %2$@'yi sürüm %3$@ ile değiştirmek istiyor musunuz?";
