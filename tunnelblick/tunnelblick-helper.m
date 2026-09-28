@@ -1242,11 +1242,6 @@ static int runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(NS
 }
 
 //**************************************************************************************************************************
-static int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode) {
-
-    return runAsRootWithConfigNameAndLocCodeAndManagementPasswordReturnOutput(thePath, theArguments, permissions, configName, configLocCode, nil, nil, nil, 0.0, 0.0);
-
-}
 
 // tunnelblickd SIGTERMs this helper at 25s and SIGKILLs it at 30s. A script
 // deadline has to finish before that, or the script keeps the helper's
