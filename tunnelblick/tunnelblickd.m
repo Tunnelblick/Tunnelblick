@@ -691,7 +691,7 @@ static BOOL createFileAtPath(NSString * path,
 
     NSDictionary * attributes = @{NSFileOwnerAccountID      : @0,
                                   NSFileGroupOwnerAccountID : @0,
-                                  NSFilePosixPermissions    : @0700};
+                                  NSFilePosixPermissions    : @0600};
 
     if (  ! [ NSFileManager.defaultManager createFileAtPath: path
                                                    contents: contents

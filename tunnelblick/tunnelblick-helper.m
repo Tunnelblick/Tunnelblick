@@ -2879,7 +2879,7 @@ static void createFileAtPath(NSString * path,
 
     NSDictionary * attributes = @{NSFileOwnerAccountID      : @0,
                                   NSFileGroupOwnerAccountID : @0,
-                                  NSFilePosixPermissions    : @0700};
+                                  NSFilePosixPermissions    : @0600};
 
     becomeRoot(@"createFileAtPath: output a file (and maybe its enclosing folder(s)");
     {
