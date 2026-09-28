@@ -66,7 +66,7 @@
 
 #define LENGTH_OF_YYYY_MM_DD ( 4 + 1 + 2 + 1 + 2 )
 
-#define LENGTH_OF_MANAGEMENT_PASSWORD 16
+#define LENGTH_OF_MANAGEMENT_PASSWORD 64
 
 // Number of characters/columns taken up by the date & time in the Tunnelblick log
 //    If == 19, microseconds are not included (e.g., "2019-03-08 09:30:15")
