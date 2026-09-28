@@ -149,6 +149,9 @@ NSFileManager * gFileMgr;                     // NSFileManager.defaultManager
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
 static BOOL     renamex_npWorks = NO;         // renamex_np() works as needed for /Applications and L_AS_T, and home folder if it is available
 
+static BOOL     gUserScriptsOK = NO;
+static BOOL     gRootScriptsOK = NO;
+
 #ifdef TBDebug
 static BOOL     gLogFileActions = YES;        // Log all actions on files
 #else
@@ -302,12 +305,13 @@ static NSString * thisAppResourcesPath(void) {
 
         Log(@"Tunnelblick.app has not been built or is not present at '%@'.\nNSProcessInfo.processInfo.arguments[0] was '%@'",
             path, NSProcessInfo.processInfo.arguments[0]);
-        exit(-1);
+        errorExit();
     }
 
     Log(@"Cannot determine app's resources path. NSProcessInfo.processInfo.arguments[0] was '%@'",
         NSProcessInfo.processInfo.arguments[0]);
-    exit(-1);
+    errorExit();
+    return nil; // Satisfy static analyzer
 }
 
 NSString * lastPartOfPath(NSString * path) {
@@ -2265,6 +2269,66 @@ static void doFolderRename(NSString * sourcePath, NSString * targetPath) {
     }
 }
 
+static void errorExitIfHasScriptsAndShouldNotBeInstalled(NSString * sourcePath) {
+
+    if (   gUserScriptsOK
+        && gRootScriptsOK  ) {
+        return;
+    }
+
+    if (  ! [sourcePath hasPrefix: [L_AS_T_TEMP stringByAppendingString: @"/"]]  ) {
+        Log(@"Not a secure path: '%@'", sourcePath);
+        errorExit();
+    }
+
+    BOOL hasUserScript = NO;
+    BOOL hasRootScript = NO;
+
+    NSString * subPath;
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: sourcePath];
+    while (  (subPath = [dirE nextObject])  ) {
+        if (   [subPath hasSuffix: @".user.sh"]  ) {
+            hasUserScript = YES;
+        } else if (  [subPath hasSuffix: @".sh"]  ) {
+            hasRootScript = YES;
+        }
+    }
+
+    if (   hasUserScript
+        && ( ! gUserScriptsOK )  ) {
+        if (   hasRootScript
+            && ( ! gRootScriptsOK )  ) {
+            Log(@"Need authorization to install Tunnelblick scripts which run as root and as the user");
+            errorExit();
+        } else {
+            Log(@"Need authorization to install Tunnelblick scripts which run as the user");
+            errorExit();
+        }
+    } else {
+        if (   hasRootScript
+            && ( ! gRootScriptsOK )  ) {
+            Log(@"Need authorization to install Tunnelblick scripts which run as root");
+            errorExit();
+        }
+    }
+
+    if (  ! gRootScriptsOK  ) {
+
+        // Check for OpenVPN scripts.
+
+        ConfigurationParser * config = [ConfigurationParser parsedConfigurationAtPath: sourcePath];
+        if ( ! config  ) {
+            NSLog(@"Could not create a ConfigurationParser for %@", sourcePath);
+            errorExit();
+        }
+
+        if (  ! config.doesNotContainAnyUnsafeOptions  ) {
+            Log(@"Need authorization to install OpenVPN scripts which run as root");
+            errorExit();
+        }
+    }
+}
+
 static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPath, BOOL moveNotCopy) {
 
     if (   ( ! sourcePath )
@@ -2372,6 +2436,7 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
             renameForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
         }
     } else {
+        errorExitIfHasScriptsAndShouldNotBeInstalled(sourcePath);
         securelyCopy(sourcePath, targetPath);
         if (  sourceDisplayName  ) {
             copyForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
@@ -3217,6 +3282,9 @@ int main(int argc, char *argv[]) {
     BOOL doForceLoadLaunchDaemon = (opsAndFlags & INSTALLER_REPLACE_DAEMON)     != 0;
     BOOL doInstallKexts          = (opsAndFlags & INSTALLER_INSTALL_KEXTS)      != 0;
     BOOL doUninstallKexts        = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS)    != 0;
+
+    gUserScriptsOK = doAllowUserScripts;
+    gRootScriptsOK = doAllowRootScripts;
 
     BOOL ignoringInstallKexts = FALSE;
     if (   doInstallKexts

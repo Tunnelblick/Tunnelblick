@@ -1487,6 +1487,7 @@ static NSString *escaped(NSString *string) {
 }
 
 static NSString * configPathFromTblkPath(NSString * path) {
+
 	// Returns the path of the configuration file within a .tblk, or nil if there is no such configuration file
 
     NSString * cfgPath = [path stringByAppendingPathComponent:@"Contents/Resources/config.ovpn"];
@@ -2075,19 +2076,35 @@ static BOOL revertToShadowWorker (NSString * displayName) {
             return NO;
         }
 
+        // If this is revert from a safe install, the user's private path won't exist.
+        // It needs to exist so we can do the renamex_np swap, so create it as an empty folder.
+        if (  ! [gFileMgr fileExistsAtPath: privatePath]  ) {
+            NSDictionary * attributes = @{NSFileOwnerAccountID      : @0,
+                                          NSFileGroupOwnerAccountID : @0,
+                                          NSFilePosixPermissions    : @0600};
+            NSError * err = nil;
+            if (  ! [gFileMgr createDirectoryAtPath: privatePath
+                        withIntermediateDirectories: YES
+                                         attributes: attributes
+                                              error: &err]  ) {
+                Log(@"createFileAtPath: error creating directory '%@'; error was %@", privatePath, err);
+                exitOpenvpnstart(-1);
+            }
+        }
+
         // Swap the temporary copy and the user's private copy
         errno = 0;
         int status = renamex_np(tempCopyPath.fileSystemRepresentation,
                                 privatePath.fileSystemRepresentation,
                                 RENAME_SWAP | RENAME_NOFOLLOW_ANY);
         if (  status != 0  ) {
-            Log(@"Error from renamex_np(): errno = %d ('%s')", errno, strerror(errno));
+            Log(@"Error from renamex_np(): errno = %d ('%s')\nfrom %@\nto   %@", errno, strerror(errno), tempCopyPath,privatePath);
             [gFileMgr tbRemovePathIfItExists: tempCopyPath];
             stopBeingRoot();
             return NO;
         }
 
-        // Remove the user's original private copy (which was swapped to be in L_AS_T_TEMP)
+        // Remove the user's original private copy or the empty one we created to do the renamex_np (which was swapped to be in L_AS_T_TEMP)
         NSError * err = nil;
         if (  ! [gFileMgr removeItemAtPath: tempCopyPath error: &err]  ) {
             Log(@"revertToShadowWorker: Error deleting temporary file: %@", err);
@@ -2400,6 +2417,9 @@ static BOOL isSafeConfigFileForInstallOrUpdate(NSString * sourcePath) {
 
 static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdate) {
 
+    // sourcePath must be a secure (in L_AS_T_TEMP) copy of the user's safe configuration.
+    // targetPath must be the path of the shadow configuration that is to be updated.
+    //
     // Installs a "safe" configuration or replaces a configuration with a "safe" one, or tests that such an install or replacement can be done.
     // A "safe" configuration can contain only certificate and key files and/or Info.plist and/or a config.ovpn which does not have
     // options that invoke scripts and/or files that are identical to files in the existing configuration.
@@ -2411,15 +2431,24 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
     errorExitIfDotDotOrSymlinkInPath(sourcePath);
     errorExitIfDotDotOrSymlinkInPath(targetPath);
 
+    NSString * sourceTblkName = sourcePath.lastPathComponent;
+
+    if (  [sourceTblkName isNotEqualTo: targetPath.lastPathComponent]  ) {
+        Log(@"Names do not match: source at %@ and target at %@", sourcePath, targetPath);
+        exitOpenvpnstart(-1);
+    }
+
     NSString * shadowPrefix = [L_AS_T_USERS stringByAppendingPathComponent: userName()];
 
-    if (  ! (   [sourcePath hasPrefix: L_AS_T_TEMP]
-             && [targetPath hasPrefix: shadowPrefix] )  ) {
+    if (  ! (   [sourcePath hasPrefix: [L_AS_T_TEMP  stringByAppendingString: @"/"]]
+             && [targetPath hasPrefix: [shadowPrefix stringByAppendingString: @"/"]]  )  ) {
         Log(@"Source path must be in %@ and target path must be in %@", L_AS_T_TEMP, shadowPrefix);
         exitOpenvpnstart(-1);
     }
 
-    // Copy source to temp, modify temp, then rename temp to target
+    //
+    // Copy target to temp, modify temp with files from source, then rename temp to target
+    //
     NSString * tempPath = [L_AS_T_TEMP stringByAppendingPathComponent: NSUUID.UUID.UUIDString];
     NSError * err;
 
@@ -2428,6 +2457,13 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
         exitOpenvpnstart(-1);
     }
 
+    //
+    // Read through source:
+    //      If a file is identical to the corresponding file in target, copy it to temp.
+    //      Also copy a file that is an Info.plist, a user script, a key or certificate file, or
+    //      a file in a .lproj folder.
+    //
+
     NSArray * extensionsForKeysAndCerts = KEY_AND_CRT_EXTENSIONS;
 
     NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: sourcePath];
@@ -2435,7 +2471,8 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
     while (  (name = [dirE nextObject])  ) {
 
 		NSString * sourceFullPath = [sourcePath stringByAppendingPathComponent: name];
-		NSString * tempFullPath = [tempPath stringByAppendingPathComponent: name];
+		NSString * tempFullPath   = [tempPath   stringByAppendingPathComponent: name];
+        NSString * targetFullPath = [targetPath stringByAppendingPathComponent: name];
 
 		BOOL isDir = NO;
 		if (  ! [gFileMgr fileExistsAtPath: sourceFullPath isDirectory: &isDir]  ) {
@@ -2468,43 +2505,48 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
 		}
 
         // Any files that are identical to existing files are OK; update if requested (change timestamps)
-        if (  [gFileMgr contentsEqualAtPath: sourceFullPath andPath: tempFullPath]  ) {
-			if (  doUpdate  ) {
-                if (  ! forceCopyFileAsRoot(sourceFullPath, tempFullPath)  ) {
-                    return FALSE;
+        if (  [gFileMgr fileExistsAtPath: targetFullPath]  ) {
+            if (  [gFileMgr contentsEqualAtPath: sourceFullPath andPath: targetFullPath]  ) {
+                Log(@"Files are identical, accepting '%@'", sourceFullPath.lastPathComponent);
+                if (  doUpdate  ) {
+                    if (  ! forceCopyFileAsRoot(sourceFullPath, tempFullPath)  ) {
+                        return FALSE;
+                    }
                 }
-            }
 
-            continue;
+                continue;
+            }
         }
 
-		// Changed Info.plist, user-mode scripts, and certificate and key files, and *.lproj/Localizable.strings files are OK; update if requested
-        if (   [sourceFullPath hasSuffix: @".tblk/Contents/Info.plist"]
-			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/static-challenge-response.user.sh"]
-			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/dynamic-challenge-response.user.sh"]
-			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/password-replace.user.sh"]
-			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/password-prepend.user.sh"]
-			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/password-append.user.sh"]
-			|| (   [extensionsForKeysAndCerts containsObject: [name pathExtension]]
-				&& [[sourceFullPath stringByDeletingLastPathComponent] hasSuffix: @".tblk/Contents/Resources"]
-				)
-			|| (   [name hasPrefix: @"Contents/Resources/"]
-				&& [name hasSuffix: @".lproj/Localizable.strings"]
-				&& ([[name componentsSeparatedByString: @"/"] count] == 4)
-				&& [[sourceFullPath stringByDeletingLastPathComponent] hasSuffix: @".tblk/Contents/Resources"]
-				)
-
+		// OK to change or add Info.plist, user-mode scripts, certificate and key files, and *.lproj/Localizable.strings files
+        if (   [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Info.plist"]]
+            || [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources/static-challenge-response.user.sh"]]
+            || [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources/dynamic-challenge-response.user.sh"]]
+            || [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources/password-replace.user.sh"]]
+            || [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources/password-prepend.user.sh"]]
+            || [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources/password-append.user.sh"]]
+            || (   [extensionsForKeysAndCerts containsObject: [name pathExtension]]
+                && (name.pathComponents.count == 3)
+                && [name.stringByDeletingLastPathComponent
+                    isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources"]]
+                )
+            || (   [name hasPrefix: @"Contents/Resources/"]
+                && [name hasSuffix: @".lproj/Localizable.strings"]
+                && (name.pathComponents.count == 4)
+                )
 			) {
+
             if (  doUpdate  ) {
                 if (  ! forceCopyFileAsRoot(sourceFullPath, tempFullPath)  ) {
                     return FALSE;
                 }
             }
 
+            Log(@"Safe file; accepting '%@'", sourceFullPath);
             continue;
         }
 
-		// A changed configuration file is OK if the new one is "safe"; update if requested
+		// A changed OpenVPN configuration file is OK if the new one is "safe"; update if requested
         if (  [sourceFullPath hasSuffix: @".tblk/Contents/Resources/config.ovpn"]  ) {
             if ( ! isSafeConfigFileForInstallOrUpdate(sourceFullPath)  ) {
                 Log(@"config.ovpn in the new configuration at %@ is not safe", sourcePath);
@@ -2518,18 +2560,31 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
 
             continue;
         }
+
+        Log(@"Unsafe file '%@'", sourceFullPath);
+        return FALSE;
     }
 
     if (  doUpdate  ) {
-        if ( ! [gFileMgr tbForceRenamePath: tempPath toPath: targetPath]  ) {
-            Log(@"Error trying to rename '%@' to '%@': %@", targetPath, tempPath, err);
+
+        // Set permissions properly on the temp .tblk
+        if (  ! secureOneFolderMaintainOwnership(tempPath, NO, gUidOfUser, YES)  ) {
+            Log(@"Failed to set permissions of temp copy of .tblk");
             exitOpenvpnstart(-1);
         }
+
+        if ( ! [gFileMgr tbForceRenamePath: tempPath toPath: targetPath]  ) {
+            Log(@"Error trying to rename '%@' to '%@': %@", tempPath, targetPath, err);
+            exitOpenvpnstart(-1);
+        }
+
+        Log(@"Renamed '%@' to '%@'", tempPath, targetPath);
 
         // Revert so private copy is identical to shadow copy
         NSString * displayName = [[targetPath
                                    substringFromIndex: shadowPrefix.length + 1]
                                   stringByDeletingPathExtension];
+        Log(@"Will revertToShadow for '%@'", displayName);
         return revertToShadowWorker(displayName);
     }
 
@@ -2560,11 +2615,35 @@ static void safeUpdate(NSString * sourcePath, NSString * targetPath, BOOL doUpda
 
     BOOL ok = TRUE;
 
+    verifySafeChangesAuthorized();
+
+    errorExitIfDotDotOrSymlinkInPath(sourcePath);
+    errorExitIfDotDotOrSymlinkInPath(targetPath);
+
     becomeRoot(@"do safeUpdate");
     {
 
+        // If targetPath doesn't exist, create it as an empty folder
+        if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
+            NSDictionary * attributes = @{NSFileOwnerAccountID      : @0,
+                                          NSFileGroupOwnerAccountID : @0,
+                                          NSFilePosixPermissions    : @0755};
+            NSError * err = nil;
+            if (  ! [gFileMgr createDirectoryAtPath: targetPath
+                        withIntermediateDirectories: YES
+                                         attributes: attributes
+                                              error: &err]  ) {
+                Log(@"createFileAtPath: error creating directory '%@'; error was %@", targetPath, err);
+                exitOpenvpnstart(-1);
+            }
+        }
+
         ok = safeUpdateWorker(sourcePath, targetPath, doUpdate);
 
+        if (   ok
+            && doUpdate  ) {
+            [gFileMgr tbRemovePathIfItExists: sourcePath];
+        }
     }
     stopBeingRoot();
 
@@ -3132,6 +3211,9 @@ static void scriptStatusForTblk(NSString * tblkPath) {
         while (  (subPath = [dirE nextObject])  ) {
             if (  [subPath hasSuffix: @".user.sh"]  ) {
                 hasUserScripts = YES;
+                break;
+            } else if (  [subPath hasSuffix: @".sh"]  ) {
+                hasRootScripts = YES;
                 break;
             }
         }

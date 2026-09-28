@@ -2316,7 +2316,47 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         && okToUpdateConfigurationsWithoutAdminApproval()
         && [targetPath hasPrefix: [gShadowPath stringByAppendingString: @"/"]]  ) {
 
+
+        BOOL haveUserScripts = YES;
+        BOOL haveRootScripts = YES;
+        if (  ! [self checkIfConfigurationsAtPaths: @[sourcePath] haveUserScripts: &haveUserScripts haveRootScripts: &haveRootScripts]  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"An error occurred while trying to install or replace one or more configurations.", @"Window text"));
+            return FALSE;
+        }
+
+        BOOL needUserScriptAuth = (   haveUserScripts
+                                   && ( ! gUserAllowedUserScripts)  );
+        BOOL needRootScriptAuth = (   haveRootScripts
+                                   && ( ! gUserAllowedRootScripts)  );
+
+        BOOL stop = NO;
+
+        if (  needUserScriptAuth  ) {
+            if (  ! [self processUserScriptAuthorization: needRootScriptAuth]  ) {
+                stop = YES;
+            }
+        } else if (  needRootScriptAuth  ) {
+            if (  ! [self processRootScriptAuthorization]  ) {
+                stop = YES;
+            }
+        }
+
+        if (  stop  ) {
+            gUserAllowedUserScripts = NO;
+            gUserAllowedRootScripts = NO;
+            return FALSE;
+        }
+
+        if (  needUserScriptAuth  ) {
+            gUserAllowedUserScripts = YES;
+        }
+        if (  needRootScriptAuth  ) {
+            gUserAllowedRootScripts = YES;
+        }
+
         // Do the safeUpdate
+
         NSArray * arguments = @[@"safeUpdate",
                                sourcePath,
                                targetPath];
@@ -2337,10 +2377,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return FALSE;
     }
 
-    if (  noAdmin  ) {
-        NSLog(@"Could not do a safeUpdate; will try a normal from %@ to %@", sourcePath, targetPath);
-    }
-
     unsigned firstArg = (moveInstead
                          ? INSTALLER_MOVE
                          : INSTALLER_COPY);
@@ -2358,15 +2394,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                   usingSystemAuth: auth
                                      installTblks: nil];
 
-    gUserAllowedRootScripts = NO;
-    gUserAllowedUserScripts = NO;
-
     if (  installerResult == 0  ) {
         return TRUE;
-    }
-
-    if (  installerResult == 1  ) {
-        return FALSE;
     }
 
     if (  ! moveInstead  ) {
@@ -2529,7 +2558,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return YES;
 }
 
--(BOOL) checkIfConfigurationsAtPaths: (NSArray *) paths
++(BOOL) checkIfConfigurationsAtPaths: (NSArray *) paths
                      haveUserScripts: (BOOL *)    haveUserScripts
                      haveRootScripts: (BOOL *)    haveRootscripts {
 
@@ -2576,7 +2605,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return YES;
 }
 
--(BOOL) processUserScriptAuthorization: (BOOL) rootAuthorizationAlsoRequired {
++(BOOL) processUserScriptAuthorization: (BOOL) rootAuthorizationAlsoRequired {
 
     int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
                                              NSLocalizedString(@"This VPN configuration includes one or more programs which will run as"
@@ -2608,7 +2637,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 }
 
--(BOOL) processRootScriptAuthorization {
++(BOOL) processRootScriptAuthorization {
 
     int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
                                              NSLocalizedString(@"This VPN configuration includes one or more programs which will run as"
@@ -2687,26 +2716,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSArray * allSources = [[[self installSources]
                              arrayByAddingObjectsFromArray: [self replaceSources]]
                             arrayByAddingObjectsFromArray: [self noAdminSources]];
-    if (  ! [self checkIfConfigurationsAtPaths: allSources
-                               haveUserScripts: &haveUserScripts
-                               haveRootScripts: &haveRootScripts]) {
+    if (  ! [ConfigurationManager checkIfConfigurationsAtPaths: allSources
+                                               haveUserScripts: &haveUserScripts
+                                               haveRootScripts: &haveRootScripts]) {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                           NSLocalizedString(@"An error occurred while trying to install or replace one or more configurations.", @"Window text"));
         return NSApplicationDelegateReplyFailure;
     }
 
-    if (   ( ! haveUserScripts)
-        && ( ! haveRootScripts)
-        && [gTbDefaults isTrueReadOnlyForKey: @"allowNonAdminSafeConfigurationReplacement"]  ) {
-        Log(@"????? Could do a safeUpdate, why wasn't this detected earlier ???");
-    }
-
     if (  haveUserScripts  ) {
-        if (  ! [self processUserScriptAuthorization: haveRootScripts]  ) {
+        if (  ! [ConfigurationManager processUserScriptAuthorization: haveRootScripts]  ) {
             return NSApplicationDelegateReplyCancel;
         }
     } else if (  haveRootScripts  ) {
-        if (  ! [self processRootScriptAuthorization]  ) {
+        if (  ! [ConfigurationManager processRootScriptAuthorization]  ) {
             return NSApplicationDelegateReplyCancel;
         }
     }
@@ -2885,9 +2908,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         auth = nil;
     }
 
-    gUserAllowedRootScripts = NO;
-    gUserAllowedUserScripts = NO;
-
     // Do "safe" installs/updates from .tblks in 'noAdminSources' to 'noAdminTargets'
     for (  ix=0; ix<[[self noAdminSources] count]; ix++  ) {
 
@@ -2915,6 +2935,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to install or replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
     }
+
+    gUserAllowedRootScripts = NO;
+    gUserAllowedUserScripts = NO;
 
     if (  [connectedTargetDisplayNames count] != 0  ) {
         [self performSelectorOnMainThread: @selector(reconnect:) withObject: connectedTargetDisplayNames waitUntilDone: NO];
