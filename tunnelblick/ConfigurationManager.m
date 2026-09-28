@@ -4626,7 +4626,9 @@ err:
 	//
     if (  okToUpdateConfigurationsWithoutAdminApproval()  ) {
 
-        NSString * privatePath = [gPrivatePath stringByAppendingPathComponent: displayName];
+        NSString * privatePath = [[gPrivatePath
+                                   stringByAppendingPathComponent: displayName]
+                                  stringByAppendingPathExtension: @"tblk"];
         NSString * sourcePath;
         OSStatus status = runOpenvpnstart(@[@"copyUserItemToNewSecureItem", privatePath], &sourcePath, nil);
         if (  status != EXIT_SUCCESS  ) {
@@ -4634,7 +4636,10 @@ err:
             return NO;
         }
 
-        NSString * targetPath = [L_AS_T_USERS stringByAppendingPathComponent: displayName];
+        NSString * targetPath = [[[L_AS_T_USERS
+                                   stringByAppendingPathComponent: NSUserName()]
+                                  stringByAppendingPathComponent: displayName]
+                                 stringByAppendingPathExtension: @"tblk"];
 
 		status = runOpenvpnstart(@[@"safeUpdate", sourcePath, targetPath], nil, nil);
 
@@ -4645,6 +4650,7 @@ err:
 				break;
 
 			case OPENVPNSTART_SAFE_OPERATION_NOT_OK:
+                NSLog(@"Cannot not do a safeUpdate of '%@'", displayName);
 				// Fall through to do admin-authorized copy
 				break;
 
