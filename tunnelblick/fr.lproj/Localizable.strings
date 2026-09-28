@@ -1038,6 +1038,9 @@
 /* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Une configuration qui nécessite un mot de passe (clé privée) ou un nom d'utilisateur et un mot de passe ne peut pas se connecter au lancement de l'ordinateur.";
 
+/* Window text. */
+"A folder name cannot end in '.tblk'" = "Le nom d'un dossier ne peut se terminer par '.tblk'";
+
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Une phrase de chiffrement est requise pour se connecter à\n  %1$@%2$@";
 
@@ -1102,6 +1105,9 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Une erreur est survenue en cherchant les informations de mise à jour. \n\n%1$@Pour plus d'information, consultez les fichiers journaux ici :\n\n%2$@";
 
 /* Window text */
+"An error occurred while trying to install or replace one or more configurations." = "Une erreur est survenue lors de l'installation ou du remplacement des configurations.";
+
+/* Window text */
 "An error occurred while trying to launch Tunnelblick." = "Une erreur s'est produite au lancement de Tunnelblick.";
 
 /* Window text */
@@ -1130,6 +1136,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Une mise à jour de la configuration VPN %@ est disponible.\n\nSouhaitez-vous mettre à jour la configuration ?\n\n";
+
+/* Window text */
+"Are you sure you wish to connect this configuration, which includes programs which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Êtes-vous sûr de vouloir connecter cette configuration, qui inclut des programmes qui pourront PRENDRE LE CONTRÔLE COMPLET DE VOTRE ORDINATEUR ?\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Êtes-vous sûr de vouloir supprimer les informations d'authentification (clé privée et/ou nom d'utilisateur et mot de passe) pour les %ld configurations qui sont mémorisées dans le trousseau d'accès ?";
@@ -1259,6 +1268,9 @@
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "Voulez vous supprimer les informations d’authentification %@ ?";
+
+/* Window text */
+"Do you wish to install or replace %lu configurations?" = "Souhaitez-vous installer ou remplacer %lu configurations ?";
 
 /* Window text */
 "Do you wish to install or replace one configuration?" = "Souhaitez-vous installer ou remplacer une configuration ?";
@@ -1729,6 +1741,9 @@
 "This VPN configuration includes one or more programs which will run as root when you connect to a VPN. The program(s) are part of the configuration and are not part of the Tunnelblick application.\n\nThey are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT CONNECT THIS CONFIGURATION UNLESS YOU TRUST IT'S AUTHOR.\n\nDo you trust the author of the configuration and wish to allow the program(s) to run?\n\n" = "Cette configuration VPN comprend un ou plusieurs programmes qui s'exécuteront en tant qu'administrateur (root) lorsque vous vous connecterez à un VPN. Ces programmes font partie intégrante de la configuration et ne relèvent pas de l'application Tunnelblick.\n\nIls sont capables de PRENDRE LE CONTRÔLE TOTAL DE VOTRE ORDINATEUR.\n\nVOUS NE DEVEZ PAS VOUS CONNECTER À CETTE CONFIGURATION À MOINS DE FAIRE CONFIANCE À SON AUTEUR.\n\nFaites-vous confiance à l'auteur de la configuration et souhaitez-vous autoriser l'exécution du ou des programmes ?\n\n";
 
 /* Window text */
+"This VPN configuration includes one or more programs which will run as you when you connect to a VPN. The program(s) are part of the configuration and are not part of the Tunnelblick application.\n\nYou should connect this configuration only if you trust it's author.\n\nDo you trust the author of the configuration and wish to allow the program(s) to run?\n\n" = "Cette configuration VPN inclut au moins un programme qui s'exécutera quand vous vous connectez à un VPN. Le ou les programme(s) font partie de la configuration et pas de l'application Tunnelblick. \n\nNe connectez cette configuration que si vous faites confiance à l'auteur. \n\nFaites-vous confiance à l'auteur de la configuration et souhaitez-vous autoriser le ou les programme(s) à s'exécuter ?\n\n";
+
+/* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "Ce VPN demande une réponse à une question, mais n'a pas fourni de question.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
@@ -1817,6 +1832,9 @@
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick n'est pas parvenu à résoudre les problèmes avec les préférences de « %@ ». Veuillez voir les messages de la console pour les détails.";
+
+/* Window text */
+"Tunnelblick failed to store a management password for '%@'." = "Tunnelblick n'a pas pu enregistrer un mot de passe de gestion pour '%@'.";
 
 /* Window text */
 "Tunnelblick has been secured." = "Tunnelblick a été sécurisé.";
@@ -1966,10 +1984,16 @@
 "Unable to load contents of %@ as UTF-8" = "Impossible de charger le contenu de %@ au format UTF-8";
 
 /* Window text */
+"Unable to make the '%@' configuration shared. See the console log for details." = "Impossible de rendre la configuration '%@' partagée. Voyez la console pour les détails.";
+
+/* Window text */
 "Unable to parse configuration file as UTF-8" = "Impossible d'analyser un fichier de configuration au format UTF-8";
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "Impossible de remplacer la configuration '%@'\n";
+
+/* Window text */
+"Unable to restore permissions on configuration file after modification" = "Impossible de rétablir les permissions sur le fichier de configuration après modification";
 
 /* Window text */
 "Unable to secure %@ because it is owned by %@" = "Impossible de sécuriser %1$@ car il est appartient à %2$@";
@@ -2229,6 +2253,9 @@
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Si cette option est cochée</strong>, IPv6 sera activé.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, IPv6 ne sera pas activé.</p>\n<p>Désactiver IPv6 est souvent recommandé parce que de nombreuses configurations VPN ne protègent pas contre les fuites d'informations causées par l'utilisation d'IPv6. La plupart des connexions à internet fonctionnent parfaitement sans IPv6.</p>\n<p><strong>Cette option est indisponible</strong> pour les configurations Tun.</p>";
 
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n<p><strong>Warning</strong>: Tap interfaces often need additional configuration changes that are not compatible with this option.</p>" = "<p><strong>Si cette option est cochée</strong>, OpenVPN modifiera les DNS et d'autres réglages après le démarrage du VPN plutôt qu'avant. </p>\n<p><strong>Si cette option n'est pas cochée</strong>, OpenVPN modifiera les DNS et d'autres réglages avant le démarrage du VPN plutôt qu'après. Ceci peut causer des échecs DNS ou des délais si les routes mettent longtemps à s'établir — par exemple s'il y a beaucoup de routes à régler.</p>\n<p><strong>Attention</strong> : les interfaces TAP ont souvent besoin de changements de configuration additionnels qui les rendent incompatibles avec cette option.</p>";
+
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Si cette option est cochée</strong>, OpenVPN lancera un test pour déterminer le MTU maximum pour la connexion. Le test est lancé à chaque connexion et peut prendre plusieurs minutes. Les résultats apparaissent dans le fichier journal de Tunnelblick.</p>\n";
 
@@ -2270,6 +2297,9 @@
 
 /* HTML info for the 'Display an indicator on the icon when any warnings are available' checkbox. */
 "<p><strong>When checked</strong>, a prominent visual indicator will be shown on the Tunnelblick icon when any warnings are available.</p><p><strong>When not checked</strong>, no such indicator will appear.</p>" = "<p><strong>Si cette option est cochée</strong>, un indicateur visuel fort sera affiché sur l'icône Tunnelblick lorsque des avertissements sont présents.</p><p><strong>Si cette option n'est pas cochée</strong>, l'indicateur n'apparaîtra pas.</p>";
+
+/* HTML info for the 'Display connection timers' checkbox. */
+"<p><strong>When checked</strong>, a timer is displayed in the Tunnelblick menu and in the title of the VPN Details window:</p>\n<p>While a connection attempt is being made, the timer displays the time that has elapsed trying to make the connection. When a connection is made, the timer restarts and displays the time that has elapsed since the connection was made. While a disconnect attempt is being made, the timer restarts and displays the time that has elapsed trying to disconnect.</p>" = "<p><strong>Si cette option est cochée</strong>, un timer est affiché dans le menu Tunnelblick et dans le ditre de la fenêtre de détails VPN :</p>\n<p>Pendant la tentative de connexion, le time affiche le temps écoulé pendant l'établissement de la connexion. Lorsque la connexion est établie, le timer se réinitialise et affiche le temps écoulé depuis que la connexion est faite. Lors d'une tentative de déconnexion, le timer se réinitialise et affiche le temps écoulé pendant cette déconnexion. </p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Si cette option est cochée</strong>, une fenêtre affichera la progression lors du démarrage de Tunnelblick.</p>";

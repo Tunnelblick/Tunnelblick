@@ -44,6 +44,9 @@
 "All Users" = "Всички потребители";
 
 /* Button */
+"Always Allow" = "Винаги позволено";
+
+/* Button */
 "Always load Tap driver" = "Винаги зареждай Tap устройство";
 
 /* Button */
@@ -1035,6 +1038,9 @@
 /* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Конфигурация, която изисква секретна фраза (личен ключ) или потребителско име и парола не може да се стартира когато компютъра се стартира.";
 
+/* Window text. */
+"A folder name cannot end in '.tblk'" = "Името на папката не може да завършва на '.tblk'";
+
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Фраза за достъп е необходима да се свържете с %1$@%2$@";
 
@@ -1099,6 +1105,9 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Възникна грешка при достъп на информацията за актуализаците.\n\n%1$@За повече информация, вижте лога\n\n%2$@";
 
 /* Window text */
+"An error occurred while trying to install or replace one or more configurations." = "Възникна грешка при инсталация или замяна на една или повече конфигурации.";
+
+/* Window text */
 "An error occurred while trying to launch Tunnelblick." = "Възникна грешка при опит да се стартира Tunnelblick.";
 
 /* Window text */
@@ -1127,6 +1136,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Налична е актуализация за %@ VPN конфигурация.\n\nИскате ли да актуализирате конфигурацията?\n\n";
+
+/* Window text */
+"Are you sure you wish to connect this configuration, which includes programs which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Сигурен ли сте, че искате да се свържете с тази конфигурация, която МОЖЕ ДА ПОЕМЕ ПЪЛЕН КОНТРОЛ ВЪРХУ КОМПЮТЪРА ВИ?\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Сигурни ли сте, че искате да изтриете идентификационните данни (личен ключ и/или потребителско име и парола) за %ld конфигурации, които се съхраняват в Keychain?";
@@ -1256,6 +1268,12 @@
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "Желаете ли да изтриете %@ идентификационни данни?";
+
+/* Window text */
+"Do you wish to install or replace %lu configurations?" = "Искате ли да инсталирате или замените %lu конфигурации?";
+
+/* Window text */
+"Do you wish to install or replace one configuration?" = "Искате ли да инсталирате или замените една конфигурация?";
 
 /* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Желаете ли да инсталирате '%@' конфигурация така че всички потребители могат да я използват, или така, че само Вие да можете да я използвате?\n\n";
