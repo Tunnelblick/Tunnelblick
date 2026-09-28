@@ -1740,13 +1740,35 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     NSRange stdErrRng = NSMakeRange(rngNl.location + 1 + stdOutLen, stdErrLen);
     NSString * stdOutContents = [output substringWithRange: stdOutRng];
     NSString * stdErrContents = [output substringWithRange: stdErrRng];
-    //    Log(@"runTunnelblickd: Output from tunnelblickd server: status = %d\nstdout = '%@'\nstderr = '%@'", status, stdOutContents, stdErrContents);
     if (  stdoutString ) {
         *stdoutString = stdOutContents;
     }
     if (  stderrString ) {
         *stderrString = stdErrContents;
     }
+
+#ifdef TBDebug
+    //
+    // Log status, stdout, and stderr except for the printSanitizedConfigurationFile subcommand
+    //
+    NSRange r = [command rangeOfString: @"\t"];
+
+    BOOL isPSCF = [command hasPrefix: @"printSanitizedConfigurationFile\t"];
+
+    if (   isPSCF
+        || (r.location == NSNotFound)  ) {
+        r.location = command.length;
+    }
+    NSString * subcommand = [command substringToIndex: r.location];
+    if (  [subcommand hasSuffix: @"\n"]  ) {
+        subcommand = [subcommand substringToIndex: subcommand.length - 1];
+    }
+    if (  isPSCF  ) {
+        Log(@"Status %d from tunnelblickd %@; stdout has %lu chars;  stderr = '\n%@'", status, subcommand, stdOutContents.length, stdErrContents);
+    } else {
+        Log(@"Status %d from tunnelblickd %@; stdout = '\n%@'  stderr = '\n%@'", status, subcommand, stdOutContents, stdErrContents);
+    }
+#endif
 
     return status;
 
