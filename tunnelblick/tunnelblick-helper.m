@@ -3114,7 +3114,7 @@ static void scriptStatusForTblk(NSString * tblkPath) {
     becomeRoot(@"Scan for scripts in a configuration");
     {
 
-        NSString * configPath =configPathFromTblkPath(tblkPath);
+        NSString * configPath = configPathFromTblkPath(tblkPath);
 
         parser = [ConfigurationParser parsedConfigurationAtPath: configPath];
         if ( ! parser  ) {
