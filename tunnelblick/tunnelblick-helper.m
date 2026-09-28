@@ -4560,7 +4560,7 @@ int main(int argc, char * argv[]) {
 
                 // Try to start OpenVPN.
                 //
-                // Retry up to 10 times IF OpenVPN fails and openvpnstart is not using the GUI.
+                // Retry up to 5 times IF OpenVPN fails and openvpnstart is not using the GUI.
                 //
                 // If the failure was caused by a race condition with several processes detecting the same free port and then trying to use it,
                 // retrying should solve the problem because it will:
@@ -4570,7 +4570,7 @@ int main(int argc, char * argv[]) {
                 // If the problem is caused by some other transient difficulty, retrying may solve that problem, too.
 
                 unsigned i;
-                for (  i=0; i<10; i++  ) {
+                for (  i=0; i<5; i++  ) {
 
                     if (  i != 0  ) {
                         // Delay for a random time of up to 1.0 seconds.
