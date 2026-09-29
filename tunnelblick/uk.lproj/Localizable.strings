@@ -1834,6 +1834,9 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick не вдалося виправити проблеми із застосуванням вибраних параметрів для '%@'. Докладна інформація є в журналі консолі";
 
 /* Window text */
+"Tunnelblick failed to store a management password for '%@'." = "Tunnelblick не зміг зберегти службовий пароль для '%@'.";
+
+/* Window text */
 "Tunnelblick has been secured." = "Tunnelblick убезпечено.";
 
 /* Window text */

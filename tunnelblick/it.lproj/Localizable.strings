@@ -44,6 +44,9 @@
 "All Users" = "Tutti gli Utenti";
 
 /* Button */
+"Always Allow" = "Consenti sempre";
+
+/* Button */
 "Always load Tap driver" = "Carica sempre il driver TAP";
 
 /* Button */
@@ -1035,6 +1038,9 @@
 /* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Una configurazione che richiede una passphrase (chiave privata) o delle credenziali (nome utente e password) non può essere avviata automaticamente all'avvio.";
 
+/* Window text. */
+"A folder name cannot end in '.tblk'" = "Il nome di una cartella non può terminare con \".tblk\"";
+
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "È richiesta una passphrase per collegarsi a\n  %1$@%2$@";
 
@@ -1099,6 +1105,9 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Si è verificato un errore nel tentativo di ottenere informazioni sugli aggiornamenti.\n\nPer ulteriori informazioni, vedere il registro in %@\n\n%2$@";
 
 /* Window text */
+"An error occurred while trying to install or replace one or more configurations." = "Si è verificato un errore durante il tentativo di installare o sostituire una o più configurazioni.";
+
+/* Window text */
 "An error occurred while trying to launch Tunnelblick." = "Si è verificato un errore avviando l'applicazione Tunnelblick.";
 
 /* Window text */
@@ -1127,6 +1136,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "È disponibile un aggiornamento per la configurazione %@ VPN.\n\nSi desidera aggiornare la configurazione?\n\n";
+
+/* Window text */
+"Are you sure you wish to connect this configuration, which includes programs which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Sei sicuro di voler collegare questa configurazione, che include programmi in grado di ASSUMERE IL CONTROLLO TOTALE DEL TUO COMPUTER?\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Sei sicuro di voler cancellare le credenziali (chiave privata e/o username e password) per %ld configurazioni memorizzate nel Portachiavi di OSX?";
@@ -1258,10 +1270,19 @@
 "Do you wish to delete the %@ credentials?" = "Vuoi davvero cancellare le credenziali %@?";
 
 /* Window text */
+"Do you wish to install or replace %lu configurations?" = "Desideri installare o sostituire le configurazioni %lu?";
+
+/* Window text */
+"Do you wish to install or replace one configuration?" = "Desideri installare o sostituire una configurazione?";
+
+/* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Vuoi installare la configurazione '%@', in modo che tutti gli utenti possano usarla, o permettendone l'utilizzo solo da parte tua?\n\n";
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Vuoi veramente installare nuovamente '%1$@' versione %2$@?";
+
+/* Window text */
+"Do you wish to remove one or more configurations or folders?\n\nRemoval is permanent and cannot be undone.\n\nSettings for removed configurations will also be removed permanently." = "Desideri eliminare una o più configurazioni o cartelle?\n\nL'eliminazione è definitiva e non può essere annullata.\n\nAnche le impostazioni relative alle configurazioni eliminate verranno rimosse definitivamente.";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Vuoi veramente sostituire '%1$@' versione %2$@ con la versione %3$@?";
@@ -1717,6 +1738,12 @@
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Non è possibile collegarsi a questa VPN.\n\nIl documento di impostazioni per '%1$@' contiene le seguenti opzioni:\n\n%2$@\nNessuna delle versioni di OpenVPN incluse in questa versione di Tunnelblick consente di utilizzare le opzioni.\n\nÈ necessario modificare le configurazioni in modo che possano essere usate con le versioni più recenti di OpenVPN.";
 
 /* Window text */
+"This VPN configuration includes one or more programs which will run as root when you connect to a VPN. The program(s) are part of the configuration and are not part of the Tunnelblick application.\n\nThey are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT CONNECT THIS CONFIGURATION UNLESS YOU TRUST IT'S AUTHOR.\n\nDo you trust the author of the configuration and wish to allow the program(s) to run?\n\n" = "Questa configurazione VPN include uno o più programmi che verranno eseguiti con privilegi di root quando ti connetti a una VPN. Tali programmi fanno parte della configurazione e non dell’applicazione Tunnelblick.\n\nSono in grado di ASSUMERE IL CONTROLLO COMPLETO DEL TUO COMPUTER.\n\nNON DOVRESTI CONNETTERTI UTILIZZANDO QUESTA CONFIGURAZIONE A MENO CHE NON TI FIDI DEL SUO AUTORE.\n\nTi fidi dell'autore della configurazione e desideri consentire l'esecuzione dei programmi?\n\n";
+
+/* Window text */
+"This VPN configuration includes one or more programs which will run as you when you connect to a VPN. The program(s) are part of the configuration and are not part of the Tunnelblick application.\n\nYou should connect this configuration only if you trust it's author.\n\nDo you trust the author of the configuration and wish to allow the program(s) to run?\n\n" = "Questa configurazione VPN include uno o più programmi che verranno eseguiti con i privilegi dell'utente al momento della connessione alla VPN. Tali programmi fanno parte della configurazione e non dell'applicazione Tunnelblick.\n\nSi consiglia di utilizzare questa configurazione solo se si ha fiducia nel suo autore.\n\nTi fidi dell'autore della configurazione e desideri consentire l'esecuzione dei programmi?\n\n";
+
+/* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "Questa VPN richiede di rispondere ad una domanda ma non ha fornito la domanda.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
@@ -1805,6 +1832,9 @@
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick non è riuscito a risolvere dei problemi con le preferenze di '%@'. Dai un occhio alla Console per i dettagli";
+
+/* Window text */
+"Tunnelblick failed to store a management password for '%@'." = "Tunnelblick non è riuscito a salvare una password di amministrazione per '%@'.";
 
 /* Window text */
 "Tunnelblick has been secured." = "La configurazione della sicurezza di Tunnelblick è terminata con successo.";
@@ -1954,10 +1984,16 @@
 "Unable to load contents of %@ as UTF-8" = "Impossibile caricare il contenuto di %@ come UTF-8";
 
 /* Window text */
+"Unable to make the '%@' configuration shared. See the console log for details." = "Impossibile rendere condivisa la configurazione \"%@\". Per ulteriori dettagli, consultare l'applicazione Console.";
+
+/* Window text */
 "Unable to parse configuration file as UTF-8" = "Non è possibile processare il documento di configurazione come UTF-8";
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "Impossibile sostituire la configurazione '%@'\n";
+
+/* Window text */
+"Unable to restore permissions on configuration file after modification" = "Impossibile ripristinare i permessi sul file di configurazione dopo la modifica";
 
 /* Window text */
 "Unable to secure %@ because it is owned by %@" = "Non è stato possibile rimuovere informazioni private sensibili da %1$@ poiché il proprietario del file è %2$@";
