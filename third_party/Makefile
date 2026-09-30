@@ -30,7 +30,7 @@ LZ4_NAME         = lz4-1.10.0
 
 OPENSSL_1_1_NAME = openssl-1.1.1w
 OPENSSL_3_0_NAME = openssl-3.0.22
-OPENSSL_3_5_NAME = openssl-3.5.8
+OPENSSL_3_5_NAME = openssl-3.5.9
 
 PKCS11_NAME      = pkcs11-helper-1.27.0
 
