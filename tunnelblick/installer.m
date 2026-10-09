@@ -213,12 +213,12 @@ static NSString * userUsername(void);
 static BOOL openLog(BOOL clearLog) {
 
     if (  ! [gFileMgr tbRemovePathIfItExists: INSTALLER_OLD_LOG_PATH]  ) {
-        NSLog(@"Could not delete %@", INSTALLER_OLD_LOG_PATH);
+        Log(@"Could not delete %@", INSTALLER_OLD_LOG_PATH);
     }
 
     if (  [gFileMgr fileExistsAtPath: INSTALLER_LOG_PATH]) {
         if (  ! [gFileMgr tbForceRenamePath:INSTALLER_LOG_PATH toPath: INSTALLER_OLD_LOG_PATH]  ) {
-            NSLog(@"Could not rename %@ to %@", INSTALLER_LOG_PATH, INSTALLER_OLD_LOG_PATH);
+            Log(@"Could not rename %@ to %@", INSTALLER_LOG_PATH, INSTALLER_OLD_LOG_PATH);
         }
     }
 
@@ -2276,7 +2276,9 @@ static void errorExitIfHasScriptsAndShouldNotBeInstalled(NSString * sourcePath) 
         return;
     }
 
-    if (  ! [sourcePath hasPrefix: [L_AS_T_TEMP stringByAppendingString: @"/"]]  ) {
+    if (   (  ! [sourcePath hasPrefix: [L_AS_T_TEMP      stringByAppendingString: @"/"]] )
+        && (  ! [sourcePath hasPrefix: [L_AS_T_USERS     stringByAppendingString: @"/"]] )
+        && (  ! [sourcePath hasPrefix: [L_AS_T_SHARED    stringByAppendingString: @"/"]] )  ) {
         Log(@"Not a secure path: '%@'", sourcePath);
         errorExit();
     }
@@ -2316,9 +2318,13 @@ static void errorExitIfHasScriptsAndShouldNotBeInstalled(NSString * sourcePath) 
 
         // Check for OpenVPN scripts.
 
-        ConfigurationParser * config = [ConfigurationParser parsedConfigurationAtPath: sourcePath];
+        NSString * configPath = [[[sourcePath
+                                   stringByAppendingPathComponent: @"Contents"]
+                                  stringByAppendingPathComponent: @"Resources"]
+                                 stringByAppendingPathComponent: @"config.ovpn"];
+        ConfigurationParser * config = [ConfigurationParser parsedConfigurationAtPath: configPath];
         if ( ! config  ) {
-            NSLog(@"Could not create a ConfigurationParser for %@", sourcePath);
+            Log(@"Could not create a ConfigurationParser for %@", sourcePath);
             errorExit();
         }
 
