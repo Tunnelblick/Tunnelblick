@@ -854,6 +854,237 @@ static NSString * preprocessCommandsInRawCommand(NSString * rawCommand,
     return rawCommand;
 }
 
+static BOOL get_request(char *       buffer,
+                        const char * command_header,
+                        int          filedesc,
+                        aslclient    asl,
+                        aslmsg       log_msg) {
+
+    ssize_t nbytes = read(filedesc, buffer, SOCKET_BUF_SIZE - 1);
+
+    if (  0 == nbytes  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "0 bytes from read()");
+        return NO;
+    } else if (  nbytes < 0  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error from read(): %m");
+        return NO; // this isn't fatal
+    } else if (  SOCKET_BUF_SIZE - 1 == nbytes   ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Too many bytes read; maximum is %lu", (unsigned long)(SOCKET_BUF_SIZE - 2));
+        return NO;
+    }
+
+    buffer[nbytes] = '\0';    // Terminate so the request is a string
+
+    // Ignore request unless it starts with a valid header and is terminated by a \n
+    if (  0 != strncmp(buffer, command_header, strlen(command_header))  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did it did not start with a valid header; received '%s'", (unsigned long)nbytes, buffer);
+        return NO;
+    }
+    char * nlPtr = strchr(buffer, '\n');
+    if (   (nlPtr == NULL)
+        || (nlPtr != (buffer + nbytes - 1))
+        ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did not receive a LF at the end; received '%s'", (unsigned long)nbytes, buffer);
+        return NO;
+    }
+
+    // Remove the LF at the end of the request
+    buffer[nbytes - 1] = '\0';
+
+    // Ignore request unless it is a valid UTF-8 string
+    if (  [NSString stringWithUTF8String: buffer] == NULL  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but they were not a valid UTF-8 string", (unsigned long)nbytes);
+        return NO;
+    }
+
+    return YES;
+}
+
+static BOOL sendResponseToRequest(int        status,
+                                  NSString * stdoutString,
+                                  NSString * stderrString,
+                                  int        filedesc,
+                                  aslclient  asl,
+                                  aslmsg     log_msg) {
+
+    // Send the status, stdout, and stderr to the client as a UTF-8-encoded string which is terminated by a \0.
+    //
+    // The header of the string consists of the signed status, the unsigned length of the stdout NSString,
+    // the unsigned length of the stderr NSString, and a newline. (The numbers are each separated by one space.)
+    //
+    // The stdout string follows the header, the stderr string follows the stdout string, and a \0 follows that.
+
+    const char * headerC = [[NSString stringWithFormat: @"%ld %lu %lu\n",
+                             (long)status, (unsigned long)[stdoutString length], (unsigned long)[stderrString length]]
+                            UTF8String];
+
+    FILE * the_stream = fdopen(filedesc, "r+");
+    if (  the_stream  ) {
+        fprintf(the_stream, "%s%s%s%c", headerC, [stdoutString UTF8String], [stderrString UTF8String], '\0');
+        fclose(the_stream);
+        return YES;
+        //            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Responded to client; header = %s", headerC);
+    } else {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not open stream to output to client: %m");
+        return NO;
+    }
+}
+
+static BOOL processCommandWithTunnelblickHelperAndSendResponse(NSString * command,
+                                                               uid_t      client_euid,
+                                                               gid_t      client_egid,
+                                                               int        filedesc,
+                                                               aslclient  asl,
+                                                               aslmsg     log_msg) {
+
+    // Returns YES if should continue processing with the next request, NO if should stop
+
+    NSArray * arguments = [command componentsSeparatedByString: @"\t"];
+
+    NSString * commandToDisplay = [[command copy] autorelease];
+    NSRange r = [commandToDisplay rangeOfString: @"\t"];
+    if (  r.location != NSNotFound  ) {
+        commandToDisplay = [NSString stringWithFormat: @"%@ ...",
+                            [commandToDisplay substringToIndex: r.location]];
+    }
+
+    //
+    // Process the command by calling tunnelblick-helper and sending its status and output to the client
+    //
+
+    // Get the client's username from the client's euid
+    struct passwd *pw = getpwuid(client_euid);
+    if (  pw == NULL  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "getpwuid(%lu) failed; our uid = %lu; our euid = %lu; our gid = %lu; our egid = %lu; error = %m",
+                (unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+        return YES; // this isn't fatal
+    }
+    NSString * userName = [NSString stringWithCString: pw->pw_name encoding: NSUTF8StringEncoding];
+    if (  userName == nil  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret username as UTF-8");
+        return YES; // this isn't fatal
+    }
+    NSString * userHome = [NSString stringWithCString: pw->pw_dir  encoding: NSUTF8StringEncoding];
+    if (  userHome == nil  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret userhome as UTF-8");
+        return YES; // this isn't fatal
+    }
+
+    // Set up to have tunnelblick-helper to do the work
+    NSString * tunnelblickHelperPath;
+    NSString * bundlePath = [[NSBundle mainBundle] bundlePath];
+    if (  [[bundlePath lastPathComponent] isEqualToString: @"Resources"]  ) {
+        tunnelblickHelperPath = [bundlePath stringByAppendingPathComponent: @"tunnelblick-helper"];
+    } else if (  [[bundlePath pathExtension] isEqualToString: @"app"]  ) {
+        tunnelblickHelperPath = [[[bundlePath stringByAppendingPathComponent: @"Contents"]
+                                  stringByAppendingPathComponent: @"Resources"]
+                                 stringByAppendingPathComponent: @"tunnelblick-helper"];
+    } else {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Invalid bundlePath = '%s'", [bundlePath UTF8String]);
+        return NO; // This is fatal
+    }
+
+    NSString * stdoutString = nil;
+    NSString * stderrString = nil;
+
+    int status = runTool(client_euid, client_egid, userName, userHome, tunnelblickHelperPath, arguments, &stdoutString, &stderrString, asl, log_msg);
+
+    if (  status != 0  ) {
+        // Log the status from executing the command
+        asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Status = %ld from tunnelblick-helper command '%s'", (long) status, [commandToDisplay UTF8String]);
+    }
+
+    sendResponseToRequest(status,
+                          stdoutString,
+                          stderrString,
+                          filedesc,
+                          asl,
+                          log_msg);
+
+    return YES;
+}
+
+static BOOL process_request(char *       buffer,
+                            const char * command_header,
+                            uid_t        client_euid,
+                            gid_t        client_egid,
+                            int          filedesc,
+                            aslclient    asl,
+                            aslmsg       log_msg) {
+
+    // Returns YES if should continue processing with the next request, NO if should stop
+
+    //        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Received %lu bytes from client including a terminating NL: '%s'", (unsigned long)nbytes, buffer);
+
+    //
+    // Preprocess the raw command if it's a "start" command with a management password
+    // and set "command" to a command for tunnelblick-helper, or nil to skip further processing.
+    //
+    // Preprocess the raw command if it's a "pathOfNewSecureItemContainingString" command.
+    //
+    // A stdoutString that starts with a "/"; is an absolute path output by pathOfNewSecureItemContainingString, it is passed back as stdout output
+    // to the program that invoked tunnelblickd.
+    //
+    // If stdoutString isn't empty after the preprocessing and does not start with a "/", it is an error message that will be passed on
+    // to the program that invoked tunnelblickd. (The error message has already been logged by tunnelblickd.)
+
+    NSString * stdoutString = @"";
+    NSString * stderrString = @"";
+    OSStatus status = 0;
+
+    NSString * rawCommand = [NSString stringWithUTF8String: buffer + strlen(command_header)];        // Skip over the header
+    if (  rawCommand.length == 0) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Nothing to do!");
+        return YES;
+    }
+
+    //
+    // Preprocess the command if necessary
+    //
+
+    NSString * command = preprocessCommandsInRawCommand(rawCommand, &stdoutString, asl, log_msg);
+
+    if (  ! command  ) {
+        // Preprocessing was done or failed and there is no command to be sent to tunnelblick-helper.
+        // If stdoutString isn't empty and doesn't start with a "/", it is an error message; output it, set status of -1, and finish
+        if (   (stdoutString.length != 0)
+            && ( ! [stdoutString hasPrefix: @"/"] )  ) {
+            NSUInteger len = 15;
+            if (  len > rawCommand.length  ) {
+                len = rawCommand.length;
+            }
+            NSString * beginningOfRawCommand = [rawCommand substringToIndex: len];
+            stdoutString = [stdoutString
+                            stringByAppendingFormat: @"Error in command beginning with '%@'\n",
+                            beginningOfRawCommand];
+            asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Error in command beginning with '%s'",
+                    beginningOfRawCommand.UTF8String);
+            status = -1;
+        }
+
+        sendResponseToRequest(status,
+                              stdoutString,
+                              stderrString,
+                              filedesc,
+                              asl,
+                              log_msg);
+
+    } else {
+
+        BOOL stop = ! processCommandWithTunnelblickHelperAndSendResponse(command,
+                                                                         client_euid,
+                                                                         client_egid,
+                                                                         filedesc,
+                                                                         asl,
+                                                                         log_msg);
+        if (  stop  ) {
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
 int main(void) {
 
     NSAutoreleasePool * pool = [NSAutoreleasePool new];
@@ -877,6 +1108,7 @@ int main(void) {
     listening_fd_array;
     size_t          i;
     int             kq;
+    int filedesc = -1;
 
     static const char * command_header = TUNNELBLICKD_OPENVPNSTART_HEADER_C;
 
@@ -1009,17 +1241,45 @@ int main(void) {
             goto done;
         }
 
+        //
+        // Per-loop initialization
+        //
+
         [pool drain];
         pool = [NSAutoreleasePool new];
 
-        FILE *the_stream;
-        int  filedesc;
-        int nbytes;
-
         char buffer[SOCKET_BUF_SIZE];
+
+        if (  filedesc != -1  ) {
+            close(filedesc);
+            // Don't need to set filedesc to -1 because we set it below
+        };
+
+        // From the man page:
+        //
+        //      int
+        //      kevent(int                     kq,
+        //             const struct kevent *   changelist,
+        //             int                     nchanges,
+        //             struct kevent *         eventlist,
+        //             int                     nevents,
+        //             const struct timespec * timeout);
+
+        //       The kevent(), kevent64() and kevent_qos() system calls return the number
+        //       of events placed in the eventlist, up to the value given by nevents.
+        //
+        //       If an error occurs while processing an element of the changelist and there
+        //       is enough room in the eventlist, then the event will be placed in the
+        //       eventlist with EV_ERROR set in flags and the system error in data.
+        //
+        //       Otherwise, -1 will be returned, and errno will be set to indicate the
+        //       error condition.
+        //
+        //       If the time limit expires, then kevent(), kevent64() and kevent_qos() return 0.
 
         // Get the next event from the kernel event queue.
         if (  -1 == (filedesc = kevent(kq, NULL, 0, &kev_listener, 1, &timeout))  ) {
+
             if (   (sigtermReceived != 0)
                 && (errno == EINTR)  ) {
                 asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "SIGTERM received; exiting");
@@ -1029,7 +1289,6 @@ int main(void) {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error from kevent(): %m");
             goto done;
         } else if (  0 == filedesc  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Nothing to do; exiting after rolling the log if necessary");
 
             // If the current log file is too large, start it over
             asl_close(asl);
@@ -1040,8 +1299,10 @@ int main(void) {
                 if (  st.st_size > 100000  ) {
                     // Log file is large; replace any existing old log with it and start anew
                     rename(TUNNELBLICKD_LOG_PATH_C, TUNNELBLICKD_PREVIOUS_LOG_PATH_C);
+                    asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Rolled the log");
                 }
             }
+            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Nothing to do");
             retval = EXIT_SUCCESS;
             goto done;
         }
@@ -1062,6 +1323,7 @@ int main(void) {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not obtain peer credentials from unix domain socket: %m; our uid = %lu; our euid = %lu; our gid = %lu; our egid = %lu",
                     (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
             close(filedesc); // this isn't fatal
+            filedesc = -1;
             continue;
         } else {
             //            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Peer euid = %lu; egid = %lu; our uid = %lu; our euid = %lu; our gid = %lu; our egid = %lu",
@@ -1078,185 +1340,47 @@ int main(void) {
         if (  0 != setsockopt(filedesc, SOL_SOCKET, SO_RCVTIMEO, &readTimeout, sizeof(readTimeout))  ) {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "setsockopt(SO_RCVTIMEO) failed; error = %m");
             close(filedesc); // this isn't fatal
+            filedesc = -1;
             continue;
         }
 
+        //
         // Get the request from the client
-        nbytes = read(filedesc, buffer, SOCKET_BUF_SIZE - 1);
-        if (  0 == nbytes  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "0 bytes from read()");
-            close(filedesc); // this isn't fatal
-            continue;
-        } else if (  nbytes < 0  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error from read(): %m");
-            close(filedesc); // this isn't fatal
-            continue;
-        } else if (  SOCKET_BUF_SIZE - 1 == nbytes   ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Too many bytes read; maximum is %lu", (unsigned long)(SOCKET_BUF_SIZE - 2));
-            close(filedesc); // this isn't fatal
-            continue;
-        }
-
-        buffer[nbytes] = '\0';    // Terminate so the request is a string
-
-        // Ignore request unless it starts with a valid header and is terminated by a \n
-        if (  0 != strncmp(buffer, command_header, strlen(command_header))  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did it did not start with a valid header; received '%s'", (unsigned long)nbytes, buffer);
-            close(filedesc); // this isn't fatal
-            continue;
-        }
-        char * nlPtr = strchr(buffer, '\n');
-        if (   (nlPtr == NULL)
-            || (nlPtr != (buffer + nbytes - 1))
-            ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did not receive a LF at the end; received '%s'", (unsigned long)nbytes, buffer);
-            close(filedesc); // this isn't fatal
-            continue;
-        }
-
-        // Remove the LF at the end of the request
-        buffer[nbytes - 1] = '\0';
-
-        // Ignore request unless it is a valid UTF-8 string
-        if (  [NSString stringWithUTF8String: buffer] == NULL  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but they were not a valid UTF-8 string", (unsigned long)nbytes);
-            close(filedesc); // this isn't fatal
-            continue;
-        }
-
-
-        //        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Received %lu bytes from client including a terminating NL: '%s'", (unsigned long)nbytes, buffer);
-
         //
-        // Preprocess the raw command if it's a "start" command with a management password
-        // and set "command" to a command for tunnelblick-helper, or nil to skip further processing.
-        //
-        // Preprocess the raw command if it's a "pathOfNewSecureItemContainingString" command.
-        //
-        // A stdoutString that starts with a "/"; is an absolute path output by pathOfNewSecureItemContainingString, it is passed back as stdout output
-        // to the program that invoked tunnelblickd.
-        //
-        // If stdoutString isn't empty after the preprocessing and does not start with a "/", it is an error message that will be passed on
-        // to the program that invoked tunnelblickd. (The error message has already been logged by tunnelblickd.)
+        BOOL ok = get_request(buffer,
+                              command_header,
+                              filedesc,
+                              asl,
+                              log_msg);
 
-        NSString * stdoutString = @"";
-        NSString * stderrString = @"";
-        OSStatus status = 0;
-
-        NSString * rawCommand = [NSString stringWithUTF8String: buffer + strlen(command_header)];        // Skip over the header
-        if (  rawCommand.length == 0) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Nothing to do!");
-            close(filedesc);  // This isn't fatal
-            continue;
-        }
-
-        //
-        // Preprocess the command if necessary
-        //
-
-        NSString * command = preprocessCommandsInRawCommand(rawCommand, &stdoutString, asl, log_msg);
-
-        if (  ! command  ) {
-            // Preprocessing was done or failed and there is no command to be sent to tunnelblick-helper.
-            // If stdoutString isn't empty and doesn't start with a "/", it is an error message; output it, set status of -1, and finish
-            if (   (stdoutString.length != 0)
-                && ( ! [stdoutString hasPrefix: @"/"] )  ) {
-                NSUInteger len = 15;
-                if (  len > rawCommand.length  ) {
-                    len = rawCommand.length;
-                }
-                NSString * beginningOfRawCommand = [rawCommand substringToIndex: len];
-                stdoutString = [stdoutString
-                                stringByAppendingFormat: @"Error in command beginning with '%@'\n",
-                                beginningOfRawCommand];
-                asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Error in command beginning with '%s'",
-                        beginningOfRawCommand.UTF8String);
-                status = -1;
-            }
-
-        } else {
-
-            NSArray * arguments = [command componentsSeparatedByString: @"\t"];
-
-            NSString * commandToDisplay = [[command copy] autorelease];
-            NSRange r = [commandToDisplay rangeOfString: @"\t"];
-            if (  r.location != NSNotFound  ) {
-                commandToDisplay = [NSString stringWithFormat: @"%@ ...",
-                                    [commandToDisplay substringToIndex: r.location]];
-            }
-
-            //
-            // Process the remaining command by calling tunnelblick-helper and sending its status and output to the client
-            //
-
-            // Get the client's username from the client's euid
-            struct passwd *pw = getpwuid(client_euid);
-            if (  pw == NULL  ) {
-                asl_log(asl, log_msg, ASL_LEVEL_ERR, "getpwuid(%lu) failed; our uid = %lu; our euid = %lu; our gid = %lu; our egid = %lu; error = %m",
-                        (unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-                close(filedesc); // this isn't fatal
-                continue;
-            }
-            NSString * userName = [NSString stringWithCString: pw->pw_name encoding: NSUTF8StringEncoding];
-            if (  userName == nil  ) {
-                asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret username as UTF-8");
-                close(filedesc); // this isn't fatal
-                continue;
-            }
-            NSString * userHome = [NSString stringWithCString: pw->pw_dir  encoding: NSUTF8StringEncoding];
-            if (  userHome == nil  ) {
-                asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret userhome as UTF-8");
-                close(filedesc); // this isn't fatal
-                continue;
-            }
-
-            // Set up to have tunnelblick-helper to do the work
-            NSString * tunnelblickHelperPath;
-            NSString * bundlePath = [[NSBundle mainBundle] bundlePath];
-            if (  [[bundlePath lastPathComponent] isEqualToString: @"Resources"]  ) {
-                tunnelblickHelperPath = [bundlePath stringByAppendingPathComponent: @"tunnelblick-helper"];
-            } else if (  [[bundlePath pathExtension] isEqualToString: @"app"]  ) {
-                tunnelblickHelperPath = [[[bundlePath stringByAppendingPathComponent: @"Contents"]
-                                          stringByAppendingPathComponent: @"Resources"]
-                                         stringByAppendingPathComponent: @"tunnelblick-helper"];
-            } else {
-                asl_log(asl, log_msg, ASL_LEVEL_ERR, "Invalid bundlePath = '%s'", [bundlePath UTF8String]);
+        if (  ok  ) {
+            ok = process_request(buffer,
+                                 command_header,
+                                 client_euid,
+                                 client_egid,
+                                 filedesc,
+                                 asl,
+                                 log_msg);
+            if (  ! ok  ) {
                 goto done;
             }
-
-            status = runTool(client_euid, client_egid, userName, userHome, tunnelblickHelperPath, arguments, &stdoutString, &stderrString, asl, log_msg);
-
-            if (  status != 0  ) {
-                // Log the status from executing the command
-                asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Status = %ld from tunnelblick-helper command '%s'", (long) status, [commandToDisplay UTF8String]);
-            }
         }
 
-        // Send the status, stdout, and stderr to the client as a UTF-8-encoded string which is terminated by a \0.
-        //
-        // The header of the string consists of the signed status, the unsigned length of the stdout NSString,
-        // the unsigned length of the stderr NSString, and a newline. (The numbers are each separated by one space.)
-        //
-        // The stdout string follows the header, the stderr string follows the stdout string, and a \0 follows that.
+        if (  filedesc != -1  ) {
+            close(filedesc);
+            filedesc = -1;
+        };
 
-        const char * headerC = [[NSString stringWithFormat: @"%ld %lu %lu\n",
-                                 (long)status, (unsigned long)[stdoutString length], (unsigned long)[stderrString length]]
-                                UTF8String];
-        the_stream = fdopen(filedesc, "r+");
-        if (  the_stream  ) {
-            fprintf(the_stream, "%s%s%s%c", headerC, [stdoutString UTF8String], [stderrString UTF8String], '\0');
-            fclose(the_stream);
-            //            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Responded to client; header = %s", headerC);
-        } else {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not open stream to output to client");
-            close(filedesc);  // This isn't fatal
-        }
-
+        // Continue processing requests
         //***************************************************************************************
         //***************************************************************************************
     }
 
 done:
+    if (  filedesc != -1  ) {
+        close(filedesc);
+    };
+
     if (  asl != NULL ) {
         asl_close(asl);
     }
