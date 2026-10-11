@@ -877,14 +877,14 @@ static BOOL get_request(char *       buffer,
 
     // Ignore request unless it starts with a valid header and is terminated by a \n
     if (  0 != strncmp(buffer, command_header, strlen(command_header))  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did it did not start with a valid header; received '%s'", (unsigned long)nbytes, buffer);
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did it did not start with a valid header.", (unsigned long)nbytes);
         return NO;
     }
     char * nlPtr = strchr(buffer, '\n');
     if (   (nlPtr == NULL)
         || (nlPtr != (buffer + nbytes - 1))
         ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did not receive a LF at the end; received '%s'", (unsigned long)nbytes, buffer);
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did not receive a LF at the end.", (unsigned long)nbytes);
         return NO;
     }
 
