@@ -1350,6 +1350,14 @@ int main(void) {
             continue;
         }
 
+        // Set a write timeout, too.
+        if ( 0 != setsockopt(filedesc, SOL_SOCKET, SO_SNDTIMEO, &readTimeout, sizeof(readTimeout)) ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR, "setsockopt(SO_SNDTIMEO) failed; error = %m");
+            close(filedesc); // this isn't fatal
+            filedesc = -1;
+            continue;
+        }
+
         //
         // Get the request from the client
         //
