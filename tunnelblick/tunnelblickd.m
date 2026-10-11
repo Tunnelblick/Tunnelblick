@@ -1127,6 +1127,12 @@ int main(void) {
 
     asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Started tunnelblickd");
 
+    // Ignore SIGPIPE errors writing to the socket
+    if ( signal(SIGPIPE, SIG_IGN) == SIG_ERR ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                "Could not ignore SIGPIPE: %m");
+        goto done;
+    }
     if (  ! sanityChecks(asl, log_msg)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Terminating tunnelblickd because sanityChecks() failed");
         goto done;
