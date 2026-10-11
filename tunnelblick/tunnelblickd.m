@@ -1394,6 +1394,23 @@ int main(void) {
             continue;
         }
 
+        // Don't allow SIGPIPE
+
+        int noSigPipe = 1;
+
+        if ( 0 != setsockopt(filedesc,
+                             SOL_SOCKET,
+                             SO_NOSIGPIPE,
+                             &noSigPipe,
+                             sizeof(noSigPipe)) ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                    "setsockopt(SO_NOSIGPIPE) failed; error = %m");
+
+            close(filedesc);
+            filedesc = -1;
+            continue;
+        }
+
         //
         // Get the request from the client
         //
