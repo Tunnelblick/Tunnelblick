@@ -1003,8 +1003,8 @@ static BOOL processCommandWithTunnelblickHelperAndSendResponse(NSString * comman
         return NO; // This is fatal
     }
 
-    NSString * stdoutString = nil;
-    NSString * stderrString = nil;
+    NSString * stdoutString = @"";
+    NSString * stderrString = @"";
 
     int status = runTool(client_euid, client_egid, userName, userHome, tunnelblickHelperPath, arguments, &stdoutString, &stderrString, asl, log_msg);
 
