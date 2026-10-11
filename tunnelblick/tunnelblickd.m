@@ -69,6 +69,25 @@
 
 static volatile sig_atomic_t sigtermReceived = 0;
 
+static BOOL setFdCloexec(int fd, aslclient asl, aslmsg log_msg) {
+
+    int flags = fcntl(fd, F_GETFD);
+
+    if ( flags == -1 ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                "fcntl(%d, F_GETFD) failed: %m", fd);
+        return NO;
+    }
+
+    if ( fcntl(fd, F_SETFD, flags | FD_CLOEXEC) == -1 ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                "fcntl(%d, F_SETFD, FD_CLOEXEC) failed: %m", fd);
+        return NO;
+    }
+
+    return YES;
+}
+
 BOOL tunnelblickNotInApplications(aslclient __unused asl,
                                   aslmsg    __unused log_msg) {
 
@@ -1167,6 +1186,11 @@ int main(void) {
         goto done;
     }
 
+    // Don't give descendants access to kq
+    if ( ! setFdCloexec(kq, asl, log_msg) ) {
+        goto done;
+    }
+
     // Register ourselves with launchd.
     if (  NULL == (checkin_request = launch_data_new_string(LAUNCH_KEY_CHECKIN))  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "launch_data_new_string(\"" LAUNCH_KEY_CHECKIN "\") Unable to create string.");
@@ -1218,6 +1242,11 @@ int main(void) {
     // Initialize a new kernel event.  This will trigger when a connection occurs on our listener socket.
     for (  i = 0; i < launch_data_array_get_count(listening_fd_array); i++  ) {
         launch_data_t this_listening_fd = launch_data_array_get_index(listening_fd_array, i);
+        int listening_fd = launch_data_get_fd(this_listening_fd);
+        // Don't give descendants access to filedesc
+        if ( ! setFdCloexec(listening_fd, asl, log_msg) ) {
+            goto done;
+        }
         EV_SET(&kev_init, launch_data_get_fd(this_listening_fd), EVFILT_READ, EV_ADD, 0, 0, NULL);
         if (  -1 == kevent(kq, &kev_init, 1, NULL, 0, NULL)  ) {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error from kevent(): %m");
@@ -1321,6 +1350,13 @@ int main(void) {
             continue; /* this isn't fatal */
         }
         //        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Connection established");
+
+        // Don't give descendants access to filedesc
+        if ( ! setFdCloexec(filedesc, asl, log_msg) ) {
+            close(filedesc);
+            filedesc = -1;
+            continue;
+        }
 
         // Get the client's credentials
         uid_t client_euid;
