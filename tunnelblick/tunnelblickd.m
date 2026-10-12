@@ -590,24 +590,35 @@ static void restoreIpv6(aslclient  asl,
 static void clearExpectedDisconnectFolder(aslclient  asl,
                                           aslmsg     log_msg) {
 
+    //
+    // Get a list of paths of files to delete (so don't delete while enumerating)
+    //
+    NSString * fullPath;
     NSString * file;
     NSDirectoryEnumerator * dirEnum = [NSFileManager.defaultManager enumeratorAtPath: L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH];
-    BOOL haveDeletedSomething = FALSE;
+    NSMutableArray * arr = [NSMutableArray array];
     while (  (file = [dirEnum nextObject])  ) {
         [dirEnum skipDescendants];
-        NSString * fullPath = [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: file];
+        fullPath = [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: file];
+        [arr addObject: fullPath];
+    }
+
+    //
+    // Delete the files
+    //
+    NSEnumerator * e = [arr objectEnumerator];
+    while (  (fullPath = [e nextObject])  ) {
         NSError * error;
         if (  [NSFileManager.defaultManager removeItemAtPath: fullPath error: &error]  ) {
-            haveDeletedSomething = TRUE;
         } else {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error while trying to delete %s: %s", [fullPath UTF8String], [[error description] UTF8String]);
         }
     }
 
-    if (  haveDeletedSomething  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_INFO, "Cleared contents of %s", [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH UTF8String]);
-    } else {
+    if (  arr.count == 0  ) {
         asl_log(asl, log_msg, ASL_LEVEL_INFO, "Nothing to clear in %s", [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH UTF8String]);
+    } else {
+        asl_log(asl, log_msg, ASL_LEVEL_INFO, "Cleared contents of %s", [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH UTF8String]);
     }
 }
 
