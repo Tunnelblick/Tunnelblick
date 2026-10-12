@@ -64,6 +64,7 @@
 #import "NSTask+TB.h"
 
 #pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 #define BOOT_INFO_FILE_PATH   [L_AS_T stringByAppendingPathComponent: @"last-reboot-info.txt"]
 
