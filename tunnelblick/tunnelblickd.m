@@ -880,40 +880,103 @@ static BOOL get_request(char *       buffer,
                         aslclient    asl,
                         aslmsg       log_msg) {
 
-    ssize_t nbytes = read(filedesc, buffer, SOCKET_BUF_SIZE - 1);
+    // Accumulate one request terminated by a single LF.
+    //
+    // On success, buffer contains a NUL-terminated C string with the
+    // trailing LF removed. The caller must provide a buffer of at least
+    // SOCKET_BUF_SIZE bytes.
+    //
+    // The maximum accepted request is SOCKET_BUF_SIZE - 2 bytes:
+    // SOCKET_BUF_SIZE - 1 bytes of request data plus the terminating LF.
+    // One byte is reserved for the final NUL terminator.
 
-    if (  0 == nbytes  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "0 bytes from read()");
-        return NO;
-    } else if (  nbytes < 0  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error from read(): %m");
-        return NO; // this isn't fatal
-    } else if (  SOCKET_BUF_SIZE - 1 == nbytes   ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Too many bytes read; maximum is %lu", (unsigned long)(SOCKET_BUF_SIZE - 2));
+    const size_t headerLength = strlen(command_header);
+    size_t totalBytes = 0;
+
+    // Reserve one byte for '\n' and one for the final '\0'.
+    const size_t maximumRequestBytes = SOCKET_BUF_SIZE - 2;
+
+    for (;;) {
+
+        if ( totalBytes >= maximumRequestBytes ) {
+
+            // Do not log the entire buffer: it may contain a management password.
+            asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                    "Request started with '%.15s' but exceeded maximum length of %lu bytes.",
+                    buffer, (unsigned long)maximumRequestBytes);
+            return NO;
+        }
+
+        errno = 0;
+
+asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: will read from socket");
+
+        ssize_t nbytes = read(filedesc,
+                              buffer + totalBytes,
+                              maximumRequestBytes - totalBytes);
+
+asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: read() returned %ld", nbytes);
+
+        if ( nbytes > 0 ) {
+
+            totalBytes += (size_t)nbytes;
+
+            // A request is complete only when its final byte is LF.
+            if ( buffer[totalBytes - 1] == '\n' ) {
+asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: totalBytes = %ld; have \n; breaking", totalBytes);
+                break;
+            }
+
+asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: totalBytes = %ld; continuing", totalBytes);
+
+            continue;
+        }
+
+        if ( nbytes == 0 ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                    "Client closed connection before sending a complete request");
+            return NO;
+        }
+
+        // nbytes < 0
+
+        if ( errno == EINTR ) {
+asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: totalBytes = %ld; errno == EINTR so continuing", totalBytes);
+            continue;
+        }
+
+        if ( (errno == EAGAIN) || (errno == EWOULDBLOCK) ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                    "Timed out waiting for a complete request");
+            return NO;
+        }
+
+        asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                "Error from read(): %m");
         return NO;
     }
 
-    buffer[nbytes] = '\0';    // Terminate so the request is a string
+    // Remove the trailing LF and NUL-terminate the request.
+    buffer[totalBytes - 1] = '\0';
 
-    // Ignore request unless it starts with a valid header and is terminated by a \n
-    if (  0 != strncmp(buffer, command_header, strlen(command_header))  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did it did not start with a valid header.", (unsigned long)nbytes);
+    // Ignore the request unless it begins with the expected header.
+    if ( strncmp(buffer, command_header, headerLength) != 0 ) {
+
+        // Do not log buffer: invalid data could include a password or arbitrary attacker-controlled bytes.
+        asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                "Received %lu bytes but request did not start with a valid header.",
+                (unsigned long)(totalBytes - 1));
+
         return NO;
     }
-    char * nlPtr = strchr(buffer, '\n');
-    if (   (nlPtr == NULL)
-        || (nlPtr != (buffer + nbytes - 1))
-        ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did not receive a LF at the end.", (unsigned long)nbytes);
-        return NO;
-    }
 
-    // Remove the LF at the end of the request
-    buffer[nbytes - 1] = '\0';
+    // Ignore the request unless it is valid UTF-8.
+    if ( [NSString stringWithUTF8String: buffer] == NULL ) {
 
-    // Ignore request unless it is a valid UTF-8 string
-    if (  [NSString stringWithUTF8String: buffer] == NULL  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but they were not a valid UTF-8 string", (unsigned long)nbytes);
+        // Do not log buffer: invalid data could include a password or arbitrary attacker-controlled bytes.
+        asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                "Received %lu bytes but they were not a valid UTF-8 string",
+                (unsigned long)(totalBytes - 1));
         return NO;
     }
 
@@ -1153,6 +1216,7 @@ int main(void) {
                 "Could not ignore SIGPIPE: %m");
         goto done;
     }
+
     if (  ! sanityChecks(asl, log_msg)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Terminating tunnelblickd because sanityChecks() failed");
         goto done;
