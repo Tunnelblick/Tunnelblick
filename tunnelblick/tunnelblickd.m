@@ -884,17 +884,17 @@ static BOOL get_request(char *       buffer,
     //
     // On success, buffer contains a NUL-terminated C string with the
     // trailing LF removed. The caller must provide a buffer of at least
-    // SOCKET_BUF_SIZE bytes.
+    // MAX_DAEMON_REQUEST_BUF_SIZE bytes.
     //
-    // The maximum accepted request is SOCKET_BUF_SIZE - 2 bytes:
-    // SOCKET_BUF_SIZE - 1 bytes of request data plus the terminating LF.
+    // The maximum accepted request is MAX_DAEMON_REQUEST_BUF_SIZE - 2 bytes:
+    // MAX_DAEMON_REQUEST_BUF_SIZE - 1 bytes of request data plus the terminating LF.
     // One byte is reserved for the final NUL terminator.
 
     const size_t headerLength = strlen(command_header);
     size_t totalBytes = 0;
 
     // Reserve one byte for '\n' and one for the final '\0'.
-    const size_t maximumRequestBytes = SOCKET_BUF_SIZE - 2;
+    const size_t maximumRequestBytes = MAX_DAEMON_REQUEST_BUF_SIZE - 2;
 
     for (;;) {
 
@@ -1348,7 +1348,7 @@ int main(void) {
         [pool drain];
         pool = [NSAutoreleasePool new];
 
-        char buffer[SOCKET_BUF_SIZE];
+        char buffer[MAX_DAEMON_REQUEST_BUF_SIZE];
 
         if (  filedesc != -1  ) {
             close(filedesc);

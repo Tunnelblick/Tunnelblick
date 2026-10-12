@@ -1613,7 +1613,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     const char * requestToServer = [[NSString stringWithFormat: @"%s%@", TUNNELBLICKD_OPENVPNSTART_HEADER_C, command] UTF8String];
     const char * socketPath = [TUNNELBLICKD_SOCKET_PATH UTF8String];
 
-    char buffer[SOCKET_BUF_SIZE];
+    char buffer[MAX_DAEMON_REQUEST_BUF_SIZE];
 
     struct sockaddr_un socket_data;
 
@@ -1643,9 +1643,9 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     // Send our request to the socket
     const char * buf_ptr = requestToServer;
     size_t bytes_to_write = strlen(requestToServer);
-    if (  bytes_to_write > SOCKET_BUF_SIZE  ) {
+    if (  bytes_to_write > MAX_DAEMON_REQUEST_BUF_SIZE  ) {
         Log(@"runTunnelblickd: Request is %lu bytes long but the maximum is %u",
-            bytes_to_write, SOCKET_BUF_SIZE);
+            bytes_to_write, MAX_DAEMON_REQUEST_BUF_SIZE);
         goto error1;
     }
 
@@ -1678,8 +1678,8 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     useconds_t sleepTimeMicroseconds = 10000;    // First sleep is 0.10 seconds; each sleep thereafter will be doubled, up to 5.0 seconds
 
     while (  [(NSDate *)[NSDate date] compare: timeoutDate] == NSOrderedAscending  ) {
-        bzero((char *)buffer, SOCKET_BUF_SIZE);
-        n = read(sockfd, (char *)buffer, SOCKET_BUF_SIZE - 1);
+        bzero((char *)buffer, MAX_DAEMON_REQUEST_BUF_SIZE);
+        n = read(sockfd, (char *)buffer, MAX_DAEMON_REQUEST_BUF_SIZE - 1);
         if (   (n < 0)
             && (errno == EAGAIN)  ) {
             sleepTimeMicroseconds *= 2;
