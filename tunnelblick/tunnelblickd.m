@@ -517,7 +517,7 @@ static void restoreSecondary(aslclient  asl,
             if (  [service length] != 0  ) {
                 processed_a_service = TRUE;
                 NSArray * arguments = @[@"-setnetworkserviceenabled", service, @"on"];
-                OSStatus status = runTool(0, 0, @"root", @"wheel", TOOL_PATH_FOR_NETWORKSETUP, arguments, nil, nil, asl, log_msg);
+                OSStatus status = runTool(0, 0, @"root", @"/var/root", TOOL_PATH_FOR_NETWORKSETUP, arguments, nil, nil, asl, log_msg);
                 if (  status == 0  ) {
                     asl_log(asl, log_msg, ASL_LEVEL_INFO, "Re-enabled %s", [service UTF8String]);
                 } else {
@@ -570,7 +570,7 @@ static void restoreIpv6(aslclient  asl,
             if (  [service length] != 0  ) {
                 processed_a_service = TRUE;
                 NSArray * arguments = [NSArray arrayWithObjects: @"-setv6automatic", service, nil];
-                OSStatus status = runTool(0, 0, @"root", @"wheel", TOOL_PATH_FOR_NETWORKSETUP, arguments, nil, nil, asl, log_msg);
+                OSStatus status = runTool(0, 0, @"root", @"/var/root", TOOL_PATH_FOR_NETWORKSETUP, arguments, nil, nil, asl, log_msg);
                 if (  status == 0  ) {
                     asl_log(asl, log_msg, ASL_LEVEL_INFO, "Restored IPv6 to 'Automatic' for %s", [service UTF8String]);
                 } else {
