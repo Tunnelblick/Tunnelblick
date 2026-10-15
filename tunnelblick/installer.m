@@ -2103,7 +2103,7 @@ static void secureAllTblks(void) {
 	unsigned i;
 	for (i=0; i < [foldersToSecure count]; i++) {
 		NSString * folderPath = [foldersToSecure objectAtIndex: i];
-        BOOL isPrivate = [folderPath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]];
+        BOOL isPrivate = [folderPath isEqualToString: userPrivatePath()];
 		okSoFar = okSoFar && secureOneFolder(folderPath, isPrivate, userUID());
 	}
 	
