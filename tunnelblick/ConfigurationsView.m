@@ -462,7 +462,8 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 														   @" of IPv6. Most Internet access works fine without IPv6.</p>\n"
 														   @"<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n"
 														   @"<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it"
-														   @" cannot be enforced on a 'tap' connection.</p>",
+														   @" cannot be enforced on a 'tap' connection, and when 'Set DNS/WINS' is not set to 'Set nameserver',"
+														   @" 'Set nameserver (alternate 2)', or 'Set nameserver (OpenVPN)' because only those settings can disable IPv6.</p>",
 														   @"HTML info for the 'Disable IPv6 unless the VPN server is accessed using IPv6' checkbox."))];
 	
     [disableSecondaryNetworkServicesCheckbox
@@ -471,7 +472,8 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
                                                            @" be disabled while the VPN is active.</p>\n"
                                                            @"<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n"
                                                            @"<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n"
-                                                           @"<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>",
+                                                           @"<p><strong>This checkbox is disabled</strong> when using a 'tap' connection, and when 'Set DNS/WINS' is not set to 'Set nameserver',"
+                                                           @" 'Set nameserver (alternate 2)', or 'Set nameserver (OpenVPN)'.</p>",
                                                            @"HTML info for the 'Disable secondary network interfaces' checkbox.\n\n"))];
 
 	[checkIPAddressAfterConnectOnAdvancedCheckbox
