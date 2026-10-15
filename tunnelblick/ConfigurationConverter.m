@@ -843,7 +843,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 							  : PERMS_PRIVATE_ROOT_SCRIPT)
                            : PERMS_PRIVATE_OTHER)
                         );
-		if (  ! checkSetPermissions(outPath, perms, YES)  ) {
+        // When outputting to TBFileManager, outPath is an in-memory path, not a file on disk, so there are no permissions to set
+		if (   ( ! outFileMgr )
+            && ( ! checkSetPermissions(outPath, perms, YES) )  ) {
 			return [self logMessage: [NSString stringWithFormat: @"Unable to set permissions on '%@'", outPath]
                           localized: [NSString stringWithFormat: NSLocalizedString(@"Unable to set permissions on '%@'", @"Window text"), outPath]];
         }
