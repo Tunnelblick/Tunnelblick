@@ -443,7 +443,8 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 														   @" settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network"
 														   @" settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n"
 														   @"<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n"
-														   @"<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>",
+														   @"<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver', 'Set nameserver (alternate 1)',"
+														   @" 'Set nameserver (alternate 2)', or 'Set nameserver (OpenVPN)'.</p>",
 														   @"HTML info for the 'Monitor network settings' checkbox."))];
 	
 	[routeAllTrafficThroughVpnCheckbox
