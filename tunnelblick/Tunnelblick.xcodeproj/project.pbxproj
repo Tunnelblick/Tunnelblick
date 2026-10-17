@@ -53,6 +53,8 @@
 		631310D913CA18870071C110 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631310D513CA18870071C110 /* nl.lproj */; };
 		631494A519FA7B9E009057D1 /* pt_pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631494A219FA7B9E009057D1 /* pt_pt.lproj */; };
 		63179444118D7EC20057ACAF /* atsystemstart.m in Sources */ = {isa = PBXBuildFile; fileRef = 63179443118D7EC20057ACAF /* atsystemstart.m */; };
+		A100000000000000000003 /* mipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = A100000000000000000002 /* mipFile.m */; };
+		A100000000000000000004 /* mipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = A100000000000000000002 /* mipFile.m */; };
 		6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		6317AD942C80F681008D7CAA /* TunnelblickInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6317AD932C80F681008D7CAA /* TunnelblickInfo.m */; };
 		631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 631BC42F1FC4496300730786 /* TBPopUpButton.m */; };
@@ -493,6 +495,8 @@
 		631494A219FA7B9E009057D1 /* pt_pt.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pt_pt.lproj; sourceTree = "<group>"; };
 		6317943E118D7E820057ACAF /* atsystemstart */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = atsystemstart; sourceTree = BUILT_PRODUCTS_DIR; };
 		63179443118D7EC20057ACAF /* atsystemstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = atsystemstart.m; sourceTree = "<group>"; };
+		A100000000000000000001 /* mipFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mipFile.h; sourceTree = "<group>"; };
+		A100000000000000000002 /* mipFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mipFile.m; sourceTree = "<group>"; };
 		6317AD922C80F681008D7CAA /* TunnelblickInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TunnelblickInfo.h; sourceTree = "<group>"; };
 		6317AD932C80F681008D7CAA /* TunnelblickInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TunnelblickInfo.m; sourceTree = "<group>"; };
 		631BC42F1FC4496300730786 /* TBPopUpButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPopUpButton.m; sourceTree = "<group>"; };
@@ -987,6 +991,8 @@
 				32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				63179443118D7EC20057ACAF /* atsystemstart.m */,
+				A100000000000000000001 /* mipFile.h */,
+				A100000000000000000002 /* mipFile.m */,
 				61BC4D9D0E2FA2F300F24255 /* installer.m */,
 				63FF91D12EC25DA200E54E89 /* update_signing_util.m */,
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
@@ -2071,6 +2077,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63179444118D7EC20057ACAF /* atsystemstart.m in Sources */,
+				A100000000000000000003 /* mipFile.m in Sources */,
 				63F2AD9E12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
 				63E7B7C03065923A0028E4DE /* NSTask+TB.m in Sources */,
 				B8C7338C162219E400746C0D /* sharedRoutines.m in Sources */,
@@ -2211,6 +2218,7 @@
 				63372B092EC79472004E5014 /* UpdateSigning.m in Sources */,
 				63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */,
 				61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */,
+				A100000000000000000004 /* mipFile.m in Sources */,
 				63E56EE713848338007E39AB /* VPNService.m in Sources */,
 				63E56EE813848338007E39AB /* VPNServiceCreateAccountController.m in Sources */,
 				63E56EE913848338007E39AB /* VPNServiceIntroController.m in Sources */,

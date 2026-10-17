@@ -35,6 +35,7 @@
 #import <sys/stat.h>
 
 #import "defines.h"
+#import "mipFile.h"
 #import "sharedRoutines.h"
 
 #import "NSFileManager+TB.h"
@@ -169,6 +170,12 @@ void setStart(NSString * plistPath, NSString * daemonDescription, NSString * dae
     
     if (  ! [plistDict writeToFile: plistPath atomically: YES]  ) {
         NSLog(@"Tunnelblick atsystemstart: Unable to write plist file %@", plistPath);
+        errorExit();
+    }
+
+    // Write the .mip now so a configuration that has never connected still has one at the next boot.
+    if (  ! writeManagementPasswordFileFromAtsystemstartArgs(argc, argv, L_AS_T_MIPS)  ) {
+        NSLog(@"Tunnelblick atsystemstart: Unable to write .mip in %@", L_AS_T_MIPS);
         errorExit();
     }
 }
