@@ -30,6 +30,7 @@
 #import <Security/SecRandom.h>
 
 #import "defines.h"
+#import "forcedPreferenceKey.h"
 #import "sharedRoutines.h"
 
 #import "ConfigurationConverter.h"
@@ -515,7 +516,7 @@ static void deleteOrCopyOrRenameForcedPreferencesForDisplayName(NSString * displ
 
         NSString * oldKey = (NSString *)key;
 
-        if (  [oldKey hasSuffix: displayName]  ) {
+        if (  forcedPreferenceKeyIsForDisplayName(oldKey, displayName, CONFIGURATIONS_PREFERENCES_NSARRAY)  ) {
 
             //
             // Have an entry that should be changed
@@ -523,13 +524,10 @@ static void deleteOrCopyOrRenameForcedPreferencesForDisplayName(NSString * displ
             if (  newDisplayName.length != 0  ) {
 
                 //
-                // Renaming: add a new forced preference for the new displayName
+                // Renaming: the key is the display name followed by a known suffix.
                 //
-                NSUInteger lengthOfPrefWithoutName = oldKey.length - displayName.length;
-
-                NSString * newKey = [[oldKey
-                                      substringToIndex: lengthOfPrefWithoutName]
-                                     stringByAppendingString: newDisplayName];
+                NSString * suffix = [oldKey substringFromIndex: displayName.length];
+                NSString * newKey = [newDisplayName stringByAppendingString: suffix];
                 [newDict setValue: obj forKey: newKey];
                 Log(@"Added forced preference '%@' : '%@'", newKey, obj);
             }
