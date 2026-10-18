@@ -2518,17 +2518,16 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
             }
         }
 
-		// OK to change or add Info.plist, user-mode scripts, certificate and key files, and *.lproj/Localizable.strings files
-        if (   [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Info.plist"]]
-            || [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources/static-challenge-response.user.sh"]]
-            || [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources/dynamic-challenge-response.user.sh"]]
-            || [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources/password-replace.user.sh"]]
-            || [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources/password-prepend.user.sh"]]
-            || [name isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources/password-append.user.sh"]]
+		// enumeratorAtPath: yields "Contents/...", not "Name.tblk/Contents/...".
+        if (   [name isEqualToString: @"Contents/Info.plist"]
+            || [name isEqualToString: @"Contents/Resources/static-challenge-response.user.sh"]
+            || [name isEqualToString: @"Contents/Resources/dynamic-challenge-response.user.sh"]
+            || [name isEqualToString: @"Contents/Resources/password-replace.user.sh"]
+            || [name isEqualToString: @"Contents/Resources/password-prepend.user.sh"]
+            || [name isEqualToString: @"Contents/Resources/password-append.user.sh"]
             || (   [extensionsForKeysAndCerts containsObject: [name pathExtension]]
                 && (name.pathComponents.count == 3)
-                && [name.stringByDeletingLastPathComponent
-                    isEqualToString: [sourceTblkName stringByAppendingPathComponent: @"Contents/Resources"]]
+                && [name.stringByDeletingLastPathComponent isEqualToString: @"Contents/Resources"]
                 )
             || (   [name hasPrefix: @"Contents/Resources/"]
                 && [name hasSuffix: @".lproj/Localizable.strings"]
