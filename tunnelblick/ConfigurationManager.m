@@ -4702,12 +4702,35 @@ err:
         return NO;
     }
 
+    // The admin prompt below only says a shadow copy will be created. A new
+    // script in that tree is what Connect runs, so ask about scripts first.
+    BOOL haveUserScripts = NO;
+    BOOL haveRootScripts = NO;
+    if (  ! [ConfigurationManager checkIfConfigurationsAtPaths: @[secureCopyPath]
+                                               haveUserScripts: &haveUserScripts
+                                               haveRootScripts: &haveRootScripts]  ) {
+        return NO;
+    }
+    if (  haveUserScripts  ) {
+        if (  ! [ConfigurationManager processUserScriptAuthorization: haveRootScripts]  ) {
+            return NO;
+        }
+    } else if (  haveRootScripts  ) {
+        if (  ! [ConfigurationManager processRootScriptAuthorization]  ) {
+            return NO;
+        }
+    }
+    gUserAllowedRootScripts = haveRootScripts;
+    gUserAllowedUserScripts = haveUserScripts;
+
     //
 	// Get admin approval because it isn't a "safe" update
     //
     NSString * prompt = NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text");
     SystemAuth * auth = [[SystemAuth newAuthWithPrompt: prompt] autorelease];
     if (   ! auth  ) {
+        gUserAllowedRootScripts = NO;
+        gUserAllowedUserScripts = NO;
         return NO;
     }
 
@@ -4717,12 +4740,15 @@ err:
     NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
                              stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
 
-    if ( [ConfigurationManager copyConfigPath: secureCopyPath
-                                       toPath: altCfgPath
-                              usingSystemAuth: auth
-                                   warnDialog: YES
-                                  moveNotCopy: YES
-                                      noAdmin: NO] ) {    // Copy the config to the alt config
+    BOOL copied = [ConfigurationManager copyConfigPath: secureCopyPath
+                                               toPath: altCfgPath
+                                      usingSystemAuth: auth
+                                           warnDialog: YES
+                                          moveNotCopy: YES
+                                              noAdmin: NO];
+    gUserAllowedRootScripts = NO;
+    gUserAllowedUserScripts = NO;
+    if (  copied  ) {
         NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
         return YES;
     }

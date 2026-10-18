@@ -3211,9 +3211,11 @@ static void scriptStatusForTblk(NSString * tblkPath) {
         while (  (subPath = [dirE nextObject])  ) {
             if (  [subPath hasSuffix: @".user.sh"]  ) {
                 hasUserScripts = YES;
-                break;
             } else if (  [subPath hasSuffix: @".sh"]  ) {
                 hasRootScripts = YES;
+            }
+            if (   hasUserScripts
+                && hasRootScripts  ) {
                 break;
             }
         }
