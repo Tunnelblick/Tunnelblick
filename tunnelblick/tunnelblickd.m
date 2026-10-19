@@ -38,6 +38,7 @@
 #import <arpa/inet.h>
 #import <asl.h>
 #import <errno.h>
+#import <time.h>
 #import <fcntl.h>
 #import <launch.h>
 #import <libgen.h>
@@ -888,6 +889,7 @@ static NSString * preprocessCommandsInRawCommand(NSString * rawCommand,
 static BOOL get_request(char *       buffer,
                         const char * command_header,
                         int          filedesc,
+                        time_t       requestSeconds,
                         aslclient    asl,
                         aslmsg       log_msg) {
 
@@ -907,7 +909,29 @@ static BOOL get_request(char *       buffer,
     // Reserve one byte for '\n' and one for the final '\0'.
     const size_t maximumRequestBytes = MAX_DAEMON_REQUEST_BUF_SIZE - 2;
 
+    // SO_RCVTIMEO is a per-read idle timer. A client that keeps sending
+    // bytes that are not a newline restarts it. Cap the whole request.
+    if (  requestSeconds < 1  ) {
+        requestSeconds = 30;
+    }
+    time_t deadline = time(NULL) + requestSeconds;
+
     for (;;) {
+
+        time_t now = time(NULL);
+        if (  now >= deadline  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                    "Timed out waiting for a complete request");
+            return NO;
+        }
+
+        struct timeval remaining;
+        remaining.tv_sec = deadline - now;
+        remaining.tv_usec = 0;
+        if (  0 != setsockopt(filedesc, SOL_SOCKET, SO_RCVTIMEO, &remaining, sizeof(remaining))  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR, "setsockopt(SO_RCVTIMEO) failed; error = %m");
+            return NO;
+        }
 
         if ( totalBytes >= maximumRequestBytes ) {
 
@@ -920,13 +944,9 @@ static BOOL get_request(char *       buffer,
 
         errno = 0;
 
-asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: will read from socket");
-
         ssize_t nbytes = read(filedesc,
                               buffer + totalBytes,
                               maximumRequestBytes - totalBytes);
-
-asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: read() returned %ld", nbytes);
 
         if ( nbytes > 0 ) {
 
@@ -934,11 +954,8 @@ asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: read() returned %ld", nbytes);
 
             // A request is complete only when its final byte is LF.
             if ( buffer[totalBytes - 1] == '\n' ) {
-asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: totalBytes = %ld; have \n; breaking", totalBytes);
                 break;
             }
-
-asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: totalBytes = %ld; continuing", totalBytes);
 
             continue;
         }
@@ -952,7 +969,6 @@ asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: totalBytes = %ld; continuing", totalB
         // nbytes < 0
 
         if ( errno == EINTR ) {
-asl_log(asl, log_msg, ASL_LEVEL_ERR, "JKB: totalBytes = %ld; errno == EINTR so continuing", totalBytes);
             continue;
         }
 
@@ -1493,6 +1509,7 @@ int main(void) {
         BOOL ok = get_request(buffer,
                               command_header,
                               filedesc,
+                              timeout.tv_sec,
                               asl,
                               log_msg);
 
