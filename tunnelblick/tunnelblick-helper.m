@@ -3752,7 +3752,14 @@ static int startVPN(NSString * configFile,
         }
 
         if (  (bitMask & OPENVPNSTART_FORCE_DNS_UP_DOWN) != 0  ) {
-            [arguments addObjectsFromArray: @[@"--dns-updown", @"force"]];
+            NSString * dnsUpDownPath = [[openvpnPath
+                                         stringByDeletingLastPathComponent]
+                                        stringByAppendingPathComponent: @"dns_updown_script.sh"];
+            if (  [gFileMgr fileExistsAtPath: dnsUpDownPath]  ) {
+                [arguments addObjectsFromArray: @[@"--dns-updown", dnsUpDownPath]];
+            } else {
+                Log(@"Warning: 'Set DNS/WINS' is set to 'Set nameserver (OpenVPN)', but OpenVPN's dns_updown_script.sh is not included in this version of OpenVPN");
+            }
         }
 
         if (  fileExistsForRootAtPath(newRoutePreDownscriptPath)  ) {
