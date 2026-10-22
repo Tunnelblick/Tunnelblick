@@ -2427,9 +2427,12 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
         }
     }
 
+    // gPrivatePath and gShadowPath are nil if the user could not be determined (e.g., installing a shared configuration from the command line)
     NSString * sourceDisplayName = nil;
-    if (   [sourcePath hasPrefix: [gPrivatePath stringByAppendingString:  @"/"]]
-        || [sourcePath hasPrefix: [gShadowPath stringByAppendingString:   @"/"]]
+    if (   (   gPrivatePath
+            && [sourcePath hasPrefix: [gPrivatePath stringByAppendingString:  @"/"]]  )
+        || (   gShadowPath
+            && [sourcePath hasPrefix: [gShadowPath stringByAppendingString:   @"/"]]  )
         || [sourcePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
         sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
     }
