@@ -2314,9 +2314,13 @@ static void errorExitIfHasScriptsAndShouldNotBeInstalled(NSString * sourcePath) 
                                    stringByAppendingPathComponent: @"Contents"]
                                   stringByAppendingPathComponent: @"Resources"]
                                  stringByAppendingPathComponent: @"config.ovpn"];
+        if (  ! [gFileMgr fileExistsAtPath: configPath]  ) {
+            Log(@"No OpenVPN configuration file at %@", configPath);
+            errorExit();
+        }
         ConfigurationParser * config = [ConfigurationParser parsedConfigurationAtPath: configPath];
         if ( ! config  ) {
-            Log(@"Could not create a ConfigurationParser for %@", sourcePath);
+            Log(@"Could not create a ConfigurationParser for %@", configPath);
             errorExit();
         }
 
