@@ -515,32 +515,24 @@ static void deleteOrCopyOrRenameForcedPreferencesForDisplayName(NSString * displ
 
         NSString * oldKey = (NSString *)key;
 
-        if (  [oldKey hasSuffix: displayName]  ) {
-
-            //
-            // Have an entry that should be changed
-            //
-            if (  newDisplayName.length != 0  ) {
-
-                //
-                // Renaming: add a new forced preference for the new displayName
-                //
-                NSUInteger lengthOfPrefWithoutName = oldKey.length - displayName.length;
-
-                NSString * newKey = [[oldKey
-                                      substringToIndex: lengthOfPrefWithoutName]
-                                     stringByAppendingString: newDisplayName];
-                [newDict setValue: obj forKey: newKey];
-                Log(@"Added forced preference '%@' : '%@'", newKey, obj);
+        if (  [oldKey hasPrefix: displayName]  ) {
+            NSString * suffix = [oldKey substringFromIndex: displayName.length];
+            if (  [CONFIGURATIONS_PREFERENCES_NSARRAY containsObject: suffix]  ) {
+                // Have a forced preference
+                if (  newDisplayName.length != 0  ) {
+                    // Copy the forced preference
+                    NSString * newKey = [newDisplayName stringByAppendingString: suffix];
+                    [newDict setValue: obj forKey: newKey];
+                    Log(@"Added forced preference '%@' : '%@'", newKey, obj);
+                    madeChanges = TRUE;
+                }
+                if (  deleteOriginals  ) {
+                    // Delete the old forced preference
+                    [newDict removeObjectForKey: oldKey];
+                    Log(@"Deleted forced preference '%@' : '%@'", oldKey, obj);
+                    madeChanges = TRUE;
+                }
             }
-
-            // Delete the old forced preference if requested
-            if (  deleteOriginals  ) {
-                [newDict removeObjectForKey: oldKey];
-                Log(@"Deleted forced preference '%@' : '%@'", oldKey, obj);
-            }
-
-            madeChanges = TRUE;
         }
     }];
 
