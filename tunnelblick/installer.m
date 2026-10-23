@@ -1655,10 +1655,8 @@ static void createSecuredConfigurationsSubfolder(NSString * path) {
 
     errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(path);
 
-    // For anything enclosed by either L_AS_T_TEMP or L_AS_T_USERS/username/, use PERMS_SECURED_OTHER
-    mode_t perms = (  (   [path hasPrefix: [L_AS_T_TEMP stringByAppendingString: @"/"]]
-                       || (   [path hasPrefix: [L_AS_T_USERS stringByAppendingString: @"/"]]
-                           && [path pathComponents].count > 6   )  )
+    // For anything enclosed by L_AS_T_TEMP, use PERMS_SECURED_OTHER
+    mode_t perms = (  [path hasPrefix: [L_AS_T_TEMP stringByAppendingString: @"/"]]
                     ? PERMS_SECURED_OTHER
                     : PERMS_SECURED_FOLDER);
 
