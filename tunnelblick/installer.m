@@ -2433,13 +2433,25 @@ static void copyOrMoveOneFolderOrTblk(NSString * sourcePath, NSString * targetPa
 
     NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
 
+    // A copy of a configuration that is already installed (a duplicate, or a
+    // private/shared move that uses copy) does not bring in a new tree.
+    // A move of a new temporary tree does. That is "Secure the Configuration".
+    BOOL sourceIsTemporaryNewTree = [sourcePath hasPrefix: [L_AS_T_TEMP stringByAppendingString: @"/"]];
+    BOOL sourceIsAlreadyInstalled = (   [sourcePath hasPrefix: [L_AS_T_USERS  stringByAppendingString: @"/"]]
+                                     || [sourcePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]] );
+
     if (  moveNotCopy  ) {
+        if (  sourceIsTemporaryNewTree  ) {
+            errorExitIfHasScriptsAndShouldNotBeInstalled(sourcePath);
+        }
         securelyMoveTblkIncludingPrivate(sourcePath, targetPath);
         if (  sourceDisplayName  ) {
             renameForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
         }
     } else {
-        errorExitIfHasScriptsAndShouldNotBeInstalled(sourcePath);
+        if (  ! sourceIsAlreadyInstalled  ) {
+            errorExitIfHasScriptsAndShouldNotBeInstalled(sourcePath);
+        }
         securelyCopy(sourcePath, targetPath);
         if (  sourceDisplayName  ) {
             copyForcedPreferencesForDisplayName(sourceDisplayName, targetDisplayName);
