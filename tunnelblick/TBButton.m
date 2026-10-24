@@ -199,6 +199,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     [tv setEditable:   NO];
     [tv setAutomaticQuoteSubstitutionEnabled: YES];
     [tv setAutomaticLinkDetectionEnabled:     YES];
+    [tv setDrawsBackground: NO]; // The attached window draws the (rounded) background
     NSTextStorage * ts = [tv textStorage];
     [ts setAttributedString: content];
     
@@ -207,6 +208,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     
     NSScrollView * sv = [[[NSScrollView alloc] initWithFrame: svFrame] autorelease];
     [sv setBorderType:NSNoBorder];
+    [sv setDrawsBackground: NO];
     [sv setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];     // Set autoresizing mask so scroll view will resize with the window
     [sv setDocumentView: tv];
     
@@ -217,6 +219,8 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
                                                         atDistance: 5.0];
     
     [aw setViewMargin: 1.0];
+    [aw setBorderColor: [NSColor separatorColor]];
+    [aw setBorderWidth: 0.5];
     [aw setReleasedWhenClosed: NO];
     
     [outerWindow addChildWindow: aw ordered: NSWindowAbove];

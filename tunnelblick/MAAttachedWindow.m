@@ -463,23 +463,27 @@
     bgRect.size = [bg size];
     
     [bg lockFocus];
-    NSBezierPath *bgPath = [self _backgroundPath];
-    [NSGraphicsContext saveGraphicsState];
-    [bgPath addClip];
-    
-    // Draw background.
-    [_MABackgroundColor set];
-    [bgPath fill];
-    
-    // Draw border if appropriate.
-    if (borderWidth > 0) {
-        // Double the borderWidth since we're drawing inside the path.
-        [bgPath setLineWidth:(borderWidth * 2.0) * MAATTACHEDWINDOW_SCALE_FACTOR];
-        [borderColor set];
-        [bgPath stroke];
-    }
-    
-    [NSGraphicsContext restoreGraphicsState];
+    // Draw with the window's appearance, so dynamic colors (such as the default text background color) match the
+    // light or dark content of the window. (An image's drawing does not use the window's appearance by itself.)
+    [[self effectiveAppearance] performAsCurrentDrawingAppearance: ^{
+        NSBezierPath *bgPath = [self _backgroundPath];
+        [NSGraphicsContext saveGraphicsState];
+        [bgPath addClip];
+        
+        // Draw background.
+        [_MABackgroundColor set];
+        [bgPath fill];
+        
+        // Draw border if appropriate.
+        if (borderWidth > 0) {
+            // Double the borderWidth since we're drawing inside the path.
+            [bgPath setLineWidth:(borderWidth * 2.0) * MAATTACHEDWINDOW_SCALE_FACTOR];
+            [borderColor set];
+            [bgPath stroke];
+        }
+        
+        [NSGraphicsContext restoreGraphicsState];
+    }];
     [bg unlockFocus];
     
     return [NSColor colorWithPatternImage:[bg autorelease]];
