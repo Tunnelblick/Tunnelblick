@@ -187,7 +187,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [totalUnits setAlignment: NSTextAlignmentNatural];
     
     // Fixed widths, so the numbers do not move when they or their units change
-    CGFloat numberWidth = [self widestOf: @[@"0000.00"] font: font];
+    CGFloat numberWidth = [self widestOf: @[@"9.99", @"99.9", @"999"] font: font]; // The widest numbers -[VPNConnection setNumber:...] shows
     [NSLayoutConstraint activateConstraints: @[[[rate       widthAnchor] constraintEqualToConstant: numberWidth],
                                                [[total      widthAnchor] constraintEqualToConstant: numberWidth],
                                                [[rateUnits  widthAnchor] constraintEqualToConstant: [self widestOf: gRateUnits  font: font]],
@@ -244,10 +244,10 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [text setAlignment: NSLayoutAttributeLeading];
     [text setSpacing: 1.0];
     
-    // Long names and states ("Waiting for ...") are truncated: the window must not grow, because it was positioned
-    // (near the menu bar icon, or stacked with other status windows) for its size
+    // A long name is truncated: the window must not grow, because it was positioned (near the menu bar icon, or stacked
+    // with other status windows) for its size
     NSTextField * label;
-    NSEnumerator * labelEnum = [@[nameTF, statusTF] objectEnumerator];
+    NSEnumerator * labelEnum = [@[nameTF] objectEnumerator];
     while (  (label = [labelEnum nextObject])  ) {
         [[label cell] setLineBreakMode: NSLineBreakByTruncatingTail];
         [[label cell] setWraps: NO];
@@ -256,8 +256,10 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     }
     [text setContentCompressionResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
     
-    // Make room for the longest state (with a connection time) and for the name, up to a limit, so they are not
-    // truncated. (The window is sized and positioned once, so it cannot grow when the state changes.)
+    // The window is sized and positioned once, so it cannot grow when the state changes. To keep it narrow, the state
+    // can use more than one line: the text is as wide as there is room for next to the icon and the button (or as wide
+    // as the name, up to a limit), and there is room for as many lines as the longest state (with a connection time)
+    // needs.
     NSArray * states = @[@"ADD_ROUTES", @"ASSIGN_IP", @"AUTH", @"CONNECTED", @"CONNECTING", @"DISCONNECTING", @"EXITING",
                          @"GET_CONFIG", @"NETWORK_ACCESS", @"PASSWORD_WAIT", @"PRIVATE_KEY_WAIT", @"RECONNECTING", @"RESOLVE",
                          @"SLEEP", @"TCP_CONNECT", @"UDP_CONNECT", @"WAIT"];
@@ -267,16 +269,37 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     while (  (state = [stateEnum nextObject])  ) {
         [texts addObject: [NSString stringWithFormat: @"%@ 00:00:00", localizeNonLiteral(state, @"Connection status")]];
     }
-    CGFloat textWidth = MAX([self widestOf: texts font: [statusTF font]],
-                            [self widestOf: @[(localName ? localName : @"")] font: [nameTF font]]);
-    [[[text widthAnchor] constraintGreaterThanOrEqualToConstant: MIN(textWidth, 400.0)] setActive: YES];
-    
-    [animationIV setImageScaling: NSImageScaleProportionallyUpOrDown];
+    // (awakeFromNib sets the same titles later; they are needed now to know how wide the buttons are)
     [connectButton    setControlSize: NSControlSizeSmall];
     [disconnectButton setControlSize: NSControlSizeSmall];
     [connectButton    setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize]]];
     [disconnectButton setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize]]];
+    [connectButton    setTitle: NSLocalizedString(@"Connect",    @"Button")];
+    [disconnectButton setTitle: NSLocalizedString(@"Disconnect", @"Button")];
+    CGFloat buttonWidth = MAX([connectButton fittingSize].width, [disconnectButton fittingSize].width);
+    CGFloat textWidth = MAX(260.0 - 32.0 - 10.0 - 10.0 - buttonWidth,                                     // Room in the narrowest window
+                            MIN([self widestOf: @[(localName ? localName : @"")] font: [nameTF font]], 250.0)); // The name, up to a limit
+    [[[text widthAnchor] constraintEqualToConstant: textWidth] setActive: YES];
+    // Room for as many lines (up to three) as the longest state needs at that width
+    CGFloat neededHeight = 0.0;
+    NSString * stateText;
+    NSEnumerator * textEnum = [texts objectEnumerator];
+    while (  (stateText = [textEnum nextObject])  ) {
+        NSRect bounds = [stateText boundingRectWithSize: NSMakeSize(textWidth - 4.0, 10000.0)
+                                                options: NSStringDrawingUsesLineFragmentOrigin
+                                             attributes: @{NSFontAttributeName: [statusTF font]}];
+        neededHeight = MAX(neededHeight, ceil(NSHeight(bounds)));
+    }
+    CGFloat lineHeight = ceil([[statusTF font] ascender] - [[statusTF font] descender] + [[statusTF font] leading]);
+    NSInteger lines = MIN(3, MAX(1, (NSInteger) round(neededHeight / lineHeight)));
+    [[statusTF cell] setWraps: YES];
+    [[statusTF cell] setLineBreakMode: NSLineBreakByWordWrapping];
+    [statusTF setMaximumNumberOfLines: lines];
+    [statusTF setPreferredMaxLayoutWidth: textWidth];
+    // (The height is reserved below, on the row, so a short state is centered vertically with the name)
+    CGFloat reservedTextHeight = ceil([[nameTF font] ascender] - [[nameTF font] descender] + [[nameTF font] leading]) + 1.0 + (lines * lineHeight) + 2.0;
     
+    [animationIV setImageScaling: NSImageScaleProportionallyUpOrDown];
     NSStackView * header = [[[NSStackView alloc] init] autorelease];
     [header setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
     [header setAlignment: NSLayoutAttributeCenterY];
@@ -286,6 +309,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [header addView: connectButton    inGravity: NSStackViewGravityTrailing];
     [header addView: disconnectButton inGravity: NSStackViewGravityTrailing];
     [header setClippingResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
+    [[[header heightAnchor] constraintGreaterThanOrEqualToConstant: reservedTextHeight] setActive: YES];
     
     NSStackView * inRow  = [self statisticsRowWithLabel: inTF  rate: inRateTF  rateUnits: inRateUnitsTF  total: inTotalTF  totalUnits: inTotalUnitsTF];
     NSStackView * outRow = [self statisticsRowWithLabel: outTF rate: outRateTF rateUnits: outRateUnitsTF total: outTotalTF totalUnits: outTotalUnitsTF];
@@ -390,6 +414,14 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     NSWindow * panel = [self window];
     NSRect panelFrame = [panel frame];
     
+    if (  [panel titleVisibility] == NSWindowTitleHidden  ) {
+        // The window is as big as its layout needs (see -relayoutContent)
+        NSView * contentView = [panel contentView];
+        [contentView layoutSubtreeIfNeeded];
+        NSSize fittingSize = [contentView fittingSize];
+        panelFrame.size = NSMakeSize(MAX(fittingSize.width, 288.0), fittingSize.height);
+    }
+    
     // Adjust the width of the window to fit the complete title
     // But never make it smaller than the original window, or larger than will fit on the screen
     NSRect screen = [[[NSScreen screens] objectAtIndex: [gMC statusScreenIndex]] visibleFrame];   // Use the screen on which we are displaying status windows
@@ -402,7 +434,8 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         newWidth = originalWidth;
     }
     CGFloat sizeChange = (CGFloat) newWidth - currentWidth;
-    if (  sizeChange > 0.0  )  {
+    if (   (sizeChange > 0.0)
+        && ([panel titleVisibility] != NSWindowTitleHidden)  )  { // (When the title is not shown, the layout sized the window)
         if (  newWidth < (screen.size.width - 20.0)  ) {
             panelFrame.size.width = newWidth;
         } else {
