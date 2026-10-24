@@ -170,7 +170,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
         
         // Icon is unlocked; lock it and release the authorization
         lockIconIsUnlocked = FALSE;
-        [item setImage: [NSImage imageNamed: @"Lock"]];
+        [item setImage: [NSImage imageWithSystemSymbolName: @"lock" accessibilityDescription: nil]];
         [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' icon")];
         [SystemAuth setLockSystemAuth: nil];
         TBLog(@"DB-AA", @"lockTheLockIcon: Locked the lock icon and set lockSystemAuth to nil");
@@ -228,7 +228,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
         [self setLockTheLockIconTimer: timer];
         [self setLockTimeoutDate: [[NSDate date] dateByAddingTimeInterval: 300.00]];
         
-        [item setImage: [NSImage imageNamed: @"Lock-open"]];
+        [item setImage: [NSImage imageWithSystemSymbolName: @"lock.open" accessibilityDescription: nil]];
         [self setLockLabelWithTimeLeft];
         lockIconIsUnlocked = TRUE;
         if (  ! [[self window] isVisible]  ) {
@@ -284,7 +284,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
         
         // Lock icon is showing "Unlocked"
         lockIconIsUnlocked = FALSE;
-        [item setImage: [NSImage imageNamed: @"Lock"]];
+        [item setImage: [NSImage imageWithSystemSymbolName: @"lock" accessibilityDescription: nil]];
         [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' item")];
         [lockTheLockIconTimer invalidate];
         [SystemAuth setLockSystemAuth: nil];
@@ -316,7 +316,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 
     NSToolbarItem * item = [[[NSToolbarItem alloc] initWithItemIdentifier: identifier] autorelease];
     [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' item")];
-    [item setImage: [NSImage imageNamed: @"Lock"]];
+    [item setImage: [NSImage imageWithSystemSymbolName: @"lock" accessibilityDescription: nil]];
     [item setTarget: self];
 	[item setAction: @selector(toggleLockItem)];
     [item setEnabled: YES];
@@ -326,28 +326,104 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 
 -(void) setupToolbar
 {
-	if (  [UIHelper languageAtLaunchWasRTL]  ) {
-		// Add an NSToolbarFlexibleSpaceIdentifier item on the left, to force the primary toolbar buttons to the right
-		[self addLockIcon];
-		[self addView: (NSView *)[NSNull null]  label: NSToolbarFlexibleSpaceItemIdentifier                  image: nil];
-		[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: NSImageNameInfo              ]];
-		[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: NSImageNameAdvanced          ]];
-		[self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: NSImageNamePreferencesGeneral]];
-		[self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageNamed: NSImageNameColorPanel        ]];
-		[self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageNamed: NSImageNameNetwork           ]];
-	} else {
-		[self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageNamed: NSImageNameNetwork           ]];
-		[self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageNamed: NSImageNameColorPanel        ]];
-		[self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: NSImageNamePreferencesGeneral]];
-		[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: NSImageNameAdvanced          ]];
-		[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: NSImageNameInfo              ]];
-		[self addView: (NSView *)[NSNull null]  label: NSToolbarFlexibleSpaceItemIdentifier                  image: nil];
-		[self addLockIcon];
-	}
+	// The views are listed in a sidebar, which macOS mirrors for RTL languages, so the order is the same for all languages.
+	// The first view is the "primary" view: it is shown when a configuration in the sidebar is clicked.
+	[self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageWithSystemSymbolName: @"network"                accessibilityDescription: nil]];
+	[self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageWithSystemSymbolName: @"paintbrush"             accessibilityDescription: nil]];
+	[self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageWithSystemSymbolName: @"gearshape"              accessibilityDescription: nil]];
+	[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageWithSystemSymbolName: @"wrench.and.screwdriver" accessibilityDescription: nil]];
+	[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageWithSystemSymbolName: @"info.circle"            accessibilityDescription: nil]];
+	[self addLockIcon];
 	
     [self setupViews];
     
     [[self window] setDelegate: self];
+}
+
+// Overrides superclass
+-(NSView *) sidebarTopView
+{
+	// The list of configurations (with its +, - and actions buttons) moves from the Configurations view into the
+	// window's sidebar, and the rest of the Configurations view fills the whole view.
+	
+	NSView * leftView  = [configurationsPrefsView leftSplitView];
+	NSView * splitView = [leftView superview];
+	NSView * rightView = nil;
+	NSView * view;
+	NSEnumerator * e = [[splitView subviews] objectEnumerator];
+	while (  (view = [e nextObject])  ) {
+		if (  view != leftView  ) {
+			rightView = view;
+		}
+	}
+	
+	[[leftView retain] autorelease];
+	[leftView removeFromSuperview];
+	
+	if (  rightView  ) {
+		[rightView retain];
+		[rightView removeFromSuperview];
+		[rightView setFrame: NSInsetRect([configurationsPrefsView bounds], 16.0, 12.0)];
+		[rightView setAutoresizingMask: (NSViewWidthSizable | NSViewHeightSizable)];
+		[configurationsPrefsView addSubview: rightView];
+		[rightView release];
+	}
+	[splitView removeFromSuperview];
+	
+	NSOutlineView * outlineView = [[configurationsPrefsView outlineViewController] outlineView];
+	[outlineView setStyle: NSTableViewStyleSourceList];
+	[outlineView setSelectionHighlightStyle: NSTableViewSelectionHighlightStyleSourceList];
+	[outlineView setBackgroundColor: [NSColor clearColor]];
+	[outlineView setTarget: self];
+	[outlineView setAction: @selector(configurationsListWasClicked:)];
+	NSScrollView * scrollView = [outlineView enclosingScrollView];
+	[scrollView setDrawsBackground: NO];
+	[scrollView setBorderType: NSNoBorder];
+	
+	// Borderless +, - and actions buttons with SF Symbols, like other sidebars
+	NSButton * addButton    = [configurationsPrefsView addConfigurationButton];
+	NSButton * removeButton = [configurationsPrefsView removeConfigurationButton];
+	NSPopUpButton * actionsButton = [configurationsPrefsView workOnConfigurationPopUpButton];
+	[addButton    setAccessibilityLabel: NSLocalizedString(@"Add a configuration", @"Button")];
+	[removeButton setAccessibilityLabel: NSLocalizedString(@"Remove the selected configuration", @"Button")];
+	[actionsButton setAccessibilityLabel: NSLocalizedString(@"Configuration actions", @"Button")];
+	[addButton    setBordered: NO];
+	[addButton    setImage: [NSImage imageWithSystemSymbolName: @"plus"  accessibilityDescription: NSLocalizedString(@"Add a configuration", @"Button")]];
+	[removeButton setBordered: NO];
+	[removeButton setImage: [NSImage imageWithSystemSymbolName: @"minus" accessibilityDescription: NSLocalizedString(@"Remove the selected configuration", @"Button")]];
+	[actionsButton setBordered: NO];
+	[[actionsButton itemAtIndex: 0] setImage: [NSImage imageWithSystemSymbolName: @"ellipsis.circle" accessibilityDescription: nil]];
+	e = [[leftView subviews] objectEnumerator];
+	while (  (view = [e nextObject])  ) {
+		if (  [view isKindOfClass: [NSBox class]]  ) {
+			[view setHidden: YES];
+		}
+	}
+	
+	return leftView;
+}
+
+// Overrides superclass
+-(NSString *) sidebarSectionTitle
+{
+	return @"Tunnelblick";
+}
+
+// Overrides superclass
+-(void) sidebarDidSelectPrimaryView: (BOOL) isPrimary
+{
+	// The selected configuration stays selected (other code depends on it), but it is only highlighted while its view is shown
+	NSOutlineView * outlineView = [[configurationsPrefsView outlineViewController] outlineView];
+	if (  [outlineView respondsToSelector: @selector(setHidesSelection:)]  ) {
+		[(TBSidebarOutlineView *)outlineView setHidesSelection: ( ! isPrimary )];
+	}
+}
+
+-(void) configurationsListWasClicked: (id) sender
+{
+	if (  [sender clickedRow] >= 0  ) {
+		[self showPrimaryView];
+	}
 }
 
 static BOOL firstTimeShowingWindow = TRUE;

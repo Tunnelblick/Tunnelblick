@@ -19,6 +19,45 @@
 
 #import "LeftNavViewController.h"
 
+@implementation TBSidebarOutlineView
+
+-(void) updateRowViewsSelectionStyle {
+    NSTableViewSelectionHighlightStyle style = (  hidesSelection
+                                                ? NSTableViewSelectionHighlightStyleNone
+                                                : NSTableViewSelectionHighlightStyleSourceList);
+    NSInteger row;
+    for (  row = 0; row < [self numberOfRows]; row++  ) {
+        NSTableRowView * rowView = [self rowViewAtRow: row makeIfNecessary: NO];
+        if (  rowView  ) {
+            [rowView setSelectionHighlightStyle: style];
+            [rowView setNeedsDisplay: YES];
+        }
+    }
+    [self setNeedsDisplay: YES];
+}
+
+-(void) setHidesSelection: (BOOL) newValue {
+    if (  hidesSelection != newValue  ) {
+        hidesSelection = newValue;
+        [self updateRowViewsSelectionStyle];
+    }
+}
+
+-(void) didAddRowView: (NSTableRowView *) rowView forRow: (NSInteger) row {
+    [super didAddRowView: rowView forRow: row];
+    if (  hidesSelection  ) {
+        [rowView setSelectionHighlightStyle: NSTableViewSelectionHighlightStyleNone];
+    }
+}
+
+-(void) highlightSelectionInClipRect: (NSRect) clipRect {
+    if (  ! hidesSelection  ) {
+        [super highlightSelectionInClipRect: clipRect];
+    }
+}
+
+@end
+
 @implementation LeftNavViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {

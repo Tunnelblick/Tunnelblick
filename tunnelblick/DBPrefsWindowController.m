@@ -26,6 +26,56 @@ extern TBUserDefaults * gTbDefaults;
 static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 
+// Data source and delegate of the sidebar's section list. It is a separate object because subclasses of
+// DBPrefsWindowController may be table view delegates themselves.
+
+@interface DBPrefsWindowController (SidebarSectionList)
+- (NSInteger)sidebarSectionCount;
+- (NSView *)sidebarCellForTableView:(NSTableView *)tableView row:(NSInteger)row;
+- (void)sidebarSectionSelectionDidChange;
+@end
+
+@interface DBPrefsSidebarSectionList : NSObject <NSTableViewDataSource, NSTableViewDelegate> {
+	DBPrefsWindowController * controller; // Not retained: the controller owns this object
+}
+- (id)initWithController:(DBPrefsWindowController *)theController;
+@end
+
+@implementation DBPrefsSidebarSectionList
+
+- (id)initWithController:(DBPrefsWindowController *)theController
+{
+	self = [super init];
+	if (  self  ) {
+		controller = theController;
+	}
+	return self;
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+	(void) tableView;
+	
+	return [controller sidebarSectionCount];
+}
+
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+	(void) tableColumn;
+	
+	return [controller sidebarCellForTableView: tableView row: row];
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification
+{
+	(void) notification;
+	
+	[controller sidebarSectionSelectionDidChange];
+}
+
+@end
+
+
 @implementation DBPrefsWindowController
 
 
@@ -99,23 +149,54 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		return;
 	}
 	
-    NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0.0, 0.0, 920.0, 430.0)
-												    styleMask:(NSTitledWindowMask |
-															   NSClosableWindowMask |
-                                                               NSResizableWindowMask |
-															   NSMiniaturizableWindowMask)
+    NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0.0, 0.0, 920.0, 560.0)
+												    styleMask:(NSWindowStyleMaskTitled |
+															   NSWindowStyleMaskClosable |
+                                                               NSWindowStyleMaskResizable |
+															   NSWindowStyleMaskMiniaturizable |
+                                                               NSWindowStyleMaskFullSizeContentView)
 													  backing:NSBackingStoreBuffered
 													    defer:YES] autorelease];
+	[window setToolbarStyle: NSWindowToolbarStyleUnified];
 	[self setWindow:window];
-    
+
     [self setShouldCascadeWindows: NO];
-	
-	contentSubview = [[NSView alloc] initWithFrame:[[[self window] contentView] frame]];
-    [contentSubview setAutoresizingMask:(NSViewMinYMargin | NSViewWidthSizable | NSViewHeightSizable)];
-	[[[self window] contentView] addSubview:contentSubview];
+
+	// The sidebar extends under the title bar (it gets the sidebar material from NSSplitViewItem);
+	// the views are shown in contentSubview, which starts below the toolbar.
+	sidebarView = [[NSView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 240.0, 560.0)];
+	NSViewController * sidebarViewController = [[[NSViewController alloc] init] autorelease];
+	[sidebarViewController setView: sidebarView];
+
+	NSView * contentHolder = [[[NSView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 680.0, 560.0)] autorelease];
+	contentSubview = [[NSView alloc] initWithFrame: [contentHolder bounds]];
+	[contentSubview setTranslatesAutoresizingMaskIntoConstraints: NO];
+	[contentHolder addSubview: contentSubview];
+	NSLayoutGuide * safeArea = [contentHolder safeAreaLayoutGuide];
+	[NSLayoutConstraint activateConstraints: @[[[contentSubview topAnchor]      constraintEqualToAnchor: [safeArea topAnchor]],
+											   [[contentSubview bottomAnchor]   constraintEqualToAnchor: [contentHolder bottomAnchor]],
+											   [[contentSubview leadingAnchor]  constraintEqualToAnchor: [contentHolder leadingAnchor]],
+											   [[contentSubview trailingAnchor] constraintEqualToAnchor: [contentHolder trailingAnchor]]]];
+	NSViewController * contentViewController = [[[NSViewController alloc] init] autorelease];
+	[contentViewController setView: contentHolder];
+
+	NSSplitViewItem * sidebarItem = [NSSplitViewItem sidebarWithViewController: sidebarViewController];
+	[sidebarItem setMinimumThickness: 200.0];
+	[sidebarItem setMaximumThickness: 360.0];
+	[sidebarItem setCanCollapse: NO];
+	NSSplitViewItem * contentItem = [NSSplitViewItem splitViewItemWithViewController: contentViewController];
+	[contentItem setMinimumThickness: 560.0];
+
+	splitViewController = [[NSSplitViewController alloc] init];
+	[splitViewController addSplitViewItem: sidebarItem];
+	[splitViewController addSplitViewItem: contentItem];
+	[[splitViewController splitView] setAutosaveName: @"DBPrefsWindowSidebar"];
+
+	[window setContentViewController: splitViewController];
+	[window setContentSize: NSMakeSize(920.0, 560.0)];
 	[[self window] setShowsToolbarButton:NO];
     [[self window] setContentMinSize: NSMakeSize(760.0, 430.0)];
-	
+
 	windowHasLoaded = TRUE;
 }
 
@@ -129,7 +210,12 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	[toolbarItems release];       toolbarItems       = nil;
 	[contentSubview release];     contentSubview     = nil;
 	[viewAnimation release];      viewAnimation      = nil;
-	
+	[splitViewController release];       splitViewController       = nil;
+	[sidebarView release];               sidebarView               = nil;
+	[sidebarSectionTable release];       sidebarSectionTable       = nil;
+	[sidebarSectionIdentifiers release]; sidebarSectionIdentifiers = nil;
+	[sidebarSectionList release];        sidebarSectionList        = nil;
+
 	
 	[super dealloc];
 }
@@ -241,15 +327,19 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		[toolbar setAllowsUserCustomization:NO];
 		[toolbar setAutosavesConfiguration:NO];
 		[toolbar setSizeMode:NSToolbarSizeModeDefault];
-		[toolbar setDisplayMode:NSToolbarDisplayModeIconAndLabel];
+		[toolbar setDisplayMode:NSToolbarDisplayModeIconOnly];
 		[toolbar setDelegate:self];
 		[[self window] setToolbar:toolbar];
 		[toolbar release];
+
+		[self setupSidebar];
 	}
-	
+
 	unsigned int ix = [UIHelper detailsWindowsViewIndexFromPreferencesWithCount: [toolbarIdentifiers count]];
 	NSString * firstIdentifier = [toolbarIdentifiers objectAtIndex:ix];
-	[[[self window] toolbar] setSelectedItemIdentifier:firstIdentifier];
+	if (  [[toolbarViews objectForKey: firstIdentifier] isKindOfClass: [NSNull class]]  ) {
+		firstIdentifier = [self primaryIdentifier];
+	}
 	[self displayViewForIdentifier:firstIdentifier animate:NO];
 
     [self windowWillAppear];
@@ -266,19 +356,28 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar
 {
+    // Views are chosen from the sidebar, so the toolbar only holds the items without a view (e.g. the lock icon),
+    // pushed to the trailing edge
     (void)toolbar;
 
-	return [[toolbarIdentifiers retain] autorelease];
+	NSMutableArray * identifiers = [NSMutableArray arrayWithObject: NSToolbarFlexibleSpaceItemIdentifier];
+	NSString * identifier;
+	NSEnumerator * e = [toolbarIdentifiers objectEnumerator];
+	while (  (identifier = [e nextObject])  ) {
+		if (   [[toolbarViews objectForKey: identifier] isKindOfClass: [NSNull class]]
+			&& [identifier isNotEqualTo: NSToolbarFlexibleSpaceItemIdentifier]  ) {
+			[identifiers addObject: identifier];
+		}
+	}
+	return identifiers;
 }
 
 
 
 
-- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar 
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar
 {
-    (void)toolbar;
-    
-	return [[toolbarIdentifiers retain] autorelease];
+	return [self toolbarDefaultItemIdentifiers: toolbar];
 }
 
 
@@ -286,12 +385,9 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
-    // All toolbar items **except** the lock icon are selectable
     (void)toolbar;
-    
-    NSMutableArray * identifiers = [[toolbarIdentifiers mutableCopy] autorelease];
-    [identifiers removeObject: @"lockIcon"];
-    return identifiers;
+
+    return [NSArray array];
 }
 
 
@@ -369,26 +465,225 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	}
 	
 	if (![newView isEqualTo:oldView]) {
-// Removed so the window does not resize itself for different views.
-// Tunnelblick lets the user resize the window and keeps that size no matter what panel is being viewed.
-//		NSRect frame = [newView bounds];
-//		frame.origin.y = NSHeight([contentSubview frame]) - NSHeight([newView bounds]);
-//		[newView setFrame:frame];
+		// The window does not resize itself for different views: every view fills the content area
+		[newView setFrame: [contentSubview bounds]];
+		[newView setAutoresizingMask: (NSViewWidthSizable | NSViewHeightSizable)];
 		[contentSubview addSubview:newView];
 		[[self window] setInitialFirstResponder:newView];
-        
+
 		if (animate && [self crossFade])
 			[self crossFadeView:oldView withView:newView];
 		else {
 			[oldView removeFromSuperviewWithoutNeedingDisplay];
 			[newView setHidden:NO];
-			[[self window] setFrame:[self frameForView:newView] display:YES animate:animate];
             [self newViewDidAppear: newView];
 		}
-		
+
         [[self window] setTitle:[self windowTitle: [[toolbarItems objectForKey:identifier] label]]];
 
     }
+
+	[self updateSidebarSelectionForIdentifier: identifier];
+}
+
+
+#pragma mark -
+#pragma mark Sidebar
+
+
+// Override in subclass if desired
+- (NSView *)sidebarTopView
+{
+	return nil;
+}
+
+
+// Override in subclass if desired
+- (NSString *)sidebarSectionTitle
+{
+	return nil;
+}
+
+
+// Override in subclass if desired
+- (void)sidebarDidSelectPrimaryView:(BOOL)isPrimary
+{
+	(void) isPrimary;
+}
+
+
+- (NSString *)primaryIdentifier
+{
+	NSString * identifier;
+	NSEnumerator * e = [toolbarIdentifiers objectEnumerator];
+	while (  (identifier = [e nextObject])  ) {
+		if (  ! [[toolbarViews objectForKey: identifier] isKindOfClass: [NSNull class]]  ) {
+			return identifier;
+		}
+	}
+	return nil;
+}
+
+
+- (void)showPrimaryView
+{
+	[self displayViewForIdentifier: [self primaryIdentifier] animate: YES];
+}
+
+
+- (void)setupSidebar
+{
+	// The primary view (the first one added) is reached through -sidebarTopView; every other view gets a row
+	NSString * primaryIdentifier = [self primaryIdentifier];
+	[sidebarSectionIdentifiers release];
+	sidebarSectionIdentifiers = [[NSMutableArray alloc] init];
+	NSString * identifier;
+	NSEnumerator * e = [toolbarIdentifiers objectEnumerator];
+	while (  (identifier = [e nextObject])  ) {
+		if (   ( ! [[toolbarViews objectForKey: identifier] isKindOfClass: [NSNull class]] )
+			&& [identifier isNotEqualTo: primaryIdentifier]  ) {
+			[sidebarSectionIdentifiers addObject: identifier];
+		}
+	}
+
+	NSLayoutGuide * safeArea = [sidebarView safeAreaLayoutGuide];
+	NSMutableArray * constraints = [NSMutableArray array];
+
+	NSView * topView = [self sidebarTopView];
+	NSLayoutYAxisAnchor * nextTop = [safeArea topAnchor];
+	if (  topView  ) {
+		[topView removeFromSuperview];
+		[topView setTranslatesAutoresizingMaskIntoConstraints: NO];
+		[sidebarView addSubview: topView];
+		[constraints addObjectsFromArray: @[[[topView topAnchor]      constraintEqualToAnchor: nextTop],
+											[[topView leadingAnchor]  constraintEqualToAnchor: [sidebarView leadingAnchor]],
+											[[topView trailingAnchor] constraintEqualToAnchor: [sidebarView trailingAnchor]]]];
+		nextTop = [topView bottomAnchor];
+	}
+
+	NSString * title = [self sidebarSectionTitle];
+	if (  title  ) {
+		NSTextField * heading = [NSTextField labelWithString: title];
+		[heading setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize] weight: NSFontWeightSemibold]];
+		[heading setTextColor: [NSColor secondaryLabelColor]];
+		[heading setTranslatesAutoresizingMaskIntoConstraints: NO];
+		[sidebarView addSubview: heading];
+		[constraints addObjectsFromArray: @[[[heading topAnchor]      constraintEqualToAnchor: nextTop constant: 18.0],
+											[[heading leadingAnchor]  constraintEqualToAnchor: [sidebarView leadingAnchor] constant: 31.0],
+											[[heading trailingAnchor] constraintLessThanOrEqualToAnchor: [sidebarView trailingAnchor] constant: -10.0]]];
+		nextTop = [heading bottomAnchor];
+	}
+
+	[sidebarSectionTable release];
+	sidebarSectionTable = [[NSTableView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 240.0, 120.0)];
+	NSTableColumn * column = [[[NSTableColumn alloc] initWithIdentifier: @"section"] autorelease];
+	[column setResizingMask: NSTableColumnAutoresizingMask];
+	[sidebarSectionTable addTableColumn: column];
+	[sidebarSectionTable setHeaderView: nil];
+	[sidebarSectionTable setStyle: NSTableViewStyleSourceList];
+	[sidebarSectionTable setSelectionHighlightStyle: NSTableViewSelectionHighlightStyleSourceList];
+	[sidebarSectionTable setBackgroundColor: [NSColor clearColor]];
+	[sidebarSectionTable setColumnAutoresizingStyle: NSTableViewFirstColumnOnlyAutoresizingStyle];
+	[sidebarSectionTable setRowSizeStyle: NSTableViewRowSizeStyleCustom];
+	[sidebarSectionTable setRowHeight: 28.0];
+	[sidebarSectionTable setIntercellSpacing: NSMakeSize(0.0, 0.0)];
+	[sidebarSectionList release];
+	sidebarSectionList = [[DBPrefsSidebarSectionList alloc] initWithController: self];
+	[sidebarSectionTable setDataSource: sidebarSectionList];
+	[sidebarSectionTable setDelegate: sidebarSectionList];
+	
+	// In a scroll view (which never scrolls) so the column is sized to the sidebar's width
+	NSScrollView * sectionScrollView = [[[NSScrollView alloc] initWithFrame: [sidebarSectionTable frame]] autorelease];
+	[sectionScrollView setDocumentView: sidebarSectionTable];
+	[sectionScrollView setDrawsBackground: NO];
+	[sectionScrollView setBorderType: NSNoBorder];
+	[sectionScrollView setHasVerticalScroller: NO];
+	[sectionScrollView setHasHorizontalScroller: NO];
+	[sectionScrollView setVerticalScrollElasticity: NSScrollElasticityNone];
+	[sectionScrollView setAutomaticallyAdjustsContentInsets: NO];
+	[sectionScrollView setTranslatesAutoresizingMaskIntoConstraints: NO];
+	[sidebarView addSubview: sectionScrollView];
+	[sidebarSectionTable reloadData];
+	CGFloat tableHeight = [sidebarSectionTable rectOfRow: (NSInteger)[sidebarSectionIdentifiers count] - 1].origin.y
+						+ [sidebarSectionTable rectOfRow: (NSInteger)[sidebarSectionIdentifiers count] - 1].size.height;
+	[constraints addObjectsFromArray: @[[[sectionScrollView topAnchor]      constraintEqualToAnchor: nextTop constant: 4.0],
+										[[sectionScrollView leadingAnchor]  constraintEqualToAnchor: [sidebarView leadingAnchor]],
+										[[sectionScrollView trailingAnchor] constraintEqualToAnchor: [sidebarView trailingAnchor]],
+										[[sectionScrollView heightAnchor]   constraintEqualToConstant: tableHeight],
+										[[sectionScrollView bottomAnchor]   constraintEqualToAnchor: [sidebarView bottomAnchor] constant: -12.0]]];
+	[NSLayoutConstraint activateConstraints: constraints];
+}
+
+
+- (void)updateSidebarSelectionForIdentifier:(NSString *)identifier
+{
+	if (  ! sidebarSectionTable  ) {
+		return;
+	}
+
+	updatingSidebarSelection = TRUE;
+	NSUInteger row = [sidebarSectionIdentifiers indexOfObject: identifier];
+	if (  row == NSNotFound  ) {
+		[sidebarSectionTable deselectAll: self];
+	} else {
+		[sidebarSectionTable selectRowIndexes: [NSIndexSet indexSetWithIndex: row] byExtendingSelection: NO];
+	}
+	updatingSidebarSelection = FALSE;
+
+	[self sidebarDidSelectPrimaryView: [identifier isEqualToString: [self primaryIdentifier]]];
+}
+
+
+- (NSInteger)sidebarSectionCount
+{
+	return (NSInteger)[sidebarSectionIdentifiers count];
+}
+
+
+- (NSView *)sidebarCellForTableView:(NSTableView *)tableView row:(NSInteger)row
+{
+	NSTableCellView * cell = [tableView makeViewWithIdentifier: @"sidebarSectionCell" owner: self];
+	if (  ! cell  ) {
+		cell = [[[NSTableCellView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 200.0, 24.0)] autorelease];
+		[cell setIdentifier: @"sidebarSectionCell"];
+
+		NSImageView * imageView = [[[NSImageView alloc] init] autorelease];
+		[imageView setTranslatesAutoresizingMaskIntoConstraints: NO];
+		[imageView setSymbolConfiguration: [NSImageSymbolConfiguration configurationWithScale: NSImageSymbolScaleMedium]];
+		[cell addSubview: imageView];
+		[cell setImageView: imageView];
+
+		NSTextField * textField = [NSTextField labelWithString: @""];
+		[textField setTranslatesAutoresizingMaskIntoConstraints: NO];
+		[textField setLineBreakMode: NSLineBreakByTruncatingTail];
+		[cell addSubview: textField];
+		[cell setTextField: textField];
+
+		[NSLayoutConstraint activateConstraints: @[[[imageView leadingAnchor]  constraintEqualToAnchor: [cell leadingAnchor] constant: 2.0],
+												   [[imageView centerYAnchor]  constraintEqualToAnchor: [cell centerYAnchor]],
+												   [[imageView widthAnchor]    constraintEqualToConstant: 18.0],
+												   [[textField leadingAnchor]  constraintEqualToAnchor: [imageView trailingAnchor] constant: 6.0],
+												   [[textField trailingAnchor] constraintEqualToAnchor: [cell trailingAnchor] constant: -4.0],
+												   [[textField centerYAnchor]  constraintEqualToAnchor: [cell centerYAnchor]]]];
+	}
+
+	NSToolbarItem * item = [toolbarItems objectForKey: [sidebarSectionIdentifiers objectAtIndex: (NSUInteger)row]];
+	[[cell imageView] setImage: [item image]];
+	[[cell textField] setStringValue: [item label]];
+	return cell;
+}
+
+
+- (void)sidebarSectionSelectionDidChange
+{
+	if (  updatingSidebarSelection  ) {
+		return;
+	}
+
+	NSInteger row = [sidebarSectionTable selectedRow];
+	if (  row >= 0  ) {
+		[self displayViewForIdentifier: [sidebarSectionIdentifiers objectAtIndex: (NSUInteger)row] animate: YES];
+	}
 }
 
 

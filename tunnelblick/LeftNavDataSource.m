@@ -239,6 +239,20 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 }
 
 -(BOOL) outlineView: (NSOutlineView *) outlineView
+        isGroupItem: (id) item {
+    
+    // The root item is shown as the heading of the list
+    return ([outlineView rowForItem: item] == 0);
+}
+
+-(BOOL)             outlineView: (NSOutlineView *) outlineView
+  shouldShowOutlineCellForItem: (id) item {
+    
+    // The root item cannot be collapsed, so it does not get a disclosure triangle
+    return ([outlineView rowForItem: item] != 0);
+}
+
+-(BOOL) outlineView: (NSOutlineView *) outlineView
    shouldSelectItem: (id) item {
 
     (void)outlineView;
