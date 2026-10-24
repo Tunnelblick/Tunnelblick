@@ -145,6 +145,49 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 		[connectButton    setEnabled: NO];
 		[disconnectButton setEnabled: YES];
     }
+    
+    // Only the button that can be used is shown, centered
+    NSButton * shownButton  = (  [connectButton isEnabled] ? connectButton    : disconnectButton);
+    NSButton * hiddenButton = (  [connectButton isEnabled] ? disconnectButton : connectButton);
+    [hiddenButton setHidden: YES];
+    [shownButton  setHidden: NO];
+    NSRect frame = [shownButton frame];
+    frame.origin.x = floor((NSWidth([[shownButton superview] bounds]) - NSWidth(frame)) / 2.0);
+    [shownButton setFrame: frame];
+    // The buttons are in a view of their own, which is centered in the window and stays centered when the window is widened
+    NSView * buttonsView = [shownButton superview];
+    NSView * windowView  = [buttonsView superview];
+    if (  windowView  ) {
+        NSRect buttonsFrame = [buttonsView frame];
+        buttonsFrame.origin.x = floor((NSWidth([windowView bounds]) - NSWidth(buttonsFrame)) / 2.0);
+        [buttonsView setFrame: buttonsFrame];
+        [buttonsView setAutoresizingMask: (NSViewMinXMargin | NSViewMaxXMargin | NSViewMaxYMargin)];
+    }
+}
+
+-(void) modernizeWindow {
+    
+    // A card without a title bar (the title is not shown) on a native material, instead of a utility panel with a title bar.
+    // The window keeps the size of its content, so the stacking and positioning of status windows does not change.
+    NSWindow * window = [self window];
+    NSRect contentRect = [window contentRectForFrameRect: [window frame]];
+    [window setStyleMask: [window styleMask] | NSWindowStyleMaskFullSizeContentView];
+    [window setTitlebarAppearsTransparent: YES];
+    [window setTitleVisibility: NSWindowTitleHidden];
+    [[window standardWindowButton: NSWindowCloseButton]       setHidden: YES];
+    [[window standardWindowButton: NSWindowMiniaturizeButton] setHidden: YES];
+    [[window standardWindowButton: NSWindowZoomButton]        setHidden: YES];
+    [window setFrame: contentRect display: NO];
+    
+    NSView * contentView = [window contentView];
+    NSVisualEffectView * background = [[[NSVisualEffectView alloc] initWithFrame: [contentView bounds]] autorelease];
+    [background setMaterial: NSVisualEffectMaterialPopover];
+    [background setBlendingMode: NSVisualEffectBlendingModeBehindWindow];
+    [background setState: NSVisualEffectStateActive];
+    [background setAutoresizingMask: (NSViewWidthSizable | NSViewHeightSizable)];
+    [contentView addSubview: background positioned: NSWindowBelow relativeTo: nil];
+    
+    [statusTFC setDrawsBackground: NO];
 }
 
 -(void) restore
@@ -315,6 +358,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) awakeFromNib
 {
+    [self modernizeWindow];
     [self setStatus: status forName: name connectedSince: connectedSince];
 
     [inTFC  setTitle: NSLocalizedString(@"In:", @"Window text")];
@@ -646,17 +690,17 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
                                            [self connectedSince]]];
     
     if (   [theStatus isEqualToString: @"EXITING"]  ) {
-        [statusTFC            setTextColor: NSColor.redColor];
+        [statusTFC            setTextColor: NSColor.secondaryLabelColor];
         [theAnim stopAnimation];
         [animationIV setImage: [gMC largeMainImage]];
         
     } else if (  [theStatus isEqualToString: @"CONNECTED"]  ) {
-        [statusTFC            setTextColor: NSColor.greenColor];
+        [statusTFC            setTextColor: NSColor.systemGreenColor];
         [theAnim stopAnimation];
         [animationIV setImage: [gMC largeConnectedImage]];
 
     } else {
-        [statusTFC            setTextColor: NSColor.controlTextColor];
+        [statusTFC            setTextColor: NSColor.systemOrangeColor];
         [theAnim startAnimation];
     }
 	
