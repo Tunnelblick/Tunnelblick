@@ -146,23 +146,168 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 		[disconnectButton setEnabled: YES];
     }
     
-    // Only the button that can be used is shown, centered
+    // Only the button that can be used is shown
     NSButton * shownButton  = (  [connectButton isEnabled] ? connectButton    : disconnectButton);
     NSButton * hiddenButton = (  [connectButton isEnabled] ? disconnectButton : connectButton);
     [hiddenButton setHidden: YES];
     [shownButton  setHidden: NO];
-    NSRect frame = [shownButton frame];
-    frame.origin.x = floor((NSWidth([[shownButton superview] bounds]) - NSWidth(frame)) / 2.0);
-    [shownButton setFrame: frame];
-    // The buttons are in a view of their own, which is centered in the window and stays centered when the window is widened
-    NSView * buttonsView = [shownButton superview];
-    NSView * windowView  = [buttonsView superview];
-    if (  windowView  ) {
-        NSRect buttonsFrame = [buttonsView frame];
-        buttonsFrame.origin.x = floor((NSWidth([windowView bounds]) - NSWidth(buttonsFrame)) / 2.0);
-        [buttonsView setFrame: buttonsFrame];
-        [buttonsView setAutoresizingMask: (NSViewMinXMargin | NSViewMaxXMargin | NSViewMaxYMargin)];
+}
+
+-(CGFloat) widestOf: (NSArray *) strings font: (NSFont *) font {
+    
+    CGFloat widest = 0.0;
+    NSString * string;
+    NSEnumerator * e = [strings objectEnumerator];
+    while (  (string = [e nextObject])  ) {
+        widest = MAX(widest, ceil([string sizeWithAttributes: @{NSFontAttributeName: font}].width));
     }
+    return widest + 4.0;
+}
+
+-(NSStackView *) statisticsRowWithLabel: (NSTextField *) label
+                                   rate: (NSTextField *) rate rateUnits: (NSTextField *) rateUnits
+                                  total: (NSTextField *) total totalUnits: (NSTextField *) totalUnits {
+    
+    NSFont * font = [NSFont monospacedDigitSystemFontOfSize: [NSFont smallSystemFontSize] weight: NSFontWeightRegular];
+    NSArray * fields = @[label, rate, rateUnits, total, totalUnits];
+    NSTextField * field;
+    NSEnumerator * e = [fields objectEnumerator];
+    while (  (field = [e nextObject])  ) {
+        [field setFont: font];
+        [field setTextColor: [NSColor labelColor]];
+        [field setTranslatesAutoresizingMaskIntoConstraints: NO];
+    }
+    [label      setTextColor: [NSColor secondaryLabelColor]];
+    [total      setTextColor: [NSColor secondaryLabelColor]];
+    [totalUnits setTextColor: [NSColor secondaryLabelColor]];
+    [label      setAlignment: NSTextAlignmentNatural];
+    [rate       setAlignment: NSTextAlignmentRight];
+    [total      setAlignment: NSTextAlignmentRight];
+    [rateUnits  setAlignment: NSTextAlignmentNatural];
+    [totalUnits setAlignment: NSTextAlignmentNatural];
+    
+    // Fixed widths, so the numbers do not move when they or their units change
+    CGFloat numberWidth = [self widestOf: @[@"0000.00"] font: font];
+    [NSLayoutConstraint activateConstraints: @[[[rate       widthAnchor] constraintEqualToConstant: numberWidth],
+                                               [[total      widthAnchor] constraintEqualToConstant: numberWidth],
+                                               [[rateUnits  widthAnchor] constraintEqualToConstant: [self widestOf: gRateUnits  font: font]],
+                                               [[totalUnits widthAnchor] constraintEqualToConstant: [self widestOf: gTotalUnits font: font]]]];
+    
+    NSStackView * row = [[[NSStackView alloc] init] autorelease];
+    [row setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
+    [row setSpacing: 3.0];
+    [row addView: label      inGravity: NSStackViewGravityLeading];
+    [row addView: rate       inGravity: NSStackViewGravityTrailing];
+    [row addView: rateUnits  inGravity: NSStackViewGravityTrailing];
+    [row addView: total      inGravity: NSStackViewGravityTrailing];
+    [row addView: totalUnits inGravity: NSStackViewGravityTrailing];
+    [row setCustomSpacing: 10.0 afterView: rateUnits];
+    return row;
+}
+
+-(void) relayoutContent {
+    
+    // Icon, name and state in a row with the Connect or Disconnect button, and the traffic statistics in a rounded box
+    // below. The controls are the ones from the nib (other code updates them), laid out again.
+    NSView * contentView = [[self window] contentView];
+    NSTextField * nameTF   = (NSTextField *) [configurationNameTFC controlView];
+    NSTextField * statusTF = (NSTextField *) [statusTFC            controlView];
+    NSArray * keep = @[nameTF, statusTF, animationIV, connectButton, disconnectButton,
+                       inTF, inRateTF, inRateUnitsTF, inTotalTF, inTotalUnitsTF,
+                       outTF, outRateTF, outRateUnitsTF, outTotalTF, outTotalUnitsTF];
+    NSView * view;
+    NSEnumerator * e = [keep objectEnumerator];
+    while (  (view = [e nextObject])  ) {
+        [[view retain] autorelease];
+        [view removeFromSuperview];
+        [view setTranslatesAutoresizingMaskIntoConstraints: NO];
+    }
+    NSVisualEffectView * background = nil;
+    e = [[[[contentView subviews] copy] autorelease] objectEnumerator];
+    while (  (view = [e nextObject])  ) {
+        if (  [view isKindOfClass: [NSVisualEffectView class]]  ) {
+            background = (NSVisualEffectView *) view;
+        } else {
+            [view removeFromSuperview];
+        }
+    }
+    
+    [nameTF   setFont: [NSFont systemFontOfSize: [NSFont systemFontSize] weight: NSFontWeightSemibold]];
+    [nameTF   setTextColor: [NSColor labelColor]];
+    [nameTF   setAlignment: NSTextAlignmentNatural];
+    [statusTF setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize]]];
+    [statusTF setAlignment: NSTextAlignmentNatural];
+    [[nameTF cell] setLineBreakMode: NSLineBreakByTruncatingTail];
+    [nameTF setContentCompressionResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
+    
+    NSStackView * text = [NSStackView stackViewWithViews: @[nameTF, statusTF]];
+    [text setOrientation: NSUserInterfaceLayoutOrientationVertical];
+    [text setAlignment: NSLayoutAttributeLeading];
+    [text setSpacing: 1.0];
+    
+    [animationIV setImageScaling: NSImageScaleProportionallyUpOrDown];
+    [connectButton    setControlSize: NSControlSizeSmall];
+    [disconnectButton setControlSize: NSControlSizeSmall];
+    [connectButton    setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize]]];
+    [disconnectButton setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize]]];
+    
+    NSStackView * header = [[[NSStackView alloc] init] autorelease];
+    [header setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
+    [header setAlignment: NSLayoutAttributeCenterY];
+    [header setSpacing: 10.0];
+    [header addView: animationIV      inGravity: NSStackViewGravityLeading];
+    [header addView: text             inGravity: NSStackViewGravityLeading];
+    [header addView: connectButton    inGravity: NSStackViewGravityTrailing];
+    [header addView: disconnectButton inGravity: NSStackViewGravityTrailing];
+    
+    NSStackView * inRow  = [self statisticsRowWithLabel: inTF  rate: inRateTF  rateUnits: inRateUnitsTF  total: inTotalTF  totalUnits: inTotalUnitsTF];
+    NSStackView * outRow = [self statisticsRowWithLabel: outTF rate: outRateTF rateUnits: outRateUnitsTF total: outTotalTF totalUnits: outTotalUnitsTF];
+    NSStackView * rows = [NSStackView stackViewWithViews: @[inRow, outRow]];
+    [rows setOrientation: NSUserInterfaceLayoutOrientationVertical];
+    [rows setSpacing: 3.0];
+    [rows setTranslatesAutoresizingMaskIntoConstraints: NO];
+    NSBox * statisticsBox = [[[NSBox alloc] init] autorelease];
+    [statisticsBox setBoxType: NSBoxCustom];
+    [statisticsBox setTitlePosition: NSNoTitle];
+    [statisticsBox setBorderWidth: 0.0];
+    [statisticsBox setCornerRadius: 8.0];
+    [statisticsBox setFillColor: [NSColor quaternaryLabelColor]];
+    [statisticsBox setContentViewMargins: NSMakeSize(10.0, 6.0)];
+    [statisticsBox setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [[statisticsBox contentView] addSubview: rows];
+    NSView * boxContent = [statisticsBox contentView];
+    
+    NSStackView * card = [NSStackView stackViewWithViews: @[header, statisticsBox]];
+    [card setOrientation: NSUserInterfaceLayoutOrientationVertical];
+    [card setSpacing: 10.0];
+    [card setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [contentView addSubview: card];
+    
+    [NSLayoutConstraint activateConstraints: @[[[animationIV widthAnchor]      constraintEqualToConstant: 32.0],
+                                               [[animationIV heightAnchor]     constraintEqualToConstant: 32.0],
+                                               [[header widthAnchor]           constraintEqualToAnchor: [card widthAnchor]],
+                                               [[statisticsBox widthAnchor]    constraintEqualToAnchor: [card widthAnchor]],
+                                               [[inRow  widthAnchor]           constraintEqualToAnchor: [rows widthAnchor]],
+                                               [[outRow widthAnchor]           constraintEqualToAnchor: [rows widthAnchor]],
+                                               [[rows topAnchor]               constraintEqualToAnchor: [boxContent topAnchor]],
+                                               [[rows bottomAnchor]            constraintEqualToAnchor: [boxContent bottomAnchor]],
+                                               [[rows leadingAnchor]           constraintEqualToAnchor: [boxContent leadingAnchor]],
+                                               [[rows trailingAnchor]          constraintEqualToAnchor: [boxContent trailingAnchor]],
+                                               [[card topAnchor]               constraintEqualToAnchor: [contentView topAnchor]      constant: 12.0],
+                                               [[card leadingAnchor]           constraintEqualToAnchor: [contentView leadingAnchor]  constant: 14.0],
+                                               [[card trailingAnchor]          constraintEqualToAnchor: [contentView trailingAnchor] constant: -14.0],
+                                               [[card bottomAnchor]            constraintEqualToAnchor: [contentView bottomAnchor]   constant: -12.0],
+                                               [[card widthAnchor]             constraintGreaterThanOrEqualToConstant: 260.0]]];
+    
+    // The window is as big as the new layout
+    [contentView layoutSubtreeIfNeeded];
+    NSSize size = [card fittingSize];
+    NSRect frame = [[self window] frame];
+    CGFloat newHeight = size.height + 24.0;
+    frame.origin.y += NSHeight(frame) - newHeight;
+    frame.size = NSMakeSize(MAX(size.width + 28.0, 288.0), newHeight);
+    [[self window] setFrame: frame display: NO];
+    (void) background;
 }
 
 -(void) modernizeWindow {
@@ -188,6 +333,8 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [contentView addSubview: background positioned: NSWindowBelow relativeTo: nil];
     
     [statusTFC setDrawsBackground: NO];
+    
+    [self relayoutContent];
 }
 
 -(void) restore

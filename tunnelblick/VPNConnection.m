@@ -5748,6 +5748,67 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(NSImage *) menuStatusImage {
+
+    // A round "chip" showing the state: a white shield on blue while connected, on orange between connected and
+    // disconnected, and a gray shield on light gray while disconnected
+    NSColor * fill;
+    NSColor * tint;
+    NSString * symbolName;
+    if (  [self isConnected]  ) {
+        fill = [NSColor controlAccentColor];
+        tint = [NSColor whiteColor];
+        symbolName = @"shield.fill";
+    } else if (  [self isDisconnected]  ) {
+        fill = [NSColor quaternaryLabelColor];
+        tint = [NSColor secondaryLabelColor];
+        symbolName = @"shield";
+    } else {
+        fill = [NSColor systemOrangeColor];
+        tint = [NSColor whiteColor];
+        symbolName = @"shield.lefthalf.filled";
+    }
+    NSImage * symbol = [[NSImage imageWithSystemSymbolName: symbolName accessibilityDescription: nil]
+                        imageWithSymbolConfiguration: [NSImageSymbolConfiguration configurationWithPointSize: 11.0 weight: NSFontWeightSemibold]];
+    NSSize size = NSMakeSize(24.0, 24.0);
+    NSImage * image = [NSImage imageWithSize: size flipped: NO drawingHandler: ^BOOL(NSRect rect) {
+        [fill setFill];
+        [[NSBezierPath bezierPathWithOvalInRect: rect] fill];
+        NSSize symbolSize = [symbol size];
+        NSRect symbolRect = NSMakeRect(floor((NSWidth(rect) - symbolSize.width) / 2.0), floor((NSHeight(rect) - symbolSize.height) / 2.0), symbolSize.width, symbolSize.height);
+        NSImage * tinted = [NSImage imageWithSize: symbolSize flipped: NO drawingHandler: ^BOOL(NSRect symbolBounds) {
+            [symbol drawInRect: symbolBounds];
+            [tint set];
+            NSRectFillUsingOperation(symbolBounds, NSCompositingOperationSourceAtop);
+            return YES;
+        }];
+        [tinted drawInRect: symbolRect];
+        return YES;
+    }];
+    [image setTemplate: NO];
+    return image;
+}
+
+-(NSString *) menuSubtitle {
+
+    // The state, and while connected the connection time and the traffic
+    NSString * subtitle = localizeNonLiteral([self state], @"Connection status");
+    if (  [self isConnected]  ) {
+        NSString * timeString = [[self connectTimeString] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+        if (  [timeString length] != 0  ) {
+            subtitle = [NSString stringWithFormat: @"%@ · %@", subtitle, timeString];
+        }
+        NSDictionary * statistics = [self statisticsForDisplay];
+        if (  statistics  ) {
+            subtitle = [NSString stringWithFormat: @"%@\n%@ %@ %@  ·  %@ %@ %@",
+                        subtitle,
+                        NSLocalizedString(@"In:", @"Window text"),  [statistics objectForKey: @"inRate"],  [statistics objectForKey: @"inRateUnits"],
+                        NSLocalizedString(@"Out:", @"Window text"), [statistics objectForKey: @"outRate"], [statistics objectForKey: @"outRateUnits"]];
+        }
+    }
+    return subtitle;
+}
+
 -(BOOL)validateMenuItem: (NSMenuItem *) anItem {
 
     SEL action = [anItem action];
@@ -5772,24 +5833,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         // a checkmark
         (void) state;
         [anItem setState: NSOffState];
-        NSString * symbolName;
-        NSColor  * symbolColor;
-        if (  [connection isConnected]  ) {
-            symbolName  = @"checkmark.shield.fill";
-            symbolColor = [NSColor systemGreenColor];
-        } else if (  [connection isDisconnected]  ) {
-            symbolName  = @"shield";
-            symbolColor = nil;
-        } else {
-            symbolName  = @"shield.lefthalf.filled";
-            symbolColor = [NSColor systemOrangeColor];
-        }
-        NSImage * image = [NSImage imageWithSystemSymbolName: symbolName accessibilityDescription: nil];
-        if (  symbolColor  ) {
-            image = [image imageWithSymbolConfiguration: [NSImageSymbolConfiguration configurationWithPaletteColors: @[symbolColor]]];
-            [image setTemplate: NO];
-        }
-        [anItem setImage: image];
+        [anItem setImage: [connection menuStatusImage]];
 
         // setting menu command title depending on current status:
         NSString *commandString;
@@ -5811,10 +5855,18 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             itemName = [itemName substringFromIndex: lastSlashRange.location + 1];
         }
 
-        NSString *itemTitle = [NSString stringWithFormat:commandString,
-                               itemName,
-                               [self connectTimeString]];
-        [anItem setTitle:itemTitle];
+        if (  @available(macOS 14.4, *)  ) {
+            // The state (and while connected, the connection time and the traffic) is shown below the name, so the
+            // connection time is not added to the name
+            NSString *itemTitle = [NSString stringWithFormat:commandString, itemName, @""];
+            [anItem setTitle:itemTitle];
+            [anItem setSubtitle: [connection menuSubtitle]];
+        } else {
+            NSString *itemTitle = [NSString stringWithFormat:commandString,
+                                   itemName,
+                                   [self connectTimeString]];
+            [anItem setTitle:itemTitle];
+        }
         if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
             [anItem setToolTip: [connection configPath]];
         }

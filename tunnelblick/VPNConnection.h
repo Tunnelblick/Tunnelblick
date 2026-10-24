@@ -215,6 +215,10 @@ struct Statistics {
 
 -(NSDictionary *)   statisticsForDisplay;
 
+-(NSImage *)        menuStatusImage;
+
+-(NSString *)       menuSubtitle;
+
 -(NSString *)       timeString;
 
 -(void)             displaySlowDisconnectionDialogLater;
