@@ -858,8 +858,10 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	[sectionScrollView setTranslatesAutoresizingMaskIntoConstraints: NO];
 	[sidebarView addSubview: sectionScrollView];
 	[sidebarSectionTable reloadData];
-	CGFloat tableHeight = [sidebarSectionTable rectOfRow: (NSInteger)[sidebarSectionIdentifiers count] - 1].origin.y
-						+ [sidebarSectionTable rectOfRow: (NSInteger)[sidebarSectionIdentifiers count] - 1].size.height;
+	// The table's height includes the padding its (source list) style adds above and below the rows, so it is
+	// measured after the rows are laid out; the scroll view is exactly that high, so it does not scroll
+	[sidebarSectionTable tile];
+	CGFloat tableHeight = NSHeight([sidebarSectionTable frame]);
 	[constraints addObjectsFromArray: @[[[sectionScrollView topAnchor]      constraintEqualToAnchor: nextTop constant: 4.0],
 										[[sectionScrollView leadingAnchor]  constraintEqualToAnchor: [sidebarView leadingAnchor]],
 										[[sectionScrollView trailingAnchor] constraintEqualToAnchor: [sidebarView trailingAnchor]],
