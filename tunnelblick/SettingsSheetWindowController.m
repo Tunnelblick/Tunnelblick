@@ -146,6 +146,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *, authenticateOnConnectCheckbox)
 -(void) dealloc {
 	
 	[configurationName           release]; configurationName           = nil;
+	[sheetOKButton               release]; sheetOKButton               = nil;
 	[connection                  release]; connection                  = nil;
 	[removeNamedCredentialsNames release]; removeNamedCredentialsNames = nil;
 	
@@ -481,6 +482,61 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *, authenticateOnConnectCheckbox)
     [[self window] display];
     [[self window] makeKeyAndOrderFront: self];
     [gMC activateIgnoringOtherApps];
+}
+
+-(void) showAsSheetOnWindow: (NSWindow *) parentWindow {
+	
+	NSWindow * window = [self window]; // Loads the nib
+	
+	if (  ! sheetOKButton  ) {
+		// A sheet has no close button, so add an "OK" button below the settings
+		NSView * contentView = [window contentView];
+		CGFloat buttonAreaHeight = 48.0;
+		[contentView setAutoresizesSubviews: NO]; // So the settings move up instead of growing
+		NSRect windowFrame = [window frame];
+		windowFrame.size.height += buttonAreaHeight;
+		[window setFrame: windowFrame display: NO];
+		NSView * subview;
+		NSEnumerator * e = [[contentView subviews] objectEnumerator];
+		while (  (subview = [e nextObject])  ) {
+			NSRect frame = [subview frame];
+			frame.origin.y += buttonAreaHeight;
+			[subview setFrame: frame];
+		}
+		[contentView setAutoresizesSubviews: YES];
+		
+		sheetOKButton = [[NSButton buttonWithTitle: NSLocalizedString(@"OK", @"Button")
+											target: self
+											action: @selector(sheetOKButtonWasClicked:)] retain];
+		[sheetOKButton setKeyEquivalent: @"\r"];
+		[sheetOKButton setTranslatesAutoresizingMaskIntoConstraints: NO];
+		[contentView addSubview: sheetOKButton];
+		[NSLayoutConstraint activateConstraints: @[[[sheetOKButton trailingAnchor] constraintEqualToAnchor: [contentView trailingAnchor] constant: -20.0],
+												   [[sheetOKButton bottomAnchor]   constraintEqualToAnchor: [contentView bottomAnchor]   constant: -14.0],
+												   [[sheetOKButton widthAnchor]    constraintGreaterThanOrEqualToConstant: 80.0]]];
+	}
+	
+	if (  [window sheetParent] == nil  ) {
+		// The sheet must fit in the window it is attached to
+		NSRect parentFrame = [parentWindow frame];
+		CGFloat neededHeight = NSHeight([window frame]) + (NSHeight(parentFrame) - NSHeight([[parentWindow contentView] bounds])) + 40.0;
+		if (  NSHeight(parentFrame) < neededHeight  ) {
+			parentFrame.origin.y -= neededHeight - NSHeight(parentFrame);
+			parentFrame.size.height = neededHeight;
+			[parentWindow setFrame: parentFrame display: YES animate: YES];
+		}
+		[parentWindow beginSheet: window completionHandler: nil];
+	}
+}
+
+-(void) sheetOKButtonWasClicked: (id) sender {
+	
+	(void) sender;
+	
+	NSWindow * window = [self window];
+	[self windowWillClose: nil]; // A sheet does not close, so save what closing would save
+	[[window sheetParent] endSheet: window];
+	[window orderOut: self];
 }
 
 -(void) endSettingsSheet:  (id) sender {

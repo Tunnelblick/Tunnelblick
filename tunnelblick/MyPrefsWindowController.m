@@ -2501,7 +2501,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         NSString * name = [connection displayName];
         [settingsSheetWindowController setConfigurationName: name];
-        [settingsSheetWindowController showSettingsSheet: self];
+        [settingsSheetWindowController showAsSheetOnWindow: [self window]];
     } else {
         NSLog(@"advancedButtonWasClicked but no configuration selected");
     }
