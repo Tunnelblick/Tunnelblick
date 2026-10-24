@@ -518,14 +518,22 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *, authenticateOnConnectCheckbox)
 	
 	if (  [window sheetParent] == nil  ) {
 		// The sheet must fit in the window it is attached to
-		NSRect parentFrame = [parentWindow frame];
+		NSRect originalFrame = [parentWindow frame];
+		NSRect parentFrame = originalFrame;
 		CGFloat neededHeight = NSHeight([window frame]) + (NSHeight(parentFrame) - NSHeight([[parentWindow contentView] bounds])) + 40.0;
 		if (  NSHeight(parentFrame) < neededHeight  ) {
 			parentFrame.origin.y -= neededHeight - NSHeight(parentFrame);
 			parentFrame.size.height = neededHeight;
 			[parentWindow setFrame: parentFrame display: YES animate: YES];
 		}
-		[parentWindow beginSheet: window completionHandler: nil];
+		[parentWindow beginSheet: window completionHandler: ^(NSModalResponse returnCode) {
+			(void) returnCode;
+			// Shrink the window back if it was grown for the sheet and has not been resized since
+			if (   ( ! NSEqualRects(originalFrame, parentFrame) )
+				&& NSEqualRects([parentWindow frame], parentFrame)  ) {
+				[parentWindow setFrame: originalFrame display: YES animate: YES];
+			}
+		}];
 	}
 }
 
