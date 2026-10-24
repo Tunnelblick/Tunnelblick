@@ -43,7 +43,7 @@
     IBOutlet UtilitiesView        * utilitiesPrefsView;
     
     NSTimer                       * lockTheLockIconTimer;
-    NSTimer                       * overviewUpdateTimer;  // Updates the Overview tab (traffic, time) while it is shown
+    NSTimer                       * statusUpdateTimer;  // Updates the status (state, traffic, time) while the Configurations view is shown
     NSDate                        * lockTimeoutDate;
     BOOL                            lockIconIsUnlocked;
 

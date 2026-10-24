@@ -164,7 +164,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 	// The sidebar extends under the title bar (it gets the sidebar material from NSSplitViewItem);
 	// the views are shown in contentSubview, which starts below the toolbar.
-	sidebarView = [[NSView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 240.0, 560.0)];
+	sidebarView = [[NSView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 200.0, 560.0)];
 	NSViewController * sidebarViewController = [[[NSViewController alloc] init] autorelease];
 	[sidebarViewController setView: sidebarView];
 
@@ -181,7 +181,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	[contentViewController setView: contentHolder];
 
 	NSSplitViewItem * sidebarItem = [NSSplitViewItem sidebarWithViewController: sidebarViewController];
-	[sidebarItem setMinimumThickness: 200.0];
+	[sidebarItem setMinimumThickness: 190.0];
 	[sidebarItem setMaximumThickness: 360.0];
 	[sidebarItem setCanCollapse: NO];
 	NSSplitViewItem * contentItem = [NSSplitViewItem splitViewItemWithViewController: contentViewController];
@@ -190,7 +190,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	splitViewController = [[NSSplitViewController alloc] init];
 	[splitViewController addSplitViewItem: sidebarItem];
 	[splitViewController addSplitViewItem: contentItem];
-	[[splitViewController splitView] setAutosaveName: @"DBPrefsWindowSidebar"];
 
 	[window setContentViewController: splitViewController];
 	[window setContentSize: NSMakeSize(920.0, 560.0)];
@@ -215,6 +214,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	[sidebarSectionTable release];       sidebarSectionTable       = nil;
 	[sidebarSectionIdentifiers release]; sidebarSectionIdentifiers = nil;
 	[sidebarSectionList release];        sidebarSectionList        = nil;
+	[originalViewSizes release];         originalViewSizes         = nil;
+	[[NSNotificationCenter defaultCenter] removeObserver: self];
 
 	
 	[super dealloc];
@@ -252,6 +253,12 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	
 	[toolbarIdentifiers addObject:identifier];
 	[toolbarViews setObject:view forKey:identifier];
+	if (  ! [view isKindOfClass: [NSNull class]]  ) {
+		if (  ! originalViewSizes  ) {
+			originalViewSizes = [[NSMutableDictionary alloc] init];
+		}
+		[originalViewSizes setObject: [NSValue valueWithSize: [view frame].size] forKey: identifier];
+	}
 	
 	NSToolbarItem *item = [[[NSToolbarItem alloc] initWithItemIdentifier:identifier] autorelease];
 	[item setLabel:label];
@@ -466,9 +473,9 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	
 	if (![newView isEqualTo:oldView]) {
 		// The window does not resize itself for different views: every view fills the content area
-		[newView setFrame: [contentSubview bounds]];
 		[newView setAutoresizingMask: (NSViewWidthSizable | NSViewHeightSizable)];
 		[contentSubview addSubview:newView];
+		[self layOutViewInContentArea: newView];
 		[[self window] setInitialFirstResponder:newView];
 
 		if (animate && [self crossFade])
@@ -487,12 +494,181 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 }
 
 
+- (BOOL)isHelpButton:(NSView *)view
+{
+	return (   [view isKindOfClass: [NSButton class]]
+			&& ([(NSButton *)view bezelStyle] == NSBezelStyleHelpButton));
+}
+
+
+- (BOOL)viewResizesItsContent:(NSView *)view
+{
+	// A view with a visible subview that resizes with its width (such as Info's credits) can fill the content area.
+	// (Empty text fields, such as Utilities' status messages, do not count.)
+	NSView * subview;
+	NSEnumerator * e = [[view subviews] objectEnumerator];
+	while (  (subview = [e nextObject])  ) {
+		if (   ([subview autoresizingMask] & NSViewWidthSizable) != 0
+			&& ( ! [subview isHidden] )
+			&& ( ! NSIsEmptyRect([self visibleRectOfControl: subview]) )  ) {
+			return YES;
+		}
+	}
+	return NO;
+}
+
+
+- (NSRect)visibleRectOfControl:(NSView *)view
+{
+	// The part of a control's frame that shows something: labels and buttons are often much wider than their text
+	NSRect frame = [view frame];
+	if (  [view isKindOfClass: [NSTextField class]]  ) {
+		NSTextField * textField = (NSTextField *) view;
+		if (  [[textField stringValue] length] == 0  ) {
+			return NSZeroRect;
+		}
+		if (  ! [[textField cell] wraps]  ) {
+			CGFloat width = MIN(NSWidth(frame), ceil([[textField cell] cellSize].width));
+			switch (  [textField alignment]  ) {
+				case NSTextAlignmentRight:
+					frame.origin.x = NSMaxX(frame) - width;
+					break;
+				case NSTextAlignmentCenter:
+					frame.origin.x = NSMidX(frame) - width / 2.0;
+					break;
+				default:
+					break;
+			}
+			frame.size.width = width;
+		}
+	} else if (   [view isKindOfClass: [NSButton class]]
+			   && ( ! [view isKindOfClass: [NSPopUpButton class]] )  ) {
+		// A checkbox's title can be wider than its frame (it is drawn anyway), so this can be wider than the frame
+		frame.size.width = ceil([view fittingSize].width);
+	}
+	return frame;
+}
+
+
+- (NSRect)usedRectOfViewWithIdentifier:(NSString *)identifier
+{
+	// The part of a view (at the size it was designed for) that shows its controls, ignoring help buttons, which
+	// layOutViewInContentArea: moves to the left edge of this rectangle. Controls (or parts of them) to the left of the view
+	// are not shown, but text can extend past its right edge.
+	NSView * view = [toolbarViews objectForKey: identifier];
+	NSSize size = [[originalViewSizes objectForKey: identifier] sizeValue];
+	NSRect bounds = NSMakeRect(0.0, 0.0, CGFLOAT_MAX / 4.0, size.height);
+	NSRect used = NSZeroRect;
+	NSView * subview;
+	NSEnumerator * e = [[view subviews] objectEnumerator];
+	while (  (subview = [e nextObject])  ) {
+		if (   ( ! [subview isHidden] )
+			&& ( ! [self isHelpButton: subview] )  ) {
+			NSRect frame = NSIntersectionRect([self visibleRectOfControl: subview], bounds);
+			if (  ! NSIsEmptyRect(frame)  ) {
+				used = (  NSIsEmptyRect(used)
+						? frame
+						: NSUnionRect(used, frame));
+			}
+		}
+	}
+	return (  NSIsEmptyRect(used)
+			? NSMakeRect(0.0, 0.0, size.width, size.height)
+			: used);
+}
+
+
+- (void)setMinimumContentWidthForViews
+{
+	// The content area must be wide enough for the controls of the widest view that does not resize them (see
+	// layOutViewInContentArea:)
+	CGFloat minimumWidth = 560.0;
+	NSString * identifier;
+	NSEnumerator * e = [sidebarSectionIdentifiers objectEnumerator];
+	while (  (identifier = [e nextObject])  ) {
+		if (  ! [self viewResizesItsContent: [toolbarViews objectForKey: identifier]]  ) {
+			minimumWidth = MAX(minimumWidth, ceil(NSWidth([self usedRectOfViewWithIdentifier: identifier])) + 32.0);
+		}
+	}
+	
+	NSSplitViewItem * contentItem = [[splitViewController splitViewItems] lastObject];
+	[contentItem setMinimumThickness: minimumWidth];
+	
+	NSSplitViewItem * sidebarItem = [[splitViewController splitViewItems] firstObject];
+	CGFloat minimumWindowContentWidth = [sidebarItem minimumThickness] + minimumWidth;
+	NSSize minSize = [[self window] contentMinSize];
+	minSize.width = minimumWindowContentWidth;
+	[[self window] setContentMinSize: minSize];
+	
+	NSRect contentRect = [[self window] contentRectForFrameRect: [[self window] frame]];
+	CGFloat wantedWidth = NSWidth([sidebarView frame]) + minimumWidth;
+	if (  NSWidth(contentRect) < wantedWidth  ) {
+		contentRect.size.width = wantedWidth;
+		[[self window] setFrame: [[self window] frameRectForContentRect: contentRect] display: NO];
+	}
+}
+
+
+- (void)layOutViewInContentArea:(NSView *)view
+{
+	// The primary view fills the content area. The other views were designed for a wider window without a sidebar, and
+	// their controls do not move to stay centered when they are resized. So they keep the size they were designed for, and
+	// are placed so their controls are centered horizontally in the content area. They clip to their bounds, so controls
+	// their layout keeps to the left of them (such as an unused "Last checked..." label) stay hidden.
+	NSRect content = [contentSubview bounds];
+	NSString * identifier = [[toolbarViews allKeysForObject: view] firstObject];
+	NSSize size = [[originalViewSizes objectForKey: identifier] sizeValue];
+	if (   [identifier isEqualToString: [self primaryIdentifier]]
+		|| (size.width <= 0.0)
+		|| [self viewResizesItsContent: view]  ) {
+		[view setFrame: content];
+		return;
+	}
+	
+	if (  [view respondsToSelector: @selector(setClipsToBounds:)]  ) {
+		[view setClipsToBounds: YES];
+	}
+	NSRect used = [self usedRectOfViewWithIdentifier: identifier];
+	CGFloat width = MAX(size.width, ceil(NSMaxX(used))); // Wide enough to show text that extends past its right edge
+	[view setFrame: NSMakeRect(floor(NSMidX(content) - NSMidX(used)), 0.0, width, NSHeight(content))];
+	
+	// Help buttons go to the left edge of the controls, so they are not cut off
+	NSView * subview;
+	NSEnumerator * e = [[view subviews] objectEnumerator];
+	while (  (subview = [e nextObject])  ) {
+		if (  [self isHelpButton: subview]  ) {
+			NSRect frame = [subview frame];
+			frame.origin.x = NSMinX(used);
+			[subview setFrame: frame];
+		}
+	}
+}
+
+
+- (void)contentSubviewFrameDidChange:(NSNotification *)notification
+{
+	(void) notification;
+	
+	NSView * view = [[contentSubview subviews] lastObject];
+	if (  view  ) {
+		[self layOutViewInContentArea: view];
+	}
+}
+
+
 #pragma mark -
 #pragma mark Sidebar
 
 
 // Override in subclass if desired
 - (NSView *)sidebarTopView
+{
+	return nil;
+}
+
+
+// Override in subclass if desired
+- (NSView *)sidebarBottomView
 {
 	return nil;
 }
@@ -609,9 +785,37 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	[constraints addObjectsFromArray: @[[[sectionScrollView topAnchor]      constraintEqualToAnchor: nextTop constant: 4.0],
 										[[sectionScrollView leadingAnchor]  constraintEqualToAnchor: [sidebarView leadingAnchor]],
 										[[sectionScrollView trailingAnchor] constraintEqualToAnchor: [sidebarView trailingAnchor]],
-										[[sectionScrollView heightAnchor]   constraintEqualToConstant: tableHeight],
-										[[sectionScrollView bottomAnchor]   constraintEqualToAnchor: [sidebarView bottomAnchor] constant: -12.0]]];
+										[[sectionScrollView heightAnchor]   constraintEqualToConstant: tableHeight]]];
+	
+	NSView * bottomView = [self sidebarBottomView];
+	if (  bottomView  ) {
+		// A separator, then the bar at the very bottom
+		NSBox * separator = [[[NSBox alloc] init] autorelease];
+		[separator setBoxType: NSBoxSeparator];
+		[separator setTranslatesAutoresizingMaskIntoConstraints: NO];
+		[bottomView setTranslatesAutoresizingMaskIntoConstraints: NO];
+		[sidebarView addSubview: separator];
+		[sidebarView addSubview: bottomView];
+		[constraints addObjectsFromArray: @[[[separator topAnchor]       constraintEqualToAnchor: [sectionScrollView bottomAnchor] constant: 10.0],
+											[[separator leadingAnchor]   constraintEqualToAnchor: [sidebarView leadingAnchor]  constant: 10.0],
+											[[separator trailingAnchor]  constraintEqualToAnchor: [sidebarView trailingAnchor] constant: -10.0],
+											[[bottomView topAnchor]      constraintEqualToAnchor: [separator bottomAnchor] constant: 6.0],
+											[[bottomView leadingAnchor]  constraintEqualToAnchor: [sidebarView leadingAnchor]  constant: 10.0],
+											[[bottomView trailingAnchor] constraintLessThanOrEqualToAnchor: [sidebarView trailingAnchor] constant: -10.0],
+											[[bottomView bottomAnchor]   constraintEqualToAnchor: [sidebarView bottomAnchor] constant: -10.0]]];
+	} else {
+		[constraints addObject: [[sectionScrollView bottomAnchor] constraintEqualToAnchor: [sidebarView bottomAnchor] constant: -12.0]];
+	}
 	[NSLayoutConstraint activateConstraints: constraints];
+	
+	[self setMinimumContentWidthForViews];
+	
+	// Keep the shown view's content centered when the content area changes size
+	[contentSubview setPostsFrameChangedNotifications: YES];
+	[[NSNotificationCenter defaultCenter] addObserver: self
+											 selector: @selector(contentSubviewFrameDidChange:)
+												 name: NSViewFrameDidChangeNotification
+											   object: contentSubview];
 }
 
 

@@ -123,16 +123,9 @@
     
     // Created by -installModernLayout
     NSSegmentedControl           * viewSelector;
-    NSTabViewItem                * overviewTabViewItem;
     NSImageView                  * statusIconView;
     NSTextField                  * statusTitleTF;
     NSTextField                  * statusDetailTF;
-    NSTextField                  * serverValueTF;
-    NSTextField                  * connectedForValueTF;
-    NSTextField                  * inRateValueTF;
-    NSTextField                  * outRateValueTF;
-    NSTextField                  * inTotalValueTF;
-    NSTextField                  * outTotalValueTF;
 }
 
 // Getters
@@ -215,15 +208,14 @@ TBPROPERTY_READONLY(TBPopUpButton *,       loggingLevelPopUpButton)
 TBPROPERTY_READONLY(NSArrayController *,   loggingLevelArrayController)
 
 TBPROPERTY_READONLY(TBButton *,            advancedButton)
-TBPROPERTY_READONLY(NSTabViewItem *,       overviewTabViewItem)
 
-// Replaces the tabs with a segmented control, adds the Overview tab (status, connection and traffic of the selected
-// configuration) and moves the Connect and Disconnect buttons into it. Must be called after the list of configurations
-// has been moved out of this view.
+// Replaces the tabs with a segmented control, makes the Settings tab a form, and adds a status card (state and traffic of the
+// selected configuration, with the Connect and Disconnect buttons) above them. Must be called after the list of
+// configurations has been moved out of this view.
 -(void) installModernLayout;
 
 -(void) updateViewSelector;
 
--(void) updateOverviewForConnection: (VPNConnection *) connection;
+-(void) updateStatusForConnection: (VPNConnection *) connection;
 
 @end

@@ -37,6 +37,45 @@ extern MenuController * gMC;
 extern NSString       * gPrivatePath;
 extern TBUserDefaults * gTbDefaults;
 
+// A cell in the list of configurations: the icon is on a small rounded "chip", which is lighter while the row is selected.
+
+@interface TBLeftNavCellView : NSTableCellView {
+    NSView * chip;
+}
+-(void) setChip: (NSView *) newChip;
+@end
+
+@implementation TBLeftNavCellView
+
+-(void) setChip: (NSView *) newChip {
+    chip = newChip; // Not retained: it is a subview
+}
+
+-(void) updateChipColor {
+    BOOL emphasized = ([self backgroundStyle] == NSBackgroundStyleEmphasized);
+    NSColor * color = (  emphasized
+                       ? [NSColor colorWithWhite: 1.0 alpha: 0.22]
+                       : [NSColor quaternaryLabelColor]);
+    [self setWantsLayer: YES];
+    [[chip layer] setBackgroundColor: [color CGColor]];
+    [[self imageView] setContentTintColor: (  emphasized
+                                            ? [NSColor whiteColor]
+                                            : [NSColor secondaryLabelColor])];
+}
+
+-(void) setBackgroundStyle: (NSBackgroundStyle) backgroundStyle {
+    [super setBackgroundStyle: backgroundStyle];
+    [self updateChipColor];
+}
+
+-(void) viewDidChangeEffectiveAppearance {
+    [super viewDidChangeEffectiveAppearance];
+    [self updateChipColor]; // Layer colors do not follow dark/light mode by themselves
+}
+
+@end
+
+
 @implementation LeftNavDataSource
 
 -(id) init {
@@ -238,8 +277,8 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 	return val;
 }
 
-// The list is view-based: each configuration or folder shows an icon and its name, and each configuration shows a dot
-// when it is connected (green) or between connected and disconnected (orange).
+// The list is view-based: each configuration or folder shows an icon and its name, and each configuration shows a dot:
+// green when connected, orange between connected and disconnected, gray when disconnected.
 
 static NSString * const LeftNavHeaderCellIdentifier = @"LeftNavHeaderCell";
 static NSString * const LeftNavItemCellIdentifier   = @"LeftNavItemCell";
@@ -261,7 +300,9 @@ static NSString * const LeftNavStatusDotIdentifier  = @"LeftNavStatusDot";
         && ( ! [connection isDisconnected] )  ) {
         return [NSColor systemOrangeColor];
     }
-    return nil;
+    return (  connection
+            ? [NSColor tertiaryLabelColor]
+            : nil);
 }
 
 -(void) updateStatusDotInCell: (NSTableCellView *) cell forItem: (LeftNavItem *) item {
@@ -282,11 +323,19 @@ static NSString * const LeftNavStatusDotIdentifier  = @"LeftNavStatusDot";
 
 -(NSTableCellView *) newItemCellWithIdentifier: (NSString *) identifier {
     
-    NSTableCellView * cell = [[NSTableCellView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 200.0, 24.0)];
+    TBLeftNavCellView * cell = [[TBLeftNavCellView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 200.0, 24.0)];
     [cell setIdentifier: identifier];
+    
+    NSView * chip = [[[NSView alloc] init] autorelease];
+    [chip setWantsLayer: YES];
+    [[chip layer] setCornerRadius: 6.0];
+    [chip setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [cell addSubview: chip];
+    [cell setChip: chip];
     
     NSImageView * imageView = [[[NSImageView alloc] init] autorelease];
     [imageView setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [imageView setSymbolConfiguration: [NSImageSymbolConfiguration configurationWithPointSize: 11.0 weight: NSFontWeightSemibold]];
     [cell addSubview: imageView];
     [cell setImageView: imageView];
     
@@ -308,10 +357,13 @@ static NSString * const LeftNavStatusDotIdentifier  = @"LeftNavStatusDot";
     [dot setHidden: YES];
     [cell addSubview: dot];
     
-    [NSLayoutConstraint activateConstraints: @[[[imageView leadingAnchor]  constraintEqualToAnchor: [cell leadingAnchor] constant: 2.0],
-                                               [[imageView centerYAnchor]  constraintEqualToAnchor: [cell centerYAnchor]],
-                                               [[imageView widthAnchor]    constraintEqualToConstant: 18.0],
-                                               [[textField leadingAnchor]  constraintEqualToAnchor: [imageView trailingAnchor] constant: 6.0],
+    [NSLayoutConstraint activateConstraints: @[[[chip leadingAnchor]       constraintEqualToAnchor: [cell leadingAnchor] constant: 0.0],
+                                               [[chip centerYAnchor]       constraintEqualToAnchor: [cell centerYAnchor]],
+                                               [[chip widthAnchor]         constraintEqualToConstant: 22.0],
+                                               [[chip heightAnchor]        constraintEqualToConstant: 22.0],
+                                               [[imageView centerXAnchor]  constraintEqualToAnchor: [chip centerXAnchor]],
+                                               [[imageView centerYAnchor]  constraintEqualToAnchor: [chip centerYAnchor]],
+                                               [[textField leadingAnchor]  constraintEqualToAnchor: [chip trailingAnchor] constant: 8.0],
                                                [[textField centerYAnchor]  constraintEqualToAnchor: [cell centerYAnchor]],
                                                [[dot leadingAnchor]        constraintGreaterThanOrEqualToAnchor: [textField trailingAnchor] constant: 6.0],
                                                [[dot trailingAnchor]       constraintEqualToAnchor: [cell trailingAnchor] constant: -8.0],
@@ -354,7 +406,7 @@ static NSString * const LeftNavStatusDotIdentifier  = @"LeftNavStatusDot";
     }
     
     BOOL isFolder = ([(LeftNavItem *) item numberOfChildren] != -1);
-    [[cell imageView] setImage: [NSImage imageWithSystemSymbolName: (isFolder ? @"folder" : @"network")
+    [[cell imageView] setImage: [NSImage imageWithSystemSymbolName: (isFolder ? @"folder.fill" : @"shield.fill")
                                           accessibilityDescription: nil]];
     [[cell textField] setStringValue: (name ? name : @"")];
     [self updateStatusDotInCell: cell forItem: item];

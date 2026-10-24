@@ -134,8 +134,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 	
     [lockTheLockIconTimer invalidate];
     [lockTheLockIconTimer                release];
-    [overviewUpdateTimer invalidate];
-    [overviewUpdateTimer                 release];
+    [statusUpdateTimer invalidate];
+    [statusUpdateTimer                 release];
     TBLog(@"DB-AA", @"MyPrefsWindowController|dealloc: Invalidated the lock timer");
     
     [currentViewName                     release];
@@ -391,13 +391,10 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 	NSButton * addButton    = [configurationsPrefsView addConfigurationButton];
 	NSButton * removeButton = [configurationsPrefsView removeConfigurationButton];
 	NSPopUpButton * actionsButton = [configurationsPrefsView workOnConfigurationPopUpButton];
-	[addButton    setAccessibilityLabel: NSLocalizedString(@"Add a configuration", @"Button")];
-	[removeButton setAccessibilityLabel: NSLocalizedString(@"Remove the selected configuration", @"Button")];
-	[actionsButton setAccessibilityLabel: NSLocalizedString(@"Configuration actions", @"Button")];
 	[addButton    setBordered: NO];
-	[addButton    setImage: [NSImage imageWithSystemSymbolName: @"plus"  accessibilityDescription: NSLocalizedString(@"Add a configuration", @"Button")]];
+	[addButton    setImage: [NSImage imageWithSystemSymbolName: @"plus"  accessibilityDescription: nil]];
 	[removeButton setBordered: NO];
-	[removeButton setImage: [NSImage imageWithSystemSymbolName: @"minus" accessibilityDescription: NSLocalizedString(@"Remove the selected configuration", @"Button")]];
+	[removeButton setImage: [NSImage imageWithSystemSymbolName: @"minus" accessibilityDescription: nil]];
 	[actionsButton setBordered: NO];
 	[[actionsButton itemAtIndex: 0] setImage: [NSImage imageWithSystemSymbolName: @"ellipsis.circle" accessibilityDescription: nil]];
 	e = [[leftView subviews] objectEnumerator];
@@ -408,6 +405,33 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 	}
 	
 	return leftView;
+}
+
+// Overrides superclass
+-(NSView *) sidebarBottomView
+{
+	// The +, - and actions buttons, moved from below the list of configurations to the bottom of the sidebar.
+	// The list then uses the space they used.
+	NSArray * buttons = @[[configurationsPrefsView addConfigurationButton],
+						  [configurationsPrefsView removeConfigurationButton],
+						  [configurationsPrefsView workOnConfigurationPopUpButton]];
+	NSView * button;
+	NSEnumerator * e = [buttons objectEnumerator];
+	while (  (button = [e nextObject])  ) {
+		[[button retain] autorelease];
+		[button removeFromSuperview];
+		[button setTranslatesAutoresizingMaskIntoConstraints: NO];
+		// Borderless buttons shrink to their image (the "minus" symbol is only 3 points high), so give them a size
+		[[[button heightAnchor] constraintEqualToConstant: 24.0] setActive: YES];
+		[[[button widthAnchor] constraintGreaterThanOrEqualToConstant: 24.0] setActive: YES];
+	}
+	NSScrollView * scrollView = [[[configurationsPrefsView outlineViewController] outlineView] enclosingScrollView];
+	[scrollView setFrame: [[configurationsPrefsView leftSplitView] bounds]];
+	
+	NSStackView * bar = [NSStackView stackViewWithViews: buttons];
+	[bar setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
+	[bar setSpacing: 2.0];
+	return bar;
 }
 
 // Overrides superclass
@@ -553,7 +577,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
     }
     
-    [self updateOverviewUpdateTimer];
+    [self updateStatusUpdateTimer];
 }
 
 
@@ -578,9 +602,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     [[self selectedConnection] stopMonitoringLogFiles];
     
-    [overviewUpdateTimer invalidate];
-    [overviewUpdateTimer release];
-    overviewUpdateTimer = nil;
+    [statusUpdateTimer invalidate];
+    [statusUpdateTimer release];
+    statusUpdateTimer = nil;
     
     // Save the window's frame and the splitView's frame and the TB version in the preferences
     NSString * mainFrameString = NSStringFromRect([[self window] frame]);
@@ -652,7 +676,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 // Overrides superclass
 -(void) newViewDidAppear: (NSView *) view
 {
-    [self updateOverviewUpdateTimer];
+    [self updateStatusUpdateTimer];
     if (  view != configurationsPrefsView  ) {
         [[self window] setSubtitle: @""];
     }
@@ -706,7 +730,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[self selectedConnection] stopMonitoringLogFiles];
         }
         [configurationsPrefsView updateViewSelector];
-        [self updateOverviewUpdateTimer];
+        [self updateStatusUpdateTimer];
     }
 }
 
@@ -1296,7 +1320,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
 		[[self window] setSubtitle: [self windowSubtitle]];
 		[[configurationsPrefsView leftNavDataSrc] refreshStatusInOutlineView: [[configurationsPrefsView outlineViewController] outlineView]];
-		[configurationsPrefsView updateOverviewForConnection: [self selectedConnection]];
+		[configurationsPrefsView updateStatusForConnection: [self selectedConnection]];
 	}
 }
 
@@ -1786,27 +1810,26 @@ static BOOL firstTimeShowingWindow = TRUE;
     return @"";
 }
 
--(void) overviewUpdateTimerTick
+-(void) statusUpdateTimerTick
 {
     [[self window] setSubtitle: [self windowSubtitle]];
-    [configurationsPrefsView updateOverviewForConnection: [self selectedConnection]];
+    [configurationsPrefsView updateStatusForConnection: [self selectedConnection]];
 }
 
--(void) updateOverviewUpdateTimer
+-(void) updateStatusUpdateTimer
 {
-    // Run the timer only while the Overview tab of the Configurations view is visible
+    // Run the timer only while the Configurations view (which shows the status and traffic) is visible
     // (The timer is stopped when the window closes, and restarted when it is shown again)
-    BOOL showingOverview = (   [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]
-                            && ([[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView overviewTabViewItem]));
-    if (  showingOverview  ) {
-        if (  ! overviewUpdateTimer  ) {
-            overviewUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(overviewUpdateTimerTick) userInfo: nil repeats: YES] retain];
+    BOOL showingConfigurations = [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")];
+    if (  showingConfigurations  ) {
+        if (  ! statusUpdateTimer  ) {
+            statusUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(statusUpdateTimerTick) userInfo: nil repeats: YES] retain];
         }
-        [self overviewUpdateTimerTick];
+        [self statusUpdateTimerTick];
     } else {
-        [overviewUpdateTimer invalidate];
-        [overviewUpdateTimer release];
-        overviewUpdateTimer = nil;
+        [statusUpdateTimer invalidate];
+        [statusUpdateTimer release];
+        statusUpdateTimer = nil;
     }
 }
 

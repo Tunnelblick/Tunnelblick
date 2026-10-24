@@ -62,6 +62,7 @@
 	NSView                * sidebarView;
 	NSTableView           * sidebarSectionTable;
 	NSMutableArray        * sidebarSectionIdentifiers;
+	NSMutableDictionary   * originalViewSizes;  // Size of each view when it was added (the size it was designed for)
 	id                      sidebarSectionList;
 	BOOL                    updatingSidebarSelection;
 
@@ -86,6 +87,7 @@
 
 // Sidebar
 - (NSView *)sidebarTopView;                           // Override: view shown above the section list (nil = none)
+- (NSView *)sidebarBottomView;                        // Override: bar shown at the bottom of the sidebar (nil = none)
 - (NSString *)sidebarSectionTitle;                    // Override: heading of the section list (nil = none)
 - (void)sidebarDidSelectPrimaryView:(BOOL)isPrimary;  // Override: called when the primary view is shown or hidden
 - (void)showPrimaryView;
