@@ -825,6 +825,42 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            advancedButton)
 											   [[form bottomAnchor]           constraintEqualToAnchor: [documentView bottomAnchor]   constant: -8.0]]];
 }
 
+-(void) modernizeLogTab {
+	
+	// The log is in a rounded card like the rest of the window, with some space around the text
+	NSScrollView * scrollView = [logView enclosingScrollView];
+	[scrollView setBorderType: NSNoBorder];
+	[scrollView setWantsLayer: YES];
+	[[scrollView layer] setCornerRadius: 12.0];
+	[[scrollView layer] setMasksToBounds: YES];
+	[[scrollView layer] setBorderWidth: 1.0];
+	[self updateLogBorderColor];
+	[logView setTextContainerInset: NSMakeSize(8.0, 8.0)];
+	[logView setBackgroundColor: [NSColor controlBackgroundColor]];
+	[scrollView setBackgroundColor: [NSColor controlBackgroundColor]];
+	
+	// The log view fills its tab
+	NSView * logTab = [logTabViewItem view];
+	NSRect frame = [logTab bounds];
+	[scrollView setFrame: frame];
+	[scrollView setAutoresizingMask: (NSViewWidthSizable | NSViewHeightSizable)];
+}
+
+-(void) updateLogBorderColor {
+	
+	// Layer colors do not follow light and dark mode by themselves
+	NSScrollView * scrollView = [logView enclosingScrollView];
+	[[self effectiveAppearance] performAsCurrentDrawingAppearance: ^{
+		[[scrollView layer] setBorderColor: [[NSColor separatorColor] CGColor]];
+	}];
+}
+
+-(void) viewDidChangeEffectiveAppearance {
+	
+	[super viewDidChangeEffectiveAppearance];
+	[self updateLogBorderColor];
+}
+
 -(void) installModernLayout {
 	
 	// Take the controls we keep out of the old layout, then remove the old layout
@@ -836,6 +872,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            advancedButton)
 	
 	// The tab view (Log, Settings) without tabs
 	[configurationsTabView setTabViewType: NSNoTabsNoBorder];
+	[self modernizeLogTab];
 	[self modernizeSettingsTab];
 	[configurationsTabView setTranslatesAutoresizingMaskIntoConstraints: NO];
 	
