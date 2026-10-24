@@ -542,7 +542,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *, authenticateOnConnectCheckbox)
 	(void) sender;
 	
 	NSWindow * window = [self window];
-	[self windowWillClose: nil]; // A sheet does not close, so save what closing would save
+	[self windowWillClose: [NSNotification notificationWithName: NSWindowWillCloseNotification object: window]]; // A sheet does not close, so save what closing would save
 	[[window sheetParent] endSheet: window];
 	[window orderOut: self];
 }
