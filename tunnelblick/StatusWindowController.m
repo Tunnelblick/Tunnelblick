@@ -238,12 +238,23 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [statusTF setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize]]];
     [statusTF setAlignment: NSTextAlignmentNatural];
     [[nameTF cell] setLineBreakMode: NSLineBreakByTruncatingTail];
-    [nameTF setContentCompressionResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
     
     NSStackView * text = [NSStackView stackViewWithViews: @[nameTF, statusTF]];
     [text setOrientation: NSUserInterfaceLayoutOrientationVertical];
     [text setAlignment: NSLayoutAttributeLeading];
     [text setSpacing: 1.0];
+    
+    // Long names and states ("Waiting for ...") are truncated: the window must not grow, because it was positioned
+    // (near the menu bar icon, or stacked with other status windows) for its size
+    NSTextField * label;
+    NSEnumerator * labelEnum = [@[nameTF, statusTF] objectEnumerator];
+    while (  (label = [labelEnum nextObject])  ) {
+        [[label cell] setLineBreakMode: NSLineBreakByTruncatingTail];
+        [[label cell] setWraps: NO];
+        [label setContentCompressionResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
+        [label setContentHuggingPriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
+    }
+    [text setContentCompressionResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
     
     [animationIV setImageScaling: NSImageScaleProportionallyUpOrDown];
     [connectButton    setControlSize: NSControlSizeSmall];
@@ -259,6 +270,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [header addView: text             inGravity: NSStackViewGravityLeading];
     [header addView: connectButton    inGravity: NSStackViewGravityTrailing];
     [header addView: disconnectButton inGravity: NSStackViewGravityTrailing];
+    [header setClippingResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
     
     NSStackView * inRow  = [self statisticsRowWithLabel: inTF  rate: inRateTF  rateUnits: inRateUnitsTF  total: inTotalTF  totalUnits: inTotalUnitsTF];
     NSStackView * outRow = [self statisticsRowWithLabel: outTF rate: outRateTF rateUnits: outRateUnitsTF total: outTotalTF totalUnits: outTotalUnitsTF];
