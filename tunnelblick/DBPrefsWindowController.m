@@ -543,8 +543,11 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		}
 	} else if (   [view isKindOfClass: [NSButton class]]
 			   && ( ! [view isKindOfClass: [NSPopUpButton class]] )  ) {
-		// A checkbox's title can be wider than its frame (it is drawn anyway), so this can be wider than the frame
-		frame.size.width = ceil([view fittingSize].width);
+		// A checkbox's title can be wider than its frame (it is drawn anyway), so this can be wider than the frame,
+		// unless the title wraps
+		if (  ! [[(NSButton *) view cell] wraps]  ) {
+			frame.size.width = ceil([view fittingSize].width);
+		}
 	}
 	return frame;
 }
@@ -578,8 +581,79 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 }
 
 
+- (void)wrapLongControlsInViewWithIdentifier:(NSString *)identifier maximumWidth:(CGFloat)maximumWidth
+{
+	// Checkboxes whose titles would make the view's controls wider than maximumWidth get titles that wrap onto more lines.
+	// Each keeps its top edge, and the controls below it move down by the height it gained. (The views have room for that.)
+	// This keeps the window narrow for long translations.
+	NSView * view = [toolbarViews objectForKey: identifier];
+	NSRect used = [self usedRectOfViewWithIdentifier: identifier];
+	CGFloat rightEdge = NSMinX(used) + maximumWidth;
+	if (  NSMaxX(used) <= rightEdge  ) {
+		return;
+	}
+	
+	// From top to bottom, so moving controls down does not change which ones are still to be looked at
+	NSArray * subviews = [[view subviews] sortedArrayUsingComparator: ^NSComparisonResult(NSView * a, NSView * b) {
+		CGFloat aTop = NSMaxY([a frame]);
+		CGFloat bTop = NSMaxY([b frame]);
+		return (  (aTop > bTop)
+				? NSOrderedAscending
+				: (  (aTop < bTop)
+				   ? NSOrderedDescending
+				   : NSOrderedSame));
+	}];
+	
+	NSView * subview;
+	NSEnumerator * e = [subviews objectEnumerator];
+	while (  (subview = [e nextObject])  ) {
+		if (   [subview isHidden]
+			|| ( ! [subview isKindOfClass: [NSButton class]] )
+			|| [subview isKindOfClass: [NSPopUpButton class]]
+			|| (NSMaxX([self visibleRectOfControl: subview]) <= rightEdge)  ) {
+			continue;
+		}
+		
+		NSButton * button = (NSButton *) subview;
+		NSRect frame = [button frame];
+		CGFloat width = rightEdge - NSMinX(frame);
+		if (  width < 100.0  ) {
+			continue;
+		}
+		NSButtonCell * cell = [button cell];
+		[cell setWraps: YES];
+		[cell setLineBreakMode: NSLineBreakByWordWrapping];
+		CGFloat height = MAX(NSHeight(frame), ceil([cell cellSizeForBounds: NSMakeRect(0.0, 0.0, width, 10000.0)].height));
+		CGFloat gained = height - NSHeight(frame);
+		[button setFrame: NSMakeRect(NSMinX(frame), NSMaxY(frame) - height, width, height)];
+		
+		if (  gained > 0.0  ) {
+			NSView * other;
+			NSEnumerator * e2 = [[view subviews] objectEnumerator];
+			while (  (other = [e2 nextObject])  ) {
+				if (   (other != button)
+					&& ( ! [self isHelpButton: other] )
+					&& (NSMaxY([other frame]) <= NSMinY(frame) + 1.0)  ) {
+					NSRect otherFrame = [other frame];
+					otherFrame.origin.y -= gained;
+					[other setFrame: otherFrame];
+				}
+			}
+		}
+	}
+}
+
+
 - (void)setMinimumContentWidthForViews
 {
+	NSString * wrapIdentifier;
+	NSEnumerator * wrapEnum = [sidebarSectionIdentifiers objectEnumerator];
+	while (  (wrapIdentifier = [wrapEnum nextObject])  ) {
+		if (  ! [self viewResizesItsContent: [toolbarViews objectForKey: wrapIdentifier]]  ) {
+			[self wrapLongControlsInViewWithIdentifier: wrapIdentifier maximumWidth: 640.0];
+		}
+	}
+	
 	// The content area must be wide enough for the controls of the widest view that does not resize them (see
 	// layOutViewInContentArea:)
 	CGFloat minimumWidth = 560.0;
