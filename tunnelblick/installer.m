@@ -31,6 +31,7 @@
 
 #import "defines.h"
 #import "sharedRoutines.h"
+#import "commandLineInstallSource.h"
 
 #import "ConfigurationConverter.h"
 #import "ConfigurationParser.h"
@@ -334,10 +335,19 @@ NSString * lastPartOfPath(NSString * path) {
         }
     }
 
-    NSArray * paths = @[gDeployPath,
-                        L_AS_T_SHARED,
-                        userPrivatePath(),
-                        userShadowPath()];
+    // Do not call userPrivatePath() or userShadowPath() here. Either one
+    // exits when a shared install could not determine a user.
+    NSMutableArray * paths = [NSMutableArray arrayWithCapacity: 4];
+    if (  gDeployPath.length != 0  ) {
+        [paths addObject: gDeployPath];
+    }
+    [paths addObject: L_AS_T_SHARED];
+    if (  gPrivatePath.length != 0  ) {
+        [paths addObject: gPrivatePath];
+    }
+    if (  gShadowPath.length != 0  ) {
+        [paths addObject: gShadowPath];
+    }
     NSEnumerator * arrayEnum = [paths objectEnumerator];
     NSString * configFolder;
     while (  (configFolder = [arrayEnum nextObject])  ) {
@@ -599,7 +609,9 @@ static void securelySetUserOwnershipAndPermissionsOnFolderAndContents(NSString *
 
 static void securelyKeepRootOwnershipAndSetPermissionsOnFolderAndContents(NSString * targetPath) {
 
-    secureOneFolderMaintainOwnership(targetPath, NO, userUID(), YES);
+    // isPrivate is NO and ownership is kept, so the uid is not used.
+    // userUID() exits when a shared install could not determine a user.
+    secureOneFolderMaintainOwnership(targetPath, NO, 0, YES);
 }
 
 static void securelyDeleteFolder(NSString * path) {
@@ -883,6 +895,27 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     securelyCreateFolderAndParents([targetPath stringByDeletingLastPathComponent]);
 
     securelyRename(tempPath, targetPath);
+}
+
+static NSString * commandLineInstallSourceByStagingIfNeeded(NSString * sourcePath) {
+
+    // The script gate accepts only Temp, Users, and Shared. Copy an external
+    // source into Temp first so the gate reads a root-owned snapshot instead
+    // of a path the caller can still change.
+    if (  commandLineInstallSourceIsInsideSecureTree(sourcePath)  ) {
+        return sourcePath;
+    }
+
+    NSString * stagingDirectory = [L_AS_T_TEMP stringByAppendingPathComponent:
+                                   [@"CommandLineInstall-" stringByAppendingString: NSUUID.UUID.UUIDString]];
+    NSString * stagedPath = commandLineInstallStagedSourcePath(sourcePath, stagingDirectory);
+    if (  stagedPath.length == 0  ) {
+        Log(@"Could not stage command-line configuration '%@'", sourcePath);
+        errorExit();
+    }
+
+    securelyCopy(sourcePath, stagedPath);
+    return stagedPath;
 }
 
 static void securelyMoveTblkIncludingPrivate(NSString * sourcePath, NSString * targetPath) {
@@ -3583,6 +3616,8 @@ int main(int argc, char *argv[]) {
 
             errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
 
+            NSString * sourceToInstall = commandLineInstallSourceByStagingIfNeeded(sourcePath);
+
             NSString * targetFolder = (  subfolder
                                        ? [userShadowPath() stringByAppendingPathComponent: subfolder]
                                        : userShadowPath()  );
@@ -3590,7 +3625,7 @@ int main(int argc, char *argv[]) {
             securelyCreateFolderAndParents(targetFolder);
             NSString * targetPath = [targetFolder stringByAppendingPathComponent: sourcePath.lastPathComponent];
 
-            copyOrMoveOneFolderOrTblk(sourcePath, targetPath, false); // false = not move (i.e., copy)
+            copyOrMoveOneFolderOrTblk(sourceToInstall, targetPath, false); // false = not move (i.e., copy)
         } else {
             Log(@"Wrong number of arguments for INSTALLER_INSTALL_PRIVATE_CONFIG");
             errorExit();
@@ -3614,6 +3649,8 @@ int main(int argc, char *argv[]) {
 
             errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
 
+            NSString * sourceToInstall = commandLineInstallSourceByStagingIfNeeded(sourcePath);
+
             NSString * targetFolder = (  subfolder
                                        ? [L_AS_T_SHARED stringByAppendingPathComponent: subfolder]
                                        : L_AS_T_SHARED  );
@@ -3621,7 +3658,7 @@ int main(int argc, char *argv[]) {
             securelyCreateFolderAndParents(targetFolder);
             NSString * targetPath = [targetFolder stringByAppendingPathComponent: sourcePath.lastPathComponent];
 
-            copyOrMoveOneFolderOrTblk(sourcePath, targetPath, false); // false = not move (i.e., copy)
+            copyOrMoveOneFolderOrTblk(sourceToInstall, targetPath, false); // false = not move (i.e., copy)
         } else {
             Log(@"Wrong number of arguments for INSTALLER_INSTALL_SHARED_CONFIG");
             errorExit();

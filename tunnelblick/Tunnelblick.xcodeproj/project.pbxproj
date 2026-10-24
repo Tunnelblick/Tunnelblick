@@ -25,6 +25,7 @@
 		61BC4CE10E2FA02800F24255 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		61BC4D8A0E2FA20800F24255 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61BC4D880E2FA20800F24255 /* CoreFoundation.framework */; };
 		61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4D9D0E2FA2F300F24255 /* installer.m */; };
+		A1F0440210E2FA2F300F2425 /* commandLineInstallSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F0440110E2FA2F300F2425 /* commandLineInstallSource.m */; };
 		61BC4DA00E2FA31F00F24255 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		61BC4DB40E2FA3C300F24255 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4DB20E2FA3C300F24255 /* MainMenu.xib */; };
 		61C03B990ED4E42A00175F22 /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* nb.lproj */; };
@@ -469,6 +470,8 @@
 		61BC4D6B0E2FA06900F24255 /* installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = installer; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BC4D880E2FA20800F24255 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		61BC4D9D0E2FA2F300F24255 /* installer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = installer.m; sourceTree = "<group>"; };
+		A1F0440110E2FA2F300F2425 /* commandLineInstallSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = commandLineInstallSource.m; sourceTree = "<group>"; };
+		A1F0440310E2FA2F300F2425 /* commandLineInstallSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commandLineInstallSource.h; sourceTree = "<group>"; };
 		61BC4DB20E2FA3C300F24255 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		61C03B960ED4E42A00175F22 /* nb.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nb.lproj; sourceTree = "<group>"; };
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
@@ -988,6 +991,8 @@
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				63179443118D7EC20057ACAF /* atsystemstart.m */,
 				61BC4D9D0E2FA2F300F24255 /* installer.m */,
+				A1F0440110E2FA2F300F2425 /* commandLineInstallSource.m */,
+				A1F0440310E2FA2F300F2425 /* commandLineInstallSource.h */,
 				63FF91D12EC25DA200E54E89 /* update_signing_util.m */,
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
 				63AA8E5E1492C77700C791C9 /* process-network-changes.m */,
@@ -2037,6 +2042,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */,
+				A1F0440210E2FA2F300F2425 /* commandLineInstallSource.m in Sources */,
 				B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */,
 				63282227303447BA00435B82 /* ConfigurationParser.m in Sources */,
 				B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
