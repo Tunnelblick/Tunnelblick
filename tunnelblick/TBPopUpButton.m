@@ -22,7 +22,6 @@
 #import "helper.h"
 #import "sharedRoutines.h"
 
-#import "MAAttachedWindow.h"
 #import "MenuController.h"
 #import "NSTimer+TB.h"
 #import "TBUserDefaults.h"
@@ -38,7 +37,7 @@ extern BOOL             gShuttingDownWorkspace;
 @implementation TBPopUpButton
 
 TBSYNTHESIZE_OBJECT(retain, NSAttributedString *, titleAS,		  setTitleAS)
-TBSYNTHESIZE_OBJECT(retain, MAAttachedWindow   *, attachedWindow, setAttachedWindow)
+TBSYNTHESIZE_OBJECT(retain, NSPopover          *, popover,        setPopover)
 TBSYNTHESIZE_OBJECT(retain, Tracker            *, tracker,        setTracker)
 
 TBSYNTHESIZE_NONOBJECT(CGFloat, startWidth,   setStartWidth)
@@ -70,8 +69,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 	while (  [[infoTitleAS string] hasSuffix: @"\n"]  ) {
 		[infoTitleAS deleteCharactersInRange: NSMakeRange([infoTitleAS length] - 1, 1)];
 	}
-	[infoTitleAS addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: NSMakeRange(0, [infoTitleAS length])];
-	[infoTitleAS addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: NSMakeRange(0, [infoTitleAS length])];
+	[infoTitleAS addAttribute: NSForegroundColorAttributeName value:[NSColor labelColor] range: NSMakeRange(0, [infoTitleAS length])]; // (No background: the popover draws it)
 	
 	[self setAttributedTitle: infoTitleAS];
 	[self setMinimumWidth: 360.0];
@@ -163,12 +161,11 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     return  NSMakeSize(myWidth, height);
 }
 
--(MAAttachedWindow *) createWindowWithContent: (NSAttributedString *) content
-                                    nearPoint: (NSPoint)              nearPoint
-                              firstTrialWidth: (CGFloat)              firstTrialWidth
-                                 minimumWidth: (CGFloat)              minWidth
-                                  outerWindow: (NSWindow *)           outerWindow
-                                    trackedBy: (Tracker *)            theTracker {
+-(NSView *) contentViewWithContent: (NSAttributedString *) content
+                   firstTrialWidth: (CGFloat)              firstTrialWidth
+                      minimumWidth: (CGFloat)              minWidth
+                       outerWindow: (NSWindow *)           outerWindow
+                         trackedBy: (Tracker *)            theTracker {
     
     // Calculate a size for the text, trying a width of 'firstTrialWidth' to start, and adjusting the width as needed
     if (  minWidth == 0.0  ) {
@@ -187,10 +184,10 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
                                                     maxWidth: originalWindowFrame.size.width
                                                    maxHeight: originalWindowFrame.size.height];
     
-    // Create a textview that contains the content and add it to the window.
+    // Create a textview that contains the content.
     // Lay out the text the same way heightForAttributedString:width: measured it (no line fragment padding),
-    // and add an inset around it so the text doesn't touch the edges of the window.
-    NSSize inset = NSMakeSize(5.0, 4.0);
+    // and add an inset around it so the text doesn't touch the edges of the popover.
+    NSSize inset = NSMakeSize(12.0, 10.0);
     NSRect tvFrame = NSMakeRect(0.0, 0.0, newSize.width + 2.0 * inset.width, ceil(newSize.height) + 2.0 * inset.height);
     NSTextView * tv = [[[NSTextView alloc] initWithFrame: tvFrame] autorelease];
     [[tv textContainer] setLineFragmentPadding: 0.0];
@@ -199,52 +196,33 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     [tv setEditable:   NO];
     [tv setAutomaticQuoteSubstitutionEnabled: YES];
     [tv setAutomaticLinkDetectionEnabled:     YES];
-    [tv setDrawsBackground: NO]; // The attached window draws the (rounded) background
+    [tv setDrawsBackground: NO]; // The popover draws the background
     NSTextStorage * ts = [tv textStorage];
     [ts setAttributedString: content];
     
     // Create a scrollview in a frame sized to contain the textview
-    NSRect svFrame = tvFrame;
-    
-    NSScrollView * sv = [[[NSScrollView alloc] initWithFrame: svFrame] autorelease];
+    NSScrollView * sv = [[[NSScrollView alloc] initWithFrame: tvFrame] autorelease];
     [sv setBorderType:NSNoBorder];
     [sv setDrawsBackground: NO];
-    [sv setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];     // Set autoresizing mask so scroll view will resize with the window
+    [sv setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
     [sv setDocumentView: tv];
     
-    // Create the attached window and add it as a child of outerWindow
-    MAAttachedWindow * aw = [[MAAttachedWindow alloc] initWithView: sv
-                                                   attachedToPoint: nearPoint
-                                                          inWindow: outerWindow
-                                                        atDistance: 5.0];
-    
-    [aw setViewMargin: 1.0];
-    [aw setBorderColor: [NSColor separatorColor]];
-    [aw setBorderWidth: 0.5];
-    [aw setReleasedWhenClosed: NO];
-    
-    [outerWindow addChildWindow: aw ordered: NSWindowAbove];
-    
-    // Track the window
-    NSRect bounds = [aw frame];
-    bounds.origin.x = 0;
-    bounds.origin.y = 0;
-    NSTrackingArea * trackingArea = [[[NSTrackingArea alloc] initWithRect: bounds
+    // Track the mouse in the content, so the popover stays while the mouse is in it
+    NSTrackingArea * trackingArea = [[[NSTrackingArea alloc] initWithRect: [tv bounds]
                                                                   options: NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways
                                                                     owner: theTracker
                                                                  userInfo: nil]
                                      autorelease];
     [tv addTrackingArea: trackingArea];
     
-    return aw;
+    return sv;
 }
 
 -(void) removeWindow {
     
-    if (  attachedWindow  ) {
-        [[self window] removeChildWindow: attachedWindow];
-        [attachedWindow close];
-         [self setAttachedWindow: nil];
+    if (  popover  ) {
+        [popover close];
+        [self setPopover: nil];
     }
 }
 
@@ -253,28 +231,32 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     TBLog(@"DB-PU", @">>>>> SHOWING window");
     
     if (  ! titleAS  ) {
-        NSLog(@"TBPopUpButton|showWindow invoked but content has not been set");
+        NSLog(@"%@|showWindow invoked but content has not been set", [self className]);
     }
     
-    if ( ! attachedWindow  ) {
-        NSRect f = [self frame];
-        
-        NSPoint pointInViewCoordinates = NSMakePoint( f.origin.x + (f.size.width / 2.0), f.origin.y + (f.size.height / 2.0) );
-		
-		NSWindow * ourWindow = [self window];
-		NSPoint pointInWindowCoordinates = [[self superview] convertPoint: pointInViewCoordinates toView: [ourWindow contentView]];
-        
+    if ( ! popover  ) {
         Tracker * t = [[[Tracker alloc] init] autorelease];
         [t setDelegate: self];
         [self setTracker: t];
         
-        attachedWindow = [self createWindowWithContent: [self titleAS]
-                                             nearPoint: pointInWindowCoordinates
-                                       firstTrialWidth: [self startWidth]
-                                          minimumWidth: [self minimumWidth]
-                                           outerWindow: ourWindow
-                                             trackedBy: t];
+        NSView * content = [self contentViewWithContent: [self titleAS]
+                                        firstTrialWidth: [self startWidth]
+                                           minimumWidth: [self minimumWidth]
+                                            outerWindow: [self window]
+                                              trackedBy: t];
+        NSViewController * contentViewController = [[[NSViewController alloc] init] autorelease];
+        [contentViewController setView: content];
         
+        // A standard popover (shown below the control), which looks like the system's in light and dark mode
+        NSPopover * newPopover = [[[NSPopover alloc] init] autorelease];
+        [newPopover setContentViewController: contentViewController];
+        [newPopover setContentSize: [content frame].size];
+        [newPopover setBehavior: NSPopoverBehaviorApplicationDefined]; // Closed by hideWindow
+        [newPopover setAnimates: YES];
+        [self setPopover: newPopover];
+        [newPopover showRelativeToRect: [self bounds]
+                                ofView: self
+                         preferredEdge: (  [self isFlipped] ? NSRectEdgeMaxY : NSRectEdgeMinY  )];
     }
 }
 
@@ -282,7 +264,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     
     TBLog(@"DB-PU", @">>>>> HIDING window");
     
-    if (  attachedWindow  ) {
+    if (  popover  ) {
         
         BOOL inButton = mouseIsInButtonView;
         BOOL inWindow = [tracker mouseIsInWindow];
@@ -463,7 +445,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     
     [titleAS release];
     
-    [attachedWindow release];
+    [popover release];
 
     [tracker release];
     tracker = nil;

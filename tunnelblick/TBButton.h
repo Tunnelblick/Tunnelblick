@@ -21,14 +21,13 @@
 
 #import "defines.h"
 
-@class MAAttachedWindow;
 @class Tracker;
 
 @interface TBButton : NSButton {
     
     BOOL                 mouseIsInButtonView;
     
-    MAAttachedWindow   * attachedWindow;
+    NSPopover          * popover;  // Shows the information about the control
     
     Tracker            * tracker;
     
