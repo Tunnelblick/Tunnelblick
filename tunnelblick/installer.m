@@ -334,10 +334,19 @@ NSString * lastPartOfPath(NSString * path) {
         }
     }
 
-    NSArray * paths = @[gDeployPath,
-                        L_AS_T_SHARED,
-                        userPrivatePath(),
-                        userShadowPath()];
+    // Do not call userPrivatePath() or userShadowPath() here. Neither one
+    // exits when a shared install could not determine a user.
+    NSMutableArray * paths = [NSMutableArray arrayWithCapacity: 4];
+    [paths addObject: L_AS_T_SHARED];
+    if (  gDeployPath.length != 0  ) {
+        [paths addObject: gDeployPath];
+    }
+    if (  gPrivatePath.length != 0  ) {
+        [paths addObject: gPrivatePath];
+    }
+    if (  gShadowPath.length != 0  ) {
+        [paths addObject: gShadowPath];
+    }
     NSEnumerator * arrayEnum = [paths objectEnumerator];
     NSString * configFolder;
     while (  (configFolder = [arrayEnum nextObject])  ) {
@@ -591,7 +600,7 @@ static void securelySetUserOwnershipAndPermissionsOnFolderAndContents(NSString *
 
 static void securelyKeepRootOwnershipAndSetPermissionsOnFolderAndContents(NSString * targetPath) {
 
-    secureOneFolderMaintainOwnership(targetPath, NO, userUID(), YES);
+    secureOneFolderMaintainOwnership(targetPath, NO, 0, YES);
 }
 
 static void securelyDeleteFolder(NSString * path) {
