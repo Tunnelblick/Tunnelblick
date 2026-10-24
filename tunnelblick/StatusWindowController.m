@@ -256,6 +256,21 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     }
     [text setContentCompressionResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
     
+    // Make room for the longest state (with a connection time) and for the name, up to a limit, so they are not
+    // truncated. (The window is sized and positioned once, so it cannot grow when the state changes.)
+    NSArray * states = @[@"ADD_ROUTES", @"ASSIGN_IP", @"AUTH", @"CONNECTED", @"CONNECTING", @"DISCONNECTING", @"EXITING",
+                         @"GET_CONFIG", @"NETWORK_ACCESS", @"PASSWORD_WAIT", @"PRIVATE_KEY_WAIT", @"RECONNECTING", @"RESOLVE",
+                         @"SLEEP", @"TCP_CONNECT", @"UDP_CONNECT", @"WAIT"];
+    NSMutableArray * texts = [NSMutableArray arrayWithCapacity: [states count]];
+    NSString * state;
+    NSEnumerator * stateEnum = [states objectEnumerator];
+    while (  (state = [stateEnum nextObject])  ) {
+        [texts addObject: [NSString stringWithFormat: @"%@ 00:00:00", localizeNonLiteral(state, @"Connection status")]];
+    }
+    CGFloat textWidth = MAX([self widestOf: texts font: [statusTF font]],
+                            [self widestOf: @[(localName ? localName : @"")] font: [nameTF font]]);
+    [[[text widthAnchor] constraintGreaterThanOrEqualToConstant: MIN(textWidth, 400.0)] setActive: YES];
+    
     [animationIV setImageScaling: NSImageScaleProportionallyUpOrDown];
     [connectButton    setControlSize: NSControlSizeSmall];
     [disconnectButton setControlSize: NSControlSizeSmall];
