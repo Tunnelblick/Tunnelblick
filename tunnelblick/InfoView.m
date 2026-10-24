@@ -405,6 +405,7 @@ extern TunnelblickInfo * gTbInfo;
                             @[@"Andrew Ying",                   NSLocalizedString(@"Chinese (traditional) translation",    @"Credit description")],
 							@[@"Abraham van der Vyver",         NSLocalizedString(@"Afrikaans translation",                @"Credit description")],
                             @[@"游精展",                         NSLocalizedString(@"Chinese (traditional) translation",    @"Credit description")],
+                            @[@"YiGeon",                        NSLocalizedString(@"Korean translation",                   @"Credit description")],
 							@[@"Cagri Yucel",                   NSLocalizedString(@"Turkish translation",                  @"Credit description")],
                             @[@"Magdelena Zajac",               NSLocalizedString(@"Polish translation",                   @"Credit description")],
                             @[@"Omri Zamir",                    NSLocalizedString(@"Hebrew translation",                   @"Credit description")],
