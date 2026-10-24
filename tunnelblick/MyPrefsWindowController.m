@@ -397,6 +397,10 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 	[removeButton setImage: [NSImage imageWithSystemSymbolName: @"minus" accessibilityDescription: nil]];
 	[actionsButton setBordered: NO];
 	[[actionsButton itemAtIndex: 0] setImage: [NSImage imageWithSystemSymbolName: @"ellipsis.circle" accessibilityDescription: nil]];
+	// VoiceOver names: the symbols' own descriptions, which macOS localizes
+	[addButton     setAccessibilityLabel: [[addButton    image] accessibilityDescription]];
+	[removeButton  setAccessibilityLabel: [[removeButton image] accessibilityDescription]];
+	[actionsButton setAccessibilityLabel: [[[actionsButton itemAtIndex: 0] image] accessibilityDescription]];
 	e = [[leftView subviews] objectEnumerator];
 	while (  (view = [e nextObject])  ) {
 		if (  [view isKindOfClass: [NSBox class]]  ) {
