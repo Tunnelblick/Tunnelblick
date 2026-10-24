@@ -472,8 +472,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	}
 	
 	if (![newView isEqualTo:oldView]) {
-		// The window does not resize itself for different views: every view fills the content area
-		[newView setAutoresizingMask: (NSViewWidthSizable | NSViewHeightSizable)];
+		// The window does not resize itself for different views; layOutViewInContentArea: sizes and places each view
 		[contentSubview addSubview:newView];
 		[self layOutViewInContentArea: newView];
 		[[self window] setInitialFirstResponder:newView];
@@ -695,9 +694,14 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	if (   [identifier isEqualToString: [self primaryIdentifier]]
 		|| (size.width <= 0.0)
 		|| [self viewResizesItsContent: view]  ) {
+		[view setAutoresizingMask: (NSViewWidthSizable | NSViewHeightSizable)];
 		[view setFrame: content];
 		return;
 	}
+	
+	// Not resized with the content area (resizing its controls back and forth does not keep their frames exactly);
+	// contentSubviewFrameDidChange: places it again instead
+	[view setAutoresizingMask: NSViewNotSizable];
 	
 	if (  [view respondsToSelector: @selector(setClipsToBounds:)]  ) {
 		[view setClipsToBounds: YES];

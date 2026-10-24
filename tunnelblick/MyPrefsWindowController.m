@@ -485,38 +485,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
--(void) resizeAllViewsExceptCurrent {
-    
-    if (   currentViewName
-        && [currentViewName isNotEqualTo: NSToolbarFlexibleSpaceItemIdentifier]
-        && [currentViewName isNotEqualTo: @"lockIcon"]) {
-        NSView * currentView = [toolbarViews objectForKey: currentViewName];
-        if (  currentView  ) {
-            NSSize newSize = [currentView frame].size;
-            if (  newSize.width != 0.0 ) {
-                
-                NSString * name;
-                NSEnumerator * e = [toolbarViews keyEnumerator];
-                while (  (name = [e nextObject])  ) {
-                    if (   [name isNotEqualTo: currentViewName]
-                        && [name isNotEqualTo: NSToolbarFlexibleSpaceItemIdentifier]
-                        && [name isNotEqualTo: @"lockIcon"]  ) {
-                        NSView  * view = [toolbarViews objectForKey: name];
-                        NSRect f = [view frame];
-                        f.size = newSize;
-                        [view setFrameSize:  newSize];
-                    }
-                }
-            } else {
-                NSLog(@"resizeAllViewsExceptCurrent: [currentView frame].size.width is 0.0 for '%@'", currentViewName);
-            }
-        } else {
-            NSLog(@"resizeAllViewsExceptCurrent: No view in toolbarViews for '%@'", currentViewName);
-        }
-    }
-}
-
-
 - (IBAction) windowWillAppear
 {
     if (  firstTimeShowingWindow  ) {
@@ -530,13 +498,10 @@ static BOOL firstTimeShowingWindow = TRUE;
             if (   mainFrameString != nil  ) {
                 
                 // Set the new frame for the window
-                [[self window] setMinSize: NSMakeSize(760.0, 452.0)]; // WINDOW size, not view size
+                // (The minimum size comes from the views; see DBPrefsWindowController. Each view is sized when it is shown.)
                 [[self window] setMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
                 NSRect mainFrame = NSRectFromString(mainFrameString);
                 [[self window] setFrame: mainFrame display: YES];     // display: YES so stretches properly
-                
-                // Resize all other views (so they are the same size as the current view (whose size changed if the window size changed)
-                [self resizeAllViewsExceptCurrent];
             }
             
             if (  leftFrameString != nil  ) {
@@ -657,9 +622,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         &&  [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
         [[self selectedConnection] stopMonitoringLogFiles];
     }
-    
-    // Resize all other views (so they are the same size as the current view -- in case the window was resized)
-    [self resizeAllViewsExceptCurrent];
 }
 
 // Overrides superclass
