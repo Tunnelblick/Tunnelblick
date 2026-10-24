@@ -31,7 +31,7 @@
 @class SettingsSheetWindowController;
 @class TBButton;
 
-@interface MyPrefsWindowController : DBPrefsWindowController <NSTextViewDelegate, NSWindowDelegate, NSTabViewDelegate, NSTableViewDelegate>
+@interface MyPrefsWindowController : DBPrefsWindowController <NSTextViewDelegate, NSWindowDelegate, NSTabViewDelegate, NSTableViewDelegate, NSMenuItemValidation, NSToolbarItemValidation>
 {   
     NSString                      * currentViewName;
     NSRect                          currentFrame;

@@ -5920,7 +5920,7 @@ NSString * getStringOf64RandomCharacters(void) {
     // (A simple encoding of 32 bytes of random data.)
 
     // Get 32 random bytes
-    const char bytes[32];
+    char bytes[32];
     int result = SecRandomCopyBytes(kSecRandomDefault, sizeof(bytes), (void *)bytes);
     if (  result != errSecSuccess  ) {
         NSLog(@"Unable to obtain data for .mip");

@@ -63,7 +63,7 @@ struct Statistics {
     struct RateInfo  rb[RB_SIZE];       // Ring buffer holding info for rate statistics
 };
 
-@interface VPNConnection : TBPerformer <NSWindowDelegate>
+@interface VPNConnection : TBPerformer <NSWindowDelegate, NSMenuItemValidation>
 {
     NSString      * configPath;         // Full path to the .tblk package
     // The configuration file MUST reside (for security reasons) in
