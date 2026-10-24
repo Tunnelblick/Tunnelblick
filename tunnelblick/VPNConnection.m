@@ -5345,20 +5345,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
--(void) updateDisplayWithNewStatistics {
+-(NSDictionary *) statisticsForDisplay {
+
+    // Returns the traffic statistics as strings for display, with keys "inTotal", "inTotalUnits", "outTotal", "outTotalUnits",
+    // "inRate", "inRateUnits", "outRate", "outRateUnits". Returns nil for a server connection (statistics are not available).
 
     if (   serverNotClient  ) {
-        [[statusScreen inTFC]            setTitle: @""];
-        [[statusScreen inRateTFC]        setTitle: @""];
-        [[statusScreen inRateUnitsTFC]   setTitle: @""];
-        [[statusScreen outRateTFC]       setTitle: @""];
-        [[statusScreen outRateUnitsTFC]  setTitle: @""];
-        [[statusScreen outTFC]           setTitle: @""];
-        [[statusScreen inTotalTFC]       setTitle: @""];
-        [[statusScreen inTotalUnitsTFC]  setTitle: @""];
-        [[statusScreen outTotalTFC]      setTitle: @""];
-        [[statusScreen outTotalUnitsTFC] setTitle: @""];
-        return;
+        return nil;
     }
 
     struct Statistics stats;
@@ -5373,10 +5366,16 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setNumber: &inTotal  andUnits: &inTotalUnits  from: (stats.totalInBytecount  + stats.totalInByteCountBeforeThisConnection ) unitsArray: gTotalUnits];
     [self setNumber: &outTotal andUnits: &outTotalUnits from: (stats.totalOutBytecount + stats.totalOutByteCountBeforeThisConnection) unitsArray: gTotalUnits];
 
-    [[statusScreen inTotalTFC]       setTitle: LocalizationNotNeeded(inTotal)];
-    [[statusScreen inTotalUnitsTFC]  setTitle: LocalizationNotNeeded(inTotalUnits)];
-    [[statusScreen outTotalTFC]      setTitle: LocalizationNotNeeded(outTotal)];
-    [[statusScreen outTotalUnitsTFC] setTitle: LocalizationNotNeeded(outTotalUnits)];
+    NSString * zeroRateUnits = [gRateUnits objectAtIndex: 0];
+    NSMutableDictionary * result = [NSMutableDictionary dictionaryWithDictionary:
+                                    @{@"inTotal":       (inTotal ? inTotal : @""),
+                                      @"inTotalUnits":  (inTotalUnits ? inTotalUnits : @""),
+                                      @"outTotal":      (outTotal ? outTotal : @""),
+                                      @"outTotalUnits": (outTotalUnits ? outTotalUnits : @""),
+                                      @"inRate":        @"0",
+                                      @"inRateUnits":   zeroRateUnits,
+                                      @"outRate":       @"0",
+                                      @"outRateUnits":  zeroRateUnits}];
 
     // Set the time interval we look at (the last xxx seconds)
     NSTimeInterval rateTimeInterval = [gTbDefaults timeIntervalForKey: @"statisticsRateTimeInterval"
@@ -5391,8 +5390,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     rateTimeInterval = rateTimeInterval - timeSinceLastSet;
     if (  rateTimeInterval < 0) {
-        [self clearStatisticsRatesDisplay];
-        return;
+        return result;
     }
 
     // Accumulate statistics for all samples taken during the last rateTimeInterval seconds
@@ -5417,9 +5415,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
 
-    if ( tTimeInt == 0.0  ) {
-        [self clearStatisticsRatesDisplay];
-    } else {
+    if ( tTimeInt != 0.0  ) {
         NSString * inRate       = nil;
         NSString * inRateUnits  = nil;
         NSString * outRate      = nil;
@@ -5428,11 +5424,40 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [self setNumber: &inRate  andUnits: &inRateUnits  from: ((TBByteCount) ((double) tInBytes  / tTimeInt)) unitsArray: gRateUnits];
         [self setNumber: &outRate andUnits: &outRateUnits from: ((TBByteCount) ((double) tOutBytes / tTimeInt)) unitsArray: gRateUnits];
 
-        [[statusScreen inRateTFC]       setTitle: LocalizationNotNeeded(inRate)];
-        [[statusScreen inRateUnitsTFC]  setTitle: LocalizationNotNeeded(inRateUnits)];
-        [[statusScreen outRateTFC]      setTitle: LocalizationNotNeeded(outRate)];
-        [[statusScreen outRateUnitsTFC] setTitle: LocalizationNotNeeded(outRateUnits)];
+        [result setObject: (inRate ? inRate : @"")       forKey: @"inRate"];
+        [result setObject: (inRateUnits ? inRateUnits : @"")  forKey: @"inRateUnits"];
+        [result setObject: (outRate ? outRate : @"")      forKey: @"outRate"];
+        [result setObject: (outRateUnits ? outRateUnits : @"") forKey: @"outRateUnits"];
     }
+
+    return result;
+}
+
+-(void) updateDisplayWithNewStatistics {
+
+    NSDictionary * statistics = [self statisticsForDisplay];
+    if (  ! statistics  ) {
+        [[statusScreen inTFC]            setTitle: @""];
+        [[statusScreen inRateTFC]        setTitle: @""];
+        [[statusScreen inRateUnitsTFC]   setTitle: @""];
+        [[statusScreen outRateTFC]       setTitle: @""];
+        [[statusScreen outRateUnitsTFC]  setTitle: @""];
+        [[statusScreen outTFC]           setTitle: @""];
+        [[statusScreen inTotalTFC]       setTitle: @""];
+        [[statusScreen inTotalUnitsTFC]  setTitle: @""];
+        [[statusScreen outTotalTFC]      setTitle: @""];
+        [[statusScreen outTotalUnitsTFC] setTitle: @""];
+        return;
+    }
+
+    [[statusScreen inTotalTFC]       setTitle: [statistics objectForKey: @"inTotal"]];
+    [[statusScreen inTotalUnitsTFC]  setTitle: [statistics objectForKey: @"inTotalUnits"]];
+    [[statusScreen outTotalTFC]      setTitle: [statistics objectForKey: @"outTotal"]];
+    [[statusScreen outTotalUnitsTFC] setTitle: [statistics objectForKey: @"outTotalUnits"]];
+    [[statusScreen inRateTFC]        setTitle: [statistics objectForKey: @"inRate"]];
+    [[statusScreen inRateUnitsTFC]   setTitle: [statistics objectForKey: @"inRateUnits"]];
+    [[statusScreen outRateTFC]       setTitle: [statistics objectForKey: @"outRate"]];
+    [[statusScreen outRateUnitsTFC]  setTitle: [statistics objectForKey: @"outRateUnits"]];
 }
 
 -(void) clearStatisticsRatesDisplay {

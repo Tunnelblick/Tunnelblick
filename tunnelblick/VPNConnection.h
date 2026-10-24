@@ -213,6 +213,10 @@ struct Statistics {
 
 -(NSString *)       displayName;
 
+-(NSDictionary *)   statisticsForDisplay;
+
+-(NSString *)       timeString;
+
 -(void)             displaySlowDisconnectionDialogLater;
 
 -(void)             fadeAway;

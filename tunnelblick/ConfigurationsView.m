@@ -31,6 +31,7 @@
 #import "TBUserDefaults.h"
 #import "TunnelblickInfo.h"
 #import "UIHelper.h"
+#import "VPNConnection.h"
 
 extern NSFileManager  * gFileMgr;
 extern MenuController * gMC;
@@ -49,6 +50,18 @@ extern TunnelblickInfo * gTbInfo;
 
 - (void) dealloc
 {
+	[viewSelector        release]; viewSelector        = nil;
+	[overviewTabViewItem release]; overviewTabViewItem = nil;
+	[statusIconView      release]; statusIconView      = nil;
+	[statusTitleTF       release]; statusTitleTF       = nil;
+	[statusDetailTF      release]; statusDetailTF      = nil;
+	[serverValueTF       release]; serverValueTF       = nil;
+	[connectedForValueTF release]; connectedForValueTF = nil;
+	[inRateValueTF       release]; inRateValueTF       = nil;
+	[outRateValueTF      release]; outRateValueTF      = nil;
+	[inTotalValueTF      release]; inTotalValueTF      = nil;
+	[outTotalValueTF     release]; outTotalValueTF     = nil;
+	
 	[super dealloc];
 }
 
@@ -585,5 +598,320 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponUnexpectedDisconnectR
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponUnexpectedDisconnectDisableNetworkAccessMenuItem)
 
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            advancedButton)
+
+
+
+//*********************************************************************************************************
+//
+// Modern layout: segmented control instead of tabs, and an Overview tab
+//
+//*********************************************************************************************************
+
+-(NSBox *) newCardBox {
+	
+	NSBox * box = [[NSBox alloc] init];
+	[box setBoxType: NSBoxCustom];
+	[box setTitlePosition: NSNoTitle];
+	[box setCornerRadius: 12.0];
+	[box setBorderWidth: 1.0];
+	[box setBorderColor: [NSColor separatorColor]];
+	[box setFillColor: [NSColor controlBackgroundColor]];
+	[box setContentViewMargins: NSMakeSize(16.0, 14.0)];
+	[box setTranslatesAutoresizingMaskIntoConstraints: NO];
+	return box;
+}
+
+-(void) setContent: (NSView *) content ofCard: (NSBox *) box {
+	
+	[content setTranslatesAutoresizingMaskIntoConstraints: NO];
+	NSView * contentView = [box contentView];
+	[contentView addSubview: content];
+	[NSLayoutConstraint activateConstraints: @[[[content topAnchor]      constraintEqualToAnchor: [contentView topAnchor]],
+											   [[content bottomAnchor]   constraintEqualToAnchor: [contentView bottomAnchor]],
+											   [[content leadingAnchor]  constraintEqualToAnchor: [contentView leadingAnchor]],
+											   [[content trailingAnchor] constraintEqualToAnchor: [contentView trailingAnchor]]]];
+}
+
+-(NSTextField *) labelWithFont: (NSFont *) font color: (NSColor *) color {
+	
+	NSTextField * label = [NSTextField labelWithString: @""];
+	[label setFont: font];
+	[label setTextColor: color];
+	[label setLineBreakMode: NSLineBreakByTruncatingTail];
+	[label setTranslatesAutoresizingMaskIntoConstraints: NO];
+	return label;
+}
+
+-(NSTextField *) cardTitle: (NSString *) title {
+	
+	NSTextField * label = [self labelWithFont: [NSFont systemFontOfSize: [NSFont systemFontSize] weight: NSFontWeightSemibold]
+										color: [NSColor labelColor]];
+	[label setStringValue: title];
+	return label;
+}
+
+-(NSTextField *) valueLabel {
+	
+	NSTextField * label = [self labelWithFont: [NSFont monospacedDigitSystemFontOfSize: [NSFont systemFontSize] weight: NSFontWeightRegular]
+										color: [NSColor labelColor]];
+	[label setSelectable: YES];
+	return label;
+}
+
+-(NSGridView *) gridWithRows: (NSArray *) rows {
+	
+	// rows is an array of @[ label string, value text field ]
+	NSMutableArray * views = [NSMutableArray arrayWithCapacity: [rows count]];
+	NSArray * row;
+	NSEnumerator * e = [rows objectEnumerator];
+	while (  (row = [e nextObject])  ) {
+		NSTextField * name = [self labelWithFont: [NSFont systemFontOfSize: [NSFont systemFontSize]]
+										   color: [NSColor secondaryLabelColor]];
+		[name setStringValue: [[row objectAtIndex: 0] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @":"]]];
+		[views addObject: @[name, [row objectAtIndex: 1]]];
+	}
+	NSGridView * grid = [NSGridView gridViewWithViews: views];
+	[grid setRowSpacing: 8.0];
+	[grid setColumnSpacing: 16.0];
+	[[grid columnAtIndex: 0] setXPlacement: NSGridCellPlacementLeading];
+	[[grid columnAtIndex: 1] setXPlacement: NSGridCellPlacementLeading];
+	[grid setContentHuggingPriority: NSLayoutPriorityDefaultHigh forOrientation: NSLayoutConstraintOrientationHorizontal];
+	return grid;
+}
+
+-(NSView *) newOverviewView {
+	
+	// Status card: icon, state and details, Connect/Disconnect buttons (the existing ones, moved here)
+	statusIconView = [[NSImageView alloc] init];
+	[statusIconView setTranslatesAutoresizingMaskIntoConstraints: NO];
+	[statusIconView setSymbolConfiguration: [NSImageSymbolConfiguration configurationWithPointSize: 28.0 weight: NSFontWeightRegular]];
+	
+	statusTitleTF  = [[self labelWithFont: [NSFont systemFontOfSize: 17.0 weight: NSFontWeightSemibold] color: [NSColor labelColor]] retain];
+	statusDetailTF = [[self labelWithFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize]]      color: [NSColor secondaryLabelColor]] retain];
+	NSStackView * statusText = [NSStackView stackViewWithViews: @[statusTitleTF, statusDetailTF]];
+	[statusText setOrientation: NSUserInterfaceLayoutOrientationVertical];
+	[statusText setAlignment: NSLayoutAttributeLeading];
+	[statusText setSpacing: 3.0];
+	
+	[connectButton    removeFromSuperview];
+	[disconnectButton removeFromSuperview];
+	[connectButton    setTranslatesAutoresizingMaskIntoConstraints: NO];
+	[disconnectButton setTranslatesAutoresizingMaskIntoConstraints: NO];
+	[connectButton    setControlSize: NSControlSizeLarge];
+	[disconnectButton setControlSize: NSControlSizeLarge];
+	[connectButton    setKeyEquivalent: @""];
+	
+	[connectButton setBezelColor: [NSColor controlAccentColor]];
+	NSStackView * statusRow = [[[NSStackView alloc] init] autorelease];
+	[statusRow setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
+	[statusRow setAlignment: NSLayoutAttributeCenterY];
+	[statusRow setSpacing: 14.0];
+	[statusRow addView: statusIconView   inGravity: NSStackViewGravityLeading];
+	[statusRow addView: statusText       inGravity: NSStackViewGravityLeading];
+	[statusRow addView: connectButton    inGravity: NSStackViewGravityTrailing];
+	[statusRow addView: disconnectButton inGravity: NSStackViewGravityTrailing];
+	[NSLayoutConstraint activateConstraints: @[[[statusIconView widthAnchor]  constraintEqualToConstant: 40.0],
+											   [[statusIconView heightAnchor] constraintEqualToConstant: 40.0],
+											   [[statusText centerYAnchor]    constraintEqualToAnchor: [statusIconView centerYAnchor]]]];
+	NSBox * statusCard = [[self newCardBox] autorelease];
+	[self setContent: statusRow ofCard: statusCard];
+	
+	// Connection card
+	serverValueTF       = [[self valueLabel] retain];
+	connectedForValueTF = [[self valueLabel] retain];
+	NSGridView * connectionGrid = [self gridWithRows: @[@[NSLocalizedString(@"Server",        @"Window text: label in the 'Overview' tab of the 'Configurations' panel"), serverValueTF],
+														@[NSLocalizedString(@"Connected for", @"Window text: label in the 'Overview' tab of the 'Configurations' panel"), connectedForValueTF]]];
+	NSStackView * connectionStack = [NSStackView stackViewWithViews: @[[self cardTitle: NSLocalizedString(@"Connection", @"Window text: heading in the 'Overview' tab of the 'Configurations' panel")], connectionGrid]];
+	[connectionStack setOrientation: NSUserInterfaceLayoutOrientationVertical];
+	[connectionStack setAlignment: NSLayoutAttributeLeading];
+	[connectionStack setSpacing: 12.0];
+	NSBox * connectionCard = [[self newCardBox] autorelease];
+	[self setContent: connectionStack ofCard: connectionCard];
+	
+	// Traffic card
+	inRateValueTF   = [[self valueLabel] retain];
+	outRateValueTF  = [[self valueLabel] retain];
+	inTotalValueTF  = [[self valueLabel] retain];
+	outTotalValueTF = [[self valueLabel] retain];
+	NSGridView * trafficGrid = [self gridWithRows: @[@[NSLocalizedString(@"In:",  @"Window text"), inRateValueTF],
+													 @[NSLocalizedString(@"Out:", @"Window text"), outRateValueTF]]];
+	[trafficGrid addColumnWithViews: @[inTotalValueTF, outTotalValueTF]];
+	[[trafficGrid columnAtIndex: 2] setXPlacement: NSGridCellPlacementTrailing];
+	NSStackView * trafficStack = [NSStackView stackViewWithViews: @[[self cardTitle: NSLocalizedString(@"Traffic", @"Window text: heading in the 'Overview' tab of the 'Configurations' panel")], trafficGrid]];
+	[trafficStack setOrientation: NSUserInterfaceLayoutOrientationVertical];
+	[trafficStack setAlignment: NSLayoutAttributeLeading];
+	[trafficStack setSpacing: 12.0];
+	NSBox * trafficCard = [[self newCardBox] autorelease];
+	[self setContent: trafficStack ofCard: trafficCard];
+	
+	NSStackView * cardsRow = [NSStackView stackViewWithViews: @[connectionCard, trafficCard]];
+	[cardsRow setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
+	[cardsRow setDistribution: NSStackViewDistributionFillEqually];
+	[cardsRow setAlignment: NSLayoutAttributeTop];
+	[cardsRow setSpacing: 16.0];
+	
+	NSStackView * overview = [NSStackView stackViewWithViews: @[statusCard, cardsRow]];
+	[overview setOrientation: NSUserInterfaceLayoutOrientationVertical];
+	[overview setAlignment: NSLayoutAttributeLeading];
+	[overview setSpacing: 16.0];
+	[overview setTranslatesAutoresizingMaskIntoConstraints: NO];
+	[NSLayoutConstraint activateConstraints: @[[[statusCard widthAnchor] constraintEqualToAnchor: [overview widthAnchor]],
+											   [[cardsRow   widthAnchor] constraintEqualToAnchor: [overview widthAnchor]]]];
+	
+	NSView * container = [[NSView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 600.0, 400.0)];
+	[container addSubview: overview];
+	[NSLayoutConstraint activateConstraints: @[[[overview topAnchor]      constraintEqualToAnchor: [container topAnchor]      constant: 4.0],
+											   [[overview leadingAnchor]  constraintEqualToAnchor: [container leadingAnchor]  constant: 4.0],
+											   [[overview trailingAnchor] constraintEqualToAnchor: [container trailingAnchor] constant: -4.0],
+											   [[overview bottomAnchor]   constraintLessThanOrEqualToAnchor: [container bottomAnchor]]]];
+	return container;
+}
+
+-(void) installModernLayout {
+	
+	// Take the controls we keep out of the old layout, then remove the old layout
+	NSArray * keep = @[configurationsTabView, connectButton, disconnectButton, configurationsHelpButton,
+					   diagnosticInfoToClipboardButton, diagnosticInfoToClipboardProgressIndicator];
+	[keep makeObjectsPerformSelector: @selector(retain)];
+	[keep makeObjectsPerformSelector: @selector(removeFromSuperview)];
+	[[[[self subviews] copy] autorelease] makeObjectsPerformSelector: @selector(removeFromSuperview)];
+	
+	// The tab view (Overview, Log, Settings) without tabs
+	overviewTabViewItem = [[NSTabViewItem alloc] initWithIdentifier: @"overview"];
+	[overviewTabViewItem setLabel: NSLocalizedString(@"Overview", @"Window title")];
+	NSView * overviewView = [[self newOverviewView] autorelease];
+	[overviewTabViewItem setView: overviewView];
+	[configurationsTabView insertTabViewItem: overviewTabViewItem atIndex: 0];
+	[configurationsTabView setTabViewType: NSNoTabsNoBorder];
+	[configurationsTabView setTranslatesAutoresizingMaskIntoConstraints: NO];
+	
+	// The segmented control that chooses the tab
+	NSMutableArray * labels = [NSMutableArray array];
+	NSTabViewItem * item;
+	NSEnumerator * e = [[configurationsTabView tabViewItems] objectEnumerator];
+	while (  (item = [e nextObject])  ) {
+		[labels addObject: [item label]];
+	}
+	viewSelector = [[NSSegmentedControl segmentedControlWithLabels: labels
+													  trackingMode: NSSegmentSwitchTrackingSelectOne
+															target: self
+															action: @selector(viewSelectorWasClicked:)] retain];
+	[viewSelector setTranslatesAutoresizingMaskIntoConstraints: NO];
+	[self updateViewSelector];
+	
+	// Footer: help and diagnostic info
+	[configurationsHelpButton                   setTranslatesAutoresizingMaskIntoConstraints: NO];
+	[diagnosticInfoToClipboardButton            setTranslatesAutoresizingMaskIntoConstraints: NO];
+	[diagnosticInfoToClipboardProgressIndicator setTranslatesAutoresizingMaskIntoConstraints: NO];
+	NSStackView * footer = [NSStackView stackViewWithViews: @[configurationsHelpButton, diagnosticInfoToClipboardButton, diagnosticInfoToClipboardProgressIndicator]];
+	[footer setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
+	[footer setSpacing: 10.0];
+	[footer setTranslatesAutoresizingMaskIntoConstraints: NO];
+	
+	[self addSubview: viewSelector];
+	[self addSubview: configurationsTabView];
+	[self addSubview: footer];
+	[NSLayoutConstraint activateConstraints: @[[[viewSelector topAnchor]               constraintEqualToAnchor: [self topAnchor] constant: 14.0],
+											   [[viewSelector centerXAnchor]           constraintEqualToAnchor: [self centerXAnchor]],
+											   [[configurationsTabView topAnchor]      constraintEqualToAnchor: [viewSelector bottomAnchor] constant: 14.0],
+											   [[configurationsTabView leadingAnchor]  constraintEqualToAnchor: [self leadingAnchor]  constant: 20.0],
+											   [[configurationsTabView trailingAnchor] constraintEqualToAnchor: [self trailingAnchor] constant: -20.0],
+											   [[footer topAnchor]                     constraintEqualToAnchor: [configurationsTabView bottomAnchor] constant: 12.0],
+											   [[footer leadingAnchor]                 constraintEqualToAnchor: [self leadingAnchor]  constant: 20.0],
+											   [[footer trailingAnchor]                constraintLessThanOrEqualToAnchor: [self trailingAnchor] constant: -20.0],
+											   [[footer bottomAnchor]                  constraintEqualToAnchor: [self bottomAnchor] constant: -14.0]]];
+	
+	[keep makeObjectsPerformSelector: @selector(release)];
+}
+
+-(void) viewSelectorWasClicked: (id) sender {
+	
+	(void) sender;
+	
+	[configurationsTabView selectTabViewItemAtIndex: [viewSelector selectedSegment]];
+	[self updateViewSelector]; // In case the tab view's delegate did not allow the change
+}
+
+-(void) updateViewSelector {
+	
+	NSTabViewItem * selected = [configurationsTabView selectedTabViewItem];
+	if (  selected  ) {
+		[viewSelector setSelectedSegment: [configurationsTabView indexOfTabViewItem: selected]];
+	}
+}
+
+-(void) updateOverviewForConnection: (VPNConnection *) connection {
+	
+	if (  ! statusTitleTF  ) {
+		return;
+	}
+	
+	NSString * state = [connection state];
+	NSString * symbol;
+	NSColor  * tint;
+	if (  [connection isConnected]  ) {
+		symbol = @"checkmark.shield.fill";
+		tint   = [NSColor systemGreenColor];
+	} else if (   connection
+			   && ( ! [connection isDisconnected] )  ) {
+		symbol = @"arrow.triangle.2.circlepath";
+		tint   = [NSColor systemOrangeColor];
+	} else {
+		symbol = @"shield.slash";
+		tint   = [NSColor secondaryLabelColor];
+	}
+	[statusIconView setImage: [NSImage imageWithSystemSymbolName: symbol accessibilityDescription: nil]];
+	[statusIconView setContentTintColor: tint];
+	
+	[statusTitleTF setStringValue: (  state
+									? localizeNonLiteral(state, @"Connection status")
+									: @"")];
+	
+	NSString * server = [connection serverIPAddress];
+	BOOL connected = [connection isConnected];
+	NSString * timeString = (  connected
+							 ? [connection timeString]
+							 : nil);
+	[serverValueTF       setStringValue: (  ([server length] != 0) ? server     : @"–")];
+	[connectedForValueTF setStringValue: (  ([timeString length] != 0) ? timeString : @"–")];
+	NSString * detail = @"";
+	if (   connected
+		&& [connection connectedSinceDate]  ) {
+		detail = [NSString stringWithFormat: NSLocalizedString(@"Since %@", @"Window text: in the 'Overview' tab of the 'Configurations' panel. The %@ is a time of day, e.g. '09:12'"),
+				  [NSDateFormatter localizedStringFromDate: [connection connectedSinceDate] dateStyle: NSDateFormatterNoStyle timeStyle: NSDateFormatterShortStyle]];
+	}
+	[statusDetailTF setStringValue: detail];
+	
+	// The detail line is only in the stack view when it has text, so the title is centered when it doesn't
+	NSStackView * statusText = (NSStackView *)[statusTitleTF superview];
+	BOOL showDetail = ([detail length] != 0);
+	if (   showDetail
+		&& ( ! [[statusText arrangedSubviews] containsObject: statusDetailTF] )  ) {
+		[statusText addArrangedSubview: statusDetailTF];
+	} else if (   ( ! showDetail )
+			   && [[statusText arrangedSubviews] containsObject: statusDetailTF]  ) {
+		[statusText removeArrangedSubview: statusDetailTF];
+		[statusDetailTF removeFromSuperview];
+	}
+	[statusText setNeedsLayout: YES];  // The stack view does not always lay out its remaining view again by itself
+	[statusText layoutSubtreeIfNeeded];
+	
+	NSDictionary * statistics = (  connected
+								 ? [connection statisticsForDisplay]
+								 : nil);
+	if (  statistics  ) {
+		[inRateValueTF   setStringValue: [NSString stringWithFormat: @"%@ %@", [statistics objectForKey: @"inRate"],  [statistics objectForKey: @"inRateUnits"]]];
+		[outRateValueTF  setStringValue: [NSString stringWithFormat: @"%@ %@", [statistics objectForKey: @"outRate"], [statistics objectForKey: @"outRateUnits"]]];
+		[inTotalValueTF  setStringValue: [NSString stringWithFormat: @"%@ %@", [statistics objectForKey: @"inTotal"],  [statistics objectForKey: @"inTotalUnits"]]];
+		[outTotalValueTF setStringValue: [NSString stringWithFormat: @"%@ %@", [statistics objectForKey: @"outTotal"], [statistics objectForKey: @"outTotalUnits"]]];
+	} else {
+		[inRateValueTF   setStringValue: @"–"];
+		[outRateValueTF  setStringValue: @"–"];
+		[inTotalValueTF  setStringValue: @""];
+		[outTotalValueTF setStringValue: @""];
+	}
+}
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *, overviewTabViewItem)
 
 @end

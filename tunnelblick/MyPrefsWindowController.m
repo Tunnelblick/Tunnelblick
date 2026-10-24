@@ -134,6 +134,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 	
     [lockTheLockIconTimer invalidate];
     [lockTheLockIconTimer                release];
+    [overviewUpdateTimer invalidate];
+    [overviewUpdateTimer                 release];
     TBLog(@"DB-AA", @"MyPrefsWindowController|dealloc: Invalidated the lock timer");
     
     [currentViewName                     release];
@@ -369,6 +371,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 		[rightView release];
 	}
 	[splitView removeFromSuperview];
+	[configurationsPrefsView installModernLayout];
 	
 	NSOutlineView * outlineView = [[configurationsPrefsView outlineViewController] outlineView];
 	[outlineView setStyle: NSTableViewStyleSourceList];
@@ -549,6 +552,8 @@ static BOOL firstTimeShowingWindow = TRUE;
             NSLog(@"showWindow: currentViewName is nil");
         }
     }
+    
+    [self updateOverviewUpdateTimer];
 }
 
 
@@ -572,6 +577,10 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     [[self selectedConnection] stopMonitoringLogFiles];
+    
+    [overviewUpdateTimer invalidate];
+    [overviewUpdateTimer release];
+    overviewUpdateTimer = nil;
     
     // Save the window's frame and the splitView's frame and the TB version in the preferences
     NSString * mainFrameString = NSStringFromRect([[self window] frame]);
@@ -643,6 +652,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 // Overrides superclass
 -(void) newViewDidAppear: (NSView *) view
 {
+    [self updateOverviewUpdateTimer];
+    if (  view != configurationsPrefsView  ) {
+        [[self window] setSubtitle: @""];
+    }
+    
     if (   view == configurationsPrefsView  ) {
         [[self window] makeFirstResponder: nil];
         if (  [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
@@ -691,6 +705,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         } else {
             [[self selectedConnection] stopMonitoringLogFiles];
         }
+        [configurationsPrefsView updateViewSelector];
+        [self updateOverviewUpdateTimer];
     }
 }
 
@@ -1278,7 +1294,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	if (  [super windowHasLoaded]  ) {
 		[[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
+		[[self window] setSubtitle: [self windowSubtitle]];
 		[[configurationsPrefsView leftNavDataSrc] refreshStatusInOutlineView: [[configurationsPrefsView outlineViewController] outlineView]];
+		[configurationsPrefsView updateOverviewForConnection: [self selectedConnection]];
 	}
 }
 
@@ -1739,8 +1757,57 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	(void) currentItemLabel;
    
+    if (  [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]  ) {
+        NSString * name = [[self selectedConnection] localizedName];
+        if (  [name length] != 0  ) {
+            return name;
+        }
+    }
+    
     NSString * windowLabel = localizeNonLiteral(currentViewName, @"Window title");
     return windowLabel;
+}
+
+-(NSString *) windowSubtitle
+{
+    // The state of the selected configuration while the Configurations view is shown
+    if (  [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]  ) {
+        VPNConnection * connection = [self selectedConnection];
+        NSString * state = [connection state];
+        if (  state  ) {
+            NSString * subtitle = localizeNonLiteral(state, @"Connection status");
+            if (  [connection isConnected]  ) {
+                subtitle = [NSString stringWithFormat: @"%@ · %@", subtitle, [connection timeString]];
+            }
+            return subtitle;
+        }
+    }
+    
+    return @"";
+}
+
+-(void) overviewUpdateTimerTick
+{
+    [[self window] setSubtitle: [self windowSubtitle]];
+    [configurationsPrefsView updateOverviewForConnection: [self selectedConnection]];
+}
+
+-(void) updateOverviewUpdateTimer
+{
+    // Run the timer only while the Overview tab of the Configurations view is visible
+    // (The timer is stopped when the window closes, and restarted when it is shown again)
+    BOOL showingOverview = (   [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]
+                            && ([[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView overviewTabViewItem]));
+    if (  showingOverview  ) {
+        if (  ! overviewUpdateTimer  ) {
+            overviewUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(overviewUpdateTimerTick) userInfo: nil repeats: YES] retain];
+        }
+        [self overviewUpdateTimerTick];
+    } else {
+        [overviewUpdateTimer invalidate];
+        [overviewUpdateTimer release];
+        overviewUpdateTimer = nil;
+    }
 }
 
 
@@ -1778,6 +1845,10 @@ static BOOL firstTimeShowingWindow = TRUE;
 															 && [TBOperationQueue shouldUIBeEnabledForDisplayName: displayName])];
     [[configurationsPrefsView disconnectButton] setEnabled: (   ( ! disconnected )
 															 && ( ! [gTbDefaults boolForKey: disableDisconnectButtonKey] )  )];
+	
+	// Only the button that applies is shown
+	[[configurationsPrefsView connectButton]    setHidden: ( ! disconnected )];
+	[[configurationsPrefsView disconnectButton] setHidden:     disconnected  ];
 	
 	[self updateConnectionStatusAndTime];
 }
