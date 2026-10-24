@@ -5768,7 +5768,28 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             state = NSOffState;
         }
 
-        [anItem setState:state];
+        // The state is shown with a symbol (green while connected, orange between connected and disconnected) instead of
+        // a checkmark
+        (void) state;
+        [anItem setState: NSOffState];
+        NSString * symbolName;
+        NSColor  * symbolColor;
+        if (  [connection isConnected]  ) {
+            symbolName  = @"checkmark.shield.fill";
+            symbolColor = [NSColor systemGreenColor];
+        } else if (  [connection isDisconnected]  ) {
+            symbolName  = @"shield";
+            symbolColor = nil;
+        } else {
+            symbolName  = @"shield.lefthalf.filled";
+            symbolColor = [NSColor systemOrangeColor];
+        }
+        NSImage * image = [NSImage imageWithSystemSymbolName: symbolName accessibilityDescription: nil];
+        if (  symbolColor  ) {
+            image = [image imageWithSymbolConfiguration: [NSImageSymbolConfiguration configurationWithPaletteColors: @[symbolColor]]];
+            [image setTemplate: NO];
+        }
+        [anItem setImage: image];
 
         // setting menu command title depending on current status:
         NSString *commandString;

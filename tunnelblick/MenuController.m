@@ -1953,6 +1953,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [warningsItem release];
     warningsItem = [[NSMenuItem alloc] init];
     [warningsItem setTitle: NSLocalizedString(@"Warnings", @"Menu item")];
+    [warningsItem setImage: [NSImage imageWithSystemSymbolName: @"exclamationmark.triangle" accessibilityDescription: nil]];
     NSMenu * warningsSubmenu = [[[NSMenu alloc] initWithTitle: NSLocalizedString(@"Tunnelblick", @"Window title")] autorelease];
 
     // Add up to 20 warnings to the submenu
@@ -1989,6 +1990,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [vpnDetailsItem setTitle: NSLocalizedString(@"VPN Details...", @"Menu item")];
     [vpnDetailsItem setTarget: self];
     [vpnDetailsItem setAction: @selector(openPreferencesWindow:)];
+    [vpnDetailsItem setImage: [NSImage imageWithSystemSymbolName: @"gearshape" accessibilityDescription: nil]];
 
     [contactTunnelblickItem release];
     contactTunnelblickItem = nil;
@@ -1998,6 +2000,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [quitItem setTitle: NSLocalizedString(@"Quit Tunnelblick", @"Menu item")];
     [quitItem setTarget: self];
     [quitItem setAction: @selector(quit:)];
+    [quitItem setImage: [NSImage imageWithSystemSymbolName: @"power" accessibilityDescription: nil]];
 
     [statusMenuItem release];
     statusMenuItem = [[NSMenuItem alloc] init];
@@ -2032,6 +2035,12 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     NSArray *keyArray = [[[self myConfigDictionary] allKeys]
                          sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
     NSEnumerator * e = [keyArray objectEnumerator];
+    // A heading above the configurations (section headings are available in macOS 14 and higher)
+    if (  [[self myConfigDictionary] count] != 0  ) {
+        if (  @available(macOS 14.0, *)  ) {
+            [newMenu addItem: [NSMenuItem sectionHeaderWithTitle: NSLocalizedString(@"Configurations", @"Window title")]];
+        }
+    }
     NSUInteger itemsBeforeInsertingConfigurations = [newMenu numberOfItems];
     TBLog(@"DB-MC", @"itemsBeforeInsertingConfigurations = %lu", (unsigned long)itemsBeforeInsertingConfigurations);
 
