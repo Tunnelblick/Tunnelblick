@@ -21,38 +21,37 @@
 
 @implementation TBSidebarOutlineView
 
--(void) updateRowViewsSelectionStyle {
-    NSTableViewSelectionHighlightStyle style = (  hidesSelection
-                                                ? NSTableViewSelectionHighlightStyleNone
-                                                : NSTableViewSelectionHighlightStyleSourceList);
+// While hidesSelection is set, the selected rows are drawn as not selected. The selection itself is not changed.
+
+-(void) updateRowViewsSelection {
     NSInteger row;
     for (  row = 0; row < [self numberOfRows]; row++  ) {
         NSTableRowView * rowView = [self rowViewAtRow: row makeIfNecessary: NO];
         if (  rowView  ) {
-            [rowView setSelectionHighlightStyle: style];
-            [rowView setNeedsDisplay: YES];
+            [rowView setSelected: (   ( ! hidesSelection )
+                                   && [self isRowSelected: row])];
         }
     }
-    [self setNeedsDisplay: YES];
 }
 
 -(void) setHidesSelection: (BOOL) newValue {
     if (  hidesSelection != newValue  ) {
         hidesSelection = newValue;
-        [self updateRowViewsSelectionStyle];
+        [self updateRowViewsSelection];
     }
 }
 
 -(void) didAddRowView: (NSTableRowView *) rowView forRow: (NSInteger) row {
     [super didAddRowView: rowView forRow: row];
     if (  hidesSelection  ) {
-        [rowView setSelectionHighlightStyle: NSTableViewSelectionHighlightStyleNone];
+        [rowView setSelected: NO];
     }
 }
 
--(void) highlightSelectionInClipRect: (NSRect) clipRect {
-    if (  ! hidesSelection  ) {
-        [super highlightSelectionInClipRect: clipRect];
+-(void) selectRowIndexes: (NSIndexSet *) indexes byExtendingSelection: (BOOL) extend {
+    [super selectRowIndexes: indexes byExtendingSelection: extend];
+    if (  hidesSelection  ) {
+        [self updateRowViewsSelection];
     }
 }
 

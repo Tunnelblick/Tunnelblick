@@ -374,6 +374,10 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 	[outlineView setStyle: NSTableViewStyleSourceList];
 	[outlineView setSelectionHighlightStyle: NSTableViewSelectionHighlightStyleSourceList];
 	[outlineView setBackgroundColor: [NSColor clearColor]];
+	[outlineView setFloatsGroupRows: NO];
+	[outlineView setRowSizeStyle: NSTableViewRowSizeStyleCustom];
+	[outlineView setRowHeight: 28.0];
+	[outlineView setIntercellSpacing: NSMakeSize(0.0, 0.0)];
 	[outlineView setTarget: self];
 	[outlineView setAction: @selector(configurationsListWasClicked:)];
 	NSScrollView * scrollView = [outlineView enclosingScrollView];
@@ -1274,6 +1278,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	if (  [super windowHasLoaded]  ) {
 		[[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
+		[[configurationsPrefsView leftNavDataSrc] refreshStatusInOutlineView: [[configurationsPrefsView outlineViewController] outlineView]];
 	}
 }
 

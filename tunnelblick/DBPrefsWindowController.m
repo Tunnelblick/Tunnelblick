@@ -569,7 +569,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		[heading setTranslatesAutoresizingMaskIntoConstraints: NO];
 		[sidebarView addSubview: heading];
 		[constraints addObjectsFromArray: @[[[heading topAnchor]      constraintEqualToAnchor: nextTop constant: 18.0],
-											[[heading leadingAnchor]  constraintEqualToAnchor: [sidebarView leadingAnchor] constant: 31.0],
+											[[heading leadingAnchor]  constraintEqualToAnchor: [sidebarView leadingAnchor] constant: 13.0],
 											[[heading trailingAnchor] constraintLessThanOrEqualToAnchor: [sidebarView trailingAnchor] constant: -10.0]]];
 		nextTop = [heading bottomAnchor];
 	}
