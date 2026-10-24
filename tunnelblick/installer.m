@@ -26,6 +26,8 @@
 #import <sys/stat.h>
 #import <sys/time.h>
 #import <sys/xattr.h>
+#import <dirent.h>
+#import <fcntl.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <Security/SecRandom.h>
 
@@ -799,25 +801,47 @@ static void securelyCopyFileOrFolderContents(BOOL isDir, NSString * sourcePath, 
     errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
     errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetPath);
 
-    // Copy the folder contents or the file contents
+    // Copy the folder contents or the file contents.
+    // Open the source with O_NOFOLLOW so a symlink that replaces a file
+    // after the earlier path check is not followed.
     if (  isDir  ) {
-        NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: sourcePath];
-        NSString * path;
-        while (  (path = [dirE nextObject])  ) {
-            [dirE skipDescendants];
-            NSString * fullSourcePath = [sourcePath stringByAppendingPathComponent: path];
-            NSString * fullTargetPath = [targetPath stringByAppendingPathComponent: path];
-            //
-            // NOTE: RECURSION
-            //
+        int fd = open(fileSystemRepresentationFromPath(sourcePath),
+                      O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
+        if (  fd < 0  ) {
+            Log(@"Could not open directory %@ without following a symlink; error %d ('%s')",
+                sourcePath, errno, strerror(errno));
+            errorExit();
+        }
+        DIR * dir = fdopendir(fd);
+        if (  dir == NULL  ) {
+            close(fd);
+            Log(@"Could not list %@", sourcePath);
+            errorExit();
+        }
+
+        struct dirent * entry;
+        while (  (entry = readdir(dir)) != NULL  ) {
+            if (   entry->d_name[0] == '.'
+                && (   entry->d_name[1] == '\0'
+                    || (   entry->d_name[1] == '.'
+                        && entry->d_name[2] == '\0' ) )  ) {
+                continue;
+            }
+            NSString * name = [NSString stringWithUTF8String: entry->d_name];
+            if (  name == nil  ) {
+                closedir(dir);
+                Log(@"Directory entry in %@ is not UTF-8", sourcePath);
+                errorExit();
+            }
+            NSString * fullSourcePath = [sourcePath stringByAppendingPathComponent: name];
+            NSString * fullTargetPath = [targetPath stringByAppendingPathComponent: name];
             securelyCopyDirectly(fullSourcePath, fullTargetPath);
         }
+        closedir(dir);
     } else {
-        NSData *data = [NSData dataWithContentsOfFile: sourcePath
-                                              options: (NSDataReadingUncached | NSDataReadingMappedIfSafe)
-                                                error: nil];
+        NSData *data = commandLineInstallContentsOfRegularFile(sourcePath);
         if (  ! data  ) {
-            Log(@"Could not read data from %@", sourcePath);
+            Log(@"Could not read regular file %@", sourcePath);
             errorExit();
         }
 
@@ -853,12 +877,21 @@ static void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
     errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
     errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetPath);
 
-    BOOL isDir;
-
-    if (  ! [gFileMgr fileExistsAtPath: sourcePath isDirectory: &isDir]  ) {
+    struct stat sourceStatus;
+    if (  lstat(fileSystemRepresentationFromPath(sourcePath), &sourceStatus) != 0  ) {
         Log(@"Does not exist: %@", sourcePath);
         errorExit();
     }
+    if (  S_ISLNK(sourceStatus.st_mode)  ) {
+        Log(@"Apparent symlink attack detected: %@", sourcePath);
+        errorExit();
+    }
+    if (   ( ! S_ISDIR(sourceStatus.st_mode) )
+        && ( ! S_ISREG(sourceStatus.st_mode) )  ) {
+        Log(@"Not a file or folder: %@", sourcePath);
+        errorExit();
+    }
+    BOOL isDir = S_ISDIR(sourceStatus.st_mode);
 
     securelyDeleteItemIfItExists(targetPath);
 
@@ -881,9 +914,8 @@ static void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(sourcePath);
     errorExitIfNotAnAbsolutePathOrAnySymlinkOrDotDotInPath(targetPath);
 
-    BOOL isDir;
-
-    if (  ! [gFileMgr fileExistsAtPath: sourcePath isDirectory: &isDir]  ) {
+    struct stat sourceStatus;
+    if (  lstat(fileSystemRepresentationFromPath(sourcePath), &sourceStatus) != 0  ) {
         Log(@"Does not exist: %@", sourcePath);
         errorExit();
     }

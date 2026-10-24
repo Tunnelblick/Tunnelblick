@@ -10,6 +10,11 @@
 
 #import "defines.h"
 
+#import <errno.h>
+#import <fcntl.h>
+#import <sys/stat.h>
+#import <unistd.h>
+
 static BOOL commandLineInstallPathHasPrefix(NSString * path, NSString * root) {
 
     if (   path.length == 0
@@ -41,5 +46,59 @@ NSString * commandLineInstallStagedSourcePath(NSString * sourcePath, NSString * 
         return nil;
     }
 
-    return [stagingDirectory stringByAppendingPathComponent: sourcePath.lastPathComponent];
+    NSString * name = sourcePath.lastPathComponent;
+    if (   name.length == 0
+        || [name isEqualToString: @"/"]
+        || [name containsString: @"/"]
+        || ( ! [sourcePath.pathExtension isEqualToString: @"tblk"] )  ) {
+        return nil;
+    }
+
+    return [stagingDirectory stringByAppendingPathComponent: name];
+}
+
+NSData * commandLineInstallContentsOfRegularFile(NSString * path) {
+
+    // dataWithContentsOfFile: follows a symlink swapped in after a path check.
+    // Open the leaf with O_NOFOLLOW and keep that file descriptor.
+    if (  path.length == 0  ) {
+        return nil;
+    }
+
+    const char * pathC = path.fileSystemRepresentation;
+    if (  pathC == NULL  ) {
+        return nil;
+    }
+
+    int fd = open(pathC, O_RDONLY | O_NOFOLLOW | O_CLOEXEC);
+    if (  fd < 0  ) {
+        return nil;
+    }
+
+    struct stat status;
+    if (   fstat(fd, &status) != 0
+        || ( ! S_ISREG(status.st_mode) )  ) {
+        close(fd);
+        return nil;
+    }
+
+    NSMutableData * data = [NSMutableData data];
+    char buffer[16 * 1024];
+    for (;;) {
+        ssize_t count = read(fd, buffer, sizeof buffer);
+        if (  count == 0  ) {
+            break;
+        }
+        if (  count < 0  ) {
+            if (  errno == EINTR  ) {
+                continue;
+            }
+            close(fd);
+            return nil;
+        }
+        [data appendBytes: buffer length: (NSUInteger)count];
+    }
+
+    close(fd);
+    return data;
 }
