@@ -54,6 +54,7 @@
 #import "TBUpdater.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
+#import "StatusWindowController.h"
 #import "VPNConnection.h"
 #import "WarningNote.h"
 #import "WelcomeController.h"
@@ -1539,6 +1540,19 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     if (  menu == myVPNMenu  ) {
         menuIsOpen = TRUE;
         [self updateIconImage];    // Display the new images
+        
+        // Status windows shown because the pointer is over the icon would be covered by the menu (which shows the same
+        // states), so hide them, the same ones statisticsWindowsShow: NO hides. (Not with fadeAway, which does not fade
+        // while the pointer is over the icon, as it is when the menu is opened. Windows shown while connecting stay.)
+        NSEnumerator * e = [myVPNConnectionDictionary objectEnumerator];
+        VPNConnection * connection;
+        while (  (connection = [e nextObject])  ) {
+            if (   (   [connection isConnected]
+                    && [[gTbDefaults stringForKey: @"connectionWindowDisplayCriteria"] isNotEqualTo: @"showWhenConnectingAndConnected"]  )
+                || [connection isDisconnected]  ) {
+                [[connection statusScreen] fadeOut];
+            }
+        }
     }
 }
 
@@ -2008,7 +2022,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [statusMenuItem setAction: @selector(disconnectAllMenuItemWasClicked:)];
 
     NSMenu * newMenu = [[NSMenu alloc] init];
-    [myVPNMenu setDelegate:self];
+    [newMenu setDelegate: self]; // (Not myVPNMenu, which is still the previous menu here)
 
     [newMenu addItem:statusMenuItem];
 
@@ -8009,7 +8023,9 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 
-    if (  [self mouseIsInsideAnyView] ) {
+    if (  menuIsOpen  ) {
+		TBLog(@"DB-MO", @"showStatisticsWindowsTimerHandler: the menu is open; NOT queueing showStatisticsWindows");
+    } else if (  [self mouseIsInsideAnyView] ) {
         [self performSelectorOnMainThread: @selector(showStatisticsWindows) withObject: nil waitUntilDone: NO];
 		TBLog(@"DB-MO", @"showStatisticsWindowsTimerHandler: mouse still inside a view; queueing showStatisticsWindows");
     } else {
