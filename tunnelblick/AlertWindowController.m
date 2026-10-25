@@ -221,7 +221,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     [tv setTextContainerInset: NSZeroSize];
     [[tv textContainer] setLineFragmentPadding: 0.0];
     [[tv textContainer] setWidthTracksTextView: YES];
-    [tv setFrameSize: NSMakeSize(ALERT_BODY_WIDTH, NSHeight([tv frame]))];
+    // Size the scroll view before the text view, so a later resizing of the scroll view (and with it, autoresizing of
+    // the text view) does not change the width the text was measured for
+    [sv setFrameSize: NSMakeSize(ALERT_BODY_WIDTH, NSHeight([sv frame]))];
+    [tv setMinSize: NSMakeSize(0.0, 0.0)];
+    [tv setFrameSize: NSMakeSize([sv contentSize].width, NSHeight([tv frame]))];
 
     [[tv textStorage] setAttributedString: [self messageAttributedString]];
     [[tv layoutManager] ensureLayoutForTextContainer: [tv textContainer]];
