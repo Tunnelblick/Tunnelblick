@@ -196,10 +196,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
                                                                                                 NSForegroundColorAttributeName: textColor,
                                                                                                 NSParagraphStyleAttributeName:  paragraphStyle}] autorelease];
 
-    // The date and time at the start of the line, such as "2026-10-24 18:08:12.815222 "
+    // The date and time at the start of the line, such as "2026-10-24 18:08:12.815222 ", or (in the output of
+    // Tunnelblick's scripts) spaces and the time, such as "                           18:08:12 "
     static NSRegularExpression * timestampExpression = nil;
     if (  ! timestampExpression  ) {
-        timestampExpression = [[NSRegularExpression alloc] initWithPattern: @"^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)? "
+        timestampExpression = [[NSRegularExpression alloc] initWithPattern: @"^(\\d{4}-\\d{2}-\\d{2} | +)\\d{2}:\\d{2}:\\d{2}(\\.\\d+)? "
                                                                     options: 0
                                                                       error: NULL];
     }
