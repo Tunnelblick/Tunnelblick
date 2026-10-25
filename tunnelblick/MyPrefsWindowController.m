@@ -328,7 +328,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 
 -(void) setupToolbar
 {
-	// The views are listed in a sidebar, which macOS mirrors for RTL languages, so the order is the same for all languages.
+	// The views are listed in a sidebar, so the order is the same for all languages (the sidebar is mirrored for right-to-left languages).
 	// The first view is the "primary" view: it is shown when a configuration in the sidebar is clicked.
 	[self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageWithSystemSymbolName: @"network"                accessibilityDescription: nil]];
 	[self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageWithSystemSymbolName: @"paintbrush"             accessibilityDescription: nil]];
@@ -401,9 +401,10 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 	[addButton     setAccessibilityLabel: [[addButton    image] accessibilityDescription]];
 	[removeButton  setAccessibilityLabel: [[removeButton image] accessibilityDescription]];
 	[actionsButton setAccessibilityLabel: [[[actionsButton itemAtIndex: 0] image] accessibilityDescription]];
+	// Hide what is left of the old button bar below the list (a separator, or a filler button in the right-to-left nib)
 	e = [[leftView subviews] objectEnumerator];
 	while (  (view = [e nextObject])  ) {
-		if (  [view isKindOfClass: [NSBox class]]  ) {
+		if (  ! [@[scrollView, addButton, removeButton, actionsButton] containsObject: view]  ) {
 			[view setHidden: YES];
 		}
 	}

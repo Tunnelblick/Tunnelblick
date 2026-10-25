@@ -30,6 +30,7 @@
 #import "NSApplication+LoginItem.h"
 #import "NSString+TB.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 #import "VPNConnection.h"
 
 extern NSString       * gDeployPath;
@@ -370,6 +371,9 @@ static NSString * const LeftNavStatusDotIdentifier  = @"LeftNavStatusDot";
                                                [[dot centerYAnchor]        constraintEqualToAnchor: [cell centerYAnchor]],
                                                [[dot widthAnchor]          constraintEqualToConstant: 8.0],
                                                [[dot heightAnchor]         constraintEqualToConstant: 8.0]]];
+    if (  [UIHelper languageAtLaunchWasRTL]  ) {
+        [UIHelper setRightToLeftLayoutIn: cell containersOnly: NO];
+    }
     return cell;
 }
 
@@ -395,6 +399,9 @@ static NSString * const LeftNavStatusDotIdentifier  = @"LeftNavStatusDot";
             [NSLayoutConstraint activateConstraints: @[[[textField leadingAnchor]  constraintEqualToAnchor: [header leadingAnchor]],
                                                        [[textField trailingAnchor] constraintLessThanOrEqualToAnchor: [header trailingAnchor]],
                                                        [[textField centerYAnchor]  constraintEqualToAnchor: [header centerYAnchor]]]];
+            if (  [UIHelper languageAtLaunchWasRTL]  ) {
+                [UIHelper setRightToLeftLayoutIn: header containersOnly: NO];
+            }
         }
         [[header textField] setStringValue: (name ? name : @"")];
         return header;

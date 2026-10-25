@@ -188,8 +188,17 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	[contentItem setMinimumThickness: 560.0];
 
 	splitViewController = [[NSSplitViewController alloc] init];
-	[splitViewController addSplitViewItem: sidebarItem];
-	[splitViewController addSplitViewItem: contentItem];
+	if (  [UIHelper languageAtLaunchWasRTL]  ) {
+		// For right-to-left languages the sidebar is on the right (the views in it and in the content area are mirrored
+		// where they are created)
+		[splitViewController addSplitViewItem: contentItem];
+		[splitViewController addSplitViewItem: sidebarItem];
+	} else {
+		[splitViewController addSplitViewItem: sidebarItem];
+		[splitViewController addSplitViewItem: contentItem];
+	}
+	sidebarSplitViewItem = sidebarItem;
+	contentSplitViewItem = contentItem;
 
 	[window setContentViewController: splitViewController];
 	[window setContentSize: NSMakeSize(920.0, 560.0)];
@@ -664,11 +673,9 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		}
 	}
 	
-	NSSplitViewItem * contentItem = [[splitViewController splitViewItems] lastObject];
-	[contentItem setMinimumThickness: minimumWidth];
+	[contentSplitViewItem setMinimumThickness: minimumWidth];
 	
-	NSSplitViewItem * sidebarItem = [[splitViewController splitViewItems] firstObject];
-	CGFloat minimumWindowContentWidth = [sidebarItem minimumThickness] + minimumWidth;
+	CGFloat minimumWindowContentWidth = [sidebarSplitViewItem minimumThickness] + minimumWidth;
 	NSSize minSize = [[self window] contentMinSize];
 	minSize.width = minimumWindowContentWidth;
 	[[self window] setContentMinSize: minSize];
@@ -710,13 +717,16 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	CGFloat width = MAX(size.width, ceil(NSMaxX(used))); // Wide enough to show text that extends past its right edge
 	[view setFrame: NSMakeRect(floor(NSMidX(content) - NSMidX(used)), 0.0, width, NSHeight(content))];
 	
-	// Help buttons go to the left edge of the controls, so they are not cut off
+	// Help buttons go to the leading edge of the controls (the right edge for right-to-left languages), so they are not cut off
+	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
 	NSView * subview;
 	NSEnumerator * e = [[view subviews] objectEnumerator];
 	while (  (subview = [e nextObject])  ) {
 		if (  [self isHelpButton: subview]  ) {
 			NSRect frame = [subview frame];
-			frame.origin.x = NSMinX(used);
+			frame.origin.x = (  rtl
+							  ? NSMaxX(used) - NSWidth(frame)
+							  : NSMinX(used));
 			[subview setFrame: frame];
 		}
 	}
@@ -888,6 +898,10 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	}
 	[NSLayoutConstraint activateConstraints: constraints];
 	
+	if (  [UIHelper languageAtLaunchWasRTL]  ) {
+		[UIHelper setRightToLeftLayoutIn: sidebarView containersOnly: NO];
+	}
+	
 	[self setMinimumContentWidthForViews];
 	
 	// Keep the shown view's content centered when the content area changes size
@@ -949,6 +963,9 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 												   [[textField leadingAnchor]  constraintEqualToAnchor: [imageView trailingAnchor] constant: 6.0],
 												   [[textField trailingAnchor] constraintEqualToAnchor: [cell trailingAnchor] constant: -4.0],
 												   [[textField centerYAnchor]  constraintEqualToAnchor: [cell centerYAnchor]]]];
+		if (  [UIHelper languageAtLaunchWasRTL]  ) {
+			[UIHelper setRightToLeftLayoutIn: cell containersOnly: NO];
+		}
 	}
 
 	NSToolbarItem * item = [toolbarItems objectForKey: [sidebarSectionIdentifiers objectAtIndex: (NSUInteger)row]];

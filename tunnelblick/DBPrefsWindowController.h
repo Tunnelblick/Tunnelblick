@@ -59,6 +59,8 @@
 	NSViewAnimation *viewAnimation;
 
 	NSSplitViewController * splitViewController;
+	NSSplitViewItem       * sidebarSplitViewItem;	// Owned by splitViewController
+	NSSplitViewItem       * contentSplitViewItem;	// Owned by splitViewController
 	NSView                * sidebarView;
 	NSTableView           * sidebarSectionTable;
 	NSMutableArray        * sidebarSectionIdentifiers;

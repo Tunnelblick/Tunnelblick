@@ -918,6 +918,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            advancedButton)
 											   [[footer trailingAnchor]                constraintLessThanOrEqualToAnchor: [self trailingAnchor] constant: -20.0],
 											   [[footer bottomAnchor]                  constraintEqualToAnchor: [self bottomAnchor] constant: -14.0]]];
 	
+	if (  [UIHelper languageAtLaunchWasRTL]  ) {
+		NSView * settingsForm = [[[[settingsTabViewItem view] subviews] firstObject] documentView]; // (The scroll view's form)
+		NSEnumerator * views = [@[self, statusCard, viewSelector, footer, settingsForm] objectEnumerator];
+		NSView * view;
+		while (  (view = [views nextObject])  ) {
+			[UIHelper setRightToLeftLayoutIn: view containersOnly: (view == self)];
+		}
+	}
+	
 	[keep makeObjectsPerformSelector: @selector(release)];
 }
 

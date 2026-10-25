@@ -428,20 +428,25 @@ extern TBUserDefaults * gTbDefaults;
     return container;
 }
 
-+(void) setRightToLeftLayoutOfContainersIn: (NSView *) view {
++(void) setRightToLeftLayoutIn: (NSView *) view
+                containersOnly: (BOOL)     containersOnly {
 
-    // Lays out the stack views and grid views in a view (including the view itself) from right to left.
-    // (AppKit lays out Tunnelblick from left to right even for right-to-left languages; the controls in the
-    // right-to-left versions of the nibs are already set up for those languages, so only the containers are changed.)
+    // Lays out a view and its subviews from right to left (with containersOnly, only the stack views and grid views).
+    //
+    // AppKit lays out Tunnelblick from left to right even for right-to-left languages, which use right-to-left versions
+    // of the nibs instead. Views that are built in code (and laid out with stack views and leading/trailing constraints)
+    // are mirrored with this. A view's layout direction is not inherited by its subviews, so views that are added later
+    // (such as table cells) must be set up when they are created.
 
-    if (   [view isKindOfClass: [NSStackView class]]
+    if (   ( ! containersOnly )
+        || [view isKindOfClass: [NSStackView class]]
         || [view isKindOfClass: [NSGridView class]]  ) {
         [view setUserInterfaceLayoutDirection: NSUserInterfaceLayoutDirectionRightToLeft];
     }
     NSView * subview;
     NSEnumerator * e = [[view subviews] objectEnumerator];
     while (  (subview = [e nextObject])  ) {
-        [UIHelper setRightToLeftLayoutOfContainersIn: subview];
+        [UIHelper setRightToLeftLayoutIn: subview containersOnly: containersOnly];
     }
 }
 
@@ -509,7 +514,7 @@ extern TBUserDefaults * gTbDefaults;
                                                [[top widthAnchor] constraintLessThanOrEqualToAnchor: [root widthAnchor]]]];
 
     if (  [UIHelper languageAtLaunchWasRTL]  ) {
-        [UIHelper setRightToLeftLayoutOfContainersIn: root];
+        [UIHelper setRightToLeftLayoutIn: root containersOnly: YES];
     }
 
     NSView * contentView = [window contentView];

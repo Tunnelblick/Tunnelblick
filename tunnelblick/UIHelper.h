@@ -62,7 +62,8 @@
 +(void)         setUpDialogHeadline: (NSTextField *) textField
                                width: (CGFloat)       width;
 
-+(void)         setRightToLeftLayoutOfContainersIn: (NSView *) view;
++(void)         setRightToLeftLayoutIn: (NSView *) view
+                        containersOnly: (BOOL)     containersOnly;
 
 +(NSView *)     viewOverlaying: (NSView *) firstView
                           with: (NSView *) secondView;
