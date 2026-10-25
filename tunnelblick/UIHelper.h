@@ -59,6 +59,21 @@
 
 +(void)         shakeWindow: (NSWindow *) w;
 
++(void)         setUpDialogHeadline: (NSTextField *) textField
+                               width: (CGFloat)       width;
+
++(void)         setRightToLeftLayoutOfContainersIn: (NSView *) view;
+
++(NSView *)     viewOverlaying: (NSView *) firstView
+                          with: (NSView *) secondView;
+
++(void)         layOutDialogWindow: (NSWindow *)    window
+                              icon: (NSImageView *) icon
+                         bodyViews: (NSArray *)     bodyViews
+                         bodyWidth: (CGFloat)       bodyWidth
+                     leadingButton: (NSButton *)    leadingButton
+                   trailingButtons: (NSArray *)     trailingButtons;
+
 +(void)         shiftControl: (id) theControl by: (CGFloat) amount reverse: (BOOL) reverse;
 
 +(void)         showAlertWindow: (NSDictionary *) dict;
