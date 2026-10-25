@@ -4395,30 +4395,18 @@ static void signal_handler(int signalNumber)
     CFReleaseIfNotNULL(allLocalizationsCF);
     CFReleaseIfNotNULL(languagesCF);
 
-    // Maintain the selected panel index if RTL status changed from last launch
-    if (   [gTbDefaults objectForKey: @"detailsWindowViewIndex"]
-        && [gTbDefaults objectForKey: @"lastLanguageAtLaunchWasRTL"]  ) {
-        unsigned int oldIx = [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0 min: 0 max: 6];
-        unsigned int newIx = oldIx;
-        BOOL lastLanguageWasRTL = [gTbDefaults boolForKey: @"lastLanguageAtLaunchWasRTL"];
-        if (  lastLanguageWasRTL  ) {
-            if (  oldIx < 2  ) {
-                NSLog(@"Old panel index < 2; setting it to 6");
-                newIx = 6;
-            }
-        } else if (  oldIx > 6  ) {
-            NSLog(@"Old panel index > 6; setting it to 0");
-            newIx = 0;
-        }
-        if (  languageAtLaunchWasRTL != lastLanguageWasRTL  ) {
-            newIx = 6 - newIx;
-            [gTbDefaults setBool: languageAtLaunchWasRTL forKey: @"lastLanguageAtLaunchWasRTL"];
-        }
-        if (  newIx != oldIx) {
+    // The VPN Details window used to list its views in reverse order for right-to-left languages, and saved the index
+    // of the selected view in that order. It now uses the same order for all languages (the order used for left-to-right
+    // languages), so convert an index that was saved in the reversed order.
+    if (  [gTbDefaults boolForKey: @"lastLanguageAtLaunchWasRTL"]  ) {
+        if (  [gTbDefaults objectForKey: @"detailsWindowViewIndex"]  ) {
+            unsigned int oldIx = [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 6 min: 0 max: 6];
+            unsigned int newIx = (  (oldIx < 2)     // The lock icon or the flexible space
+                                  ? 0
+                                  : 6 - oldIx);
             [gTbDefaults setObject: [NSNumber numberWithUnsignedInt: newIx] forKey: @"detailsWindowViewIndex"];
         }
-    } else {
-        [gTbDefaults setBool: languageAtLaunchWasRTL forKey: @"lastLanguageAtLaunchWasRTL"];
+        [gTbDefaults setBool: NO forKey: @"lastLanguageAtLaunchWasRTL"];
     }
 
     // Process runOnLaunch item

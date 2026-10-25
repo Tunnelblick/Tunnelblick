@@ -42,12 +42,10 @@ extern TBUserDefaults * gTbDefaults;
 
 +(unsigned int) detailsWindowsViewIndexFromPreferencesWithCount: (unsigned int) count {
     
-    // "count" is the [toolbarIdentifiers count]
+    // "count" is the [toolbarIdentifiers count]. The views are in the same order for all languages,
+    // followed by the lock icon, which has no view.
 	
-	unsigned int ix = (  [UIHelper languageAtLaunchWasRTL]
-					   ? [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: count - 1 min: 2 max: count - 1]
-					   : [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0         min: 0 max: count - 3]);
-	return ix;
+	return [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0 min: 0 max: count - 2];
 }
 
 +(BOOL) languageAtLaunchWasRTL {
