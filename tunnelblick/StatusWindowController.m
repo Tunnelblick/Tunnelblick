@@ -310,6 +310,9 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [header addView: disconnectButton inGravity: NSStackViewGravityTrailing];
     [header setClippingResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
     [[[header heightAnchor] constraintGreaterThanOrEqualToConstant: reservedTextHeight] setActive: YES];
+    if (  [UIHelper languageAtLaunchWasRTL]  ) {
+        [UIHelper setRightToLeftLayoutIn: header containersOnly: YES];
+    }
     
     NSStackView * inRow  = [self statisticsRowWithLabel: inTF  rate: inRateTF  rateUnits: inRateUnitsTF  total: inTotalTF  totalUnits: inTotalUnitsTF];
     NSStackView * outRow = [self statisticsRowWithLabel: outTF rate: outRateTF rateUnits: outRateUnitsTF total: outTotalTF totalUnits: outTotalUnitsTF];

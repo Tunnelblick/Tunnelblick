@@ -5855,13 +5855,19 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             itemName = [itemName substringFromIndex: lastSlashRange.location + 1];
         }
 
+        BOOL shownWithSubtitle = NO;
         if (  @available(macOS 14.4, *)  ) {
             // The state (and while connected, the connection time and the traffic) is shown below the name, so the
-            // connection time is not added to the name
-            NSString *itemTitle = [NSString stringWithFormat:commandString, itemName, @""];
-            [anItem setTitle:itemTitle];
-            [anItem setSubtitle: [connection menuSubtitle]];
-        } else {
+            // connection time is not added to the name. (Not for right-to-left languages: Tunnelblick's menu is laid out
+            // from left to right, which shows a subtitle in such a language on the wrong side.)
+            if (  ! [UIHelper languageAtLaunchWasRTL]  ) {
+                NSString *itemTitle = [NSString stringWithFormat:commandString, itemName, @""];
+                [anItem setTitle:itemTitle];
+                [anItem setSubtitle: [connection menuSubtitle]];
+                shownWithSubtitle = YES;
+            }
+        }
+        if (  ! shownWithSubtitle  ) {
             NSString *itemTitle = [NSString stringWithFormat:commandString,
                                    itemName,
                                    [self connectTimeString]];
