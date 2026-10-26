@@ -18,8 +18,6 @@
                 <outlet property="messageTV" destination="24" id="25"/>
                 <outlet property="otherButton" destination="ukh-lq-iQI" id="uDC-ku-zrg"/>
                 <outlet property="progressInd" destination="EgY-Ws-Gfk" id="pQW-Au-Kqx"/>
-                <outlet property="sizingSV" destination="IwD-rF-wdi" id="Q7l-dX-7Gc"/>
-                <outlet property="sizingTV" destination="9Bu-5T-paG" id="XUc-mm-jMl"/>
                 <outlet property="window" destination="1" id="12"/>
             </connections>
         </customObject>
@@ -137,43 +135,5 @@
             </connections>
             <point key="canvasLocation" x="897.5" y="617.5"/>
         </window>
-        <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="IwD-rF-wdi">
-            <rect key="frame" x="0.0" y="0.0" width="467" height="25"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="XRP-5m-Gpo">
-                <rect key="frame" x="1" y="1" width="450" height="23"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                <subviews>
-                    <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesRuler="YES" spellingCorrection="YES" id="9Bu-5T-paG">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="23"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        <size key="minSize" width="450" height="23"/>
-                        <size key="maxSize" width="467" height="10000000"/>
-                        <attributedString key="textStorage">
-                            <fragment content="message$">
-                                <attributes>
-                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <font key="NSFont" size="12" name="Helvetica"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
-                    </textView>
-                </subviews>
-                <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-            </clipView>
-            <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="F9Z-1b-TLp">
-                <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                <autoresizingMask key="autoresizingMask"/>
-            </scroller>
-            <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Ewe-ud-R9a">
-                <rect key="frame" x="451" y="1" width="15" height="23"/>
-                <autoresizingMask key="autoresizingMask"/>
-            </scroller>
-            <point key="canvasLocation" x="665" y="214"/>
-        </scrollView>
     </objects>
 </document>

@@ -161,101 +161,58 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     return nil;
 }
 
-+(NSColor *) redColorForHighlighting {
-	
-	return [NSColor colorWithCalibratedRed: 1.0 green: 0.0 blue: 0.0 alpha: (  gTbInfo.runningInDarkMode
-																			 ? 0.7
-																			 : 0.4)];
-}
-
-+(NSColor *) yellowColorForHighlighting {
-	
-	return [NSColor colorWithCalibratedRed: 1.0 green: 1.0 blue: 0.0 alpha: (  gTbInfo.runningInDarkMode
-																			 ? 0.6
-																			 : 0.4)];
-}
-
-+(NSColor *) blueColorForHighlighting {
-	
-    return [NSColor colorWithCalibratedRed: 0.0 green: 1.0 blue: 1.0 alpha: (  gTbInfo.runningInDarkMode
-																			 ? 0.7
-																			 : 0.2)];
-}
-
-+(NSColor *) darkBlueColorForFont {
-	
-	return [NSColor colorWithCalibratedRed: 0.0 green: 0.0 blue: 1.0 alpha: 1.0];
-}
-
-+(NSColor *) lightBlueColorForFont {
-
-	return [NSColor colorWithCalibratedRed: (69.0 / 256.0) green: (122.0 / 256.0) blue: (187.0 / 256.0) alpha: 1.0];
-}
-
-+(NSColor *) blueColorForFont {
-
-    NSColor * blue = (  gTbInfo.runningInDarkMode
-					  ? [LogDisplay lightBlueColorForFont]
-					  : [LogDisplay darkBlueColorForFont]);
-	return blue;
-}
-
-+(void) getColorsForForeground: (NSColor * *) foregroundColor
-					background: (NSColor * *) backgroundColor
-				   useBlueText: (BOOL) useBlueText
-			useRedHighlighting: (BOOL) useRedHighlighting
-		 useYellowHighlighting: (BOOL) useYellowHighlighting
-		   useBlueHighlighting: (BOOL) useBlueHighlighting {
-
-	*backgroundColor = (  useRedHighlighting
-						? [LogDisplay redColorForHighlighting]
-						: (  useYellowHighlighting
-						   ? [LogDisplay yellowColorForHighlighting]
-						   : (  useBlueHighlighting
-							  ? [LogDisplay blueColorForHighlighting]
-							  : [NSColor textBackgroundColor]  )  )  );
-
-	*foregroundColor = (  useBlueText
-						? (  gTbInfo.runningInDarkMode
-						   ? (  (   useRedHighlighting
-								 || useYellowHighlighting
-								 || useBlueHighlighting)
-							  ? [LogDisplay darkBlueColorForFont]
-							  : [LogDisplay lightBlueColorForFont]  )
-						   : [LogDisplay darkBlueColorForFont])
-						:  [NSColor textColor]);
-}
-
 -(NSMutableAttributedString *) attributedStringFromLine: (NSString *) line fromTunnelblick: (BOOL) fromTunnelblick {
 
-    // Highlights errors with red, warnings with yellow, and notes with blue
-    // Renders Tunnelblick log entries in blue text and OpenVPN entries in black text
+    // Renders a log line in a monospaced font with system colors (which follow light and dark mode):
+    //      the date and time at the start of the line in gray;
+    //      the rest in red for errors, orange for warnings, teal for notes,
+    //      otherwise in the accent color for Tunnelblick entries and the normal text color for OpenVPN entries.
 
-	BOOL useRedHighlighting    = [line rangeOfString: @"ERROR:" options: NSCaseInsensitiveSearch].length != 0;
-	BOOL useYellowHighlighting = (  useRedHighlighting
-								  ? NO
-								  : (   ([line rangeOfString: @"WARNING:"           options: NSCaseInsensitiveSearch].length != 0)
-                                     || ([line rangeOfString: @"DEPRECATED OPTION:" options: NSCaseInsensitiveSearch].length != 0)));
-	BOOL useBlueHighlighting   = (  (   useRedHighlighting
-									 || useYellowHighlighting)
-								  ? NO
-								  : [line rangeOfString: @"NOTE:" options: NSCaseInsensitiveSearch].length != 0);
+    NSColor * textColor;
+    if (  [line rangeOfString: @"ERROR:" options: NSCaseInsensitiveSearch].length != 0  ) {
+        textColor = [NSColor systemRedColor];
+    } else if (   ([line rangeOfString: @"WARNING:"           options: NSCaseInsensitiveSearch].length != 0)
+               || ([line rangeOfString: @"DEPRECATED OPTION:" options: NSCaseInsensitiveSearch].length != 0)  ) {
+        textColor = [NSColor systemOrangeColor];
+    } else if (  [line rangeOfString: @"NOTE:" options: NSCaseInsensitiveSearch].length != 0  ) {
+        textColor = [NSColor systemTealColor];
+    } else if (  fromTunnelblick  ) {
+        textColor = [NSColor controlAccentColor];
+    } else {
+        textColor = [NSColor textColor];
+    }
 
-	NSColor * foregroundColor;
-	NSColor * backgroundColor;
-	[LogDisplay getColorsForForeground: &foregroundColor
-							background: &backgroundColor
-						   useBlueText: fromTunnelblick
-					useRedHighlighting: useRedHighlighting
-				 useYellowHighlighting: useYellowHighlighting
-				   useBlueHighlighting:	useBlueHighlighting];
+    static NSParagraphStyle * paragraphStyle = nil;
+    if (  ! paragraphStyle  ) {
+        NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc] init];
+        [style setLineHeightMultiple: 1.15];
+        [style setParagraphSpacing: 2.0];
+        paragraphStyle = style; // Kept for the life of the program
+    }
 
-    NSMutableAttributedString * string = [[[NSMutableAttributedString alloc] initWithString: line] autorelease];
-    
-    NSRange lineRange = NSMakeRange(0, [line length]);
+    NSFont * font = [NSFont monospacedSystemFontOfSize: [NSFont smallSystemFontSize] weight: NSFontWeightRegular];
+    NSMutableAttributedString * string = [[[NSMutableAttributedString alloc] initWithString: line
+                                                                                  attributes: @{NSFontAttributeName:            font,
+                                                                                                NSForegroundColorAttributeName: textColor,
+                                                                                                NSParagraphStyleAttributeName:  paragraphStyle}] autorelease];
 
-	[string addAttribute: NSForegroundColorAttributeName value: foregroundColor range: lineRange];
-    [string addAttribute: NSBackgroundColorAttributeName value: backgroundColor range: lineRange];
+    // The date and time at the start of the line, such as "2026-10-24 18:08:12.815222 ", or (in the output of
+    // Tunnelblick's scripts) spaces and the time, such as "                           18:08:12 "
+    static NSRegularExpression * timestampExpression = nil;
+    if (  ! timestampExpression  ) {
+        timestampExpression = [[NSRegularExpression alloc] initWithPattern: @"^(\\d{4}-\\d{2}-\\d{2} | +)\\d{2}:\\d{2}:\\d{2}(\\.\\d+)? "
+                                                                    options: 0
+                                                                      error: NULL];
+    }
+    NSRange timestampRange = [timestampExpression rangeOfFirstMatchInString: line options: 0 range: NSMakeRange(0, [line length])];
+    if (  timestampRange.location != NSNotFound  ) {
+        [string addAttribute: NSForegroundColorAttributeName value: [NSColor secondaryLabelColor] range: timestampRange];
+        
+        // Lines that wrap continue below the text, not below the date and time
+        NSMutableParagraphStyle * indentedStyle = [[paragraphStyle mutableCopy] autorelease];
+        [indentedStyle setHeadIndent: ceil([[line substringWithRange: timestampRange] sizeWithAttributes: @{NSFontAttributeName: font}].width)];
+        [string addAttribute: NSParagraphStyleAttributeName value: indentedStyle range: NSMakeRange(0, [line length])];
+    }
 
     return string;
 }

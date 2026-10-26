@@ -5345,20 +5345,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
--(void) updateDisplayWithNewStatistics {
+-(NSDictionary *) statisticsForDisplay {
+
+    // Returns the traffic statistics as strings for display, with keys "inTotal", "inTotalUnits", "outTotal", "outTotalUnits",
+    // "inRate", "inRateUnits", "outRate", "outRateUnits". Returns nil for a server connection (statistics are not available).
 
     if (   serverNotClient  ) {
-        [[statusScreen inTFC]            setTitle: @""];
-        [[statusScreen inRateTFC]        setTitle: @""];
-        [[statusScreen inRateUnitsTFC]   setTitle: @""];
-        [[statusScreen outRateTFC]       setTitle: @""];
-        [[statusScreen outRateUnitsTFC]  setTitle: @""];
-        [[statusScreen outTFC]           setTitle: @""];
-        [[statusScreen inTotalTFC]       setTitle: @""];
-        [[statusScreen inTotalUnitsTFC]  setTitle: @""];
-        [[statusScreen outTotalTFC]      setTitle: @""];
-        [[statusScreen outTotalUnitsTFC] setTitle: @""];
-        return;
+        return nil;
     }
 
     struct Statistics stats;
@@ -5373,10 +5366,16 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setNumber: &inTotal  andUnits: &inTotalUnits  from: (stats.totalInBytecount  + stats.totalInByteCountBeforeThisConnection ) unitsArray: gTotalUnits];
     [self setNumber: &outTotal andUnits: &outTotalUnits from: (stats.totalOutBytecount + stats.totalOutByteCountBeforeThisConnection) unitsArray: gTotalUnits];
 
-    [[statusScreen inTotalTFC]       setTitle: LocalizationNotNeeded(inTotal)];
-    [[statusScreen inTotalUnitsTFC]  setTitle: LocalizationNotNeeded(inTotalUnits)];
-    [[statusScreen outTotalTFC]      setTitle: LocalizationNotNeeded(outTotal)];
-    [[statusScreen outTotalUnitsTFC] setTitle: LocalizationNotNeeded(outTotalUnits)];
+    NSString * zeroRateUnits = [gRateUnits objectAtIndex: 0];
+    NSMutableDictionary * result = [NSMutableDictionary dictionaryWithDictionary:
+                                    @{@"inTotal":       (inTotal ? inTotal : @""),
+                                      @"inTotalUnits":  (inTotalUnits ? inTotalUnits : @""),
+                                      @"outTotal":      (outTotal ? outTotal : @""),
+                                      @"outTotalUnits": (outTotalUnits ? outTotalUnits : @""),
+                                      @"inRate":        @"0",
+                                      @"inRateUnits":   zeroRateUnits,
+                                      @"outRate":       @"0",
+                                      @"outRateUnits":  zeroRateUnits}];
 
     // Set the time interval we look at (the last xxx seconds)
     NSTimeInterval rateTimeInterval = [gTbDefaults timeIntervalForKey: @"statisticsRateTimeInterval"
@@ -5391,8 +5390,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     rateTimeInterval = rateTimeInterval - timeSinceLastSet;
     if (  rateTimeInterval < 0) {
-        [self clearStatisticsRatesDisplay];
-        return;
+        return result;
     }
 
     // Accumulate statistics for all samples taken during the last rateTimeInterval seconds
@@ -5417,9 +5415,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
 
-    if ( tTimeInt == 0.0  ) {
-        [self clearStatisticsRatesDisplay];
-    } else {
+    if ( tTimeInt != 0.0  ) {
         NSString * inRate       = nil;
         NSString * inRateUnits  = nil;
         NSString * outRate      = nil;
@@ -5428,11 +5424,40 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [self setNumber: &inRate  andUnits: &inRateUnits  from: ((TBByteCount) ((double) tInBytes  / tTimeInt)) unitsArray: gRateUnits];
         [self setNumber: &outRate andUnits: &outRateUnits from: ((TBByteCount) ((double) tOutBytes / tTimeInt)) unitsArray: gRateUnits];
 
-        [[statusScreen inRateTFC]       setTitle: LocalizationNotNeeded(inRate)];
-        [[statusScreen inRateUnitsTFC]  setTitle: LocalizationNotNeeded(inRateUnits)];
-        [[statusScreen outRateTFC]      setTitle: LocalizationNotNeeded(outRate)];
-        [[statusScreen outRateUnitsTFC] setTitle: LocalizationNotNeeded(outRateUnits)];
+        [result setObject: (inRate ? inRate : @"")       forKey: @"inRate"];
+        [result setObject: (inRateUnits ? inRateUnits : @"")  forKey: @"inRateUnits"];
+        [result setObject: (outRate ? outRate : @"")      forKey: @"outRate"];
+        [result setObject: (outRateUnits ? outRateUnits : @"") forKey: @"outRateUnits"];
     }
+
+    return result;
+}
+
+-(void) updateDisplayWithNewStatistics {
+
+    NSDictionary * statistics = [self statisticsForDisplay];
+    if (  ! statistics  ) {
+        [[statusScreen inTFC]            setTitle: @""];
+        [[statusScreen inRateTFC]        setTitle: @""];
+        [[statusScreen inRateUnitsTFC]   setTitle: @""];
+        [[statusScreen outRateTFC]       setTitle: @""];
+        [[statusScreen outRateUnitsTFC]  setTitle: @""];
+        [[statusScreen outTFC]           setTitle: @""];
+        [[statusScreen inTotalTFC]       setTitle: @""];
+        [[statusScreen inTotalUnitsTFC]  setTitle: @""];
+        [[statusScreen outTotalTFC]      setTitle: @""];
+        [[statusScreen outTotalUnitsTFC] setTitle: @""];
+        return;
+    }
+
+    [[statusScreen inTotalTFC]       setTitle: [statistics objectForKey: @"inTotal"]];
+    [[statusScreen inTotalUnitsTFC]  setTitle: [statistics objectForKey: @"inTotalUnits"]];
+    [[statusScreen outTotalTFC]      setTitle: [statistics objectForKey: @"outTotal"]];
+    [[statusScreen outTotalUnitsTFC] setTitle: [statistics objectForKey: @"outTotalUnits"]];
+    [[statusScreen inRateTFC]        setTitle: [statistics objectForKey: @"inRate"]];
+    [[statusScreen inRateUnitsTFC]   setTitle: [statistics objectForKey: @"inRateUnits"]];
+    [[statusScreen outRateTFC]       setTitle: [statistics objectForKey: @"outRate"]];
+    [[statusScreen outRateUnitsTFC]  setTitle: [statistics objectForKey: @"outRateUnits"]];
 }
 
 -(void) clearStatisticsRatesDisplay {
@@ -5723,6 +5748,67 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(NSImage *) menuStatusImage {
+
+    // A round "chip" showing the state: a white shield on blue while connected, on orange between connected and
+    // disconnected, and a gray shield on light gray while disconnected
+    NSColor * fill;
+    NSColor * tint;
+    NSString * symbolName;
+    if (  [self isConnected]  ) {
+        fill = [NSColor controlAccentColor];
+        tint = [NSColor whiteColor];
+        symbolName = @"shield.fill";
+    } else if (  [self isDisconnected]  ) {
+        fill = [NSColor quaternaryLabelColor];
+        tint = [NSColor secondaryLabelColor];
+        symbolName = @"shield";
+    } else {
+        fill = [NSColor systemOrangeColor];
+        tint = [NSColor whiteColor];
+        symbolName = @"shield.lefthalf.filled";
+    }
+    NSImage * symbol = [[NSImage imageWithSystemSymbolName: symbolName accessibilityDescription: nil]
+                        imageWithSymbolConfiguration: [NSImageSymbolConfiguration configurationWithPointSize: 11.0 weight: NSFontWeightSemibold]];
+    NSSize size = NSMakeSize(24.0, 24.0);
+    NSImage * image = [NSImage imageWithSize: size flipped: NO drawingHandler: ^BOOL(NSRect rect) {
+        [fill setFill];
+        [[NSBezierPath bezierPathWithOvalInRect: rect] fill];
+        NSSize symbolSize = [symbol size];
+        NSRect symbolRect = NSMakeRect(floor((NSWidth(rect) - symbolSize.width) / 2.0), floor((NSHeight(rect) - symbolSize.height) / 2.0), symbolSize.width, symbolSize.height);
+        NSImage * tinted = [NSImage imageWithSize: symbolSize flipped: NO drawingHandler: ^BOOL(NSRect symbolBounds) {
+            [symbol drawInRect: symbolBounds];
+            [tint set];
+            NSRectFillUsingOperation(symbolBounds, NSCompositingOperationSourceAtop);
+            return YES;
+        }];
+        [tinted drawInRect: symbolRect];
+        return YES;
+    }];
+    [image setTemplate: NO];
+    return image;
+}
+
+-(NSString *) menuSubtitle {
+
+    // The state, and while connected the connection time and the traffic
+    NSString * subtitle = localizeNonLiteral([self state], @"Connection status");
+    if (  [self isConnected]  ) {
+        NSString * timeString = [[self connectTimeString] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+        if (  [timeString length] != 0  ) {
+            subtitle = [NSString stringWithFormat: @"%@ · %@", subtitle, timeString];
+        }
+        NSDictionary * statistics = [self statisticsForDisplay];
+        if (  statistics  ) {
+            subtitle = [NSString stringWithFormat: @"%@\n%@ %@ %@  ·  %@ %@ %@",
+                        subtitle,
+                        NSLocalizedString(@"In:", @"Window text"),  [statistics objectForKey: @"inRate"],  [statistics objectForKey: @"inRateUnits"],
+                        NSLocalizedString(@"Out:", @"Window text"), [statistics objectForKey: @"outRate"], [statistics objectForKey: @"outRateUnits"]];
+        }
+    }
+    return subtitle;
+}
+
 -(BOOL)validateMenuItem: (NSMenuItem *) anItem {
 
     SEL action = [anItem action];
@@ -5743,7 +5829,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             state = NSOffState;
         }
 
-        [anItem setState:state];
+        // The state is shown with a symbol (green while connected, orange between connected and disconnected) instead of
+        // a checkmark
+        (void) state;
+        [anItem setState: NSOffState];
+        [anItem setImage: [connection menuStatusImage]];
 
         // setting menu command title depending on current status:
         NSString *commandString;
@@ -5765,10 +5855,24 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             itemName = [itemName substringFromIndex: lastSlashRange.location + 1];
         }
 
-        NSString *itemTitle = [NSString stringWithFormat:commandString,
-                               itemName,
-                               [self connectTimeString]];
-        [anItem setTitle:itemTitle];
+        BOOL shownWithSubtitle = NO;
+        if (  @available(macOS 14.4, *)  ) {
+            // The state (and while connected, the connection time and the traffic) is shown below the name, so the
+            // connection time is not added to the name. (Not for right-to-left languages: Tunnelblick's menu is laid out
+            // from left to right, which shows a subtitle in such a language on the wrong side.)
+            if (  ! [UIHelper languageAtLaunchWasRTL]  ) {
+                NSString *itemTitle = [NSString stringWithFormat:commandString, itemName, @""];
+                [anItem setTitle:itemTitle];
+                [anItem setSubtitle: [connection menuSubtitle]];
+                shownWithSubtitle = YES;
+            }
+        }
+        if (  ! shownWithSubtitle  ) {
+            NSString *itemTitle = [NSString stringWithFormat:commandString,
+                                   itemName,
+                                   [self connectTimeString]];
+            [anItem setTitle:itemTitle];
+        }
         if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
             [anItem setToolTip: [connection configPath]];
         }
@@ -5895,7 +5999,7 @@ NSString * getStringOf64RandomCharacters(void) {
     // (A simple encoding of 32 bytes of random data.)
 
     // Get 32 random bytes
-    const char bytes[32];
+    char bytes[32];
     int result = SecRandomCopyBytes(kSecRandomDefault, sizeof(bytes), (void *)bytes);
     if (  result != errSecSuccess  ) {
         NSLog(@"Unable to obtain data for .mip");

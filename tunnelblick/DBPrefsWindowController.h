@@ -39,19 +39,35 @@
 //
 //
 //  10 June 2011:   Modified for use in Tunnelblick
+//
+//  24 October 2026: The views are now chosen from a sidebar instead of from toolbar buttons.
+//                   The first view added is the "primary" view. A subclass supplies the top
+//                   part of the sidebar for it (-sidebarTopView) and calls -showPrimaryView when
+//                   it is clicked. Every other view gets a row in the sidebar's section list.
+//                   The toolbar only holds items that have no view (e.g. the lock icon).
 
 
 @interface DBPrefsWindowController : NSWindowController <NSAnimationDelegate, NSToolbarDelegate> {
 	NSMutableArray *toolbarIdentifiers;
 	NSMutableDictionary *toolbarViews;
 	NSMutableDictionary *toolbarItems;
-	
+
 	BOOL _crossFade;
 	BOOL _shiftSlowsAnimation;
-	
+
 	NSView *contentSubview;
 	NSViewAnimation *viewAnimation;
-	
+
+	NSSplitViewController * splitViewController;
+	NSSplitViewItem       * sidebarSplitViewItem;	// Owned by splitViewController
+	NSSplitViewItem       * contentSplitViewItem;	// Owned by splitViewController
+	NSView                * sidebarView;
+	NSTableView           * sidebarSectionTable;
+	NSMutableArray        * sidebarSectionIdentifiers;
+	NSMutableDictionary   * originalViewSizes;  // Size of each view when it was added (the size it was designed for)
+	id                      sidebarSectionList;
+	BOOL                    updatingSidebarSelection;
+
 	BOOL windowHasLoaded;
 }
 
@@ -70,6 +86,13 @@
 - (void)setShiftSlowsAnimation:(BOOL)slows;
 
 - (void)displayViewForIdentifier:(NSString *)identifier animate:(BOOL)animate;
+
+// Sidebar
+- (NSView *)sidebarTopView;                           // Override: view shown above the section list (nil = none)
+- (NSView *)sidebarBottomView;                        // Override: bar shown at the bottom of the sidebar (nil = none)
+- (NSString *)sidebarSectionTitle;                    // Override: heading of the section list (nil = none)
+- (void)sidebarDidSelectPrimaryView:(BOOL)isPrimary;  // Override: called when the primary view is shown or hidden
+- (void)showPrimaryView;
 - (void)crossFadeView:(NSView *)oldView withView:(NSView *)newView;
 - (NSRect)frameForView:(NSView *)view;
 

@@ -31,7 +31,7 @@
 @class SettingsSheetWindowController;
 @class TBButton;
 
-@interface MyPrefsWindowController : DBPrefsWindowController <NSTextViewDelegate, NSWindowDelegate, NSTabViewDelegate, NSTableViewDelegate>
+@interface MyPrefsWindowController : DBPrefsWindowController <NSTextViewDelegate, NSWindowDelegate, NSTabViewDelegate, NSTableViewDelegate, NSMenuItemValidation, NSToolbarItemValidation>
 {   
     NSString                      * currentViewName;
     NSRect                          currentFrame;
@@ -43,6 +43,7 @@
     IBOutlet UtilitiesView        * utilitiesPrefsView;
     
     NSTimer                       * lockTheLockIconTimer;
+    NSTimer                       * statusUpdateTimer;  // Updates the status (state, traffic, time) while the Configurations view is shown
     NSDate                        * lockTimeoutDate;
     BOOL                            lockIconIsUnlocked;
 
