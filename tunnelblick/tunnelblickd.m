@@ -425,7 +425,7 @@ static BOOL isFirstRunAfterBoot(aslclient asl,
     //
     //    (A) L_AS_T/last-reboot-info.txt does not exist;
     //     or
-    //    (B) The time-since-1970 in that file is not the same or very close (< 5 secs apart) to the time-since-1970 of the most recent boot.
+    //    (B) The time-since-1970 in that file is equal to or more than 5 seconds from the time-since-1970 of the most recent boot.
 
     BOOL firstRunAfterBoot = FALSE;
     NSError * error = nil;
