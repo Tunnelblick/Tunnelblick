@@ -44,6 +44,8 @@ extern TBUserDefaults  * gTbDefaults;
 -(NSArray *)    getUsernameAndPassword;
 -(void)         performPasswordAuthentication;
 -(void)         performPrivateKeyAuthentication;
+-(void)         performPkcs11PinAuthentication;
+-(NSString *)   askForPkcs11Pin;
 
 @end
 
@@ -56,6 +58,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, passphrase,      setPassphrase)
 TBSYNTHESIZE_OBJECT(retain, NSString *, displayName,     setDisplayName)
 TBSYNTHESIZE_OBJECT(retain, NSString *, group,           setGroup)
 TBSYNTHESIZE_OBJECT(retain, NSString *, credentialsName, setCredentialsName)
+TBSYNTHESIZE_OBJECT(retain, NSString *, tokenName,       setTokenName)
 
 TBSYNTHESIZE_NONOBJECT_GET( BOOL,       authenticationWasFromKeychain)
 TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingLoginWindow)
@@ -92,10 +95,12 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
         passphraseKeychain      = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"privateKey" ];
         usernameKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"username"   ];
         passwordKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"password"   ];
+        pkcs11PinKeychain       = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"pkcs11Pin"  ];
 
 		passphrasePreferenceKey            = [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey",          [self credentialsName]];
         usernamePreferenceKey              = [[NSString alloc] initWithFormat: @"%@-keychainHasUsername",            [self credentialsName]];
         usernameAndPasswordPreferenceKey   = [[NSString alloc] initWithFormat: @"%@-keychainHasUsernameAndPassword", [self credentialsName]];
+        pkcs11PinPreferenceKey             = [[NSString alloc] initWithFormat: @"%@-keychainHasPkcs11Pin",           [self credentialsName]];
 		
 		showingLoginWindow      = FALSE;
 		showingPassphraseWindow = FALSE;
@@ -114,18 +119,21 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     [displayName                release]; displayName             = nil;
     [group                      release]; group                   = nil;
     [credentialsName            release]; credentialsName         = nil;
-    
+    [tokenName                  release]; tokenName               = nil;
+
     [passphrase                 release]; passphrase              = nil;
     [username                   release]; username                = nil;
     [password                   release]; password                = nil;
-    
+
     [passphraseKeychain         release]; passphraseKeychain      = nil;
     [usernameKeychain           release]; usernameKeychain        = nil;
     [passwordKeychain           release]; passwordKeychain        = nil;
+    [pkcs11PinKeychain          release]; pkcs11PinKeychain       = nil;
 
     [passphrasePreferenceKey    release]; passphrasePreferenceKey = nil;
-    [usernamePreferenceKey      release]; usernameAndPasswordPreferenceKey   = nil;
+    [usernamePreferenceKey      release]; usernamePreferenceKey   = nil;
     [usernameAndPasswordPreferenceKey release]; usernameAndPasswordPreferenceKey   = nil;
+    [pkcs11PinPreferenceKey     release]; pkcs11PinPreferenceKey  = nil;
 
     [super dealloc];
 }
@@ -148,26 +156,28 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     } else {
         [passphraseScreen redisplay];
     }
-    
+
+    [passphraseScreen configureForPassphrase];
+
     // Always clear the passphrase
     [[passphraseScreen passphrase] setStringValue: @""];
-    
+
 	showingPassphraseWindow = TRUE;
     NSInteger result = [NSApp runModalForWindow: [passphraseScreen window]];
     showingPassphraseWindow = FALSE;
-    
+
     if (   (result != NSRunStoppedResponse)
         && (result != NSRunAbortedResponse)  ) {
         NSLog(@"Unrecognized response %ld from runModalForWindow ignored", (long) result);
     }
-    
+
     if (  result != NSRunStoppedResponse  ) {
         [[passphraseScreen window] close];
         return nil;
     }
-    
+
     passphraseLocal = [[passphraseScreen passphrase] stringValue];
-    
+
     if (  [passphraseScreen saveInKeychain]  ) {
         if (  [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) {
             [passphraseKeychain deletePassword];
@@ -177,10 +187,65 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
             [gTbDefaults setBool: YES forKey: passphrasePreferenceKey];
         }
     }
-    
+
     [[passphraseScreen window] close];
 
     return passphraseLocal;
+}
+
+// Returns non-zero length PKCS#11 PIN obtained by asking the user
+// Returns nil if user cancelled or other error occurred
+-(NSString *)askForPkcs11Pin
+{
+    if (  ! [authMode isEqualToString:@"pkcs11Pin"]  ) {
+        NSLog(@"Invalid authmode '%@' in askForPkcs11Pin", [self authMode]);
+        return nil;
+    }
+
+    authenticationWasFromKeychain = FALSE;
+
+    NSString * pinLocal;
+
+    if (  ! passphraseScreen  ) {
+        passphraseScreen = [[PassphraseWindowController alloc] initWithDelegate: self];
+    } else {
+        [passphraseScreen redisplay];
+    }
+
+    [passphraseScreen configureForPkcs11PinWithTokenName: [self tokenName]];
+
+    // Always clear the PIN
+    [[passphraseScreen passphrase] setStringValue: @""];
+
+	showingPassphraseWindow = TRUE;
+    NSInteger result = [NSApp runModalForWindow: [passphraseScreen window]];
+    showingPassphraseWindow = FALSE;
+
+    if (   (result != NSRunStoppedResponse)
+        && (result != NSRunAbortedResponse)  ) {
+        NSLog(@"Unrecognized response %ld from runModalForWindow ignored", (long) result);
+    }
+
+    if (  result != NSRunStoppedResponse  ) {
+        [[passphraseScreen window] close];
+        return nil;
+    }
+
+    pinLocal = [[passphraseScreen passphrase] stringValue];
+
+    if (  [passphraseScreen saveInKeychain]  ) {
+        if (  [gTbDefaults canChangeValueForKey: pkcs11PinPreferenceKey]  ) {
+            [pkcs11PinKeychain deletePassword];
+            if (  [pkcs11PinKeychain setPassword: pinLocal] != 0  ) {
+                NSLog(@"Could not store PKCS#11 PIN in Keychain");
+            }
+            [gTbDefaults setBool: YES forKey: pkcs11PinPreferenceKey];
+        }
+    }
+
+    [[passphraseScreen window] close];
+
+    return pinLocal;
 }
 
 -(BOOL) usernameIsInKeychain {
@@ -401,6 +466,37 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     [self setPassphrase:passphraseLocal];
 }
 
+-(void)performPkcs11PinAuthentication
+{
+    if (  ! [authMode isEqualToString:@"pkcs11Pin"]  ) {
+        NSLog(@"Invalid authmode '%@' in performPkcs11PinAuthentication", [self authMode]);
+        return;
+    }
+
+    NSString *pinLocal = nil;
+    if (  [gTbDefaults boolForKey:pkcs11PinPreferenceKey] && [gTbDefaults canChangeValueForKey: pkcs11PinPreferenceKey]  ) { // Get saved PIN from Keychain if it has been saved
+        pinLocal = [pkcs11PinKeychain password];
+        if (  ! pinLocal  ) {
+			NSLog(@"User did not allow access to the Keychain to get the PKCS#11 PIN");
+            [self setPassphrase: nil];
+            return;
+        }
+    }
+
+    if (  [pinLocal length] == 0  ) {
+        [gTbDefaults removeObjectForKey: pkcs11PinPreferenceKey];
+        pinLocal = (  allowInteraction
+                   ? [self askForPkcs11Pin]
+                   : nil);
+        authenticationWasFromKeychain = FALSE;
+    } else {
+        authenticationWasFromKeychain = TRUE;
+    }
+
+    // The PIN is stored in the passphrase ivar so that VPNConnection sends it with unchanged code
+    [self setPassphrase:pinLocal];
+}
+
 -(void) performAuthenticationAllowingInteraction: (BOOL) interactionIsAllowed
 {
 
@@ -412,6 +508,9 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     else if([[self authMode] isEqualToString:@"password"]) {
         [self performPasswordAuthentication];
 	}
+    else if([[self authMode] isEqualToString:@"pkcs11Pin"]) {
+        [self performPkcs11PinAuthentication];
+    }
     else {
         NSLog(@"Invalid authMode '%@' in performAuthentication", [self authMode]);
     }
@@ -441,6 +540,12 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
             [gTbDefaults setBool: YES forKey: usernamePreferenceKey];
         }
     }
+    else if (  [authMode isEqualToString: @"pkcs11Pin"]  ) {
+        if (  [gTbDefaults boolForKey: pkcs11PinPreferenceKey]  ) { // Delete saved PIN from Keychain if it has been saved
+            [pkcs11PinKeychain deletePassword];
+            [gTbDefaults removeObjectForKey: pkcs11PinPreferenceKey];
+        }
+    }
     else {
         NSLog(@"Invalid authMode '%@' in deleteCredentialsFromKeychainIncludingUsername:", [self authMode]);
 		return NO;
@@ -458,11 +563,19 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 }
 
 -(void) deletePassword {
-    
+
     if (   [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey]  ) {      // Delete saved password from Keychain if it has been saved
         [passwordKeychain deletePassword];
         [gTbDefaults removeObjectForKey:  usernameAndPasswordPreferenceKey];    // and indicate that only the username is saved
         [gTbDefaults setBool: YES forKey: usernamePreferenceKey];
+    }
+}
+
+-(void) deletePkcs11Pin {
+
+    if (  [gTbDefaults boolForKey: pkcs11PinPreferenceKey]  ) {                 // Delete saved PIN from Keychain if it has been saved
+        [pkcs11PinKeychain deletePassword];
+        [gTbDefaults removeObjectForKey: pkcs11PinPreferenceKey];
     }
 }
 
@@ -500,6 +613,13 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 	return YES;
 }
 
+-(BOOL) savePkcs11Pin: (NSString *) thePkcs11Pin {
+
+	[pkcs11PinKeychain setPassword: thePkcs11Pin];
+	[gTbDefaults setBool: YES forKey: pkcs11PinPreferenceKey];
+	return YES;
+}
+
 -(BOOL) keychainHasPassphrase
 {
 	return [gTbDefaults boolForKey: passphrasePreferenceKey];
@@ -515,17 +635,26 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 	return [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey];
 }
 
+-(BOOL) keychainHasPkcs11Pin
+{
+	return [gTbDefaults boolForKey: pkcs11PinPreferenceKey];
+}
+
 -(BOOL) keychainHasAnyCredentials
 {
     if (  [authMode isEqualToString: @"privateKey"]  ) {
         return [gTbDefaults boolForKey: passphrasePreferenceKey];
 	}
-	
+
     if (  [authMode isEqualToString: @"password"]  ) {
         return (   [gTbDefaults boolForKey: usernamePreferenceKey]
 				|| [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey]  );
 	}
-	
+
+    if (  [authMode isEqualToString: @"pkcs11Pin"]  ) {
+        return [gTbDefaults boolForKey: pkcs11PinPreferenceKey];
+	}
+
     NSLog(@"Invalid authMode '%@' in keychainHasAnyCredentials", [self authMode]);
     return NO;
 }

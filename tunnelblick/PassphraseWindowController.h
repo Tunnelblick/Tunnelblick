@@ -44,6 +44,9 @@
 -(id)           initWithDelegate:       (id)            theDelegate;
 -(void)         redisplay;
 
+-(void)         configureForPassphrase;
+-(void)         configureForPkcs11PinWithTokenName: (NSString *) tokenName;
+
 -(IBAction)     cancelButtonWasClicked: (id)            sender;
 -(IBAction)     OKButtonWasClicked:     (id)            sender;
 -(IBAction)     eyeButtonWasClicked:    (id)            sender;

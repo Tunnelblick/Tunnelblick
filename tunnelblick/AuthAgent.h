@@ -39,10 +39,11 @@
     LoginWindowController * loginScreen;            // The window for logging into the VPN
     PassphraseWindowController * passphraseScreen;  // The window for logging into the VPN
     
-    NSString * authMode;                    // Either @"privateKey" or @"password", depending on type of authentication desired
+    NSString * authMode;                    // @"privateKey", @"password", or @"pkcs11Pin", depending on type of authentication desired
 	NSString * displayName;                 // Name of configuration file (filename EXCLUDING the extension)
     NSString * group;						// nil or name of credentials group
     NSString * credentialsName;             // Name of a group, or the displayName if no group
+    NSString * tokenName;                   // For @"pkcs11Pin" authentication: the OpenVPN prompt name of the token (e.g. "YubiKey PIV #123456 token")
 	
     // Passphrase for "privateKey" authentication, username & password for "password" authentication
     // The appropriate ones are set by the performAuthenticationAllowingInteraction: method, and come either from the keychain, or from asking the user for them
@@ -55,6 +56,7 @@
     KeyChain * passphraseKeychain;
     KeyChain * usernameKeychain;
     KeyChain * passwordKeychain;
+    KeyChain * pkcs11PinKeychain;
     
     // These preferences have two functions:
     //      * If not forced, they are used by Tunnelblick to indicate that the corresponding item is stored in the Keychain. This allows Tunnelblick
@@ -65,6 +67,7 @@
     NSString * passphrasePreferenceKey;
     NSString * usernameAndPasswordPreferenceKey;
     NSString * usernamePreferenceKey;
+    NSString * pkcs11PinPreferenceKey;
     
     BOOL authenticationWasFromKeychain;     // Last performAuthenticationAllowingInteraction: data came from the Keychain
 	BOOL showingLoginWindow;
@@ -81,14 +84,17 @@
 -(BOOL)         deleteCredentialsFromKeychainIncludingUsername: (BOOL) includeUsername;
 -(void)         deletePassphrase;
 -(void)         deletePassword;
+-(void)         deletePkcs11Pin;
 
 -(BOOL) 		saveUsername:   (NSString *) username;
 -(BOOL) 		savePassword:   (NSString *) password;
 -(BOOL) 		savePassphrase: (NSString *) passphrase;
+-(BOOL) 		savePkcs11Pin:  (NSString *) pkcs11Pin;
 
 -(BOOL)         keychainHasPassphrase;
 -(BOOL)         keychainHasUsername;
 -(BOOL)         keychainHasUsernameAndPassword;
+-(BOOL)         keychainHasPkcs11Pin;
 -(BOOL)         keychainHasAnyCredentials;
 
 -(void)         performAuthenticationAllowingInteraction: (BOOL) interactionIsAllowed;
@@ -100,6 +106,7 @@ TBPROPERTY(NSString *, authMode,        setAuthMode)
 TBPROPERTY(NSString *, username,        setUsername)
 TBPROPERTY(NSString *, password,        setPassword)
 TBPROPERTY(NSString *, passphrase,      setPassphrase)
+TBPROPERTY(NSString *, tokenName,       setTokenName)
 
 TBPROPERTY_READONLY(NSString *, displayName)
 TBPROPERTY_READONLY(BOOL,       authenticationWasFromKeychain)

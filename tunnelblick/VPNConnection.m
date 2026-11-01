@@ -102,6 +102,9 @@ extern NSArray          * gTotalUnits;
 -(void)             provideCredentials:         (NSString *)        parameterString
                                   line:         (NSString *)        line;
 
+-(void)             processNeedStrWithLine:     (NSString *)        line
+                           parameterString:     (NSString *)        parameterString;
+
 -(void)             runScriptNamed:             (NSString *)        scriptName
                openvpnstartCommand:             (NSString *)        command;
 
@@ -2013,6 +2016,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     logFilesMayExist = TRUE;
     authFailed = FALSE;
     credentialsAskedFor = FALSE;
+    pkcs11PinRequestWasAnsweredFromKeychain = FALSE;
     userWantsState = userWantsUndecided;
 
     areDisconnecting = FALSE;
@@ -2200,6 +2204,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     return  (   keychainHasUsernameWithoutPasswordForDisplayName(name)
              || keychainHasUsernameAndPasswordForDisplayName(name)
              || keychainHasPrivateKeyForDisplayName(name)
+             || keychainHasPkcs11PinForDisplayName(name)
              );
 }
 
@@ -4454,9 +4459,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         credentialsAskedFor = FALSE;
 
         BOOL isPassphraseCommand = [command isEqualToString: @"PASSPHRASE"];
+        BOOL isPkcs11Pin = [[myAuthAgent authMode] isEqualToString: @"pkcs11Pin"];
 
         NSString * message;
-        if (  isPassphraseCommand  ) {
+        if (  isPkcs11Pin  ) {
+            message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The PIN was not accepted.", @"Window text"), privateMessage];
+        } else if (  isPassphraseCommand  ) {
             message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The passphrase was not accepted.", @"Window text"), privateMessage];
         } else {
             message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The username and password were not accepted by the remote VPN server.", @"Window text"), privateMessage];
@@ -4464,7 +4472,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         NSString * deleteAndTryAgainButton = nil;
         NSString * tryAgainButton = NSLocalizedString(@"Try again", @"Button");;
         if (  [myAuthAgent authMode]  ) {               // Handle "auto-login" --  we were never asked for credentials, so authMode was never set
-            if (  isPassphraseCommand  ) {
+            if (  isPkcs11Pin  ) {
+                if (  [myAuthAgent keychainHasPkcs11Pin]  ) {
+                    deleteAndTryAgainButton = NSLocalizedString(@"Delete saved PIN and try again", @"Button");
+                    tryAgainButton = NSLocalizedString(@"Try again with saved PIN", @"Button");
+                }
+            } else if (  isPassphraseCommand  ) {
                 if (  [myAuthAgent keychainHasPassphrase]  ) {
                     deleteAndTryAgainButton = NSLocalizedString(@"Delete saved passphrase and try again", @"Button");
                     tryAgainButton = NSLocalizedString(@"Try again with saved passphrase", @"Button");
@@ -4485,7 +4498,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             userWantsState = userWantsRetry;                // User wants to retry
 
         } else if (alertVal == NSAlertAlternateReturn) {
-            if (  isPassphraseCommand  ) {
+            if (  isPkcs11Pin  ) {
+                [myAuthAgent deletePkcs11Pin];
+            } else if (  isPassphraseCommand  ) {
                 [myAuthAgent deletePassphrase];
             } else {
                 [myAuthAgent deletePassword];
@@ -4557,6 +4572,39 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             TBLog(@"DB-AU", @"Write need cancel.");
             [self sendStringToManagementSocket: @"needok token-insertion-request cancel\r\n" encoding: NSASCIIStringEncoding];
         }
+    }
+}
+
+-(void) processNeedStrWithLine: (NSString *) line parameterString: (NSString *) parameterString {
+
+    // NEED-STR: Need 'pkcs11-id-request' string MSG:Please specify PKCS#11 id to use
+    // (OpenVPN sends this when the configuration contains "pkcs11-id-management" instead of "pkcs11-id")
+    if (  [line rangeOfString: @"Need 'pkcs11-id-request' string"].length  ) {
+        TBLog(@"DB-AU", @"Server wants a PKCS#11 id.");
+        NSString * prompt = NSLocalizedString(@"Please specify PKCS#11 id to use", @"Window text");
+        NSRange msgRange = [parameterString rangeOfString: @"MSG:"];
+        if (  msgRange.length  ) {
+            prompt = [parameterString substringFromIndex: msgRange.location + 4];
+        }
+        NSString * response = [self getResponseToChallenge: prompt
+                                              echoResponse: YES
+                                          responseRequired: YES
+                                                  isStatic: YES];
+        if (  ! response  ) {
+            [self addToLog: @"Disconnecting: User cancelled when asked for a PKCS#11 id"];
+            [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
+            return;
+        }
+        const char * responseC = [escaped(response) UTF8String];
+        if (  strlen(responseC) > MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER  ) {
+            [self addToLog: [NSString stringWithFormat: @"Disconnecting; PKCS#11 id is %ld bytes long; it is limited to %ld bytes", (long)strlen(responseC), (long)MAX_LENGTH_OF_QUOTED_MANAGEMENT_INTERFACE_PARAMETER]];
+            [self startDisconnectingUserKnows: @NO];
+            return;
+        }
+        TBLog(@"DB-AU", @"Write needstr response.");
+        [self sendStringToManagementSocket: [NSString stringWithFormat: @"needstr \"pkcs11-id-request\" \"%@\"\r\n", escaped(response)] encoding: NSUTF8StringEncoding];
+    } else {
+        NSLog(@"Unrecognized NEED-STR command from OpenVPN management interface has been ignored:\n%@", line);
     }
 }
 
@@ -4716,6 +4764,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     } else if (  [command isEqualToString: @"NEED-OK"]) {
         [self processNeedOkWithLine: line parameterString: parameterString];
+
+    } else if (  [command isEqualToString: @"NEED-STR"]) {
+        [self processNeedStrWithLine: line parameterString: parameterString];
 
     } else if (  [command isEqualToString: @"INFO"]) {
         [self addToLog: line];
@@ -4988,19 +5039,46 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSRange pwrange_need = [parameterString rangeOfString: @"Need \'"];
     NSRange pwrange_password = [parameterString rangeOfString: @"\' password"];
     if (pwrange_need.length && pwrange_password.length) {
-        TBLog(@"DB-AU", @"Server wants user private key.");
-		if (  ![self isConnected]  ) {
-			[self setState: @"PRIVATE_KEY_WAIT"];
-		}
-        [myAuthAgent setAuthMode:@"privateKey"];
-        [myAuthAgent performAuthenticationAllowingInteraction: YES];
-        if (  [myAuthAgent authenticationWasFromKeychain]  ) {
-            [self addToLog: @"Obtained passphrase from the Keychain"];
-        }
-        NSString *myPassphrase = [myAuthAgent passphrase];
+
+        // Extract the name of what the password is for: "Private Key" for a private key passphrase,
+        // anything else (e.g. "YubiKey PIV #123456 token") is a request for a PKCS#11 token PIN
         NSRange tokenNameRange = NSMakeRange(pwrange_need.length, pwrange_password.location - 6 );
         NSString* tokenName = [parameterString substringWithRange: tokenNameRange];
         TBLog(@"DB-AU", @"tokenName is '%@'", tokenName);
+
+        if (  [tokenName isEqualToString: @"Private Key"]  ) {
+            TBLog(@"DB-AU", @"Server wants user private key.");
+            if (  ![self isConnected]  ) {
+                [self setState: @"PRIVATE_KEY_WAIT"];
+            }
+            [myAuthAgent setAuthMode:@"privateKey"];
+            [myAuthAgent performAuthenticationAllowingInteraction: YES];
+            if (  [myAuthAgent authenticationWasFromKeychain]  ) {
+                [self addToLog: @"Obtained passphrase from the Keychain"];
+            }
+        } else {
+            TBLog(@"DB-AU", @"Server wants PKCS#11 PIN for token '%@'.", tokenName);
+            if (  ![self isConnected]  ) {
+                [self setState: @"PRIVATE_KEY_WAIT"];
+            }
+            if (  pkcs11PinRequestWasAnsweredFromKeychain  ) {
+                // OpenVPN asked for the PIN again after we supplied the saved PIN: the saved PIN
+                // was rejected (OpenVPN re-asks silently; there is no "Verification Failed" message
+                // for a bad PIN). Forget the saved PIN and ask the user for the correct one.
+                [self addToLog: @"The PKCS#11 PIN saved in the Keychain was not accepted; asking for the PIN"];
+                [myAuthAgent deletePkcs11Pin];
+                pkcs11PinRequestWasAnsweredFromKeychain = FALSE;
+            }
+            [myAuthAgent setAuthMode:@"pkcs11Pin"];
+            [myAuthAgent setTokenName: tokenName];
+            [myAuthAgent performAuthenticationAllowingInteraction: YES];
+            pkcs11PinRequestWasAnsweredFromKeychain = [myAuthAgent authenticationWasFromKeychain];
+            if (  [myAuthAgent authenticationWasFromKeychain]  ) {
+                [self addToLog: @"Obtained PKCS#11 PIN from the Keychain"];
+            }
+        }
+
+        NSString *myPassphrase = [myAuthAgent passphrase];
         if(  myPassphrase != nil  ){
             const char * tokenNameC  = [escaped(tokenName)    UTF8String];
             const char * passphraseC = [escaped(myPassphrase) UTF8String];

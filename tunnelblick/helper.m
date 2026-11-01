@@ -1469,6 +1469,14 @@ BOOL keychainHasUsernameAndPasswordForDisplayName(NSString * name) {
             );
 }
 
+BOOL keychainHasPkcs11PinForDisplayName(NSString * name) {
+
+    NSString * key = [name stringByAppendingString: @"-keychainHasPkcs11Pin"];
+    return (   [gTbDefaults boolForKey: key]
+            && [gTbDefaults canChangeValueForKey: key]
+            );
+}
+
 BOOL copyCredentials(NSString * fromDisplayName, NSString * toDisplayName)
 {
     return copyOrMoveCredentials(fromDisplayName, toDisplayName, FALSE);
@@ -1491,14 +1499,17 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
     BOOL haveFromPassphrase              = keychainHasPrivateKeyForDisplayName(fromDisplayName);
     BOOL haveFromUsernameAndPassword     = keychainHasUsernameAndPasswordForDisplayName(fromDisplayName);
     BOOL haveFromUsernameWithoutPassword = keychainHasUsernameWithoutPasswordForDisplayName(fromDisplayName);
+    BOOL haveFromPkcs11Pin               = keychainHasPkcs11PinForDisplayName(fromDisplayName);
 
     if (   haveFromPassphrase
         || haveFromUsernameAndPassword
-        || haveFromUsernameWithoutPassword  ) {
+        || haveFromUsernameWithoutPassword
+        || haveFromPkcs11Pin  ) {
 
         NSString * myPassphrase = nil;
         NSString * myUsername = nil;
         NSString * myPassword = nil;
+        NSString * myPkcs11Pin = nil;
 
         AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: fromDisplayName credentialsGroup: nil] autorelease];
 
@@ -1524,6 +1535,15 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
             }
         }
 
+        if (  haveFromPkcs11Pin  ) {
+            [myAuthAgent setAuthMode: @"pkcs11Pin"];
+            [myAuthAgent performAuthenticationAllowingInteraction: NO];
+            myPkcs11Pin = [myAuthAgent passphrase];    // The PIN is stored in the passphrase ivar
+            if (  moveNotCopy) {
+                [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+            }
+        }
+
         if (   myPassphrase
             && [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"-keychainHasPrivateKey"]]  ) {
             KeyChain * passphraseKeychain = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"privateKey" ];
@@ -1532,6 +1552,16 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
                 NSLog(@"Could not store passphrase in Keychain");
             }
             [passphraseKeychain release];
+        }
+
+        if (   myPkcs11Pin
+            && [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"-keychainHasPkcs11Pin"]]  ) {
+            KeyChain * pkcs11PinKeychain = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"pkcs11Pin" ];
+            [pkcs11PinKeychain deletePassword];
+            if (  [pkcs11PinKeychain setPassword: myPkcs11Pin] != 0  ) {
+                NSLog(@"Could not store PKCS#11 PIN in Keychain");
+            }
+            [pkcs11PinKeychain release];
         }
 
         if (   myUsername

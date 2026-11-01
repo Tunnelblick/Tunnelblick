@@ -17,74 +17,108 @@
 #  along with this program (see the file COPYING included with this
 #  distribution); if not, write to the Free Software Foundation, Inc.,
 
-built-pkcs11-helper: built-allssl
-	@echo "THIRD_PARTY: Expanding PKCS11-Helper..."
-	mkdir -p $(PKCS11_BUILD_DIR)
-	tar -x -f sources/$(PKCS11_NAME).tar.bz2 -C build
-	@echo "THIRD_PARTY: Updating config.guess and config.sub"
-	if [ -f "${PKCS11_BUILD_DIR}/config.guess" ] ; then \
-		cp -f -p "${SOURCES_DIR}/replacements/autoconf/config.guess" "${PKCS11_BUILD_DIR}/config.guess" ; \
+# pkcs11-helper is built once for each version of OpenSSL that OpenVPN is built with:
+#   * OpenSSL 1.1 uses $(PKCS11_OPENSSL_1_1_NAME) (the last version compatible with OpenSSL 1.1)
+#   * OpenSSL 3.x uses $(PKCS11_NAME) (which requires OpenSSL 3.x)
+#
+# Each build is installed to $(PKCS11_STAGING_DIR)_<ssl-name>_<arch> so that Makefile-openvpn
+# can link OpenVPN against the pkcs11-helper that was built with the same OpenSSL version.
+
+# Expands a pkcs11-helper tarball and updates its config.guess and config.sub.
+# $1 = pkcs11-helper name (e.g. "pkcs11-helper-1.31.0")
+define expand-pkcs11-helper
+	@echo "THIRD_PARTY: Expanding $1..."
+	mkdir -p $(BUILD_DIR)/$1
+	tar -x -f sources/$1.tar.bz2 -C build
+	if [ -f "$(BUILD_DIR)/$1/config.guess" ] ; then \
+		cp -f -p "$(SOURCES_DIR)/replacements/autoconf/config.guess" "$(BUILD_DIR)/$1/config.guess" ; \
 		cpstatus=$$? ; \
 		if [ "$$cpstatus" = "0" ] ; then \
-			echo "replaced with an updated version: ${PKCS11_BUILD_DIR}/config.guess" ; \
+			echo "replaced with an updated version: $(BUILD_DIR)/$1/config.guess" ; \
 		else \
-			echo "error: status = $$cpstatus copying to ${PKCS11_BUILD_DIR}/config.guess" ; \
+			echo "error: status = $$cpstatus copying to $(BUILD_DIR)/$1/config.guess" ; \
 		fi \
 	else \
-		echo "error: does not exist: ${PKCS11_BUILD_DIR}/config.guess" ; \
+		echo "error: does not exist: $(BUILD_DIR)/$1/config.guess" ; \
 	fi ; \
-	if [ -f "${PKCS11_BUILD_DIR}/config.sub" ] ; then \
-		cp -f -p "${SOURCES_DIR}/replacements/autoconf/config.sub" "${PKCS11_BUILD_DIR}/config.sub" ; \
+	if [ -f "$(BUILD_DIR)/$1/config.sub" ] ; then \
+		cp -f -p "$(SOURCES_DIR)/replacements/autoconf/config.sub" "$(BUILD_DIR)/$1/config.sub" ; \
 		cpstatus=$$? ; \
 		if [ "$$cpstatus" = "0" ] ; then \
-			echo "replaced with an updated version: ${PKCS11_BUILD_DIR}/config.sub" ; \
+			echo "replaced with an updated version: $(BUILD_DIR)/$1/config.sub" ; \
 		else \
-			echo "error: status = $$cpstatus copying to ${PKCS11_BUILD_DIR}/config.sub" ; \
+			echo "error: status = $$cpstatus copying to $(BUILD_DIR)/$1/config.sub" ; \
 		fi \
 	else \
-		echo "error: does not exist: ${PKCS11_BUILD_DIR}/config.sub" ; \
+		echo "error: does not exist: $(BUILD_DIR)/$1/config.sub" ; \
 	fi
+endef
+
+built-pkcs11-helper: built-allssl
+	$(call expand-pkcs11-helper,$(PKCS11_NAME))
+	$(call expand-pkcs11-helper,$(PKCS11_OPENSSL_1_1_NAME))
 	@echo "THIRD_PARTY: Building PKCS11-Helper..."
-	for a in $(PKCS11_TARGET_ARCHS); do \
-		cd $(PKCS11_BUILD_DIR) ; \
-		echo "Clean PKCS11-Helper for $$a" ; \
-		$(MAKE) clean; \
-		echo "Configure PKCS11-Helper for $$a" ; \
-		if [ "$${a:0:3}" = "arm" ] ; then \
-			TB_CONFIGURE_BUILD="arm-apple-darwin" ; \
-		else \
-			TB_CONFIGURE_BUILD="$$a-apple-darwin" ; \
+	for ssl_name in "$(OPENSSL_1_1_NAME)" "$(OPENSSL_3_0_NAME)" "$(OPENSSL_3_5_NAME)" ; do \
+        if [ "$$ssl_name" = "$(OPENSSL_1_1_NAME)" ] ; then \
+            ssl_staging_dir="$(OPENSSL_1_1_STAGING_DIR)" ; \
+            pkcs11_name="$(PKCS11_OPENSSL_1_1_NAME)" ; \
+        elif [ "$$ssl_name" = "$(OPENSSL_3_0_NAME)" ] ; then \
+            ssl_staging_dir="$(OPENSSL_3_0_STAGING_DIR)" ; \
+            pkcs11_name="$(PKCS11_NAME)" ; \
+        elif [ "$$ssl_name" = "$(OPENSSL_3_5_NAME)" ] ; then \
+            ssl_staging_dir="$(OPENSSL_3_5_STAGING_DIR)" ; \
+            pkcs11_name="$(PKCS11_NAME)" ; \
+        else \
+            echo "error: do not know how to build PKCS11-Helper with '$$ssl_name'" ; \
+            exit 255 ; \
         fi ; \
-		CC=$(CC) \
-		CFLAGS="$(CFLAGS) -arch $$a" \
-		OPENSSL_CFLAGS="-I$(OPENSSL_1_1_STAGING_DIR)_$$a/include" \
-		OPENSSL_LIBS="-L$(OPENSSL_1_1_STAGING_DIR)_$$a/lib \
-		              -lssl \
-		              -lcrypto \
-		              -lz" \
-		./configure --build="$$TB_CONFIGURE_BUILD" \
-		            --host="$(TB_CONFIGURE_HOST)" \
-		            --prefix=$(PKCS11_STAGING_DIR)_$$a \
-		            --enable-static \
-		            --enable-shared=no \
-		            --enable-slotevent=no \
-		            --enable-threading=no \
-		            --disable-crypto-engine-gnutls \
-		            --disable-crypto-engine-nss \
-		            --disable-crypto-engine-mbedtls \
-		            --disable-dependency-tracking ; \
-		echo "Build PKCS11-Helper for $$a" ; \
-		$(MAKE); \
-		echo "Install PKCS11-Helper to $(PKCS11_STAGING_DIR)_$$a" ; \
-		$(MAKE) install; \
-		cd $(TOPDIR); \
+		for a in $(PKCS11_TARGET_ARCHS); do \
+			if [ -e "$${ssl_staging_dir}_$$a" ] ; then \
+				echo "Making $$pkcs11_name with $$ssl_name for $$a" ; \
+				cd $(BUILD_DIR)/$$pkcs11_name || exit 1 ; \
+				echo "Clean $$pkcs11_name for $$a with $$ssl_name" ; \
+				$(MAKE) clean; \
+				echo "Configure $$pkcs11_name for $$a with $$ssl_name" ; \
+				if [ "$${a:0:3}" = "arm" ] ; then \
+					TB_CONFIGURE_BUILD="arm-apple-darwin" ; \
+				else \
+					TB_CONFIGURE_BUILD="$$a-apple-darwin" ; \
+				fi ; \
+				CC=$(CC) \
+				CFLAGS="$(CFLAGS) -arch $$a" \
+				OPENSSL_CFLAGS="-I$${ssl_staging_dir}_$$a/include" \
+				OPENSSL_LIBS="-L$${ssl_staging_dir}_$$a/lib \
+				              -lssl \
+				              -lcrypto \
+				              -lz" \
+				./configure --build="$$TB_CONFIGURE_BUILD" \
+				            --host="$(TB_CONFIGURE_HOST)" \
+				            --prefix=$(PKCS11_STAGING_DIR)_$${ssl_name}_$$a \
+				            --enable-static \
+				            --enable-shared=no \
+				            --enable-slotevent=no \
+				            --enable-threading=no \
+				            --disable-crypto-engine-gnutls \
+				            --disable-crypto-engine-nss \
+				            --disable-crypto-engine-mbedtls \
+				            --disable-dependency-tracking || exit 1 ; \
+				echo "Build $$pkcs11_name for $$a with $$ssl_name" ; \
+				$(MAKE) || exit 1 ; \
+				echo "Install $$pkcs11_name to $(PKCS11_STAGING_DIR)_$${ssl_name}_$$a" ; \
+				$(MAKE) install || exit 1 ; \
+				cd $(TOPDIR) || exit 1 ; \
+			else \
+				echo "Skipping PKCS11-Helper for $$a with $$ssl_name because $${ssl_staging_dir}_$$a does not exist" ; \
+			fi \
+		done \
 	done
 	touch built-pkcs11-helper
 	@echo "THIRD_PARTY: Built PKCS11-Helper"
 
 built-pkcs11-helper-clean:
 	@echo "THIRD_PARTY: Cleaning PKCS11-Helper..."
-	rm -f -R $(PKCS11_BUILD_DIR)
+	rm -f -R $(BUILD_DIR)/$(PKCS11_NAME)
+	rm -f -R $(BUILD_DIR)/$(PKCS11_OPENSSL_1_1_NAME)
 	rm -f -R $(PKCS11_STAGING_DIR)*
 	rm -f built-pkcs11-helper
 	@echo "THIRD_PARTY: Cleaned PKCS11-Helper"

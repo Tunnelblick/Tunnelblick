@@ -67,10 +67,28 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,     eyeRedSlash)
 
 -(void) awakeFromNib
 {
-    [[self window] setTitle: NSLocalizedString(@"Tunnelblick: Passphrase Required", @"Window title")];
-    
     [iconIV setImage: [NSApp applicationIconImage]];
-    
+
+    [self configureForPassphrase];
+
+    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+
+    CGFloat shift = [UIHelper setTitle: NSLocalizedString(@"OK", @"Button") ofControl: OKButton     shift: ( !rtl ) narrow: NO enable: YES];
+
+    [UIHelper setTitle: NSLocalizedString(@"Cancel", @"Button")             ofControl: cancelButton shift: ( !rtl ) narrow: NO enable: YES];
+
+    // Adjust position of Cancel button if the OK button got bigger or smaller
+    [UIHelper shiftControl: cancelButton by: shift reverse: rtl];
+
+    [self redisplay];
+}
+
+// Sets up the window for asking for a private key passphrase.
+// (Restores everything that configureForPkcs11PinWithTokenName: changes, since the window is shared.)
+-(void) configureForPassphrase
+{
+    [[self window] setTitle: NSLocalizedString(@"Tunnelblick: Passphrase Required", @"Window title")];
+
 	NSString * displayName = [[self delegate] displayName];
 	NSString * groupMsg;
 	NSString * group = credentialsGroupFromDisplayName(displayName);
@@ -80,39 +98,75 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,     eyeRedSlash)
 	} else {
 		groupMsg = @"";
 	}
-	
+
     NSString * localName = [gMC localizedNameForDisplayName: displayName];
     NSString * text = [NSString stringWithFormat:
                        NSLocalizedString(@"A passphrase is required to connect to\n  %@%@", @"Window text"),
                        localName,
 					   groupMsg];
     [mainText setTitle: text];
-    
+
     [saveInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
 
 	if (  keychainHasPrivateKeyForDisplayName([[self delegate] displayName])  ) {
 		[[self eyeButton] setEnabled: NO];
 		[[self eyeButton] setHidden:  YES];
 	} else {
+		[[self eyeButton] setEnabled: YES];
+		[[self eyeButton] setHidden:  NO];
 		[self setInputBoxAndImageAndPassphrase: @"" exposed: NO];
 	}
 
+    [self updateSaveInKeychainCheckboxEnabled];
+}
+
+// Sets up the window for asking for the PIN of a PKCS#11 (USB) token
+-(void) configureForPkcs11PinWithTokenName: (NSString *) tokenName
+{
+    [[self window] setTitle: NSLocalizedString(@"Tunnelblick: PIN Required", @"Window title")];
+
+	NSString * displayName = [[self delegate] displayName];
+	NSString * groupMsg;
+	NSString * group = credentialsGroupFromDisplayName(displayName);
+	if (  group  ) {
+		groupMsg = [NSString stringWithFormat: NSLocalizedString(@"\nusing %@ credentials.", @"Window text"),
+					group];
+	} else {
+		groupMsg = @"";
+	}
+
+    NSString * localName = [gMC localizedNameForDisplayName: displayName];
+    NSString * text = [NSString stringWithFormat:
+                       NSLocalizedString(@"A PIN is required for the '%@' token to connect to\n  %@%@", @"Window text"),
+                       (  tokenName
+                        ? tokenName
+                        : @"PKCS#11"),
+                       localName,
+					   groupMsg];
+    [mainText setTitle: text];
+
+    [saveInKeychainCheckbox setTitle: NSLocalizedString(@"Save PIN in Keychain", @"Checkbox name")];
+
+	if (  keychainHasPkcs11PinForDisplayName([[self delegate] displayName])  ) {
+		[[self eyeButton] setEnabled: NO];
+		[[self eyeButton] setHidden:  YES];
+	} else {
+		[[self eyeButton] setEnabled: YES];
+		[[self eyeButton] setHidden:  NO];
+		[self setInputBoxAndImageAndPassphrase: @"" exposed: NO];
+	}
+
+    [self updateSaveInKeychainCheckboxEnabled];
+}
+
+-(void) updateSaveInKeychainCheckboxEnabled
+{
+	NSString * displayName = [[self delegate] displayName];
     NSString * autoConnectKey   = [displayName stringByAppendingString: @"autoConnect"];
     NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
     BOOL connectOnSystemStart = (   [gTbDefaults boolForKey: autoConnectKey]
                                  && [gTbDefaults boolForKey: onSystemStartKey] );
     [saveInKeychainCheckbox setEnabled: ! connectOnSystemStart];
-
-    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
-    
-    CGFloat shift = [UIHelper setTitle: NSLocalizedString(@"OK", @"Button") ofControl: OKButton     shift: ( !rtl ) narrow: NO enable: YES];
-    
-    [UIHelper setTitle: NSLocalizedString(@"Cancel", @"Button")             ofControl: cancelButton shift: ( !rtl ) narrow: NO enable: YES];
-    
-    // Adjust position of Cancel button if the OK button got bigger or smaller
-    [UIHelper shiftControl: cancelButton by: shift reverse: rtl];
-    
-    [self redisplay];
 }
 
 -(void) redisplayIfShowing

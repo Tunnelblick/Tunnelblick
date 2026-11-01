@@ -113,15 +113,16 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                 elif [ "$$ssl_name" = "$(OPENSSL_3_0_NAME)" ] ; then \
                     ssl_staging_dir="$(OPENSSL_3_0_STAGING_DIR)" ; \
                     target_archs="$(OPENVPN_OPENSSL_3_0_TARGET_ARCHS)" ; \
-                    pkcs11_enable="" ; \
+                    pkcs11_enable="--enable-pkcs11" ; \
                 elif [ "$$ssl_name" = "$(OPENSSL_3_5_NAME)" ] ; then \
                     ssl_staging_dir="$(OPENSSL_3_5_STAGING_DIR)" ; \
                     target_archs="$(OPENVPN_OPENSSL_3_5_TARGET_ARCHS)" ; \
-                    pkcs11_enable="" ; \
+                    pkcs11_enable="--enable-pkcs11" ; \
                 else \
                     echo "error: do not know how to build OpenVPN $$openvpn_major_minor with '$$ssl_name'" ; \
                     exit 255 ; \
                 fi ; \
+                pkcs11_staging_dir="$(PKCS11_STAGING_DIR)_$${ssl_name}" ; \
                 if [ "$$build_it" = true ] ; then \
                     for a in $$target_archs ; do \
                         if [ -e "$${ssl_staging_dir}_$$a" ] ; then \
@@ -156,8 +157,8 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                                     OPENSSL_LIBS="$${ssl_staging_dir}_$$a/lib/libssl.a -lz $${ssl_staging_dir}_$$a/lib/libcrypto.a -lz" \
                                     OPENSSL_SSL_LIBS="$${ssl_staging_dir}_$$a/lib/libssl.a" \
                                     OPENSSL_CRYPTO_LIBS="$${ssl_staging_dir}_$$a/lib/libcrypto.a -lz" \
-                                    PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)_$$a/include/" \
-                                    PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)_$$a/lib -lpkcs11-helper" \
+                                    PKCS11_HELPER_CFLAGS="-I$${pkcs11_staging_dir}_$$a/include/" \
+                                    PKCS11_HELPER_LIBS="-L$${pkcs11_staging_dir}_$$a/lib -lpkcs11-helper" \
                                     OS_VERSION=$$(uname -r) \
                                     ./configure \
                                         --build="$$TB_CONFIGURE_BUILD" \

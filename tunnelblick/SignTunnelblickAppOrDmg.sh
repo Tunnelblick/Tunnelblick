@@ -134,12 +134,16 @@ sign_app () {
         codesign_v_t_or "$app_path/Contents/Resources/update_signing_util_debugger"
 
         # Sign the openvpn and openvpn-down-root.so binaries
+        # (openvpn is signed with an entitlement that allows it to load PKCS#11 provider
+        #  libraries for USB tokens -- YubiKey, JaCarta, SafeNet, OpenSC, etc. -- which
+        #  are signed by other developers; openvpn-down-root.so needs no entitlements)
+        local script_folder; script_folder="$(cd "$(dirname "$0")" && pwd -P)"
         local openvpn_version_dir
         for openvpn_version_dir in "$app_path/Contents/Resources/openvpn"/* ; do
             if [ "${openvpn_version_dir: -7}" != "default" ] ; then
             	if [ -e "$openvpn_version_dir/openvpn" ] \
             	&& [ -e "$openvpn_version_dir/openvpn-down-root.so" ] ; then
-                	codesign_v_t_or "$openvpn_version_dir/openvpn"
+                	codesign_v_t_or "$openvpn_version_dir/openvpn" "--entitlements $script_folder/openvpn.entitlements"
                 	codesign_v_t_or "$openvpn_version_dir/openvpn-down-root.so"
             	else
                 	echo "Error: Missing binaries to codesign in $app_path/Contents/Resources/openvpn/$openvpn_version_dir"

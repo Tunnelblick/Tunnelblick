@@ -1177,6 +1177,7 @@ name = newValue;                                    \
 @"-keychainHasPrivateKey",	\
 @"-keychainHasUsernameAndPassword",	\
 @"-keychainHasUsername",	\
+@"-keychainHasPkcs11Pin",	\
 @"-doNotParseConfigurationFile",	\
 @"-disableEditConfiguration",	\
 @"-disableConnectButton",	\
