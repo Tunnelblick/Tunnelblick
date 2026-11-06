@@ -26,7 +26,7 @@
 
 LZO_NAME         = lzo-2.10
 
-LZ4_NAME         = lz4-1.10.0
+LZ4_NAME         = lz4-1.11.0
 
 OPENSSL_1_1_NAME = openssl-1.1.1w
 OPENSSL_3_0_NAME = openssl-3.0.22
