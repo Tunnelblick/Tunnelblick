@@ -1896,7 +1896,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                     NSString * file;
                     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: replacingTblkPath];
                     while (  (file = [dirEnum nextObject])  ) {
-                        if (  [file hasSuffix: @".sh"]) {
+                        if (  [file.lowercaseString hasSuffix: @".sh"]) {
                             warnConfigurationIsConnected = TRUE;
                             break;
                         }

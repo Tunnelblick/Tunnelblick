@@ -714,7 +714,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
             NSString * fileName = [inPath lastPathComponent];
             if (   useExistingFiles
                 && [self existingFilesList: useExistingFiles hasAMatchFor: fileName]
-                && ( ! [fileName hasSuffix: @".sh"] )
+                && ( ! [fileName.lowercaseString hasSuffix: @".sh"] )
                 && pathIsRelativeToTblk  ) {
                 NSString * existingPrivatePath = [[[replacingTblkPath stringByAppendingPathComponent: @"Contents"]
                                                    stringByAppendingPathComponent: @"Resources"]
