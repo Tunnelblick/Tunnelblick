@@ -133,7 +133,7 @@ BOOL isValidIPAdddress(NSString * ipAddress) {
 
 BOOL shouldRunScriptAsUserAtPath(NSString * path) {
 
-    return [path hasSuffix: @".user.sh"];
+    return [path.lowercaseString hasSuffix: @".user.sh"];
 }
 
 // Returns YES if file doesn't exist, or has the specified ownership and permissions

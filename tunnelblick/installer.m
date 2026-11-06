@@ -2288,9 +2288,9 @@ static void errorExitIfHasScriptsAndShouldNotBeInstalled(NSString * sourcePath) 
     NSString * subPath;
     NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: sourcePath];
     while (  (subPath = [dirE nextObject])  ) {
-        if (   [subPath hasSuffix: @".user.sh"]  ) {
+        if (   [subPath.lowercaseString hasSuffix: @".user.sh"]  ) {
             hasUserScript = YES;
-        } else if (  [subPath hasSuffix: @".sh"]  ) {
+        } else if (  [subPath.lowercaseString hasSuffix: @".sh"]  ) {
             hasRootScript = YES;
         }
     }

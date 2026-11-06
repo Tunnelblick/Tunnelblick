@@ -1063,12 +1063,12 @@ static void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
         goto okay;
     }
 
-    if (   (   [path hasSuffix: @".tblk/Contents/Resources/pre-connect.sh"      ]
-            || [path hasSuffix: @".tblk/Contents/Resources/pre-disconnect.sh"   ]
-            || [path hasSuffix: @".tblk/Contents/Resources/post-tun-tap-load.sh"]
-            || [path hasSuffix: @".tblk/Contents/Resources/connected.sh"        ]
-            || [path hasSuffix: @".tblk/Contents/Resources/reconnecting.sh"     ]
-            || [path hasSuffix: @".tblk/Contents/Resources/post-disconnect.sh"  ]
+    if (   (   [path.lowercaseString hasSuffix: @".tblk/contents/resources/pre-connect.sh"      ]
+            || [path.lowercaseString hasSuffix: @".tblk/contents/resources/pre-disconnect.sh"   ]
+            || [path.lowercaseString hasSuffix: @".tblk/contents/resources/post-tun-tap-load.sh"]
+            || [path.lowercaseString hasSuffix: @".tblk/contents/resources/connected.sh"        ]
+            || [path.lowercaseString hasSuffix: @".tblk/contents/resources/reconnecting.sh"     ]
+            || [path.lowercaseString hasSuffix: @".tblk/contents/resources/post-disconnect.sh"  ]
             )
         && (   (   (gUidOfUser != 0)    // Allow shadow to run as root only if have a non-root username
                 && [path hasPrefix: [[L_AS_T_USERS
@@ -2519,19 +2519,19 @@ static BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL 
         }
 
 		// enumeratorAtPath: yields "Contents/...", not "Name.tblk/Contents/...".
-        if (   [name isEqualToString: @"Contents/Info.plist"]
-            || [name isEqualToString: @"Contents/Resources/static-challenge-response.user.sh"]
-            || [name isEqualToString: @"Contents/Resources/dynamic-challenge-response.user.sh"]
-            || [name isEqualToString: @"Contents/Resources/password-replace.user.sh"]
-            || [name isEqualToString: @"Contents/Resources/password-prepend.user.sh"]
-            || [name isEqualToString: @"Contents/Resources/password-append.user.sh"]
-            || (   [extensionsForKeysAndCerts containsObject: [name pathExtension]]
+        if (   [name.lowercaseString isEqualToString: @"contents/info.plist"]
+            || [name.lowercaseString isEqualToString: @"contents/resources/static-challenge-response.user.sh"]
+            || [name.lowercaseString isEqualToString: @"contents/resources/dynamic-challenge-response.user.sh"]
+            || [name.lowercaseString isEqualToString: @"contents/resources/password-replace.user.sh"]
+            || [name.lowercaseString isEqualToString: @"contents/resources/password-prepend.user.sh"]
+            || [name.lowercaseString isEqualToString: @"contents/resources/password-append.user.sh"]
+            || (   [extensionsForKeysAndCerts containsObject: [name.lowercaseString pathExtension]]
                 && (name.pathComponents.count == 3)
-                && [name.stringByDeletingLastPathComponent isEqualToString: @"Contents/Resources"]
+                && [name.stringByDeletingLastPathComponent.lowercaseString isEqualToString: @"contents/resources"]
                 )
-            || (   [name hasPrefix: @"Contents/Resources/"]
-                && [name hasSuffix: @".lproj/Localizable.strings"]
-                && (name.pathComponents.count == 4)
+            || (   [name.lowercaseString hasPrefix: @"contents/resources/"]
+                && [name.lowercaseString hasSuffix: @".lproj/localizable.strings"]
+                && (name.lowercaseString.pathComponents.count == 4)
                 )
 			) {
 
@@ -2695,12 +2695,12 @@ static void verifyConfigurationIsSafe(NSString * path) {
         }
 
         // Info.plist, user-mode scripts, and certificate and key files, and *.lproj/Localizable.strings files are OK
-        if (   [fullPath hasSuffix: @".tblk/Contents/Info.plist"]
-            || [fullPath hasSuffix: @".tblk/Contents/Resources/static-challenge-response.user.sh"]
-            || [fullPath hasSuffix: @".tblk/Contents/Resources/dynamic-challenge-response.user.sh"]
-            || [fullPath hasSuffix: @".tblk/Contents/Resources/password-replace.user.sh"]
-            || [fullPath hasSuffix: @".tblk/Contents/Resources/password-prepend.user.sh"]
-            || [fullPath hasSuffix: @".tblk/Contents/Resources/password-append.user.sh"]
+        if (   [fullPath.lowercaseString hasSuffix: @".tblk/contents/info.plist"]
+            || [fullPath.lowercaseString hasSuffix: @".tblk/contents/resources/static-challenge-response.user.sh"]
+            || [fullPath.lowercaseString hasSuffix: @".tblk/contents/resources/dynamic-challenge-response.user.sh"]
+            || [fullPath.lowercaseString hasSuffix: @".tblk/contents/resources/password-replace.user.sh"]
+            || [fullPath.lowercaseString hasSuffix: @".tblk/contents/resources/password-prepend.user.sh"]
+            || [fullPath.lowercaseString hasSuffix: @".tblk/contents/resources/password-append.user.sh"]
             || (   [extensionsForKeysAndCerts containsObject: [name pathExtension]]
                 && [[fullPath stringByDeletingLastPathComponent] hasSuffix: @".tblk/Contents/Resources"]
                 )
@@ -3208,9 +3208,9 @@ static void scriptStatusForTblk(NSString * tblkPath) {
 
         NSString * subPath;
         while (  (subPath = [dirE nextObject])  ) {
-            if (  [subPath hasSuffix: @".user.sh"]  ) {
+            if (  [subPath.lowercaseString hasSuffix: @".user.sh"]  ) {
                 hasUserScripts = YES;
-            } else if (  [subPath hasSuffix: @".sh"]  ) {
+            } else if (  [subPath.lowercaseString hasSuffix: @".sh"]  ) {
                 hasRootScripts = YES;
             }
             if (   hasUserScripts
@@ -3305,7 +3305,7 @@ static int startVPN(NSString * configFile,
     NSString * upscriptPath              = [gResourcesPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@up.osx.sh",                     scriptNumString]];
     NSString * downscriptPath            = [gResourcesPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@down.osx.sh",                   scriptNumString]];
     NSString * upscriptNoMonitorPath     = [gResourcesPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@nomonitor.up.osx.sh",           scriptNumString]];
-    NSString * downscriptNoMonitorPath     = [gResourcesPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@nomonitor.down.osx.sh",         scriptNumString]];
+    NSString * downscriptNoMonitorPath   = [gResourcesPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@nomonitor.down.osx.sh",         scriptNumString]];
 
     NSString * newUpscriptPath           = [gResourcesPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@up.tunnelblick.sh",             scriptNumString]];
     NSString * newDownscriptPath         = [gResourcesPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@down.tunnelblick.sh",           scriptNumString]];
