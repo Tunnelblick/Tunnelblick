@@ -233,6 +233,23 @@
         }
 
         NSString * token = [line substringWithRange: NSMakeRange(tokenStartIx, *ix - tokenStartIx)];
+
+        // If a token starts and ends with a double-quote or with a single-quote, don't include the quotes in the token
+        // If a token starts with "--", don't include the "--" in the token unless the token does NOT start with "---"
+        //                             (so we don't interfere with lines like "-----BEGIN OpenVPN Static key V1-----").
+        for ( ; ; ) {
+            if (   (token.length > 1)
+                && (   ( [token hasPrefix: @"\""] && [token hasSuffix: @"\""] )
+                    || ( [token hasPrefix: @"'"]  && [token hasSuffix: @"'"] ) )  ) {
+                token = [token substringWithRange: NSMakeRange( 1, token.length - 2)];
+            } else if (   [token hasPrefix: @"--"]
+                       && ( ! [token hasPrefix: @"---"]  ) ) {
+                token = [token substringFromIndex: 2];
+            } else {
+                break;
+            }
+        }
+
         return token;
     }
 
