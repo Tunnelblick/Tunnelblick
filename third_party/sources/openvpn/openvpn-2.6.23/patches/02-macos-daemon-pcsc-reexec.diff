@@ -1,0 +1,60 @@
+--- a/src/openvpn/openvpn.c	2026-10-06 15:59:16.000000000 +0300
++++ b/src/openvpn/openvpn.c	2026-10-23 13:42:32.128053403 +0300
+@@ -26,6 +26,10 @@
+ 
+ #include "syshead.h"
+ 
++#if defined(__APPLE__)
++#include <mach-o/dyld.h>
++#endif
++
+ #include "init.h"
+ #include "forward.h"
+ #include "multi.h"
+@@ -275,6 +279,28 @@
+             if (c.first_time)
+             {
+                 c.did_we_daemonize = possibly_become_daemon(&c.options);
++#if defined(__APPLE__)
++                /* On macOS, PC/SC (used by PKCS#11 providers to access smart
++                 * cards and USB tokens) does not work in a process created by
++                 * fork() without exec(): SCardEstablishContext() fails with
++                 * SCARD_E_NO_SERVICE. Re-execute ourselves so that PKCS#11
++                 * works when --daemon is used. The detached session and file
++                 * descriptor state set up by daemon() survive exec(). */
++                if (c.did_we_daemonize && !getenv("OPENVPN_MACOS_DAEMON_REEXEC"))
++                {
++                    char *exec_path = (char *) malloc(PATH_MAX);
++                    uint32_t path_size = (uint32_t) PATH_MAX;
++                    if (exec_path && _NSGetExecutablePath(exec_path, &path_size) == 0)
++                    {
++                        msg(M_INFO, "Re-executing after daemonizing so that PKCS#11 tokens work on macOS");
++                        setenv("OPENVPN_MACOS_DAEMON_REEXEC", "1", 1);
++                        execv(exec_path, argv);
++                        /* execv() only returns on failure */
++                        msg(M_WARN, "Re-execution after daemonizing failed (%s); PKCS#11 tokens may not work on macOS", strerror(errno));
++                    }
++                    free(exec_path);
++                }
++#endif
+                 write_pid_file(c.options.writepid, c.options.chroot_dir);
+             }
+ 
+--- a/src/openvpn/init.c	2026-10-06 15:59:16.000000000 +0300
++++ b/src/openvpn/init.c	2026-10-23 13:36:09.578426520 +0300
+@@ -1155,6 +1155,15 @@
+ 
+     if (options->daemon)
+     {
++#if defined(__APPLE__)
++        /* We were re-executed after daemonizing (see openvpn.c): the process
++         * is already a detached daemon, so do not daemonize again. Returning
++         * true keeps did_we_daemonize semantics (e.g. the postponed chdir). */
++        if (getenv("OPENVPN_MACOS_DAEMON_REEXEC"))
++        {
++            return true;
++        }
++#endif
+         /* Don't chdir immediately, but the end of the init sequence, if needed */
+ 
+ #if defined(__APPLE__) && defined(__clang__)

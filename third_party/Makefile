@@ -32,7 +32,11 @@ OPENSSL_1_1_NAME = openssl-1.1.1w
 OPENSSL_3_0_NAME = openssl-3.0.22
 OPENSSL_3_5_NAME = openssl-3.5.9
 
-PKCS11_NAME      = pkcs11-helper-1.27.0
+# pkcs11-helper 1.31.0 or later is required to build with OpenSSL 3.x, but it cannot be built
+# with OpenSSL 1.1 (its compatibility shim uses OpenSSL 3.x function signatures that modern
+# versions of clang reject), so OpenSSL 1.1 builds use the last 1.1-compatible version instead.
+PKCS11_NAME              = pkcs11-helper-1.31.0
+PKCS11_OPENSSL_1_1_NAME  = pkcs11-helper-1.27.0
 
 EASY_RSA_3_NAME  = easy-rsa-3.0.1
 
@@ -137,8 +141,10 @@ LZO_STAGING_DIR = $(STAGING_DIR)/$(LZO_NAME)
 LZ4_BUILD_DIR = $(BUILD_DIR)/$(LZ4_NAME)/lib
 LZ4_STAGING_DIR = $(STAGING_DIR)/$(LZ4_NAME)
 
-PKCS11_BUILD_DIR = $(BUILD_DIR)/$(PKCS11_NAME)
-PKCS11_STAGING_DIR=$(STAGING_DIR)/$(PKCS11_NAME)
+PKCS11_BUILD_DIR = $(BUILD_DIR)
+# Version-agnostic staging: each SSL variant gets its own pkcs11-helper build, using
+# $(PKCS11_OPENSSL_1_1_NAME) for OpenSSL 1.1 and $(PKCS11_NAME) for OpenSSL 3.x.
+PKCS11_STAGING_DIR=$(STAGING_DIR)/pkcs11-helper
 
 EASY_RSA_SOURCE_DIR = $(SOURCES_DIR)/easy-rsa
 EASY_RSA_PRODUCTS_DIR = $(PRODUCTS_DIR)/easy-rsa-tunnelblick

@@ -55,6 +55,7 @@ BOOL           moveCredentials          (NSString * fromDisplayName,
 BOOL           keychainHasPrivateKeyForDisplayName(NSString * name);
 BOOL           keychainHasUsernameWithoutPasswordForDisplayName(NSString * name);
 BOOL           keychainHasUsernameAndPasswordForDisplayName(NSString * name);
+BOOL           keychainHasPkcs11PinForDisplayName(NSString * name);
 
 NSString     * escaped                  (NSString * string);
 

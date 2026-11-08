@@ -136,6 +136,7 @@ struct Statistics {
 
     BOOL            authFailed;         // Indicates authorization failed
     BOOL            credentialsAskedFor;// Indicates whether credentials have been asked for but not provided
+    BOOL            pkcs11PinRequestWasAnsweredFromKeychain; // Indicates the last PKCS#11 PIN request was answered with the saved PIN from the Keychain
 	BOOL            useManualChallengeResponseOnce;
 	BOOL		    doNotClearUseManualChallengeResponseOnceOnNextConnect;
     BOOL            usedModifyNameserver;// True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted

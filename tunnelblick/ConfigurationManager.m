@@ -3386,6 +3386,10 @@ done:
                 if (  [myAuthAgent keychainHasAnyCredentials]  ) {
                     [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
                 }
+                [myAuthAgent setAuthMode: @"pkcs11Pin"];
+                if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+                }
             }
 
             [gTbDefaults removePreferencesFor: displayName];
@@ -3802,6 +3806,15 @@ done:
             [groupNamesToProcess addObject: (  group
                                              ? group
                                              : (NSString *)[NSNull null])];
+            continue;
+        }
+
+        [myAuthAgent setAuthMode: @"pkcs11Pin"];
+        if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+            [displayNamesToProcess addObject: displayName];
+            [groupNamesToProcess addObject: (  group
+                                             ? group
+                                             : (NSString *)[NSNull null])];
         }
     }
 
@@ -3853,6 +3866,11 @@ done:
         }
 
         [myAuthAgent setAuthMode: @"password"];
+        if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+            [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+        }
+
+        [myAuthAgent setAuthMode: @"pkcs11Pin"];
         if (  [myAuthAgent keychainHasAnyCredentials]  ) {
             [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
         }
@@ -4047,10 +4065,11 @@ done:
 
     if (  moveNotCopy  ) {
 
-        // Save status of "-keychainHasUsernameAndPassword", "-keychainHasUsername", and "-keychainHasPrivateKey" because they are deleted by moveCredentials()
+        // Save status of "-keychainHasUsernameAndPassword", "-keychainHasUsername", "-keychainHasPrivateKey", and "-keychainHasPkcs11Pin" because they are deleted by moveCredentials()
         BOOL havePwCredentials = keychainHasUsernameAndPasswordForDisplayName(sourceDisplayName);
         BOOL haveUnCredentials = keychainHasUsernameWithoutPasswordForDisplayName(sourceDisplayName);
         BOOL havePkCredentials = keychainHasPrivateKeyForDisplayName(sourceDisplayName);
+        BOOL havePinCredentials = keychainHasPkcs11PinForDisplayName(sourceDisplayName);
 
         moveCredentials(sourceDisplayName, targetDisplayName);
 
@@ -4064,6 +4083,9 @@ done:
         }
         if (  havePkCredentials  ) {
             [gTbDefaults setBool: TRUE forKey: [targetDisplayName stringByAppendingString: @"-keychainHasPrivateKey"]];
+        }
+        if (  havePinCredentials  ) {
+            [gTbDefaults setBool: TRUE forKey: [targetDisplayName stringByAppendingString: @"-keychainHasPkcs11Pin"]];
         }
 
     } else {

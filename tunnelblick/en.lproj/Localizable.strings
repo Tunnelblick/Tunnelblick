@@ -2855,3 +2855,21 @@
 
 /* Window text VPNService */
 "Your account status could not be verified:\n     %@." = "Your account status could not be verified:\n     %@.";
+
+/* Window title */
+"Tunnelblick: PIN Required" = "Tunnelblick: PIN Required";
+
+/* Window text. The first '%@' is the name of a PKCS#11 (USB) token, the second '%@' is the name of a configuration, and the third '%@' is an empty string or text about a credentials group. */
+"A PIN is required for the '%@' token to connect to\n  %@%@" = "A PIN is required for the '%@' token to connect to\n  %@%@";
+
+/* Checkbox name */
+"Save PIN in Keychain" = "Save PIN in Keychain";
+
+/* Window text */
+"The PIN was not accepted." = "The PIN was not accepted.";
+
+/* Button */
+"Try again with saved PIN" = "Try again with saved PIN";
+
+/* Button */
+"Delete saved PIN and try again" = "Delete saved PIN and try again";

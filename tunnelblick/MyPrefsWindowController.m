@@ -1499,13 +1499,18 @@ static BOOL firstTimeShowingWindow = TRUE;
 		if (  [myAuthAgent keychainHasAnyCredentials]  ) {
 			return TRUE;
 		}
-		
+
 		[myAuthAgent setAuthMode: @"password"];
 		if (  [myAuthAgent keychainHasAnyCredentials]  ) {
 			return TRUE;
 		}
-	}		
-	
+
+		[myAuthAgent setAuthMode: @"pkcs11Pin"];
+		if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+			return TRUE;
+		}
+	}
+
 	return FALSE;
 }
 
