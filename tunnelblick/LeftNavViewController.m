@@ -19,6 +19,44 @@
 
 #import "LeftNavViewController.h"
 
+@implementation TBSidebarOutlineView
+
+// While hidesSelection is set, the selected rows are drawn as not selected. The selection itself is not changed.
+
+-(void) updateRowViewsSelection {
+    NSInteger row;
+    for (  row = 0; row < [self numberOfRows]; row++  ) {
+        NSTableRowView * rowView = [self rowViewAtRow: row makeIfNecessary: NO];
+        if (  rowView  ) {
+            [rowView setSelected: (   ( ! hidesSelection )
+                                   && [self isRowSelected: row])];
+        }
+    }
+}
+
+-(void) setHidesSelection: (BOOL) newValue {
+    if (  hidesSelection != newValue  ) {
+        hidesSelection = newValue;
+        [self updateRowViewsSelection];
+    }
+}
+
+-(void) didAddRowView: (NSTableRowView *) rowView forRow: (NSInteger) row {
+    [super didAddRowView: rowView forRow: row];
+    if (  hidesSelection  ) {
+        [rowView setSelected: NO];
+    }
+}
+
+-(void) selectRowIndexes: (NSIndexSet *) indexes byExtendingSelection: (BOOL) extend {
+    [super selectRowIndexes: indexes byExtendingSelection: extend];
+    if (  hidesSelection  ) {
+        [self updateRowViewsSelection];
+    }
+}
+
+@end
+
 @implementation LeftNavViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {

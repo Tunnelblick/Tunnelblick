@@ -54,6 +54,7 @@
 #import "TBUpdater.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
+#import "StatusWindowController.h"
 #import "VPNConnection.h"
 #import "WarningNote.h"
 #import "WelcomeController.h"
@@ -1539,6 +1540,19 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     if (  menu == myVPNMenu  ) {
         menuIsOpen = TRUE;
         [self updateIconImage];    // Display the new images
+        
+        // Status windows shown because the pointer is over the icon would be covered by the menu (which shows the same
+        // states), so hide them, the same ones statisticsWindowsShow: NO hides. (Not with fadeAway, which does not fade
+        // while the pointer is over the icon, as it is when the menu is opened. Windows shown while connecting stay.)
+        NSEnumerator * e = [myVPNConnectionDictionary objectEnumerator];
+        VPNConnection * connection;
+        while (  (connection = [e nextObject])  ) {
+            if (   (   [connection isConnected]
+                    && [[gTbDefaults stringForKey: @"connectionWindowDisplayCriteria"] isNotEqualTo: @"showWhenConnectingAndConnected"]  )
+                || [connection isDisconnected]  ) {
+                [[connection statusScreen] fadeOut];
+            }
+        }
     }
 }
 
@@ -1953,6 +1967,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [warningsItem release];
     warningsItem = [[NSMenuItem alloc] init];
     [warningsItem setTitle: NSLocalizedString(@"Warnings", @"Menu item")];
+    [warningsItem setImage: [NSImage imageWithSystemSymbolName: @"exclamationmark.triangle" accessibilityDescription: nil]];
     NSMenu * warningsSubmenu = [[[NSMenu alloc] initWithTitle: NSLocalizedString(@"Tunnelblick", @"Window title")] autorelease];
 
     // Add up to 20 warnings to the submenu
@@ -1989,6 +2004,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [vpnDetailsItem setTitle: NSLocalizedString(@"VPN Details...", @"Menu item")];
     [vpnDetailsItem setTarget: self];
     [vpnDetailsItem setAction: @selector(openPreferencesWindow:)];
+    [vpnDetailsItem setImage: [NSImage imageWithSystemSymbolName: @"gearshape" accessibilityDescription: nil]];
 
     [contactTunnelblickItem release];
     contactTunnelblickItem = nil;
@@ -1998,6 +2014,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [quitItem setTitle: NSLocalizedString(@"Quit Tunnelblick", @"Menu item")];
     [quitItem setTarget: self];
     [quitItem setAction: @selector(quit:)];
+    [quitItem setImage: [NSImage imageWithSystemSymbolName: @"power" accessibilityDescription: nil]];
 
     [statusMenuItem release];
     statusMenuItem = [[NSMenuItem alloc] init];
@@ -2005,7 +2022,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [statusMenuItem setAction: @selector(disconnectAllMenuItemWasClicked:)];
 
     NSMenu * newMenu = [[NSMenu alloc] init];
-    [myVPNMenu setDelegate:self];
+    [newMenu setDelegate: self]; // (Not myVPNMenu, which is still the previous menu here)
 
     [newMenu addItem:statusMenuItem];
 
@@ -2032,6 +2049,12 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     NSArray *keyArray = [[[self myConfigDictionary] allKeys]
                          sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
     NSEnumerator * e = [keyArray objectEnumerator];
+    // A heading above the configurations (section headings are available in macOS 14 and higher)
+    if (  [[self myConfigDictionary] count] != 0  ) {
+        if (  @available(macOS 14.0, *)  ) {
+            [newMenu addItem: [NSMenuItem sectionHeaderWithTitle: NSLocalizedString(@"Configurations", @"Window title")]];
+        }
+    }
     NSUInteger itemsBeforeInsertingConfigurations = [newMenu numberOfItems];
     TBLog(@"DB-MC", @"itemsBeforeInsertingConfigurations = %lu", (unsigned long)itemsBeforeInsertingConfigurations);
 
@@ -4372,30 +4395,18 @@ static void signal_handler(int signalNumber)
     CFReleaseIfNotNULL(allLocalizationsCF);
     CFReleaseIfNotNULL(languagesCF);
 
-    // Maintain the selected panel index if RTL status changed from last launch
-    if (   [gTbDefaults objectForKey: @"detailsWindowViewIndex"]
-        && [gTbDefaults objectForKey: @"lastLanguageAtLaunchWasRTL"]  ) {
-        unsigned int oldIx = [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0 min: 0 max: 6];
-        unsigned int newIx = oldIx;
-        BOOL lastLanguageWasRTL = [gTbDefaults boolForKey: @"lastLanguageAtLaunchWasRTL"];
-        if (  lastLanguageWasRTL  ) {
-            if (  oldIx < 2  ) {
-                NSLog(@"Old panel index < 2; setting it to 6");
-                newIx = 6;
-            }
-        } else if (  oldIx > 6  ) {
-            NSLog(@"Old panel index > 6; setting it to 0");
-            newIx = 0;
-        }
-        if (  languageAtLaunchWasRTL != lastLanguageWasRTL  ) {
-            newIx = 6 - newIx;
-            [gTbDefaults setBool: languageAtLaunchWasRTL forKey: @"lastLanguageAtLaunchWasRTL"];
-        }
-        if (  newIx != oldIx) {
+    // The VPN Details window used to list its views in reverse order for right-to-left languages, and saved the index
+    // of the selected view in that order. It now uses the same order for all languages (the order used for left-to-right
+    // languages), so convert an index that was saved in the reversed order.
+    if (  [gTbDefaults boolForKey: @"lastLanguageAtLaunchWasRTL"]  ) {
+        if (  [gTbDefaults objectForKey: @"detailsWindowViewIndex"]  ) {
+            unsigned int oldIx = [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 6 min: 0 max: 6];
+            unsigned int newIx = (  (oldIx < 2)     // The lock icon or the flexible space
+                                  ? 0
+                                  : 6 - oldIx);
             [gTbDefaults setObject: [NSNumber numberWithUnsignedInt: newIx] forKey: @"detailsWindowViewIndex"];
         }
-    } else {
-        [gTbDefaults setBool: languageAtLaunchWasRTL forKey: @"lastLanguageAtLaunchWasRTL"];
+        [gTbDefaults setBool: NO forKey: @"lastLanguageAtLaunchWasRTL"];
     }
 
     // Process runOnLaunch item
@@ -8000,7 +8011,9 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 
-    if (  [self mouseIsInsideAnyView] ) {
+    if (  menuIsOpen  ) {
+		TBLog(@"DB-MO", @"showStatisticsWindowsTimerHandler: the menu is open; NOT queueing showStatisticsWindows");
+    } else if (  [self mouseIsInsideAnyView] ) {
         [self performSelectorOnMainThread: @selector(showStatisticsWindows) withObject: nil waitUntilDone: NO];
 		TBLog(@"DB-MO", @"showStatisticsWindowsTimerHandler: mouse still inside a view; queueing showStatisticsWindows");
     } else {

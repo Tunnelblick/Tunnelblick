@@ -20,6 +20,18 @@
 #import "defines.h"
 
 
+// The outline view of configurations in the VPN Details window's sidebar. Its selection stays (other code depends on it)
+// while another view of the window is shown, but is not drawn then, so only one item in the sidebar looks selected.
+
+@interface TBSidebarOutlineView : NSOutlineView {
+    BOOL hidesSelection;
+}
+
+-(void) setHidesSelection: (BOOL) newValue;
+
+@end
+
+
 @interface LeftNavViewController : NSViewController {
     
     IBOutlet NSOutlineView * outlineView;

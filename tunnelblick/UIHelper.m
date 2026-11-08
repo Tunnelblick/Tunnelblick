@@ -42,12 +42,10 @@ extern TBUserDefaults * gTbDefaults;
 
 +(unsigned int) detailsWindowsViewIndexFromPreferencesWithCount: (unsigned int) count {
     
-    // "count" is the [toolbarIdentifiers count]
+    // "count" is the [toolbarIdentifiers count]. The views are in the same order for all languages,
+    // followed by the lock icon, which has no view.
 	
-	unsigned int ix = (  [UIHelper languageAtLaunchWasRTL]
-					   ? [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: count - 1 min: 2 max: count - 1]
-					   : [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0         min: 0 max: count - 3]);
-	return ix;
+	return [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0 min: 0 max: count - 2];
 }
 
 +(BOOL) languageAtLaunchWasRTL {
@@ -389,6 +387,145 @@ extern TBUserDefaults * gTbDefaults;
     [[w animator] setFrameOrigin:[w frame].origin];
     
     CGPathRelease(shakePath);
+}
+
++(void) setUpDialogHeadline: (NSTextField *) textField
+                       width: (CGFloat)       width {
+
+    // Shows the text of a dialog's headline like an alert's message text: bold, wrapped to the width,
+    // and without the indentation some localized texts use at the start of a line
+
+    NSTextFieldCell * cell = [textField cell];
+    [cell setFont: [NSFont boldSystemFontOfSize: [NSFont systemFontSize]]];
+    [cell setScrollable: NO];
+    [cell setWraps: YES];
+    [cell setLineBreakMode: NSLineBreakByWordWrapping];
+    [textField setPreferredMaxLayoutWidth: width];
+    NSString * text = [textField stringValue];
+    [textField setStringValue: [text stringByReplacingOccurrencesOfString: @"\n[ \t]+"
+                                                               withString: @"\n"
+                                                                  options: NSRegularExpressionSearch
+                                                                    range: NSMakeRange(0, [text length])]];
+}
+
++(NSView *) viewOverlaying: (NSView *) firstView
+                      with: (NSView *) secondView {
+
+    // Returns a view that holds both views on top of each other, filling it (e.g. a secure text field and the
+    // plain text field that shows the same text when it is exposed; only one of them is shown at a time)
+
+    NSView * container = [[[NSView alloc] init] autorelease];
+    NSView * view;
+    NSEnumerator * e = [@[firstView, secondView] objectEnumerator];
+    while (  (view = [e nextObject])  ) {
+        [container addSubview: view];
+        [view setTranslatesAutoresizingMaskIntoConstraints: NO];
+        [NSLayoutConstraint activateConstraints: @[[[view leadingAnchor]  constraintEqualToAnchor: [container leadingAnchor]],
+                                                   [[view trailingAnchor] constraintEqualToAnchor: [container trailingAnchor]],
+                                                   [[view topAnchor]      constraintEqualToAnchor: [container topAnchor]],
+                                                   [[view bottomAnchor]   constraintEqualToAnchor: [container bottomAnchor]]]];
+    }
+    return container;
+}
+
++(void) setRightToLeftLayoutIn: (NSView *) view
+                containersOnly: (BOOL)     containersOnly {
+
+    // Lays out a view and its subviews from right to left (with containersOnly, only the stack views and grid views).
+    //
+    // AppKit lays out Tunnelblick from left to right even for right-to-left languages, which use right-to-left versions
+    // of the nibs instead. Views that are built in code (and laid out with stack views and leading/trailing constraints)
+    // are mirrored with this. A view's layout direction is not inherited by its subviews, so views that are added later
+    // (such as table cells) must be set up when they are created.
+
+    if (   ( ! containersOnly )
+        || [view isKindOfClass: [NSStackView class]]
+        || [view isKindOfClass: [NSGridView class]]  ) {
+        [view setUserInterfaceLayoutDirection: NSUserInterfaceLayoutDirectionRightToLeft];
+    }
+    NSView * subview;
+    NSEnumerator * e = [[view subviews] objectEnumerator];
+    while (  (subview = [e nextObject])  ) {
+        [UIHelper setRightToLeftLayoutIn: subview containersOnly: containersOnly];
+    }
+}
+
++(void) layOutDialogWindow: (NSWindow *)    window
+                      icon: (NSImageView *) icon
+                 bodyViews: (NSArray *)     bodyViews
+                 bodyWidth: (CGFloat)       bodyWidth
+             leadingButton: (NSButton *)    leadingButton
+           trailingButtons: (NSArray *)     trailingButtons {
+
+    // Lays out a dialog like a standard macOS alert: the icon on the leading side, the body views stacked next to it,
+    // and the buttons in a row along the bottom (leadingButton at the leading edge, trailingButtons at the trailing edge,
+    // with the default button last). The window gets no visible title and is sized to fit its content.
+    //
+    // The views are moved out of their nib positions into stack views, so the layout also works for right-to-left languages.
+    // Hidden views take no space. Like an alert, the window has no title bar buttons; the caller handles the Escape key.
+
+    [window setStyleMask: ([window styleMask] | NSWindowStyleMaskFullSizeContentView) & ~NSWindowStyleMaskResizable];
+    [window setTitlebarAppearsTransparent: YES];
+    [window setTitleVisibility: NSWindowTitleHidden];
+    [[window standardWindowButton: NSWindowCloseButton]       setHidden: YES];
+    [[window standardWindowButton: NSWindowMiniaturizeButton] setHidden: YES];
+    [[window standardWindowButton: NSWindowZoomButton]        setHidden: YES];
+
+    [icon setImageScaling: NSImageScaleProportionallyUpOrDown];
+    [icon setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [NSLayoutConstraint activateConstraints: @[[[icon widthAnchor]  constraintEqualToConstant: 64.0],
+                                               [[icon heightAnchor] constraintEqualToConstant: 64.0]]];
+
+    NSStackView * body = [NSStackView stackViewWithViews: bodyViews];
+    [body setOrientation: NSUserInterfaceLayoutOrientationVertical];
+    [body setAlignment: NSLayoutAttributeLeading];
+    [body setSpacing: 10.0];
+    [[[body widthAnchor] constraintEqualToConstant: bodyWidth] setActive: YES];
+
+    NSStackView * top = [NSStackView stackViewWithViews: @[icon, body]];
+    [top setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
+    [top setAlignment: NSLayoutAttributeTop];
+    [top setSpacing: 16.0];
+
+    NSStackView * buttonRow = [[[NSStackView alloc] init] autorelease];
+    [buttonRow setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
+    [buttonRow setSpacing: 12.0];
+    NSMutableArray * allButtons = [NSMutableArray arrayWithArray: trailingButtons];
+    if (  leadingButton  ) {
+        [buttonRow addView: leadingButton inGravity: NSStackViewGravityLeading];
+        [allButtons addObject: leadingButton];
+    }
+    NSButton * button;
+    NSEnumerator * e = [trailingButtons objectEnumerator];
+    while (  (button = [e nextObject])  ) {
+        [buttonRow addView: button inGravity: NSStackViewGravityTrailing];
+    }
+    e = [allButtons objectEnumerator];
+    while (  (button = [e nextObject])  ) {
+        [[[button widthAnchor] constraintGreaterThanOrEqualToConstant: 80.0] setActive: YES];
+    }
+
+    NSStackView * root = [NSStackView stackViewWithViews: @[top, buttonRow]];
+    [root setOrientation: NSUserInterfaceLayoutOrientationVertical];
+    [root setAlignment: NSLayoutAttributeLeading];
+    [root setSpacing: 20.0];
+    [root setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [NSLayoutConstraint activateConstraints: @[[[buttonRow widthAnchor] constraintEqualToAnchor: [root widthAnchor]],
+                                               [[top widthAnchor] constraintLessThanOrEqualToAnchor: [root widthAnchor]]]];
+
+    if (  [UIHelper languageAtLaunchWasRTL]  ) {
+        [UIHelper setRightToLeftLayoutIn: root containersOnly: YES];
+    }
+
+    NSView * contentView = [window contentView];
+    [contentView addSubview: root];
+    [NSLayoutConstraint activateConstraints: @[[[root leftAnchor]   constraintEqualToAnchor: [contentView leftAnchor]   constant:  20.0],
+                                               [[root rightAnchor]  constraintEqualToAnchor: [contentView rightAnchor]  constant: -20.0],
+                                               [[root topAnchor]    constraintEqualToAnchor: [contentView topAnchor]    constant:  20.0],
+                                               [[root bottomAnchor] constraintEqualToAnchor: [contentView bottomAnchor] constant: -20.0]]];
+
+    [contentView layoutSubtreeIfNeeded];
+    [window setContentSize: [contentView fittingSize]];
 }
 
 @end

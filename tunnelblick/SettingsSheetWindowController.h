@@ -35,6 +35,7 @@ typedef enum {
 @interface SettingsSheetWindowController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate>
 {
     NSString                     * configurationName;
+    NSButton                     * sheetOKButton;       // Added when shown as a sheet
     
     VPNConnection                * connection;
     
@@ -210,6 +211,9 @@ typedef enum {
 
 -(void) showSettingsSheet:    (id) sender;
 -(void) endSettingsSheet:     (id) sender;
+
+// Shows the settings as a sheet on parentWindow (the VPN Details window), with an OK button that closes it
+-(void) showAsSheetOnWindow: (NSWindow *) parentWindow;
 
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 

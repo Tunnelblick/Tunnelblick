@@ -30,12 +30,52 @@
 #import "NSApplication+LoginItem.h"
 #import "NSString+TB.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 #import "VPNConnection.h"
 
 extern NSString       * gDeployPath;
 extern MenuController * gMC;
 extern NSString       * gPrivatePath;
 extern TBUserDefaults * gTbDefaults;
+
+// A cell in the list of configurations: the icon is on a small rounded "chip", which is lighter while the row is selected.
+
+@interface TBLeftNavCellView : NSTableCellView {
+    NSView * chip;
+}
+-(void) setChip: (NSView *) newChip;
+@end
+
+@implementation TBLeftNavCellView
+
+-(void) setChip: (NSView *) newChip {
+    chip = newChip; // Not retained: it is a subview
+}
+
+-(void) updateChipColor {
+    BOOL emphasized = ([self backgroundStyle] == NSBackgroundStyleEmphasized);
+    NSColor * color = (  emphasized
+                       ? [NSColor colorWithWhite: 1.0 alpha: 0.22]
+                       : [NSColor quaternaryLabelColor]);
+    [self setWantsLayer: YES];
+    [[chip layer] setBackgroundColor: [color CGColor]];
+    [[self imageView] setContentTintColor: (  emphasized
+                                            ? [NSColor whiteColor]
+                                            : [NSColor secondaryLabelColor])];
+}
+
+-(void) setBackgroundStyle: (NSBackgroundStyle) backgroundStyle {
+    [super setBackgroundStyle: backgroundStyle];
+    [self updateChipColor];
+}
+
+-(void) viewDidChangeEffectiveAppearance {
+    [super viewDidChangeEffectiveAppearance];
+    [self updateChipColor]; // Layer colors do not follow dark/light mode by themselves
+}
+
+@end
+
 
 @implementation LeftNavDataSource
 
@@ -236,6 +276,205 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 				: [(LeftNavItem *) item nameToShowInOutlineView]
 				);
 	return val;
+}
+
+// The list is view-based: each configuration or folder shows an icon and its name, and each configuration shows a dot:
+// green when connected, orange between connected and disconnected, gray when disconnected.
+
+static NSString * const LeftNavHeaderCellIdentifier = @"LeftNavHeaderCell";
+static NSString * const LeftNavItemCellIdentifier   = @"LeftNavItemCell";
+static NSString * const LeftNavStatusDotIdentifier  = @"LeftNavStatusDot";
+
+-(NSColor *) statusColorForItem: (LeftNavItem *) item {
+    
+    NSString * displayName = [item displayName];
+    if (   ([displayName length] == 0)
+        || [displayName hasSuffix: @"/"]  ) {
+        return nil; // Root or folder
+    }
+    
+    VPNConnection * connection = [gMC connectionForDisplayName: displayName];
+    if (  [connection isConnected]  ) {
+        return [NSColor systemGreenColor];
+    }
+    if (   connection
+        && ( ! [connection isDisconnected] )  ) {
+        return [NSColor systemOrangeColor];
+    }
+    return (  connection
+            ? [NSColor tertiaryLabelColor]
+            : nil);
+}
+
+-(void) updateStatusDotInCell: (NSTableCellView *) cell forItem: (LeftNavItem *) item {
+    
+    NSView * dot = nil;
+    NSView * view;
+    NSEnumerator * e = [[cell subviews] objectEnumerator];
+    while (  (view = [e nextObject])  ) {
+        if (  [[view identifier] isEqualToString: LeftNavStatusDotIdentifier]  ) {
+            dot = view;
+        }
+    }
+    
+    NSColor * color = [self statusColorForItem: item];
+    [dot setHidden: (color == nil)];
+    [[dot layer] setBackgroundColor: [color CGColor]];
+}
+
+-(NSTableCellView *) newItemCellWithIdentifier: (NSString *) identifier {
+    
+    TBLeftNavCellView * cell = [[TBLeftNavCellView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 200.0, 24.0)];
+    [cell setIdentifier: identifier];
+    
+    NSView * chip = [[[NSView alloc] init] autorelease];
+    [chip setWantsLayer: YES];
+    [[chip layer] setCornerRadius: 6.0];
+    [chip setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [cell addSubview: chip];
+    [cell setChip: chip];
+    
+    NSImageView * imageView = [[[NSImageView alloc] init] autorelease];
+    [imageView setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [imageView setSymbolConfiguration: [NSImageSymbolConfiguration configurationWithPointSize: 11.0 weight: NSFontWeightSemibold]];
+    [cell addSubview: imageView];
+    [cell setImageView: imageView];
+    
+    NSTextField * textField = [NSTextField labelWithString: @""];
+    [textField setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [textField setLineBreakMode: NSLineBreakByTruncatingTail];
+    [textField setEditable: YES];
+    [textField setDelegate: (id <NSTextFieldDelegate>) self];
+    [[textField cell] setSendsActionOnEndEditing: YES];
+    [textField setContentCompressionResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
+    [cell addSubview: textField];
+    [cell setTextField: textField];
+    
+    NSView * dot = [[[NSView alloc] init] autorelease];
+    [dot setIdentifier: LeftNavStatusDotIdentifier];
+    [dot setWantsLayer: YES];
+    [[dot layer] setCornerRadius: 4.0];
+    [dot setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [dot setHidden: YES];
+    [cell addSubview: dot];
+    
+    [NSLayoutConstraint activateConstraints: @[[[chip leadingAnchor]       constraintEqualToAnchor: [cell leadingAnchor] constant: 0.0],
+                                               [[chip centerYAnchor]       constraintEqualToAnchor: [cell centerYAnchor]],
+                                               [[chip widthAnchor]         constraintEqualToConstant: 22.0],
+                                               [[chip heightAnchor]        constraintEqualToConstant: 22.0],
+                                               [[imageView centerXAnchor]  constraintEqualToAnchor: [chip centerXAnchor]],
+                                               [[imageView centerYAnchor]  constraintEqualToAnchor: [chip centerYAnchor]],
+                                               [[textField leadingAnchor]  constraintEqualToAnchor: [chip trailingAnchor] constant: 8.0],
+                                               [[textField centerYAnchor]  constraintEqualToAnchor: [cell centerYAnchor]],
+                                               [[dot leadingAnchor]        constraintGreaterThanOrEqualToAnchor: [textField trailingAnchor] constant: 6.0],
+                                               [[dot trailingAnchor]       constraintEqualToAnchor: [cell trailingAnchor] constant: -8.0],
+                                               [[dot centerYAnchor]        constraintEqualToAnchor: [cell centerYAnchor]],
+                                               [[dot widthAnchor]          constraintEqualToConstant: 8.0],
+                                               [[dot heightAnchor]         constraintEqualToConstant: 8.0]]];
+    if (  [UIHelper languageAtLaunchWasRTL]  ) {
+        [UIHelper setRightToLeftLayoutIn: cell containersOnly: NO];
+    }
+    return cell;
+}
+
+-(NSView *) outlineView: (NSOutlineView *) outlineView
+     viewForTableColumn: (NSTableColumn *) tableColumn
+                   item: (id)              item {
+    
+    (void) tableColumn;
+    
+    NSString * name = [(LeftNavItem *) item nameToShowInOutlineView];
+    
+    if (  [outlineView rowForItem: item] == 0  ) {
+        NSTableCellView * header = [outlineView makeViewWithIdentifier: LeftNavHeaderCellIdentifier owner: self];
+        if (  ! header  ) {
+            header = [[[NSTableCellView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 200.0, 20.0)] autorelease];
+            [header setIdentifier: LeftNavHeaderCellIdentifier];
+            NSTextField * textField = [NSTextField labelWithString: @""];
+            [textField setTranslatesAutoresizingMaskIntoConstraints: NO];
+            [textField setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize] weight: NSFontWeightSemibold]];
+            [textField setTextColor: [NSColor secondaryLabelColor]];
+            [header addSubview: textField];
+            [header setTextField: textField];
+            [NSLayoutConstraint activateConstraints: @[[[textField leadingAnchor]  constraintEqualToAnchor: [header leadingAnchor]],
+                                                       [[textField trailingAnchor] constraintLessThanOrEqualToAnchor: [header trailingAnchor]],
+                                                       [[textField centerYAnchor]  constraintEqualToAnchor: [header centerYAnchor]]]];
+            if (  [UIHelper languageAtLaunchWasRTL]  ) {
+                [UIHelper setRightToLeftLayoutIn: header containersOnly: NO];
+            }
+        }
+        [[header textField] setStringValue: (name ? name : @"")];
+        return header;
+    }
+    
+    NSTableCellView * cell = [outlineView makeViewWithIdentifier: LeftNavItemCellIdentifier owner: self];
+    if (  ! cell  ) {
+        cell = [[self newItemCellWithIdentifier: LeftNavItemCellIdentifier] autorelease];
+    }
+    
+    BOOL isFolder = ([(LeftNavItem *) item numberOfChildren] != -1);
+    [[cell imageView] setImage: [NSImage imageWithSystemSymbolName: (isFolder ? @"folder.fill" : @"shield.fill")
+                                          accessibilityDescription: nil]];
+    [[cell textField] setStringValue: (name ? name : @"")];
+    [self updateStatusDotInCell: cell forItem: item];
+    return cell;
+}
+
+-(void) refreshStatusInOutlineView: (NSOutlineView *) outlineView {
+    
+    // Called when a connection's status changes
+    NSInteger row;
+    for (  row = 1; row < [outlineView numberOfRows]; row++  ) {
+        NSTableCellView * cell = [outlineView viewAtColumn: 0 row: row makeIfNecessary: NO];
+        if (  cell  ) {
+            [self updateStatusDotInCell: cell forItem: [outlineView itemAtRow: row]];
+        }
+    }
+}
+
+-(void) controlTextDidEndEditing: (NSNotification *) notification {
+    
+    // A configuration or folder name was edited in place
+    NSTextField * textField = [notification object];
+    NSOutlineView * outlineView = nil;
+    NSView * view = [textField superview];
+    while (  view  ) {
+        if (  [view isKindOfClass: [NSOutlineView class]]  ) {
+            outlineView = (NSOutlineView *) view;
+            break;
+        }
+        view = [view superview];
+    }
+    
+    NSInteger row = [outlineView rowForView: textField];
+    if (  row < 1  ) {
+        return;
+    }
+    
+    LeftNavItem * item = [outlineView itemAtRow: row];
+    NSString * newName = [textField stringValue];
+    NSString * oldName = [item nameToShowInOutlineView];
+    if (   ([newName length] == 0)
+        || [newName isEqualToString: oldName]  ) {
+        [textField setStringValue: (oldName ? oldName : @"")];
+        return;
+    }
+    
+    [self outlineView: outlineView setObjectValue: newName forTableColumn: nil byItem: item];
+}
+
+-(BOOL) outlineView: (NSOutlineView *) outlineView
+        isGroupItem: (id) item {
+    
+    // The root item is shown as the heading of the list
+    return ([outlineView rowForItem: item] == 0);
+}
+
+-(BOOL)             outlineView: (NSOutlineView *) outlineView
+  shouldShowOutlineCellForItem: (id) item {
+    
+    // The root item cannot be collapsed, so it does not get a disclosure triangle
+    return ([outlineView rowForItem: item] != 0);
 }
 
 -(BOOL) outlineView: (NSOutlineView *) outlineView

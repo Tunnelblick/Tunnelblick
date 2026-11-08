@@ -49,7 +49,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, securityEyeButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeNormal)
 TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSView *, securityTokenView)
 
 -(id) initWithDelegate: (id) theDelegate
 {
@@ -68,8 +67,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSView *, securityTokenView)
                                                                name: NSWorkspaceDidWakeNotification
                                                              object: nil];
     
-    eyeNormal   = [[NSImage imageNamed: @"eyeNormal"]   retain];
-    eyeRedSlash = [[NSImage imageNamed: @"eyeRedSlash"] retain];
+    eyeNormal   = [[NSImage imageWithSystemSymbolName: @"eye"       accessibilityDescription: nil] retain];
+    eyeRedSlash = [[NSImage imageWithSystemSymbolName: @"eye.slash" accessibilityDescription: nil] retain];
 
     delegate = [theDelegate retain];
     return self;
@@ -110,8 +109,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSView *, securityTokenView)
     [saveUsernameInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain",        @"Checkbox name")];
     [savePasswordInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain",        @"Checkbox name")];
 
-    CGFloat oldUseSecurityTokenCheckboxWidth = [useSecurityTokenCheckbox frame].size.width;
-
 // The following doesn't work because this is a modal window. That means that it will not trigger UI updates until it is done
 //	[useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Security code:", @"Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle.")
 //                             infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Allows for the additional entry of a security code when checked.</p>\n"
@@ -120,36 +117,66 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSView *, securityTokenView)
 //                                                                                   @"HTML Info for security code checkbox"))];
 
 	[useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Security code:", @"Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle.")];
-	[useSecurityTokenCheckbox sizeToFit];
 
 	[savePasswordInKeychainCheckbox setState:   NSOffState];
     [savePasswordInKeychainCheckbox setEnabled: NO];
 
-    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
-    
-    CGFloat widthChange = [UIHelper setTitle: NSLocalizedString(@"OK", @"Button") ofControl: OKButton     shift: ( !rtl ) narrow: NO enable: YES];
-    
-    [UIHelper setTitle: NSLocalizedString(@"Cancel", @"Button")                   ofControl: cancelButton shift: ( !rtl ) narrow: NO enable: YES];
-    
-    // Adjust position of Cancel button if the OK button got bigger or smaller
-    [UIHelper shiftControl: cancelButton by: widthChange reverse: rtl];
-
-	// If a LTR language and the "Token:" checkbox got smaller, shift it to the right,
-	// so it is flush right, like the "Username:" and "Password" labels.
-	// In an RTL language, it doesn't need to shift; it is already flush left
-	if (  ! rtl )  {
-		NSRect frame = [useSecurityTokenCheckbox frame];
-		widthChange = oldUseSecurityTokenCheckboxWidth - frame.size.width;
-		if (  widthChange > 0.0  ) {
-			frame.origin.x += widthChange;
-			[useSecurityTokenCheckbox setFrame: frame];
-		}
-	}
+    [OKButton     setTitle: NSLocalizedString(@"OK", @"Button")];
+    [cancelButton setTitle: NSLocalizedString(@"Cancel", @"Button")];
 
     [securityToken setContentType: NSTextContentTypeOneTimeCode];
     [visibleSecurityToken  setContentType: NSTextContentTypeOneTimeCode];
 
+    [self layOutWindow];
+
     [self redisplay];
+}
+
+#define LOGIN_BODY_WIDTH 370.0
+
+-(void) layOutWindow {
+
+    // Lay the window out like an alert, with the fields in a grid: labels (and the security code checkbox) on the leading side,
+    // the fields filling the rest, and the eye buttons after the fields
+    NSTextField * mainTF = (NSTextField *) [mainText controlView];
+    [UIHelper setUpDialogHeadline: mainTF width: LOGIN_BODY_WIDTH];
+
+    NSView * none = [NSGridCell emptyContentView];
+    NSGridView * grid = [NSGridView gridViewWithViews: @[@[[usernameTFC controlView],  username,                                                 none],
+                                                        @[none,                       saveUsernameInKeychainCheckbox,                           none],
+                                                        @[[passwordTFC controlView],  [UIHelper viewOverlaying: password with: visiblePassword], eyeButton],
+                                                        @[none,                       savePasswordInKeychainCheckbox,                           none],
+                                                        @[useSecurityTokenCheckbox,   [UIHelper viewOverlaying: securityToken with: visibleSecurityToken], securityEyeButton]]];
+    [grid setColumnSpacing: 8.0];
+    [grid setRowSpacing: 8.0];
+    [grid setYPlacement: NSGridCellPlacementCenter];
+    [[grid columnAtIndex: 0] setXPlacement: NSGridCellPlacementTrailing];
+    // The label column is as wide as its widest label, so the fields get the rest of the width
+    CGFloat labelWidth = MAX(MAX([[usernameTFC controlView] fittingSize].width, [[passwordTFC controlView] fittingSize].width),
+                             [useSecurityTokenCheckbox fittingSize].width);
+    [[grid columnAtIndex: 0] setWidth: ceil(labelWidth)];
+    [[grid columnAtIndex: 1] setXPlacement: NSGridCellPlacementFill];
+    [[grid columnAtIndex: 2] setWidth: 20.0];
+    [[grid rowAtIndex: 1] setTopPadding: -2.0];
+    [[grid rowAtIndex: 3] setTopPadding: -2.0];
+    [[grid rowAtIndex: 4] setTopPadding: 8.0];
+    [[[grid widthAnchor] constraintEqualToConstant: LOGIN_BODY_WIDTH] setActive: YES];
+
+    NSEnumerator * e = [@[eyeButton, securityEyeButton] objectEnumerator];
+    NSButton * button;
+    while (  (button = [e nextObject])  ) {
+        [button setBordered: NO];
+        [button setImageScaling: NSImageScaleProportionallyDown];
+        [button setContentTintColor: [NSColor secondaryLabelColor]];
+    }
+
+    [UIHelper layOutDialogWindow: [self window]
+                            icon: iconIV
+                       bodyViews: @[mainTF, grid]
+                       bodyWidth: LOGIN_BODY_WIDTH
+                   leadingButton: nil
+                 trailingButtons: @[cancelButton, OKButton]];
+    [[self window] setDefaultButtonCell: [OKButton cell]];
 }
 
 -(void) redisplayIfShowing
@@ -205,7 +232,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSView *, securityTokenView)
 	[self setInputBoxAndSecurityToken:@"" exposed: FALSE];
 
     key = [displayName stringByAppendingString: @"-loginWindowSecurityTokenIsHidden"];
-    [[self securityTokenView] setHidden:[gTbDefaults boolForKey:key]];
+    NSGridView * grid = (NSGridView *) [[self username] superview];
+    [[[grid cellForView: useSecurityTokenCheckbox] row] setHidden: [gTbDefaults boolForKey: key]];
 
     [cancelButton setEnabled: YES];
     [OKButton setEnabled: YES];

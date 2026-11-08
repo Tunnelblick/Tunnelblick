@@ -21,6 +21,7 @@
 #import "defines.h"
 
 @class LeftNavViewController;
+@class VPNConnection;
 @class LeftNavDataSource;
 @class TBButton;
 @class TBPopUpButton;
@@ -119,6 +120,12 @@
     IBOutlet TBButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
 	
     IBOutlet TBButton            * advancedButton;
+    
+    // Created by -installModernLayout
+    NSSegmentedControl           * viewSelector;
+    NSImageView                  * statusIconView;
+    NSTextField                  * statusTitleTF;
+    NSTextField                  * statusDetailTF;
 }
 
 // Getters
@@ -201,5 +208,14 @@ TBPROPERTY_READONLY(TBPopUpButton *,       loggingLevelPopUpButton)
 TBPROPERTY_READONLY(NSArrayController *,   loggingLevelArrayController)
 
 TBPROPERTY_READONLY(TBButton *,            advancedButton)
+
+// Replaces the tabs with a segmented control, makes the Settings tab a form, and adds a status card (state and traffic of the
+// selected configuration, with the Connect and Disconnect buttons) above them. Must be called after the list of
+// configurations has been moved out of this view.
+-(void) installModernLayout;
+
+-(void) updateViewSelector;
+
+-(void) updateStatusForConnection: (VPNConnection *) connection;
 
 @end

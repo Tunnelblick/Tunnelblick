@@ -17,7 +17,6 @@
                 <outlet property="saveUsernameInKeychainCheckbox" destination="42" id="89"/>
                 <outlet property="securityEyeButton" destination="6Lq-A6-Dc6" id="8Lt-1K-jRh"/>
                 <outlet property="securityToken" destination="5xj-ZW-Wvo" id="bTI-32-e0Z"/>
-                <outlet property="securityTokenView" destination="G05-c7-5Zw" id="xlI-7P-ehA"/>
                 <outlet property="useSecurityTokenCheckbox" destination="dJA-CF-S99" id="p2b-zt-Gcr"/>
                 <outlet property="username" destination="38" id="64"/>
                 <outlet property="usernameTFC" destination="45" id="54"/>

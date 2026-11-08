@@ -26,6 +26,8 @@
 
 - (void)           reload;
 
+-(void) refreshStatusInOutlineView: (NSOutlineView *) outlineView;
+
 - (NSInteger) outlineView: (NSOutlineView *) outlineView
    numberOfChildrenOfItem: (id)              item;
 

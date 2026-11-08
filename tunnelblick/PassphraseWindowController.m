@@ -58,8 +58,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,     eyeRedSlash)
                                                                name: NSWorkspaceDidWakeNotification
                                                              object: nil];
     
-    eyeNormal   = [[NSImage imageNamed: @"eyeNormal"]   retain];
-    eyeRedSlash = [[NSImage imageNamed: @"eyeRedSlash"] retain];
+    eyeNormal   = [[NSImage imageWithSystemSymbolName: @"eye"       accessibilityDescription: nil] retain];
+    eyeRedSlash = [[NSImage imageWithSystemSymbolName: @"eye.slash" accessibilityDescription: nil] retain];
 
     delegate = [theDelegate retain];
     return self;
@@ -103,16 +103,40 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,     eyeRedSlash)
                                  && [gTbDefaults boolForKey: onSystemStartKey] );
     [saveInKeychainCheckbox setEnabled: ! connectOnSystemStart];
 
-    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
-    
-    CGFloat shift = [UIHelper setTitle: NSLocalizedString(@"OK", @"Button") ofControl: OKButton     shift: ( !rtl ) narrow: NO enable: YES];
-    
-    [UIHelper setTitle: NSLocalizedString(@"Cancel", @"Button")             ofControl: cancelButton shift: ( !rtl ) narrow: NO enable: YES];
-    
-    // Adjust position of Cancel button if the OK button got bigger or smaller
-    [UIHelper shiftControl: cancelButton by: shift reverse: rtl];
-    
+    [OKButton     setTitle: NSLocalizedString(@"OK", @"Button")];
+    [cancelButton setTitle: NSLocalizedString(@"Cancel", @"Button")];
+
+    [self layOutWindow];
+
     [self redisplay];
+}
+
+#define PASSPHRASE_BODY_WIDTH 300.0
+
+-(void) layOutWindow {
+
+    // Lay the window out like an alert: the text, then the passphrase field with the eye button after it, then the checkbox
+    NSTextField * mainTF = (NSTextField *) [mainText controlView];
+    [UIHelper setUpDialogHeadline: mainTF width: PASSPHRASE_BODY_WIDTH];
+
+    [eyeButton setBordered: NO];
+    [eyeButton setImageScaling: NSImageScaleProportionallyDown];
+    [eyeButton setContentTintColor: [NSColor secondaryLabelColor]];
+    [eyeButton setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [[[eyeButton widthAnchor] constraintEqualToConstant: 20.0] setActive: YES];
+
+    NSStackView * fieldRow = [NSStackView stackViewWithViews: @[[UIHelper viewOverlaying: passphrase with: visiblePassphrase], eyeButton]];
+    [fieldRow setSpacing: 8.0];
+    [fieldRow setDetachesHiddenViews: NO]; // Keep the field the same width when the eye button is hidden
+    [[[fieldRow widthAnchor] constraintEqualToConstant: PASSPHRASE_BODY_WIDTH] setActive: YES];
+
+    [UIHelper layOutDialogWindow: [self window]
+                            icon: iconIV
+                       bodyViews: @[mainTF, fieldRow, saveInKeychainCheckbox]
+                       bodyWidth: PASSPHRASE_BODY_WIDTH
+                   leadingButton: nil
+                 trailingButtons: @[cancelButton, OKButton]];
+    [[self window] setDefaultButtonCell: [OKButton cell]];
 }
 
 -(void) redisplayIfShowing

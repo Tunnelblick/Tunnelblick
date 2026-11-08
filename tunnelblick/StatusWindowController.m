@@ -145,6 +145,250 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 		[connectButton    setEnabled: NO];
 		[disconnectButton setEnabled: YES];
     }
+    
+    // Only the button that can be used is shown
+    NSButton * shownButton  = (  [connectButton isEnabled] ? connectButton    : disconnectButton);
+    NSButton * hiddenButton = (  [connectButton isEnabled] ? disconnectButton : connectButton);
+    [hiddenButton setHidden: YES];
+    [shownButton  setHidden: NO];
+}
+
+-(CGFloat) widestOf: (NSArray *) strings font: (NSFont *) font {
+    
+    CGFloat widest = 0.0;
+    NSString * string;
+    NSEnumerator * e = [strings objectEnumerator];
+    while (  (string = [e nextObject])  ) {
+        widest = MAX(widest, ceil([string sizeWithAttributes: @{NSFontAttributeName: font}].width));
+    }
+    return widest + 4.0;
+}
+
+-(NSStackView *) statisticsRowWithLabel: (NSTextField *) label
+                                   rate: (NSTextField *) rate rateUnits: (NSTextField *) rateUnits
+                                  total: (NSTextField *) total totalUnits: (NSTextField *) totalUnits {
+    
+    NSFont * font = [NSFont monospacedDigitSystemFontOfSize: [NSFont smallSystemFontSize] weight: NSFontWeightRegular];
+    NSArray * fields = @[label, rate, rateUnits, total, totalUnits];
+    NSTextField * field;
+    NSEnumerator * e = [fields objectEnumerator];
+    while (  (field = [e nextObject])  ) {
+        [field setFont: font];
+        [field setTextColor: [NSColor labelColor]];
+        [field setTranslatesAutoresizingMaskIntoConstraints: NO];
+    }
+    [label      setTextColor: [NSColor secondaryLabelColor]];
+    [total      setTextColor: [NSColor secondaryLabelColor]];
+    [totalUnits setTextColor: [NSColor secondaryLabelColor]];
+    [label      setAlignment: NSTextAlignmentNatural];
+    [rate       setAlignment: NSTextAlignmentRight];
+    [total      setAlignment: NSTextAlignmentRight];
+    [rateUnits  setAlignment: NSTextAlignmentNatural];
+    [totalUnits setAlignment: NSTextAlignmentNatural];
+    
+    // Fixed widths, so the numbers do not move when they or their units change
+    CGFloat numberWidth = [self widestOf: @[@"9.99", @"99.9", @"999"] font: font]; // The widest numbers -[VPNConnection setNumber:...] shows
+    [NSLayoutConstraint activateConstraints: @[[[rate       widthAnchor] constraintEqualToConstant: numberWidth],
+                                               [[total      widthAnchor] constraintEqualToConstant: numberWidth],
+                                               [[rateUnits  widthAnchor] constraintEqualToConstant: [self widestOf: gRateUnits  font: font]],
+                                               [[totalUnits widthAnchor] constraintEqualToConstant: [self widestOf: gTotalUnits font: font]]]];
+    
+    NSStackView * row = [[[NSStackView alloc] init] autorelease];
+    [row setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
+    [row setSpacing: 3.0];
+    [row addView: label      inGravity: NSStackViewGravityLeading];
+    [row addView: rate       inGravity: NSStackViewGravityTrailing];
+    [row addView: rateUnits  inGravity: NSStackViewGravityTrailing];
+    [row addView: total      inGravity: NSStackViewGravityTrailing];
+    [row addView: totalUnits inGravity: NSStackViewGravityTrailing];
+    [row setCustomSpacing: 10.0 afterView: rateUnits];
+    return row;
+}
+
+-(void) relayoutContent {
+    
+    // Icon, name and state in a row with the Connect or Disconnect button, and the traffic statistics in a rounded box
+    // below. The controls are the ones from the nib (other code updates them), laid out again.
+    NSView * contentView = [[self window] contentView];
+    NSTextField * nameTF   = (NSTextField *) [configurationNameTFC controlView];
+    NSTextField * statusTF = (NSTextField *) [statusTFC            controlView];
+    NSArray * keep = @[nameTF, statusTF, animationIV, connectButton, disconnectButton,
+                       inTF, inRateTF, inRateUnitsTF, inTotalTF, inTotalUnitsTF,
+                       outTF, outRateTF, outRateUnitsTF, outTotalTF, outTotalUnitsTF];
+    NSView * view;
+    NSEnumerator * e = [keep objectEnumerator];
+    while (  (view = [e nextObject])  ) {
+        [[view retain] autorelease];
+        [view removeFromSuperview];
+        [view setTranslatesAutoresizingMaskIntoConstraints: NO];
+    }
+    NSVisualEffectView * background = nil;
+    e = [[[[contentView subviews] copy] autorelease] objectEnumerator];
+    while (  (view = [e nextObject])  ) {
+        if (  [view isKindOfClass: [NSVisualEffectView class]]  ) {
+            background = (NSVisualEffectView *) view;
+        } else {
+            [view removeFromSuperview];
+        }
+    }
+    
+    [nameTF   setFont: [NSFont systemFontOfSize: [NSFont systemFontSize] weight: NSFontWeightSemibold]];
+    [nameTF   setTextColor: [NSColor labelColor]];
+    [nameTF   setAlignment: NSTextAlignmentNatural];
+    [statusTF setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize]]];
+    [statusTF setAlignment: NSTextAlignmentNatural];
+    [[nameTF cell] setLineBreakMode: NSLineBreakByTruncatingTail];
+    
+    NSStackView * text = [NSStackView stackViewWithViews: @[nameTF, statusTF]];
+    [text setOrientation: NSUserInterfaceLayoutOrientationVertical];
+    [text setAlignment: NSLayoutAttributeLeading];
+    [text setSpacing: 1.0];
+    
+    // A long name is truncated: the window must not grow, because it was positioned (near the menu bar icon, or stacked
+    // with other status windows) for its size
+    NSTextField * label;
+    NSEnumerator * labelEnum = [@[nameTF] objectEnumerator];
+    while (  (label = [labelEnum nextObject])  ) {
+        [[label cell] setLineBreakMode: NSLineBreakByTruncatingTail];
+        [[label cell] setWraps: NO];
+        [label setContentCompressionResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
+        [label setContentHuggingPriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
+    }
+    [text setContentCompressionResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
+    
+    // The window is sized and positioned once, so it cannot grow when the state changes. To keep it narrow, the state
+    // can use more than one line: the text is as wide as there is room for next to the icon and the button (or as wide
+    // as the name, up to a limit), and there is room for as many lines as the longest state (with a connection time)
+    // needs.
+    NSArray * states = @[@"ADD_ROUTES", @"ASSIGN_IP", @"AUTH", @"CONNECTED", @"CONNECTING", @"DISCONNECTING", @"EXITING",
+                         @"GET_CONFIG", @"NETWORK_ACCESS", @"PASSWORD_WAIT", @"PRIVATE_KEY_WAIT", @"RECONNECTING", @"RESOLVE",
+                         @"SLEEP", @"TCP_CONNECT", @"UDP_CONNECT", @"WAIT"];
+    NSMutableArray * texts = [NSMutableArray arrayWithCapacity: [states count]];
+    NSString * state;
+    NSEnumerator * stateEnum = [states objectEnumerator];
+    while (  (state = [stateEnum nextObject])  ) {
+        [texts addObject: [NSString stringWithFormat: @"%@ 00:00:00", localizeNonLiteral(state, @"Connection status")]];
+    }
+    // (awakeFromNib sets the same titles later; they are needed now to know how wide the buttons are)
+    [connectButton    setControlSize: NSControlSizeSmall];
+    [disconnectButton setControlSize: NSControlSizeSmall];
+    [connectButton    setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize]]];
+    [disconnectButton setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize]]];
+    [connectButton    setTitle: NSLocalizedString(@"Connect",    @"Button")];
+    [disconnectButton setTitle: NSLocalizedString(@"Disconnect", @"Button")];
+    CGFloat buttonWidth = MAX([connectButton fittingSize].width, [disconnectButton fittingSize].width);
+    CGFloat textWidth = MAX(260.0 - 32.0 - 10.0 - 10.0 - buttonWidth,                                     // Room in the narrowest window
+                            MIN([self widestOf: @[(localName ? localName : @"")] font: [nameTF font]], 250.0)); // The name, up to a limit
+    [[[text widthAnchor] constraintEqualToConstant: textWidth] setActive: YES];
+    // Room for as many lines (up to three) as the longest state needs at that width
+    CGFloat neededHeight = 0.0;
+    NSString * stateText;
+    NSEnumerator * textEnum = [texts objectEnumerator];
+    while (  (stateText = [textEnum nextObject])  ) {
+        NSRect bounds = [stateText boundingRectWithSize: NSMakeSize(textWidth - 4.0, 10000.0)
+                                                options: NSStringDrawingUsesLineFragmentOrigin
+                                             attributes: @{NSFontAttributeName: [statusTF font]}];
+        neededHeight = MAX(neededHeight, ceil(NSHeight(bounds)));
+    }
+    CGFloat lineHeight = ceil([[statusTF font] ascender] - [[statusTF font] descender] + [[statusTF font] leading]);
+    NSInteger lines = MIN(3, MAX(1, (NSInteger) round(neededHeight / lineHeight)));
+    [[statusTF cell] setWraps: YES];
+    [[statusTF cell] setLineBreakMode: NSLineBreakByWordWrapping];
+    [statusTF setMaximumNumberOfLines: lines];
+    [statusTF setPreferredMaxLayoutWidth: textWidth];
+    // (The height is reserved below, on the row, so a short state is centered vertically with the name)
+    CGFloat reservedTextHeight = ceil([[nameTF font] ascender] - [[nameTF font] descender] + [[nameTF font] leading]) + 1.0 + (lines * lineHeight) + 2.0;
+    
+    [animationIV setImageScaling: NSImageScaleProportionallyUpOrDown];
+    NSStackView * header = [[[NSStackView alloc] init] autorelease];
+    [header setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
+    [header setAlignment: NSLayoutAttributeCenterY];
+    [header setSpacing: 10.0];
+    [header addView: animationIV      inGravity: NSStackViewGravityLeading];
+    [header addView: text             inGravity: NSStackViewGravityLeading];
+    [header addView: connectButton    inGravity: NSStackViewGravityTrailing];
+    [header addView: disconnectButton inGravity: NSStackViewGravityTrailing];
+    [header setClippingResistancePriority: NSLayoutPriorityDefaultLow forOrientation: NSLayoutConstraintOrientationHorizontal];
+    [[[header heightAnchor] constraintGreaterThanOrEqualToConstant: reservedTextHeight] setActive: YES];
+    if (  [UIHelper languageAtLaunchWasRTL]  ) {
+        [UIHelper setRightToLeftLayoutIn: header containersOnly: YES];
+    }
+    
+    NSStackView * inRow  = [self statisticsRowWithLabel: inTF  rate: inRateTF  rateUnits: inRateUnitsTF  total: inTotalTF  totalUnits: inTotalUnitsTF];
+    NSStackView * outRow = [self statisticsRowWithLabel: outTF rate: outRateTF rateUnits: outRateUnitsTF total: outTotalTF totalUnits: outTotalUnitsTF];
+    NSStackView * rows = [NSStackView stackViewWithViews: @[inRow, outRow]];
+    [rows setOrientation: NSUserInterfaceLayoutOrientationVertical];
+    [rows setSpacing: 3.0];
+    [rows setTranslatesAutoresizingMaskIntoConstraints: NO];
+    NSBox * statisticsBox = [[[NSBox alloc] init] autorelease];
+    [statisticsBox setBoxType: NSBoxCustom];
+    [statisticsBox setTitlePosition: NSNoTitle];
+    [statisticsBox setBorderWidth: 0.0];
+    [statisticsBox setCornerRadius: 8.0];
+    [statisticsBox setFillColor: [NSColor quaternaryLabelColor]];
+    [statisticsBox setContentViewMargins: NSMakeSize(10.0, 6.0)];
+    [statisticsBox setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [[statisticsBox contentView] addSubview: rows];
+    NSView * boxContent = [statisticsBox contentView];
+    
+    NSStackView * card = [NSStackView stackViewWithViews: @[header, statisticsBox]];
+    [card setOrientation: NSUserInterfaceLayoutOrientationVertical];
+    [card setSpacing: 10.0];
+    [card setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [contentView addSubview: card];
+    
+    [NSLayoutConstraint activateConstraints: @[[[animationIV widthAnchor]      constraintEqualToConstant: 32.0],
+                                               [[animationIV heightAnchor]     constraintEqualToConstant: 32.0],
+                                               [[header widthAnchor]           constraintEqualToAnchor: [card widthAnchor]],
+                                               [[statisticsBox widthAnchor]    constraintEqualToAnchor: [card widthAnchor]],
+                                               [[inRow  widthAnchor]           constraintEqualToAnchor: [rows widthAnchor]],
+                                               [[outRow widthAnchor]           constraintEqualToAnchor: [rows widthAnchor]],
+                                               [[rows topAnchor]               constraintEqualToAnchor: [boxContent topAnchor]],
+                                               [[rows bottomAnchor]            constraintEqualToAnchor: [boxContent bottomAnchor]],
+                                               [[rows leadingAnchor]           constraintEqualToAnchor: [boxContent leadingAnchor]],
+                                               [[rows trailingAnchor]          constraintEqualToAnchor: [boxContent trailingAnchor]],
+                                               [[card topAnchor]               constraintEqualToAnchor: [contentView topAnchor]      constant: 12.0],
+                                               [[card leadingAnchor]           constraintEqualToAnchor: [contentView leadingAnchor]  constant: 14.0],
+                                               [[card trailingAnchor]          constraintEqualToAnchor: [contentView trailingAnchor] constant: -14.0],
+                                               [[card bottomAnchor]            constraintEqualToAnchor: [contentView bottomAnchor]   constant: -12.0],
+                                               [[card widthAnchor]             constraintGreaterThanOrEqualToConstant: 260.0]]];
+    
+    // The window is as big as the new layout
+    [contentView layoutSubtreeIfNeeded];
+    NSSize size = [card fittingSize];
+    NSRect frame = [[self window] frame];
+    CGFloat newHeight = size.height + 24.0;
+    frame.origin.y += NSHeight(frame) - newHeight;
+    frame.size = NSMakeSize(MAX(size.width + 28.0, 288.0), newHeight);
+    [[self window] setFrame: frame display: NO];
+    (void) background;
+}
+
+-(void) modernizeWindow {
+    
+    // A card without a title bar (the title is not shown) on a native material, instead of a utility panel with a title bar.
+    // The window keeps the size of its content, so the stacking and positioning of status windows does not change.
+    NSWindow * window = [self window];
+    NSRect contentRect = [window contentRectForFrameRect: [window frame]];
+    [window setStyleMask: [window styleMask] | NSWindowStyleMaskFullSizeContentView];
+    [window setTitlebarAppearsTransparent: YES];
+    [window setTitleVisibility: NSWindowTitleHidden];
+    [[window standardWindowButton: NSWindowCloseButton]       setHidden: YES];
+    [[window standardWindowButton: NSWindowMiniaturizeButton] setHidden: YES];
+    [[window standardWindowButton: NSWindowZoomButton]        setHidden: YES];
+    [window setFrame: contentRect display: NO];
+    
+    NSView * contentView = [window contentView];
+    NSVisualEffectView * background = [[[NSVisualEffectView alloc] initWithFrame: [contentView bounds]] autorelease];
+    [background setMaterial: NSVisualEffectMaterialPopover];
+    [background setBlendingMode: NSVisualEffectBlendingModeBehindWindow];
+    [background setState: NSVisualEffectStateActive];
+    [background setAutoresizingMask: (NSViewWidthSizable | NSViewHeightSizable)];
+    [contentView addSubview: background positioned: NSWindowBelow relativeTo: nil];
+    
+    [statusTFC setDrawsBackground: NO];
+    
+    [self relayoutContent];
 }
 
 -(void) restore
@@ -173,6 +417,14 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     NSWindow * panel = [self window];
     NSRect panelFrame = [panel frame];
     
+    if (  [panel titleVisibility] == NSWindowTitleHidden  ) {
+        // The window is as big as its layout needs (see -relayoutContent)
+        NSView * contentView = [panel contentView];
+        [contentView layoutSubtreeIfNeeded];
+        NSSize fittingSize = [contentView fittingSize];
+        panelFrame.size = NSMakeSize(MAX(fittingSize.width, 288.0), fittingSize.height);
+    }
+    
     // Adjust the width of the window to fit the complete title
     // But never make it smaller than the original window, or larger than will fit on the screen
     NSRect screen = [[[NSScreen screens] objectAtIndex: [gMC statusScreenIndex]] visibleFrame];   // Use the screen on which we are displaying status windows
@@ -185,7 +437,8 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         newWidth = originalWidth;
     }
     CGFloat sizeChange = (CGFloat) newWidth - currentWidth;
-    if (  sizeChange > 0.0  )  {
+    if (   (sizeChange > 0.0)
+        && ([panel titleVisibility] != NSWindowTitleHidden)  )  { // (When the title is not shown, the layout sized the window)
         if (  newWidth < (screen.size.width - 20.0)  ) {
             panelFrame.size.width = newWidth;
         } else {
@@ -315,6 +568,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) awakeFromNib
 {
+    [self modernizeWindow];
     [self setStatus: status forName: name connectedSince: connectedSince];
 
     [inTFC  setTitle: NSLocalizedString(@"In:", @"Window text")];
@@ -646,17 +900,17 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
                                            [self connectedSince]]];
     
     if (   [theStatus isEqualToString: @"EXITING"]  ) {
-        [statusTFC            setTextColor: NSColor.redColor];
+        [statusTFC            setTextColor: NSColor.secondaryLabelColor];
         [theAnim stopAnimation];
         [animationIV setImage: [gMC largeMainImage]];
         
     } else if (  [theStatus isEqualToString: @"CONNECTED"]  ) {
-        [statusTFC            setTextColor: NSColor.greenColor];
+        [statusTFC            setTextColor: NSColor.systemGreenColor];
         [theAnim stopAnimation];
         [animationIV setImage: [gMC largeConnectedImage]];
 
     } else {
-        [statusTFC            setTextColor: NSColor.controlTextColor];
+        [statusTFC            setTextColor: NSColor.systemOrangeColor];
         [theAnim startAnimation];
     }
 	

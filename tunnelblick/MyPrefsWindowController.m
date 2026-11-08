@@ -134,6 +134,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 	
     [lockTheLockIconTimer invalidate];
     [lockTheLockIconTimer                release];
+    [statusUpdateTimer invalidate];
+    [statusUpdateTimer                 release];
     TBLog(@"DB-AA", @"MyPrefsWindowController|dealloc: Invalidated the lock timer");
     
     [currentViewName                     release];
@@ -170,7 +172,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
         
         // Icon is unlocked; lock it and release the authorization
         lockIconIsUnlocked = FALSE;
-        [item setImage: [NSImage imageNamed: @"Lock"]];
+        [item setImage: [NSImage imageWithSystemSymbolName: @"lock" accessibilityDescription: nil]];
         [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' icon")];
         [SystemAuth setLockSystemAuth: nil];
         TBLog(@"DB-AA", @"lockTheLockIcon: Locked the lock icon and set lockSystemAuth to nil");
@@ -228,7 +230,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
         [self setLockTheLockIconTimer: timer];
         [self setLockTimeoutDate: [[NSDate date] dateByAddingTimeInterval: 300.00]];
         
-        [item setImage: [NSImage imageNamed: @"Lock-open"]];
+        [item setImage: [NSImage imageWithSystemSymbolName: @"lock.open" accessibilityDescription: nil]];
         [self setLockLabelWithTimeLeft];
         lockIconIsUnlocked = TRUE;
         if (  ! [[self window] isVisible]  ) {
@@ -284,7 +286,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
         
         // Lock icon is showing "Unlocked"
         lockIconIsUnlocked = FALSE;
-        [item setImage: [NSImage imageNamed: @"Lock"]];
+        [item setImage: [NSImage imageWithSystemSymbolName: @"lock" accessibilityDescription: nil]];
         [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' item")];
         [lockTheLockIconTimer invalidate];
         [SystemAuth setLockSystemAuth: nil];
@@ -316,7 +318,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 
     NSToolbarItem * item = [[[NSToolbarItem alloc] initWithItemIdentifier: identifier] autorelease];
     [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' item")];
-    [item setImage: [NSImage imageNamed: @"Lock"]];
+    [item setImage: [NSImage imageWithSystemSymbolName: @"lock" accessibilityDescription: nil]];
     [item setTarget: self];
 	[item setAction: @selector(toggleLockItem)];
     [item setEnabled: YES];
@@ -326,28 +328,138 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 
 -(void) setupToolbar
 {
-	if (  [UIHelper languageAtLaunchWasRTL]  ) {
-		// Add an NSToolbarFlexibleSpaceIdentifier item on the left, to force the primary toolbar buttons to the right
-		[self addLockIcon];
-		[self addView: (NSView *)[NSNull null]  label: NSToolbarFlexibleSpaceItemIdentifier                  image: nil];
-		[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: NSImageNameInfo              ]];
-		[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: NSImageNameAdvanced          ]];
-		[self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: NSImageNamePreferencesGeneral]];
-		[self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageNamed: NSImageNameColorPanel        ]];
-		[self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageNamed: NSImageNameNetwork           ]];
-	} else {
-		[self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageNamed: NSImageNameNetwork           ]];
-		[self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageNamed: NSImageNameColorPanel        ]];
-		[self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: NSImageNamePreferencesGeneral]];
-		[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: NSImageNameAdvanced          ]];
-		[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: NSImageNameInfo              ]];
-		[self addView: (NSView *)[NSNull null]  label: NSToolbarFlexibleSpaceItemIdentifier                  image: nil];
-		[self addLockIcon];
-	}
+	// The views are listed in a sidebar, so the order is the same for all languages (the sidebar is mirrored for right-to-left languages).
+	// The first view is the "primary" view: it is shown when a configuration in the sidebar is clicked.
+	[self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageWithSystemSymbolName: @"network"                accessibilityDescription: nil]];
+	[self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageWithSystemSymbolName: @"paintbrush"             accessibilityDescription: nil]];
+	[self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageWithSystemSymbolName: @"gearshape"              accessibilityDescription: nil]];
+	[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageWithSystemSymbolName: @"wrench.and.screwdriver" accessibilityDescription: nil]];
+	[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageWithSystemSymbolName: @"info.circle"            accessibilityDescription: nil]];
+	[self addLockIcon];
 	
     [self setupViews];
     
     [[self window] setDelegate: self];
+}
+
+// Overrides superclass
+-(NSView *) sidebarTopView
+{
+	// The list of configurations (with its +, - and actions buttons) moves from the Configurations view into the
+	// window's sidebar, and the rest of the Configurations view fills the whole view.
+	
+	NSView * leftView  = [configurationsPrefsView leftSplitView];
+	NSView * splitView = [leftView superview];
+	NSView * rightView = nil;
+	NSView * view;
+	NSEnumerator * e = [[splitView subviews] objectEnumerator];
+	while (  (view = [e nextObject])  ) {
+		if (  view != leftView  ) {
+			rightView = view;
+		}
+	}
+	
+	[[leftView retain] autorelease];
+	[leftView removeFromSuperview];
+	
+	if (  rightView  ) {
+		[rightView retain];
+		[rightView removeFromSuperview];
+		[rightView setFrame: NSInsetRect([configurationsPrefsView bounds], 16.0, 12.0)];
+		[rightView setAutoresizingMask: (NSViewWidthSizable | NSViewHeightSizable)];
+		[configurationsPrefsView addSubview: rightView];
+		[rightView release];
+	}
+	[splitView removeFromSuperview];
+	[configurationsPrefsView installModernLayout];
+	
+	NSOutlineView * outlineView = [[configurationsPrefsView outlineViewController] outlineView];
+	[outlineView setStyle: NSTableViewStyleSourceList];
+	[outlineView setSelectionHighlightStyle: NSTableViewSelectionHighlightStyleSourceList];
+	[outlineView setBackgroundColor: [NSColor clearColor]];
+	[outlineView setFloatsGroupRows: NO];
+	[outlineView setRowSizeStyle: NSTableViewRowSizeStyleCustom];
+	[outlineView setRowHeight: 28.0];
+	[outlineView setIntercellSpacing: NSMakeSize(0.0, 0.0)];
+	[outlineView setTarget: self];
+	[outlineView setAction: @selector(configurationsListWasClicked:)];
+	NSScrollView * scrollView = [outlineView enclosingScrollView];
+	[scrollView setDrawsBackground: NO];
+	[scrollView setBorderType: NSNoBorder];
+	
+	// Borderless +, - and actions buttons with SF Symbols, like other sidebars
+	NSButton * addButton    = [configurationsPrefsView addConfigurationButton];
+	NSButton * removeButton = [configurationsPrefsView removeConfigurationButton];
+	NSPopUpButton * actionsButton = [configurationsPrefsView workOnConfigurationPopUpButton];
+	[addButton    setBordered: NO];
+	[addButton    setImage: [NSImage imageWithSystemSymbolName: @"plus"  accessibilityDescription: nil]];
+	[removeButton setBordered: NO];
+	[removeButton setImage: [NSImage imageWithSystemSymbolName: @"minus" accessibilityDescription: nil]];
+	[actionsButton setBordered: NO];
+	[[actionsButton itemAtIndex: 0] setImage: [NSImage imageWithSystemSymbolName: @"ellipsis.circle" accessibilityDescription: nil]];
+	// VoiceOver names: the symbols' own descriptions, which macOS localizes
+	[addButton     setAccessibilityLabel: [[addButton    image] accessibilityDescription]];
+	[removeButton  setAccessibilityLabel: [[removeButton image] accessibilityDescription]];
+	[actionsButton setAccessibilityLabel: [[[actionsButton itemAtIndex: 0] image] accessibilityDescription]];
+	// Hide what is left of the old button bar below the list (a separator, or a filler button in the right-to-left nib)
+	e = [[leftView subviews] objectEnumerator];
+	while (  (view = [e nextObject])  ) {
+		if (  ! [@[scrollView, addButton, removeButton, actionsButton] containsObject: view]  ) {
+			[view setHidden: YES];
+		}
+	}
+	
+	return leftView;
+}
+
+// Overrides superclass
+-(NSView *) sidebarBottomView
+{
+	// The +, - and actions buttons, moved from below the list of configurations to the bottom of the sidebar.
+	// The list then uses the space they used.
+	NSArray * buttons = @[[configurationsPrefsView addConfigurationButton],
+						  [configurationsPrefsView removeConfigurationButton],
+						  [configurationsPrefsView workOnConfigurationPopUpButton]];
+	NSView * button;
+	NSEnumerator * e = [buttons objectEnumerator];
+	while (  (button = [e nextObject])  ) {
+		[[button retain] autorelease];
+		[button removeFromSuperview];
+		[button setTranslatesAutoresizingMaskIntoConstraints: NO];
+		// Borderless buttons shrink to their image (the "minus" symbol is only 3 points high), so give them a size
+		[[[button heightAnchor] constraintEqualToConstant: 24.0] setActive: YES];
+		[[[button widthAnchor] constraintGreaterThanOrEqualToConstant: 24.0] setActive: YES];
+	}
+	NSScrollView * scrollView = [[[configurationsPrefsView outlineViewController] outlineView] enclosingScrollView];
+	[scrollView setFrame: [[configurationsPrefsView leftSplitView] bounds]];
+	
+	NSStackView * bar = [NSStackView stackViewWithViews: buttons];
+	[bar setOrientation: NSUserInterfaceLayoutOrientationHorizontal];
+	[bar setSpacing: 2.0];
+	return bar;
+}
+
+// Overrides superclass
+-(NSString *) sidebarSectionTitle
+{
+	return @"Tunnelblick";
+}
+
+// Overrides superclass
+-(void) sidebarDidSelectPrimaryView: (BOOL) isPrimary
+{
+	// The selected configuration stays selected (other code depends on it), but it is only highlighted while its view is shown
+	NSOutlineView * outlineView = [[configurationsPrefsView outlineViewController] outlineView];
+	if (  [outlineView respondsToSelector: @selector(setHidesSelection:)]  ) {
+		[(TBSidebarOutlineView *)outlineView setHidesSelection: ( ! isPrimary )];
+	}
+}
+
+-(void) configurationsListWasClicked: (id) sender
+{
+	if (  [sender clickedRow] >= 0  ) {
+		[self showPrimaryView];
+	}
 }
 
 static BOOL firstTimeShowingWindow = TRUE;
@@ -374,38 +486,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
--(void) resizeAllViewsExceptCurrent {
-    
-    if (   currentViewName
-        && [currentViewName isNotEqualTo: NSToolbarFlexibleSpaceItemIdentifier]
-        && [currentViewName isNotEqualTo: @"lockIcon"]) {
-        NSView * currentView = [toolbarViews objectForKey: currentViewName];
-        if (  currentView  ) {
-            NSSize newSize = [currentView frame].size;
-            if (  newSize.width != 0.0 ) {
-                
-                NSString * name;
-                NSEnumerator * e = [toolbarViews keyEnumerator];
-                while (  (name = [e nextObject])  ) {
-                    if (   [name isNotEqualTo: currentViewName]
-                        && [name isNotEqualTo: NSToolbarFlexibleSpaceItemIdentifier]
-                        && [name isNotEqualTo: @"lockIcon"]  ) {
-                        NSView  * view = [toolbarViews objectForKey: name];
-                        NSRect f = [view frame];
-                        f.size = newSize;
-                        [view setFrameSize:  newSize];
-                    }
-                }
-            } else {
-                NSLog(@"resizeAllViewsExceptCurrent: [currentView frame].size.width is 0.0 for '%@'", currentViewName);
-            }
-        } else {
-            NSLog(@"resizeAllViewsExceptCurrent: No view in toolbarViews for '%@'", currentViewName);
-        }
-    }
-}
-
-
 - (IBAction) windowWillAppear
 {
     if (  firstTimeShowingWindow  ) {
@@ -419,13 +499,10 @@ static BOOL firstTimeShowingWindow = TRUE;
             if (   mainFrameString != nil  ) {
                 
                 // Set the new frame for the window
-                [[self window] setMinSize: NSMakeSize(760.0, 452.0)]; // WINDOW size, not view size
+                // (The minimum size comes from the views; see DBPrefsWindowController. Each view is sized when it is shown.)
                 [[self window] setMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
                 NSRect mainFrame = NSRectFromString(mainFrameString);
                 [[self window] setFrame: mainFrame display: YES];     // display: YES so stretches properly
-                
-                // Resize all other views (so they are the same size as the current view (whose size changed if the window size changed)
-                [self resizeAllViewsExceptCurrent];
             }
             
             if (  leftFrameString != nil  ) {
@@ -469,6 +546,8 @@ static BOOL firstTimeShowingWindow = TRUE;
             NSLog(@"showWindow: currentViewName is nil");
         }
     }
+    
+    [self updateStatusUpdateTimer];
 }
 
 
@@ -492,6 +571,10 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     [[self selectedConnection] stopMonitoringLogFiles];
+    
+    [statusUpdateTimer invalidate];
+    [statusUpdateTimer release];
+    statusUpdateTimer = nil;
     
     // Save the window's frame and the splitView's frame and the TB version in the preferences
     NSString * mainFrameString = NSStringFromRect([[self window] frame]);
@@ -540,9 +623,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         &&  [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
         [[self selectedConnection] stopMonitoringLogFiles];
     }
-    
-    // Resize all other views (so they are the same size as the current view -- in case the window was resized)
-    [self resizeAllViewsExceptCurrent];
 }
 
 // Overrides superclass
@@ -563,6 +643,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 // Overrides superclass
 -(void) newViewDidAppear: (NSView *) view
 {
+    [self updateStatusUpdateTimer];
+    if (  view != configurationsPrefsView  ) {
+        [[self window] setSubtitle: @""];
+    }
+    
     if (   view == configurationsPrefsView  ) {
         [[self window] makeFirstResponder: nil];
         if (  [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
@@ -611,6 +696,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         } else {
             [[self selectedConnection] stopMonitoringLogFiles];
         }
+        [configurationsPrefsView updateViewSelector];
+        [self updateStatusUpdateTimer];
     }
 }
 
@@ -1198,6 +1285,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	if (  [super windowHasLoaded]  ) {
 		[[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
+		[[self window] setSubtitle: [self windowSubtitle]];
+		[[configurationsPrefsView leftNavDataSrc] refreshStatusInOutlineView: [[configurationsPrefsView outlineViewController] outlineView]];
+		[configurationsPrefsView updateStatusForConnection: [self selectedConnection]];
 	}
 }
 
@@ -1658,8 +1748,56 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	(void) currentItemLabel;
    
+    if (  [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]  ) {
+        NSString * name = [[self selectedConnection] localizedName];
+        if (  [name length] != 0  ) {
+            return name;
+        }
+    }
+    
     NSString * windowLabel = localizeNonLiteral(currentViewName, @"Window title");
     return windowLabel;
+}
+
+-(NSString *) windowSubtitle
+{
+    // The state of the selected configuration while the Configurations view is shown
+    if (  [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]  ) {
+        VPNConnection * connection = [self selectedConnection];
+        NSString * state = [connection state];
+        if (  state  ) {
+            NSString * subtitle = localizeNonLiteral(state, @"Connection status");
+            if (  [connection isConnected]  ) {
+                subtitle = [NSString stringWithFormat: @"%@ · %@", subtitle, [connection timeString]];
+            }
+            return subtitle;
+        }
+    }
+    
+    return @"";
+}
+
+-(void) statusUpdateTimerTick
+{
+    [[self window] setSubtitle: [self windowSubtitle]];
+    [configurationsPrefsView updateStatusForConnection: [self selectedConnection]];
+}
+
+-(void) updateStatusUpdateTimer
+{
+    // Run the timer only while the Configurations view (which shows the status and traffic) is visible
+    // (The timer is stopped when the window closes, and restarted when it is shown again)
+    BOOL showingConfigurations = [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")];
+    if (  showingConfigurations  ) {
+        if (  ! statusUpdateTimer  ) {
+            statusUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(statusUpdateTimerTick) userInfo: nil repeats: YES] retain];
+        }
+        [self statusUpdateTimerTick];
+    } else {
+        [statusUpdateTimer invalidate];
+        [statusUpdateTimer release];
+        statusUpdateTimer = nil;
+    }
 }
 
 
@@ -1697,6 +1835,10 @@ static BOOL firstTimeShowingWindow = TRUE;
 															 && [TBOperationQueue shouldUIBeEnabledForDisplayName: displayName])];
     [[configurationsPrefsView disconnectButton] setEnabled: (   ( ! disconnected )
 															 && ( ! [gTbDefaults boolForKey: disableDisconnectButtonKey] )  )];
+	
+	// Only the button that applies is shown
+	[[configurationsPrefsView connectButton]    setHidden: ( ! disconnected )];
+	[[configurationsPrefsView disconnectButton] setHidden:     disconnected  ];
 	
 	[self updateConnectionStatusAndTime];
 }
@@ -2326,7 +2468,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         NSString * name = [connection displayName];
         [settingsSheetWindowController setConfigurationName: name];
-        [settingsSheetWindowController showSettingsSheet: self];
+        [settingsSheetWindowController showAsSheetOnWindow: [self window]];
     } else {
         NSLog(@"advancedButtonWasClicked but no configuration selected");
     }
