@@ -69,6 +69,8 @@
     NSString * usernamePreferenceKey;
     
     BOOL authenticationWasFromKeychain;     // Last performAuthenticationAllowingInteraction: data came from the Keychain
+    BOOL authenticationUsedAutoTotp;
+    NSTimeInterval automaticTotpCodeTime;
 	BOOL showingLoginWindow;
 	BOOL showingPassphraseWindow;
     BOOL allowInteraction;
@@ -105,6 +107,8 @@ TBPROPERTY(NSString *, passphrase,      setPassphrase)
 
 TBPROPERTY_READONLY(NSString *, displayName)
 TBPROPERTY_READONLY(BOOL,       authenticationWasFromKeychain)
+TBPROPERTY_READONLY(BOOL,       authenticationUsedAutoTotp)
+TBPROPERTY_READONLY(NSTimeInterval, automaticTotpCodeTime)
 TBPROPERTY_READONLY(BOOL,       showingLoginWindow)
 TBPROPERTY_READONLY(BOOL,       showingPassphraseWindow)
 

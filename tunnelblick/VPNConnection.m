@@ -50,6 +50,8 @@
 #import "TunnelblickInfo.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
+#import "TBTotpCredentials.h"
+#import "TBTotpTiming.h"
 #import "UIHelper.h"
 #import "VPNConnection.h"
 
@@ -68,6 +70,12 @@ extern TunnelblickInfo  * gTbInfo;
 extern NSArray          * gTotalUnits;
 
 @interface VPNConnection()          // PRIVATE METHODS
+
+-(void) cancelAutomaticTotpCredentialsTimer;
+-(void) provideAutomaticTotpCredentials: (NSTimer *) timer;
+-(BOOL) deferAutomaticTotpCredentials: (NSString *) parameterString line: (NSString *) line;
+-(void) notifyAutomaticTotpFailure;
+-(void) prepareAutomaticTotpForConnection;
 
 -(void)             afterFailureHandler:            (NSTimer *)     timer;
 
@@ -297,6 +305,10 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
     // Reinitializes a connection -- as if we quit Tunnelblick and then relaunched
 
+    [self cancelAutomaticTotpCredentialsTimer];
+    automaticTotpRetryCount = 0;
+    automaticTotpRetryNotBefore = 0;
+    authFailed = FALSE;
     [self disconnectFromManagmentSocket];
     [connectedSinceDate release]; connectedSinceDate = [[NSDate alloc] init];
     [self clearStatisticsIncludeTotals: NO];
@@ -999,6 +1011,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	[dynamicChallengeFlags            release]; dynamicChallengeFlags            = nil;
 	[authRetryParameter				  release]; authRetryParameter               = nil;
     [managementPassword               release]; managementPassword               = nil;
+
+    [self cancelAutomaticTotpCredentialsTimer];
 
     [super dealloc];
 }
@@ -1985,6 +1999,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 
     logFilesMayExist = TRUE;
+    [self prepareAutomaticTotpForConnection];
     authFailed = FALSE;
     credentialsAskedFor = FALSE;
     userWantsState = userWantsUndecided;
@@ -3281,6 +3296,11 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Start disconnecting by killing the OpenVPN process or signaling through the management interface
 
+    [self cancelAutomaticTotpCredentialsTimer];
+    if (  automaticTotpRetryCount && [userKnows boolValue]  ) {
+        userWantsState = userWantsAbandon;
+    }
+
     [gMC cancelAllIPCheckThreadsForConnection: self];
 
     if (  [self isDisconnected]  ) {
@@ -4001,6 +4021,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
 
         if ([newState isEqualToString: @"CONNECTED"]) {
+            automaticTotpRetryCount = 0;
+            automaticTotpRetryNotBefore = 0;
+            [self cancelAutomaticTotpCredentialsTimer];
 			NSDate * date = (  dateTime
 							 ? [NSDate dateWithOpenvpnMachineReadableLogRepresentation: dateTime]
 							 : [NSDate date]);
@@ -4387,6 +4410,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
         TBLog(@"DB-AU", @"processPasswordOrPassphrase: Failed: %@", line);
 
+        if (  areDisconnecting  ) {
+            return;
+        }
+        // Repeated notifications for one rejected code must not consume more retries.
+        if (  authFailed && automaticTotpRetryCount && userWantsState == userWantsRetry
+            && [line hasPrefix: @">PASSWORD:Verification Failed: 'Auth'"]  ) {
+            return;
+        }
+
         // Set the "private message" sent by the server (if there is one)
         NSString * privateMessage = @"";
         NSRange rngQuote = [line rangeOfString: @"'"];
@@ -4408,46 +4440,66 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
         BOOL isPassphraseCommand = [command isEqualToString: @"PASSPHRASE"];
 
-        NSString * message;
-        if (  isPassphraseCommand  ) {
-            message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The passphrase was not accepted.", @"Window text"), privateMessage];
-        } else {
-            message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The username and password were not accepted by the remote VPN server.", @"Window text"), privateMessage];
-        }
-        NSString * deleteAndTryAgainButton = nil;
-        NSString * tryAgainButton = NSLocalizedString(@"Try again", @"Button");;
-        if (  [myAuthAgent authMode]  ) {               // Handle "auto-login" --  we were never asked for credentials, so authMode was never set
-            if (  isPassphraseCommand  ) {
-                if (  [myAuthAgent keychainHasPassphrase]  ) {
-                    deleteAndTryAgainButton = NSLocalizedString(@"Delete saved passphrase and try again", @"Button");
-                    tryAgainButton = NSLocalizedString(@"Try again with saved passphrase", @"Button");
-                }
-            } else {
-                if (  [myAuthAgent keychainHasUsernameAndPassword]  ) {
-                    deleteAndTryAgainButton = NSLocalizedString(@"Delete saved password and try again", @"Button");
-                    tryAgainButton = NSLocalizedString(@"Try again with saved username and password", @"Button");
-                }
+        BOOL automaticTotpFailure = (   ! isPassphraseCommand
+                                     && [line hasPrefix: @">PASSWORD:Verification Failed: 'Auth'"]
+                                     && [myAuthAgent authenticationUsedAutoTotp]
+                                     && [myAuthAgent keychainHasUsernameAndPassword]  );
+        if (  automaticTotpFailure  ) {
+            if (  automaticTotpRetryCount >= TBTotpMaximumRetries  ) {
+                userWantsState = userWantsAbandon;
+                [self addToLog: @"Automatic security code: authentication failed after two retries; stopping. Check the saved password, TOTP secret, and system time."];
+                [self notifyAutomaticTotpFailure];
+                [self startDisconnectingUserKnows: @YES];
+                return;
             }
-        }
-        int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self localizedName], NSLocalizedString(@"Authentication failed", @"Window title")],
-                                       message,
-                                       tryAgainButton,							 // Default
-                                       deleteAndTryAgainButton,                  // Alternate
-                                       NSLocalizedString(@"Cancel", @"Button")); // Other
-        if (alertVal == NSAlertDefaultReturn) {
-            userWantsState = userWantsRetry;                // User wants to retry
-
-        } else if (alertVal == NSAlertAlternateReturn) {
-            if (  isPassphraseCommand  ) {
-                [myAuthAgent deletePassphrase];
-            } else {
-                [myAuthAgent deletePassword];
-            }
+            automaticTotpRetryCount++;
+            automaticTotpRetryNotBefore = TBTotpRetryNotBefore([[NSDate date] timeIntervalSince1970],
+                                                               [myAuthAgent automaticTotpCodeTime]);
             userWantsState = userWantsRetry;
+            [self addToLog: [NSString stringWithFormat: @"Automatic security code: waiting for a fresh code before retry %lu of %u.",
+                            (unsigned long)automaticTotpRetryCount, TBTotpMaximumRetries]];
         } else {
-            userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
-            [self addToLog: @"Disconnecting; user cancelled authorization or there was an error obtaining authorization"];
-            [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
+            NSString * message;
+            if (  isPassphraseCommand  ) {
+                message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The passphrase was not accepted.", @"Window text"), privateMessage];
+            } else {
+                message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The username and password were not accepted by the remote VPN server.", @"Window text"), privateMessage];
+            }
+            NSString * deleteAndTryAgainButton = nil;
+            NSString * tryAgainButton = NSLocalizedString(@"Try again", @"Button");;
+            if (  [myAuthAgent authMode]  ) {               // Handle "auto-login" --  we were never asked for credentials, so authMode was never set
+                if (  isPassphraseCommand  ) {
+                    if (  [myAuthAgent keychainHasPassphrase]  ) {
+                        deleteAndTryAgainButton = NSLocalizedString(@"Delete saved passphrase and try again", @"Button");
+                        tryAgainButton = NSLocalizedString(@"Try again with saved passphrase", @"Button");
+                    }
+                } else {
+                    if (  [myAuthAgent keychainHasUsernameAndPassword]  ) {
+                        deleteAndTryAgainButton = NSLocalizedString(@"Delete saved password and try again", @"Button");
+                        tryAgainButton = NSLocalizedString(@"Try again with saved username and password", @"Button");
+                    }
+                }
+            }
+            int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self localizedName], NSLocalizedString(@"Authentication failed", @"Window title")],
+                                           message,
+                                           tryAgainButton,							 // Default
+                                           deleteAndTryAgainButton,                  // Alternate
+                                           NSLocalizedString(@"Cancel", @"Button")); // Other
+            if (alertVal == NSAlertDefaultReturn) {
+                userWantsState = userWantsRetry;                // User wants to retry
+
+            } else if (alertVal == NSAlertAlternateReturn) {
+                if (  isPassphraseCommand  ) {
+                    [myAuthAgent deletePassphrase];
+                } else {
+                    [myAuthAgent deletePassword];
+                }
+                userWantsState = userWantsRetry;
+            } else {
+                userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
+                [self addToLog: @"Disconnecting; user cancelled authorization or there was an error obtaining authorization"];
+                [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
+            }
         }
 
         TBLog(@"DB-AU", @"processPasswordOrPassphrase: queuing afterFailureHandler: for execution in 0.5 seconds");
@@ -4671,6 +4723,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 	TBLog(@"DB-AU", @"processLine: afterFailure: invoked");
 
+    // Ignore callbacks from a previous attempt, or after Cancel/Disconnect.
+    if (  ! authFailed || gShuttingDownTunnelblick || gShuttingDownOrRestartingComputer
+        || (automaticTotpRetryCount && ![[self requestedState] isEqualToString: @"CONNECTED"])
+        || automaticTotpCredentialsTimer  ) {
+        return;
+    }
+
     if (   credentialsAskedFor  ) {
         [self credentialsHaveBeenAskedFor: dict];
     } else {
@@ -4708,6 +4767,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) credentialsHaveBeenAskedFor: (NSDictionary *) dict {
 
 	TBLog(@"DB-AU", @"processLine: credentialsHaveBeenAskedFor: invoked");
+
+    if (  automaticTotpRetryCount && (areDisconnecting || ![[self requestedState] isEqualToString: @"CONNECTED"])  ) {
+        return;
+    }
 
     // Only do something if the credentials are still being asked for
     // Otherwise, afterFailure has already taken care of things and we can just forget about it
@@ -4848,6 +4911,75 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	return password;
 }
 
+-(void) prepareAutomaticTotpForConnection {
+    [self cancelAutomaticTotpCredentialsTimer];
+    // Keep the budget across OpenVPN process restarts caused by an auth failure.
+    if (  ! (authFailed && userWantsState == userWantsRetry)  ) {
+        automaticTotpRetryCount = 0;
+        automaticTotpRetryNotBefore = 0;
+    }
+}
+
+-(void) notifyAutomaticTotpFailure {
+    // Notifications may be disabled; never fall back to a modal alert.
+    NSUserNotification * notice = [[[NSUserNotification alloc] init] autorelease];
+    if (  notice  ) {
+        [notice setTitle: [self localizedName]];
+        [notice setInformativeText: NSLocalizedString(@"Automatic security code authentication failed after two retries. Check the saved password, secret, and system time.", @"Notification")];
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification: notice];
+    }
+}
+
+-(void) cancelAutomaticTotpCredentialsTimer {
+    [automaticTotpCredentialsTimer invalidate];
+    [automaticTotpCredentialsTimer release];
+    automaticTotpCredentialsTimer = nil;
+}
+
+-(void) provideAutomaticTotpCredentials: (NSTimer *) timer {
+    if (  timer != automaticTotpCredentialsTimer  ) {
+        return;
+    }
+    NSDictionary * request = [[[timer userInfo] retain] autorelease];
+    [self cancelAutomaticTotpCredentialsTimer];
+    if (  gShuttingDownTunnelblick || gShuttingDownOrRestartingComputer || areDisconnecting
+        || ![[self requestedState] isEqualToString: @"CONNECTED"]  ) {
+        return;
+    }
+    if (  [self isDisconnected]  ) {
+        [self afterFailure: request];
+    } else {
+        [self provideCredentials: [request objectForKey: @"parameterString"] line: [request objectForKey: @"line"]];
+    }
+}
+
+-(BOOL) deferAutomaticTotpCredentials: (NSString *) parameterString line: (NSString *) line {
+    // Keep the main run loop responsive while waiting; Disconnect remains available.
+    NSString * credentialsName = [TBTotpCredentials credentialsNameForDisplayName: [self displayName]];
+    if (   [line rangeOfString: @"Need 'Auth'"].length
+        && ![line containsString: @" SC:"] && ![self dynamicChallengeUsername]
+        && [myAuthAgent keychainHasUsernameAndPassword]
+        && [TBTotpCredentials totpAutoFillEnabledForCredentialsName: credentialsName]
+        && [TBTotpCredentials keychainHasTotpSecretForCredentialsName: credentialsName]  ) {
+        NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+        NSTimeInterval delay = fmax(TBTotpFreshCodeDelay(now), automaticTotpRetryNotBefore - now);
+        if (  delay > 0  ) {
+            if (  ! automaticTotpCredentialsTimer  ) {
+                NSDictionary * request = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          parameterString, @"parameterString", line, @"line", nil];
+                automaticTotpCredentialsTimer = [[NSTimer scheduledTimerWithTimeInterval: delay
+                                                                                 target: self
+                                                                               selector: @selector(provideAutomaticTotpCredentials:)
+                                                                               userInfo: request repeats: NO] retain];
+                [automaticTotpCredentialsTimer tbSetTolerance: -1.0];
+                [self addToLog: @"Automatic security code: waiting for the next time step before sending credentials."];
+            }
+            return YES;
+        }
+    }
+    return NO;
+}
+
 -(void) provideCredentials: (NSString *) parameterString
                       line: (NSString *) line {
 
@@ -4857,6 +4989,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		[self addToLog: @"Ignoring credentials request because the VPN is disconnecting"];
 		return;
 	}
+
+    if (  [self deferAutomaticTotpCredentials: parameterString line: line]  ) {
+        return;
+    }
+    [self cancelAutomaticTotpCredentialsTimer];
 
 	authFailed = FALSE;
     credentialsAskedFor = FALSE;
@@ -5470,7 +5607,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     // The 'disconnect.sh' script is run by this class's hasDisconnected method
     if (   [newState isEqualToString: @"EXITING"]
         && [requestedState isEqualToString: @"CONNECTED"]
-		&& [self haveConnectedSince]
+        && [self haveConnectedSince]
+        && !(authFailed && automaticTotpRetryCount) // The auth retry handler owns this reconnect.
         && ( ! [gMC terminatingAtUserRequest] )  ) {
         if (  speakWhenDisconnected  ) {
             [self speakActivity: @"disconnected"];

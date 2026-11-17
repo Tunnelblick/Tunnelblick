@@ -27,6 +27,7 @@
 #import "KeyChain.h"
 #import "LoginWindowController.h"
 #import "PassphraseWindowController.h"
+#import "TBTotpCredentials.h"
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
 
@@ -221,6 +222,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 // Returns nil if cancelled by user or error
 -(NSArray *)getUsernameAndPassword
 {
+    authenticationUsedAutoTotp = NO;
     if (  ! [authMode isEqualToString:@"password"]  ) {
         NSLog(@"Invalid authmode '%@' in getUsernameAndPassword", [self authMode]);
         return nil;
@@ -255,10 +257,19 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     }
 
     NSString * tokenKey = [[self displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
-    if (   (! passwordLocal)
-        || (! usernameLocal)
-        || [gTbDefaults boolForKey: tokenKey]  ) {
-        
+    BOOL useSecurityToken = [gTbDefaults boolForKey: tokenKey];
+    NSString * totpCode = [TBTotpCredentials currentTotpCodeForDisplayName: [self displayName]];
+    BOOL hasAutoTotp = (  totpCode != nil  );
+
+    if (  hasAutoTotp  ) {
+        securityTokenLocal = totpCode;
+    }
+
+    BOOL needLoginWindow = (   (! passwordLocal)
+                            || (! usernameLocal)
+                            || ( useSecurityToken && ! hasAutoTotp )  );
+    if (  needLoginWindow  ) {
+
         // Ask for password and username
 
         authenticationWasFromKeychain = FALSE;
@@ -292,7 +303,15 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 
         usernameLocal = [[loginScreen username] stringValue];
         passwordLocal = [[loginScreen password] stringValue];
-        securityTokenLocal = [loginScreen useSecurityTokenChecked] ? [[loginScreen securityToken] stringValue] : nil;
+        if (  [loginScreen useSecurityTokenChecked]  ) {
+            securityTokenLocal = [[loginScreen securityToken] stringValue];
+            if (  [securityTokenLocal length] == 0  ) {
+                securityTokenLocal = totpCode;
+            }
+        } else {
+            securityTokenLocal = nil;
+            hasAutoTotp = NO;
+        }
 
         if (  ! usernameLocal  ) {
             NSLog(@"username is nil for Keychain '%@'", [usernameKeychain description]);
@@ -347,6 +366,16 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
         [[loginScreen window] close];
     }
     
+    // The login dialog may have been open for several time steps. Generate at submission.
+    if (  hasAutoTotp  ) {
+        automaticTotpCodeTime = [[NSDate date] timeIntervalSince1970];
+        securityTokenLocal = [TBTotpCredentials totpCodeForDisplayName: [self displayName] atTime: automaticTotpCodeTime];
+        if (  ! securityTokenLocal  ) {
+            NSLog(@"Could not generate automatic security code; authentication cancelled");
+            return nil;
+        }
+        authenticationUsedAutoTotp = YES;
+    }
     NSString * passwordAndToken = [passwordLocal stringByAppendingString: ( securityTokenLocal ? securityTokenLocal : @"" )];
     NSArray * array = [NSArray arrayWithObjects: usernameLocal, passwordAndToken, nil];
     return array;
@@ -436,6 +465,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
                 [gTbDefaults removeObjectForKey: usernamePreferenceKey];
                 [gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
             }
+            [TBTotpCredentials deleteTotpSecretForDisplayName: [self displayName]];
         }
         if (   [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey]  ) {      // Delete saved password from Keychain if it has been saved
             [passwordKeychain deletePassword];
@@ -506,6 +536,9 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 {
 	return [gTbDefaults boolForKey: passphrasePreferenceKey];
 }
+
+-(BOOL) authenticationUsedAutoTotp { return authenticationUsedAutoTotp; }
+-(NSTimeInterval) automaticTotpCodeTime { return automaticTotpCodeTime; }
 
 -(BOOL) keychainHasUsername
 {

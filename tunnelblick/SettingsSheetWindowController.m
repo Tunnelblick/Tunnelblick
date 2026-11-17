@@ -38,6 +38,8 @@
 #import "VPNConnection.h"
 #import "SystemAuth.h"
 #import "TunnelblickInfo.h"
+#import "TBTotpCredentials.h"
+#import "TBTotpSecretImporter.h"
 
 extern NSFileManager  * gFileMgr;
 extern MenuController * gMC;
@@ -46,6 +48,26 @@ extern TBUserDefaults * gTbDefaults;
 extern TunnelblickInfo * gTbInfo;
 
 @interface SettingsSheetWindowController()    // Private methods
+{
+    NSBox             * totpCredentialsBox;
+    NSTextField       * totpSectionTitleTF;
+    NSButton          * totpAutoFillCheckbox;
+    NSTextField      * totpSecretInputTF;
+    NSSecureTextField * totpSecretSecureTF;
+    NSButton         * totpSaveSecretButton;
+    NSButton    * totpImportQRButton;
+    NSButton    * totpClearSecretButton;
+    NSTextField * totpWarningTF;
+    BOOL          totpUIInitialized;
+}
+
+-(void) setupTotpCredentialsUI;
+-(void) refreshTotpCredentialsUI;
+-(void) showTotpAlertWithTitle: (NSString *) title message: (NSString *) message;
+-(IBAction) totpAutoFillCheckboxWasClicked: (id) sender;
+-(IBAction) totpSaveSecretButtonWasClicked: (id) sender;
+-(IBAction) totpImportQRButtonWasClicked: (id) sender;
+-(IBAction) totpClearSecretButtonWasClicked: (id) sender;
 
 //**********************************************************************************************************************************
 // Methods that set up static content (content that is the same for all connections)
@@ -1113,6 +1135,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	  setTitle: [NSString stringWithFormat: NSLocalizedString(@"All configurations use %@ credentials", @"Window text"), groupAllConfigurationsUse]
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n",
 														   @"HTML info for the 'All configurations use ___ credentials' checkbox."))];
+
+    [self setupTotpCredentialsUI];
+    [self refreshTotpCredentialsUI];
 	
     // Sounds tab
 	
@@ -1902,6 +1927,249 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	(void) sender;
 	
     MyGotoHelpPage(@"vpn-details-advanced-connecting-disconnecting.html", nil);
+}
+
+-(void) setupTotpCredentialsUI
+{
+    if (  totpUIInitialized  ) {
+        return;
+    }
+
+    NSView * credentialsView = [credentialsTabViewItem view];
+    if (  ! credentialsView  ) {
+        return;
+    }
+
+    // Use a custom box with an internal heading to avoid overlapping title and content backgrounds.
+    totpCredentialsBox = [[NSBox alloc] initWithFrame: NSMakeRect(6, 32, 755, 182)];
+    [totpCredentialsBox setBoxType: NSBoxCustom];
+    [totpCredentialsBox setTitlePosition: NSNoTitle];
+    [totpCredentialsBox setBorderType: NSBezelBorder];
+    [totpCredentialsBox setFillColor: [NSColor controlBackgroundColor]];
+    [totpCredentialsBox setContentViewMargins: NSMakeSize(12, 12)];
+    [credentialsView addSubview: totpCredentialsBox];
+
+    NSView * boxContent = [totpCredentialsBox contentView];
+
+    totpSectionTitleTF = [[NSTextField alloc] initWithFrame: NSMakeRect(12, 118, 400, 18)];
+    [totpSectionTitleTF setBezeled: NO];
+    [totpSectionTitleTF setEditable: NO];
+    [totpSectionTitleTF setDrawsBackground: NO];
+    [totpSectionTitleTF setFont: [NSFont boldSystemFontOfSize: [NSFont systemFontSize]]];
+    [totpSectionTitleTF setStringValue: NSLocalizedString(@"Automatic Security Code (TOTP)", @"Window text")];
+    [boxContent addSubview: totpSectionTitleTF];
+
+    totpAutoFillCheckbox = [[NSButton alloc] initWithFrame: NSMakeRect(12, 94, 500, 20)];
+    [totpAutoFillCheckbox setButtonType: NSButtonTypeSwitch];
+    [totpAutoFillCheckbox setTitle: NSLocalizedString(@"Enable automatic security code from Google Authenticator", @"Checkbox name")];
+    [totpAutoFillCheckbox setTarget: self];
+    [totpAutoFillCheckbox setAction: @selector(totpAutoFillCheckboxWasClicked:)];
+    [totpAutoFillCheckbox sizeToFit];
+    {
+        NSRect checkboxFrame = [totpAutoFillCheckbox frame];
+        if (  checkboxFrame.size.width > 680  ) {
+            checkboxFrame.size.width = 680;
+            [totpAutoFillCheckbox setFrame: checkboxFrame];
+        }
+    }
+    [boxContent addSubview: totpAutoFillCheckbox];
+
+    NSTextField * secretLabel = [[[NSTextField alloc] initWithFrame: NSMakeRect(12, 69, 140, 17)] autorelease];
+    [secretLabel setBezeled: NO];
+    [secretLabel setEditable: NO];
+    [secretLabel setDrawsBackground: NO];
+    [secretLabel setStringValue: NSLocalizedString(@"Secret or otpauth URI:", @"Window text")];
+    [boxContent addSubview: secretLabel];
+
+    totpSecretInputTF = [[NSTextField alloc] initWithFrame: NSMakeRect(155, 66, 380, 22)];
+    [totpSecretInputTF setPlaceholderString: NSLocalizedString(@"otpauth://totp/... or Base32 secret", @"Window text")];
+    [boxContent addSubview: totpSecretInputTF];
+
+    totpSecretSecureTF = [[NSSecureTextField alloc] initWithFrame: NSMakeRect(155, 66, 470, 22)];
+    [totpSecretSecureTF setEditable: NO];
+    [totpSecretSecureTF setHidden: YES];
+    [boxContent addSubview: totpSecretSecureTF];
+
+    totpSaveSecretButton = [[NSButton alloc] initWithFrame: NSMakeRect(545, 63, 80, 28)];
+    [totpSaveSecretButton setTitle: NSLocalizedString(@"Save", @"Button")];
+    [totpSaveSecretButton setBezelStyle: NSBezelStyleRounded];
+    [totpSaveSecretButton setTarget: self];
+    [totpSaveSecretButton setAction: @selector(totpSaveSecretButtonWasClicked:)];
+    [boxContent addSubview: totpSaveSecretButton];
+
+    totpImportQRButton = [[NSButton alloc] initWithFrame: NSMakeRect(12, 34, 130, 28)];
+    [totpImportQRButton setTitle: NSLocalizedString(@"Import QR Image…", @"Button")];
+    [totpImportQRButton setBezelStyle: NSBezelStyleRounded];
+    [totpImportQRButton setTarget: self];
+    [totpImportQRButton setAction: @selector(totpImportQRButtonWasClicked:)];
+    [boxContent addSubview: totpImportQRButton];
+
+    totpClearSecretButton = [[NSButton alloc] initWithFrame: NSMakeRect(150, 34, 130, 28)];
+    [totpClearSecretButton setTitle: NSLocalizedString(@"Clear Secret", @"Button")];
+    [totpClearSecretButton setBezelStyle: NSBezelStyleRounded];
+    [totpClearSecretButton setTarget: self];
+    [totpClearSecretButton setAction: @selector(totpClearSecretButtonWasClicked:)];
+    [boxContent addSubview: totpClearSecretButton];
+
+    totpWarningTF = [[NSTextField alloc] initWithFrame: NSMakeRect(12, 0, 720, 40)];
+    [totpWarningTF setBezeled: NO];
+    [totpWarningTF setEditable: NO];
+    [totpWarningTF setDrawsBackground: NO];
+    [totpWarningTF setTextColor: [NSColor systemRedColor]];
+    [totpWarningTF setFont: [NSFont systemFontOfSize: [NSFont smallSystemFontSize]]];
+    [[totpWarningTF cell] setWraps: YES];
+    [[totpWarningTF cell] setScrollable: NO];
+    [totpWarningTF setStringValue: NSLocalizedString(@"Security warning: the root secret is stored in this Mac's Keychain. Anyone with access to this computer or the secret can generate your codes. Never share the QR code or secret.", @"Window text")];
+    [boxContent addSubview: totpWarningTF];
+
+    totpUIInitialized = YES;
+}
+
+-(void) showTotpAlertWithTitle: (NSString *) title message: (NSString *) message
+{
+    TBRunAlertPanel(title, message, nil, nil, nil);
+}
+
+-(void) refreshTotpCredentialsUI
+{
+    if (  ! totpUIInitialized  ) {
+        return;
+    }
+
+    if (  ! configurationName  ) {
+        [totpCredentialsBox setHidden: YES];
+        return;
+    }
+
+    [totpCredentialsBox setHidden: NO];
+    NSString * credentialsName = [TBTotpCredentials credentialsNameForDisplayName: configurationName];
+    [totpAutoFillCheckbox setState: (  [TBTotpCredentials totpAutoFillEnabledForCredentialsName: credentialsName] ? NSOnState : NSOffState )];
+
+    NSString * secret = [TBTotpCredentials totpSecretForDisplayName: configurationName];
+    BOOL hasSecret = (  secret != nil  );
+
+    NSRect editFrame = NSMakeRect(155, 66, 380, 22);
+    NSRect fullFrame = NSMakeRect(155, 66, 470, 22);
+
+    if (  hasSecret  ) {
+        [totpSecretSecureTF setFrame: fullFrame];
+        [totpSecretSecureTF setStringValue: secret];
+        [totpSecretSecureTF setHidden: NO];
+        [totpSecretInputTF setHidden: YES];
+        [totpSecretInputTF setStringValue: @""];
+        [totpSaveSecretButton setHidden: YES];
+    } else {
+        [totpSecretInputTF setFrame: editFrame];
+        [totpSecretSecureTF setHidden: YES];
+        [totpSecretInputTF setHidden: NO];
+        [totpSecretInputTF setStringValue: @""];
+        [totpSecretInputTF setEditable: YES];
+        [totpSaveSecretButton setHidden: NO];
+    }
+
+    [totpClearSecretButton setEnabled: hasSecret];
+    [totpSaveSecretButton setEnabled: ! hasSecret];
+    [totpImportQRButton setEnabled: YES];
+}
+
+-(IBAction) totpAutoFillCheckboxWasClicked: (id) sender
+{
+    (void) sender;
+    if (  ! configurationName  ) {
+        return;
+    }
+
+    NSString * credentialsName = [TBTotpCredentials credentialsNameForDisplayName: configurationName];
+    BOOL enabled = (  [totpAutoFillCheckbox state] == NSOnState  );
+    [TBTotpCredentials setTotpAutoFillEnabled: enabled forCredentialsName: credentialsName];
+    if (  enabled  ) {
+        [TBTotpCredentials enableSecurityTokenForDisplayName: configurationName];
+    }
+}
+
+-(IBAction) totpSaveSecretButtonWasClicked: (id) sender
+{
+    (void) sender;
+    if (  ! configurationName  ) {
+        return;
+    }
+
+    NSString * error = nil;
+    NSString * secret = [TBTotpSecretImporter secretFromPastedString: [totpSecretInputTF stringValue] error: &error];
+    if (  ! secret  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Invalid Secret", @"Window title"),
+                        error ? error : NSLocalizedString(@"The secret could not be saved.", @"Window text"),
+                        nil, nil, nil);
+        return;
+    }
+
+    if (  ! [TBTotpCredentials saveTotpSecret: secret forDisplayName: configurationName]  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Error", @"Window title"),
+                        NSLocalizedString(@"Could not save the TOTP secret to the Keychain.", @"Window text"),
+                        nil, nil, nil);
+        return;
+    }
+
+    [totpAutoFillCheckbox setState: NSOnState];
+    [totpSecretInputTF setStringValue: @""];
+    [self refreshTotpCredentialsUI];
+    [self showTotpAlertWithTitle: NSLocalizedString(@"Configuration Successful", @"Window title")
+                         message: NSLocalizedString(@"Automatic security code has been enabled for this credentials group.", @"Window text")];
+}
+
+-(IBAction) totpImportQRButtonWasClicked: (id) sender
+{
+    (void) sender;
+    if (  ! configurationName  ) {
+        return;
+    }
+
+    NSOpenPanel * panel = [NSOpenPanel openPanel];
+    [panel setCanChooseFiles: YES];
+    [panel setCanChooseDirectories: NO];
+    [panel setAllowsMultipleSelection: NO];
+    [panel setAllowedFileTypes: @[@"png", @"jpg", @"jpeg", @"gif", @"bmp", @"tif", @"tiff"]];
+    if (  [panel runModal] != NSModalResponseOK  ) {
+        return;
+    }
+
+    NSString * path = [[panel URL] path];
+    NSString * importError = nil;
+    NSString * secret = [TBTotpSecretImporter secretFromQRImageAtPath: path error: &importError];
+    if (  ! secret  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Import Failed", @"Window title"),
+                        importError ? importError : NSLocalizedString(@"Could not import the QR code.", @"Window text"),
+                        nil, nil, nil);
+        return;
+    }
+
+    if (  ! [TBTotpCredentials saveTotpSecret: secret forDisplayName: configurationName]  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Error", @"Window title"),
+                        NSLocalizedString(@"Could not save the TOTP secret to the Keychain.", @"Window text"),
+                        nil, nil, nil);
+        return;
+    }
+
+    [totpAutoFillCheckbox setState: NSOnState];
+    [totpSecretInputTF setStringValue: @""];
+    [self refreshTotpCredentialsUI];
+    [self showTotpAlertWithTitle: NSLocalizedString(@"Import Successful", @"Window title")
+                         message: NSLocalizedString(@"The TOTP secret from the QR code has been saved.", @"Window text")];
+}
+
+-(IBAction) totpClearSecretButtonWasClicked: (id) sender
+{
+    (void) sender;
+    if (  ! configurationName  ) {
+        return;
+    }
+
+    [TBTotpCredentials deleteTotpSecretForDisplayName: configurationName];
+    [totpSecretInputTF setStringValue: @""];
+    [totpAutoFillCheckbox setState: NSOffState];
+    [self refreshTotpCredentialsUI];
+    [self showTotpAlertWithTitle: NSLocalizedString(@"Cleared", @"Window title")
+                         message: NSLocalizedString(@"The automatic security code secret has been removed.", @"Window text")];
 }
 
 // General methods

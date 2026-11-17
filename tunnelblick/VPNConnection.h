@@ -136,6 +136,9 @@ struct Statistics {
 
     BOOL            authFailed;         // Indicates authorization failed
     BOOL            credentialsAskedFor;// Indicates whether credentials have been asked for but not provided
+    NSUInteger      automaticTotpRetryCount;
+    NSTimeInterval  automaticTotpRetryNotBefore;
+    NSTimer       * automaticTotpCredentialsTimer;
 	BOOL            useManualChallengeResponseOnce;
 	BOOL		    doNotClearUseManualChallengeResponseOnceOnNextConnect;
     BOOL            usedModifyNameserver;// True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted

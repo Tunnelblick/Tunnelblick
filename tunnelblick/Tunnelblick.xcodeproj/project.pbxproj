@@ -259,6 +259,10 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A425AA582380E5C7000686E7 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A425AA572380E5C7000686E7 /* LocalAuthentication.framework */; };
+		63TB7A0112B00001000001 /* TBTotpGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 63TB7A1212B00001000012 /* TBTotpGenerator.m */; };
+		63TB7A0212B00001000002 /* TBTotpSecretImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63TB7A1412B00001000014 /* TBTotpSecretImporter.m */; };
+		63TB7A0312B00001000003 /* TBTotpCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 63TB7A1612B00001000016 /* TBTotpCredentials.m */; };
+		63TB7A0412B00001000004 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63TB7A1712B00001000017 /* Vision.framework */; };
 		B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F82911612964D008E0EB1 /* ConfigurationConverter.m */; };
 		B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
 		B8045A0A161EF26700609C98 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
@@ -694,6 +698,13 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Tunnelblick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnelblick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A425AA572380E5C7000686E7 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		63TB7A1112B00001000011 /* TBTotpGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTotpGenerator.h; sourceTree = "<group>"; };
+		63TB7A1212B00001000012 /* TBTotpGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTotpGenerator.m; sourceTree = "<group>"; };
+		63TB7A1312B00001000013 /* TBTotpSecretImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTotpSecretImporter.h; sourceTree = "<group>"; };
+		63TB7A1412B00001000014 /* TBTotpSecretImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTotpSecretImporter.m; sourceTree = "<group>"; };
+		63TB7A1512B00001000015 /* TBTotpCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTotpCredentials.h; sourceTree = "<group>"; };
+		63TB7A1612B00001000016 /* TBTotpCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTotpCredentials.m; sourceTree = "<group>"; };
+		63TB7A1712B00001000017 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 		B8045A07161EF26700609C98 /* sharedRoutines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharedRoutines.h; sourceTree = "<group>"; };
 		B8045A08161EF26700609C98 /* sharedRoutines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sharedRoutines.m; sourceTree = "<group>"; };
 		B8051F4C1754DA630024841C /* sk.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sk.lproj; sourceTree = "<group>"; };
@@ -821,6 +832,7 @@
 			files = (
 				630681112BA13C6300563B9A /* ServiceManagement.framework in Frameworks */,
 				A425AA582380E5C7000686E7 /* LocalAuthentication.framework in Frameworks */,
+				63TB7A0412B00001000004 /* Vision.framework in Frameworks */,
 				63AB7D001D930BCE008ED621 /* QuartzCore.framework in Frameworks */,
 				6329EA021A9AF6EF00A0BFA8 /* SystemConfiguration.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
@@ -976,6 +988,7 @@
 				63F0E58D2A0D77D60098CB1D /* OpenDirectory.framework */,
 				63C2E2E724AB8D6C00F79628 /* IOKit.framework */,
 				A425AA572380E5C7000686E7 /* LocalAuthentication.framework */,
+				63TB7A1712B00001000017 /* Vision.framework */,
 				63AB7CFF1D930BCE008ED621 /* QuartzCore.framework */,
 				6329EA031A9AF7B700A0BFA8 /* CFNetwork.framework */,
 				6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */,
@@ -1347,6 +1360,12 @@
 				61BC4B770E2F9EBC00F24255 /* AuthAgent.m */,
 				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
 				61BC4B740E2F9EBC00F24255 /* KeyChain.m */,
+				63TB7A1112B00001000011 /* TBTotpGenerator.h */,
+				63TB7A1212B00001000012 /* TBTotpGenerator.m */,
+				63TB7A1312B00001000013 /* TBTotpSecretImporter.h */,
+				63TB7A1412B00001000014 /* TBTotpSecretImporter.m */,
+				63TB7A1512B00001000015 /* TBTotpCredentials.h */,
+				63TB7A1612B00001000016 /* TBTotpCredentials.m */,
 				63FFD6561D0E9D8900D4FFD9 /* SystemAuth.h */,
 				63FFD6571D0E9D9400D4FFD9 /* SystemAuth.m */,
 			);
@@ -2085,6 +2104,9 @@
 				631D15AC2BE8477300728E32 /* TBValidator.m in Sources */,
 				634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */,
 				6317AD942C80F681008D7CAA /* TunnelblickInfo.m in Sources */,
+				63TB7A0112B00001000001 /* TBTotpGenerator.m in Sources */,
+				63TB7A0212B00001000002 /* TBTotpSecretImporter.m in Sources */,
+				63TB7A0312B00001000003 /* TBTotpCredentials.m in Sources */,
 				635971421C06736B0055FBC5 /* UIHelper.m in Sources */,
 				63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */,
 				61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */,
