@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590" role="img" aria-labelledby="title description">
+  <title id="title">Fewer steps on every supported VPN reconnect</title>
+  <desc id="description">Manual authentication requires opening an authenticator and typing a new code. This fork imports a seed once, generates TOTP codes locally, and submits a fresh code with saved credentials when connecting.</desc>
+  <rect width="1200" height="590" rx="24" fill="#f4f7fb"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif">
+    <text x="48" y="55" fill="#315ccb" font-size="16" font-weight="700" letter-spacing="2">TUNNELBLICK + TOTP</text>
+    <text x="48" y="111" fill="#172a46" font-size="42" font-weight="700">A smoother way to reconnect.</text>
+    <text x="48" y="149" fill="#52627a" font-size="21">For VPNs that expect your password followed by an authenticator code.</text>
+    <rect x="48" y="187" width="532" height="314" rx="18" fill="#fff" stroke="#d9e0eb"/>
+    <rect x="604" y="187" width="548" height="314" rx="18" fill="#e9f5ef" stroke="#b6d8c6"/>
+    <text x="74" y="227" fill="#52627a" font-size="16" font-weight="700" letter-spacing="1">THE REPEATED ROUTINE</text>
+    <text x="630" y="227" fill="#216644" font-size="16" font-weight="700" letter-spacing="1">WITH AUTOMATIC TOTP</text>
+    <g fill="#eef1f6" stroke="#dde3ec">
+      <circle cx="93" cy="282" r="19"/><circle cx="93" cy="358" r="19"/><circle cx="93" cy="434" r="19"/>
+    </g>
+    <g fill="#52627a" font-size="18" font-weight="700" text-anchor="middle">
+      <text x="93" y="288">1</text><text x="93" y="364">2</text><text x="93" y="440">3</text>
+    </g>
+    <g stroke="#dde3ec" stroke-width="2"><path d="M93 304v31"/><path d="M93 380v31"/></g>
+    <text x="127" y="279" fill="#172a46" font-size="23" font-weight="600">Reconnect the VPN</text>
+    <text x="127" y="306" fill="#63718a" font-size="18">After a network change or dropped session</text>
+    <text x="127" y="355" fill="#172a46" font-size="23" font-weight="600">Open the authenticator</text>
+    <text x="127" y="382" fill="#63718a" font-size="18">Find the account and its current code</text>
+    <text x="127" y="431" fill="#172a46" font-size="23" font-weight="600">Type a new security code</text>
+    <text x="127" y="458" fill="#63718a" font-size="18">Repeat at the next prompted connection</text>
+    <g fill="#28764f"><circle cx="649" cy="282" r="19"/><circle cx="649" cy="358" r="19"/><circle cx="649" cy="434" r="19"/></g>
+    <g fill="#fff" font-size="18" font-weight="700" text-anchor="middle">
+      <text x="649" y="288">1</text><text x="649" y="364">2</text><text x="649" y="440">3</text>
+    </g>
+    <g stroke="#b6d8c6" stroke-width="2"><path d="M649 304v31"/><path d="M649 380v31"/></g>
+    <text x="683" y="279" fill="#173d2b" font-size="23" font-weight="600">Import the seed once</text>
+    <text x="683" y="306" fill="#426953" font-size="18">Base32 text, provisioning URI, or QR image</text>
+    <text x="683" y="355" fill="#173d2b" font-size="23" font-weight="600">Generate codes on your Mac</text>
+    <text x="683" y="382" fill="#426953" font-size="18">Keychain storage · RFC 6238 generation</text>
+    <text x="683" y="431" fill="#173d2b" font-size="23" font-weight="600">Click Connect</text>
+    <text x="683" y="458" fill="#426953" font-size="18">Saved credentials + a fresh code</text>
+    <rect x="48" y="523" width="1104" height="40" rx="10" fill="#e7edf8"/>
+    <text x="600" y="549" text-anchor="middle" fill="#315080" font-size="17">Six digits · 30-second time steps · HMAC-SHA1 · Compatible password + code servers</text>
+  </g>
+</svg>

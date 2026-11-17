@@ -1112,6 +1112,8 @@ name = newValue;                                    \
 @"-disableNetworkAccessAfterUnexpectedDisconnect",	\
 @"-consecutiveSuccessfulIPAddressChanges", \
 @"-loginWindowSecurityTokenCheckboxIsChecked", \
+@"-totpAutoFillEnabled", \
+@"-keychainHasTotpSecret", \
 @"-changeDNSServersAction",	\
 @"-changeDomainAction",	\
 @"-changeSearchDomainAction",	\

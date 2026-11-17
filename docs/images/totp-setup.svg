@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="766" viewBox="0 0 1200 766" role="img" aria-labelledby="title description">
+  <title id="title">Configure automatic TOTP in VPN Credentials</title>
+  <desc id="description">An illustrative English settings panel for an Example VPN profile. It shows the enable checkbox, a placeholder for a provisioning URI or Base32 secret, Save, Import QR Image, and Clear Secret. Three callouts explain text import, QR image import, and saving the base password. No real seed or QR code is present.</desc>
+  <rect width="1200" height="766" rx="24" fill="#f4f7fb"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif">
+    <text x="48" y="58" fill="#172a46" font-size="36" font-weight="700">Set up once. Connect again.</text>
+    <text x="48" y="99" fill="#52627a" font-size="21">Configurations → Advanced… → VPN Credentials</text>
+    <rect x="42" y="137" width="1116" height="431" rx="16" fill="#fff" stroke="#ccd6e5"/>
+    <path d="M58 137h1084a16 16 0 0 1 16 16v39H42v-39a16 16 0 0 1 16-16" fill="#e9edf4"/>
+    <circle cx="68" cy="165" r="6" fill="#c2cbd9"/><circle cx="90" cy="165" r="6" fill="#c2cbd9"/><circle cx="112" cy="165" r="6" fill="#c2cbd9"/>
+    <text x="600" y="172" text-anchor="middle" fill="#44526b" font-size="20" font-weight="600">Example VPN — Advanced Settings</text>
+    <text x="107" y="228" fill="#69778f" font-size="18">Connecting</text>
+    <text x="270" y="228" fill="#69778f" font-size="18">While Connected</text>
+    <rect x="480" y="201" width="219" height="40" rx="8" fill="#315ccb"/>
+    <text x="590" y="227" text-anchor="middle" fill="#fff" font-size="18" font-weight="600">VPN Credentials</text>
+    <rect x="74" y="260" width="1052" height="273" rx="10" fill="#f8fafc" stroke="#dbe2ee"/>
+    <text x="100" y="299" fill="#172a46" font-size="24" font-weight="700">Automatic Security Code (TOTP)</text>
+    <rect x="101" y="320" width="21" height="21" rx="4" fill="#315ccb"/>
+    <path d="m106 330 4 4 8-10" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="135" y="337" fill="#33465f" font-size="20">Enable automatic security code from Google Authenticator</text>
+    <text x="100" y="385" fill="#33465f" font-size="19">Secret or otpauth URI:</text>
+    <rect x="303" y="357" width="623" height="41" rx="6" fill="#fff" stroke="#aebed7"/>
+    <text x="317" y="384" fill="#8b96a9" font-size="19">otpauth://totp/... or Base32 secret</text>
+    <rect x="941" y="357" width="98" height="41" rx="7" fill="#315ccb"/>
+    <text x="990" y="384" text-anchor="middle" fill="#fff" font-size="20" font-weight="600">Save</text>
+    <circle cx="1073" cy="377" r="19" fill="#315ccb"/>
+    <text x="1073" y="384" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">1</text>
+    <rect x="100" y="421" width="205" height="40" rx="7" fill="#fff" stroke="#aebed7"/>
+    <text x="202" y="447" text-anchor="middle" fill="#315080" font-size="19" font-weight="600">Import QR Image…</text>
+    <rect x="318" y="421" width="151" height="40" rx="7" fill="#fff" stroke="#aebed7"/>
+    <text x="393" y="447" text-anchor="middle" fill="#52627a" font-size="19">Clear Secret</text>
+    <circle cx="508" cy="441" r="19" fill="#315ccb"/>
+    <text x="508" y="448" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">2</text>
+    <text x="100" y="497" fill="#8a4b35" font-size="17">The seed is stored in this Mac's Keychain. Never share a real provisioning QR image or secret.</text>
+    <text x="600" y="553" text-anchor="middle" fill="#77849b" font-size="15">Illustrative settings panel · Generic example · No real credentials</text>
+    <g fill="#fff" stroke="#d9e0eb">
+      <rect x="42" y="592" width="356" height="137" rx="12"/>
+      <rect x="422" y="592" width="356" height="137" rx="12"/>
+      <rect x="802" y="592" width="356" height="137" rx="12"/>
+    </g>
+    <g fill="#315ccb"><circle cx="72" cy="622" r="15"/><circle cx="452" cy="622" r="15"/><circle cx="832" cy="622" r="15"/></g>
+    <g fill="#fff" text-anchor="middle" font-size="15" font-weight="700"><text x="72" y="627">1</text><text x="452" y="627">2</text><text x="832" y="627">3</text></g>
+    <text x="99" y="629" fill="#172a46" font-size="22" font-weight="600">Paste and save</text>
+    <text x="66" y="667" fill="#52627a" font-size="18">Import the provisioning seed.</text>
+    <text x="66" y="694" fill="#52627a" font-size="18">Not the changing six-digit code.</text>
+    <text x="479" y="629" fill="#172a46" font-size="22" font-weight="600">Or import an image</text>
+    <text x="446" y="667" fill="#52627a" font-size="18">Use a standard enrollment QR.</text>
+    <text x="446" y="694" fill="#52627a" font-size="18">Recognition happens on your Mac.</text>
+    <text x="859" y="629" fill="#172a46" font-size="22" font-weight="600">Save the base password</text>
+    <text x="826" y="667" fill="#52627a" font-size="18">Keep the OTP out of the saved</text>
+    <text x="826" y="694" fill="#52627a" font-size="18">password. Then click Connect.</text>
+  </g>
+</svg>
